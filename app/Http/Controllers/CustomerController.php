@@ -57,6 +57,7 @@ class CustomerController extends Controller
      */
     public function store(Request $request)
     {
+        
     //   try{
         $customer=customers::where('idNumber',$request->input('idNumber'))->get();
         if(count($customer)>0){
@@ -74,13 +75,13 @@ class CustomerController extends Controller
 
             $customer->name=$request->input('name');
             $customer->address=$request->input('address');
-            $customer->phoneNumber=$request->input('create_phone_number');
-            if($request->input('create_phone_number_flag')=="preferred" || $request->input('create_phone_number_flag')==NULL){
+            $customer->phoneNumber=$request->input('phoneNumber');
+            if($request->input('phoneflag')=="preferred" || $request->input('phoneflag')==NULL){
                 $phoneflag = "us";
                 $phonecode="+1";
             }else{
-                $phoneflag=$request->input('create_phone_number_flag');
-                $phonecode=$request->input('create_phone_number_country_code');
+                $phoneflag=$request->input('phoneflag');
+                $phonecode=$request->input('phonecode');
             }
 
             $customer->phonecode=$phonecode;
@@ -132,6 +133,7 @@ class CustomerController extends Controller
      */
     public function update(Request $request)
     {
+       
        if(Auth::check() && Auth::user()->role_type == "admin"){
             $the_id = intval($request->input('user_id'));
        }else{
@@ -145,13 +147,13 @@ class CustomerController extends Controller
         $customer->name=$request->input('name');
         $customer->address=$request->input('address');
         $phonecode = $request->input('editphonecode');
-        $customer->phoneNumber=$request->input('edit_phone_number');
-        if($request->input('edit_phone_flag')=="preferred" || $request->input('edit_phone_flag') == null){
+        $customer->phoneNumber=$request->input('phoneNumber');
+        if($request->input('editphoneflag')=="preferred" || $request->input('editphoneflag') == null){
             $phoneflag = "us";
             $phonecode="+1";
         }else{
-            $phoneflag=$request->input('edit_phone_flag');
-            $phonecode=$request->input('edit_phone_code');
+            $phoneflag=$request->input('editphoneflag');
+            $phonecode=$request->input('editphonecode');
         }
 
         $customer->phoneflag= $phoneflag;
