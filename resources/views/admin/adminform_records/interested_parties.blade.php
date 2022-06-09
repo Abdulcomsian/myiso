@@ -57,6 +57,10 @@
                     </div>
                     <div class="procedure_div">
                     	<div class="requirments_table_div">
+							<a href="/edit_user/{{ $urlparam['id'] }}" class="btn btn-clean btn-icon-sm mb-2" style="float: right;">
+								<i class="la la-long-arrow-left"></i>
+								Back
+							</a>
                     		<div class="kt-portlet__body">
 								<!--begin: Datatable -->
 								<table class="table table-striped- table-bordered table-hover table-checkable" id="kt_table_agent">

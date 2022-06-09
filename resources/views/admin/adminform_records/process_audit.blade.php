@@ -374,7 +374,7 @@
                     		</form>
                     	</div>
                     	<div class="requirments_table_div">
-							<a href="/view_user" class="btn btn-clean btn-icon-sm" style="float: right;">
+							<a href="/edit_user/{{$urlparam['userid'] }}" class="btn btn-clean btn-icon-sm" style="float: right;">
 								<i class="la la-long-arrow-left"></i>
 								Back
 							</a>

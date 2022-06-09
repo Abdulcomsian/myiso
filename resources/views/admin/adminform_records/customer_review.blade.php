@@ -104,12 +104,13 @@
                     
                     <div class="procedure_div">
                     	<div class="requirments_table_div">
-                    		<h4>Customer Review Details</h4>
-							
-							<a href="/view_user" class="btn btn-clean btn-icon-sm" style="float: right;">
-								<i class="la la-long-arrow-left"></i>
-								Back
-							</a>
+							<div class="d-flex justify-content-between mb-2">
+								<h4>Customer Review Details</h4>
+								<a href="/edit_user/{{ $urlparam['userid'] }}" class="btn btn-clean btn-icon-sm" style="float: right;">
+									<i class="la la-long-arrow-left"></i>
+									Back
+								</a>
+							</div>
                     		<div class="kt-portlet__body">
 								<!--begin: Datatable -->
 								<table class="table table-striped- table-bordered table-hover table-checkable">
