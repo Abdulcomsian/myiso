@@ -122,7 +122,7 @@
 													</div>
 													<div class="modal-footer">								
 													@if ($item->attachement != NULL || $item->attachement)
-													<a target="_blank" href="public/{{$item->attachement}}">View Attachment</a> 
+													<a target="_blank" href="{{$item->attachement}}">View Attachment</a>
 													@endif
 													
 											<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
