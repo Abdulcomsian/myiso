@@ -308,7 +308,7 @@ public function store(Request $request)
 
         $sendNotification->title=$request->input('title');
         $sendNotification->message=$request->input('message');
-        $sendNotification->send_to=$request->input('userid')[0];
+        $sendNotification->send_to=$request->input('userid');
         $sendNotification->save();
 
         return redirect()->back();
