@@ -1238,7 +1238,7 @@
 
 
         var input = document.querySelector("#phoneee");
-        if(data.phoneflag == "preferred"){
+        if(data.phoneflag == "preferred" || data.phoneflag == null){
             intel_phone = window.intlTelInput(input, {
                 separateDialCode: true,
                 preferredCountries: ["us"],
@@ -1250,7 +1250,7 @@
                 },
             });
         }else{
-              intel_phone = window.intlTelInput(input, {
+            intel_phone = window.intlTelInput(input, {
                 separateDialCode: true,
                 initialCountry: data.phoneflag,
                 customPlaceholder: function (
@@ -1264,7 +1264,7 @@
 
 
         var input = document.querySelector("#contact_isooo");
-        if(data.iso_phone_flag == "preferred" ){
+        if(data.iso_phone_flag == "preferred" || data.iso_phone_flag == null){
             intel_iso_phone = window.intlTelInput(input, {
             separateDialCode: true,
             preferredCountries: ["us"],
@@ -1380,7 +1380,7 @@
         }
 
         var input = document.querySelector("#view_phoneee");
-        if(data.phoneflag == "preferred"){
+        if(data.phoneflag == "preferred" || data.phoneflag == null){
             window.intlTelInput(input, {
                 separateDialCode: true,
                 preferredCountries: ["us"],
@@ -1406,8 +1406,8 @@
 
         var input = document.querySelector("#view_contact_isooo");
 
-        if(data.iso_phone_flag == "preferred" ){
-             window.intlTelInput(input, {
+        if(data.iso_phone_flag == "preferred" || data.iso_phone_flag == null){
+            window.intlTelInput(input, {
             separateDialCode: true,
             preferredCountries: ["us"],
             customPlaceholder: function (
