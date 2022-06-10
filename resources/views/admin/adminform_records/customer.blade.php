@@ -112,11 +112,13 @@
                     </div>
                     <div class="procedure_div">
                         <div class="requirments_table_div">
-                            <h4>Total Customers Listed</h4>
-                            <a href="/view_user" class="btn btn-clean btn-icon-sm" style="float: right;">
-                                <i class="la la-long-arrow-left"></i>
-                                Back
-                            </a>
+                            <div class="d-flex justify-content-between">
+                                <h4>Total Customers Listed</h4>
+                                <a href="/edit_user/{{ $urlparam['userid'] }}" class="btn btn-clean btn-icon-sm" style="float: right;">
+                                    <i class="la la-long-arrow-left"></i>
+                                    Back
+                                </a>
+                            </div>
                             <!--<button>Add an entry</button>-->
 
                             <div class="kt-portlet__body">
