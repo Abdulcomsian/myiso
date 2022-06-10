@@ -125,7 +125,7 @@
 													</div>
 													<div class="modal-footer">
 													@if ($item->attachement != NULL || $item->attachement)
-													<a target="_blank" class="btn btn-secondary" href="public/{{$item->attachement}}">View Attachment</a>
+													<a target="_blank" class="btn btn-secondary" href="{{$item->attachement}}">View Attachment</a>
 													@endif
 <button data-toggle="modal" data-target="#MessageModal-{{$item->id}}" type="button" class="btn btn-brand btn-elevate btn-icon-sm">Reply</button>
 <button type="button" class="btn btn-secondary btn-elevate btn-icon-sm" data-dismiss="modal">Cancel</button>
