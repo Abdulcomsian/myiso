@@ -69,7 +69,7 @@
 			<div class="col-lg-12">
 				<div class="procedure_div">
 
-@if($img) <img src="{{ $img }}" width="800"> @endif
+@if($img) <img src="{{ $img }}" width="800" style="width: inherit !important;"> @endif
 				
 					<p class="m-t-20">This process is to be used when purchasing goods or services from an external supplier.</p>
 					<p>Input: The requirement to purchase</p>
