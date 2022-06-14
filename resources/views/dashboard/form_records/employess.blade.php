@@ -160,7 +160,12 @@
                     	</div>
                     </div>
                     <div class="procedure_div">
-                    	<div class="requirments_table_div">
+                    	<div class="requirments_table_div" style="margin-top: 0px;">
+                    	    	<div class="row">
+                            		<div class="col-lg-12 text-right">
+                            			<a onclick="" class="addBtn">ADD EMPLOYEE CV</a>
+                            		</div>
+                            	</div>
                     		<h4>Total Employees Listed</h4>
 
 
@@ -210,7 +215,7 @@
 					</div>
 					</div>
 					 <div class="procedure_div m-t-20">
-                    	<div class="requirments_table_div">
+                    	<div class="requirments_table_div" style="margin-top: 0px;">
                     		<h4>Total Employee Skills Listed</h4>
                     		<div class="kt-portlet__body table-responsive">
 								<!--begin: Datatable -->
@@ -258,7 +263,7 @@
 						</div>
 					</div>
 					<div class="procedure_div m-t-20">
-                    	<div class="requirments_table_div">
+                    	<div class="requirments_table_div" style="margin-top: 0px;">
                     		<h4>Training Record Summary</h4>
                     		<div class="kt-portlet__body table-responsive">
 								<!--begin: Datatable -->

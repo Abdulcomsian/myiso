@@ -69,9 +69,7 @@
 			<div class="col-lg-12">
 				<div class="procedure_div">
 					<p>This procedure details the interaction of the key processes.</p>
-				
-			
-				@if($img) <img src="{{ $img }}" width="800" style="width: inherit !important;"> @endif
+					@if($img) <img src="{{ $img }}" class="img-fluid"> @endif
 				</div>
 			</div>
 		</div>

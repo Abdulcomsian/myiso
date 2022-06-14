@@ -100,7 +100,7 @@
                                     <i class="kt-menu__link-bullet kt-menu__link-bullet--dot">
                                         <span></span>
                                     </i>
-                                    <span class="kt-menu__link-text">Compose a Message</span>
+                                    <span class="kt-menu__link-text">Create Message</span>
                                 </a>
                             </li>
                             <li class="kt-menu__item " aria-haspopup="true">

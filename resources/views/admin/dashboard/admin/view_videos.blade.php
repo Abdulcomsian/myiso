@@ -75,7 +75,7 @@
 
         <div class="kt-portlet__body">
             <!--begin: Video -->
-            <table class="table table-striped- table-bordered table-hover table-sm table-checkable" id="kt_table_user">
+            <table class="table table-striped- table-bordered table-hover table-sm table-checkable table-responsive" id="kt_table_user">
 
                 <thead>
 

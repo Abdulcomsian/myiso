@@ -130,7 +130,7 @@
 
 											<!--Begin::Timeline 3 -->
 										<!--begin: Datatable -->
-											<table class="table table-striped- table-bordered table-hover table-checkable" id="kt_table_agent">
+											<table class="table table-striped- table-bordered table-hover table-checkable table-responsive" id="kt_table_agent">
 												<thead>
 													<tr>
 														<th>No.</th>
@@ -194,7 +194,7 @@
 
 											<!--Begin::Timeline 3 -->
 											<!--begin: Datatable -->
-											<table class="table table-striped- table-bordered table-hover table-checkable" id="kt_table_agent">
+											<table class="table table-striped- table-bordered table-hover table-checkable table-responsive" id="kt_table_agent">
 												<thead>
 													<tr>
 														<th>Equipment ID</th>
@@ -263,7 +263,7 @@
 											
 											
 											
-												<table class="table table-striped- table-bordered table-hover table-checkable" id="kt_table_agent">
+												<table class="table table-striped- table-bordered table-hover table-checkable table-responsive" id="kt_table_agent">
 												<thead>
 													<tr>
 														<th>Certificate</th>

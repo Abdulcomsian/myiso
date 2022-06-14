@@ -76,7 +76,7 @@
 		<div class="row">
 			<div class="col-lg-12">
 				<div class="procedure_div">
-@if($img) <img src="{{ $img }}" width="800" style="width: inherit !important;"> @endif
+					@if($img) <img src="{{ $img }}" class="img-fluid"> @endif
 					<p class="m-t-20">This process is to be used to begin a contract from customer.</p>
 					<p>Input: Request to quote.</p>
 					<p>Output: Reception and implementation of a purchase order.</p>
