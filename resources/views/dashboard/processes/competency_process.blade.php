@@ -69,7 +69,7 @@
 			<div class="col-lg-12">
 				<div class="procedure_div">
 				
-				@if($img) <img src="{{ $img }}" width="800"> @endif
+				@if($img) <img src="{{ $img }}" class="img-fluid"> @endif
 					
 					<p class="m-t-20">This process controls the training and competency of the company staff.</p>
 					<p>Input: Requirement to increase the competency of the employees, either through new starters or increased training of existing staff members.</p>

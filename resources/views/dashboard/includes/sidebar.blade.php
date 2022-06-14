@@ -451,7 +451,7 @@
 						<span class="kt-menu__link-icon">
 							<i class="fab fa-wpforms"></i>
 						</span>
-						<span class="kt-menu__link-text">Need Help?</span>
+						<span class="kt-menu__link-text">Support</span>
 						<i class="kt-menu__ver-arrow la la-angle-right"></i>
 					</a>
 					<div class="kt-menu__submenu ">
@@ -470,17 +470,17 @@
 									<i class="kt-menu__link-bullet kt-menu__link-bullet--dot">
 										<span></span>
 									</i>
-									<span class="kt-menu__link-text">Explainer Video</span>
+									<span class="kt-menu__link-text">Training Videos</span>
 								</a>
 							</li>
-							<li class="kt-menu__item " aria-haspopup="true">
-								<a href="{{url('quick_links')}}" class="kt-menu__link ">
-									<i class="kt-menu__link-bullet kt-menu__link-bullet--dot">
-										<span></span>
-									</i>
-									<span class="kt-menu__link-text">Quick Links</span>
-								</a>
-							</li>
+							<!--<li class="kt-menu__item " aria-haspopup="true">-->
+							<!--	<a href="{{url('quick_links')}}" class="kt-menu__link ">-->
+							<!--		<i class="kt-menu__link-bullet kt-menu__link-bullet--dot">-->
+							<!--			<span></span>-->
+							<!--		</i>-->
+							<!--		<span class="kt-menu__link-text">Quick Links</span>-->
+							<!--	</a>-->
+							<!--</li>-->
 						</ul>
 					</div>
 				</li>

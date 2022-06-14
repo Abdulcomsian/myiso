@@ -35,7 +35,7 @@ License: You must have a valid license purchased only from themeforest(the above
 						<div class="kt-login__container">
 							<div class="kt-login__logo">
 								<a href="#">
-									<img src="../assets/media/logos/logo-5.png">
+									<img src="../assets/media/logos/logo-5.png" class="img-fluid">
 								</a>
 							</div>
 							<div class="kt-login__signin">

@@ -69,7 +69,7 @@
 		<div class="row">
 			<div class="col-lg-12">
 				<div class="procedure_div">
-@if($img) <img src="{{ $img }}" width="800"> @endif
+@if($img) <img src="{{ $img }}" class="img-fluid"> @endif
 					<p class="m-t-20">This process is to be used when completing the contract from the customer.</p>
 					<p>Input: Reception of the purchase order from the customer.</p>
 					<p>Output: Delivery and invoice of the goods or service.</p>

@@ -69,7 +69,7 @@
 		<div class="row">
 			<div class="col-lg-12">
 				<div class="procedure_div">
-@if($img) <img src="{{ $img }}" width="800"> @endif
+@if($img) <img src="{{ $img }}" class="img-fluid"> @endif
 				</div>
 			</div>
 		</div>

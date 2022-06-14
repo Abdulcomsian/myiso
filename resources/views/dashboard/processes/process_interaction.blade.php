@@ -71,7 +71,7 @@
 					<p>This procedure details the interaction of the key processes.</p>
 				
 			
-				@if($img) <img src="{{ $img }}" width="800"> @endif
+				@if($img) <img src="{{ $img }}" class="img-fluid"> @endif
 				</div>
 			</div>
 		</div>
