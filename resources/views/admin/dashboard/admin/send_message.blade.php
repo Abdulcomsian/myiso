@@ -90,8 +90,7 @@
     				<div class="form-group row">
     					<div class="col-lg-8">
     						<label for="title">Subject:</label>
-    						<input type="text" id="title" name="title" class="form-control" placeholder="Enter Subject">
-    						<span class="form-text text-muted">Please enter Message Subject</span>
+    						<input type="text" id="title" name="title" class="form-control" placeholder="Please enter Message Subject">
     					</div>
                         <div class="col-md-4">
     						<label for="attachment">Attachment</label>
@@ -104,8 +103,7 @@
     
     					<div class="col-lg-12">
     						<label for="message">Message:</label>
-    						<textarea name="message" id="message" cols="20" rows="5" class="form-control"></textarea>
-    						<span class="form-text text-muted">Please enter your Message</span>
+    						<textarea name="message" id="message" cols="20" rows="5" class="form-control" placeholder="Please enter your Message"></textarea>
     					</div>
     
     

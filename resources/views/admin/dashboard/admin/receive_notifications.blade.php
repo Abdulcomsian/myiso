@@ -158,13 +158,11 @@
 						<div class="form-group row">
 							<div class="col-lg-12">
 								<label for="title">Subject:</label>
-								<input type="text" id="title" name="title" class="form-control" placeholder="Enter Subject">
-								<span class="form-text text-muted">Please enter Message Subject</span>
+								<input type="text" id="title" name="title" class="form-control" placeholder="Please enter Message Subject">
 							</div>
 							<div class="col-lg-12">
 								<label for="name">Message:</label>
-								<textarea name="message" id="message" cols="20" rows="5" class="form-control"></textarea>
-								<span class="form-text text-muted">Please enter your Message</span>
+								<textarea name="message" id="message" cols="20" rows="5" class="form-control" placeholder="Please enter your Message"></textarea>
 							</div>
 
 							<div class="col-md-12">
@@ -176,8 +174,6 @@
 							<div class="col-lg-2">
 								<label for="">&nbsp;</label>
 								<div class="kt-input-icon kt-input-icon--">
-
-
 								</div>
 							</div>
 						</div>
