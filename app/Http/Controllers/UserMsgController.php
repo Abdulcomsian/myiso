@@ -46,7 +46,9 @@ class UserMsgController extends Controller
 		  'subject' => $request['subject'],
           'email' => $request['email'],
           'comments' => $request['comments'],
-		  'attachement' => $path)
+		  'attachement' => $path,
+		  'created_at' => now(),
+        )
 	);
 	session()->flash('msg', '<div class="alert alert-success alert-dismissible">Message sent successfully. &nbsp; <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a></div>');
     return redirect()->back();
