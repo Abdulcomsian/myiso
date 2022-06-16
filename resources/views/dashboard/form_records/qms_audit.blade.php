@@ -860,6 +860,12 @@
 											<input type="text" class="form-control" name="evidence31" placeholder="Enter Evidence:" >
 										</div>
 									</div>
+									<div class="col-lg-12">
+										<div class="form-group">
+											<label>Attach Evidence:</label>
+											<input type="file" name="attach_evidence" class="form-control">
+										</div>
+									</div>
 							</div> 
 								<div class="row">
 									<div class="col-lg-12">
@@ -880,20 +886,6 @@
 										<div class="form-group">
 											<label>Auditor Name:</label>
 											<input type="text" class="form-control" name="auditrName" placeholder="Enter Auditor Name:" required="required">
-										</div>
-									</div>
-								</div>
-									<div class="row">
-									<div class="col-lg-12">
-										<div class="form-group">
-											<label>Evidence:</label>
-											<input type="text" name="evidance10" class="form-control"  placeholder="Enter Evidence:">
-										</div>
-									</div>
-										<div class="col-lg-12">
-										<div class="form-group">
-											<label>Attach Evidence:</label>
-											<input type="file" name="attach_evidence" class="form-control">
 										</div>
 									</div>
 								</div>
