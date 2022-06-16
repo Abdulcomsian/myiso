@@ -2,6 +2,30 @@
   padding: 0px 10px;
   padding-left: 40px;
 }
+.add_employee_cv{
+    position: relative;
+}
+.add_employee_cv input{
+    position: absolute;
+    opacity: 0;
+    right: 0px;
+    z-index: 99999;
+     cursor: pointer;
+}
+.add_employee_cv span{
+    background-color: #646c9a;
+    color: #fff !important;
+    padding: 8px 30px;
+    border-radius: 5px;
+    cursor: pointer !important;
+}
+.employee_cv_from_div{
+    display: none;
+}
+.employee_cv_from_div button{
+        position: relative;
+    top: -14px;
+}
 /******************** New CSS - Start ************************/
 .customLink{
     width:100%;

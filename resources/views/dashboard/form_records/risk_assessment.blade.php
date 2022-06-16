@@ -33,7 +33,7 @@
                     				<div class="col-lg-6">
                     					<div class="form-group">
 											<label>Job Number:</label><br>
-											<input type="number" min="1" class="form-control validate_number" name="jobNumber" required>
+											<input type="text" min="1" class="form-control validate_number" name="jobNumber" required>
 										</div>
                     				</div>
                     				<div class="col-lg-6">
