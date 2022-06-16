@@ -54,7 +54,7 @@
 									<div class="col-lg-6">
 										<div class="form-group">
 											<label>Employee ID Number:</label>
-											<input name="empNumber" type="number" class="form-control" required placeholder="Enter Employee ID Number">
+											<input name="empNumber" type="text" class="form-control" required placeholder="Enter Employee ID Number">
 										</div>
 									</div>
 								</div>
@@ -159,13 +159,30 @@
                     		</form>
                     	</div>
                     </div>
+                    <div class="procedure_div m-t-20">
+                    	<div class="row">
+                    		<div class="col-lg-12 text-right">
+                    			<a onclick="employeeCV()" class="addBtn">ADD EMPLOYEE CV</a>
+                    		</div>
+                    	</div>
+                    	<div class="employee_cv_from_div">
+                        <form action="" method="POST">
+                            @csrf
+                    			<div class="row">
+                    				<div class="col-lg-12">
+                    					<div class="form-group">
+											<label>Upload Employee CV</label><br>
+                                            <input type='file' class="form-control">
+										</div>
+                    				</div>
+                    			</div>
+								<button type="submit" class="submitBtn">SUBMIT</button>
+                    		</form>
+                    	</div>
+                    </div>
                     <div class="procedure_div">
                     	<div class="requirments_table_div" style="margin-top: 0px;">
-                    	    	<div class="row">
-                            		<div class="col-lg-12 text-right">
-                            			<a onclick="" class="addBtn">ADD EMPLOYEE CV</a>
-                            		</div>
-                            	</div>
+                    	    	
                     		<h4>Total Employees Listed</h4>
 
 
@@ -499,6 +516,9 @@
 @endsection
 
 <script>
+    function employeeCV(){
+        $(".employee_cv_from_div").css("display","block")
+    }
      function editEmployee(data){
         alert("data");
      }
@@ -527,6 +547,7 @@
      }
 </script>
 <script>
+  
     function getEid(data){
         console.log(data);
          $("#editproject").val(data.id);

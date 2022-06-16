@@ -125,6 +125,7 @@
 											<input type="text" name="evidence" class="form-control"  placeholder="Enter Evidence:">
 										</div>
 									</div>
+								
 								</div>
 								<div class="row">
 									<div class="col-lg-12">
@@ -347,11 +348,17 @@
 											<input type="text" name="evidance10" class="form-control"  placeholder="Enter Evidence:">
 										</div>
 									</div>
+										<div class="col-lg-12">
+										<div class="form-group">
+											<label>Attach Evidence:</label>
+											<input type="file" name="attach_evidence" class="form-control">
+										</div>
+									</div>
 								</div>
 								<div class="row">
 									<div class="col-lg-12">
 										<div class="form-group">
-											<label>Any other issues?</label>
+											<label>Any other issues or points to note?</label>
 											<input type="text" name="any_issues" class="form-control"  placeholder="Enter Any other issues:" >
 										</div>
 									</div>
