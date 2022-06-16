@@ -496,7 +496,7 @@
 						<span class="kt-menu__arrow"></span>
 						<ul class="kt-menu__subnav">
 							<li class="kt-menu__item " aria-haspopup="true">
-								<a href="https://www.isoonlinecourses.com/" class="kt-menu__link ">
+								<a href="https://www.isoonlinecourses.com/" class="kt-menu__link " target="_blank">
 									<i class="kt-menu__link-bullet kt-menu__link-bullet--dot">
 										<span></span>
 									</i>
@@ -504,7 +504,7 @@
 								</a>
 							</li>
 							<li class="kt-menu__item " aria-haspopup="true">
-								<a href="https://www.isoonlinecourses.com/" class="kt-menu__link ">
+								<a href="https://www.isoonlinecourses.com/" class="kt-menu__link" target="_blank">
 									<i class="kt-menu__link-bullet kt-menu__link-bullet--dot">
 										<span></span>
 									</i>
@@ -512,7 +512,7 @@
 								</a>
 							</li>
 							<li class="kt-menu__item " aria-haspopup="true">
-								<a href="https://www.isoonlinecourses.com/" class="kt-menu__link ">
+								<a href="https://www.isoonlinecourses.com/" class="kt-menu__link " target="_blank">
 									<i class="kt-menu__link-bullet kt-menu__link-bullet--dot">
 										<span></span>
 									</i>
