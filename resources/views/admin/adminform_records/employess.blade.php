@@ -171,6 +171,27 @@
                     		</form>
                     	</div>
                     </div>
+                    <div class="procedure_div m-t-20">
+                    	<div class="row">
+                    		<div class="col-lg-12 text-right">
+                    			<a onclick="employeeCV()" class="addBtn">ADD EMPLOYEE CV</a>
+                    		</div>
+                    	</div>
+                    	<div class="employee_cv_from_div">
+                        <form action="" method="POST">
+                            @csrf
+                    			<div class="row">
+                    				<div class="col-lg-12">
+                    					<div class="form-group">
+											<label>Upload Employee CV</label><br>
+                                            <input type='file' class="form-control">
+										</div>
+                    				</div>
+                    			</div>
+								<button type="submit" class="submitBtn">SUBMIT</button>
+                    		</form>
+                    	</div>
+                    </div>
                    <!--endform-->
                     <div class="procedure_div">
                     	<div class="requirments_table_div">
@@ -528,6 +549,9 @@
 @endsection
 @section('myscript')
 <script>
+function employeeCV(){
+        $(".employee_cv_from_div").css("display","block")
+    }
      function editEmployee(data){
         alert("data");
      }
