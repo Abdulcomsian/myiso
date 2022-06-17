@@ -256,7 +256,7 @@ public function store(Request $request)
         // $getprocess=Audit::where('user_id',$request)->get();
         $users=AddUsers::where('role_type','user')->get();
         $adminmessage=SendNotifications::join('users','users.id','=','send_notification.send_to')
-            ->select('send_notification.id as notification_id','send_notification.*','users.*')
+            ->select('send_notification.id as notification_id','send_notification.created_at as notification_created_at','send_notification.*','users.*')
             ->where('admin_delete',false)
             ->orderby('notification_id','desc')
             ->get();
@@ -309,6 +309,7 @@ public function store(Request $request)
         $sendNotification->title=$request->input('title');
         $sendNotification->message=$request->input('message');
         $sendNotification->send_to=$request->input('userid');
+        $sendNotification->created_at=date('Y-m-d H:i:s');
         $sendNotification->save();
 
         return redirect()->back();
