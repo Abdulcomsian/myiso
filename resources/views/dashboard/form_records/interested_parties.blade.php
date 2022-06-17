@@ -25,7 +25,7 @@
                     			<a onclick="processinterestedForm()" class="addBtn">ADD Interested Parties</a>
                     		</div>
                     	</div>
-                    	<div class="process_interested_from_div" style="display:none;    position: relative;bottom: 20px;">
+                    	<div class="process_interested_from_div" style="display:none;    position: relative;bottom: 10px;">
                     		<form action="{{route('interestedform')}}" method="POST">
                                 @csrf
                     			<div class="row">

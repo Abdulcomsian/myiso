@@ -140,8 +140,9 @@
 										</div>
 									</div>
 								</div>
-								<button type="reset" onclick="mngmnt_reviews()" class="submitBtn" style="margin-right: 7px;">Cancel</button>
+							
 								<button type="submit" class="submitBtn">SUBMIT</button>
+									<button type="reset" onclick="mngmnt_reviews()" class="submitBtn" style="margin-right: 7px;">Cancel</button>
 								
 								<!--<button  onclick="customerForm()" type="reset" class="submitBtn"style="margin-right: 8px;">Cancel</button>-->
 								
