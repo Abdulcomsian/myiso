@@ -207,8 +207,9 @@
 										</div>
 									</div>
 								</div>
-								<button onclick="riskAssessment()" type="reset" class="btn btn-secondary" data-dismiss="modal" style="margin-right:20px;">Cancel</button>
+								
 								<button type="submit" class="submitBtn">SUBMIT</button>
+								<button onclick="riskAssessment()" type="reset" class="submitBtn" data-dismiss="modal" style="margin-right:7px;">Cancel</button>
                     		</form>
                     	</div>
                     </div>

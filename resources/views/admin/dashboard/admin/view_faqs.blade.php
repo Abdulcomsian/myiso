@@ -26,7 +26,7 @@
                             New FAQ
                         </a>
                         <a href="#" class="btn btn-brand btn-primary btn-icon-sm" data-toggle="collapse"
-                            data-target="#new_faq_cate">
+                            data-target="#new_faq_cate" style="margin-left: 10px;">
                             <i class="la la-plus"></i>
                             New Category
                         </a>

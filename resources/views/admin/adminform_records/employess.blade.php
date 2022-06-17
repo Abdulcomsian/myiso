@@ -73,6 +73,14 @@
 										</div>
 									</div>
 								</div>
+								<div class="row">
+									<div class="col-lg-6">
+										<div class="form-group">
+											<label>Upload Employee CV:</label>
+											<input type="file" name="employee_cv" class="form-control">
+										</div>
+									</div>
+								</div>
 								 @php 
                                     $urlparam = request()->route()->parameters;
                                 @endphp
@@ -171,27 +179,7 @@
                     		</form>
                     	</div>
                     </div>
-                    <div class="procedure_div m-t-20">
-                    	<div class="row">
-                    		<div class="col-lg-12 text-right">
-                    			<a onclick="employeeCV()" class="addBtn">ADD EMPLOYEE CV</a>
-                    		</div>
-                    	</div>
-                    	<div class="employee_cv_from_div">
-                        <form action="" method="POST">
-                            @csrf
-                    			<div class="row">
-                    				<div class="col-lg-12">
-                    					<div class="form-group">
-											<label>Upload Employee CV</label><br>
-                                            <input type='file' class="form-control">
-										</div>
-                    				</div>
-                    			</div>
-								<button type="submit" class="submitBtn">SUBMIT</button>
-                    		</form>
-                    	</div>
-                    </div>
+                   
                    <!--endform-->
                     <div class="procedure_div">
                     	<div class="requirments_table_div">
@@ -211,6 +199,7 @@
 											<th>Surname</th>
 											<th>Firstname</th>
 											<th>Job Details</th>
+											<th>CV</th>
 											<th>Start Date</th>
                                             <!--<th>Job Title</th>-->
                                             <th>Action</th>
@@ -226,6 +215,7 @@
 											<td> {{$item->surname}}</td>
 											<td> {{$item->first_name}}</td>
 											<td> {{$item->jobdetails}}</td>
+											<td></td>
 											<td> {{date('d-M-Y', strtotime($item->startDate))}}</td>
                                             <!--<td> {item->jobdetails}</td>-->
                                             <td>
@@ -550,7 +540,11 @@
 @section('myscript')
 <script>
 function employeeCV(){
-        $(".employee_cv_from_div").css("display","block")
+        if($(".employee_cv_from_div").css("display")=="none"){
+            $(".employee_cv_from_div").css("display","block")
+        } else{
+            $(".employee_cv_from_div").css("display","none")
+        }
     }
      function editEmployee(data){
         alert("data");
