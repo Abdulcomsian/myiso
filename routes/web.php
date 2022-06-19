@@ -29,7 +29,7 @@ Artisan::call('cache:clear');
 });
 Route::get('/', function () {
     return view('auth.login');
-});
+})->middleware(['guest']);
 Route::get('/forgot', function () {
     return view('auth.forgot');
 });
