@@ -170,21 +170,127 @@ Route::group(['middleware' => ['auth','admin']], function () {
 });
 /*************** All admin urls and routes end ***************/
 
-Route::post('/deletecaliberinfo', 'AddUsersController@deletecaliberinfo')->name('deletecaliberinfo')->middleware(['auth']);
+/*************** Auth middleware implemented on these urls start ***************/
+Route::group(['middleware' => ['auth']], function () {
 
+    Route::post('/deletecaliberinfo', 'AddUsersController@deletecaliberinfo')->name('deletecaliberinfo')->middleware(['auth']);
+    Route::get('/ajax/products', 'ProductController@fetchAllProducts')->name('ajax-products');
+    Route::get('/ajax/users', 'UserController@fetchAllUsers')->name('ajax-users');
+    Route::resources([ 'products' => 'ProductController','users' => 'UserController',]);
 
-Route::get('/ajax/products', 'ProductController@fetchAllProducts')->name('ajax-products');
-Route::get('/ajax/users', 'UserController@fetchAllUsers')->name('ajax-users');
-Route::get('user-profile/{id}', 'ShowProfile');
-/*Route::resource('products', 'ProductController');
-Route::resource('users', 'UserController');*/
-Route::resources([
-    'products' => 'ProductController',
-    'users' => 'UserController',
+    /*********** Document Required start ***********/
+    Route::get('/document_required', 'WorkInstructionController@doc_req');
+    /*********** Document Required end ***********/
 
-]);
+    Route::get('user-profile/{id}', 'ShowProfile');
 
-/*************** Customer View ***************/
+    /*********** Form & Records ***********/
+    Route::get('/interesting_parties','interestedController@index');
+    Route::get('/chemical_control','chemicalController@index');
+    Route::post('/get_customer_name_by_id', 'nonConfromFormController@get_customer_name_by_id');
+    Route::get('/customer/check','CustomerController@check_customer')->name('checkcustomer');
+    Route::post('/employess-delete', 'EmployeeController@destroy')->name('employess-delete');
+    Route::post('/update-employes-skill', 'EmployeeController@updateempSkills')->name('update-employes-skill');
+    Route::post('/update-employes-training', 'EmployeeController@updateemptraining')->name('update-employes-training');
+    Route::post('/delete_assesment','AssessmentController@destroy')->name('delete_assesment');
+
+    Route::get('/view_work', function () {
+        return view('dashboard.view_work_instruction.view_work_instruction');
+    });
+
+    Route::get('/contact_us', 'UserMsgController@index');
+    /**************post Methods are Down*****************/
+    // Route::post("/requirementForm",'requirementAspacts')->name("requirementForm");
+    Route::post('/requiemntform','RequiremntController@store')->name('requiemntform');
+    Route::post('/auditform','auditController@store')->name('auditform');
+    Route::post('/interestedform','interestedController@store')->name('interestedform');
+    Route::post('/chemicalform','chemicalController@store')->name('chemicalform');
+    Route::post('/qmsaudit','qmsauditController@store')->name('qmsaudit');
+    Route::post('/nonConfromForm','nonConfromFormController@store')->name('nonConfromForm');
+    Route::post('/customerform','CustomerController@store')->name('customerform');
+    Route::post('/customer_rview','CustomerReviewController@store')->name('customer_rview');
+    Route::post('/supplier','SupplierController@store')->name('supplier');
+    Route::post('/calibration','CalibrationController@store')->name('calibration');
+    Route::post('/employee','EmployeeController@store')->name('employee')->middleware(['auth']);
+    Route::post('/empSkills','EmployeeController@empSkills')->name('empSkills');
+    Route::post('/empTraining','EmployeeController@empTraining')->name('empTraining');
+    Route::post('/mgtreview','MgtreviewController@store')->name('mgtreview');
+    Route::post('/maintain_rec','MaintainRecController@store')->name('maintain_rec');
+    Route::post('/accident_risk','AccidentRiskController@store')->name('accident_risk');
+    Route::post('/assessment','AssessmentController@store')->name('assessment');
+    Route::post('/workinstructions','WorkInstructionController@store')->name('workinstructions');
+    // update routes
+
+    Route::post('/updaterequiremnt','RequiremntController@update')->name('updaterequiremnt');
+    Route::post('/auditDelete','auditController@update')->name('auditDelete');
+    Route::post('/interestedUpdate','interestedController@update')->name('interestedUpdate');
+    Route::post('/chemicalUpdate','chemicalController@update')->name('chemicalUpdate');
+    // nonConfromFormEdit
+    Route::post('/nonConfromFormEdit','nonConfromFormController@update')->name('nonConfromFormEdit');
+    Route::post('/supplieredit','SupplierController@update')->name('supplieredit');
+    Route::post('/mgtreviewupdate','MgtreviewController@update')->name('mgtreviewupdate');
+    Route::post('/editassessment','AssessmentController@update')->name('editassessment');
+    Route::post('/editnonConfirm','nonConfromFormController@update')->name('editnonConfirm');
+    Route::post('/editCustomers','CustomerController@update')->name('editCustomers');
+    Route::post('/editCustomerReview','CustomerReviewController@update')->name('editCustomerReview');
+    Route::post('/calibrationedit','CalibrationController@update')->name('calibrationedit');
+    Route::post('/editemployee','EmployeeController@update')->name('editemployee');
+    Route::post('/editmentainance','MaintainRecController@update')->name('editmentainance');
+    Route::post('/accidentedit','AccidentRiskController@update')->name('accidentedit');
+    Route::post('/editworkinstructions','WorkInstructionController@update')->name('editworkinstructions');
+    Route::post('/update_qmsaudit','qmsauditController@update')->name('update_qmsaudit');
+    Route::get('/inboxmessage','SendNotificationsController@index')->name('inboxmessage');
+
+    Route::post('/deleteqmsAudit','qmsauditController@destroy')->name('deleteqmsAudit');
+    Route::post('/delete_customer_review','CustomerReviewController@destroy')->name('delete_customer_review');
+    Route::post('/delete_maintain_rec','MaintainRecController@destroy')->name('delete_m_r');
+
+    Route::get('/check-customer-number','CustomerController@check_customer_number')->name('check_customer_number');
+    Route::get('/check-order-number','AddUsersController@check_order_number')->name('check_order_number');
+
+    Route::get('/organization-structure','AdminController@organization_images')->name('organization-structure');
+    Route::post('/organization-structure','AdminController@organization_structure')->name('organization-structure');
+
+    // delete
+    Route::post('/addRequirementadmin', 'AddUsersController@addreq')->name('addRequirementadmin')->middleware(['auth']);
+
+    Route::post('/deleteRequirementadmin', 'AddUsersController@destroyreq')->name('deleteRequirementadmin')->middleware(['auth']);
+    Route::post('/deleteNonConfrm', 'AddUsersController@deleteNonConfrm')->name('deleteNonConfrm');
+    Route::post('/deletenonconfimity', 'nonConfromFormController@destroy')->name('deletenonconfimity');
+    Route::post('/deletecustomeradmin', 'AddUsersController@deletecustomeradmin')->name('deletecustomeradmin');
+    Route::get('/deleteRequirement/{id}','RequiremntController@destroy1')->name('deleteRequirements');
+    Route::post('/deleteRequirement','RequiremntController@destroy')->name('deleteRequirement');
+    Route::post('/deleteProcess','auditController@destroy')->name('deleteProcess');
+    Route::post('/deleteInterested','interestedController@destroy')->name('deleteInterested');
+    Route::post('/deleteSupplier','SupplierController@destroy')->name('deleteSupplier');
+    Route::post('/deletemgtreview','MgtreviewController@destroy')->name('deletemgtreview');
+    Route::post('/deleteRisk','AccidentRiskController@destroy')->name('deleteRisk');
+    Route::post('/deleteWork','WorkInstructionController@destroy')->name('deleteWork');
+
+    // details
+    Route::post('/uploadimg', 'ImagesUploadController@index')->name('uploadimg');
+    Route::post('/removesales', 'ImagesUploadController@removesales')->name('removesales');
+    Route::post('/purchprocess', 'ImagesUploadController@purchprocess')->name('purchprocess');
+    Route::post('/servicingprocess', 'ImagesUploadController@servicingprocess')->name('servicingprocess');
+    Route::post('/comptprocess', 'ImagesUploadController@comptprocess')->name('comptprocess');
+    Route::post('/processinteraction', 'ImagesUploadController@processinteraction')->name('processinteraction');
+    Route::post('/mgmtorg', 'ImagesUploadController@mgmtorg')->name('mgmtorg');
+
+    //User msgs
+    Route::post('/send_msg_to_admin', 'UserMsgController@send_msg_to_admin');
+    Route::get('/faq', 'UserInfoController@the_faqs');
+    Route::get('/explainer_videos', 'UserInfoController@explainer_videos');
+    Route::get('/quick_links', 'UserInfoController@quick_links');
+    Route::post('/remove_iso', 'UserInfoController@remove_iso');
+    Route::get('/users_messages', 'UserMsgController@users_messages');
+    Route::post('/upd_msg_status', 'UserMsgController@upd_msg_status');
+    Route::post('/get_user_inbox_count', 'UserMsgController@get_user_inbox_count');
+    Route::post('/get_admin_inbox_count', 'UserMsgController@get_admin_inbox_count');
+});
+/*************** Auth middleware implemented on these urls end ***************/
+
+/*************** Customer View start ***************/
+/*************** These are just layouts - not functional ***************/
 Route::get('/customer/add', function () {
     return view('dashboard.customer.add');
 });
@@ -204,225 +310,4 @@ Route::get('/agent/add', function () {
 Route::get('/agent/edit', function () {
     return view('dashboard.agent.edit');
 });
-/*********** Document Required ***********/
-// Route::get('/document_required', function () {
-//     return view('dashboard.document');
-// });
-Route::get('/document_required', 'WorkInstructionController@doc_req');
-/*********** Manual & Policies **********
-Route::get('/quality_manual', function () {
-return view('dashboard.mannual_policy.quality_manual');
-});*/
-
-/*********** Form & Records ***********/
-
-Route::get('/interesting_parties','interestedController@index');
-Route::get('/chemical_control','chemicalController@index');
-
-
-
-Route::post('/get_customer_name_by_id', 'nonConfromFormController@get_customer_name_by_id');
-
-
-Route::get('/customer/check','CustomerController@check_customer')->name('checkcustomer');
-
-
-
-Route::post('/employess-delete', 'EmployeeController@destroy')->name('employess-delete');
-Route::post('/update-employes-skill', 'EmployeeController@updateempSkills')->name('update-employes-skill');
-Route::post('/update-employes-training', 'EmployeeController@updateemptraining')->name('update-employes-training');
-Route::post('/delete_assesment','AssessmentController@destroy')->name('delete_assesment');
-
-
-
-Route::get('/view_work', function () {
-    return view('dashboard.view_work_instruction.view_work_instruction');
-});
-/*Route::get('/contact_us', function () {
-    return view('dashboard.contact_us');
-});*/
-Route::get('/contact_us', 'UserMsgController@index');
-/**************post Methods are Down*****************/
-// Route::post("/requirementForm",'requirementAspacts')->name("requirementForm");
-Route::post('/requiemntform','RequiremntController@store')->name('requiemntform');
-Route::post('/auditform','auditController@store')->name('auditform');
-Route::post('/interestedform','interestedController@store')->name('interestedform');
-Route::post('/chemicalform','chemicalController@store')->name('chemicalform');
-Route::post('/qmsaudit','qmsauditController@store')->name('qmsaudit');
-Route::post('/nonConfromForm','nonConfromFormController@store')->name('nonConfromForm');
-Route::post('/customerform','CustomerController@store')->name('customerform');
-Route::post('/customer_rview','CustomerReviewController@store')->name('customer_rview');
-Route::post('/supplier','SupplierController@store')->name('supplier');
-Route::post('/calibration','CalibrationController@store')->name('calibration');
-Route::post('/employee','EmployeeController@store')->name('employee')->middleware(['auth']);
-Route::post('/empSkills','EmployeeController@empSkills')->name('empSkills');
-Route::post('/empTraining','EmployeeController@empTraining')->name('empTraining');
-Route::post('/mgtreview','MgtreviewController@store')->name('mgtreview');
-Route::post('/maintain_rec','MaintainRecController@store')->name('maintain_rec');
-Route::post('/accident_risk','AccidentRiskController@store')->name('accident_risk');
-Route::post('/assessment','AssessmentController@store')->name('assessment');
-Route::post('/workinstructions','WorkInstructionController@store')->name('workinstructions');
-// update routes
-
-Route::post('/updaterequiremnt','RequiremntController@update')->name('updaterequiremnt');
-Route::post('/auditDelete','auditController@update')->name('auditDelete');
-Route::post('/interestedUpdate','interestedController@update')->name('interestedUpdate');
-Route::post('/chemicalUpdate','chemicalController@update')->name('chemicalUpdate');
-// nonConfromFormEdit
-Route::post('/nonConfromFormEdit','nonConfromFormController@update')->name('nonConfromFormEdit');
-Route::post('/supplieredit','SupplierController@update')->name('supplieredit');
-Route::post('/mgtreviewupdate','MgtreviewController@update')->name('mgtreviewupdate');
-Route::post('/editassessment','AssessmentController@update')->name('editassessment');
-Route::post('/editnonConfirm','nonConfromFormController@update')->name('editnonConfirm');
-Route::post('/editCustomers','CustomerController@update')->name('editCustomers');
-Route::post('/editCustomerReview','CustomerReviewController@update')->name('editCustomerReview');
-Route::post('/calibrationedit','CalibrationController@update')->name('calibrationedit');
-Route::post('/editemployee','EmployeeController@update')->name('editemployee');
-Route::post('/editmentainance','MaintainRecController@update')->name('editmentainance');
-Route::post('/accidentedit','AccidentRiskController@update')->name('accidentedit');
-Route::post('/editworkinstructions','WorkInstructionController@update')->name('editworkinstructions');
-Route::post('/update_qmsaudit','qmsauditController@update')->name('update_qmsaudit');
-Route::get('/inboxmessage','SendNotificationsController@index')->name('inboxmessage');
-
-Route::post('/deleteqmsAudit','qmsauditController@destroy')->name('deleteqmsAudit');
-
-Route::post('/delete_customer_review','CustomerReviewController@destroy')->name('delete_customer_review');
-
-Route::post('/delete_maintain_rec','MaintainRecController@destroy')->name('delete_m_r');
-
-Route::get('/check-customer-number','CustomerController@check_customer_number')->name('check_customer_number');
-Route::get('/check-order-number','AddUsersController@check_order_number')->name('check_order_number');
-
-
-// admin routesf
-// Route::group(['middleware' => ['auth', 'admin']], function () {
-
-// });
-Route::get('/organization-structure','AdminController@organization_images')->name('organization-structure');
-
-Route::post('/organization-structure','AdminController@organization_structure')->name('organization-structure');
-
-// Route::post('/updateuserprofile', 'AddUsersController@update')->name('updateuserprofile');
-// edit
-
-
-// delete
-Route::post('/deleteRequirementadmin', 'AddUsersController@destroyreq')->name('deleteRequirementadmin')->middleware(['auth']);
-Route::post('/addRequirementadmin', 'AddUsersController@addreq')->name('addRequirementadmin')->middleware(['auth']);
-
-Route::post('/deleteNonConfrm', 'AddUsersController@deleteNonConfrm')->name('deleteNonConfrm');
-Route::post('/deletenonconfimity', 'nonConfromFormController@destroy')->name('deletenonconfimity');
-
-Route::post('/deletecustomeradmin', 'AddUsersController@deletecustomeradmin')->name('deletecustomeradmin');
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-// delete details
-
-
-
-
-
-// delete queries
-Route::get('/deleteRequirement/{id}','RequiremntController@destroy1')->name('deleteRequirements');
-Route::post('/deleteRequirement','RequiremntController@destroy')->name('deleteRequirement');
-Route::post('/deleteProcess','auditController@destroy')->name('deleteProcess');
-Route::post('/deleteInterested','interestedController@destroy')->name('deleteInterested');
-Route::post('/deleteSupplier','SupplierController@destroy')->name('deleteSupplier');
-Route::post('/deletemgtreview','MgtreviewController@destroy')->name('deletemgtreview');
-Route::post('/deleteRisk','AccidentRiskController@destroy')->name('deleteRisk');
-Route::post('/deleteWork','WorkInstructionController@destroy')->name('deleteWork');
-// admindelete rout
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-// nonConfromForm
-
-
-
-
-// details
-Route::post('/uploadimg', 'ImagesUploadController@index')->name('uploadimg');
-Route::post('/removesales', 'ImagesUploadController@removesales')->name('removesales');
-Route::post('/purchprocess', 'ImagesUploadController@purchprocess')->name('purchprocess');
-Route::post('/servicingprocess', 'ImagesUploadController@servicingprocess')->name('servicingprocess');
-Route::post('/comptprocess', 'ImagesUploadController@comptprocess')->name('comptprocess');
-Route::post('/processinteraction', 'ImagesUploadController@processinteraction')->name('processinteraction');
-Route::post('/mgmtorg', 'ImagesUploadController@mgmtorg')->name('mgmtorg');
-
-
-//User msgs
-Route::post('/send_msg_to_admin', 'UserMsgController@send_msg_to_admin');
-
-
-
-Route::get('/faq', 'UserInfoController@the_faqs');
-Route::get('/explainer_videos', 'UserInfoController@explainer_videos');
-Route::get('/quick_links', 'UserInfoController@quick_links');
-
-
-
-Route::post('/remove_iso', 'UserInfoController@remove_iso');
-
-
-Route::get('/users_messages', 'UserMsgController@users_messages');
-Route::post('/upd_msg_status', 'UserMsgController@upd_msg_status');
-Route::post('/get_user_inbox_count', 'UserMsgController@get_user_inbox_count');
-Route::post('/get_admin_inbox_count', 'UserMsgController@get_admin_inbox_count');
-
-
-Route::get('/test-email',function(){
-    dump('Here in web');
-
-    Mail::send([], [], function ($message) {
-        $message->to('shanipasrooria@gmail.com', 'Tutorials Point')
-            ->subject('subject')
-            ->setBody('some body', 'text/html');
-    });
-    echo "Basic Email Sent. Check your inbox.";
-});
+/*************** Customer View end ***************/
