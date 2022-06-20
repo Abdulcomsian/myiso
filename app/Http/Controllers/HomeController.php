@@ -31,10 +31,8 @@ class HomeController extends Controller
         
         $user =  User::find($id);
         $date = date('Y-m-d H:i:s');
-
-            $user->last_login = $date;
- 
-    $user->save();
+        $user->last_login = $date;
+        $user->save();
     
         return view('dashboard.index',compact('user'));
     }
