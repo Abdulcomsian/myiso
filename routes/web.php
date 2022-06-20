@@ -443,4 +443,3 @@ Route::get('/test-email',function(){
 });
       echo "Basic Email Sent. Check your inbox.";
 });
-

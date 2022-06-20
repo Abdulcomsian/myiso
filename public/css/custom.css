@@ -486,3 +486,11 @@ display:block !important;
         text-align: left;
     }
 }
+.chemical_table{
+    display: inline-table !important;
+}
+@media (max-width: 768px) {
+    .chemical_table{
+    display: block !important;
+}
+}
