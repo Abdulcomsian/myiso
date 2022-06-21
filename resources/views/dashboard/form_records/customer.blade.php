@@ -75,10 +75,9 @@
                                     <div class="col-lg-6">
                                         <div class="form-group">
                                             <label>Customer Telephone:</label>
-                                            <input type="text" class="form-control" required name="phoneNumber" id="phoneNumber" pattern="\d*" placeholder="Enter customer phone number starting with the country code.">
-                                            <input type="hidden" name="phonecode" id="phonecode">
-                                            <input type="hidden" name="phoneflag" id="phoneflag">
-
+                                            <input type="text" class="form-control" required name="create_phone_number" id="phoneNumber" pattern="\d*" placeholder="Enter customer phone number starting with the country code.">
+                                            <input type="hidden" name="create_phone_number_country_code" id="phonecode">
+                                            <input type="hidden" name="create_phone_number_flag" id="phoneflag">
                                         </div>
                                     </div>
                                 </div>
@@ -198,8 +197,8 @@
                                     <label>Customer Telephone:</label>
                                     <div id='edit_phone'>
                                     </div>
-                                    <input type="hidden" name="editphonecode" id="editphonecode">
-                                    <input type="hidden" name="editphoneflag" id="editphoneflag">
+                                    <input type="hidden" name="edit_phone_code" id="editphonecode">
+                                    <input type="hidden" name="edit_phone_flag" id="editphoneflag">
                                 </div>
                             </div>
                         </div>
@@ -488,9 +487,9 @@
         $("input[name='name']").val(data.name);
         //  var phone = data.phonecode + data.phoneNumber
 
-        $('#edit_phone').empty().append(`<input type="text" class="form-control" id="editphone" name="phoneNumber" placeholder="Enter Customer Phone Number" required>`);
+        $('#edit_phone').empty().append(`<input type="text" class="form-control" id="editphone" name="edit_phone_number" placeholder="Enter Customer Phone Number" required>`);
 
-        $("input[name='phoneNumber']").val(data.phoneNumber);
+        $("input[name='edit_phone_number']").val(data.phoneNumber);
         code = data.phonecode;
         //  code = code.replace(/["']/g, '');
         console.log(code);
