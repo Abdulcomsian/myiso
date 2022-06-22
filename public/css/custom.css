@@ -1,3 +1,7 @@
+.non_conformities_table.table-responsive,
+.common_table.table-responsive{
+  display: inline-table;
+}
 .kt-aside-menu .kt-menu__nav > .kt-menu__item > .kt-menu__submenu .kt-menu__subnav > .kt-menu__item > .kt-menu__link{
   padding: 0px 10px;
   padding-left: 40px;
@@ -491,6 +495,10 @@ display:block !important;
 }
 @media (max-width: 768px) {
     .chemical_table{
-    display: block !important;
+      display: block !important;
+  }
+.non_conformities_table.table-responsive,
+.common_table.table-responsive{
+  display: block !important;
 }
 }
