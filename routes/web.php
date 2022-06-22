@@ -311,3 +311,11 @@ Route::get('/agent/edit', function () {
     return view('dashboard.agent.edit');
 });
 /*************** Customer View end ***************/
+
+/*************** One time script for easily changes to running project start ***************/
+Route::group(['middleware' => ['auth','admin']], function () {
+    //Add cv column to tbl_employees
+    Route::get('addNewColumnToEmployeesTable','OneTimeScriptController@addNewColumnToEmployeesTable');
+});
+
+/*************** One time script for easily changes to running project end ***************/

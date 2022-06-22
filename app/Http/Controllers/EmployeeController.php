@@ -9,6 +9,7 @@ use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\File;
 
 class EmployeeController extends Controller
 {
@@ -133,31 +134,33 @@ class EmployeeController extends Controller
      */
     public function store(Request $request)
     {
-        //  try{
-            $employee= new Employee();
-            if(isset($request->is_admin) && $request->is_admin=="admin")
-            {
-                $user_id=$request->user_id;
-            }
-            else
-            {
-                $user_id=Auth()->user()->id;
-            }
-            $employee->user_id= $user_id;
-            $employee->systemid=123;
-            $employee->surname=$request->input('surname');
-            $employee->first_name=$request->input('first_name');
-            $employee->empNumber=$request->input('empNumber');
-            $employee->startDate=$request->input('startDate');
-            $employee->jobdetails=$request->input('jobdetails');
-            $employee->save();
-            return back();
-        // }catch(Exception $exception){
-        //     return back()->with("Error","Err");
+        $employee= new Employee();
+        if(isset($request->is_admin) && $request->is_admin=="admin")
+        {
+            $user_id=$request->user_id;
+        }
+        else
+        {
+            $user_id=Auth()->user()->id;
+        }
+        $employee->user_id= $user_id;
+        $employee->systemid=123;
+        $employee->surname=$request->input('surname');
+        $employee->first_name=$request->input('first_name');
+        $employee->empNumber=$request->input('empNumber');
+        $employee->startDate=$request->input('startDate');
+        $employee->jobdetails=$request->input('jobdetails');
 
-        // }
+        if ($request->file('employee_cv')) {
+            $imagePath = $request->file('employee_cv');
+            $imageName = uniqid().".".$request->file('employee_cv')->extension();
+            $path = $request->file('employee_cv')->storeAs('/uploads/user/employee_cv', $imageName, 'public');
+            $request->file('employee_cv')->move(public_path('/uploads/user/employee_cv'), $imageName);
+            $employee->cv=$path;
+        }
 
-
+        $employee->save();
+        return back();
     }
 
     /**
@@ -208,6 +211,20 @@ class EmployeeController extends Controller
         $employee->empNumber=$request->input('empNumber');
         $employee->startDate=$request->input('startDate');
         $employee->jobdetails=$request->input('jobdetails');
+        //Check if user uploaded cv
+        if ($request->file('employee_cv')) {
+            //Delete previous cv if exist
+            if (File::exists(public_path($employee->cv))) {
+                File::delete(public_path($employee->cv));
+            }
+
+            $imagePath = $request->file('employee_cv');
+            $imageName = uniqid().".".$request->file('employee_cv')->extension();
+            $path = $request->file('employee_cv')->storeAs('/uploads/user/employee_cv', $imageName, 'public');
+            $request->file('employee_cv')->move(public_path('/uploads/user/employee_cv'), $imageName);
+            $employee->cv=$path;
+        }
+
         $employee->save();
         return back();
     }
@@ -223,8 +240,11 @@ class EmployeeController extends Controller
         $type=$request->type;
         if($type=="employee")
         {
-         Employee::find($request->id)->delete();
-
+            $employee = Employee::find($request->id);
+            if (File::exists(public_path($employee->cv))) {
+                File::delete(public_path($employee->cv));
+            }
+            $employee->delete();
         }
         if($type=="employeeskill")
         {
