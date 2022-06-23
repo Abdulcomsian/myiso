@@ -386,7 +386,7 @@
 							</a>
 					
 
-                    		<div class="kt-portlet__body">
+                    		<div class="kt-portlet__body table-responsive">
 								<!--begin: Datatable -->
 								<table class="common_table table table-striped- table-bordered table-hover table-checkable table-responsive" id="kt_table_agent">
 									<thead>

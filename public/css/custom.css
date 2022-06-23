@@ -507,6 +507,9 @@ display:block !important;
     display: inline-table !important;
 }
 @media (max-width: 768px) {
+  .kt-header__topbar-item--user .kt-header__topbar-username {
+    display: block !important;
+  }
     .chemical_table{
       display: block !important;
   }

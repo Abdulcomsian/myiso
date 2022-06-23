@@ -98,7 +98,7 @@ input[type="date"]::-webkit-datetime-edit-day-field{
 						
 					
                     	<div class="requirments_table_div">
-                    		<div class="kt-portlet__body">
+                    		<div class="kt-portlet__body table-responsive">
 								
                                 <!--begin: Datatable -->
 
