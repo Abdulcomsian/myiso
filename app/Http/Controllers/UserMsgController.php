@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use App\User;
 use DB;
 use Auth;
+use App\Events\MyEvent;
+use App\Models\Notification;
 
 class UserMsgController extends Controller
 {
@@ -39,17 +41,18 @@ class UserMsgController extends Controller
           $request->file('attachment')->move(public_path('uploads/user'), $imageName);
             
         }		
-	$insert = DB::table('users_messages')->insert(
-    array('name' => $request['name'],
-          'company' => $request['company'],
-		  'user_id' => $request['user_id'],
-		  'subject' => $request['subject'],
-          'email' => $request['email'],
-          'comments' => $request['comments'],
-		  'attachement' => $path,
-		  'created_at' => now(),
-        )
-	);
+	// $insert = DB::table('users_messages')->insert(
+  //   array('name' => $request['name'],
+  //         'company' => $request['company'],
+	// 	  'user_id' => $request['user_id'],
+	// 	  'subject' => $request['subject'],
+  //         'email' => $request['email'],
+  //         'comments' => $request['comments'],
+	// 	  'attachement' => $path,
+	// 	  'created_at' => now(),
+  //       )
+	// );
+  event(new MyEvent('bbb'));
 	session()->flash('msg', '<div class="alert alert-success alert-dismissible">Message sent successfully. &nbsp; <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a></div>');
     return redirect()->back();
 		

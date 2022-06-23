@@ -20,6 +20,7 @@ License: You must have a valid license purchased only from themeforest(the above
 		<title>Admin</title>
 		<meta name="description" content="Updates and statistics">
 		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+		<meta name="csrf-token" content="{{ csrf_token() }}">
 <link href="//cdn.datatables.net/1.11.1/css/jquery.dataTables.min.css rel="stylesheet" type="text/css" />
 
 		<!--begin::Fonts -->
@@ -100,6 +101,26 @@ License: You must have a valid license purchased only from themeforest(the above
 			<link href="{{ asset('/assets/vendors/custom/datatables/datatables.bundle.css') }}" rel="stylesheet" type="text/css" />
 			<!--end::Page Vendors Styles -->
 		@endif
+		<script src="https://js.pusher.com/7.1/pusher.min.js"></script>
+		<script>
+	
+			// Enable pusher logging - don't include this in production
+			Pusher.logToConsole = true;
+		
+			var pusher = new Pusher('71e4ae8d39ea5781b675', {
+			  cluster: 'ap2',
+			  forceTLS: true
+			});
+		
+			var channel = pusher.subscribe('my-channel');
+			channel.bind('my-event', function(data) {
+				let x = $('.count_notifications').text();
+				if(x == 0 ){
+					$('.count_notifications').text('')
+				}
+				$('.count_notifications').text(Number(x) + 1)
+			});
+		  </script>
 		<link href="{{ asset('css/custom.css') }}" rel="stylesheet" type="text/css" />
 		@yield('styles')
 	</head>
