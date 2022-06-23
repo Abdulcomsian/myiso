@@ -375,7 +375,7 @@
 								<!--begin: Datatable -->
 								<div class="table-responsive">
 								<!--begin: Datatable -->
-								<table style="width: auto;" class="table table-striped- table-bordered table-hover table-checkable" id="kt_table_agent">
+								<table style="width: auto;" class="common_table table table-striped- table-bordered table-hover table-checkable table-responsive" id="kt_table_agent">
 									<thead>
 										<tr>
 											<th style="width:auto;">Audit ID</th>
