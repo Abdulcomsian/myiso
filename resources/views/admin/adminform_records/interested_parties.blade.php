@@ -57,7 +57,7 @@
                     </div>
                     <div class="procedure_div">
                     	<div class="requirments_table_div">
-							<a href="/edit_user/{{ $urlparam['id'] }}" class="btn btn-clean btn-icon-sm mb-2" style="float: right;">
+							<a href="/edit_user/{{ $urlparam['id'] }}" class="btn btn-clean btn-icon-sm mb-2 back_icon" style="float: right;">
 								<i class="la la-long-arrow-left"></i>
 								Back
 							</a>

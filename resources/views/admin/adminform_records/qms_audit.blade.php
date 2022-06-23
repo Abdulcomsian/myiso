@@ -903,8 +903,10 @@
 										</div>
 									</div>
 								</div>
+
 								<button type="submit" class="submitBtn">SUBMIT</button>
-								<button type="reset" class="btn btn-secondary" onclick="qmsAudit()">Cancel</button>
+								<button type="reset" style="margin-right: 10px;" class="btn btn-secondary submitBtn" onclick="qmsAudit()">Cancel</button>
+								
 							</form>
                             
                             
@@ -915,7 +917,7 @@
                     </div>
                     <div class="procedure_div">
                     	<div class="requirments_table_div">
-							<a href="/edit_user/{{ $urlparam['userid'] }}" class="btn btn-clean btn-icon-sm mb-2" style="float: right;">
+							<a href="/edit_user/{{ $urlparam['userid'] }}" class="btn btn-clean btn-icon-sm mb-2 back_icon" style="float: right;">
 								<i class="la la-long-arrow-left"></i>
 								Back
 							</a>
@@ -985,8 +987,8 @@
                           </div>
                           <div class="modal-footer">
                               <input type="hidden" name="id" value="{{$d_id}}">
-				<button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
-				<button type="submit" class="btn btn-danger">Yes</button>
+								<button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
+								<button type="submit" class="btn btn-danger">Yes</button>
                           </div>
                         </form>
                       </div>
@@ -1053,6 +1055,7 @@
 											<input type="text" name="evidence" class="form-control"  placeholder="Enter Evidence:">
 										</div>
 									</div>
+									
 								</div>
 								<div class="row">
 									<div class="col-lg-12">
@@ -1831,6 +1834,12 @@
 											<input type="text" class="form-control" name="evidence31" placeholder="Enter Evidence:">
 										</div>
 									</div>
+									<div class="col-lg-12">
+										<div class="form-group">
+											<label>Attach Evidence:</label>
+											<input type="file" class="form-control" name="evidence_attachment">
+										</div>
+									</div>
 							</div> 
 								<div class="row">
 									<div class="col-lg-12">
@@ -1851,6 +1860,14 @@
 										<div class="form-group">
 											<label>Auditor Name:</label>
 											<input type="text" class="form-control" name="auditrName"  placeholder="Enter Auditor Name:">
+										</div>
+									</div>
+								</div>
+								<div class="row">
+									<div class="col-lg-12">
+										<div class="form-group">
+											<label>Any other issue:</label>
+											<input type="text" class="form-control" name="issue"  required  placeholder="Enter any other Issue">
 										</div>
 									</div>
 								</div>
@@ -2689,10 +2706,17 @@
 												</div>
 										</div>
 									</div>
+									
 									<div class="col-lg-12">
 										<div class="form-group">
 											<label>Evidence:</label>
 											<input type="text" class="form-control" name="evidence31" placeholder="Enter Evidence:">
+										</div>
+									</div>
+									<div class="col-lg-12">
+										<div class="form-group">
+											<label>Attach Evidence :</label>
+											<input type="file" class="form-control" name="evidence_attacment">
 										</div>
 									</div>
 							</div> 
@@ -2715,6 +2739,14 @@
 										<div class="form-group">
 											<label>Auditor Name:</label>
 											<input type="text" class="form-control" name="auditrName"  required  placeholder="Enter Auditor Name:">
+										</div>
+									</div>
+								</div>
+								<div class="row">
+									<div class="col-lg-12">
+										<div class="form-group">
+											<label>Any other issue:</label>
+											<input type="text" class="form-control" name="issue"  required  placeholder="Enter any other Issue">
 										</div>
 									</div>
 								</div>

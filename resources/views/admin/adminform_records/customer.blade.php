@@ -14,7 +14,7 @@
             text-decoration: none !important;
         }</style>
     <!-- begin:: Content -->
-    <div class="kt-content  kt-grid__item kt-grid__item--fluid" id="kt_content">
+    <div class="kt-content  kt-grid__item kt-grid__item--fluid view_user_content" id="kt_content">
 
         <!--Begin::Dashboard 1-->
 
@@ -114,7 +114,7 @@
                         <div class="requirments_table_div">
                             <div class="d-flex justify-content-between">
                                 <h4>Total Customers Listed</h4>
-                                <a href="/edit_user/{{ $urlparam['userid'] }}" class="btn btn-clean btn-icon-sm" style="float: right;">
+                                <a href="/edit_user/{{ $urlparam['userid'] }}" class="btn btn-clean btn-icon-sm back_icon" style="float: right;">
                                     <i class="la la-long-arrow-left"></i>
                                     Back
                                 </a>
