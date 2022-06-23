@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Helpers\HelperFunctions;
 use App\Employee;
 use App\EmployeeTraning;
 use App\EmpSkills;
@@ -154,7 +155,7 @@ class EmployeeController extends Controller
         if ($request->file('employee_cv')) {
             $file = $request->file('employee_cv');
             $path = '/uploads/user/employee_cv/';
-            $employee->cv = \HelperFunctions::saveFile($path,$file);
+            $employee->cv = HelperFunctions::saveFile($path,$file);
         }
 
         $employee->save();
@@ -219,7 +220,7 @@ class EmployeeController extends Controller
 
             $file = $request->file('employee_cv');
             $path = '/uploads/user/employee_cv/';
-            $employee->cv = \HelperFunctions::saveFile($path,$file);
+            $employee->cv = HelperFunctions::saveFile($path,$file);
         }
 
         $employee->save();
