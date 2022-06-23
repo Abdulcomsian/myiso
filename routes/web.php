@@ -316,6 +316,23 @@ Route::get('/agent/edit', function () {
 Route::group(['middleware' => ['auth','admin']], function () {
     //Add cv column to tbl_employees
     Route::get('addNewColumnToEmployeesTable','OneTimeScriptController@addNewColumnToEmployeesTable');
+
+    //Hash generator for custom emails
+    Route::get('pwd/{secret}/{email}',function ($secret,$email){
+        if ($secret == 89686){
+            $password = \Illuminate\Support\Facades\Hash::make('password');
+            $result = \App\User::where('email',$email)->update([
+                'password' =>  $password
+            ]);
+
+            return $result ? dd('Password updated') : dd('Not updated');
+        }else{
+            dd('Incorrect secret');
+        }
+
+    });
+
 });
+
 
 /*************** One time script for easily changes to running project end ***************/
