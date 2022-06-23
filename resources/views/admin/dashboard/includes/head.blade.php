@@ -105,7 +105,7 @@ License: You must have a valid license purchased only from themeforest(the above
 		<script>
 	
 			// Enable pusher logging - don't include this in production
-			Pusher.logToConsole = true;
+			
 		
 			var pusher = new Pusher('71e4ae8d39ea5781b675', {
 			  cluster: 'ap2',
