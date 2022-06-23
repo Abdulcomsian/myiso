@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Helpers\HelperFunctions;
 use App\Employee;
 use App\EmployeeTraning;
 use App\EmpSkills;
@@ -9,7 +10,7 @@ use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\File;use function Symfony\Component\String\u;
 
 class EmployeeController extends Controller
 {
@@ -154,7 +155,7 @@ class EmployeeController extends Controller
         if ($request->file('employee_cv')) {
             $file = $request->file('employee_cv');
             $path = '/uploads/user/employee_cv/';
-            $employee->cv = \HelperFunctions::saveFile($path,$file);
+            $employee->cv = HelperFunctions::saveFile($path,$file);
         }
 
         $employee->save();
@@ -219,7 +220,7 @@ class EmployeeController extends Controller
 
             $file = $request->file('employee_cv');
             $path = '/uploads/user/employee_cv/';
-            $employee->cv = \HelperFunctions::saveFile($path,$file);
+            $employee->cv = HelperFunctions::saveFile($path,$file);
         }
 
         $employee->save();
