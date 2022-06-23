@@ -152,11 +152,9 @@ class EmployeeController extends Controller
         $employee->jobdetails=$request->input('jobdetails');
 
         if ($request->file('employee_cv')) {
-            $imagePath = $request->file('employee_cv');
-            $imageName = uniqid().".".$request->file('employee_cv')->extension();
-            $path = $request->file('employee_cv')->storeAs('/uploads/user/employee_cv', $imageName, 'public');
-            $request->file('employee_cv')->move(public_path('/uploads/user/employee_cv'), $imageName);
-            $employee->cv=$path;
+            $file = $request->file('employee_cv');
+            $path = '/uploads/user/employee_cv/';
+            $employee->cv = \HelperFunctions::saveFile($path,$file);
         }
 
         $employee->save();
@@ -211,6 +209,7 @@ class EmployeeController extends Controller
         $employee->empNumber=$request->input('empNumber');
         $employee->startDate=$request->input('startDate');
         $employee->jobdetails=$request->input('jobdetails');
+
         //Check if user uploaded cv
         if ($request->file('employee_cv')) {
             //Delete previous cv if exist
@@ -218,11 +217,9 @@ class EmployeeController extends Controller
                 File::delete(public_path($employee->cv));
             }
 
-            $imagePath = $request->file('employee_cv');
-            $imageName = uniqid().".".$request->file('employee_cv')->extension();
-            $path = $request->file('employee_cv')->storeAs('/uploads/user/employee_cv', $imageName, 'public');
-            $request->file('employee_cv')->move(public_path('/uploads/user/employee_cv'), $imageName);
-            $employee->cv=$path;
+            $file = $request->file('employee_cv');
+            $path = '/uploads/user/employee_cv/';
+            $employee->cv = \HelperFunctions::saveFile($path,$file);
         }
 
         $employee->save();
