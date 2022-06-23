@@ -161,7 +161,7 @@
                             <!--<button>Add an entry</button>-->
                     		<div class="kt-portlet__body table-responsive">
 								<!--begin: Datatable -->
-								<table class="table table-striped- table-bordered table-hover table-checkable" id="kt_table_agent">
+								<table class="common_table table table-striped- table-bordered table-hover table-checkable table-responsive" id="kt_table_agent">
 									<thead>
 										<tr>
 											<th>Management Review ID</th>

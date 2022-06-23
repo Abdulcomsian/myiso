@@ -96,7 +96,7 @@
                     		<h4>Customer Review Details</h4>
                     		<div class="kt-portlet__body">
 								<!--begin: Datatable -->
-								<table class="table table-striped- table-bordered table-hover table-checkable table-responsive">
+								<table class="common_table table table-striped- table-bordered table-hover table-checkable table-responsive">
 									<thead>
 										<tr>
 											<th>Customer Review ID</th>
