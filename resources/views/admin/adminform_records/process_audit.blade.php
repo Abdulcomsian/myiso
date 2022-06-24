@@ -36,7 +36,7 @@
                     		</div>
                     	</div>
                     	<div class="process_audit_from_div">
-                    		<form action="{{route('auditsaveadmin')}}" method="POST">
+                    		<form action="{{route('auditsaveadmin')}}" method="POST" enctype="multipart/form-data">
                                 @csrf
                                 @php 
                                     $urlparam = request()->route()->parameters;
@@ -362,7 +362,7 @@
 									<div class="col-lg-12">
 										<div class="form-group">
 											<label>Attach Evidence:</label>
-											<input type="file" name="attach_evidence" class="form-control">
+											<input name="attach_evidence" type="file" class="form-control" accept="image/*,.doc, .docx,.txt,.pdf">
 										</div>
 									</div>
 								</div>
@@ -400,6 +400,7 @@
 											<th>Non-Conformities Reference</th>
 											<th>Audit Actions</th>
 											<th>Audit Frequency</th>
+											<th>Attachment</th>
 											<th>Action</th>
 										</tr>
 									</thead>
@@ -418,7 +419,13 @@
 											<td>{{ $data->nonConfReport}}</td>
                                             <td>{{ $data->AdutiActions}}</td>
 											<td>{{ $data->dateFrequency}}</td>
-
+											<td>
+												@if(!empty($data->attach_evidence))
+													<a target="_blank" href="{{ asset($data->attach_evidence) }}">View</a>
+												@else
+													No data found
+												@endif
+											</td>
 											<td><button class="btn btn-sm btn-clean btn-icon btn-icon-md" title="Edit" onclick="getEid({{$data}});"><i class="la la-edit"></i></button>
 										<button  class="btn btn-sm btn-clean btn-icon btn-icon-md" title="View" onclick="viewaudit({{$data}})"><i class="la la-info"></i></button> 
 										<button  class="btn btn-sm btn-clean btn-icon btn-icon-md" title="Delete" onclick="deleteModal({{$data}})"><i class="la la-trash"></i></button> 
@@ -466,7 +473,7 @@
 				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
 				</button>
             </div>
-            <form action="{{route('auditupdateadmin')}}" method="POST">
+            <form action="{{route('auditupdateadmin')}}" method="POST" enctype="multipart/form-data">
                 @csrf
 			<div class="modal-body">
 			    		
@@ -789,6 +796,14 @@
 										<div class="form-group">
 											<label>Attach Evidence:</label>
 											<input type="file" class="form-control" name="evidence_attachment">
+										</div>
+									</div>
+								</div>
+								<div class="row">
+									<div class="col-lg-12">
+										<div class="form-group">
+											<label>Attach Evidence:</label>
+											<input name="attach_evidence" type="file" class="form-control" accept="image/*,.doc, .docx,.txt,.pdf">
 										</div>
 									</div>
 								</div>

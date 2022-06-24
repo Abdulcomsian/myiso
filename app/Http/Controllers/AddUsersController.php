@@ -11,6 +11,7 @@ use App\customer_review;
 use App\customers;
 use App\Employee;
 use App\EmployeeTraning;
+use App\Helpers\HelperFunctions;
 use App\Maintain_rec;
 use App\Mgtreview;
 use App\Nonconform;
@@ -24,9 +25,11 @@ use Carbon\Carbon;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
 use App\Chemical;
+use Illuminate\Support\Facades\Schema;
 
 class AddUsersController extends Controller
 {
@@ -674,6 +677,14 @@ public function store(Request $request)
              $Audit->correction10=$request->input('correction10');
              $Audit->evidance10=$request->input('evidance10');
              $Audit->any_issues=$request->input('any_issues');
+
+            //Check if user attach evidence
+            if ($request->file('attach_evidence') && Schema::hasColumn('tbl_audit','attach_evidence')) {
+                $file = $request->file('attach_evidence');
+                $path = '/uploads/user/attach_evidence/';
+                $Audit->attach_evidence = HelperFunctions::saveFile($path,$file);
+            }
+
              $Audit->save();
 
               return redirect()->back();
@@ -723,6 +734,18 @@ public function store(Request $request)
              $Audit->correction10=$request->input('correction10');
              $Audit->evidance10=$request->input('evidance10');
              $Audit->any_issues=$request->input('any_issues');
+            //Check if user attach evidence
+            if ($request->file('attach_evidence') && Schema::hasColumn('tbl_audit','attach_evidence')) {
+                //Delete previous attach evidence if exist
+                if (File::exists(public_path($Audit->attach_evidence))) {
+                    File::delete(public_path($Audit->attach_evidence));
+                }
+
+                $file = $request->file('attach_evidence');
+                $path = '/uploads/user/attach_evidence/';
+                $Audit->attach_evidence = HelperFunctions::saveFile($path,$file);
+            }
+
              $Audit->save();
 
              return redirect()->back();
@@ -836,8 +859,13 @@ public function store(Request $request)
     /*end*/
     public function destroyaudit(Request $req)
     {
-        $userid=$req->id;
-        $req=Audit::find($userid)->delete();
+        $id=$req->id;
+        $audit = Audit::find($id);
+        if (File::exists(public_path($audit->attach_evidence))) {
+            File::delete(public_path($audit->attach_evidence));
+        }
+        $audit->delete();
+
         $notification = [
             'message' => 'Record  Deleted successfully.!',
             'alert-type' => 'success'

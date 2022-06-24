@@ -28,7 +28,7 @@
                     		</div>
                     	</div>
                     	<div class="employee_from_div">
-                        <form method="POST" action="{{ route('employee') }}">
+                        <form method="POST" action="{{ route('employee') }}" enctype="multipart/form-data">
                             @csrf
                     			<div class="row">
                     				{{-- <div class="col-lg-6">
@@ -77,7 +77,7 @@
 									<div class="col-lg-6">
 										<div class="form-group">
 											<label>Upload Employee CV:</label>
-											<input type="file" name="employee_cv" class="form-control">
+											<input name="employee_cv" type="file" class="form-control" accept="image/*,.doc, .docx,.txt,.pdf">
 										</div>
 									</div>
 								</div>
@@ -215,7 +215,13 @@
 											<td> {{$item->surname}}</td>
 											<td> {{$item->first_name}}</td>
 											<td> {{$item->jobdetails}}</td>
-											<td></td>
+											<td>
+												@if(!empty($item->cv))
+													<a target="_blank" href="{{ asset($item->cv) }}">View CV</a>
+												@else
+													No data found
+												@endif
+											</td>
 											<td> {{date('d-M-Y', strtotime($item->startDate))}}</td>
                                             <!--<td> {item->jobdetails}</td>-->
                                             <td>
@@ -385,7 +391,7 @@
 				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
 				</button>
             </div>
-            <form method="POST" action=" {{ route('editemployee') }} ">
+            <form method="POST" action=" {{ route('editemployee') }} " enctype="multipart/form-data">
                 @csrf
 			<div class="modal-body">
 
@@ -442,6 +448,14 @@
                                 </div>
                             </div>
                         </div>
+				<div class="row">
+					<div class="col-lg-6">
+						<div class="form-group">
+							<label>Upload Employee CV:</label>
+							<input name="employee_cv" type="file" class="form-control" accept="image/*,.doc, .docx,.txt,.pdf">
+						</div>
+					</div>
+				</div>
 			</div>
 			 @php 
                 $urlparam = request()->route()->parameters;
