@@ -1,5 +1,7 @@
 @extends('dashboard.layouts.app')
-
+@push('styles')
+<script src="https://js.pusher.com/7.1/pusher.min.js"></script>
+@endpush
 @section('content')
 <!-- begin:: Content -->
 <div class="kt-content  kt-grid__item kt-grid__item--fluid" id="kt_content">
@@ -78,5 +80,6 @@
 
 	<!--End::Section-->
 </div>
+
 @endsection
 <!-- end:: Content --''
