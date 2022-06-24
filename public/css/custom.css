@@ -1,3 +1,20 @@
+.back_icon{
+  display: flex;
+  padding: 0px;
+}
+.view_user_content #kt_table_agent2_wrapper .row:nth-child(1) .col-md-6{
+  width: 50%;
+}
+.kt-aside-close i{
+  color: #000;
+}
+.kt-aside--on .kt-aside-close{
+  right: 15px;
+}
+.non_conformities_table.table-responsive,
+.common_table.table-responsive{
+  display: inline-table;
+}
 .kt-aside-menu .kt-menu__nav > .kt-menu__item > .kt-menu__submenu .kt-menu__subnav > .kt-menu__item > .kt-menu__link{
   padding: 0px 10px;
   padding-left: 40px;
@@ -490,7 +507,24 @@ display:block !important;
     display: inline-table !important;
 }
 @media (max-width: 768px) {
-    .chemical_table{
+  .kt-header__topbar-item--user .kt-header__topbar-username {
     display: block !important;
+  }
+    .chemical_table{
+      display: block !important;
+  }
+.non_conformities_table.table-responsive,
+.common_table.table-responsive{
+  display: block !important;
 }
+}
+@media (max-width: 768px) and (min-width: 580px){
+  .view_user_content #kt_table_agent2_wrapper .row:nth-child(1) .col-sm-12{
+    max-width: 50%;
+  }
+}
+@media (max-width: 580px){
+  .dataTables_filter{
+    width: 100%;
+  }
 }

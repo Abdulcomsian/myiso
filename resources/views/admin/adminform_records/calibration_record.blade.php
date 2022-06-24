@@ -124,7 +124,7 @@
                     	<div class="requirments_table_div">
 							<div class="d-flex justify-content-between mb-2">
 								<h4>Calibration Due</h4>
-								<a href="/edit_user/{{ $urlparam['userid'] }}" class="btn btn-clean btn-icon-sm" style="float: right;">
+								<a href="/edit_user/{{ $urlparam['userid'] }}" class="btn btn-clean btn-icon-sm back_icon" style="float: right;">
 									<i class="la la-long-arrow-left"></i>
 									Back
 								</a>
@@ -132,7 +132,7 @@
 							<!--<button>Add an entry</button>-->
                     		<div class="kt-portlet__body table-responsive">
 								<!--begin: Datatable -->
-								<table class="table table-striped- table-bordered table-hover table-checkable" id="kt_table_agent">
+								<table class="common_table table table-striped- table-bordered table-hover table-checkable table-responsive" id="kt_table_agent">
 									<thead>
 										<tr>
 											<th>Equipment ID</th>
@@ -178,7 +178,7 @@
                     		<h4>Total Items Listed</h4>
                     		<div class="kt-portlet__body table-responsive">
 								<!--begin: Datatable -->
-								<table class="table table-striped- table-bordered table-hover table-checkable" id="kt_table_agent">
+								<table class="common_table table table-striped- table-bordered table-hover table-checkable table-responsive" id="kt_table_agent">
 									<thead>
 										<tr>
 											<th>Equipment ID</th>

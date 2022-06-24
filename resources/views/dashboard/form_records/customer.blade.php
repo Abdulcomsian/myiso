@@ -105,7 +105,7 @@
                             <h4>Total Customers Listed</h4>
                             <div class="kt-portlet__body table-responsive">
                                 <!--begin: Datatable -->
-                                <table class="table table-striped- table-bordered table-hover table-checkable" id="">
+                                <table class="common_table table table-striped- table-bordered table-hover table-checkable table-responsive" id="">
                                     <thead>
                                     <tr>
                                         <th>Customer ID</th>

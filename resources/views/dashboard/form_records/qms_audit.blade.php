@@ -897,8 +897,10 @@
 										</div>
 									</div>
 								</div>
+								
 								<button type="submit" class="submitBtn">SUBMIT</button>
-								<button type="reset" class="btn btn-secondary" onclick="qmsAudit()">Cancel</button>
+								<button type="reset" style="margin-right: 10px;"  class="btn btn-secondary submitBtn" onclick="qmsAudit()">Cancel</button>
+							
 							</form>
                             
                             
@@ -1823,6 +1825,12 @@
 											<input type="text" class="form-control" name="evidence29" placeholder="Enter Evidence:">
 										</div>
 									</div>
+									<div class="col-lg-12">
+										<div class="form-group">
+											<label>Attach Evidence:</label>
+											<input type="file" class="form-control" name="evidence_attachment">
+										</div>
+									</div>
 							</div> 
 								<div class="row">
 									<div class="col-lg-12">
@@ -1843,6 +1851,14 @@
 										<div class="form-group">
 											<label>Auditor Name:</label>
 											<input type="text" class="form-control" name="auditrName"  placeholder="Enter Auditor Name:">
+										</div>
+									</div>
+								</div>
+								<div class="row">
+									<div class="col-lg-12">
+										<div class="form-group">
+											<label>Any other issue:</label>
+											<input type="text" class="form-control" name="issue"  required  placeholder="Enter any other Issue">
 										</div>
 									</div>
 								</div>
@@ -2681,6 +2697,12 @@
 											<input type="text" class="form-control" name="evidence29" placeholder="Enter Evidence:">
 										</div>
 									</div>
+									<div class="col-lg-12">
+										<div class="form-group">
+											<label>Attach Evidence:</label>
+											<input type="file" class="form-control" name="evidence_attachment">
+										</div>
+									</div>
 							</div> 
 								<div class="row">
 									<div class="col-lg-12">
@@ -2701,6 +2723,14 @@
 										<div class="form-group">
 											<label>Auditor Name:</label>
 											<input type="text" class="form-control"  required  name="auditrName"  placeholder="Enter Auditor Name:">
+										</div>
+									</div>
+								</div>
+								<div class="row">
+									<div class="col-lg-12">
+										<div class="form-group">
+											<label>Any other issue:</label>
+											<input type="text" class="form-control" name="issue"  required  placeholder="Enter any other Issue">
 										</div>
 									</div>
 								</div>

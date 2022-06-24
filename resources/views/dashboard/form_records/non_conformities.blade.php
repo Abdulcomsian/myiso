@@ -183,9 +183,9 @@
         {{-- <div class="procedure_div">
         <div class="requirments_table_div">
             <h4>Total Customers Listed</h4>
-            <div class="kt-portlet__body">
+            <div class="kt-portlet__body table-responsive">
                 <!--begin: Datatable -->
-                <table class="table table-striped- table-bordered table-hover table-checkable table-responsive" id="kt_table_agent">
+                <table class="common_table table table-striped- table-bordered table-hover table-checkable table-responsive" id="kt_table_agent">
                     <thead>
                         <tr>
                             <th>Customer ID</th>
@@ -216,9 +216,9 @@
         <div class="procedure_div m-t-20">
             <div class="requirments_table_div">
                 <h4>Total Non-Conformities Listed</h4>
-                <div class="kt-portlet__body">
+                <div class="kt-portlet__body table-responsive">
                     <!--begin: Datatable -->
-                    <table class="table table-striped- table-bordered table-hover table-checkable table-responsive" id="kt_table_agent">
+                    <table class="common_table table table-striped- table-bordered table-hover table-checkable table-responsive" id="kt_table_agent">
                         <thead>
                             <tr>
                                 <th>NCR ID Number</th>
