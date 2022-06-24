@@ -22,7 +22,7 @@ class SupplierController extends Controller
     public function index(Request $request)
     {
         $userid=Auth::user()->id;
-        $supplier=Supplier::where('user_id',$userid)->get();
+        $supplier=Supplier::where('user_id',$userid)->orderBy('id','DESC')->get();
 
         return view('dashboard.form_records.supplier',compact('supplier'));
     }

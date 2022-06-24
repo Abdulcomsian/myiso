@@ -219,7 +219,7 @@ public function store(Request $request)
     }
     public function requirementcheck($request)
     {
-        $getReq=requirement::where('user_id',$request)->get();
+        $getReq=requirement::where('user_id',$request)->orderBy('id','DESC')->get();
 
 
         return view('admin.adminform_records.requirements_aspect',compact('getReq'));
@@ -228,7 +228,7 @@ public function store(Request $request)
 
     public function ProcessCheck($request)
     {
-        $getprocess=Audit::where('user_id',$request)->get();
+        $getprocess=Audit::where('user_id',$request)->orderBy('id','DESC')->get();
 
 
         return view('admin.adminform_records.process_audit',compact('getprocess'));
@@ -317,7 +317,7 @@ public function store(Request $request)
     }
 
     public function AuditsCheck($request){
-        $auditreport=Qmsaudit::where('user_id',$request)->get();
+        $auditreport=Qmsaudit::where('user_id',$request)->orderBy('id','DESC')->get();
         return view('admin.adminform_records.qms_audit',compact('auditreport'));
 
     }
@@ -330,36 +330,36 @@ public function store(Request $request)
 
         $customers_nonconform = DB::table('tbl_noconformance')->join('tbl_customer','tbl_noconformance.customerID','tbl_customer.idNumber')
         ->select('tbl_noconformance.id as noid','tbl_noconformance.*','tbl_customer.*')
-        ->where('tbl_noconformance.user_id',$request)->get();
+        ->where('tbl_noconformance.user_id',$request)->orderBy('tbl_noconformance.id','DESC')->get();
         return view('admin.adminform_records.non_conformities',compact('noneConform','customers','customers_nonconform'));
 
     }
     public function customerCheck($request){
-        $customer=customers::where('user_id',$request)->get();
+        $customer=customers::where('user_id',$request)->orderBy('id','DESC')->get();
         return view('admin.adminform_records.customer',compact('customer'));
 
     }
 
     public function customerReviewad($request){
         $all_customers=customers::where('user_id',$request)->get();
-        $customer_review=customer_review::where('user_id',$request)->get();
+        $customer_review=customer_review::where('user_id',$request)->orderBy('id','DESC')->get();
 
         return view('admin.adminform_records.customer_review',compact('customer_review','request','all_customers'));
 
     }
     public function supplierCheck($request){
-        $supplier=Supplier::where('user_id',$request)->get();
+        $supplier=Supplier::where('user_id',$request)->orderBy('id','DESC')->get();
         return view('admin.adminform_records.supplier',compact('supplier'));
 
     }
     public function calibrationcheck($request){
-        $caliber=calibration::where('user_id',$request)->get();
+        $caliber=calibration::where('user_id',$request)->orderBy('id','DESC')->get();
         return view('admin.adminform_records.calibration_record',compact('caliber'));
 
     }
     public function EmployeCheck($request){
 
-        $userinfo=Employee::where('user_id',$request)->get();
+        $userinfo=Employee::where('user_id',$request)->orderBy('id','DESC')->get();
        // $employess=Employee::join('tbl_employees_skills','tbl_employees_skills.empid','=','tbl_employees.id')->where('tbl_employees.user_id',$request)->get();
         // dd($employess);
         $employess = DB::table('tbl_employees_skills')
@@ -371,38 +371,39 @@ public function store(Request $request)
             )
             ->join('tbl_employees','tbl_employees_skills.empid','=','tbl_employees.empNumber')
             ->where('tbl_employees_skills.user_id','=',$request)
+            ->orderBy('tbl_employees_skills.created_at','DESC')
             ->get();
 
       //  $emptraining=Employee::join('tbl_employees_traning','tbl_employees_traning.empid','=','tbl_employees.id')->  where('tbl_employees.user_id',$request)->get();
 
-      $emptraining=Employee::join('tbl_employees_traning','tbl_employees_traning.empid','=','tbl_employees.empNumber')->where('tbl_employees.user_id',$request)->get();
+      $emptraining=Employee::join('tbl_employees_traning','tbl_employees_traning.empid','=','tbl_employees.empNumber')->where('tbl_employees.user_id',$request)->orderBy('tbl_employees_traning.created_at','DESC')->get();
         return view('admin.adminform_records.employess',compact('userinfo','employess','emptraining'));
 
     }
     public function managementCheck($request){
 
-        $mgtrev=Mgtreview::where('user_id',$request)->get();
+        $mgtrev=Mgtreview::where('user_id',$request)->orderBy('id','DESC')->get();
         return view('admin.adminform_records.managment_reviews',compact('mgtrev'));
 
     }
     public function maintainRecCheck($request){
 
-        $mainrecord=Maintain_rec::where('user_id',$request)->get();
+        $mainrecord=Maintain_rec::where('user_id',$request)->orderBy('id','DESC')->get();
         return view('admin.adminform_records.maintance_record',compact('mainrecord'));
 
     }
     public function AccidentCheck($request){
 
-        $riskassesment=AccidentRisk::where('user_id',$request)->get();
+        $riskassesment=AccidentRisk::where('user_id',$request)->orderBy('id','DESC')->get();
         return view('admin.adminform_records.accident_risk_assesment',compact('riskassesment'));
 
     }
     public function riskAssesmntCheck($request){
-       $assessment=Assessment::where('user_id',$request)->get();
+       $assessment=Assessment::where('user_id',$request)->orderBy('id','DESC')->get();
         return view('admin.adminform_records.risk_assessment',compact('assessment'));
     }
     public function workinstructionCheck($request){
-        $work=Workinstructions::where('user_id',$request)->get();
+        $work=Workinstructions::where('user_id',$request)->orderBy('id','DESC')->get();
         $employess = Employee::where('user_id',$request)->get();
         // $employess=Workinstructions::join('tbl_employees','tbl_employees.systemid','=','tbl_workinstruction.empId')->where('tbl_employees.user_id',$request)->get();
         return view('admin.adminform_records.work_instruction',compact('work','employess'));
@@ -587,7 +588,7 @@ public function store(Request $request)
 
  $id = intval($request);
 
-        $interested=DB::table('interested_parties')->where('user_id',$id)->get();
+        $interested=DB::table('interested_parties')->where('user_id',$id)->orderBy('id','DESC')->get();
         // dd($interested);
 		//$auditreport=Qmsaudit::where('user_id',$request)->get();
         //return view('admin.adminform_records.interested_parties',compact('auditreport'));
@@ -816,7 +817,7 @@ public function store(Request $request)
      /*work for chemical control*/
     public function chemicalcheck($request)
     {
-        $chemical=Chemical::where('user_id',$request)->get();
+        $chemical=Chemical::where('user_id',$request)->orderBy('id','DESC')->get();
         return view('admin.adminform_records.chemical_record',compact('chemical'));
     }
      public function deleteChemical2(Request $request)
