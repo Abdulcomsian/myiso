@@ -375,7 +375,7 @@
 								<!--begin: Datatable -->
 								<div class="table-responsive">
 								<!--begin: Datatable -->
-								<table style="width: auto;" class="table table-striped- table-bordered table-hover table-checkable" id="kt_table_agent">
+								<table style="width: auto;" class="common_table table table-striped- table-bordered table-hover table-checkable table-responsive" id="kt_table_agent">
 									<thead>
 										<tr>
 											<th style="width:auto;">Audit ID</th>
@@ -797,6 +797,12 @@
 											<input type="text" name="evidance10" class="form-control"  placeholder="Enter Evidence:">
 										</div>
 									</div>
+									<div class="col-lg-12">
+										<div class="form-group">
+											<label>Attach Evidence:</label>
+											<input type="file" name="attach_evidence" class="form-control">
+										</div>
+									</div>
 								</div>
 								<div class="row">
 									<div class="col-lg-12">
@@ -1146,6 +1152,12 @@
 										<div class="form-group">
 											<label>Evidence:</label>
 											<input type="text" disabled name="evidance10" class="form-control" placeholder="Enter Evidence:">
+										</div>
+									</div>
+									<div class="col-lg-12">
+										<div class="form-group">
+											<label>Attach Evidence:</label>
+											<input type="file" name="attach_evidence" class="form-control">
 										</div>
 									</div>
 								</div>

@@ -78,7 +78,7 @@
 		<div class="row">
 			<div class="col-lg-12">
 				<div class="procedure_div">
-					<table class="table table-sm table-striped table-responsive" style="width:100%">
+					<table class="common_table table table-sm table-striped table-responsive" style="width:100%">
                         <tr>
                             <td style="padding-right:200px;width:270px;">Username</td>
                     

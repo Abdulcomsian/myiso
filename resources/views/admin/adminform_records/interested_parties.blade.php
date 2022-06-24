@@ -57,13 +57,13 @@
                     </div>
                     <div class="procedure_div">
                     	<div class="requirments_table_div">
-							<a href="/edit_user/{{ $urlparam['id'] }}" class="btn btn-clean btn-icon-sm mb-2" style="float: right;">
+							<a href="/edit_user/{{ $urlparam['id'] }}" class="btn btn-clean btn-icon-sm mb-2 back_icon" style="float: right;">
 								<i class="la la-long-arrow-left"></i>
 								Back
 							</a>
-                    		<div class="kt-portlet__body">
+                    		<div class="kt-portlet__body table-responsive">
 								<!--begin: Datatable -->
-								<table class="table table-striped- table-bordered table-hover table-checkable" id="kt_table_agent">
+								<table class="common_table table table-striped- table-bordered table-hover table-checkable table-responsive" id="kt_table_agent">
 									<thead>
 										<tr>
 											<th>S-No.</th>

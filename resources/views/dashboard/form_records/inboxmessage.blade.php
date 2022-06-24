@@ -84,7 +84,7 @@
 		<div class="kt-portlet__body">
 
 			<!--begin: Datatable -->
-			<table class="table table-striped- table-bordered table-hover table-checkable table-responsive" id="kt_table_user">
+			<table class="common_table table table-striped- table-bordered table-hover table-checkable table-responsive" id="kt_table_user">
 				<thead>
 					<tr>
 						<th>No.</th>

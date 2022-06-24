@@ -126,11 +126,11 @@
 												</h3>
 											</div>
 										</div>
-										<div class="kt-portlet__body">
+										<div class="kt-portlet__body table-responsive">
 
 											<!--Begin::Timeline 3 -->
 										<!--begin: Datatable -->
-											<table class="table table-striped- table-bordered table-hover table-checkable table-responsive" id="kt_table_agent">
+											<table class="table table-striped- table-bordered table-hover table-checkable" id="kt_table_agent">
 												<thead>
 													<tr>
 														<th>No.</th>
@@ -190,11 +190,11 @@
 												</h3>
 											</div>
 										</div>
-										<div class="kt-portlet__body">
+										<div class="kt-portlet__body table-responsive">
 
 											<!--Begin::Timeline 3 -->
 											<!--begin: Datatable -->
-											<table class="table table-striped- table-bordered table-hover table-checkable table-responsive" id="kt_table_agent">
+											<table class="table table-striped- table-bordered table-hover table-checkable" id="kt_table_agent">
 												<thead>
 													<tr>
 														<th>Equipment ID</th>
@@ -259,11 +259,11 @@
 											<div class="kt-widget17 p-4">
 											
 
-											<div class="row ml-0 mr-0">
+											<div class="row ml-0 mr-0 table-responsive">
 											
 											
 											
-												<table class="table table-striped- table-bordered table-hover table-checkable table-responsive" id="kt_table_agent">
+												<table class="table table-striped- table-bordered table-hover table-checkable" id="kt_table_agent">
 												<thead>
 													<tr>
 														<th>Certificate</th>

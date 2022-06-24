@@ -380,15 +380,15 @@
                     		</form>
                     	</div>
                     	<div class="requirments_table_div">
-							<a href="/edit_user/{{$urlparam['userid'] }}" class="btn btn-clean btn-icon-sm" style="float: right;">
+							<a href="/edit_user/{{$urlparam['userid'] }}" class="btn btn-clean btn-icon-sm back_icon" style="float: right;">
 								<i class="la la-long-arrow-left"></i>
 								Back
 							</a>
 					
 
-                    		<div class="kt-portlet__body">
+                    		<div class="kt-portlet__body table-responsive">
 								<!--begin: Datatable -->
-								<table class="table table-striped- table-bordered table-hover table-checkable" id="kt_table_agent">
+								<table class="common_table table table-striped- table-bordered table-hover table-checkable table-responsive" id="kt_table_agent">
 									<thead>
 										<tr>
 											<th>Audit ID</th>
@@ -792,6 +792,12 @@
 											<input type="text" name="evidance10" class="form-control"  placeholder="Enter Evidence:" >
 										</div>
 									</div>
+									<div class="col-lg-12">
+										<div class="form-group">
+											<label>Attach Evidence:</label>
+											<input type="file" class="form-control" name="evidence_attachment">
+										</div>
+									</div>
 								</div>
 								<div class="row">
 									<div class="col-lg-12">
@@ -1140,6 +1146,12 @@
 										<div class="form-group">
 											<label>Evidence:</label>
 											<input type="text" name="evidance10" class="form-control"  placeholder="Enter Evidence:">
+										</div>
+									</div>
+									<div class="col-lg-12">
+										<div class="form-group">
+											<label>Attach Evidence:</label>
+											<input type="file" class="form-control" name="evidence_attachment">
 										</div>
 									</div>
 								

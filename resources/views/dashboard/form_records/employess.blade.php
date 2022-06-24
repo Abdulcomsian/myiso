@@ -176,7 +176,7 @@
 
                     		<div class="kt-portlet__body table-responsive">
 								<!--begin: Datatable -->
-								<table class="table table-striped- table-bordered table-hover table-checkable" id="kt_table_agent">
+								<table class="common_table table table-striped- table-bordered table-hover table-checkable table-responsive" id="kt_table_agent">
 									<thead>
 										<tr>
 											<th>Employee ID Number</th>
@@ -239,7 +239,7 @@
                     		<h4>Total Employee Skills Listed</h4>
                     		<div class="kt-portlet__body table-responsive">
 								<!--begin: Datatable -->
-								<table class="table table-striped- table-bordered table-hover table-checkable" id="kt_table_agent">
+								<table class="common_table table table-striped- table-bordered table-hover table-checkable table-responsive" id="kt_table_agent">
 									<thead>
 										<tr>
 											<!--<th>Skills ID</th>-->
@@ -287,7 +287,7 @@
                     		<h4>Training Record Summary</h4>
                     		<div class="kt-portlet__body table-responsive">
 								<!--begin: Datatable -->
-								<table class="table table-striped- table-bordered table-hover table-checkable" id="kt_table_agent">
+								<table class="common_table table table-striped- table-bordered table-hover table-checkable table-responsive" id="kt_table_agent">
 									<thead>
 										<tr>
 											<th>Employee ID Number</th>
