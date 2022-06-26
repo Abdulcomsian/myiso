@@ -792,12 +792,6 @@
 											<input type="text" name="evidance10" class="form-control"  placeholder="Enter Evidence:" >
 										</div>
 									</div>
-									<div class="col-lg-12">
-										<div class="form-group">
-											<label>Attach Evidence:</label>
-											<input type="file" class="form-control" name="evidence_attachment">
-										</div>
-									</div>
 								</div>
 								<div class="row">
 									<div class="col-lg-12">
@@ -1148,13 +1142,6 @@
 											<input type="text" name="evidance10" class="form-control"  placeholder="Enter Evidence:">
 										</div>
 									</div>
-									<div class="col-lg-12">
-										<div class="form-group">
-											<label>Attach Evidence:</label>
-											<input type="file" class="form-control" name="evidence_attachment">
-										</div>
-									</div>
-								
 								</div>
 								<div class="row">
 									<div class="col-lg-12">

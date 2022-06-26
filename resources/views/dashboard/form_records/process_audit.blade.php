@@ -797,12 +797,6 @@
 											<input type="text" name="evidance10" class="form-control"  placeholder="Enter Evidence:">
 										</div>
 									</div>
-									<div class="col-lg-12">
-										<div class="form-group">
-											<label>Attach Evidence:</label>
-											<input type="file" name="attach_evidence" class="form-control">
-										</div>
-									</div>
 								</div>
 								<div class="row">
 									<div class="col-lg-12">
@@ -1154,12 +1148,6 @@
 											<input type="text" disabled name="evidance10" class="form-control" placeholder="Enter Evidence:">
 										</div>
 									</div>
-									<div class="col-lg-12">
-										<div class="form-group">
-											<label>Attach Evidence:</label>
-											<input type="file" name="attach_evidence" class="form-control">
-										</div>
-									</div>
 								</div>
 								<div class="row">
 									<div class="col-lg-12">
@@ -1256,7 +1244,8 @@
 		  $("input[name='correction10'][value="+data.correction10+"]").prop('checked',true);
 		  $("input[name='needExpactations'][value="+data.needExpactations+"]").prop('checked',true);
 		  $("input[name='qmsCorects'][value="+data.qmsCorects+"]").prop('checked',true);
-         $("#viewProcessAudit").modal('show');
+
+		   $("#viewProcessAudit").modal('show');
      }
 	 
      function deleteModal(data){
