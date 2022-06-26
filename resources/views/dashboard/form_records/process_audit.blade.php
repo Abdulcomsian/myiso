@@ -29,7 +29,7 @@
                     		</div>
                     	</div>
                     	<div class="process_audit_from_div">
-                    		<form action="{{route('auditform')}}" method="POST" enctype="multipart/form-data">
+                    		<form action="{{route('auditform')}}" method="POST" enctype="multipart/form-data" id="addForm">
                                 @csrf
                     			<div class="row">
 									{{-- <div class="col-lg-6">
@@ -1172,7 +1172,9 @@
 <script>
     function getEid(data){
         console.log(data);
-
+		if($(".process_audit_from_div").is(":visible")){
+			processAuditFormshow();
+		}
          $("#id_feild").val(data.id);
          $("input[name='auditId']").val(data.auditId);
 
@@ -1211,7 +1213,9 @@
      }
 	   function viewaudit(data){
         console.log(data);
-
+		   if($(".process_audit_from_div").is(":visible")){
+			   processAuditFormshow();
+		   }
          $("#id_feild").val(data.id);
          $("input[name='auditId']").val(data.auditId);
 
@@ -1249,6 +1253,9 @@
      }
 	 
      function deleteModal(data){
+		 if($(".process_audit_from_div").is(":visible")){
+			 processAuditFormshow();
+		 }
          $("#re_id").val(data.id);
          $("#deleteRequirment").modal('show');
 
@@ -1262,7 +1269,8 @@
      
 function processAuditFormshow()
     {
-        $(".process_audit_from_div").toggle();
+		document.getElementById('addForm').reset();
+		$(".process_audit_from_div").toggle();
     }
      
      $("#dateFrequency").on('keyup',function(){

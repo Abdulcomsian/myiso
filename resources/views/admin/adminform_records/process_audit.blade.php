@@ -36,7 +36,7 @@
                     		</div>
                     	</div>
                     	<div class="process_audit_from_div">
-                    		<form action="{{route('auditsaveadmin')}}" method="POST" enctype="multipart/form-data">
+                    		<form action="{{route('auditsaveadmin')}}" method="POST" enctype="multipart/form-data" id="addForm">
                                 @csrf
                                 @php 
                                     $urlparam = request()->route()->parameters;
@@ -1171,7 +1171,8 @@
   
     function processAuditFormshow()
     {
-        $(".process_audit_from_div").toggle();
+		document.getElementById('addForm').reset();
+		$(".process_audit_from_div").toggle();
     }
     function myFunction(classname){
        var value=parseInt($("."+classname).val());
@@ -1194,8 +1195,11 @@
     }
     function getEid(data){
         console.log(data);
+		if($(".process_audit_from_div").is(":visible")){
+			processAuditFormshow();
+		}
 
-         $("#id_feild").val(data.id);
+		$("#id_feild").val(data.id);
          $("input[name='auditId']").val(data.auditId);
 
          $("textarea[name='AdutiActions']").val(data.AdutiActions);
@@ -1233,6 +1237,9 @@
      }
 	   function viewaudit(data){
         console.log(data);
+		   if($(".process_audit_from_div").is(":visible")){
+			   processAuditFormshow();
+		   }
 
          $("#id_feild").val(data.id);
          $("input[name='auditId']").val(data.auditId);
@@ -1270,6 +1277,9 @@
      }
 	 
      function deleteModal(data){
+		 if($(".process_audit_from_div").is(":visible")){
+			 processAuditFormshow();
+		 }
          $("#re_id").val(data.id);
          $("#deleteRequirment").modal('show');
 
