@@ -1143,6 +1143,15 @@
 										</div>
 									</div>
 								</div>
+				<div class="row">
+					<div class="col-lg-12">
+						<div class="form-group">
+							<label>Attach Evidence:</label>
+							<div class="evidence_attachemnt_div">
+							</div>
+						</div>
+					</div>
+				</div>
 								<div class="row">
 									<div class="col-lg-12">
 										<div class="form-group">
@@ -1151,6 +1160,7 @@
 										</div>
 									</div>
 								</div>
+
 
 			</div>
 
@@ -1273,6 +1283,11 @@
 		  $("input[name='correction10'][value="+data.correction10+"]").prop('checked',true);
 		  $("input[name='needExpactations'][value="+data.needExpactations+"]").prop('checked',true);
 		  $("input[name='qmsCorects'][value="+data.qmsCorects+"]").prop('checked',true);
+           if(data.attach_evidence){
+               $('.evidence_attachemnt_div').empty().append(`<a target="_blank" href="${data.attach_evidence}">Click to View</a>`);
+           }else{
+               $('.evidence_attachemnt_div').empty().append('No data found');
+           }
          $("#viewProcessAudit").modal('show');
      }
 	 
