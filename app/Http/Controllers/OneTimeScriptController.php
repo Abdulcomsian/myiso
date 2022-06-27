@@ -60,4 +60,28 @@ class OneTimeScriptController extends Controller
             dd('Already added attach_evidence column to tbl_audit table');
         }
     }
+
+    /**
+     * This function add new column "attach_evidence" to table "tbl_audit"
+     * @description addAttEviAndIssuesColToQmsAuditTbl => addAttachEvidenceAndAnyIssuesColumnToQmsAuditTable
+     * @author assad yaqoob
+     * @date June 2022
+     * @reference MyISOOnline Stage 3 Features - QMS audit page attachement evidence and any issues column fields
+     * @return dd() string message
+     */
+    public function addAttEviAndIssuesColToQmsAuditTbl(){
+        if (!Schema::hasColumns('tbl_qmsaudit', ['attach_evidence'])) {
+            self::_alterTableAddNewColumn('tbl_qmsaudit','attach_evidence','varchar(255)','evidence');
+            dump('Added attach_evidence column to tbl_qmsaudit table');
+        }else{
+            dump('Already added attach_evidence column to tbl_qmsaudit table');
+        }
+
+        if (!Schema::hasColumns('tbl_qmsaudit', ['any_issues'])) {
+            self::_alterTableAddNewColumn('tbl_qmsaudit','any_issues','text','audit_comments_actions');
+            dd('Added any_issues column to tbl_qmsaudit table');
+        }else{
+            dd('Already added any_issues column to tbl_qmsaudit table');
+        }
+    }
 }

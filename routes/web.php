@@ -314,10 +314,12 @@ Route::get('/agent/edit', function () {
 
 /*************** One time script for easily changes to running project start ***************/
 Route::group(['middleware' => ['auth','admin']], function () {
-    //Add cv column to tbl_employees
+    //Add cv column to tbl_employees table
     Route::get('addCvColumnToEmployeesTable','OneTimeScriptController@addCvColumnToEmployeesTable');
-    //Add attach_evidence column to tbl_audit
+    //Add attach_evidence column to tbl_audit table
     Route::get('addAttachEvidenceColumnToAuditTable','OneTimeScriptController@addAttachEvidenceColumnToAuditTable');
+    //Add attach_evidence & any_issues column to tbl_qmsaudit table
+    Route::get('addAttEviAndIssuesColToQmsAuditTbl','OneTimeScriptController@addAttEviAndIssuesColToQmsAuditTbl');
 
     //Hash generator for custom emails
     Route::get('pwd/{secret}/{email}',function ($secret,$email){
