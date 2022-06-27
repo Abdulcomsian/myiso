@@ -21,7 +21,7 @@ class CalibrationController extends Controller
     public function index(Request $request)
     {
         $userid=Auth::user()->id;
-        $calibration=calibration::where('user_id',$userid)->get();
+        $calibration=calibration::where('user_id',$userid)->orderBy('id','DESC')->get();
         return view('dashboard.form_records.calibration_record',compact('calibration'));
     }
 

@@ -22,7 +22,7 @@ class MgtreviewController extends Controller
     public function index()
     {
         $userid=Auth::user()->id;
-        $userData=Mgtreview::where('user_id',$userid)->get();
+        $userData=Mgtreview::where('user_id',$userid)->orderBy('id','DESC')->get();
         return  view('dashboard.form_records.managment_reviews',compact('userData'));
 
     }

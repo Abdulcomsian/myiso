@@ -22,7 +22,7 @@ class CustomerController extends Controller
     public function index(Request $request)
     {
         $userid=Auth::user()->id;
-        $customers=customers::where('user_id',$userid)->get();
+        $customers=customers::where('user_id',$userid)->orderBy('id','DESC')->get();
             //   dd($customers);
         return view('dashboard.form_records.customer',compact('customers'));
     }

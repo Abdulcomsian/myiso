@@ -27,7 +27,7 @@ class EmployeeController extends Controller
     public function index(Request $request)
     {
         $userid=Auth::user()->id;
-        $userinfo=Employee::where('user_id',$userid)->get();
+        $userinfo=Employee::where('user_id',$userid)->orderBy('id','DESC')->get();
         // $employess=Employee::join('tbl_employees_skills','tbl_employees_skills.empid','=','tbl_employees.id')->where('tbl_employees.user_id',$userid)->get();
         // $e = EmpSkills::with('employee')->get();
         $employess = DB::table('tbl_employees_skills')
@@ -39,9 +39,10 @@ class EmployeeController extends Controller
             )
             ->join('tbl_employees','tbl_employees_skills.empid','=','tbl_employees.id')
             ->where('tbl_employees_skills.user_id','=',$userid)
+            ->orderBy('tbl_employees_skills.created_at','DESC')
             ->get();
         $emptraining=Employee::join('tbl_employees_traning','tbl_employees_traning.empid','=','tbl_employees.id')
-            ->where('tbl_employees.user_id',$userid)->get();
+            ->where('tbl_employees.user_id',$userid)->orderBy('tbl_employees_traning.created_at','DESC')->get();
 
         return view('dashboard.form_records.employess',compact('userinfo','employess','emptraining'));
 
