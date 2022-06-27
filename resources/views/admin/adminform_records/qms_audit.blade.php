@@ -31,7 +31,7 @@
                     	</div>
                     	<div class="qms_audit_from_div">
                     	
-                    	<form action="{{route('qmsaudit')}}" method="POST">
+                    	<form action="{{route('qmsaudit')}}" method="POST" enctype="multipart/form-data">
                                 @csrf
                                                                        @csrf
                                             @php 
@@ -869,7 +869,7 @@
 									<div class="col-lg-12">
 										<div class="form-group">
 											<label>Attach Evidence:</label>
-											<input type="file" name="attach_evidence" class="form-control">
+											<input name="attach_evidence" type="file" class="form-control" accept="image/*,.doc, .docx,.txt,.pdf">
 										</div>
 									</div>
 							</div> 
@@ -1837,7 +1837,9 @@
 									<div class="col-lg-12">
 										<div class="form-group">
 											<label>Attach Evidence:</label>
-											<input type="file" class="form-control" name="evidence_attachment">
+											<div class="evidence_attachemnt_div">
+
+											</div>
 										</div>
 									</div>
 							</div> 
@@ -1867,7 +1869,7 @@
 									<div class="col-lg-12">
 										<div class="form-group">
 											<label>Any other issue:</label>
-											<input type="text" class="form-control" name="issue"  required  placeholder="Enter any other Issue">
+											<input type="text" class="form-control" name="any_issues"  required  placeholder="Enter any other Issue">
 										</div>
 									</div>
 								</div>
@@ -1889,7 +1891,7 @@
 				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
 				</button>
 			</div>
-			  <form action="{{route('update_qmsaudit')}}" method="post">
+			  <form action="{{route('update_qmsaudit')}}" method="post" enctype="multipart/form-data">
                     @csrf
             @php 
             $urlparam = request()->route()->parameters;
@@ -2716,7 +2718,7 @@
 									<div class="col-lg-12">
 										<div class="form-group">
 											<label>Attach Evidence :</label>
-											<input type="file" class="form-control" name="evidence_attacment">
+											<input name="attach_evidence" type="file" class="form-control" accept="image/*,.doc, .docx,.txt,.pdf">
 										</div>
 									</div>
 							</div> 
@@ -2746,7 +2748,7 @@
 									<div class="col-lg-12">
 										<div class="form-group">
 											<label>Any other issue:</label>
-											<input type="text" class="form-control" name="issue"  required  placeholder="Enter any other Issue">
+											<input type="text" class="form-control" name="any_issues"  required  placeholder="Enter any other Issue">
 										</div>
 									</div>
 								</div>
@@ -2824,7 +2826,12 @@
          $("input[name='evidance7_1']").val(data.evidance7_1);
          $("input[name='evidence28_1']").val(data.evidence28_1);
          $("input[name='audit_comments_actions']").val(data.audit_comments_actions);
-         
+         $("input[name='any_issues']").val(data.any_issues);
+		if(data.attach_evidence){
+			$('.evidence_attachemnt_div').empty().append(`<a target="_blank" href="${data.attach_evidence}">Click to View</a>`);
+		}else{
+			$('.evidence_attachemnt_div').empty().append('No data found');
+		}
          $("input[name='qmsCorects'][value="+data.qmsCorects+"]").prop('checked',true);
          $("input[name='needExpactations'][value="+data.needExpactations+"]").prop('checked',true);
          $("input[name='correction3'][value="+data.correction3+"]").prop('checked',true);
@@ -2920,7 +2927,9 @@
          $("input[name='evidance7_1']").val(data.evidance7_1);
          $("input[name='evidence28_1']").val(data.evidence28_1);
           $("input[name='audit_comments_actions']").val(data.audit_comments_actions);
-         $("input[name='qmsCorects'][value="+data.qmsCorects+"]").prop('checked',true);
+		 $("input[name='any_issues']").val(data.any_issues);
+
+		 $("input[name='qmsCorects'][value="+data.qmsCorects+"]").prop('checked',true);
          $("input[name='needExpactations'][value="+data.needExpactations+"]").prop('checked',true);
          $("input[name='correction3'][value="+data.correction3+"]").prop('checked',true);
          $("input[name='correction5'][value="+data.correction5+"]").prop('checked',true);
