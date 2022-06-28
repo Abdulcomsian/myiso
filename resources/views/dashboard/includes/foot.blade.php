@@ -180,6 +180,7 @@
 				}
 			}
 			function processAuditForm(){
+				$(".addForm")[0].reset();
 				if($(".process_audit_from_div").css("display")==="block"){
 					$(".process_audit_from_div").css("display","none");
 				}
