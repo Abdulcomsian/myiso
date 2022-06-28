@@ -1822,7 +1822,7 @@
 									<div class="col-lg-12">
 										<div class="form-group">
 											<label>Evidence:</label>
-											<input type="text" class="form-control" name="evidence29" placeholder="Enter Evidence:">
+											<input type="text" class="form-control" name="evidence31" placeholder="Enter Evidence:">
 										</div>
 									</div>
 									<div class="col-lg-12">
@@ -1837,7 +1837,7 @@
 									<div class="col-lg-12">
 										<div class="form-group">
 											<label>Audit Comments and Actions:</label>
-											<input type="text" class="form-control" name="evidence31"  placeholder="Enter Comment:">
+											<input type="text" class="form-control" name="audit_comments_actions"  placeholder="Enter Comment:">
 										</div>
 									</div>
 									<div class="col-lg-12">
@@ -1887,7 +1887,7 @@
 
                  <input type="hidden" value="" id="test_a" name="id" />
                     <!--                 <div class="row">-->
-				Any other issue:  <!--    <div class="col-lg-12">-->
+{{--				Any other issue:  <!--    <div class="col-lg-12">-->--}}
                     <!--        <div class="form-group">-->
                     <!--            <label>QMS Audit ID Number:</label>-->
                     <!--            <input type="number" name="QmsauditNumber" class="form-control"  placeholder="Enter QMS Audit ID:" readonly>-->
@@ -2695,7 +2695,7 @@
 									<div class="col-lg-12">
 										<div class="form-group">
 											<label>Evidence:</label>
-											<input type="text" class="form-control" name="evidence29" placeholder="Enter Evidence:">
+											<input type="text" class="form-control" name="evidence31" placeholder="Enter Evidence:">
 										</div>
 									</div>
 									<div class="col-lg-12">
@@ -2709,7 +2709,7 @@
 									<div class="col-lg-12">
 										<div class="form-group">
 											<label>Audit Comments and Actions:</label>
-											<input type="text" class="form-control" name="evidence31"  placeholder="Enter Comment:">
+											<input type="text" class="form-control" name="audit_comments_actions"  placeholder="Enter Comment:">
 										</div>
 									</div>
 									<div class="col-lg-12">
@@ -2804,6 +2804,7 @@
          $("input[name='evidence31']").val(data.evidence31);
          $("input[name='evidence30']").val(data.evidence30);
          $("input[name='any_issues']").val(data.any_issues);
+         $("input[name='audit_comments_actions']").val(data.audit_comments_actions);
 		if(data.attach_evidence){
 			$('.evidence_attachemnt_div').empty().append(`<a target="_blank" href="${data.attach_evidence}">Click to View</a>`);
 		}else{
@@ -2902,8 +2903,9 @@
          $("input[name='evidence31']").val(data.evidence31);
          $("input[name='evidence30']").val(data.evidence30);
 		 $("input[name='any_issues']").val(data.any_issues);
+		 $("input[name='audit_comments_actions']").val(data.audit_comments_actions);
 
-         $("input[name='qmsCorects'][value="+data.qmsCorects+"]").prop('checked',true);
+		 $("input[name='qmsCorects'][value="+data.qmsCorects+"]").prop('checked',true);
          $("input[name='needExpactations'][value="+data.needExpactations+"]").prop('checked',true);
          $("input[name='correction3'][value="+data.correction3+"]").prop('checked',true);
          $("input[name='correction5'][value="+data.correction5+"]").prop('checked',true);
