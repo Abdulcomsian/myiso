@@ -31,7 +31,7 @@
                     	</div>
                     	<div class="qms_audit_from_div">
                     	
-                    	<form action="{{route('qmsaudit')}}" method="POST" enctype="multipart/form-data">
+                    	<form action="{{route('qmsaudit')}}" method="POST" enctype="multipart/form-data" class="addForm">
                                 @csrf
                                            
           <!--          			<div class="row">-->
@@ -2749,7 +2749,10 @@
 
 <script>
     function getEid(data){
-             console.log(data);
+		if($(".qms_audit_from_div").is(":visible")){
+			qmsAudit();
+		}
+		console.log(data);
          $("#id_feild").val(data.id);
          
          $("input[name='QmsauditNumber']").val(data.QmsauditNumber);
@@ -2847,7 +2850,10 @@
      }
 
 	 function geteditdetails(data){
-             console.log(data);
+		 if($(".qms_audit_from_div").is(":visible")){
+			 qmsAudit();
+		 }
+		 console.log(data);
          $("#test_a").val(data.id);
           $("input[name='id']").val(data.id);
           
@@ -2944,7 +2950,11 @@
      }
 
      function deleteqmsAudit(data){
-         $("#re_id").val(data.id);
+		 if($(".qms_audit_from_div").is(":visible")){
+			 qmsAudit();
+		 }
+
+		 $("#re_id").val(data.id);
          $("#deleteRequirment").modal('show');
 
      }

@@ -172,6 +172,9 @@
 			})
 		</script>
 		<script type="text/javascript">
+			function resetForm() {
+				$('.addForm')[0].reset();
+			}
 			function requirementFrom(){
 				if($(".requirments_from_div").css("display")==="block"){
 					$(".requirments_from_div").css("display","none");
@@ -181,6 +184,7 @@
 				}
 			}
 			function processAuditForm(){
+				resetForm();
 				if($(".process_audit_from_div").css("display")==="block"){
 					$(".process_audit_from_div").css("display","none");
 				}
@@ -189,6 +193,7 @@
 				}
 			}
 			function qmsAudit(){
+				resetForm();
 				if($(".qms_audit_from_div").css("display")==="block"){
 					$(".qms_audit_from_div").css("display","none");
 				}
