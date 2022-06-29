@@ -1,5 +1,11 @@
 @extends('admin.dashboard.layouts.app')
-
+@section('styles')
+	<style>
+		.select2-search__field{
+			padding-left: 10px !important;
+		}
+	</style>
+@endsection
 @section('content')
 <style>tr.New>td {    color: #000 !important;    font-weight: 800;    cursor: pointer;}tr.New>button {    color: #FFF !important;    font-weight: 800;    cursor: pointer;}</style>
 <!-- begin:: Content -->
@@ -110,7 +116,7 @@
     					<div class="col-lg-12">
     						<label for="address1">Send to:</label>
     						<div class="kt-input-icon kt-input-icon--right">
-    							<select name="userid[]" id="user" class="form-control" multiple>
+    							<select name="userid[]" id="user" class="form-control select2" multiple>
     								@foreach ($users as $item)
     							        <option value="{{$item->id}}">{{$item->name}} </option>
     								@endforeach
@@ -141,6 +147,11 @@
     </form>
 		</div>
 	</div>
-
-
+@endsection
+@section('myscript')
+	<script>
+		$('.select2').select2({
+			placeholder: "Select users",
+		});
+	</script>
 @endsection

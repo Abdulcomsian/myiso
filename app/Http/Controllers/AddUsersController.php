@@ -294,29 +294,29 @@ public function store(Request $request)
          $addreq->save();
         return redirect()->back();
     }
+
     public function sendNotifications(Request $request){
-         $sendNotification= new SendNotifications();
+        $users = $request->userid;
+        $data = [];
+
         if ($request->file('attachment')) {
             $imagePath = $request->file('attachment');
             $imageName = uniqid() . "." . $request->file('attachment')->extension();
-
             $path = $request->file('attachment')->storeAs('uploads/user', $imageName, 'public');
-
             $request->file('attachment')->move(public_path('uploads/user'), $imageName);
-            //  echo $path;exit;
-            $sendNotification->attachement = $path;
+            $data['attachement'] = $path;
         }
-        // print_r($request->all());exit;
 
+        $data['title']=$request->input('title');
+        $data['message']=$request->input('message');
+        $data['created_at'] = date('Y-m-d H:i:s');
 
-        $sendNotification->title=$request->input('title');
-        $sendNotification->message=$request->input('message');
-        $sendNotification->send_to=$request->input('userid');
-        $sendNotification->created_at=date('Y-m-d H:i:s');
-        $sendNotification->save();
+        foreach ($users as $user){
+            $data['send_to'] = $user;
+            SendNotifications::create($data);
+        }
 
         return redirect()->back();
-
     }
 
     public function AuditsCheck($request){
