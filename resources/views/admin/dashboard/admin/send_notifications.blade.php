@@ -1,5 +1,9 @@
 @extends('admin.dashboard.layouts.app')
-
+<style>
+	.select2-container{
+		width: 766px !important;
+	}
+</style>
 @section('content')
 
 <!-- begin:: Content -->
@@ -216,7 +220,7 @@
 							<div class="col-lg-12">
 								<label for="address1">Send to:</label>
 								<div class="kt-input-icon kt-input-icon--right">
-									<select name="userid[]" id="user" class="form-control" multiple>
+									<select name="userid[]" id="user" class="form-control select2" multiple>
 										@foreach ($users as $item)
 									        <option value="{{$item->id}}">{{$item->name}} </option>
 										@endforeach
@@ -250,4 +254,11 @@
 </div>
 
 
+@endsection
+@section('myscript')
+	<script>
+		$('.select2').select2({
+			placeholder: "Select users",
+		});
+	</script>
 @endsection
