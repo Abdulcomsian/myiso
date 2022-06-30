@@ -38,6 +38,7 @@ Route::get('/logout', function () { Auth::logout();
 
 Auth::routes();
 
+
 /*************** All user urls and routes start ***************/
 Route::group(['middleware' => ['auth','usermiddle']], function () {
     Route::get('/home', 'HomeController@index')->name('home');

@@ -3,6 +3,10 @@
 
 		<!-- begin::Global Config(global config for global JS sciprts) -->
 		<script>
+			// alert("sdfds");
+			// $('.kt-aside__brand-aside-toggler').click()
+			document.querySelector('.kt-aside__brand-aside-toggler').click()
+			document.querySelector('.kt-aside__brand-aside-toggler').classList.add('kt-aside__brand-aside-toggler--active')
 			var KTAppOptions = {
 				"colors": {
 					"state": {

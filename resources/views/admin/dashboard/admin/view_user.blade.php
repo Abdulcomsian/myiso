@@ -207,6 +207,7 @@
 
                             <th>Address</th>--->
                             <th>Logo</th>
+                            <th>Activation Date</th>
                             <th>Last Login</th>
 
                             <!--<th>Expiry date</th>-->
@@ -242,6 +243,8 @@
                                 <td><?php
                                 if(isset($item->profile_image)){
                                 $logo = "<img src='https://myisoonline.com/public/" . $item->profile_image . "' width='60px'>"; } echo ($item->profile_image != "") ? $logo : ""  ?></td>
+
+                                <td>test</td>
 
                                 <td>
                                 @php if($item->last_login!=NULL){ @endphp

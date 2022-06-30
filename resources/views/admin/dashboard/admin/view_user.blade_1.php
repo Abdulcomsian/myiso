@@ -52,7 +52,7 @@
 
                 <h3 class="kt-portlet__head-title">
 
-                    Users Listing
+                    Users Listin
 
                 </h3>
 

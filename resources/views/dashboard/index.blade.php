@@ -246,11 +246,11 @@
 											
 											
 											@endphp
-									<div class="kt-portlet kt-portlet--height-fluid">
+									<div class="kt-portlet kt-portlet--height-fluid sd">
 										<div class="kt-portlet__head">
 											<div class="kt-portlet__head-label">
 												<h3 class="kt-portlet__head-title">
-													ISO Certificates
+													ISO Certificates hehehe
 												</h3>
 											</div>
 										</div>
@@ -316,6 +316,30 @@
 												<div class="col-md-3 mt-2 mb-2">
 
 												</div>
+											
+											</div>	
+											</div>				
+											
+									</div>
+									</div>
+									<div class="kt-portlet kt-portlet--height-fluid sd">
+										<div class="kt-portlet__head">
+											<div class="kt-portlet__head-label">
+												<h3 class="kt-portlet__head-title">
+												Audit Report
+												</h3>
+											</div>
+										</div>
+									<div class="kt-portlet__body kt-portlet__body--fit">
+
+											<div class="kt-widget17 p-4">
+											
+
+											<div class="row ml-0 mr-0 table-responsive">
+											
+											<a href="#" class="text-dark ml-2">Click to view Audit report</a>
+											
+										
 											
 											</div>	
 											</div>				
@@ -424,4 +448,14 @@
 }
 .kt-widget17 .kt-widget17__stats .kt-widget17__items .kt-widget17__item .kt-widget17__subtitle {
     color: #ffffff !important;
-}</style>
+}
+
+		@media(max-width: 550px) {
+
+			.table thead th,
+			.table thead td {
+				min-width: 180px;
+			}
+		}
+
+</style>
