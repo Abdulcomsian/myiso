@@ -140,6 +140,7 @@
 		<!--begin::Global App Bundle(used by all pages) -->
 		<script src="{{ asset('/assets/app/bundle/app.bundle.js') }}" type="text/javascript"></script>
 		<!--end::Global App Bundle -->
+		<script src="//cdn.datatables.net/1.11.1/js/jquery.dataTables.min.js"></script>
 
 
 
