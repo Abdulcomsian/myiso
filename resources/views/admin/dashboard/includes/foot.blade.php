@@ -3,7 +3,6 @@
 
 		<!-- begin::Global Config(global config for global JS sciprts) -->
 		<script>
-			alert();	
 			var KTAppOptions = {
 				"colors": {
 					"state": {
