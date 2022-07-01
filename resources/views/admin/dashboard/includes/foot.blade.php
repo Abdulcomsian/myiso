@@ -3,6 +3,7 @@
 
 		<!-- begin::Global Config(global config for global JS sciprts) -->
 		<script>
+			alert();	
 			var KTAppOptions = {
 				"colors": {
 					"state": {
@@ -22,6 +23,8 @@
 				}
 			};
 		</script>
+
+		
 
 		<!-- end::Global Config -->
 
@@ -145,6 +148,7 @@
 
 
 		<script type="text/javascript">
+			
 			jQuery('.addPlane').click(function(){
 				var table = document.getElementById("kt_customer_plane_body");
 				var row = table.insertRow(0);
