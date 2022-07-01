@@ -1,0 +1,1 @@
+<?php /**PATH C:\wamp64\www\expertgateway\resources\views/layout/partials/register_footer.blade.php ENDPATH**/ ?>
