@@ -244,7 +244,13 @@
                                 if(isset($item->profile_image)){
                                 $logo = "<img src='https://myisoonline.com/public/" . $item->profile_image . "' width='60px'>"; } echo ($item->profile_image != "") ? $logo : ""  ?></td>
 
-                                <td>test</td>
+                                <td>
+                                    @if($item->email_verified_at !=NULL)
+                                     {{ date('d-m-y H:i:sA', strtotime($item->last_login)) }}
+                                    @else
+                                        Not verified
+                                    @endif
+                                </td>
 
                                 <td>
                                 @php if($item->last_login!=NULL){ @endphp
