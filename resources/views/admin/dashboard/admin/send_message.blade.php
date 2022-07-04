@@ -154,6 +154,7 @@
 	</div>
 @endsection
 @section('myscript')
+<script type="text/javascript" src="{{asset('assets/jQuery-Multiple-Select/js/bootstrap-multiselect.js')}}"></script>
 	<script>
 		$('.select2').select2({
 			placeholder: "Select users",

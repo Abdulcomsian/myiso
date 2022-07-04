@@ -31,6 +31,9 @@ label[for="TermConditions"]{
 	margin-left: 6px;
 	font-size:15px;
 }
+#kt_login_forgot{
+	color: #a7abc3;
+}
 </style>
 	@include('auth.includes.head')
 
@@ -71,14 +74,14 @@ label[for="TermConditions"]{
 										<div class="form-check">
 										<input class="form-check-input" type="checkbox" value="" id="TermConditions">
 										<label class="form-check-label" for="TermConditions">
-										I agree to the terms and conditions.
+											I agree to the terms and conditions.
 										</label>
 										</div>
 										<!-- checkbox -->
 										</div>
-										<!-- <div class="col kt-align-right">
+										<div class="col kt-align-right">
 											<a href="javascript:;" id="kt_login_forgot" class="kt-login__link">Forgot Password?</a>
-										</div> -->
+										</div>
 										
 										
 
