@@ -24,6 +24,13 @@ License: You must have a valid license purchased only from themeforest(the above
 button['disabled']{
 	cursor: disable;
 }
+#TermConditions{
+	transform: scale(1.2);
+}
+label[for="TermConditions"]{
+	margin-left: 6px;
+	font-size:15px;
+}
 </style>
 	@include('auth.includes.head')
 
