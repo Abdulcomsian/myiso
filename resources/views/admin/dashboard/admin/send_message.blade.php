@@ -4,6 +4,23 @@
 		.select2-search__field{
 			padding-left: 10px !important;
 		}
+		.multiselect-native-select .btn-group{
+			width: 100%;
+		}
+		/* .multiselect-native-select .btn-group button{
+			text-a
+		} */
+		.ms-options ul{
+			padding: 8px;
+			list-style-type: none;
+		}
+		.ms-options ul label{
+			text-align: left !important;
+			line-height: 12px;
+		}
+		.ms-options-wrap button{
+			border: 1px solid #0d47b3;
+		}
 	</style>
 @endsection
 @section('content')
@@ -116,15 +133,31 @@
     					<div class="col-lg-12">
     						<label for="address1">Send to:</label>
     						<div class="kt-input-icon kt-input-icon--right">
-    							<select name="userid[]" id="user" class="form-control select2" multiple>
+    							<!-- <select name="userid[]" id="user" class="form-control select2" multiple>
     								@foreach ($users as $item)
     							        <option value="{{$item->id}}">{{$item->name}} </option>
     								@endforeach
     
-    							</select>
-								<div class="d-flex mt-2 align-items-center">
+    							</select> -->
+								<!-- <select id="demo" multiple="multiple" class="w-100">
+								<option value="Javascript">Javascript</option>
+								<option value="Python">Python</option>
+								<option value="LISP">LISP</option>
+								<option value="C++">C++</option>
+								<option value="jQuery">jQuery</option>
+								<option value="Ruby">Ruby</option>
+								</select> -->
+								<select name="langOpt3[]" multiple id="langOpt3">
+								<option value="Javascript">Javascript</option>
+								<option value="Python">Python</option>
+								<option value="LISP">LISP</option>
+								<option value="C++">C++</option>
+								<option value="jQuery">jQuery</option>
+								<option value="Ruby">Ruby</option>
+                                </select>
+								<!-- <div class="d-flex mt-2 align-items-center">
 									<input type="checkbox" id="checkbox" > Select All
-								</div>
+								</div> -->
 
 								<!-- <input type="button" id="button" value="check Selected"> -->
     						</div>
@@ -154,23 +187,41 @@
 	</div>
 @endsection
 @section('myscript')
-<script type="text/javascript" src="{{asset('assets/jQuery-Multiple-Select/js/bootstrap-multiselect.js')}}"></script>
+<!-- <script type="text/javascript" src="{{asset('assets/jQuery-Multiple-Select/dist/js/bootstrap-multiselect.js')}}"></script> -->
+	 <script src="http://demos.codexworld.com/multi-select-dropdown-list-with-checkbox-jquery/jquery.multiselect.js"></script>
+
 	<script>
-		$('.select2').select2({
-			placeholder: "Select users",
-		});
-		// $(".select2").select2();
-		$("#checkbox").click(function(){
-			if($("#checkbox").is(':checked') ){
-				$("#user > option").prop("selected","selected");
-				$("#user").trigger("change");
-			}else{
-				$("#user > option").removeAttr("selected");
-				$("#user").trigger("change");
-				// document.querySelector('.select2-selection__rendered').innerHTML = "";
-				// document.getElementById("select2-selection__rendered").innerHTML =  "";
-				$('.select2-selection__rendered').html('')
-			}
+		// $('.select2').select2({
+		// 	placeholder: "Select users",
+		// });
+		// // $(".select2").select2();
+		// $("#checkbox").click(function(){
+		// 	if($("#checkbox").is(':checked') ){
+		// 		$("#user > option").prop("selected","selected");
+		// 		$("#user").trigger("change");
+		// 	}else{
+		// 		$("#user > option").removeAttr("selected");
+		// 		$("#user").trigger("change");
+		// 		// document.querySelector('.select2-selection__rendered').innerHTML = "";
+		// 		// document.getElementById("select2-selection__rendered").innerHTML =  "";
+		// 		$('.select2-selection__rendered').html('')
+		// 	}
+		// });
+
+		// $(function(){
+		// 	$('#demo').multiselect({
+		// 		// includes Select All Option
+		// 			includeSelectAllOption:false,
+		// 			selectedClass:'active',
+
+		// 	});
+		// });
+
+		$('#langOpt3').multiselect({
+			columns: 1,
+			placeholder: 'Select Languages',
+			search: true,
+			selectAll: true
 		});
 
 	</script>
