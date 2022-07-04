@@ -84,7 +84,7 @@ License: You must have a valid license purchased only from themeforest(the above
 
 		<!--begin::Global Theme Styles(used by all pages) -->
 		<link href="{{ asset('/assets/demo/default/base/style.bundle.css') }}" rel="stylesheet" type="text/css" />
-
+		<link href="{{ asset('/assets/jQuery-Multiple-Select/dist/css/bootstrap-multiselect.min.css') }}" rel="stylesheet" type="text/css" />
 		<!--end::Global Theme Styles -->
 
 		<!--begin::Layout Skins(used by all pages) -->
