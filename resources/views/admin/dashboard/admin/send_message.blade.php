@@ -122,6 +122,11 @@
     								@endforeach
     
     							</select>
+								<div class="d-flex mt-2 align-items-center">
+									<input type="checkbox" id="checkbox" > Select All
+								</div>
+
+								<!-- <input type="button" id="button" value="check Selected"> -->
     						</div>
     					</div>
     					<div class="col-lg-2">
@@ -153,5 +158,19 @@
 		$('.select2').select2({
 			placeholder: "Select users",
 		});
+		// $(".select2").select2();
+		$("#checkbox").click(function(){
+			if($("#checkbox").is(':checked') ){
+				$("#user > option").prop("selected","selected");
+				$("#user").trigger("change");
+			}else{
+				$("#user > option").removeAttr("selected");
+				$("#user").trigger("change");
+				// document.querySelector('.select2-selection__rendered').innerHTML = "";
+				// document.getElementById("select2-selection__rendered").innerHTML =  "";
+				$('.select2-selection__rendered').html('')
+			}
+		});
+
 	</script>
 @endsection
