@@ -21,6 +21,9 @@ License: You must have a valid license purchased only from themeforest(the above
 .kt-checkbox > span:after {
     border: 1px solid black;
 }
+button['disabled']{
+	cursor: disable;
+}
 </style>
 	@include('auth.includes.head')
 
@@ -51,20 +54,31 @@ License: You must have a valid license purchased only from themeforest(the above
 									<div class="input-group">
 										<input class="form-control" type="password" placeholder="Password" name="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="current-password">
 									</div>
-									<div class="row kt-login__extra">
-										<div class="col">
+									<div class="row kt-login__extra pl-0 ml-0 mt-3">
+										<div class="col p-0">
 											<!--<label class="kt-checkbox">-->
 											<!--	<input type="checkbox" name="remember" id="remember" {{ old('remember') ? 'checked' : '' }}> Remember me-->
 											<!--	<span style="border: 1px solid #000;"></span>-->
 											<!--</label>-->
+											<!-- checkbox -->
+										<div class="form-check">
+										<input class="form-check-input" type="checkbox" value="" id="TermConditions">
+										<label class="form-check-label" for="TermConditions">
+										I agree to the terms and conditions.
+										</label>
 										</div>
-										<div class="col kt-align-right">
+										<!-- checkbox -->
+										</div>
+										<!-- <div class="col kt-align-right">
 											<a href="javascript:;" id="kt_login_forgot" class="kt-login__link">Forgot Password?</a>
-										</div>
+										</div> -->
+										
+										
+
 									</div>
 									<div class="kt-login__actions">
 										{{-- id="kt_login_signin_submit"  --}}
-										<button type="submit" class="btn btn-brand btn-pill kt-login__btn-primary">Sign In</button>
+										<button type="submit" class="btn btn-brand btn-pill kt-login__btn-primary" id="SignIN" disabled>Sign In</button>
 									</div>
 								</form>
 							</div>
@@ -138,6 +152,16 @@ License: You must have a valid license purchased only from themeforest(the above
 		
 	</body>
 
+	<script>
+	  document.querySelector('#TermConditions').addEventListener('change', function(e) {
+		if(document.querySelector('#TermConditions').checked){
+			// remove disabled attributes
+			document.querySelector('#SignIN').removeAttribute('disabled');
+		}else{
+			document.querySelector('#SignIN').setAttribute('disabled', '');
+		}
+	  })
+	</script>
 	<!-- end::Body -->
 
 
