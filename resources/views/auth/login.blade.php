@@ -71,7 +71,7 @@ label[for="TermConditions"]{
 											<!--	<span style="border: 1px solid #000;"></span>-->
 											<!--</label>-->
 											<!-- checkbox -->
-										<div class="form-check">
+										<div class="form-check ml-2">
 										<input class="form-check-input" type="checkbox" value="" id="TermConditions">
 										<label class="form-check-label" for="TermConditions">
 											I agree to the terms and conditions.
