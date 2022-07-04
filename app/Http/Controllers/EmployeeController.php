@@ -100,10 +100,8 @@ class EmployeeController extends Controller
     //update employee skills
     public function updateempSkills(Request $request)
     {
-//       dd($request->all());
        EmpSkills::where('skill_id',$request->employskillid)->update([
              'empskill'=>$request->editempskill,
-//             'empid'=>$request->editempid,
            ]);
        return back();
     }
@@ -243,6 +241,8 @@ class EmployeeController extends Controller
             if (File::exists(public_path($employee->cv))) {
                 File::delete(public_path($employee->cv));
             }
+            EmpSkills::where('empid',$request->id)->delete();
+            EmployeeTraning::where('empid',$request->id)->delete();
             $employee->delete();
         }
         if($type=="employeeskill")

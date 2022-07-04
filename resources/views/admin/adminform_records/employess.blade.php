@@ -107,9 +107,9 @@
 											<select name="empid" required class="form-control">
 											   <option  value="" selected="selected" disabled="disabled">Select One</option>
 											    @if(isset($userinfo) && $userinfo!= "")
-											    @foreach($userinfo as $item)
-											    <option value="{{$item->empNumber}}" title="{{ $item->first_name }}">{{$item->empNumber.' ('.$item->first_name.')'}}</option>
-											    @endforeach
+													@foreach($userinfo as $item)
+														<option value="{{$item->id}}" title="{{ $item->first_name }}">{{$item->empNumber.' ('.$item->first_name.')'}}</option>
+													@endforeach
 											    @endif
 											</select>
 										</div>
@@ -147,9 +147,9 @@
 											<select name="empid" required class="form-control">
 											   <option  value="" selected="selected" disabled="disabled">Select One</option>
 											    @if(isset($userinfo) && $userinfo!= "")
-											    @foreach($userinfo as $item)
-											    <option value="{{$item->empNumber}}" title="{{ $item->first_name }}">{{$item->empNumber.' ('.$item->first_name.')'}}</option>
-											    @endforeach
+													@foreach($userinfo as $item)
+														<option value="{{$item->id}}" title="{{ $item->first_name }}">{{$item->empNumber.' ('.$item->first_name.')'}}</option>
+													@endforeach
 											    @endif
 											</select>
 										</div>
@@ -307,7 +307,7 @@
                                     <tbody>
                                         @foreach ($emptraining as $item)
                                         <tr>
-                                            <td> {{$item->empid}}</td>
+                                            <td> {{$item->empNumber}}</td>
 											<td> {{$item->surname}}</td>
                                             <td> {{$item->first_name}}</td>
 											<td>  {{date('d-M-Y', strtotime($item->startDate))}}</td>
@@ -349,7 +349,7 @@
 				<p>Are you sure you want to delete this entry?</p>
 			</div>
 			<div class="modal-footer">
-			<form action="{{route('deleteEmployeeskill')}}" method="POST">
+			<form action="{{route('deleteEmployeeadmin')}}" method="POST">
 				@csrf
 					<input type="hidden" name="type" value="" id="type2"/>
 					<input type="hidden" name="id" id="re_id2" value="">
@@ -486,7 +486,7 @@
     				<div class="col-lg-6">
     					<div class="form-group">
 							<label>Employee ID Number:</label><br>
-							<input name="editempid" type="number"  readonly  class="form-control">
+							<input readonly name="editempid" type="number" class="form-control">
 							<input type="hidden" name="employskillid" value=""/>
 						</div>
     				</div>
@@ -614,7 +614,7 @@ function employeeCV(){
      
       function getEidtraining(data)
      {
-         $("input[name='editempidt']").val(data.empid);
+         $("input[name='editempidt']").val(data.empNumber);
          $("input[name='edittraningdate']").val(data.traningdate);
          $("input[name='edittraningdetails']").val(data.traningdetails);
          $("input[name='edittrainid']").val(data.traning_id);
