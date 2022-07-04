@@ -11,6 +11,7 @@ use App\customer_review;
 use App\customers;
 use App\Employee;
 use App\EmployeeTraning;
+use App\EmpSkills;
 use App\Helpers\HelperFunctions;
 use App\Maintain_rec;
 use App\Mgtreview;
@@ -368,19 +369,21 @@ public function store(Request $request)
         $employess = DB::table('tbl_employees_skills')
             ->select('tbl_employees_skills.skill_id as skill_id',
             'tbl_employees_skills.empskill as empskill',
-            'tbl_employees_skills.empid as empNumber',
+            'tbl_employees.empNumber as empNumber',
             'tbl_employees.surname as surname',
             'tbl_employees.first_name as first_name'
             )
-            ->join('tbl_employees','tbl_employees_skills.empid','=','tbl_employees.empNumber')
+            ->join('tbl_employees','tbl_employees_skills.empid','=','tbl_employees.id')
             ->where('tbl_employees_skills.user_id','=',$request)
             ->orderBy('tbl_employees_skills.created_at','DESC')
             ->get();
-
       //  $emptraining=Employee::join('tbl_employees_traning','tbl_employees_traning.empid','=','tbl_employees.id')->  where('tbl_employees.user_id',$request)->get();
 
-      $emptraining=Employee::join('tbl_employees_traning','tbl_employees_traning.empid','=','tbl_employees.empNumber')->where('tbl_employees.user_id',$request)->orderBy('tbl_employees_traning.created_at','DESC')->get();
-        return view('admin.adminform_records.employess',compact('userinfo','employess','emptraining'));
+      $emptraining=Employee::join('tbl_employees_traning','tbl_employees_traning.empid','=','tbl_employees.id')
+          ->where('tbl_employees.user_id',$request)
+          ->orderBy('tbl_employees_traning.created_at','DESC')
+          ->get();
+      return view('admin.adminform_records.employess',compact('userinfo','employess','emptraining'));
 
     }
     public function managementCheck($request){
@@ -972,13 +975,28 @@ public function store(Request $request)
 
 
     }
-    public function deleteEmployeeadmin(Request $req)
+    public function deleteEmployeeadmin(Request $request)
     {
+        $type=$request->type;
+        if($type=="employee")
+        {
+            $employee = Employee::find($request->id);
+            if (File::exists(public_path($employee->cv))) {
+                File::delete(public_path($employee->cv));
+            }
+            EmpSkills::where('empid',$request->id)->delete();
+            EmployeeTraning::where('empid',$request->id)->delete();
+            $employee->delete();
+        }
+        if($type=="employeeskill")
+        {
+            EmpSkills::where('skill_id',$request->id)->delete();
+        }
+        if($type=="employeetraining")
+        {
+            EmployeeTraning::where('traning_id',$request->id)->delete();
+        }
 
-        // dd($req->id);exit;
-        $userid=$req->id;
-        // $req=EmployeeTraning::find($userid)->delete();
-        $req=DB::table('tbl_employees_traning')->where('traning_id', $userid)->delete();
         $notification = [
             'message' => 'Record  Deleted successfully.!',
             'alert-type' => 'success'
