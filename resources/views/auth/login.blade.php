@@ -142,7 +142,7 @@ label[for="TermConditions"]{
 									</div> 
 									<div class="kt-login__actions">
 										{{-- <button>g</button> --}}
-										<button id="kt_login_forgot_submit" class="btn btn-brand btn-pill kt-login__btn-primary" type='submit'>Send me the link</button>&nbsp;&nbsp;
+										<button id="kt_login_forgot_submit" class="btn btn-brand btn-pill kt-login__btn-primary" type='submit'>Submit</button>&nbsp;&nbsp;
 										<button id="kt_login_forgot_cancel" class="btn btn-secondary btn-pill kt-login__btn-secondary">Cancel</button>
 									</div>
 								</form>
