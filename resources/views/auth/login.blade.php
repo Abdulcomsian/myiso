@@ -34,6 +34,9 @@ label[for="TermConditions"]{
 #kt_login_forgot{
 	color: #a7abc3;
 }
+.AgreeUl{
+	margin-left: 18px;
+}
 </style>
 	@include('auth.includes.head')
 
@@ -71,7 +74,7 @@ label[for="TermConditions"]{
 											<!--	<span style="border: 1px solid #000;"></span>-->
 											<!--</label>-->
 											<!-- checkbox -->
-										<div class="form-check ml-2">
+										<div class="form-check AgreeUl">
 										<input class="form-check-input" type="checkbox" value="" id="TermConditions">
 										<label class="form-check-label" for="TermConditions">
 											I agree to the terms and conditions.
