@@ -1275,6 +1275,7 @@ public function store(Request $request)
 			session()->flash('msg', 'Video deleted successfully.');
     return redirect()->back();
 	}
+
      public function check_order_number()
     {
 
@@ -1286,6 +1287,42 @@ public function store(Request $request)
             echo"exists";
         }
 
+    }
+
+    public function checkEmpNumber(Request $request){
+        try {
+            $validator = \Validator::make($request->all(), [
+                'userId' => 'required|exists:users,id',
+                'empNumber' => 'required',
+                'type' => 'required',
+            ]);
+
+            if ($validator->fails())
+            {
+                return response()->json([
+                    'message'=> 'Please try again ,validation failed',
+                    'status'=> 0
+                ]);
+            }
+
+            $result = Employee::where("user_id",$request->userId)
+                ->where("empNumber",$request->empNumber);
+
+            if ($request->type == 'edit'){
+                $result = $result->where("id",'<>',$request->empId);
+            }
+
+            $result = $result->exists();
+            return response()->json([
+                'message'=> $result ? "The Employee ID Number $request->empNumber is already exists" : '',
+                'status'=> $result ? 0 : 1
+            ]);
+        }catch (\Exception $exception){
+            return response()->json([
+                'message'=> 'Please try again ,validation failed',
+                'status'=> 0
+            ]);
+        }
     }
 
 }

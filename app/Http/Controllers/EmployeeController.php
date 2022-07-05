@@ -143,6 +143,14 @@ class EmployeeController extends Controller
         {
             $user_id=Auth()->user()->id;
         }
+
+        $result = Employee::where("user_id",$user_id)
+            ->where("empNumber",$request->empNumber)
+            ->exists();
+        if ($result == true){
+            return back();
+        }
+
         $employee->user_id= $user_id;
         $employee->systemid=123;
         $employee->surname=$request->input('surname');

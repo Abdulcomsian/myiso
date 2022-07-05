@@ -27,7 +27,7 @@
                     		</div>
                     	</div>
                     	<div class="employee_from_div">
-                        <form method="POST" action="{{ route('employee') }}" enctype="multipart/form-data">
+                        <form method="POST" action="{{ route('employee') }}" enctype="multipart/form-data" class="addForm">
                             @csrf
                     			<div class="row">
                     				{{-- <div class="col-lg-6">
@@ -39,7 +39,7 @@
                     				<div class="col-lg-12">
                     					<div class="form-group">
 											<label>Surname:</label><br>
-											<input type="text" class="form-control" name="surname" required placeholder="Enter Surname">
+											<input type="text" class="form-control" name="surname" required placeholder="Enter Surname" data-type="add">
 										</div>
                     				</div>
                     			</div>
@@ -52,9 +52,9 @@
 										</div>
 									</div>
 									<div class="col-lg-6">
-										<div class="form-group">
+										<div class="form-group add-emp-number-div">
 											<label>Employee ID Number:</label>
-											<input name="empNumber" type="text" class="form-control" required placeholder="Enter Employee ID Number">
+											<input name="empNumber" type="text" class="form-control" required placeholder="Enter Employee ID Number" data-type="add">
 										</div>
 									</div>
 								</div>
@@ -399,9 +399,9 @@
                                 </div>
                             </div>
                             <div class="col-lg-6">
-                                <div class="form-group">
+                                <div class="form-group edit-emp-number-div" >
                                     <label>Employee ID:</label>
-                                    <input type="number"  name="empNumber" required class="form-control">
+                                    <input type="number"  name="empNumber" required class="form-control" data-type="edit">
            <!--                         <select name="empNumber" required class="form-control">-->
 											<!--    <option>Select One</option>-->
 											<!--    @if(isset($userinfo) && $userinfo!= "")-->
@@ -525,9 +525,57 @@
 	</div>
 </div>
 @endsection
-
+@section('myscript')
 <script>
-    function employeeCV(){
+	//User for checking emp number for current logged in user , if exist or not by assad yaqoob
+	let userId = "{{\Illuminate\Support\Facades\Auth::id()}}";
+	let type = '';
+	let ajaxCall = null;
+	$('input[name="empNumber"]').keyup(delay(function(){
+		let empNumber = $(this).val();
+		type = $(this).data('type');
+		let empId = type == 'edit' ? $('#editproject').val() : '';
+
+		let data = {
+			empNumber : empNumber,
+			type : type,
+			userId	: userId,
+			_token : "{{csrf_token()}}",
+			empId : empId
+		}
+		console.log(data);
+		if(ajaxCall != null){
+			ajaxCall.abort();
+		}
+		ajaxCall = $.ajax({
+			method:'get',
+			url:'{{url("/check-emp-number")}}',
+			data:data,
+			success:function(response)
+			{
+				$("#emp_err_msg").remove();
+				if(response.status == 0){
+					let cls = `.${type}-emp-number-div`;
+					console.log(cls);
+					$(cls).append(`<p id="emp_err_msg" class="text-danger">${response.message}</p>`)
+					$('input[name="empNumber"]').val('');
+				}
+			}
+		})
+	},1000));
+
+	function delay(callback, ms) {
+		var timer = 0;
+		return function() {
+			var context = this, args = arguments;
+			clearTimeout(timer);
+			timer = setTimeout(function () {
+				callback.apply(context, args);
+			}, ms || 0);
+		};
+	}
+
+	function employeeCV(){
         $(".employee_cv_from_div").css("display","block")
     }
      function editEmployee(data){
@@ -627,3 +675,4 @@ function emp3(){
 	}
 }
 </script>
+@endsection

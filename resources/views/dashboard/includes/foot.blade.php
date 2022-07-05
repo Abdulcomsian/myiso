@@ -252,6 +252,7 @@
 				}
 			}
 			function employeeForm(){
+				resetForm();
 				if($(".employee_from_div").css("display")==="block"){
 					$(".employee_from_div").css("display","none");
 				}

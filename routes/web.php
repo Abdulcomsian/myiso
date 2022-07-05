@@ -286,6 +286,9 @@ Route::group(['middleware' => ['auth']], function () {
     Route::post('/upd_msg_status', 'UserMsgController@upd_msg_status');
     Route::post('/get_user_inbox_count', 'UserMsgController@get_user_inbox_count');
     Route::post('/get_admin_inbox_count', 'UserMsgController@get_admin_inbox_count');
+
+    //Check if empolyee already exist for current user by assad yaqoob 6 july 2022
+    Route::get('/check-emp-number', 'AddUsersController@checkEmpNumber');
 });
 /*************** Auth middleware implemented on these urls end ***************/
 

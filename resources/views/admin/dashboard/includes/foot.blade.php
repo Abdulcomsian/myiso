@@ -246,6 +246,8 @@
 				}
 			}
 			function employeeForm(){
+				console.log('employee form add btn clicked');
+				resetForm();
 				if($(".employee_from_div").css("display")==="block"){
 					$(".employee_from_div").css("display","none");
 				}
