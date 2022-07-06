@@ -804,7 +804,7 @@
 								<div class="row">
 									<div class="col-lg-12">
 										<div class="form-group">
-											<label>Any other issues?</label>
+											<label>Any other issues or points to note?</label>
 											<input type="text" name="any_issues" class="form-control"  placeholder="Enter Any other issues:">
 										</div>
 									</div>
@@ -1136,7 +1136,7 @@
 												
 										</div>
 									</div>
-	O								<div class="col-lg-12">
+								<div class="col-lg-12">
 										<div class="form-group">
 											<label>Evidence:</label>
 											<input type="text" name="evidance10" class="form-control"  placeholder="Enter Evidence:">
@@ -1155,7 +1155,7 @@
 								<div class="row">
 									<div class="col-lg-12">
 										<div class="form-group">
-											<label>Any other issues?</label>
+											<label>Any other issues or points to note?</label>
 											<input type="text" name="any_issues" class="form-control"  placeholder="Enter Any other issues:">
 										</div>
 									</div>
