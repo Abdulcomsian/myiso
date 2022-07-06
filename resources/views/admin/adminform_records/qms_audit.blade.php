@@ -2006,7 +2006,7 @@
                     <div class="row">
                         <div class="col-lg-12">
                             <div class="form-group">
-                                <label>Any other issue:</label>
+                                <label>Any other issues or points to note?</label>
                                 <input type="text" class="form-control" name="any_issues" required
                                        placeholder="Enter any other Issue">
                             </div>
@@ -2950,7 +2950,7 @@
                         <div class="row">
                             <div class="col-lg-12">
                                 <div class="form-group">
-                                    <label>Any other issue:</label>
+                                    <label>Any other issues or points to note?</label>
                                     <input type="text" class="form-control" name="any_issues" required
                                            placeholder="Enter any other Issue">
                                 </div>
