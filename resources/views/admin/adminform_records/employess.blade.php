@@ -422,7 +422,7 @@
                             <div class="col-lg-6">
                                 <div class="form-group">
                                     <label>Employee ID:</label> 
-                                    <input type="number" name="empNumber" required class="form-control">
+                                    <input type="text" name="empNumber" required class="form-control">
            <!--                         <select name="empNumber" required class="form-control">-->
 											<!--    <option>Select One</option>-->
 											<!--    @if(isset($userinfo) && $userinfo!= "")-->
