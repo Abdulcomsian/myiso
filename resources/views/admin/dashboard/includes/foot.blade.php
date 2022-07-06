@@ -246,14 +246,15 @@
 				}
 			}
 			function employeeForm(){
+				// alert(1)
 				console.log('employee form add btn clicked');
-				resetForm();
 				if($(".employee_from_div").css("display")==="block"){
 					$(".employee_from_div").css("display","none");
 				}
 				else{
 					$(".employee_from_div").css("display","block");
 				}
+				resetForm();
 			}
 			function employeeSkillForm(){
 				if($(".employee_skill_from_div").css("display")==="block"){
