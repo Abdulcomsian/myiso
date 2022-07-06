@@ -133,33 +133,11 @@
     					<div class="col-lg-12">
     						<label for="address1">Send to:</label>
     						<div class="kt-input-icon kt-input-icon--right">
-    							<!-- <select name="userid[]" id="user" class="form-control select2" multiple>
+    							<select name="userid[]" id="langOpt3" class="form-control" multiple>
     								@foreach ($users as $item)
     							        <option value="{{$item->id}}">{{$item->name}} </option>
     								@endforeach
-    
-    							</select> -->
-								<!-- <select id="demo" multiple="multiple" class="w-100">
-								<option value="Javascript">Javascript</option>
-								<option value="Python">Python</option>
-								<option value="LISP">LISP</option>
-								<option value="C++">C++</option>
-								<option value="jQuery">jQuery</option>
-								<option value="Ruby">Ruby</option>
-								</select> -->
-								<select name="langOpt3[]" multiple id="langOpt3">
-								<option value="Javascript">Javascript</option>
-								<option value="Python">Python</option>
-								<option value="LISP">LISP</option>
-								<option value="C++">C++</option>
-								<option value="jQuery">jQuery</option>
-								<option value="Ruby">Ruby</option>
-                                </select>
-								<!-- <div class="d-flex mt-2 align-items-center">
-									<input type="checkbox" id="checkbox" > Select All
-								</div> -->
-
-								<!-- <input type="button" id="button" value="check Selected"> -->
+    							</select>
     						</div>
     					</div>
     					<div class="col-lg-2">

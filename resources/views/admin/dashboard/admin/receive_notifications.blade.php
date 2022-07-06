@@ -154,7 +154,7 @@
 			<div class="modal-body">
 
 					<div class="kt-portlet__body">
-						<input type="hidden" name="userid" value="{{$item->user_id}}">
+						<input type="hidden" name="userid[]" value="{{$item->user_id}}">
 						<div class="form-group row">
 							<div class="col-lg-12">
 								<label for="title">Subject:</label>

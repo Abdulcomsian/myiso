@@ -3,6 +3,28 @@
 	.select2-container{
 		width: 766px !important;
 	}
+	<style>
+	 .select2-search__field{
+		 padding-left: 10px !important;
+	 }
+	.multiselect-native-select .btn-group{
+		width: 100%;
+	}
+	/* .multiselect-native-select .btn-group button{
+        text-a
+    } */
+	.ms-options ul{
+		padding: 8px;
+		list-style-type: none;
+	}
+	.ms-options ul label{
+		text-align: left !important;
+		line-height: 12px;
+	}
+	.ms-options-wrap button{
+		border: 1px solid #0d47b3;
+	}
+</style>
 </style>
 @section('content')
 
@@ -220,11 +242,10 @@
 							<div class="col-lg-12">
 								<label for="address1">Send to:</label>
 								<div class="kt-input-icon kt-input-icon--right">
-									<select name="userid[]" id="user" class="form-control select2" multiple>
+									<select name="userid[]" id="langOpt3" class="form-control" multiple>
 										@foreach ($users as $item)
 									        <option value="{{$item->id}}">{{$item->name}} </option>
 										@endforeach
-
 									</select>
 								</div>
 							</div>
@@ -256,9 +277,15 @@
 
 @endsection
 @section('myscript')
+	<script type="text/javascript" src="{{asset('assets/jquery.multiselect.js')}}"></script>
+	<script src="http://demos.codexworld.com/multi-select-dropdown-list-with-checkbox-jquery/jquery.multiselect.js"></script>
 	<script>
-		$('.select2').select2({
-			placeholder: "Select users",
+		$('#langOpt3').multiselect({
+			columns: 1,
+			placeholder: 'Select Languages',
+			search: true,
+			selectAll: true
 		});
+
 	</script>
 @endsection
