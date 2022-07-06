@@ -148,7 +148,7 @@ class EmployeeController extends Controller
             ->where("empNumber",$request->empNumber)
             ->exists();
         if ($result == true){
-            return back();
+            return back()->with("Error","Record was not saved. The Employee ID Number already exists!");
         }
 
         $employee->user_id= $user_id;
@@ -202,6 +202,7 @@ class EmployeeController extends Controller
     {
         $id=$request->id;
         $employee=Employee::find($id);
+
         if(isset($request->is_admin) && $request->is_admin=="admin")
         {
             $user_id=$request->user_id;
@@ -209,6 +210,14 @@ class EmployeeController extends Controller
         else
         {
             $user_id=Auth()->user()->id;
+        }
+
+        $result = Employee::where("user_id",$user_id)
+            ->where("empNumber",$request->empNumber)
+            ->where("id",'<>',$id)
+            ->exists();
+        if ($result == true){
+            return back()->with("Error","Record was not saved. The Employee ID Number already exists!");
         }
         $employee->user_id=$user_id;
         $employee->systemid=$request->input('systemid');

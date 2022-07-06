@@ -20,7 +20,11 @@
 				<p>To add a record, click on the
 					“ADD EMPLOYEE” buttons. To amend or delete a record, click on the edit or
 					delete icon of the entry that needs to be modified or deleted.</p>
-                    <!--add form-->
+				@if(Session::has('Error'))
+					<h5 class="text-danger">  {{ Session::get('Error') }} </h5>
+				@endif
+
+				<!--add form-->
                     <div class="procedure_div">
                     	<div class="row">
                     		<div class="col-lg-12 text-right">
@@ -28,7 +32,7 @@
                     		</div>
                     	</div>
                     	<div class="employee_from_div">
-                        <form method="POST" action="{{ route('employee') }}" enctype="multipart/form-data">
+                        <form method="POST" action="{{ route('employee') }}" enctype="multipart/form-data" class="addForm">
                             @csrf
                     			<div class="row">
                     				{{-- <div class="col-lg-6">
@@ -53,9 +57,9 @@
 										</div>
 									</div>
 									<div class="col-lg-6">
-										<div class="form-group">
+										<div class="form-group add-emp-number-div">
 											<label>Employee ID Number:</label>
-											<input name="empNumber" type="text" class="form-control"  required placeholder="Enter Employee ID Number">
+											<input name="empNumber" type="text" class="form-control"  required placeholder="Enter Employee ID Number" data-type="add">
 										</div>
 									</div>
 								</div>
@@ -420,9 +424,9 @@
                                 </div>
                             </div>
                             <div class="col-lg-6">
-                                <div class="form-group">
+                                <div class="form-group edit-emp-number-div">
                                     <label>Employee ID:</label> 
-                                    <input type="text" name="empNumber" required class="form-control">
+                                    <input type="text" name="empNumber" required class="form-control" data-type="edit">
            <!--                         <select name="empNumber" required class="form-control">-->
 											<!--    <option>Select One</option>-->
 											<!--    @if(isset($userinfo) && $userinfo!= "")-->
@@ -553,6 +557,41 @@
 @endsection
 @section('myscript')
 <script>
+//User for checking emp number for current logged in user , if exist or not by assad yaqoob
+let userId = "{{ $urlparam['userid'] }}";
+let type = '';
+let ajaxCall = null;
+$('input[name="empNumber"]').blur(function(){
+	let empNumber = $(this).val();
+	type = $(this).data('type');
+	let empId = type == 'edit' ? $('#editproject').val() : '';
+
+	let data = {
+		empNumber : empNumber,
+		type : type,
+		userId	: userId,
+		_token : "{{csrf_token()}}",
+		empId : empId
+	}
+	console.log(data);
+	if(ajaxCall != null){
+		ajaxCall.abort();
+	}
+	ajaxCall = $.ajax({
+		method:'get',
+		url:'{{url("/check-emp-number")}}',
+		data:data,
+		success:function(response)
+		{
+			$("#emp_err_msg").remove();
+			if(response.status == 0){
+				let cls = `.${type}-emp-number-div`;
+				$(cls).append(`<p id="emp_err_msg" class="text-danger">${response.message}</p>`)
+				$('input[name="empNumber"]').val('');
+			}
+		}
+	})
+});
 function employeeCV(){
         if($(".employee_cv_from_div").css("display")=="none"){
             $(".employee_cv_from_div").css("display","block")

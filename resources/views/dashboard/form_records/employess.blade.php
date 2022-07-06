@@ -20,6 +20,9 @@
 				<p>
 			     To add a record, click on the “Add Employee” button. To amend a record, click on the edit icon of the entry that needs to be modified or deleted.
 				</p>
+				@if(Session::has('Error'))
+					<h5 class="text-danger">  {{ Session::get('Error') }} </h5>
+				@endif
                     <div class="procedure_div">
                     	<div class="row">
                     		<div class="col-lg-12 text-right">
@@ -531,7 +534,7 @@
 	let userId = "{{\Illuminate\Support\Facades\Auth::id()}}";
 	let type = '';
 	let ajaxCall = null;
-	$('input[name="empNumber"]').keyup(delay(function(){
+	$('input[name="empNumber"]').blur(function(){
 		let empNumber = $(this).val();
 		type = $(this).data('type');
 		let empId = type == 'edit' ? $('#editproject').val() : '';
@@ -556,13 +559,12 @@
 				$("#emp_err_msg").remove();
 				if(response.status == 0){
 					let cls = `.${type}-emp-number-div`;
-					console.log(cls);
 					$(cls).append(`<p id="emp_err_msg" class="text-danger">${response.message}</p>`)
 					$('input[name="empNumber"]').val('');
 				}
 			}
 		})
-	},1000));
+	});
 
 	function delay(callback, ms) {
 		var timer = 0;
