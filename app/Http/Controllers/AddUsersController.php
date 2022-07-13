@@ -145,6 +145,16 @@ public function store(Request $request)
                 $addusers->iso45001_description = $request->input('iso45001_description');
             }
 
+            if ($request->file('audit_report')) {
+
+                $audit_report_path = $request->file('audit_report');
+                $audit_report_name = uniqid() . "." . $request->file('audit_report')->extension();
+
+                $audit_report_path = $request->file('audit_report')->storeAs('/uploads/user/audit_report', $audit_report_name, 'public');
+                $request->file('audit_report')->move(public_path('/uploads/user/audit_report'), $audit_report_name);
+                $addusers->audit_report = $audit_report_path;
+            }
+
             //$addusers->expiry_date=$request->input('expiry_date');
             $addusers->country = $request->input('country');
 
@@ -437,7 +447,6 @@ public function store(Request $request)
      */
       public function update(Request $request)
     {
-        //  dd($request->all());
         $id = $request->id;
         $user = AddUsers::find($id);
         if ($request->input('password') != '' || !empty($request->input('password'))) {
@@ -456,20 +465,6 @@ public function store(Request $request)
         $user->contact_number_iso = $request->input('contact_iso');
         $user->emailaddress_iso = $request->input('email_iso');
 
-        /*$this->validate($request, [
-            'iso9001_certificate' => 'required',
-            'filenames.*' => 'mimes:.pdf'
-        ]);
-        $this->validate($request, [
-            'iso14001_certificate' => 'required',
-            'filenames.*' => 'mimes:.pdf'
-        ]);
-        $this->validate($request, [
-            'iso45001_certificate' => 'required',
-            'filenames.*' => 'mimes:.pdf'
-        ]);*/
-
-
         if ($request->file('iso9001_certificate')) {
             $file_path = $request->file('iso9001_certificate');
             $file_name = uniqid() . "." . $request->file('iso9001_certificate')->extension();
@@ -481,12 +476,6 @@ public function store(Request $request)
         $user->iso9001_expirydate = $request->input('iso9001_expirydate');
         $user->iso9001_description = $request->input('iso9001_description');
 
-// 	if ($request->input('iso9001_expirydate')) {
-// 	    $user->iso9001_expirydate=$request->input('iso9001_expirydate');
-// 	}
-// 	if ($request->input('iso9001_description')) {
-// 	    $user->iso9001_description=$request->input('iso9001_description');
-// 	}
         if ($request->file('iso14001_certificate')) {
             $iso14001_certificate_path = $request->file('iso14001_certificate');
             $iso14001_certificate_name = uniqid() . "." . $request->file('iso14001_certificate')->extension();
@@ -498,13 +487,6 @@ public function store(Request $request)
         }
         $user->iso14001_expirydate = $request->input('iso14001_expirydate');
         $user->iso14001_description = $request->input('iso14001_description');
-
-// 	if ($request->input('iso14001_expirydate')) {
-// 	    $user->iso14001_expirydate=$request->input('iso14001_expirydate');
-// 	}
-// 	if ($request->input('iso14001_description')) {
-// 	    $user->iso14001_description=$request->input('iso14001_description');
-// 	}
 
         if ($request->file('iso45001_certificate')) {
             $iso45001_certificate_path = $request->file('iso45001_certificate');
@@ -519,14 +501,6 @@ public function store(Request $request)
         $user->iso45001_expirydate = $request->input('iso45001_expirydate');
         $user->iso45001_description = $request->input('iso45001_description');
 
-
-// 	if ($request->input('iso45001_expirydate')) {
-// 	    $user->iso45001_expirydate=$request->input('iso45001_expirydate');
-// 	}
-// 	if ($request->input('iso45001_description')) {
-// 	    $user->iso45001_description=$request->input('iso45001_description');
-// 	}
-
         $user->country=$request->input('country');
         $user->name = $request->input('name');
         $user->email = $request->input('email');
@@ -540,19 +514,16 @@ public function store(Request $request)
 
         $user->phoneflag = $phoneflag;
         $user->phonecode = $request->input('phonecode');
-        // $addusers->phoneflag=$request->input('phoneflag');
         $user->iso_phone_code = $request->input('isophonecode');
         if ($request->input('isophoneflag') == "preferred") {
             $isophoneflag = "us";
         } else {
             $isophoneflag = $request->input('isophoneflag');
         }
-        // echo $phoneflag;exit;
         $user->iso_phone_flag = $isophoneflag;
 
         $user->director = $request->input('director');
         $user->sales_process = $request->input('sales_process');
-        //    $user->company_profile=$request->input('company_profile');
 
         if ($request->file('company_profile')) {
             $imagePath = $request->file('company_profile');
@@ -562,6 +533,18 @@ public function store(Request $request)
             $request->file('company_profile')->move(public_path('/uploads/user'), $imageName);
 
             $user->company_profile = $path;
+        }
+
+        if ($request->file('audit_report')) {
+            if (File::exists(public_path($user->audit_report))) {
+                File::delete(public_path($user->audit_report));
+            }
+            $audit_report_path = $request->file('audit_report');
+            $audit_report_name = uniqid() . "." . $request->file('audit_report')->extension();
+
+            $audit_report_path = $request->file('audit_report')->storeAs('/uploads/user/audit_report', $audit_report_name, 'public');
+            $request->file('audit_report')->move(public_path('/uploads/user/audit_report'), $audit_report_name);
+            $user->audit_report = $audit_report_path;
         }
 
         $user->expiry_date = $request->input('expiry_date');
@@ -603,7 +586,11 @@ public function store(Request $request)
     public function destroy(Request $req)
     {
         $userid=$req->id;
-        $req=AddUsers::find($userid)->delete();
+        $user=AddUsers::find($userid);
+        if (File::exists(public_path($user->audit_report))) {
+            File::delete(public_path($user->audit_report));
+        }
+        $user->delete();
         $notification = [
             'message' => 'Record  Deleted successfully.!',
             'alert-type' => 'success'

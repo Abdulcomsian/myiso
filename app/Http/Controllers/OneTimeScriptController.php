@@ -84,4 +84,21 @@ class OneTimeScriptController extends Controller
             dd('Already added any_issues column to tbl_qmsaudit table');
         }
     }
+
+    /**
+     * This function add new column "audit_report" to table "users"
+     * @description When Admin creates a new user, the admin should be able to add “Audit Report”
+     * @author assad yaqoob
+     * @date July 2022
+     * @reference https://app.asana.com/0/1202493007958961/1202515886858777
+     * @return dd() string message
+     */
+    public function addAuditReportColToUsersTbl(){
+        if (!Schema::hasColumns('users', ['audit_report'])) {
+            self::_alterTableAddNewColumn('users','audit_report','varchar(255)','last_login');
+            dd('Added audit_report column to users table');
+        }else{
+            dd('Already added audit_report column to users table');
+        }
+    }
 }

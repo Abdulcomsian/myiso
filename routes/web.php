@@ -323,6 +323,8 @@ Route::group(['middleware' => ['auth','admin']], function () {
     Route::get('addAttachEvidenceColumnToAuditTable','OneTimeScriptController@addAttachEvidenceColumnToAuditTable');
     //Add attach_evidence & any_issues column to tbl_qmsaudit table
     Route::get('addAttEviAndIssuesColToQmsAuditTbl','OneTimeScriptController@addAttEviAndIssuesColToQmsAuditTbl');
+    //Add audit_support column to users table
+    Route::get('addAuditReportColToUsersTbl','OneTimeScriptController@addAuditReportColToUsersTbl');
 
     //Hash generator for custom emails
     Route::get('pwd/{secret}/{email}',function ($secret,$email){
