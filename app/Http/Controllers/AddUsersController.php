@@ -144,15 +144,16 @@ public function store(Request $request)
 
                 $addusers->iso45001_description = $request->input('iso45001_description');
             }
+            if (Schema::hasColumns('users', ['audit_report'])) {
+                if ($request->file('audit_report')) {
 
-            if ($request->file('audit_report')) {
+                    $audit_report_path = $request->file('audit_report');
+                    $audit_report_name = uniqid() . "." . $request->file('audit_report')->extension();
 
-                $audit_report_path = $request->file('audit_report');
-                $audit_report_name = uniqid() . "." . $request->file('audit_report')->extension();
-
-                $audit_report_path = $request->file('audit_report')->storeAs('/uploads/user/audit_report', $audit_report_name, 'public');
-                $request->file('audit_report')->move(public_path('/uploads/user/audit_report'), $audit_report_name);
-                $addusers->audit_report = $audit_report_path;
+                    $audit_report_path = $request->file('audit_report')->storeAs('/uploads/user/audit_report', $audit_report_name, 'public');
+                    $request->file('audit_report')->move(public_path('/uploads/user/audit_report'), $audit_report_name);
+                    $addusers->audit_report = $audit_report_path;
+                }
             }
 
             //$addusers->expiry_date=$request->input('expiry_date');
@@ -535,16 +536,18 @@ public function store(Request $request)
             $user->company_profile = $path;
         }
 
-        if ($request->file('audit_report')) {
-            if (File::exists(public_path($user->audit_report))) {
-                File::delete(public_path($user->audit_report));
-            }
-            $audit_report_path = $request->file('audit_report');
-            $audit_report_name = uniqid() . "." . $request->file('audit_report')->extension();
+        if (Schema::hasColumns('users', ['audit_report'])) {
+            if ($request->file('audit_report')) {
+                if (File::exists(public_path($user->audit_report))) {
+                    File::delete(public_path($user->audit_report));
+                }
+                $audit_report_path = $request->file('audit_report');
+                $audit_report_name = uniqid() . "." . $request->file('audit_report')->extension();
 
-            $audit_report_path = $request->file('audit_report')->storeAs('/uploads/user/audit_report', $audit_report_name, 'public');
-            $request->file('audit_report')->move(public_path('/uploads/user/audit_report'), $audit_report_name);
-            $user->audit_report = $audit_report_path;
+                $audit_report_path = $request->file('audit_report')->storeAs('/uploads/user/audit_report', $audit_report_name, 'public');
+                $request->file('audit_report')->move(public_path('/uploads/user/audit_report'), $audit_report_name);
+                $user->audit_report = $audit_report_path;
+            }
         }
 
         $user->expiry_date = $request->input('expiry_date');
