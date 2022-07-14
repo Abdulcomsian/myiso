@@ -708,9 +708,9 @@
                             <div class="form-group row">
 
                                 <div class="col-lg-4">
-                                    <label for="iso9001_certificate">ISO9001 Certificate:</label>&nbsp;&nbsp;<span
-                                            id="view_9001"> </span>&nbsp;&nbsp;<a href="#" data-handle="iso9001"
-                                                                                  class="iso9001 delete-certificate">Delete</a>
+                                    <label for="iso9001_certificate">ISO9001 Certificate:</label>&nbsp;&nbsp;
+                                    <span id="view_9001"> </span>&nbsp;&nbsp;
+                                    <a href="#" data-handle="iso9001" class="iso9001 delete-certificate">Delete</a>
                                     <input type="file" id="iso9001_certificate" accept=".pdf"
                                            name="iso9001_certificate">
                                     <!--<button type="button" class="new-file-upload"-->
@@ -762,8 +762,9 @@
                                 <div class="col-lg-4">
                                     <label for="iso45001_certificate">ISO45001 Certificate:</label>&nbsp;&nbsp;
                                     <span id="view_45001"></span>
-                                &nbsp;&nbsp;  <a href="#" data-handle="iso45001" class="iso45001 delete-certificate">Delete</a>
-                                    <input type="file" id="iso45001_certificate" accept=".pdf" name="iso45001_certificate">
+                                    &nbsp;&nbsp; <a href="#" data-handle="iso45001" class="iso45001 delete-certificate">Delete</a>
+                                    <input type="file" id="iso45001_certificate" accept=".pdf"
+                                           name="iso45001_certificate">
                                 </div>
                                 <div class="col-lg-4">
                                     <label for="iso45001_expirydate">Expiry date:</label>
@@ -781,7 +782,8 @@
                                 <div class="col-lg-4">
                                     <label for="audit_report">Audit Report</label>&nbsp;&nbsp;
                                     <span id="edit_audit_report"></span>
-                                    &nbsp;&nbsp;  <a href="#" data-handle="audit_report" class="audit_report delete-certificate">Delete</a>
+                                    &nbsp;&nbsp; <a href="#" data-handle="audit_report"
+                                                    class="audit_report delete-certificate">Delete</a>
                                     <input type="file" id="audit_report" accept=".pdf" name="audit_report">
                                 </div>
                             </div>
@@ -1483,8 +1485,7 @@
                 $('.delete-certificate').on('click', function () {
 
                     let _this = $(this),
-                        user_id = $('#editvalue').val();
-
+                    user_id = $('#editvalue').val();
                     _this.closest('.form-group.row').find('.form-control').val('');
                     _this.closest('.form-group.row').find('a').remove();
                     $.ajaxSetup({
