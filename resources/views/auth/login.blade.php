@@ -135,13 +135,14 @@ label[for="TermConditions"]{
 									<div class="kt-login__desc" style="color: #6a6f74;
 								">Enter your email address to reset your password.</div>
 								</div>
-								<form class="kt-form" action="{{ route('password.email') }}" method="POST">
+								<form class="kt-form" action="{{ route('password.reset.email') }}" method="POST">
 									@csrf
 									<div class="input-group">
 										<input class="form-control" type="text" placeholder="Email address" name="email" id="kt_email" autocomplete="off">
-									</div> 
+									</div>
 									<div class="kt-login__actions">
 										{{-- <button>g</button> --}}
+{{--										<button id="kt_login_forgot_submit" class="btn btn-brand btn-pill kt-login__btn-primary" type='submit'>Submit</button>&nbsp;&nbsp;--}}
 										<button id="kt_login_forgot_submit" class="btn btn-brand btn-pill kt-login__btn-primary" type='submit'>Submit</button>&nbsp;&nbsp;
 										<button id="kt_login_forgot_cancel" class="btn btn-secondary btn-pill kt-login__btn-secondary">Cancel</button>
 									</div>

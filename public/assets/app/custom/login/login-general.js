@@ -185,10 +185,20 @@ var KTLoginGeneral = function() {
             btn.addClass('kt-spinner kt-spinner--right kt-spinner--sm kt-spinner--light').attr('disabled', true);
 
             form.ajaxSubmit({
-                url: '/password/email',
+                url: '/password-reset-email',
                 method:'POST',
                 success: function(response, status, xhr, $form) { 
                 	// similate 2s delay
+                    var type = '';
+                    var msg = '';
+                    if (response.success === true){
+                        type = 'success';
+                        msg = 'Password reset notification sent successfully to admin.';
+                    }else{
+                        type = 'danger';
+                        msg = 'Something went wrong, try again.';
+                    }
+
                 	setTimeout(function() {
                 		btn.removeClass('kt-spinner kt-spinner--right kt-spinner--sm kt-spinner--light').attr('disabled', false); // remove
 	                    form.clearForm(); // clear form
@@ -200,7 +210,7 @@ var KTLoginGeneral = function() {
 	                    signInForm.clearForm();
 	                    signInForm.validate().resetForm();
 
-	                    showErrorMsg(signInForm, 'success', 'We have sent you a link to reset your password.');
+	                    showErrorMsg(signInForm, type , msg);
                 	}, 2000);
                 }
             });

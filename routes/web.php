@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Auth\ResetPasswordController;
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\RequiremntController;
 use App\requirement;
@@ -25,6 +26,8 @@ Route::post('/updateuserinfo', 'UserInfoController@user')->name('updateuserinfo'
 
 Route::get('/clear', function() { Artisan::call('cache:clear'); return "Cache is cleared"; });
 Route::get('/', function () { return view('auth.login'); })->middleware(['guest']);
+//Route::post('password-reset-email', 'Auth\ResetPasswordController@passwordResetEmail')->name('password.reset.email')->middleware(['guest']);
+Route::post('password-reset-email', 'Auth\ResetPasswordController@passwordResetEmail')->name('password.reset.email');
 Route::get('/forgot', function () { return view('auth.forgot'); });
 
 // Route::post('/loginroute','Auth.LoginController')->name('loginroute');
