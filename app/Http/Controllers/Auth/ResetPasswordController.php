@@ -28,18 +28,22 @@ class ResetPasswordController extends Controller
             $success = false;
         }
 
-        if ($success){
-            $from_email = $request->email;
-            $to_email = env('TO_EMAIL');
-            Mail::send([], [], function ($message) use ($from_email,$to_email) {
+        $reset_pass_email = $request->email;
+        $from_email = getenv('MAIL_FROM_ADDRESS');
+        $from_name = getenv('MAIL_FROM_NAME');
+        $to_email = getenv('TO_EMAIL');
+
+        if ($success && !empty($from_email) && !empty($from_name) && $to_email){
+
+            Mail::send([], [], function ($message) use ($from_email,$from_name,$to_email,$reset_pass_email) {
                 $message->to($to_email,'Admin')
-                    ->from($from_email,'Hafiz')
+                    ->from($from_email,$from_name)
                     ->subject('Password Reset Notification')
                     ->setBody(
                         '<br>
                 <h3>Hi, Admin!</h3>
                 <br>
-                <p>Please reset password for <b>'.$from_email.'</b> this email.</p>
+                <p>Please reset password for <b>'.$reset_pass_email.'</b> this email.</p>
                 <br>
                 <h4>Thank you!</h4>
                 <h4><a href="https://www.myisoonline.com/">Myisoonline.com</a></h4>',

@@ -320,6 +320,9 @@ Route::get('/agent/edit', function () {
 
 /*************** One time script for easily changes to running project start ***************/
 Route::group(['middleware' => ['auth','admin']], function () {
+    Route::get('/cache-clear', function() { Artisan::call('cache:clear'); dd("Cache is cleared"); });
+    Route::get('/config-clear', function() { Artisan::call('config:clear'); dd("Config is cleared"); });
+
     //Add cv column to tbl_employees table
     Route::get('addCvColumnToEmployeesTable','OneTimeScriptController@addCvColumnToEmployeesTable');
     //Add attach_evidence column to tbl_audit table
