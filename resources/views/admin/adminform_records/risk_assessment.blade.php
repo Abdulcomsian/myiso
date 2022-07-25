@@ -27,7 +27,7 @@
                     		</div>
                     	</div>
                     	<div class="risk_assessment_from_div">
-                            <form action="{{route('assessment')}} " method="POST">
+                            <form action="{{route('assessment')}} " method="POST" class="addForm">
                                 @csrf
                                                                             @php 
             $urlparam = request()->route()->parameters;
@@ -930,6 +930,7 @@
          $("select[name='riskSeverity']").val(data.riskSeverity);
 
         $("#editModal").modal('show');
+		resetForm();
 
     }
     function viewData(data){
@@ -953,8 +954,8 @@
 
          $("#view_Modal select[name='RiskProbability']").val(data.RiskProbability);
          $("#view_Modal select[name='riskSeverity']").val(data.riskSeverity);
-
         $("#view_Modal").modal('show');
+		resetForm();
 
     }
 </script>
