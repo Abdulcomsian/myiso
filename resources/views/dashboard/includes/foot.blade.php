@@ -1,4 +1,3 @@
-riskAssessment
 		<!-- end::Demo Panel -->
 
 		<!-- begin::Global Config(global config for global JS sciprts) -->
