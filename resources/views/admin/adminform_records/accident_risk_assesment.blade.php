@@ -27,7 +27,7 @@
                     		</div>
                     	</div>
                     	<div class="accident_risk_from_div">
-                            <form method="POST" action="{{route('accident_risk')}} ">
+                            <form method="POST" action="{{route('accident_risk')}} " class="addForm">
                                 @csrf
                                 
                                                     @csrf
@@ -373,8 +373,9 @@
          $("input[name='consequences']").val(data.consequences);
          $("input[name='activityscenario']").val(data.activityscenario);
          $("#editInfo").modal('show');
+        resetForm();
 
-     }
+    }
      function Editinfo(data){
         $("#editrisk").val(data.id);
          $("input[name='riskseverity']").val(data.riskseverity);
@@ -387,6 +388,7 @@
          $("input[name='consequences']").val(data.consequences);
          $("input[name='activityscenario']").val(data.activityscenario);
          $("#editmodalData").modal('show');
+         resetForm();
      }
      function deleteModal(data){
          console.log(data);

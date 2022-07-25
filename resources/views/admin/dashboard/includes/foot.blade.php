@@ -287,6 +287,7 @@
 				}
 			}
 			function accidentRiskForm(){
+				resetForm();
 				if($(".accident_risk_from_div").css("display")==="block"){
 					$(".accident_risk_from_div").css("display","none");
 				}
@@ -295,6 +296,7 @@
 				}
 			}
 			function riskAssessment(){
+				resetForm();
 				if($(".risk_assessment_from_div").css("display")==="block"){
 					$(".risk_assessment_from_div").css("display","none");
 				}

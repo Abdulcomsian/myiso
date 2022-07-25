@@ -1,4 +1,3 @@
-
 		<!-- end::Demo Panel -->
 
 		<!-- begin::Global Config(global config for global JS sciprts) -->
@@ -301,6 +300,7 @@
 				}
 			}
 			function riskAssessment(){
+				resetForm();
 				if($(".risk_assessment_from_div").css("display")==="block"){
 					$(".risk_assessment_from_div").css("display","none");
 				}
