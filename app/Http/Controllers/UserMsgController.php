@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use App\User;
 use DB;
 use Auth;
+use App\Events\MyEvent;
+use App\Models\Notification;
 
 class UserMsgController extends Controller
 {
@@ -50,6 +52,7 @@ class UserMsgController extends Controller
 		  'created_at' => now(),
         )
 	);
+  event(new MyEvent('bbb'));
 	session()->flash('msg', '<div class="alert alert-success alert-dismissible">Message sent successfully. &nbsp; <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a></div>');
     return redirect()->back();
 		

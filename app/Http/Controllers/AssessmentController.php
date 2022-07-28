@@ -17,7 +17,7 @@ class AssessmentController extends Controller
     public function index()
     {
         $userid=Auth::user()->id;
-        $assessment=Assessment::where('user_id',$userid)->get();
+        $assessment=Assessment::where('user_id',$userid)->orderBy('id','DESC')->get();
         return view('dashboard.form_records.risk_assessment',compact('assessment'));
     }
 

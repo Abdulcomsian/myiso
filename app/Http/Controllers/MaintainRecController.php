@@ -23,7 +23,7 @@ class MaintainRecController extends Controller
     public function index()
     {
         $userid=Auth::user()->id;
-        $userinfo=Maintain_rec::where('user_id',$userid)->get();
+        $userinfo=Maintain_rec::where('user_id',$userid)->orderBy('id','DESC')->get();
         return view('dashboard.form_records.maintance_record',compact('userinfo'));
     }
 

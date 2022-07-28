@@ -153,7 +153,7 @@
                     	<div class="requirments_table_div">
                             <div class="d-flex justify-content-between mb-2">
                                 <h4>Management Review</h4>
-                                <a href="/edit_user/{{ $urlparam['userid'] }}" class="btn btn-clean btn-icon-sm" style="float: right;">
+                                <a href="/edit_user/{{ $urlparam['userid'] }}" class="btn btn-clean btn-icon-sm back_icon" style="float: right;">
                                     <i class="la la-long-arrow-left"></i>
                                     Back
                                 </a>

@@ -13,7 +13,8 @@
 	License: You must have a valid license purchased only from themeforest(the above link) in order to legally use the theme for your project.
 	-->
 	<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
-
+	<meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 	@include('dashboard.includes.head')
 	<!-- begin::Body -->
 	<body class="kt-header--fixed kt-header-mobile--fixed kt-subheader--fixed 	kt-subheader--enabled kt-subheader--solid kt-aside--enabled kt-aside--fixed kt-page--loading">

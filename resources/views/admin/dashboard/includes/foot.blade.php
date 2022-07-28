@@ -23,6 +23,8 @@
 			};
 		</script>
 
+		
+
 		<!-- end::Global Config -->
 
 		<!--begin:: Global Mandatory Vendors -->
@@ -140,10 +142,12 @@
 		<!--begin::Global App Bundle(used by all pages) -->
 		<script src="{{ asset('/assets/app/bundle/app.bundle.js') }}" type="text/javascript"></script>
 		<!--end::Global App Bundle -->
+		<script src="//cdn.datatables.net/1.11.1/js/jquery.dataTables.min.js"></script>
 
 
 
 		<script type="text/javascript">
+			
 			jQuery('.addPlane').click(function(){
 				var table = document.getElementById("kt_customer_plane_body");
 				var row = table.insertRow(0);
@@ -172,6 +176,9 @@
 			})
 		</script>
 		<script type="text/javascript">
+			function resetForm() {
+				$('.addForm')[0].reset();
+			}
 			function requirementFrom(){
 				if($(".requirments_from_div").css("display")==="block"){
 					$(".requirments_from_div").css("display","none");
@@ -181,6 +188,7 @@
 				}
 			}
 			function processAuditForm(){
+				resetForm();
 				if($(".process_audit_from_div").css("display")==="block"){
 					$(".process_audit_from_div").css("display","none");
 				}
@@ -189,6 +197,7 @@
 				}
 			}
 			function qmsAudit(){
+				resetForm();
 				if($(".qms_audit_from_div").css("display")==="block"){
 					$(".qms_audit_from_div").css("display","none");
 				}
@@ -237,6 +246,7 @@
 				}
 			}
 			function employeeForm(){
+				// resetForm();
 				if($(".employee_from_div").css("display")==="block"){
 					$(".employee_from_div").css("display","none");
 				}
@@ -277,6 +287,7 @@
 				}
 			}
 			function accidentRiskForm(){
+				resetForm();
 				if($(".accident_risk_from_div").css("display")==="block"){
 					$(".accident_risk_from_div").css("display","none");
 				}
@@ -285,6 +296,7 @@
 				}
 			}
 			function riskAssessment(){
+				resetForm();
 				if($(".risk_assessment_from_div").css("display")==="block"){
 					$(".risk_assessment_from_div").css("display","none");
 				}

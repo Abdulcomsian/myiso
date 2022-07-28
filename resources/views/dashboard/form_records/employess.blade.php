@@ -20,6 +20,9 @@
 				<p>
 			     To add a record, click on the “Add Employee” button. To amend a record, click on the edit icon of the entry that needs to be modified or deleted.
 				</p>
+				@if(Session::has('Error'))
+					<h5 class="text-danger">  {{ Session::get('Error') }} </h5>
+				@endif
                     <div class="procedure_div">
                     	<div class="row">
                     		<div class="col-lg-12 text-right">
@@ -27,7 +30,7 @@
                     		</div>
                     	</div>
                     	<div class="employee_from_div">
-                        <form method="POST" action="{{ route('employee') }}">
+                        <form method="POST" action="{{ route('employee') }}" enctype="multipart/form-data" class="addForm">
                             @csrf
                     			<div class="row">
                     				{{-- <div class="col-lg-6">
@@ -39,7 +42,7 @@
                     				<div class="col-lg-12">
                     					<div class="form-group">
 											<label>Surname:</label><br>
-											<input type="text" class="form-control" name="surname" required placeholder="Enter Surname">
+											<input type="text" class="form-control" name="surname" required placeholder="Enter Surname" data-type="add">
 										</div>
                     				</div>
                     			</div>
@@ -52,9 +55,9 @@
 										</div>
 									</div>
 									<div class="col-lg-6">
-										<div class="form-group">
+										<div class="form-group add-emp-number-div">
 											<label>Employee ID Number:</label>
-											<input name="empNumber" type="text" class="form-control" required placeholder="Enter Employee ID Number">
+											<input name="empNumber" type="text" class="form-control" required placeholder="Enter Employee ID Number" data-type="add">
 										</div>
 									</div>
 								</div>
@@ -76,7 +79,7 @@
 									<div class="col-lg-6">
 										<div class="form-group">
 											<label>Upload Employee CV:</label>
-											<input name="employee_cv" type="file" class="form-control" >
+											<input name="employee_cv" type="file" class="form-control" accept="image/*,.doc, .docx,.txt,.pdf" >
 										</div>
 									</div>
 								</div>
@@ -201,9 +204,22 @@
 
 											<td> {{date('d-M-Y', strtotime($item->startDate))}}</td>
                                             <td> {{$item->jobdetails}}</td>
-                                            <td></td>
                                             <td>
-                                                <button onclick="getEid({{json_encode($item)}});" class="btn btn-sm btn-clean btn-icon btn-icon-md" title="Edit"><span class="svg-icon svg-icon-md">									<span class="svg-icon svg-icon-md">									<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="18px" height="18px" viewBox="0 0 24 24" version="1.1">										<g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">											<rect x="0" y="0" width="24" height="24"></rect>											<path d="M12.2674799,18.2323597 L12.0084872,5.45852451 C12.0004303,5.06114792 12.1504154,4.6768183 12.4255037,4.38993949 L15.0030167,1.70195304 L17.5910752,4.40093695 C17.8599071,4.6812911 18.0095067,5.05499603 18.0083938,5.44341307 L17.9718262,18.2062508 C17.9694575,19.0329966 17.2985816,19.701953 16.4718324,19.701953 L13.7671717,19.701953 C12.9505952,19.701953 12.2840328,19.0487684 12.2674799,18.2323597 Z" fill="#5d78ff" fill-rule="nonzero" transform="translate(14.701953, 10.701953) rotate(-135.000000) translate(-14.701953, -10.701953) "></path>											<path d="M12.9,2 C13.4522847,2 13.9,2.44771525 13.9,3 C13.9,3.55228475 13.4522847,4 12.9,4 L6,4 C4.8954305,4 4,4.8954305 4,6 L4,18 C4,19.1045695 4.8954305,20 6,20 L18,20 C19.1045695,20 20,19.1045695 20,18 L20,13 C20,12.4477153 20.4477153,12 21,12 C21.5522847,12 22,12.4477153 22,13 L22,18 C22,20.209139 20.209139,22 18,22 L6,22 C3.790861,22 2,20.209139 2,18 L2,6 C2,3.790861 3.790861,2 6,2 L12.9,2 Z" fill="#5d78ff" fill-rule="nonzero" opacity="0.3"></path>										</g>									</svg>	                            </span>
+												@if(!empty($item->cv))
+													<a target="_blank" href="{{ asset($item->cv) }}">View CV</a>
+												@else
+													No data found
+												@endif
+											</td>
+{{--                                            <td><img src="{{ asset($item->cv) }}" alt=""></td>--}}
+                                            <td>
+                                                <button onclick="getEid({{json_encode($item)}});" class="btn btn-sm btn-clean btn-icon btn-icon-md" title="Edit">
+													<span class="svg-icon svg-icon-md">
+													<span class="svg-icon svg-icon-md">
+													<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="18px" height="18px" viewBox="0 0 24 24" version="1.1">
+														<g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+															<rect x="0" y="0" width="24" height="24"></rect>
+															<path d="M12.2674799,18.2323597 L12.0084872,5.45852451 C12.0004303,5.06114792 12.1504154,4.6768183 12.4255037,4.38993949 L15.0030167,1.70195304 L17.5910752,4.40093695 C17.8599071,4.6812911 18.0095067,5.05499603 18.0083938,5.44341307 L17.9718262,18.2062508 C17.9694575,19.0329966 17.2985816,19.701953 16.4718324,19.701953 L13.7671717,19.701953 C12.9505952,19.701953 12.2840328,19.0487684 12.2674799,18.2323597 Z" fill="#5d78ff" fill-rule="nonzero" transform="translate(14.701953, 10.701953) rotate(-135.000000) translate(-14.701953, -10.701953) "></path>											<path d="M12.9,2 C13.4522847,2 13.9,2.44771525 13.9,3 C13.9,3.55228475 13.4522847,4 12.9,4 L6,4 C4.8954305,4 4,4.8954305 4,6 L4,18 C4,19.1045695 4.8954305,20 6,20 L18,20 C19.1045695,20 20,19.1045695 20,18 L20,13 C20,12.4477153 20.4477153,12 21,12 C21.5522847,12 22,12.4477153 22,13 L22,18 C22,20.209139 20.209139,22 18,22 L6,22 C3.790861,22 2,20.209139 2,18 L2,6 C2,3.790861 3.790861,2 6,2 L12.9,2 Z" fill="#5d78ff" fill-rule="nonzero" opacity="0.3"></path>										</g>									</svg>	                            </span>
                                                 </button>
                                                 <button class="btn btn-sm btn-clean btn-icon btn-icon-md"  onclick="deleteempl({{$item->id}})" title="Delete Employee">
 									                <span class="svg-icon svg-icon-md">
@@ -357,7 +373,7 @@
 				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
 				</button>
             </div>
-            <form method="POST" action=" {{ route('editemployee') }} ">
+            <form method="POST" action=" {{ route('editemployee') }} " enctype="multipart/form-data">
                 @csrf
 			<div class="modal-body">
 
@@ -386,9 +402,9 @@
                                 </div>
                             </div>
                             <div class="col-lg-6">
-                                <div class="form-group">
+                                <div class="form-group edit-emp-number-div" >
                                     <label>Employee ID:</label>
-                                    <input type="number"  name="empNumber" required class="form-control">
+                                    <input type="text"  name="empNumber" required class="form-control" data-type="edit">
            <!--                         <select name="empNumber" required class="form-control">-->
 											<!--    <option>Select One</option>-->
 											<!--    @if(isset($userinfo) && $userinfo!= "")-->
@@ -414,6 +430,14 @@
                                 </div>
                             </div>
                         </div>
+						<div class="row">
+							<div class="col-lg-6">
+								<div class="form-group">
+									<label>Upload Employee CV:</label>
+									<input name="employee_cv" type="file" class="form-control" accept="image/*,.doc, .docx,.txt,.pdf">
+								</div>
+							</div>
+						</div>
 			</div>
 			<div class="modal-footer">
 				<button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
@@ -504,9 +528,56 @@
 	</div>
 </div>
 @endsection
-
+@section('myscript')
 <script>
-    function employeeCV(){
+	//User for checking emp number for current logged in user , if exist or not by assad yaqoob
+	let userId = "{{\Illuminate\Support\Facades\Auth::id()}}";
+	let type = '';
+	let ajaxCall = null;
+	$('input[name="empNumber"]').blur(function(){
+		let empNumber = $(this).val();
+		type = $(this).data('type');
+		let empId = type == 'edit' ? $('#editproject').val() : '';
+
+		let data = {
+			empNumber : empNumber,
+			type : type,
+			userId	: userId,
+			_token : "{{csrf_token()}}",
+			empId : empId
+		}
+		console.log(data);
+		if(ajaxCall != null){
+			ajaxCall.abort();
+		}
+		ajaxCall = $.ajax({
+			method:'get',
+			url:'{{url("/check-emp-number")}}',
+			data:data,
+			success:function(response)
+			{
+				$("#emp_err_msg").remove();
+				if(response.status == 0){
+					let cls = `.${type}-emp-number-div`;
+					$(cls).append(`<p id="emp_err_msg" class="text-danger">${response.message}</p>`)
+					$('input[name="empNumber"]').val('');
+				}
+			}
+		})
+	});
+
+	function delay(callback, ms) {
+		var timer = 0;
+		return function() {
+			var context = this, args = arguments;
+			clearTimeout(timer);
+			timer = setTimeout(function () {
+				callback.apply(context, args);
+			}, ms || 0);
+		};
+	}
+
+	function employeeCV(){
         $(".employee_cv_from_div").css("display","block")
     }
      function editEmployee(data){
@@ -606,3 +677,4 @@ function emp3(){
 	}
 }
 </script>
+@endsection

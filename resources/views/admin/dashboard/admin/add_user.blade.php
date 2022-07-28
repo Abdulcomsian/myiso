@@ -345,8 +345,11 @@
 
 
                             <div class="form-group row">
-
-
+                                <div class="col-lg-4">
+                                    <label for="iso45001_certificate">Audit Report</label>
+                                    <input type="file" id="audit_report" accept=".pdf"
+                                           name="audit_report">
+                                </div>
                             </div>
 
                             <div class="kt-portlet__foot">

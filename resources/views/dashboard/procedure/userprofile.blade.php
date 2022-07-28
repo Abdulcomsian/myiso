@@ -78,7 +78,7 @@
 		<div class="row">
 			<div class="col-lg-12">
 				<div class="procedure_div">
-					<table class="table table-sm table-striped table-responsive" style="width:100%">
+					<table class="common_table table table-sm table-striped table-responsive" style="width:100%">
                         <tr>
                             <td style="padding-right:200px;width:270px;">Username</td>
                     
@@ -170,7 +170,7 @@
             <div class="modal-dialog modal-lg" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel">Edit User Details</h5>
+                        <h5 class="modal-title" id="exampleModalLabel">Edit User Detail</h5>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         </button>
                     </div>
@@ -208,6 +208,32 @@
                                 <label for="password">Password:</label>
                                 <div class="kt-input-icon kt-input-icon--right">
                                     <input type="password" id="password" name="password" class="form-control" placeholder="Enter password" readonly>
+                                    <!-- model start from here -->
+                                    <!-- Button trigger modal -->
+<a href="#" class="text-black pass_model_btn" data-toggle="modal" data-target="#passwordModel">
+Request for Change password 
+                        </a>
+
+<!-- Modal -->
+<div class="modal pass_model fade" id="passwordModel" tabindex="-1" role="dialog" aria-labelledby="passwordModelLabel" aria-hidden="true">
+  <div class="modal-dialog shadow" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="passwordModelLabel">Request for Change password </h5>
+        <button type="button" class="close pass_model_close" data-dismiss="hhh" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+      You can not change your password, send a message to admin from Contact Us page to change the password.
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary pass_model_close">Done</button>
+      </div>
+    </div>
+  </div>
+</div>
+                                    <!-- model start end here -->
                                     <span class="kt-input-icon__icon kt-input-icon__icon--right"><span><i class="la la-bookmark-o"></i></span></span>
                                 </div>
                             </div>
@@ -583,6 +609,13 @@ if(data.iso45001_certificate!=null){
 		  
 		 $("#editModal").modal('show');
 	}
+
+
+    // model script
+    $('.pass_model_close').click(function(){
+        $('.pass_model').fadeOut();
+        $('.pass_model_btn').click();
+    })
         
         
       
@@ -622,6 +655,7 @@ if(data.iso45001_certificate!=null){
           });
   
      });
+
 
 </script>
 

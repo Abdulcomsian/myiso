@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Helpers\HelperFunctions;
 use App\Employee;
 use App\EmployeeTraning;
 use App\EmpSkills;
@@ -9,6 +10,7 @@ use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\File;
 
 class EmployeeController extends Controller
 {
@@ -25,7 +27,7 @@ class EmployeeController extends Controller
     public function index(Request $request)
     {
         $userid=Auth::user()->id;
-        $userinfo=Employee::where('user_id',$userid)->get();
+        $userinfo=Employee::where('user_id',$userid)->orderBy('id','DESC')->get();
         // $employess=Employee::join('tbl_employees_skills','tbl_employees_skills.empid','=','tbl_employees.id')->where('tbl_employees.user_id',$userid)->get();
         // $e = EmpSkills::with('employee')->get();
         $employess = DB::table('tbl_employees_skills')
@@ -37,9 +39,10 @@ class EmployeeController extends Controller
             )
             ->join('tbl_employees','tbl_employees_skills.empid','=','tbl_employees.id')
             ->where('tbl_employees_skills.user_id','=',$userid)
+            ->orderBy('tbl_employees_skills.created_at','DESC')
             ->get();
         $emptraining=Employee::join('tbl_employees_traning','tbl_employees_traning.empid','=','tbl_employees.id')
-            ->where('tbl_employees.user_id',$userid)->get();
+            ->where('tbl_employees.user_id',$userid)->orderBy('tbl_employees_traning.created_at','DESC')->get();
 
         return view('dashboard.form_records.employess',compact('userinfo','employess','emptraining'));
 
@@ -97,10 +100,8 @@ class EmployeeController extends Controller
     //update employee skills
     public function updateempSkills(Request $request)
     {
-//       dd($request->all());
        EmpSkills::where('skill_id',$request->employskillid)->update([
              'empskill'=>$request->editempskill,
-//             'empid'=>$request->editempid,
            ]);
        return back();
     }
@@ -133,31 +134,39 @@ class EmployeeController extends Controller
      */
     public function store(Request $request)
     {
-        //  try{
-            $employee= new Employee();
-            if(isset($request->is_admin) && $request->is_admin=="admin")
-            {
-                $user_id=$request->user_id;
-            }
-            else
-            {
-                $user_id=Auth()->user()->id;
-            }
-            $employee->user_id= $user_id;
-            $employee->systemid=123;
-            $employee->surname=$request->input('surname');
-            $employee->first_name=$request->input('first_name');
-            $employee->empNumber=$request->input('empNumber');
-            $employee->startDate=$request->input('startDate');
-            $employee->jobdetails=$request->input('jobdetails');
-            $employee->save();
-            return back();
-        // }catch(Exception $exception){
-        //     return back()->with("Error","Err");
+        $employee= new Employee();
+        if(isset($request->is_admin) && $request->is_admin=="admin")
+        {
+            $user_id=$request->user_id;
+        }
+        else
+        {
+            $user_id=Auth()->user()->id;
+        }
 
-        // }
+        $result = Employee::where("user_id",$user_id)
+            ->where("empNumber",$request->empNumber)
+            ->exists();
+        if ($result == true){
+            return back()->with("Error","Record was not saved. The Employee ID Number already exists!");
+        }
 
+        $employee->user_id= $user_id;
+        $employee->systemid=123;
+        $employee->surname=$request->input('surname');
+        $employee->first_name=$request->input('first_name');
+        $employee->empNumber=$request->input('empNumber');
+        $employee->startDate=$request->input('startDate');
+        $employee->jobdetails=$request->input('jobdetails');
 
+        if ($request->file('employee_cv')) {
+            $file = $request->file('employee_cv');
+            $path = '/uploads/user/employee_cv/';
+            $employee->cv = HelperFunctions::saveFile($path,$file);
+        }
+
+        $employee->save();
+        return back();
     }
 
     /**
@@ -193,6 +202,7 @@ class EmployeeController extends Controller
     {
         $id=$request->id;
         $employee=Employee::find($id);
+
         if(isset($request->is_admin) && $request->is_admin=="admin")
         {
             $user_id=$request->user_id;
@@ -201,6 +211,14 @@ class EmployeeController extends Controller
         {
             $user_id=Auth()->user()->id;
         }
+
+        $result = Employee::where("user_id",$user_id)
+            ->where("empNumber",$request->empNumber)
+            ->where("id",'<>',$id)
+            ->exists();
+        if ($result == true){
+            return back()->with("Error","Record was not saved. The Employee ID Number already exists!");
+        }
         $employee->user_id=$user_id;
         $employee->systemid=$request->input('systemid');
         $employee->surname=$request->input('surname');
@@ -208,6 +226,19 @@ class EmployeeController extends Controller
         $employee->empNumber=$request->input('empNumber');
         $employee->startDate=$request->input('startDate');
         $employee->jobdetails=$request->input('jobdetails');
+
+        //Check if user uploaded cv
+        if ($request->file('employee_cv')) {
+            //Delete previous cv if exist
+            if (File::exists(public_path($employee->cv))) {
+                File::delete(public_path($employee->cv));
+            }
+
+            $file = $request->file('employee_cv');
+            $path = '/uploads/user/employee_cv/';
+            $employee->cv = HelperFunctions::saveFile($path,$file);
+        }
+
         $employee->save();
         return back();
     }
@@ -223,8 +254,13 @@ class EmployeeController extends Controller
         $type=$request->type;
         if($type=="employee")
         {
-         Employee::find($request->id)->delete();
-
+            $employee = Employee::find($request->id);
+            if (File::exists(public_path($employee->cv))) {
+                File::delete(public_path($employee->cv));
+            }
+            EmpSkills::where('empid',$request->id)->delete();
+            EmployeeTraning::where('empid',$request->id)->delete();
+            $employee->delete();
         }
         if($type=="employeeskill")
         {

@@ -31,7 +31,7 @@
                     	</div>
                     	<div class="qms_audit_from_div">
                     	
-                    	<form action="{{route('qmsaudit')}}" method="POST">
+                    	<form action="{{route('qmsaudit')}}" method="POST" enctype="multipart/form-data" class="addForm">
                                 @csrf
                                            
           <!--          			<div class="row">-->
@@ -863,7 +863,7 @@
 									<div class="col-lg-12">
 										<div class="form-group">
 											<label>Attach Evidence:</label>
-											<input type="file" name="attach_evidence" class="form-control">
+											<input name="attach_evidence" type="file" class="form-control" accept="image/*,.doc, .docx,.txt,.pdf">
 										</div>
 									</div>
 							</div> 
@@ -897,8 +897,10 @@
 										</div>
 									</div>
 								</div>
+								
 								<button type="submit" class="submitBtn">SUBMIT</button>
-								<button type="reset" class="btn btn-secondary" onclick="qmsAudit()">Cancel</button>
+								<button type="reset" style="margin-right: 10px;"  class="btn btn-secondary submitBtn" onclick="qmsAudit()">Cancel</button>
+							
 							</form>
                             
                             
@@ -958,12 +960,12 @@
                                             
                                             @endphp
                                                     
-<button data-toggle="modal" data-target="#confirm-{{$d_id}}" id="remove_{{$d_id}}" title="Delete" class="btn btn-sm btn-clean btn-icon btn-icon-md">
+<button data-toggle="modal" data-target="#confirm-{{$item->id}}" id="remove_{{$item->id}}" title="Delete" class="btn btn-sm btn-clean btn-icon btn-icon-md">
  <i class="la la-trash"></i>
 </button>
                   <!-- Delete Modal -->
 
-                  <div class="modal fade modal-mini modal-primary" id="confirm-{{$d_id}}" tabindex="-1" role="dialog" aria-labelledby="confirm" aria-hidden="true">
+                  <div class="modal fade modal-mini modal-primary" id="confirm-{{$item->id}}" tabindex="-1" role="dialog" aria-labelledby="confirm" aria-hidden="true">
                     <div class="modal-dialog">
                       <div class="modal-content">
                         <form action="{{route('deleteqmsAudit')}}" method="post">
@@ -974,7 +976,7 @@
                             <p>Are you sure you want to delete this entry?</p>
                           </div>
                           <div class="modal-footer">
-                              <input type="hidden" name="id" value="{{$d_id}}">
+                              <input type="hidden" name="id" value="{{$item->id}}">
 				<button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
 				<button type="submit" class="btn btn-danger">Yes</button>
                           </div>
@@ -1820,7 +1822,14 @@
 									<div class="col-lg-12">
 										<div class="form-group">
 											<label>Evidence:</label>
-											<input type="text" class="form-control" name="evidence29" placeholder="Enter Evidence:">
+											<input type="text" class="form-control" name="evidence31" placeholder="Enter Evidence:">
+										</div>
+									</div>
+									<div class="col-lg-12">
+										<div class="form-group">
+											<label>Attach Evidence:</label>
+											<div class="evidence_attachemnt_div">
+											</div>
 										</div>
 									</div>
 							</div> 
@@ -1828,7 +1837,7 @@
 									<div class="col-lg-12">
 										<div class="form-group">
 											<label>Audit Comments and Actions:</label>
-											<input type="text" class="form-control" name="evidence31"  placeholder="Enter Comment:">
+											<input type="text" class="form-control" name="audit_comments_actions"  placeholder="Enter Comment:">
 										</div>
 									</div>
 									<div class="col-lg-12">
@@ -1843,6 +1852,14 @@
 										<div class="form-group">
 											<label>Auditor Name:</label>
 											<input type="text" class="form-control" name="auditrName"  placeholder="Enter Auditor Name:">
+										</div>
+									</div>
+								</div>
+								<div class="row">
+									<div class="col-lg-12">
+										<div class="form-group">
+											<label>Any other issues or points to note?</label>
+											<input type="text" class="form-control" name="any_issues"  required  placeholder="Enter any other Issue">
 										</div>
 									</div>
 								</div>
@@ -1864,13 +1881,13 @@
 				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
 				</button>
 			</div>
-			  <form action="{{route('update_qmsaudit')}}" method="post">
+			  <form action="{{route('update_qmsaudit')}}" method="post" enctype="multipart/form-data">
                     @csrf
 			<div class="modal-body"> 
 
                  <input type="hidden" value="" id="test_a" name="id" />
                     <!--                 <div class="row">-->
-                    <!--    <div class="col-lg-12">-->
+{{--				Any other issue:  <!--    <div class="col-lg-12">-->--}}
                     <!--        <div class="form-group">-->
                     <!--            <label>QMS Audit ID Number:</label>-->
                     <!--            <input type="number" name="QmsauditNumber" class="form-control"  placeholder="Enter QMS Audit ID:" readonly>-->
@@ -2678,7 +2695,13 @@
 									<div class="col-lg-12">
 										<div class="form-group">
 											<label>Evidence:</label>
-											<input type="text" class="form-control" name="evidence29" placeholder="Enter Evidence:">
+											<input type="text" class="form-control" name="evidence31" placeholder="Enter Evidence:">
+										</div>
+									</div>
+									<div class="col-lg-12">
+										<div class="form-group">
+											<label>Attach Evidence:</label>
+											<input name="attach_evidence" type="file" class="form-control" accept="image/*,.doc, .docx,.txt,.pdf">
 										</div>
 									</div>
 							</div> 
@@ -2686,7 +2709,7 @@
 									<div class="col-lg-12">
 										<div class="form-group">
 											<label>Audit Comments and Actions:</label>
-											<input type="text" class="form-control" name="evidence31"  placeholder="Enter Comment:">
+											<input type="text" class="form-control" name="audit_comments_actions"  placeholder="Enter Comment:">
 										</div>
 									</div>
 									<div class="col-lg-12">
@@ -2704,6 +2727,14 @@
 										</div>
 									</div>
 								</div>
+								<div class="row">
+									<div class="col-lg-12">
+										<div class="form-group">
+											<label>Any other issues or points to note?</label>
+											<input type="text" class="form-control" name="any_issues"  required  placeholder="Enter any other Issue">
+										</div>
+									</div>
+								</div>
 
 			</div>
 			<div class="modal-footer">
@@ -2718,7 +2749,10 @@
 
 <script>
     function getEid(data){
-             console.log(data);
+		if($(".qms_audit_from_div").is(":visible")){
+			qmsAudit();
+		}
+		console.log(data);
          $("#id_feild").val(data.id);
          
          $("input[name='QmsauditNumber']").val(data.QmsauditNumber);
@@ -2772,7 +2806,13 @@
          $("input[name='evidence29']").val(data.evidence29);
          $("input[name='evidence31']").val(data.evidence31);
          $("input[name='evidence30']").val(data.evidence30);
-    
+         $("input[name='any_issues']").val(data.any_issues);
+         $("input[name='audit_comments_actions']").val(data.audit_comments_actions);
+		if(data.attach_evidence){
+			$('.evidence_attachemnt_div').empty().append(`<a target="_blank" href="${data.attach_evidence}">Click to View</a>`);
+		}else{
+			$('.evidence_attachemnt_div').empty().append('No data found');
+		}
          $("input[name='qmsCorects'][value="+data.qmsCorects+"]").prop('checked',true);
          $("input[name='needExpactations'][value="+data.needExpactations+"]").prop('checked',true);
          $("input[name='correction3'][value="+data.correction3+"]").prop('checked',true);
@@ -2808,8 +2848,12 @@
 
                 $("#editProcessAudit").modal('show');
      }
+
 	 function geteditdetails(data){
-             console.log(data);
+		 if($(".qms_audit_from_div").is(":visible")){
+			 qmsAudit();
+		 }
+		 console.log(data);
          $("#test_a").val(data.id);
           $("input[name='id']").val(data.id);
           
@@ -2864,8 +2908,10 @@
          $("input[name='evidence29']").val(data.evidence29);
          $("input[name='evidence31']").val(data.evidence31);
          $("input[name='evidence30']").val(data.evidence30);
+		 $("input[name='any_issues']").val(data.any_issues);
+		 $("input[name='audit_comments_actions']").val(data.audit_comments_actions);
 
-         $("input[name='qmsCorects'][value="+data.qmsCorects+"]").prop('checked',true);
+		 $("input[name='qmsCorects'][value="+data.qmsCorects+"]").prop('checked',true);
          $("input[name='needExpactations'][value="+data.needExpactations+"]").prop('checked',true);
          $("input[name='correction3'][value="+data.correction3+"]").prop('checked',true);
          $("input[name='correction5'][value="+data.correction5+"]").prop('checked',true);
@@ -2904,7 +2950,11 @@
      }
 
      function deleteqmsAudit(data){
-         $("#re_id").val(data.id);
+		 if($(".qms_audit_from_div").is(":visible")){
+			 qmsAudit();
+		 }
+
+		 $("#re_id").val(data.id);
          $("#deleteRequirment").modal('show');
 
      }

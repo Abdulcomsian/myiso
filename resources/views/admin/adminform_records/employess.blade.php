@@ -20,7 +20,11 @@
 				<p>To add a record, click on the
 					“ADD EMPLOYEE” buttons. To amend or delete a record, click on the edit or
 					delete icon of the entry that needs to be modified or deleted.</p>
-                    <!--add form-->
+				@if(Session::has('Error'))
+					<h5 class="text-danger">  {{ Session::get('Error') }} </h5>
+				@endif
+
+				<!--add form-->
                     <div class="procedure_div">
                     	<div class="row">
                     		<div class="col-lg-12 text-right">
@@ -28,7 +32,7 @@
                     		</div>
                     	</div>
                     	<div class="employee_from_div">
-                        <form method="POST" action="{{ route('employee') }}">
+                        <form method="POST" action="{{ route('employee') }}" enctype="multipart/form-data" class="addForm">
                             @csrf
                     			<div class="row">
                     				{{-- <div class="col-lg-6">
@@ -53,9 +57,9 @@
 										</div>
 									</div>
 									<div class="col-lg-6">
-										<div class="form-group">
+										<div class="form-group add-emp-number-div">
 											<label>Employee ID Number:</label>
-											<input name="empNumber" type="text" class="form-control"  required placeholder="Enter Employee ID Number">
+											<input name="empNumber" type="text" class="form-control"  required placeholder="Enter Employee ID Number" data-type="add">
 										</div>
 									</div>
 								</div>
@@ -77,7 +81,7 @@
 									<div class="col-lg-6">
 										<div class="form-group">
 											<label>Upload Employee CV:</label>
-											<input type="file" name="employee_cv" class="form-control">
+											<input name="employee_cv" type="file" class="form-control" accept="image/*,.doc, .docx,.txt,.pdf">
 										</div>
 									</div>
 								</div>
@@ -107,9 +111,9 @@
 											<select name="empid" required class="form-control">
 											   <option  value="" selected="selected" disabled="disabled">Select One</option>
 											    @if(isset($userinfo) && $userinfo!= "")
-											    @foreach($userinfo as $item)
-											    <option value="{{$item->empNumber}}" title="{{ $item->first_name }}">{{$item->empNumber.' ('.$item->first_name.')'}}</option>
-											    @endforeach
+													@foreach($userinfo as $item)
+														<option value="{{$item->id}}" title="{{ $item->first_name }}">{{$item->empNumber.' ('.$item->first_name.')'}}</option>
+													@endforeach
 											    @endif
 											</select>
 										</div>
@@ -147,9 +151,9 @@
 											<select name="empid" required class="form-control">
 											   <option  value="" selected="selected" disabled="disabled">Select One</option>
 											    @if(isset($userinfo) && $userinfo!= "")
-											    @foreach($userinfo as $item)
-											    <option value="{{$item->empNumber}}" title="{{ $item->first_name }}">{{$item->empNumber.' ('.$item->first_name.')'}}</option>
-											    @endforeach
+													@foreach($userinfo as $item)
+														<option value="{{$item->id}}" title="{{ $item->first_name }}">{{$item->empNumber.' ('.$item->first_name.')'}}</option>
+													@endforeach
 											    @endif
 											</select>
 										</div>
@@ -185,7 +189,7 @@
                     	<div class="requirments_table_div">
 							<div class="d-flex justify-content-between mb-2">
 								<h4>Total Employees Listed</h4>
-								<a href="/edit_user/{{ $urlparam['userid'] }}" class="btn btn-clean btn-icon-sm" style="float: right;">
+								<a href="/edit_user/{{ $urlparam['userid'] }}" class="btn btn-clean btn-icon-sm back_icon" style="float: right;">
 									<i class="la la-long-arrow-left"></i>
 									Back
 								</a>
@@ -215,7 +219,13 @@
 											<td> {{$item->surname}}</td>
 											<td> {{$item->first_name}}</td>
 											<td> {{$item->jobdetails}}</td>
-											<td></td>
+											<td>
+												@if(!empty($item->cv))
+													<a target="_blank" href="{{ asset($item->cv) }}">View CV</a>
+												@else
+													No data found
+												@endif
+											</td>
 											<td> {{date('d-M-Y', strtotime($item->startDate))}}</td>
                                             <!--<td> {item->jobdetails}</td>-->
                                             <td>
@@ -301,7 +311,7 @@
                                     <tbody>
                                         @foreach ($emptraining as $item)
                                         <tr>
-                                            <td> {{$item->empid}}</td>
+                                            <td> {{$item->empNumber}}</td>
 											<td> {{$item->surname}}</td>
                                             <td> {{$item->first_name}}</td>
 											<td>  {{date('d-M-Y', strtotime($item->startDate))}}</td>
@@ -343,7 +353,7 @@
 				<p>Are you sure you want to delete this entry?</p>
 			</div>
 			<div class="modal-footer">
-			<form action="{{route('deleteEmployeeskill')}}" method="POST">
+			<form action="{{route('deleteEmployeeadmin')}}" method="POST">
 				@csrf
 					<input type="hidden" name="type" value="" id="type2"/>
 					<input type="hidden" name="id" id="re_id2" value="">
@@ -385,7 +395,7 @@
 				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
 				</button>
             </div>
-            <form method="POST" action=" {{ route('editemployee') }} ">
+            <form method="POST" action=" {{ route('editemployee') }} " enctype="multipart/form-data">
                 @csrf
 			<div class="modal-body">
 
@@ -414,9 +424,9 @@
                                 </div>
                             </div>
                             <div class="col-lg-6">
-                                <div class="form-group">
+                                <div class="form-group edit-emp-number-div">
                                     <label>Employee ID:</label> 
-                                    <input type="number" name="empNumber" required class="form-control">
+                                    <input type="text" name="empNumber" required class="form-control" data-type="edit">
            <!--                         <select name="empNumber" required class="form-control">-->
 											<!--    <option>Select One</option>-->
 											<!--    @if(isset($userinfo) && $userinfo!= "")-->
@@ -442,6 +452,14 @@
                                 </div>
                             </div>
                         </div>
+				<div class="row">
+					<div class="col-lg-6">
+						<div class="form-group">
+							<label>Upload Employee CV:</label>
+							<input name="employee_cv" type="file" class="form-control" accept="image/*,.doc, .docx,.txt,.pdf">
+						</div>
+					</div>
+				</div>
 			</div>
 			 @php 
                 $urlparam = request()->route()->parameters;
@@ -472,7 +490,7 @@
     				<div class="col-lg-6">
     					<div class="form-group">
 							<label>Employee ID Number:</label><br>
-							<input name="editempid" type="number"  readonly  class="form-control">
+							<input readonly name="editempid" type="number" class="form-control">
 							<input type="hidden" name="employskillid" value=""/>
 						</div>
     				</div>
@@ -539,6 +557,41 @@
 @endsection
 @section('myscript')
 <script>
+//User for checking emp number for current logged in user , if exist or not by assad yaqoob
+let userId = "{{ $urlparam['userid'] }}";
+let type = '';
+let ajaxCall = null;
+$('input[name="empNumber"]').blur(function(){
+	let empNumber = $(this).val();
+	type = $(this).data('type');
+	let empId = type == 'edit' ? $('#editproject').val() : '';
+
+	let data = {
+		empNumber : empNumber,
+		type : type,
+		userId	: userId,
+		_token : "{{csrf_token()}}",
+		empId : empId
+	}
+	console.log(data);
+	if(ajaxCall != null){
+		ajaxCall.abort();
+	}
+	ajaxCall = $.ajax({
+		method:'get',
+		url:'{{url("/check-emp-number")}}',
+		data:data,
+		success:function(response)
+		{
+			$("#emp_err_msg").remove();
+			if(response.status == 0){
+				let cls = `.${type}-emp-number-div`;
+				$(cls).append(`<p id="emp_err_msg" class="text-danger">${response.message}</p>`)
+				$('input[name="empNumber"]').val('');
+			}
+		}
+	})
+});
 function employeeCV(){
         if($(".employee_cv_from_div").css("display")=="none"){
             $(".employee_cv_from_div").css("display","block")
@@ -600,7 +653,7 @@ function employeeCV(){
      
       function getEidtraining(data)
      {
-         $("input[name='editempidt']").val(data.empid);
+         $("input[name='editempidt']").val(data.empNumber);
          $("input[name='edittraningdate']").val(data.traningdate);
          $("input[name='edittraningdetails']").val(data.traningdetails);
          $("input[name='edittrainid']").val(data.traning_id);

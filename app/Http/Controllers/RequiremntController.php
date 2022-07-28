@@ -23,7 +23,7 @@ class RequiremntController extends Controller
     public function index()
     {
         $userid=Auth::user()->id;
-        $requirement=requirement::where('user_id',$userid)->get();
+        $requirement=requirement::where('user_id',$userid)->orderBy('id','DESC')->get();
         return view('dashboard.form_records.requirements_aspect',compact('requirement'));
       //  return view('dashboard.form_records.requirements_aspect',compact('requirement'));
     }

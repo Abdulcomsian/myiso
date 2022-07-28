@@ -27,7 +27,7 @@
                     		</div>
                     	</div>
                     	<div class="risk_assessment_from_div">
-                            <form action="{{route('assessment')}} " method="POST">
+                            <form action="{{route('assessment')}} " method="POST" class="addForm">
                                 @csrf
                                                                             @php 
             $urlparam = request()->route()->parameters;
@@ -217,7 +217,7 @@
                     	<div class="requirments_table_div">
 							<div class="d-flex justify-content-between mb-2">
 								<h4>Total Risk Assessments Listed</h4>
-								<a href="/edit_user/{{ $urlparam['userid'] }}" class="btn btn-clean btn-icon-sm" style="float: right;">
+								<a href="/edit_user/{{ $urlparam['userid'] }}" class="btn btn-clean btn-icon-sm back_icon" style="float: right;">
 									<i class="la la-long-arrow-left"></i>
 									Back
 								</a>
@@ -527,7 +527,7 @@
                     				<div class="col-lg-6">
                     					<div class="form-group">
 											<label>Job Number:</label><br>
-											<input type="number" min="1" class="form-control validate_number" name="jobNumber" >
+											<input type="text" min="1" class="form-control validate_number" name="jobNumber" >
 										</div>
                     				</div>
                     				<div class="col-lg-6">
@@ -930,6 +930,7 @@
          $("select[name='riskSeverity']").val(data.riskSeverity);
 
         $("#editModal").modal('show');
+		resetForm();
 
     }
     function viewData(data){
@@ -953,8 +954,8 @@
 
          $("#view_Modal select[name='RiskProbability']").val(data.RiskProbability);
          $("#view_Modal select[name='riskSeverity']").val(data.riskSeverity);
-
         $("#view_Modal").modal('show');
+		resetForm();
 
     }
 </script>

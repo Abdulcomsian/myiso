@@ -27,7 +27,7 @@
                     		</div>
                     	</div>
                     	<div class="risk_assessment_from_div">
-                            <form action="{{route('assessment')}} " method="POST">
+                            <form action="{{route('assessment')}} " method="POST" class="addForm">
                                 @csrf
                     			<div class="row">
                     				<div class="col-lg-6">
@@ -508,7 +508,7 @@
                     				<div class="col-lg-6">
                     					<div class="form-group">
 											<label>Job Number:</label><br>
-											<input type="number" min="1" class="form-control validate_number" name="jobNumber" >
+											<input type="text" min="1" class="form-control validate_number" name="jobNumber" >
 										</div>
                     				</div>
                     				<div class="col-lg-6">
@@ -919,6 +919,7 @@
          $("select[name='riskSeverity']").val(data.riskSeverity);
 
         $("#editModal").modal('show');
+		resetForm();
 
     }
 {{---    function viewData(data){

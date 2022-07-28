@@ -91,14 +91,14 @@ input[type="date"]::-webkit-datetime-edit-day-field{
                     <div class="procedure_div">
 						{{-- <div class="kt-portlet__head-toolbar"> --}}
 							{{-- <div class="kt-portlet__head-wrapper"> --}}
-								<a href="/edit_user/{{ $urlparam['userid'] }}" class="btn btn-clean btn-icon-sm" style="float: right;">
+								<a href="/edit_user/{{ $urlparam['userid'] }}" class="btn btn-clean btn-icon-sm back_icon" style="float: right;">
 									<i class="la la-long-arrow-left"></i>
 									Back
 								</a>
 						
 					
                     	<div class="requirments_table_div">
-                    		<div class="kt-portlet__body">
+                    		<div class="kt-portlet__body table-responsive">
 								
                                 <!--begin: Datatable -->
 

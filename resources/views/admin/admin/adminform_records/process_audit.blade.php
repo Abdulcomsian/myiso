@@ -423,7 +423,7 @@
 								<div class="row">
 									<div class="col-lg-12">
 										<div class="form-group">
-											<label>Any other issues?</label>
+											<label>Any other issues or points to note?</label>
 											<input type="text" name="any_issues" class="form-control"  placeholder="Enter Any other issues::">
 										</div>
 									</div>
@@ -766,7 +766,7 @@
 								<div class="row">
 									<div class="col-lg-12">
 										<div class="form-group">
-											<label>Any other issues?</label>
+											<label>Any other issues or points to note?</label>
 											<input type="text" name="any_issues" class="form-control"  placeholder="Enter Any other issues::">
 										</div>
 									</div>

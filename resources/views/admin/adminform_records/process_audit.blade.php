@@ -36,7 +36,7 @@
                     		</div>
                     	</div>
                     	<div class="process_audit_from_div">
-                    		<form action="{{route('auditsaveadmin')}}" method="POST">
+                    		<form action="{{route('auditsaveadmin')}}" method="POST" enctype="multipart/form-data" id="addForm">
                                 @csrf
                                 @php 
                                     $urlparam = request()->route()->parameters;
@@ -362,7 +362,7 @@
 									<div class="col-lg-12">
 										<div class="form-group">
 											<label>Attach Evidence:</label>
-											<input type="file" name="attach_evidence" class="form-control">
+											<input name="attach_evidence" type="file" class="form-control" accept="image/*,.doc, .docx,.txt,.pdf">
 										</div>
 									</div>
 								</div>
@@ -380,13 +380,13 @@
                     		</form>
                     	</div>
                     	<div class="requirments_table_div">
-							<a href="/edit_user/{{$urlparam['userid'] }}" class="btn btn-clean btn-icon-sm" style="float: right;">
+							<a href="/edit_user/{{$urlparam['userid'] }}" class="btn btn-clean btn-icon-sm back_icon" style="float: right;">
 								<i class="la la-long-arrow-left"></i>
 								Back
 							</a>
 					
 
-                    		<div class="kt-portlet__body">
+                    		<div class="kt-portlet__body table-responsive">
 								<!--begin: Datatable -->
 								<table class="common_table table table-striped- table-bordered table-hover table-checkable table-responsive" id="kt_table_agent">
 									<thead>
@@ -400,6 +400,7 @@
 											<th>Non-Conformities Reference</th>
 											<th>Audit Actions</th>
 											<th>Audit Frequency</th>
+											<th>Attachment</th>
 											<th>Action</th>
 										</tr>
 									</thead>
@@ -418,7 +419,13 @@
 											<td>{{ $data->nonConfReport}}</td>
                                             <td>{{ $data->AdutiActions}}</td>
 											<td>{{ $data->dateFrequency}}</td>
-
+											<td>
+												@if(!empty($data->attach_evidence))
+													<a target="_blank" href="{{ asset($data->attach_evidence) }}">View</a>
+												@else
+													No data found
+												@endif
+											</td>
 											<td><button class="btn btn-sm btn-clean btn-icon btn-icon-md" title="Edit" onclick="getEid({{$data}});"><i class="la la-edit"></i></button>
 										<button  class="btn btn-sm btn-clean btn-icon btn-icon-md" title="View" onclick="viewaudit({{$data}})"><i class="la la-info"></i></button> 
 										<button  class="btn btn-sm btn-clean btn-icon btn-icon-md" title="Delete" onclick="deleteModal({{$data}})"><i class="la la-trash"></i></button> 
@@ -466,7 +473,7 @@
 				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
 				</button>
             </div>
-            <form action="{{route('auditupdateadmin')}}" method="POST">
+            <form action="{{route('auditupdateadmin')}}" method="POST" enctype="multipart/form-data">
                 @csrf
 			<div class="modal-body">
 			    		
@@ -789,7 +796,15 @@
 								<div class="row">
 									<div class="col-lg-12">
 										<div class="form-group">
-											<label>Any other issues?</label>
+											<label>Attach Evidence:</label>
+											<input name="attach_evidence" type="file" class="form-control" accept="image/*,.doc, .docx,.txt,.pdf">
+										</div>
+									</div>
+								</div>
+								<div class="row">
+									<div class="col-lg-12">
+										<div class="form-group">
+											<label>Any other issues or points to note?</label>
 											<input type="text" name="any_issues" class="form-control"  placeholder="Enter Any other issues:">
 										</div>
 									</div>
@@ -1121,22 +1136,31 @@
 												
 										</div>
 									</div>
-									<div class="col-lg-12">
+								<div class="col-lg-12">
 										<div class="form-group">
 											<label>Evidence:</label>
 											<input type="text" name="evidance10" class="form-control"  placeholder="Enter Evidence:">
 										</div>
 									</div>
-								
 								</div>
+				<div class="row">
+					<div class="col-lg-12">
+						<div class="form-group">
+							<label>Attach Evidence:</label>
+							<div class="evidence_attachemnt_div">
+							</div>
+						</div>
+					</div>
+				</div>
 								<div class="row">
 									<div class="col-lg-12">
 										<div class="form-group">
-											<label>Any other issues?</label>
+											<label>Any other issues or points to note?</label>
 											<input type="text" name="any_issues" class="form-control"  placeholder="Enter Any other issues:">
 										</div>
 									</div>
 								</div>
+
 
 			</div>
 
@@ -1157,7 +1181,8 @@
   
     function processAuditFormshow()
     {
-        $(".process_audit_from_div").toggle();
+		document.getElementById('addForm').reset();
+		$(".process_audit_from_div").toggle();
     }
     function myFunction(classname){
        var value=parseInt($("."+classname).val());
@@ -1180,8 +1205,11 @@
     }
     function getEid(data){
         console.log(data);
+		if($(".process_audit_from_div").is(":visible")){
+			processAuditFormshow();
+		}
 
-         $("#id_feild").val(data.id);
+		$("#id_feild").val(data.id);
          $("input[name='auditId']").val(data.auditId);
 
          $("textarea[name='AdutiActions']").val(data.AdutiActions);
@@ -1219,6 +1247,9 @@
      }
 	   function viewaudit(data){
         console.log(data);
+		   if($(".process_audit_from_div").is(":visible")){
+			   processAuditFormshow();
+		   }
 
          $("#id_feild").val(data.id);
          $("input[name='auditId']").val(data.auditId);
@@ -1252,10 +1283,18 @@
 		  $("input[name='correction10'][value="+data.correction10+"]").prop('checked',true);
 		  $("input[name='needExpactations'][value="+data.needExpactations+"]").prop('checked',true);
 		  $("input[name='qmsCorects'][value="+data.qmsCorects+"]").prop('checked',true);
+           if(data.attach_evidence){
+               $('.evidence_attachemnt_div').empty().append(`<a target="_blank" href="${data.attach_evidence}">Click to View</a>`);
+           }else{
+               $('.evidence_attachemnt_div').empty().append('No data found');
+           }
          $("#viewProcessAudit").modal('show');
      }
 	 
      function deleteModal(data){
+		 if($(".process_audit_from_div").is(":visible")){
+			 processAuditFormshow();
+		 }
          $("#re_id").val(data.id);
          $("#deleteRequirment").modal('show');
 

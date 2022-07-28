@@ -19,7 +19,7 @@ class interestedController extends Controller
        
         $userid=Auth::user()->id;
        
-        $interested=Interested::where('user_id',$userid)->get();
+        $interested=Interested::where('user_id',$userid)->orderBy('id','DESC')->get();
         return view('dashboard.form_records.interested_parties',compact('interested'));
     }
 

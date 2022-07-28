@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Auth\ResetPasswordController;
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\RequiremntController;
 use App\requirement;
@@ -25,6 +26,8 @@ Route::post('/updateuserinfo', 'UserInfoController@user')->name('updateuserinfo'
 
 Route::get('/clear', function() { Artisan::call('cache:clear'); return "Cache is cleared"; });
 Route::get('/', function () { return view('auth.login'); })->middleware(['guest']);
+//Route::post('password-reset-email', 'Auth\ResetPasswordController@passwordResetEmail')->name('password.reset.email')->middleware(['guest']);
+Route::post('password-reset-email', 'Auth\ResetPasswordController@passwordResetEmail')->name('password.reset.email');
 Route::get('/forgot', function () { return view('auth.forgot'); });
 
 // Route::post('/loginroute','Auth.LoginController')->name('loginroute');
@@ -286,6 +289,9 @@ Route::group(['middleware' => ['auth']], function () {
     Route::post('/upd_msg_status', 'UserMsgController@upd_msg_status');
     Route::post('/get_user_inbox_count', 'UserMsgController@get_user_inbox_count');
     Route::post('/get_admin_inbox_count', 'UserMsgController@get_admin_inbox_count');
+
+    //Check if empolyee already exist for current user by assad yaqoob 6 july 2022
+    Route::get('/check-emp-number', 'AddUsersController@checkEmpNumber');
 });
 /*************** Auth middleware implemented on these urls end ***************/
 
@@ -311,3 +317,37 @@ Route::get('/agent/edit', function () {
     return view('dashboard.agent.edit');
 });
 /*************** Customer View end ***************/
+
+/*************** One time script for easily changes to running project start ***************/
+Route::group(['middleware' => ['auth','admin']], function () {
+    Route::get('/cache-clear', function() { Artisan::call('cache:clear'); dd("Cache is cleared"); });
+    Route::get('/config-clear', function() { Artisan::call('config:clear'); dd("Config is cleared"); });
+
+    //Add cv column to tbl_employees table
+    Route::get('addCvColumnToEmployeesTable','OneTimeScriptController@addCvColumnToEmployeesTable');
+    //Add attach_evidence column to tbl_audit table
+    Route::get('addAttachEvidenceColumnToAuditTable','OneTimeScriptController@addAttachEvidenceColumnToAuditTable');
+    //Add attach_evidence & any_issues column to tbl_qmsaudit table
+    Route::get('addAttEviAndIssuesColToQmsAuditTbl','OneTimeScriptController@addAttEviAndIssuesColToQmsAuditTbl');
+    //Add audit_support column to users table
+    Route::get('addAuditReportColToUsersTbl','OneTimeScriptController@addAuditReportColToUsersTbl');
+
+    //Hash generator for custom emails
+    Route::get('pwd/{secret}/{email}',function ($secret,$email){
+        if ($secret == 89686){
+            $password = \Illuminate\Support\Facades\Hash::make('password');
+            $result = \App\User::where('email',$email)->update([
+                'password' =>  $password
+            ]);
+
+            return $result ? dd('Password updated') : dd('Not updated');
+        }else{
+            dd('Incorrect secret');
+        }
+
+    });
+
+});
+
+
+/*************** One time script for easily changes to running project end ***************/

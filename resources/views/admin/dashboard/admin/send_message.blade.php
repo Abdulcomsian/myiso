@@ -1,5 +1,28 @@
 @extends('admin.dashboard.layouts.app')
-
+@section('styles')
+	<style>
+		.select2-search__field{
+			padding-left: 10px !important;
+		}
+		.multiselect-native-select .btn-group{
+			width: 100%;
+		}
+		/* .multiselect-native-select .btn-group button{
+			text-a
+		} */
+		.ms-options ul{
+			padding: 8px;
+			list-style-type: none;
+		}
+		.ms-options ul label{
+			text-align: left !important;
+			line-height: 12px;
+		}
+		.ms-options-wrap button{
+			border: 1px solid #0d47b3;
+		}
+	</style>
+@endsection
 @section('content')
 <style>tr.New>td {    color: #000 !important;    font-weight: 800;    cursor: pointer;}tr.New>button {    color: #FFF !important;    font-weight: 800;    cursor: pointer;}</style>
 <!-- begin:: Content -->
@@ -110,11 +133,10 @@
     					<div class="col-lg-12">
     						<label for="address1">Send to:</label>
     						<div class="kt-input-icon kt-input-icon--right">
-    							<select name="userid[]" id="user" class="form-control" multiple>
+    							<select name="userid[]" id="langOpt3" class="form-control" multiple>
     								@foreach ($users as $item)
     							        <option value="{{$item->id}}">{{$item->name}} </option>
     								@endforeach
-    
     							</select>
     						</div>
     					</div>
@@ -141,6 +163,46 @@
     </form>
 		</div>
 	</div>
+@endsection
+@section('myscript')
+<!-- <script type="text/javascript" src="{{asset('assets/jQuery-Multiple-Select/dist/js/bootstrap-multiselect.js')}}"></script> -->
+<script type="text/javascript" src="{{asset('assets/jquery.multiselect.js')}}"></script>
+	 <script src="http://demos.codexworld.com/multi-select-dropdown-list-with-checkbox-jquery/jquery.multiselect.js"></script>
+	 <!-- jquery.multiselect.js -->
 
+	<script>
+		// $('.select2').select2({
+		// 	placeholder: "Select users",
+		// });
+		// // $(".select2").select2();
+		// $("#checkbox").click(function(){
+		// 	if($("#checkbox").is(':checked') ){
+		// 		$("#user > option").prop("selected","selected");
+		// 		$("#user").trigger("change");
+		// 	}else{
+		// 		$("#user > option").removeAttr("selected");
+		// 		$("#user").trigger("change");
+		// 		// document.querySelector('.select2-selection__rendered').innerHTML = "";
+		// 		// document.getElementById("select2-selection__rendered").innerHTML =  "";
+		// 		$('.select2-selection__rendered').html('')
+		// 	}
+		// });
 
+		// $(function(){
+		// 	$('#demo').multiselect({
+		// 		// includes Select All Option
+		// 			includeSelectAllOption:false,
+		// 			selectedClass:'active',
+
+		// 	});
+		// });
+
+		$('#langOpt3').multiselect({
+			columns: 1,
+			placeholder: 'Select Languages',
+			search: true,
+			selectAll: true
+		});
+
+	</script>
 @endsection
