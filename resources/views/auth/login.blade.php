@@ -68,6 +68,15 @@ label[for="TermConditions"]{
 										<input class="form-control" type="password" placeholder="Password" name="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="current-password">
 									</div>
 									<div class="row kt-login__extra pl-0 ml-0 mt-3">
+									
+										<div class="col kt-align-right">
+											<a href="javascript:;" id="kt_login_forgot" style="font-size:15px;" class="kt-login__link">Forgot Password?</a>
+										</div>
+										
+										
+
+									</div>
+									<div class="row kt-login__extra pl-0 ml-0 mt-3">
 										<div class="col p-0">
 											<!--<label class="kt-checkbox">-->
 											<!--	<input type="checkbox" name="remember" id="remember" {{ old('remember') ? 'checked' : '' }}> Remember me-->
@@ -77,17 +86,11 @@ label[for="TermConditions"]{
 										<div class="form-check AgreeUl">
 										<input class="form-check-input" type="checkbox" value="" id="TermConditions">
 										<label class="form-check-label" for="TermConditions">
-											I agree to the terms and conditions.
+											I agree to the Terms and Conditions.
 										</label>
 										</div>
 										<!-- checkbox -->
 										</div>
-										<div class="col kt-align-right">
-											<a href="javascript:;" id="kt_login_forgot" class="kt-login__link">Forgot Password?</a>
-										</div>
-										
-										
-
 									</div>
 									<div class="kt-login__actions">
 										{{-- id="kt_login_signin_submit"  --}}
