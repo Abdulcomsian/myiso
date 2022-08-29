@@ -115,12 +115,14 @@ License: You must have a valid license purchased only from themeforest(the above
 			});
 		
 			var channel = pusher.subscribe('my-channel');
+
 			channel.bind('my-event', function(data) {
 				let x = $('.count_notifications').text();
 				if(x == 0 ){
 					$('.count_notifications').text('')
 				}
-				$('.count_notifications').text(Number(x) + 1)
+
+				$('.count_notifications').show().text(Number(x) + 1)
 			});
 		  </script>
 		<link href="{{ asset('css/custom.css') }}" rel="stylesheet" type="text/css" />
