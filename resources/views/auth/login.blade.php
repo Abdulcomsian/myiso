@@ -51,7 +51,7 @@ label[for="TermConditions"]{
 						<div class="kt-login__container">
 							<div class="kt-login__logo">
 								<a href="#">
-									<img src="../assets/media/logos/logo-5.png" class="img-fluid">
+									<img src="../assets/media/logos/MyISOOnline-Logo.png" class="img-fluid">
 								</a>
 							</div>
 							<div class="kt-login__signin">
@@ -87,8 +87,8 @@ label[for="TermConditions"]{
 											<!-- Button trigger modal -->
 										<!-- <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal"> -->
 										<button type="button" class="btn" data-toggle="modal" data-target="#exampleModal">
-											<input class="form-check-input" type="checkbox" value="">
-											<label class="form-check-label">
+											<input class="form-check-input agreeInput" type="checkbox" value="" id="TermConditions">
+											<label class="form-check-label" for="TermConditions">
 												I agree to the Terms and Conditions.
 											</label>
 										</button>
@@ -213,15 +213,17 @@ label[for="TermConditions"]{
 													United Arab Emirates. <br>
 													[Email]</p>
 													<div class="ml-2">
-													<input class="form-check-input" type="checkbox" value="" id="TermConditions">
-													<label class="form-check-label" for="TermConditions">
-															I agree to the Terms and Conditions.
-													</label>
+														<a href="#" data-dismiss="modal">
+															<input class="form-check-input agreeInput" type="checkbox" value="" id="TermConditions">
+															<label class="form-check-label" for="TermConditions">
+																	I agree to the Terms and Conditions.
+															</label>
+														</a>
 													</div>
 											</div>
-											<div class="modal-footer">
+											<!-- <div class="modal-footer">
 												<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-											</div>
+											</div> -->
 											</div>
 										</div>
 										</div>
@@ -312,7 +314,10 @@ label[for="TermConditions"]{
 		if(document.querySelector('#TermConditions').checked){
 			// remove disabled attributes
 			document.querySelector('#SignIN').removeAttribute('disabled');
+			// checked the checkbox in jquery
+			$('.agreeInput').prop('checked', true);
 		}else{
+			$('.agreeInput').prop('checked', false);
 			document.querySelector('#SignIN').setAttribute('disabled', '');
 		}
 	  })
