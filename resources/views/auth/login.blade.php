@@ -87,8 +87,8 @@ label[for="TermConditions"]{
 											<!-- Button trigger modal -->
 										<!-- <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal"> -->
 										<button type="button" class="btn" data-toggle="modal" data-target="#exampleModal">
-											<input class="form-check-input agreeInput" type="checkbox" value="" id="TermConditions">
-											<label class="form-check-label" for="TermConditions">
+											<input class="form-check-input agreeInput" id="firstCheckbox" type="checkbox" value="">
+											<label class="form-check-label">
 												I agree to the Terms and Conditions.
 											</label>
 										</button>
@@ -213,17 +213,15 @@ label[for="TermConditions"]{
 													United Arab Emirates. <br>
 													[Email]</p>
 													<div class="ml-2">
-														<a href="#" data-dismiss="modal">
 															<input class="form-check-input agreeInput" type="checkbox" value="" id="TermConditions">
 															<label class="form-check-label" for="TermConditions">
 																	I agree to the Terms and Conditions.
 															</label>
-														</a>
 													</div>
 											</div>
-											<!-- <div class="modal-footer">
+											<div class="modal-footer">
 												<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-											</div> -->
+											</div>
 											</div>
 										</div>
 										</div>
@@ -321,6 +319,14 @@ label[for="TermConditions"]{
 			document.querySelector('#SignIN').setAttribute('disabled', '');
 		}
 	  })
+
+	  $('#firstCheckbox').on("change",function(){
+		// always unchecked
+		$('#firstCheckbox').prop('checked', false);
+	  });
+
+
+
 	</script>
 	<!-- end::Body -->
 
