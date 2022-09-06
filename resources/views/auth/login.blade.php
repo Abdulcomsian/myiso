@@ -37,6 +37,12 @@ label[for="TermConditions"]{
 .AgreeUl{
 	margin-left: 18px;
 }
+@media screen and (min-width: 1300px){
+	#firstCheckboxDev{
+		transform: translate(-10px,-46px);
+	}
+}
+
 </style>
 	@include('auth.includes.head')
 
@@ -67,9 +73,23 @@ label[for="TermConditions"]{
 									<div class="input-group">
 										<input class="form-control" type="password" placeholder="Password" name="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="current-password">
 									</div>
-									<div class="row kt-login__extra pl-0 ml-0 mt-3">
-									
-										<div class="col kt-align-right">
+									<div class="d-flex justify-content-between align-items-center kt-login__extra pl-0 ml-0 mt-3">
+										<div class="">
+
+											<div class="form-check AgreeUl pl-0 ml-0" id="firstCheckoxDev">
+													<!-- Button trigger modal -->
+													<!-- <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal"> -->
+													<button type="button" class="btn" data-toggle="modal" data-target="#exampleModal">
+														<input class="form-check-input agreeInput" id="firstCheckbox" type="checkbox" value="">
+														<label class="form-check-label">
+															I agree to the Terms and Conditions.
+														</label>
+													</button>
+		
+												<!-- Modal -->
+												</div>
+										</div>
+										<div class="">
 											<a href="javascript:;" id="kt_login_forgot" style="font-size:15px;" class="kt-login__link">Forgot Password?</a>
 										</div>
 										
@@ -83,18 +103,8 @@ label[for="TermConditions"]{
 											<!--	<span style="border: 1px solid #000;"></span>-->
 											<!--</label>-->
 											<!-- checkbox --> 
-										<div class="form-check AgreeUl pl-0">
-											<!-- Button trigger modal -->
-										<!-- <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal"> -->
-										<button type="button" class="btn" data-toggle="modal" data-target="#exampleModal">
-											<input class="form-check-input agreeInput" id="firstCheckbox" type="checkbox" value="">
-											<label class="form-check-label">
-												I agree to the Terms and Conditions.
-											</label>
-										</button>
-
-										<!-- Modal -->
-										<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+										
+									<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
 										<div class="modal-dialog modal-dialog-scrollable">
 											<div class="modal-content">
 											<div class="modal-header">
@@ -224,9 +234,7 @@ label[for="TermConditions"]{
 											</div>
 											</div>
 										</div>
-										</div>
-										
-										</div>
+									</div>
 										<!-- checkbox -->
 										</div>
 									</div>
