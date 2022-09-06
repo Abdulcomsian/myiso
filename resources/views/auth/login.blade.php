@@ -314,7 +314,10 @@ label[for="TermConditions"]{
 		if(document.querySelector('#TermConditions').checked){
 			// remove disabled attributes
 			document.querySelector('#SignIN').removeAttribute('disabled');
+			// checked the checkbox in jquery
+			$('.agreeInput').prop('checked', true);
 		}else{
+			$('.agreeInput').prop('checked', false);
 			document.querySelector('#SignIN').setAttribute('disabled', '');
 		}
 	  })
