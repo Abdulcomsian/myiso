@@ -42,7 +42,7 @@
                                             <td>{{$data->serialNum}}</td>
                                             <td>{{$data->calibratedDate}}</td>
                                             <td>{{$data->calibratedDate}}</td>
-                                            <td> <button  class="btn btn-sm btn-clean btn-icon btn-icon-md" title="Info" value="" onclick="getEid({{$data}});"><i class="la la-info"></i>
+                                            <td> <button  class="btn btn-sm btn-clean btn-icon btn-icon-md" title="Info" value="" onclick="getEid({{$data}});"><i class="la la-eye"></i>
 											</button>
 											<button  class="btn btn-sm btn-clean btn-icon btn-icon-md" title="Delete" value="" onclick="DeleteModal({{$data}});"><i class="la la-trash"></i>
                                             </button>

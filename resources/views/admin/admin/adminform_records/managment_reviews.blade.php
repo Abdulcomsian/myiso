@@ -45,7 +45,7 @@
                                                <td>
                                                     <button  class="btn btn-sm btn-clean btn-icon btn-icon-md" title="Edit" value=""
                                                  onclick="displaydetail({{json_encode($item)}});">
-                                                 <i class="la la-info"></i>
+                                                 <i class="la la-eye"></i>
                                                </button>
                                             </td>
                                                <td>

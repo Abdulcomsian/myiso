@@ -186,7 +186,7 @@
                                                <td>
                                                 <button  class="btn btn-sm btn-clean btn-icon btn-icon-md" title="view" value=""
                                                 onclick="displaydetail({{json_encode($item)}});">
-                                                <i class="la la-info"></i>
+                                                <i class="la la-eye"></i>
                                               </button>
                                                    <button  class="btn btn-sm btn-clean btn-icon btn-icon-md" title="Edit" value="" onclick="getEid({{$item}});"><i class="la la-edit"></i>
                                                </button>

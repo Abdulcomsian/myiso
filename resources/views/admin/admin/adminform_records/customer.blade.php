@@ -47,7 +47,7 @@
 											<td>{{$item->Email}}</td>
 											<td>{{$item->contactName}}</td>
                                             <td>
-                                                <button  class="btn btn-sm btn-clean btn-icon btn-icon-md" title="info" value="" onclick="getEid({{$item}});"><i class="la la-info"></i>
+                                                <button  class="btn btn-sm btn-clean btn-icon btn-icon-md" title="info" value="" onclick="getEid({{$item}});"><i class="la la-eye"></i>
 												</button>
 												<button  class="btn btn-sm btn-clean btn-icon btn-icon-md" title="delete" value="" onclick="deletethisitem({{$item}});"><i class="la la-trash"></i>
                                                 </button>

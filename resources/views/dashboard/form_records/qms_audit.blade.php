@@ -947,7 +947,7 @@
 <!--    </g>-->
 <!--</svg></span>-->
 <i class="fa fa-eye"></i>
-                                                    <!--<i class="la la-info"></i>-->
+                                                    <!--<i class="la la-eye"></i>-->
                                                     </button>
 												<button  class="btn btn-sm btn-clean btn-icon btn-icon-md" title="Edit"
                                                     onclick="geteditdetails({{json_encode($item)}});">								<i class="la la-edit"></i>

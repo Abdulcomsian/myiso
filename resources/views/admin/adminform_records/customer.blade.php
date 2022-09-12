@@ -154,7 +154,7 @@
                                             <td class="d-flex">
                                                 <button class="btn btn-sm btn-clean btn-icon btn-icon-md" title="View"
                                                         value="" onclick="viewEid({{$item}});"><i
-                                                        class="la la-info"></i>
+                                                        class="la la-eye"></i>
                                                 </button>
                                                 <button data-toggle="modal" onclick="getEid({{$item}});"
                                                         class="btn btn-sm btn-clean btn-icon btn-icon-md" title="edit"

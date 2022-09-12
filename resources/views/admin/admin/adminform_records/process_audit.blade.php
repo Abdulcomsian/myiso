@@ -55,7 +55,7 @@
 											<td>{{ $data->dateFrequency}}</td>
 
 											<td><button class="btn btn-sm btn-clean btn-icon btn-icon-md" title="Edit" onclick="getEid({{$data}});"><i class="la la-edit"></i></button>
-										<button  class="btn btn-sm btn-clean btn-icon btn-icon-md" title="Delete" onclick="viewaudit({{$data}})"><i class="la la-info"></i></button> 
+										<button  class="btn btn-sm btn-clean btn-icon btn-icon-md" title="Delete" onclick="viewaudit({{$data}})"><i class="la la-eye"></i></button> 
 										<button  class="btn btn-sm btn-clean btn-icon btn-icon-md" title="Delete" onclick="deleteModal({{$data}})"><i class="la la-trash"></i></button> 
                                     </td>
                                         </tr>

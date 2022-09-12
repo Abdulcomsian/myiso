@@ -56,7 +56,7 @@
                                             <td>{{$data->supplierContactNumber}}</td>
 											<td>{{$data->supplierservc}}</td>
 											<td>
-											<button  class="btn btn-sm btn-clean btn-icon btn-icon-md" title="info" onclick="getEid({{$data}});"><i class="la la-info"></i>
+											<button  class="btn btn-sm btn-clean btn-icon btn-icon-md" title="info" onclick="getEid({{$data}});"><i class="la la-eye"></i>
 											</button>
 											<button class="btn btn-sm btn-clean btn-icon btn-icon-md" title="Delete" onclick="deleteModal({{$data}});"><i class="la la-trash"></i>
 											</button>

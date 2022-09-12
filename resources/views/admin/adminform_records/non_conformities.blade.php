@@ -258,7 +258,7 @@
                                             <td> <button class="btn btn-sm btn-clean btn-icon btn-icon-md" title="view"
                                                     value="{{ $data->customerID }}"
                                                     onclick="getEid({{ json_encode($data) }});"> <i
-                                                        class="la la-info"></i>
+                                                        class="la la-eye"></i>
                                                 </button>
                                                 
                                                 <button class="btn btn-sm btn-clean btn-icon btn-icon-md" title="Delete"

@@ -188,7 +188,7 @@
                                               <td>  {{$data->root_cause_category}}</td>
                                               <td>  {{$data->dateNcR}}</td>
                                               <td> <button  class="btn btn-sm btn-clean btn-icon btn-icon-md" title="Edit" value="{{ $data->requirment_id }}"
-                                                onclick="getEid({{json_encode($data)}});">								<i class="la la-info"></i>
+                                                onclick="getEid({{json_encode($data)}});">								<i class="la la-eye"></i>
                                                 </button>
                                                 <button  class="btn btn-sm btn-clean btn-icon btn-icon-md" title="Edit"
                                                     onclick="removeinfo({{json_encode($data)}});">								<i class="la la-trash"></i>

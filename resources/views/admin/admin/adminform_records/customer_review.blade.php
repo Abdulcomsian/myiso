@@ -50,7 +50,7 @@
 											<td>{{$data->OveralScore}} </td>
                                             <td>{{$data->AssesmentDate}} </td>
                                             <td>
-                                                <button  class="btn btn-sm btn-clean btn-icon btn-icon-md" title="info" value="" onclick="getEid({{$data}});"><i class="la la-info"></i>
+                                                <button  class="btn btn-sm btn-clean btn-icon btn-icon-md" title="info" value="" onclick="getEid({{$data}});"><i class="la la-eye"></i>
 												</button>
 												<button  class="btn btn-sm btn-clean btn-icon btn-icon-md" title="delete" value="" onclick="deletedata({{$data}});"><i class="la la-trash"></i>
                                                 </button>

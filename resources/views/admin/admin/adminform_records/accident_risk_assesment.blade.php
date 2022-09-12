@@ -38,7 +38,7 @@
                                         <tr>
                                             <td> {{$data->activityscenario}}</td>
                                             <td> <button
-                                                 onclick="getDetails({{json_encode($data)}})" class="btn btn-sm btn-clean btn-icon btn-icon-md" title="Delete" value=""><i class="la la-info"></i>
+                                                 onclick="getDetails({{json_encode($data)}})" class="btn btn-sm btn-clean btn-icon btn-icon-md" title="Delete" value=""><i class="la la-eye"></i>
                                             </button></td>
                                             <td> <button onclick="deleteModal({{json_encode($data)}})" class="btn btn-sm btn-clean btn-icon btn-icon-md" title="Edit" value=""><i class="la la-trash"></i>
                                         </button></td>

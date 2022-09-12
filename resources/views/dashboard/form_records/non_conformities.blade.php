@@ -262,7 +262,7 @@
                                                     </g>
                                                 </svg>
                                                 <!--end::Svg Icon--></span>
-                                            <!--<i class="la la-info"></i>-->
+                                            <!--<i class="la la-eye"></i>-->
                                         </button>
                                                 <button class="btn btn-sm btn-clean btn-icon btn-icon-md" title="Delete"
                                                     onclick="deleteModal({{ json_encode($data) }});"><i

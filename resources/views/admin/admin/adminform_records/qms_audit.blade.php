@@ -45,7 +45,7 @@
                                             </td>
                                             <td>
                                                 <button  class="btn btn-sm btn-clean btn-icon btn-icon-md" title="Info"
-                                                    onclick="getEid({{json_encode($item)}});">								<i class="la la-info"></i>
+                                                    onclick="getEid({{json_encode($item)}});">								<i class="la la-eye"></i>
                                                     </button>
 												{{-- <button  class="btn btn-sm btn-clean btn-icon btn-icon-md" title="Edit"
                                                     onclick="geteditdetails({{json_encode($item)}});">								<i class="la la-edit"></i>

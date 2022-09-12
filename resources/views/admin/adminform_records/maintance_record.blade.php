@@ -133,7 +133,7 @@
                                                 <td>{{$data->mractions}}</td>
                                                 <td>{{$data->mractivityperofrmby}}</td>
                                                 <td>
-                                                    <button onclick="viewMR({{json_encode($data)}});" class="btn btn-sm btn-clean btn-icon btn-icon-md" title="view"><i class="la la-info"></i>
+                                                    <button onclick="viewMR({{json_encode($data)}});" class="btn btn-sm btn-clean btn-icon btn-icon-md" title="view"><i class="la la-eye"></i>
 													</button>
                                                     <button onclick="getEid({{json_encode($data)}});"  class="btn btn-sm btn-clean btn-icon btn-icon-md" title="edit"><i class="la la-edit"></i>
 													</button>

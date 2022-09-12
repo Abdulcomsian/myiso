@@ -264,7 +264,7 @@
                                 <td>
                                     <button class="btn btn-sm btn-clean btn-icon btn-icon-md"
                                             title="View Customer Details" value="" onclick="viewDetails({{$item}});"><i
-                                                class="la la-info"></i>
+                                                class="la la-eye"></i>
                                     </button>
                                     <button class="btn btn-sm btn-clean btn-icon btn-icon-md" title="Edit Customer"
                                             onclick="editDetails({{$item}});">
