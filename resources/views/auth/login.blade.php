@@ -94,10 +94,10 @@ License: You must have a valid license purchased only from themeforest(the above
 									<div class="input-group">
 										<input class="form-control" type="password" placeholder="Password" name="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="current-password">
 									</div>
-									<div class="d-flex justify-content-between align-items-center kt-login__extra pl-0 ml-0 mt-3">
+									<div class="d-flex justify-content-between kt-login__extra pl-0 ml-0 mt-3">
 										<div class="">
 
-											<div class="form-check AgreeUl pl-0 ml-2" id="firstCheckoxDev">
+											<div class="form-check AgreeUl pl-0 ml-2 mt-4" id="firstCheckoxDev">
 													<!-- Button trigger modal -->
 													<!-- <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal"> -->
 													<input class="form-check-input agreeInput" id="firstCheckbox" type="checkbox" value="">
@@ -337,26 +337,30 @@ License: You must have a valid license purchased only from themeforest(the above
 	</body>
 
 	<script>
-	  document.querySelector('#TermConditions').addEventListener('change', function(e) {
-		if(document.querySelector('#TermConditions').checked){
-			// remove disabled attributes
-			document.querySelector('#SignIN').removeAttribute('disabled');
-			// checked the checkbox in jquery
-			$('.agreeInput').prop('checked', true);
-		}else{
-			$('.agreeInput').prop('checked', false);
-			document.querySelector('#SignIN').setAttribute('disabled', '');
-		}
-	  })
 
-	  $('#firstCheckbox').on("change",function(){
-		// $('#firstCheckbox').prop('checked', false);
-		if(this.checked){
-			document.querySelector('#SignIN').removeAttribute('disabled');
-		}else{
-			document.querySelector('#SignIN').setAttribute('disabled', '');
-		}
-	  });
+
+	$('#firstCheckbox').on("change",function(){
+			// $('#firstCheckbox').prop('checked', false);
+			if(this.checked){
+				document.querySelector('#SignIN').removeAttribute('disabled');
+			}else{
+				document.querySelector('#SignIN').setAttribute('disabled', '');
+			}
+		});
+
+	//   document.querySelector('#TermConditions').addEventListener('change', function(e) {
+	// 	if(document.querySelector('#TermConditions').checked){
+	// 		// remove disabled attributes
+	// 		document.querySelector('#SignIN').removeAttribute('disabled');
+	// 		// checked the checkbox in jquery
+	// 		$('.agreeInput').prop('checked', true);
+	// 	}else{
+	// 		$('.agreeInput').prop('checked', false);
+	// 		document.querySelector('#SignIN').setAttribute('disabled', '');
+	// 	}
+	//   })
+
+	 
 
 
 

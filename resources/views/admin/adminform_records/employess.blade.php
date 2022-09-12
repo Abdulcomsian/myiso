@@ -229,10 +229,54 @@
 											<td> {{date('d-M-Y', strtotime($item->startDate))}}</td>
                                             <!--<td> {item->jobdetails}</td>-->
                                             <td>
-												<button onclick="deletemodal({{json_encode($item)}});" class="btn btn-sm btn-clean btn-icon btn-icon-md" title="delete"><i class="la la-trash"></i>
+												<button onclick="deletemodal({{json_encode($item)}});" class="btn btn-sm btn-clean btn-icon btn-icon-md" title="delete"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="18px" height="18px" viewBox="0 0 24 24" version="1.1">										<g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">											<rect x="0" y="0" width="24" height="24"></rect>											<path d="M6,8 L6,20.5 C6,21.3284271 6.67157288,22 7.5,22 L16.5,22 C17.3284271,22 18,21.3284271 18,20.5 L18,8 L6,8 Z" fill="#5d78ff" fill-rule="nonzero"></path>											<path d="M14,4.5 L14,4 C14,3.44771525 13.5522847,3 13,3 L11,3 C10.4477153,3 10,3.44771525 10,4 L10,4.5 L5.5,4.5 C5.22385763,4.5 5,4.72385763 5,5 L5,5.5 C5,5.77614237 5.22385763,6 5.5,6 L18.5,6 C18.7761424,6 19,5.77614237 19,5.5 L19,5 C19,4.72385763 18.7761424,4.5 18.5,4.5 L14,4.5 Z" fill="#5d78ff" opacity="0.3"></path>										</g>									</svg>
                                                 </button>
-												<button  onclick="getEid({{json_encode($item)}});" class="btn btn-sm btn-clean btn-icon btn-icon-md" title="edit"><i class="la la-edit"></i>
+												<button  onclick="getEid({{json_encode($item)}});" class="btn btn-sm btn-clean btn-icon btn-icon-md" title="edit"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="18px" height="18px" viewBox="0 0 24 24" version="1.1">										<g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">											<rect x="0" y="0" width="24" height="24"></rect>											<path d="M12.2674799,18.2323597 L12.0084872,5.45852451 C12.0004303,5.06114792 12.1504154,4.6768183 12.4255037,4.38993949 L15.0030167,1.70195304 L17.5910752,4.40093695 C17.8599071,4.6812911 18.0095067,5.05499603 18.0083938,5.44341307 L17.9718262,18.2062508 C17.9694575,19.0329966 17.2985816,19.701953 16.4718324,19.701953 L13.7671717,19.701953 C12.9505952,19.701953 12.2840328,19.0487684 12.2674799,18.2323597 Z" fill="#5d78ff" fill-rule="nonzero" transform="translate(14.701953, 10.701953) rotate(-135.000000) translate(-14.701953, -10.701953) "></path>											<path d="M12.9,2 C13.4522847,2 13.9,2.44771525 13.9,3 C13.9,3.55228475 13.4522847,4 12.9,4 L6,4 C4.8954305,4 4,4.8954305 4,6 L4,18 C4,19.1045695 4.8954305,20 6,20 L18,20 C19.1045695,20 20,19.1045695 20,18 L20,13 C20,12.4477153 20.4477153,12 21,12 C21.5522847,12 22,12.4477153 22,13 L22,18 C22,20.209139 20.209139,22 18,22 L6,22 C3.790861,22 2,20.209139 2,18 L2,6 C2,3.790861 3.790861,2 6,2 L12.9,2 Z" fill="#5d78ff" fill-rule="nonzero" opacity="0.3"></path>										</g>									</svg>
                                                 </button>
+												<!-- new  -->
+											<button class="btn btn-sm btn-clean btn-icon btn-icon-md"
+													title="View Customer Details" value="" o data-toggle="modal" data-target="#model1"><i
+														class="fa fa-eye"></i>
+											</button>
+
+
+												<!-- Modal -->
+												<div class="modal fade" id="model1" tabindex="-1" role="dialog" aria-labelledby="model1Label" aria-hidden="true">
+													<div class="modal-dialog" role="document">
+													<div class="modal-content">
+													<div class="modal-header">
+														<h5 class="modal-title" id="exampleModalLabel">Total Employees Listed</h5>
+														<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+														<span aria-hidden="true">&times;</span>
+														</button>
+													</div>
+													<div class="modal-body">
+														<table class="table table-bordered table-hover">
+															<thead>
+																<tr>
+																	<th>Employee Name</th>
+																	<th>Employee ID</th>
+																	<th>Employee Email</th>
+																	<th>Employee Phone</th>
+																</tr>
+															</thead>
+															<tbody>
+																<tr>
+																	<td>test</td>
+																	<td>test</td>
+																	<td>test</td>
+																	<td>test</td>
+																</tr>
+															</tbody>
+														</table>
+
+													</div>
+														<div class="modal-footer">
+															<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+														</div>
+														</div>
+													</div>
+												</div>
                                             </td>
 
                                         </tr>
@@ -278,6 +322,50 @@
 									                <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="18px" height="18px" viewBox="0 0 24 24" version="1.1">										<g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">											<rect x="0" y="0" width="24" height="24"></rect>											<path d="M6,8 L6,20.5 C6,21.3284271 6.67157288,22 7.5,22 L16.5,22 C17.3284271,22 18,21.3284271 18,20.5 L18,8 L6,8 Z" fill="#5d78ff" fill-rule="nonzero"></path>											<path d="M14,4.5 L14,4 C14,3.44771525 13.5522847,3 13,3 L11,3 C10.4477153,3 10,3.44771525 10,4 L10,4.5 L5.5,4.5 C5.22385763,4.5 5,4.72385763 5,5 L5,5.5 C5,5.77614237 5.22385763,6 5.5,6 L18.5,6 C18.7761424,6 19,5.77614237 19,5.5 L19,5 C19,4.72385763 18.7761424,4.5 18.5,4.5 L14,4.5 Z" fill="#5d78ff" opacity="0.3"></path>										</g>									</svg>								</span>
 
 								                </button>
+													<!-- new  -->
+											<button class="btn btn-sm btn-clean btn-icon btn-icon-md"
+													title="View Customer Details" value="" o data-toggle="modal" data-target="#model2"><i
+														class="fa fa-eye"></i>
+											</button>
+
+
+												<!-- Modal -->
+												<div class="modal fade" id="model2" tabindex="-1" role="dialog" aria-labelledby="model2Label" aria-hidden="true">
+													<div class="modal-dialog" role="document">
+													<div class="modal-content">
+													<div class="modal-header">
+														<h5 class="modal-title" id="exampleModalLabel">Total Employee Skills Listed</h5>
+														<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+														<span aria-hidden="true">&times;</span>
+														</button>
+													</div>
+													<div class="modal-body">
+														<table class="table table-bordered table-hover">
+															<thead>
+																<tr>
+																	<th>Employee Name</th>
+																	<th>Employee ID</th>
+																	<th>Employee Email</th>
+																	<th>Employee Phone</th>
+																</tr>
+															</thead>
+															<tbody>
+																<tr>
+																	<td>test</td>
+																	<td>test</td>
+																	<td>test</td>
+																	<td>test</td>
+																</tr>
+															</tbody>
+														</table>
+
+													</div>
+														<div class="modal-footer">
+															<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+														</div>
+														</div>
+													</div>
+												</div>
                                             </td>
 
 
@@ -325,6 +413,50 @@
 									                <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="18px" height="18px" viewBox="0 0 24 24" version="1.1">										<g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">											<rect x="0" y="0" width="24" height="24"></rect>											<path d="M6,8 L6,20.5 C6,21.3284271 6.67157288,22 7.5,22 L16.5,22 C17.3284271,22 18,21.3284271 18,20.5 L18,8 L6,8 Z" fill="#5d78ff" fill-rule="nonzero"></path>											<path d="M14,4.5 L14,4 C14,3.44771525 13.5522847,3 13,3 L11,3 C10.4477153,3 10,3.44771525 10,4 L10,4.5 L5.5,4.5 C5.22385763,4.5 5,4.72385763 5,5 L5,5.5 C5,5.77614237 5.22385763,6 5.5,6 L18.5,6 C18.7761424,6 19,5.77614237 19,5.5 L19,5 C19,4.72385763 18.7761424,4.5 18.5,4.5 L14,4.5 Z" fill="#5d78ff" opacity="0.3"></path>										</g>									</svg>								</span>
 
 								                </button>
+													<!-- new  -->
+											<button class="btn btn-sm btn-clean btn-icon btn-icon-md"
+													title="View Customer Details" value="" o data-toggle="modal" data-target="#model3"><i
+														class="fa fa-eye"></i>
+											</button>
+
+
+												<!-- Modal -->
+												<div class="modal fade" id="model3" tabindex="-1" role="dialog" aria-labelledby="model3Label" aria-hidden="true">
+													<div class="modal-dialog" role="document">
+													<div class="modal-content">
+													<div class="modal-header">
+														<h5 class="modal-title" id="exampleModalLabel">Training Record Summary</h5>
+														<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+														<span aria-hidden="true">&times;</span>
+														</button>
+													</div>
+													<div class="modal-body">
+														<table class="table table-bordered table-hover">
+															<thead>
+																<tr>
+																	<th>Employee Name</th>
+																	<th>Employee ID</th>
+																	<th>Employee Email</th>
+																	<th>Employee Phone</th>
+																</tr>
+															</thead>
+															<tbody>
+																<tr>
+																	<td>test</td>
+																	<td>test</td>
+																	<td>test</td>
+																	<td>test</td>
+																</tr>
+															</tbody>
+														</table>
+
+													</div>
+														<div class="modal-footer">
+															<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+														</div>
+														</div>
+													</div>
+												</div>
                                             </td>
 
                                         </tr>
@@ -688,6 +820,151 @@ function emp3(){
 		$(".employee_record_from_div").css("display","block");
 	}
 }
+
+function viewDetails(data) {
+                $('#view_phone_div').empty().append(`<input type="text" id="view_phoneee" class="form-control" placeholder="Phone" readonly disabled>`);
+                $('#view_iso_div').empty().append(`<input type="text" id="view_contact_isooo" class="form-control" placeholder="Iso Contact number" required  readonly disabled>`);
+
+
+                $("#v_9001").empty();
+                $("#v_4001").empty();
+                $("#v_45001").empty();
+                $("#v_audit_report").empty();
+                $("#downloadlink").empty();
+                $("#editvalue").val(data.id);
+                $("input[name='idnumber']").val(data.idnumber);
+                $("input[name='name']").val(data.name);
+
+                $("input[name='email']").val(data.email);
+                $("input[name='person_iso']").val(data.persone_iso);
+                // 		 $("#contact_iso_view").val(data.iso_phone_code + data.contact_number_iso);
+                $("#view_contact_isooo").val(data.contact_number_iso);
+                $("input[name='email_iso']").val(data.emailaddress_iso);
+                //$("input[name='iso_certificates']").val(data.iso_certificate);
+                $('#view_iso').html('<a target="_blank" href="public/' + data.iso_certificate + '">View iso certificates</a>');
+
+                $("input[name='expiry_date']").val(data.expiry_date);
+                $("input[name='country']").val(data.country);
+
+                // $("#phoneview").val(data.phonecode + data.phone);
+                $("#view_phoneee").val(data.phone);
+
+                $("input[name='director']").val(data.director);
+
+                $("input[name='sales_process']").val(data.sales_process);
+
+                if (data.company_profile != null) {
+                    $('#view_company_profile').show().attr('href', 'public/' + data.company_profile);
+                } else {
+                    $('#view_company_profile').hide();
+                }
+                //  $("input[name='company_profile']").val(data.company_profile);
+
+                $("input[name='company_name']").val(data.company_name);
+
+                $("textarea[name='company_address']").val(data.company_address);
+                $("input[name='purchasing_process']").val(data.purchasing_process);
+
+                $("input[name='servicing_process']").val(data.servicing_process);
+
+                $("input[name='competency_process']").val(data.competency_process);
+
+                $("input[name='order_number']").val(data.order_number);
+
+                $("textarea[name='business_scopes']").val(data.scope);
+
+                $("textarea[name='Company_overview']").val(data.Company_overview);
+
+                $("input[name='iso9001_expirydate']").val(data.iso9001_expirydate);
+                $("textarea[name='iso9001_description']").val(data.iso9001_description);
+
+                $("input[name='iso14001_expirydate']").val(data.iso14001_expirydate);
+                $("textarea[name='iso14001_description']").val(data.iso14001_description);
+
+                $("input[name='iso45001_expirydate']").val(data.iso45001_expirydate);
+                $("textarea[name='iso45001_description']").val(data.iso45001_description);
+
+                let logo_src = "https://myisoonline.com/public/" + data.profile_image;
+                $("#view_output").attr("src", logo_src);
+
+
+
+                if (data.iso9001_certificate != null) {
+                    $("#v_9001").append("<a target='_blank' href='https://myisoonline.com/public/" + data.iso9001_certificate + "'>View</a>");
+                } else {
+                    $('#v_9001').append('Not Found');
+                }
+                if (data.iso14001_certificate != null) {
+                    $("#v_4001").append("<a target='_blank' href='https://myisoonline.com/public/" + data.iso14001_certificate + "'>View</a>");
+                } else {
+                    $('#v_4001').append('Not Found');
+                }
+                if (data.iso45001_certificate != null) {
+                    $("#v_45001").append("<a target='_blank' href='https://myisoonline.com/public/" + data.iso45001_certificate + "'>View</a>");
+                } else {
+                    $('#v_45001').append('Not Found');
+                }
+
+                if (data.audit_report != null) {
+                    $("#v_audit_report").append("<a target='_blank' href='" + data.audit_report + "'>View</a>");
+                } else {
+                    $('#v_audit_report').append('Not Found');
+                }
+
+                var input = document.querySelector("#view_phoneee");
+                if (data.phoneflag == "preferred" || data.phoneflag == null) {
+                    window.intlTelInput(input, {
+                        separateDialCode: true,
+                        preferredCountries: ["us"],
+                        customPlaceholder: function (
+                            selectedCountryPlaceholder,
+                            selectedCountryData
+                        ) {
+                            return "e.g. " + selectedCountryPlaceholder;
+                        },
+                    });
+                } else {
+                    window.intlTelInput(input, {
+                        separateDialCode: true,
+                        initialCountry: data.phoneflag,
+                        customPlaceholder: function (
+                            selectedCountryPlaceholder,
+                            selectedCountryData
+                        ) {
+                            return "e.g. " + selectedCountryPlaceholder;
+                        },
+                    });
+                }
+
+                var input = document.querySelector("#view_contact_isooo");
+
+                if (data.iso_phone_flag == "preferred" || data.iso_phone_flag == null) {
+                    window.intlTelInput(input, {
+                        separateDialCode: true,
+                        preferredCountries: ["us"],
+                        customPlaceholder: function (
+                            selectedCountryPlaceholder,
+                            selectedCountryData
+                        ) {
+                            return "e.g. " + selectedCountryPlaceholder;
+                        },
+                    });
+                } else {
+                    window.intlTelInput(input, {
+                        separateDialCode: true,
+                        initialCountry: data.iso_phone_flag,
+                        customPlaceholder: function (
+                            selectedCountryPlaceholder,
+                            selectedCountryData
+                        ) {
+                            return "e.g. " + selectedCountryPlaceholder;
+                        },
+                    });
+                }
+
+                $("#viewModal").modal('show');
+
+            }
 
 </script>
 @endsection
