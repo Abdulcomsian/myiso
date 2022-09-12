@@ -128,8 +128,28 @@
     						<label for="message">Message:</label>
     						<textarea name="message" id="message" cols="20" rows="5" class="form-control" placeholder="Please enter your Message"></textarea>
     					</div>
-    
-    
+    					<br>
+    					<div class="col-lg-6">
+    						<label for="address1">Filter By Last Login:</label>
+    						<div class="kt-input-icon kt-input-icon--right">
+    							<select id="last_login" class="form-control">
+    								<option value="">Select Month</option>
+    								<option value="3">Last 3 Month</option>
+    								<option value="6">Last 6 Month</option>
+    							</select>
+    						</div>
+    					</div>
+    					<div class="col-lg-6">
+    						<label for="address1">Filter By Certificate:</label>
+    						<div class="kt-input-icon kt-input-icon--right">
+    							<select id="filter_by_certificate" class="form-control">
+    								<option value="">Select Certificate</option>
+    								<option value="iso9001_certificate">Iso9001 Certificate</option>
+    								<option value="iso14001_certificate">Iso14001 Certificate</option>
+    								<option value="iso45001_certificate">Iso45001 Certificate</option>
+    							</select>
+    						</div>
+    					</div>
     					<div class="col-lg-12">
     						<label for="address1">Send to:</label>
     						<div class="kt-input-icon kt-input-icon--right">
@@ -150,9 +170,6 @@
     				</div>
     
     			</div>
-    
-    
-    
     	</div>
     
     	<div class="modal-footer">
@@ -201,8 +218,41 @@
 			columns: 1,
 			placeholder: 'Select Languages',
 			search: true,
-			selectAll: true
+			selectAll: true,
 		});
+
+
+		$("#last_login").change(function(){
+			let Month=$(this).val();
+			$.ajax({
+            type: "get",
+            url: "{{url('/send_message')}}",
+            data: 
+            {'month':Month,'type':'month'},
+            success: function (response) {
+              var res=JSON.parse(response);
+               $("#langOpt3").html(res[1]);
+               $(".ms-options ul").html(res[0]);
+            },
+           });
+		})
+
+
+		$("#filter_by_certificate").change(function(){
+			let cert=$(this).val();
+			$.ajax({
+            type: "get",
+            url: "{{url('/send_message')}}",
+            data: 
+            {'cert':cert,'type':'certificate'},
+            success: function (response) {
+                var res=JSON.parse(response);
+                $("#langOpt3").html(res[1]);
+                $(".ms-options ul").html(res[0]);
+        
+            },
+           });
+		})
 
 	</script>
 @endsection

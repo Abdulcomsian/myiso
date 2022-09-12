@@ -337,17 +337,22 @@ License: You must have a valid license purchased only from themeforest(the above
 	</body>
 
 	<script>
-	  document.querySelector('#TermConditions').addEventListener('change', function(e) {
-		if(document.querySelector('#TermConditions').checked){
-			// remove disabled attributes
-			document.querySelector('#SignIN').removeAttribute('disabled');
-			// checked the checkbox in jquery
-			$('.agreeInput').prop('checked', true);
-		}else{
-			$('.agreeInput').prop('checked', false);
-			document.querySelector('#SignIN').setAttribute('disabled', '');
+		var el=document.querySelector('#TermConditions');
+		if(el)
+		{
+			el.addEventListener('change', function(e) {
+			if(document.querySelector('#TermConditions').checked){
+				// remove disabled attributes
+				document.querySelector('#SignIN').removeAttribute('disabled');
+				// checked the checkbox in jquery
+				$('.agreeInput').prop('checked', true);
+			}else{
+				$('.agreeInput').prop('checked', false);
+				document.querySelector('#SignIN').setAttribute('disabled', '');
+			}
+		  })
 		}
-	  })
+	  
 
 	  $('#firstCheckbox').on("change",function(){
 		// $('#firstCheckbox').prop('checked', false);
