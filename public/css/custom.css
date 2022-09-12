@@ -29,12 +29,6 @@
     z-index: 99999;
      cursor: pointer;
 }
-td{
-  font-weight: 500 !important;
-  color: #000 !important;
-  font-size: 13px !important;
-  font-family: 'Poppins', sans-serif !important;
-}
 .add_employee_cv span{
     background-color: #646c9a;
     color: #fff !important;
