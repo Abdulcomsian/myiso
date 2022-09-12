@@ -261,6 +261,14 @@ th {
     text-align: inherit;
 }
 
+/* this will apply for all pages */
+th{
+    font-weight: 500 !important;
+    color: #000 !important;
+    font-size: 13px !important;
+    font-family: 'Poppins', sans-serif !important;
+}
+
 label {
     display: inline-block;
     margin-bottom: 0.5rem;
@@ -10988,6 +10996,7 @@ a.text-dark:focus {
     display: block;
 }
 
+
 .table thead th,
 .table thead td {
     font-weight: 500;
@@ -10995,6 +11004,7 @@ a.text-dark:focus {
     padding-top: 1rem;
     padding-bottom: 1rem;
 }
+
 
 .table tr.table-active td,
 .table tr.table-active th {
@@ -11016,6 +11026,8 @@ a.text-dark:focus {
     border-top: 0;
 }
 
+
+
 .tooltip .tooltip-inner {
     -webkit-box-shadow: 0px 0px 20px 0px rgba(0, 0, 0, 0.15);
     box-shadow: 0px 0px 20px 0px rgba(0, 0, 0, 0.15);
@@ -11030,6 +11042,8 @@ a.text-dark:focus {
         */
 }
 
+
+
 .tooltip.bs-tooltip-left .arrow:before,
 .tooltip.bs-tooltip-auto[x-placement^="left"] .arrow:before,
 .tooltip.bs-tooltip-auto[x-placement^="left"] .arrow:before {
@@ -11038,6 +11052,9 @@ a.text-dark:focus {
         border-left-color: #fff;
         */
 }
+
+
+/* tooltip */
 
 .tooltip.bs-tooltip-right .arrow,
 .tooltip.bs-tooltip-auto[x-placement^="right"] .arrow,
@@ -37123,15 +37140,14 @@ body.swal2-height-auto {
     margin-left: 65px;
 }
 
-.dataTables_wrapper .dataTable th,
-.dataTables_wrapper .dataTable td {
+/* .dataTables_wrapper .dataTable td {
     color: #6c7293;
-}
+} */
 
 .dataTables_wrapper .dataTable .selected th,
 .dataTables_wrapper .dataTable .selected td {
     background-color: #f7f8fa;
-    color: #6c7293;
+    /* color: #6c7293; */
 }
 
 .dataTables_wrapper .dataTable .group th,
