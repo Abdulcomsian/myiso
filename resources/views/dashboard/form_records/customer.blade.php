@@ -132,7 +132,7 @@
                                             <td>{{$item->Email}}</td>
                                             <td>{{$item->contactName}}</td>
                                             <td>
-                                                <button  class="btn btn-sm btn-clean btn-icon btn-icon-md" title="View" value="" onclick="viewEid({{$item}});"><i class="la la-info"></i>
+                                                <button  class="btn btn-sm btn-clean btn-icon btn-icon-md" title="View" value="" onclick="viewEid({{$item}});"><i class="la la-eye"></i>
                                                 </button>
                                                 <button  data-toggle="modal" onclick="getEid({{$item}});" class="btn btn-sm btn-clean btn-icon btn-icon-md" title="edit" value=""><i class="la la-edit"></i>
                                                 </button>

@@ -48,7 +48,7 @@
                                             <td>{{$data->issueDate}}</td>
                                             <td>{{$data->revisionstatus}}</td>
                                             <td>
-                                                <button  class="btn btn-sm btn-clean btn-icon btn-icon-md" title="info" onclick="getEid({{$data}});"><i class="la la-info"></i>
+                                                <button  class="btn btn-sm btn-clean btn-icon btn-icon-md" title="info" onclick="getEid({{$data}});"><i class="la la-eye"></i>
 											</button>
 
                                             </td>

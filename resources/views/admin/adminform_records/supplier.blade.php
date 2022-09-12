@@ -193,7 +193,7 @@
                                             <td>{{$data->supplierservc}}</td>
                                             <td class="d-flex">
                                                 <button class="btn btn-sm btn-clean btn-icon btn-icon-md" title="view"
-                                                        onclick="viewEid({{$data}});"><i class="la la-info"></i>
+                                                        onclick="viewEid({{$data}});"><i class="la la-eye"></i>
                                                 </button>
                                                 <button class="btn btn-sm btn-clean btn-icon btn-icon-md" title="Edit"
                                                         onclick="getEid({{$data}});"><i class="la la-edit"></i>

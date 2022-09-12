@@ -211,7 +211,7 @@
                                             <td>{{date('d-M-Y', strtotime($data->issueDate))}}</td>
                                             <td>{{$data->revisionstatus}}</td>
                                             <td>
-                                                <button  class="btn btn-sm btn-clean btn-icon btn-icon-md" title="View" onclick="getEid({{$data}});"><i class="la la-info"></i>
+                                                <button  class="btn btn-sm btn-clean btn-icon btn-icon-md" title="View" onclick="getEid({{$data}});"><i class="la la-eye"></i>
 											    </button>
                                                 <button  class="btn btn-sm btn-clean btn-icon btn-icon-md" title="Edit"  onclick="editDetails({{$data}});"><i class="la la-edit"></i>
                                                 </button>

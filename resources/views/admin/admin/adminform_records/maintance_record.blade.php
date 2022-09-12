@@ -49,7 +49,7 @@
                                                 <td>{{$data->mractions}}</td>
                                                 <td>{{$data->mractivityperofrmby}}</td>
                                                 <td>
-                                                    <button onclick="getEid({{json_encode($data)}});" class="btn btn-sm btn-clean btn-icon btn-icon-md" title="Edit"><i class="la la-info"></i>
+                                                    <button onclick="getEid({{json_encode($data)}});" class="btn btn-sm btn-clean btn-icon btn-icon-md" title="Edit"><i class="la la-eye"></i>
 													</button>
 													<button onclick="deleteModal({{json_encode($data)}});" class="btn btn-sm btn-clean btn-icon btn-icon-md" title="Edit"><i class="la la-trash"></i>
 													</button>

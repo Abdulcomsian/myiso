@@ -243,12 +243,12 @@ License: You must have a valid license purchased only from themeforest(the above
 													Al Hamra Industrial Zone-FZ, <br>
 													United Arab Emirates. <br>
 													[Email]</p>
-													<div class="ml-2">
+													<!-- <div class="ml-2">
 															<input class="form-check-input agreeInput" type="checkbox" value="" id="TermConditions">
 															<label class="form-check-label" for="TermConditions">
 																	I agree to the Terms and Conditions.
 															</label>
-													</div>
+													</div> -->
 											</div>
 											<div class="modal-footer">
 												<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>

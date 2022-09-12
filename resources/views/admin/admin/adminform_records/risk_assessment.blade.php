@@ -50,7 +50,7 @@
                                             <td>{{$data->DecisionComment}}</td>
                                             <td>
                                                <button class="btn btn-sm btn-clean btn-icon btn-icon-md" type="button" onclick="EditData({{$data}});">
-												<i class="la la-info"></i>
+												<i class="la la-eye"></i>
 											   </button>
 											   <button onclick="deleteModal({{json_encode($data)}})" class="btn btn-sm btn-clean btn-icon btn-icon-md" title="Edit" value=""><i class="la la-trash"></i>
 											   </button>

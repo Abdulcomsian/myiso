@@ -48,7 +48,7 @@
 											<td> {{$item->startDate}}</td>
                                             <td> {{$item->jobdetails}}</td>
                                             <td>
-                                                <button onclick="getEid({{json_encode($item)}});" class="btn btn-sm btn-clean btn-icon btn-icon-md" title="indo"><i class="la la-info"></i>
+                                                <button onclick="getEid({{json_encode($item)}});" class="btn btn-sm btn-clean btn-icon btn-icon-md" title="indo"><i class="la la-eye"></i>
 												</button>
 												<button onclick="deletemodal({{json_encode($item)}});" class="btn btn-sm btn-clean btn-icon btn-icon-md" title="delete"><i class="la la-trash"></i>
                                                 </button>
