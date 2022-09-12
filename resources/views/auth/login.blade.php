@@ -17,31 +17,52 @@ License: You must have a valid license purchased only from themeforest(the above
 <style>
     .kt-checkbox > input:checked ~ span {
     border: 1px solid #000;
-}
-.kt-checkbox > span:after {
-    border: 1px solid black;
-}
-button['disabled']{
-	cursor: disable;
-}
-#TermConditions{
-	transform: scale(1.2);
-}
-label[for="TermConditions"]{
-	margin-left: 6px;
-	font-size:15px;
-}
-#kt_login_forgot{
-	color: #a7abc3;
-}
-.AgreeUl{
-	margin-left: 18px;
-}
-@media screen and (min-width: 1300px){
-	#firstCheckboxDev{
-		transform: translate(-10px,-46px);
 	}
-}
+	.kt-checkbox > span:after {
+		border: 1px solid black;
+	}
+	button['disabled']{
+		cursor: disable;
+	}
+	#TermConditions{
+		transform: scale(1.2);
+	}
+	label[for="TermConditions"]{
+		margin-left: 6px;
+		font-size:15px;
+	}
+	#kt_login_forgot{
+		color: #a7abc3;
+	}
+	.AgreeUl{
+		margin-left: 18px;
+	}
+	@media screen and (min-width: 1300px){
+		#firstCheckboxDev{
+			transform: translate(-10px,-46px);
+		}
+		.kt-form{
+			width: 456px;
+		}
+		.form-check-label{
+			font-size: 15px;
+			cursor: pointer;
+		}
+		.form-check-label:hover{
+			text-decoration: underline;
+		}
+		.agreeInput{
+			margin-left: -2px !important;
+			position: relative !important;
+		}
+	}
+	/* this styling is for model btn */
+	.modal_btn{
+		color: #a7abc3 !important;
+		font-size: 14px !important;
+		font-weight: 300 !important;
+		cursor: pointer;
+	}
 
 </style>
 	@include('auth.includes.head')
@@ -76,13 +97,13 @@ label[for="TermConditions"]{
 									<div class="d-flex justify-content-between align-items-center kt-login__extra pl-0 ml-0 mt-3">
 										<div class="">
 
-											<div class="form-check AgreeUl pl-0 ml-0" id="firstCheckoxDev">
+											<div class="form-check AgreeUl pl-0 ml-2" id="firstCheckoxDev">
 													<!-- Button trigger modal -->
 													<!-- <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal"> -->
-													<button type="button" class="btn" data-toggle="modal" data-target="#exampleModal">
-														<input class="form-check-input agreeInput" id="firstCheckbox" type="checkbox" value="">
+													<input class="form-check-input agreeInput" id="firstCheckbox" type="checkbox" value="">
+													<button type="button" class="btn p-0 modal_btn" data-toggle="modal" data-target="#exampleModal">
 														<label class="form-check-label">
-															I agree to the Terms and Conditions.
+															I Agree to the Terms and Conditions.
 														</label>
 													</button>
 		
@@ -329,8 +350,12 @@ label[for="TermConditions"]{
 	  })
 
 	  $('#firstCheckbox').on("change",function(){
-		// always unchecked
-		$('#firstCheckbox').prop('checked', false);
+		// $('#firstCheckbox').prop('checked', false);
+		if(this.checked){
+			document.querySelector('#SignIN').removeAttribute('disabled');
+		}else{
+			document.querySelector('#SignIN').setAttribute('disabled', '');
+		}
 	  });
 
 

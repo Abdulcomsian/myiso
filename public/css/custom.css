@@ -29,6 +29,12 @@
     z-index: 99999;
      cursor: pointer;
 }
+td{
+  font-weight: 500 !important;
+  color: #000 !important;
+  font-size: 13px !important;
+  font-family: 'Poppins', sans-serif !important;
+}
 .add_employee_cv span{
     background-color: #646c9a;
     color: #fff !important;
@@ -241,7 +247,8 @@ div#kt_table_customer_paginate .pagination,div#kt_table_agent_paginate .paginati
     width: 100%;
 }
 #procedure_section .procedure_div h4,#procedure_section .procedure_div h5{
-  color: #0d47b3;
+  /* color: #0d47b3; */
+  color: #646c9a;
 }
 #procedure_section .procedure_div ul{
     padding: 0;
@@ -249,10 +256,12 @@ div#kt_table_customer_paginate .pagination,div#kt_table_agent_paginate .paginati
     padding-top: 20px;
     list-style: none;
 }
+
 #procedure_section .procedure_div ul li a{
   color: #000;
   font-size: 14px;
 }
+
 #procedure_section .procedure_div ul li:before {
     content: "\f10c";
     font-family: "fontAwesome";
@@ -265,6 +274,7 @@ div#kt_table_customer_paginate .pagination,div#kt_table_agent_paginate .paginati
   display: flex;
   justify-content: space-between;
 }
+/* procedure dev */
 #procedure_section .procedure_div p{
   color: #000;
   text-align: justify;
@@ -327,15 +337,19 @@ div#kt_table_customer_paginate .pagination,div#kt_table_agent_paginate .paginati
    border-radius: 1.25rem;
    margin-bottom: 20px !important;
 }
+
 .bg-light-warning {
     background-color: #fff4de !important;
 }
+
 .bg-light-primary {
     background-color: #E1F0FF !important;
 }
+
 .bg-light-danger {
     background-color: #FFE2E5 !important;
 }
+
 .bg-light-success {
     background-color: #C9F7F5 !important;
 }
@@ -345,6 +359,9 @@ div#kt_table_customer_paginate .pagination,div#kt_table_agent_paginate .paginati
 .text-success {
     color: #1BC5BD !important;
 }
+/* .text-primary {
+    color: #6993FF !important;
+} */
 .kt-content h2{
   color: #000;
 }
