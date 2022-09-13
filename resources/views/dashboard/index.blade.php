@@ -389,7 +389,7 @@
                     </div>
                 </div>
                 <div class="kt-portlet kt-portlet--height-fluid sd">
-                    <div class="kt-portlet__head">
+                    <div class="kt-portlet__head" style="border-bottom: none">
                         <div class="kt-portlet__head-label">
                             <h3 class="kt-portlet__head-title">
                                 Audit Report
@@ -409,7 +409,26 @@
                             </div>
                         </div>
                     </div>
+                    <div class="kt-portlet__head" style="border-bottom: none">
+                        <div class="kt-portlet__head-label">
+                            <h3 class="kt-portlet__head-title">
+                                Auditor Comment
+                            </h3>
+                        </div>
+                    </div>
+                    <div class="kt-portlet__body kt-portlet__body--fit">
+                        <div class="kt-widget17 p-4">
+                            <div class="row ml-0 mr-0 table-responsive">
+                                @if(!empty($user['audit_comment']))
+                                    {{$user['audit_comment']}}
+                                @else
+                                    <p class="text-dark ml-2">Not Comment</p>
+                                @endif
+                            </div>
+                        </div>
+                    </div>
                 </div>
+                
             @php
 
                     @endphp
