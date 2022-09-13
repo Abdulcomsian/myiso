@@ -279,18 +279,52 @@ public function store(Request $request)
 
     }  
     
-    public function send_message()
+    public function send_message(Request $request)
     {
         // $getprocess=Audit::where('user_id',$request)->get();
-        $users=AddUsers::where('role_type','user')->get();
-        $adminmessage=SendNotifications::join('users','users.id','=','send_notification.send_to')
+        if($request->ajax())
+        {
+            if($request->type="month" && $request->month)
+            {
+                $users=AddUsers::where("last_login",">", Carbon::now()->subMonths($request->month))->get();
+            }
+            elseif($request->type="certificate" && $request->cert){
+                $users=AddUsers::where("".$request->cert."","=",$request->cert)->get();
+            }
+            else{
+                $users=AddUsers::where('role_type','user')->get();
+            }
+            if($users)
+            {
+                $list='';
+                $option='';
+                $i=1;
+                foreach($users as $us)
+                {
+                    $option.='<option value="'.$us->id.'">'.$us->name.'</option>';
+                    $list.='<li class=""><label for=ms-opt-'.$i.'" style="padding-left: 23px;"><input type="checkbox" value='.$us->id.' title='.$us->name.' id="ms-opt-'.$i.'"/>'.$us->name.'</label></li>';
+                    $i++;
+                }
+                echo json_encode(array($list,$option));
+            }else{
+                echo"error";
+            }
+            
+        }
+        else{
+            $users=AddUsers::where('role_type','user')->get();
+            $adminmessage=SendNotifications::join('users','users.id','=','send_notification.send_to')
             ->select('send_notification.id as notification_id','send_notification.*','users.*')
             ->where('admin_delete',false)
             ->orderby('notification_id','desc')
             ->get();
-        return view('admin.dashboard.admin.send_message',compact('users','adminmessage'));
+            return view('admin.dashboard.admin.send_message',compact('users','adminmessage'));
+        }
+        
 
     }
+
+
 
     public function addreq(Request $request){
         //   dd($request->all());
