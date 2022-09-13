@@ -412,7 +412,7 @@
                     <div class="kt-portlet__head" style="border-bottom: none">
                         <div class="kt-portlet__head-label">
                             <h3 class="kt-portlet__head-title">
-                                Auditor Comment
+                                Auditor Comments
                             </h3>
                         </div>
                     </div>
