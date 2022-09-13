@@ -592,7 +592,7 @@ public function store(Request $request)
                 $user->audit_report = $audit_report_path;
             }
         }
-        $addusers->audit_comment=$request->input('audit_comment');
+        $users->audit_comment=$request->input('audit_comment');
         $user->expiry_date = $request->input('expiry_date');
 
         $user->company_name = $request->input('company_name');
