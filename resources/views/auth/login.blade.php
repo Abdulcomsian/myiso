@@ -63,6 +63,9 @@ License: You must have a valid license purchased only from themeforest(the above
 		font-weight: 300 !important;
 		cursor: pointer;
 	}
+	.agreeInput{
+		transform: scale(1.2);
+	}
 
 </style>
 	@include('auth.includes.head')
@@ -97,10 +100,10 @@ License: You must have a valid license purchased only from themeforest(the above
 									<div class="d-flex justify-content-between kt-login__extra pl-0 ml-0 mt-3">
 										<div class="">
 
-											<div class="form-check AgreeUl pl-0 ml-2 mt-4" id="firstCheckoxDev">
+											<div class="form-check AgreeUl pl-0 ml-2 mt-4 d-flex align-items-center" id="firstCheckoxDev">
 													<!-- Button trigger modal -->
 													<!-- <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal"> -->
-													<input class="form-check-input agreeInput" id="firstCheckbox" type="checkbox" value="">
+													<input class="form-check-input agreeInput mt-0 mr-1" id="firstCheckbox" type="checkbox" value="">
 													<button type="button" class="btn p-0 modal_btn" data-toggle="modal" data-target="#exampleModal">
 														<label class="form-check-label">
 															I Agree to the Terms and Conditions.
