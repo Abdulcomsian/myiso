@@ -251,26 +251,69 @@
 														</button>
 													</div>
 													<div class="modal-body">
-														<table class="table table-bordered table-hover">
-															<thead>
-																<tr>
-																	<th>Employee Name</th>
-																	<th>Employee ID</th>
-																	<th>Employee Email</th>
-																	<th>Employee Phone</th>
-																</tr>
-															</thead>
-															<tbody>
-																<tr>
-																	<td>test</td>
-																	<td>test</td>
-																	<td>test</td>
-																	<td>test</td>
-																</tr>
-															</tbody>
-														</table>
 
-													</div>
+                        <div class="row">
+                            <input type="hidden" name="id" id="editproject" value="">
+
+                            {{-- <div class="col-lg-6">
+                                <div class="form-group">
+                                    <label>System ID Number:</label><br>
+                                    <input type="number" readonly class="form-control"  name="systemid">
+                                </div>
+                            </div> --}}
+                            <div class="col-lg-12">
+                                <div class="form-group">
+                                    <label>Surname:</label><br>
+                                    <input type="text" class="form-control" name="surname" placeholder="Enter Surname">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-lg-6">
+                                <div class="form-group">
+                                    <label>First Name:</label>
+                                    <input type="text" class="form-control" name="first_name"  placeholder="Enter First Name">
+                                </div>
+                            </div>
+                            <div class="col-lg-6">
+                                <div class="form-group edit-emp-number-div">
+                                    <label>Employee ID:</label> 
+                                    <input type="text" name="empNumber" required class="form-control" data-type="edit">
+         		  <!--                         <select name="empNumber" required class="form-control">-->
+											<!--    <option>Select One</option>-->
+											<!--    @if(isset($userinfo) && $userinfo!= "")-->
+											<!--    @foreach($userinfo as $item)-->
+											<!--    <option value="{{$item->id}}" title="{{ $item->first_name }}">{{$item->empNumber.' ('.$item->first_name.')'}}</option>-->
+											<!--    @endforeach-->
+											<!--    @endif-->
+											<!--</select>-->
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-6">
+                                <div class="form-group">
+                                    <label>Start Date (YYYY/MM/DD):</label>
+                                    <input name="startDate" max="2999-12-31" type="date" class="form-control" >
+                                </div>
+                            </div>
+                            <div class="col-lg-6">
+                                <div class="form-group">
+                                    <label>Job Details:</label>
+                                    <input type="text" name="jobdetails" class="form-control"  placeholder="Enter Job Details:">
+                                </div>
+                            </div>
+                        </div>
+				<div class="row">
+					<div class="col-lg-6">
+						<div class="form-group">
+							<label>Upload Employee CV:</label>
+							<input name="employee_cv" type="file" class="form-control" accept="image/*,.doc, .docx,.txt,.pdf">
+						</div>
+					</div>
+				</div>
+			</div>
 														<div class="modal-footer">
 															<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
 														</div>
@@ -340,26 +383,69 @@
 														</button>
 													</div>
 													<div class="modal-body">
-														<table class="table table-bordered table-hover">
-															<thead>
-																<tr>
-																	<th>Employee Name</th>
-																	<th>Employee ID</th>
-																	<th>Employee Email</th>
-																	<th>Employee Phone</th>
-																</tr>
-															</thead>
-															<tbody>
-																<tr>
-																	<td>test</td>
-																	<td>test</td>
-																	<td>test</td>
-																	<td>test</td>
-																</tr>
-															</tbody>
-														</table>
 
-													</div>
+                        <div class="row">
+                            <input type="hidden" name="id" id="editproject" value="">
+
+                            {{-- <div class="col-lg-6">
+                                <div class="form-group">
+                                    <label>System ID Number:</label><br>
+                                    <input type="number" readonly class="form-control"  name="systemid">
+                                </div>
+                            </div> --}}
+                            <div class="col-lg-12">
+                                <div class="form-group">
+                                    <label>Surname:</label><br>
+                                    <input type="text" class="form-control" name="surname" placeholder="Enter Surname">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-lg-6">
+                                <div class="form-group">
+                                    <label>First Name:</label>
+                                    <input type="text" class="form-control" name="first_name"  placeholder="Enter First Name">
+                                </div>
+                            </div>
+                            <div class="col-lg-6">
+                                <div class="form-group edit-emp-number-div">
+                                    <label>Employee ID:</label> 
+                                    <input type="text" name="empNumber" required class="form-control" data-type="edit">
+         		 							 <!--                         <select name="empNumber" required class="form-control">-->
+											<!--    <option>Select One</option>-->
+											<!--    @if(isset($userinfo) && $userinfo!= "")-->
+											<!--    @foreach($userinfo as $item)-->
+											<!--    <option value="{{$item->id}}" title="{{ $item->first_name }}">{{$item->empNumber.' ('.$item->first_name.')'}}</option>-->
+											<!--    @endforeach-->
+											<!--    @endif-->
+											<!--</select>-->
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-6">
+                                <div class="form-group">
+                                    <label>Start Date (YYYY/MM/DD):</label>
+                                    <input name="startDate" max="2999-12-31" type="date" class="form-control" >
+                                </div>
+                            </div>
+                            <div class="col-lg-6">
+                                <div class="form-group">
+                                    <label>Job Details:</label>
+                                    <input type="text" name="jobdetails" class="form-control"  placeholder="Enter Job Details:">
+                                </div>
+                            </div>
+                        </div>
+				<div class="row">
+					<div class="col-lg-6">
+						<div class="form-group">
+							<label>Upload Employee CV:</label>
+							<input name="employee_cv" type="file" class="form-control" accept="image/*,.doc, .docx,.txt,.pdf">
+						</div>
+					</div>
+				</div>
+			</div>
 														<div class="modal-footer">
 															<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
 														</div>
@@ -431,26 +517,69 @@
 														</button>
 													</div>
 													<div class="modal-body">
-														<table class="table table-bordered table-hover">
-															<thead>
-																<tr>
-																	<th>Employee Name</th>
-																	<th>Employee ID</th>
-																	<th>Employee Email</th>
-																	<th>Employee Phone</th>
-																</tr>
-															</thead>
-															<tbody>
-																<tr>
-																	<td>test</td>
-																	<td>test</td>
-																	<td>test</td>
-																	<td>test</td>
-																</tr>
-															</tbody>
-														</table>
 
-													</div>
+                        <div class="row">
+                            <input type="hidden" name="id" id="editproject" value="">
+
+                            {{-- <div class="col-lg-6">
+                                <div class="form-group">
+                                    <label>System ID Number:</label><br>
+                                    <input type="number" readonly class="form-control"  name="systemid">
+                                </div>
+                            </div> --}}
+                            <div class="col-lg-12">
+                                <div class="form-group">
+                                    <label>Surname:</label><br>
+                                    <input type="text" class="form-control" name="surname" placeholder="Enter Surname">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-lg-6">
+                                <div class="form-group">
+                                    <label>First Name:</label>
+                                    <input type="text" class="form-control" name="first_name"  placeholder="Enter First Name">
+                                </div>
+                            </div>
+                            <div class="col-lg-6">
+                                <div class="form-group edit-emp-number-div">
+                                    <label>Employee ID:</label> 
+                                    <input type="text" name="empNumber" required class="form-control" data-type="edit">
+         		  <!--                         <select name="empNumber" required class="form-control">-->
+											<!--    <option>Select One</option>-->
+											<!--    @if(isset($userinfo) && $userinfo!= "")-->
+											<!--    @foreach($userinfo as $item)-->
+											<!--    <option value="{{$item->id}}" title="{{ $item->first_name }}">{{$item->empNumber.' ('.$item->first_name.')'}}</option>-->
+											<!--    @endforeach-->
+											<!--    @endif-->
+											<!--</select>-->
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-6">
+                                <div class="form-group">
+                                    <label>Start Date (YYYY/MM/DD):</label>
+                                    <input name="startDate" max="2999-12-31" type="date" class="form-control" >
+                                </div>
+                            </div>
+                            <div class="col-lg-6">
+                                <div class="form-group">
+                                    <label>Job Details:</label>
+                                    <input type="text" name="jobdetails" class="form-control"  placeholder="Enter Job Details:">
+                                </div>
+                            </div>
+                        </div>
+				<div class="row">
+					<div class="col-lg-6">
+						<div class="form-group">
+							<label>Upload Employee CV:</label>
+							<input name="employee_cv" type="file" class="form-control" accept="image/*,.doc, .docx,.txt,.pdf">
+						</div>
+					</div>
+				</div>
+			</div>
 														<div class="modal-footer">
 															<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
 														</div>
@@ -559,7 +688,7 @@
                                 <div class="form-group edit-emp-number-div">
                                     <label>Employee ID:</label> 
                                     <input type="text" name="empNumber" required class="form-control" data-type="edit">
-           <!--                         <select name="empNumber" required class="form-control">-->
+         		  <!--                         <select name="empNumber" required class="form-control">-->
 											<!--    <option>Select One</option>-->
 											<!--    @if(isset($userinfo) && $userinfo!= "")-->
 											<!--    @foreach($userinfo as $item)-->

@@ -157,7 +157,94 @@
 													<rect x="0" y="0" width="24" height="24"></rect>											
 													<path d="M6,8 L6,20.5 C6,21.3284271 6.67157288,22 7.5,22 L16.5,22 C17.3284271,22 18,21.3284271 18,20.5 L18,8 L6,8 Z" fill="#5d78ff" fill-rule="nonzero"></path>	
 													<path d="M14,4.5 L14,4 C14,3.44771525 13.5522847,3 13,3 L11,3 C10.4477153,3 10,3.44771525 10,4 L10,4.5 L5.5,4.5 C5.22385763,4.5 5,4.72385763 5,5 L5,5.5 C5,5.77614237 5.22385763,6 5.5,6 L18.5,6 C18.7761424,6 19,5.77614237 19,5.5 L19,5 C19,4.72385763 18.7761424,4.5 18.5,4.5 L14,4.5 Z" fill="#5d78ff" opacity="0.3"></path>										</g>									</svg>								</span>
-        </button>
+       											 </button>
+												 	<!-- new  -->
+													 <button class="btn btn-sm btn-clean btn-icon btn-icon-md"
+															title="View Customer Details" value="" o data-toggle="modal" data-target="#model3"><i
+																class="fa fa-eye"></i>
+													</button>
+
+
+													<!-- Modal -->
+													<div class="modal fade" id="model3" tabindex="-1" role="dialog" aria-labelledby="model3Label" aria-hidden="true">
+														<div class="modal-dialog" role="document">
+														<div class="modal-content">
+														<div class="modal-header">
+															<h5 class="modal-title" id="exampleModalLabel">Calibration Due</h5>
+															<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+															<span aria-hidden="true">&times;</span>
+															</button>
+														</div>
+														<div class="modal-body">
+
+                        <div class="row">
+                            <input type="hidden" name="id" id="editproject" value="">
+
+                            {{-- <div class="col-lg-6">
+                                <div class="form-group">
+                                    <label>System ID Number:</label><br>
+                                    <input type="number" readonly class="form-control"  name="systemid">
+                                </div>
+                            </div> --}}
+                            <div class="col-lg-12">
+                                <div class="form-group">
+                                    <label>Surname:</label><br>
+                                    <input type="text" class="form-control" name="surname" placeholder="Enter Surname">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-lg-6">
+                                <div class="form-group">
+                                    <label>First Name:</label>
+                                    <input type="text" class="form-control" name="first_name"  placeholder="Enter First Name">
+                                </div>
+                            </div>
+                            <div class="col-lg-6">
+                                <div class="form-group edit-emp-number-div">
+                                    <label>Employee ID:</label> 
+                                    <input type="text" name="empNumber" required class="form-control" data-type="edit">
+         		 								 <!--                         <select name="empNumber" required class="form-control">-->
+											<!--    <option>Select One</option>-->
+											<!--    @if(isset($userinfo) && $userinfo!= "")-->
+											<!--    @foreach($userinfo as $item)-->
+											<!--    <option value="{{$item->id}}" title="{{ $item->first_name }}">{{$item->empNumber.' ('.$item->first_name.')'}}</option>-->
+											<!--    @endforeach-->
+											<!--    @endif-->
+											<!--</select>-->
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-6">
+                                <div class="form-group">
+                                    <label>Start Date (YYYY/MM/DD):</label>
+                                    <input name="startDate" max="2999-12-31" type="date" class="form-control" >
+                                </div>
+                            </div>
+                            <div class="col-lg-6">
+                                <div class="form-group">
+                                    <label>Job Details:</label>
+                                    <input type="text" name="jobdetails" class="form-control"  placeholder="Enter Job Details:">
+                                </div>
+                            </div>
+                        </div>
+				<div class="row">
+					<div class="col-lg-6">
+						<div class="form-group">
+							<label>Upload Employee CV:</label>
+							<input name="employee_cv" type="file" class="form-control" accept="image/*,.doc, .docx,.txt,.pdf">
+						</div>
+					</div>
+				</div>
+			</div>
+															<div class="modal-footer">
+																<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+															</div>
+															</div>
+														</div>
+													</div>
                                             </td>
 
                                         </tr>
