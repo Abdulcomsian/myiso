@@ -30,7 +30,7 @@
                     				<div class="col-lg-6">
                     					<div class="form-group">
 											<label>ID Number:</label><br>
-											<input type="number" class="form-control" aria-describedby="emailHelp" placeholder="Enter ID:">
+											<input type="number" name="idNumber" class="form-control" aria-describedby="emailHelp" placeholder="Enter ID:">
 										</div>
                     				</div>
                     				<div class="col-lg-6">

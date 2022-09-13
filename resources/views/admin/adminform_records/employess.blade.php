@@ -235,13 +235,13 @@
                                                 </button>
 												<!-- new  -->
 											<button class="btn btn-sm btn-clean btn-icon btn-icon-md"
-													title="View Customer Details" value="" o data-toggle="modal" data-target="#model1"><i
+													title="View Customer Details" value="" o data-toggle="modal" data-target="#employ{{$item->id}}"><i
 														class="fa fa-eye"></i>
 											</button>
 
 
 												<!-- Modal -->
-												<div class="modal fade" id="model1" tabindex="-1" role="dialog" aria-labelledby="model1Label" aria-hidden="true">
+												<div class="modal fade" id="employ{{$item->id}}" tabindex="-1" role="dialog" aria-labelledby="model1Label" aria-hidden="true">
 													<div class="modal-dialog" role="document">
 													<div class="modal-content">
 													<div class="modal-header">
@@ -250,27 +250,54 @@
 														<span aria-hidden="true">&times;</span>
 														</button>
 													</div>
-													<div class="modal-body">
-														<table class="table table-bordered table-hover">
-															<thead>
-																<tr>
-																	<th>Employee Name</th>
-																	<th>Employee ID</th>
-																	<th>Employee Email</th>
-																	<th>Employee Phone</th>
-																</tr>
-															</thead>
-															<tbody>
-																<tr>
-																	<td>test</td>
-																	<td>test</td>
-																	<td>test</td>
-																	<td>test</td>
-																</tr>
-															</tbody>
-														</table>
+													 <div class="modal-body">
 
+								                        <div class="row">
+								                            <div class="col-lg-12">
+								                                <div class="form-group">
+								                                    <label>Surname:</label><br>
+								                                    <input type="text" class="form-control" name="surname" placeholder="Enter Surname" value="{{$item->surname}}" readonly>
+								                                </div>
+								                            </div>
+								                        </div>
+
+								                        <div class="row">
+								                            <div class="col-lg-6">
+								                                <div class="form-group">
+								                                    <label>First Name:</label>
+								                                    <input type="text" class="form-control" name="first_name"  placeholder="Enter First Name" value="{{$item->first_name}}" readonly>
+								                                </div>
+								                            </div>
+								                            <div class="col-lg-6">
+								                                <div class="form-group edit-emp-number-div">
+								                                    <label>Employee ID:</label> 
+								                                    <input type="text" name="empNumber" required class="form-control" data-type="edit" value="{{$item->empNumber}}" readonly>
+								                                </div>
+								                            </div>
+								                        </div>
+								                        <div class="row">
+								                            <div class="col-lg-6">
+								                                <div class="form-group">
+								                                    <label>Start Date (YYYY/MM/DD):</label>
+								                                    <input name="startDate" max="2999-12-31" type="date" class="form-control" value="{{$item->startDate}}" readonly>
+								                                </div>
+								                            </div>
+								                            <div class="col-lg-6">
+								                                <div class="form-group">
+								                                    <label>Job Details:</label>
+								                                    <input type="text" name="jobdetails" class="form-control"  placeholder="Enter Job Details:" value="{{$item->jobdetails}}" readonly>
+								                                </div>
+								                            </div>
+								                        </div>
+												<!-- <div class="row">
+													<div class="col-lg-6">
+														<div class="form-group">
+															<label>Upload Employee CV:</label>
+															<input name="employee_cv" type="file" class="form-control" accept="image/*,.doc, .docx,.txt,.pdf">
+														</div>
 													</div>
+												</div> -->
+											</div>
 														<div class="modal-footer">
 															<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
 														</div>
@@ -324,13 +351,13 @@
 								                </button>
 													<!-- new  -->
 											<button class="btn btn-sm btn-clean btn-icon btn-icon-md"
-													title="View Customer Details" value="" o data-toggle="modal" data-target="#model2"><i
+													title="View Customer Details" value="" o data-toggle="modal" data-target="#skill{{$item->skill_id}}"><i
 														class="fa fa-eye"></i>
 											</button>
 
 
 												<!-- Modal -->
-												<div class="modal fade" id="model2" tabindex="-1" role="dialog" aria-labelledby="model2Label" aria-hidden="true">
+												<div class="modal fade" id="skill{{$item->skill_id}}" tabindex="-1" role="dialog" aria-labelledby="model2Label" aria-hidden="true">
 													<div class="modal-dialog" role="document">
 													<div class="modal-content">
 													<div class="modal-header">
@@ -339,31 +366,31 @@
 														<span aria-hidden="true">&times;</span>
 														</button>
 													</div>
-													<div class="modal-body">
-														<table class="table table-bordered table-hover">
-															<thead>
-																<tr>
-																	<th>Employee Name</th>
-																	<th>Employee ID</th>
-																	<th>Employee Email</th>
-																	<th>Employee Phone</th>
-																</tr>
-															</thead>
-															<tbody>
-																<tr>
-																	<td>test</td>
-																	<td>test</td>
-																	<td>test</td>
-																	<td>test</td>
-																</tr>
-															</tbody>
-														</table>
+													
+													 <div class="modal-body">
 
-													</div>
+								                        <div class="row">
+								                            <div class="col-lg-6">
+								                                <div class="form-group">
+								                                    <label>Employee ID Number:</label><br>
+								                                    <input type="text" class="form-control" name="surname" placeholder="Enter Surname" value="{{$item->empNumber}}" readonly>
+								                                </div>
+								                            </div>
+								                            <div class="col-lg-6">
+								                                <div class="form-group">
+								                                    <label>Skill:</label>
+								                                    <input type="text" class="form-control" name="first_name"  placeholder="Enter First Name" value="{{$item->empskill}}" readonly>
+								                                </div>
+								                            </div>
+								                        </div>
+
+								                        
+												
+												</div>
 														<div class="modal-footer">
 															<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
 														</div>
-														</div>
+														
 													</div>
 												</div>
                                             </td>
@@ -415,13 +442,13 @@
 								                </button>
 													<!-- new  -->
 											<button class="btn btn-sm btn-clean btn-icon btn-icon-md"
-													title="View Customer Details" value="" o data-toggle="modal" data-target="#model3"><i
+													title="View Customer Details" value="" o data-toggle="modal" data-target="#training{{$item->traning_id}}"><i
 														class="fa fa-eye"></i>
 											</button>
 
 
 												<!-- Modal -->
-												<div class="modal fade" id="model3" tabindex="-1" role="dialog" aria-labelledby="model3Label" aria-hidden="true">
+												<div class="modal fade" id="training{{$item->traning_id}}" tabindex="-1" role="dialog" aria-labelledby="model3Label" aria-hidden="true">
 													<div class="modal-dialog" role="document">
 													<div class="modal-content">
 													<div class="modal-header">
@@ -431,26 +458,53 @@
 														</button>
 													</div>
 													<div class="modal-body">
-														<table class="table table-bordered table-hover">
-															<thead>
-																<tr>
-																	<th>Employee Name</th>
-																	<th>Employee ID</th>
-																	<th>Employee Email</th>
-																	<th>Employee Phone</th>
-																</tr>
-															</thead>
-															<tbody>
-																<tr>
-																	<td>test</td>
-																	<td>test</td>
-																	<td>test</td>
-																	<td>test</td>
-																</tr>
-															</tbody>
-														</table>
 
+								                        <div class="row">
+								                            <div class="col-lg-12">
+								                                <div class="form-group">
+								                                    <label>Surname:</label><br>
+								                                    <input type="text" class="form-control" name="surname" placeholder="Enter Surname" value="{{$item->surname}}" readonly>
+								                                </div>
+								                            </div>
+								                        </div>
+
+								                        <div class="row">
+								                            <div class="col-lg-6">
+								                                <div class="form-group">
+								                                    <label>First Name:</label>
+								                                    <input type="text" class="form-control" name="first_name"  placeholder="Enter First Name" value="{{$item->first_name}}" readonly>
+								                                </div>
+								                            </div>
+								                            <div class="col-lg-6">
+								                                <div class="form-group edit-emp-number-div">
+								                                    <label>Employee ID:</label> 
+								                                    <input type="text" name="empNumber" required class="form-control" data-type="edit" value="{{$item->empNumber}}" readonly>
+								                                </div>
+								                            </div>
+								                        </div>
+								                        <div class="row">
+								                            <div class="col-lg-6">
+								                                <div class="form-group">
+								                                    <label>Start Date (YYYY/MM/DD):</label>
+								                                    <input name="startDate" max="2999-12-31" type="date" class="form-control" value="{{$item->startDate}}" readonly>
+								                                </div>
+								                            </div>
+								                            <div class="col-lg-6">
+								                                <div class="form-group">
+								                                    <label>Job Details:</label>
+								                                    <input type="text" name="jobdetails" class="form-control"  placeholder="Enter Job Details:" value="{{$item->traningdetails}}" readonly>
+								                                </div>
+								                            </div>
+								                        </div>
+												<!-- <div class="row">
+													<div class="col-lg-6">
+														<div class="form-group">
+															<label>Upload Employee CV:</label>
+															<input name="employee_cv" type="file" class="form-control" accept="image/*,.doc, .docx,.txt,.pdf">
+														</div>
 													</div>
+												</div> -->
+											</div>
 														<div class="modal-footer">
 															<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
 														</div>
@@ -559,13 +613,13 @@
                                 <div class="form-group edit-emp-number-div">
                                     <label>Employee ID:</label> 
                                     <input type="text" name="empNumber" required class="form-control" data-type="edit">
-           <!--                         <select name="empNumber" required class="form-control">-->
-											<!--    <option>Select One</option>-->
-											<!--    @if(isset($userinfo) && $userinfo!= "")-->
-											<!--    @foreach($userinfo as $item)-->
-											<!--    <option value="{{$item->id}}" title="{{ $item->first_name }}">{{$item->empNumber.' ('.$item->first_name.')'}}</option>-->
-											<!--    @endforeach-->
-											<!--    @endif-->
+			           <!--                         <select name="empNumber" required class="form-control">-->
+														<!--    <option>Select One</option>-->
+														<!--    @if(isset($userinfo) && $userinfo!= "")-->
+														<!--    @foreach($userinfo as $item)-->
+														<!--    <option value="{{$item->id}}" title="{{ $item->first_name }}">{{$item->empNumber.' ('.$item->first_name.')'}}</option>-->
+														<!--    @endforeach-->
+														<!--    @endif-->
 											<!--</select>-->
                                 </div>
                             </div>

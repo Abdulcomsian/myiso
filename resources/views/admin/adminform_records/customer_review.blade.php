@@ -147,6 +147,75 @@
 												</button>
 												<button  class="btn btn-sm btn-clean btn-icon btn-icon-md" title="delete" value="" onclick="deletedata({{$data}});"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="18px" height="18px" viewBox="0 0 24 24" version="1.1">										<g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">											<rect x="0" y="0" width="24" height="24"></rect>											<path d="M6,8 L6,20.5 C6,21.3284271 6.67157288,22 7.5,22 L16.5,22 C17.3284271,22 18,21.3284271 18,20.5 L18,8 L6,8 Z" fill="#5d78ff" fill-rule="nonzero"></path>											<path d="M14,4.5 L14,4 C14,3.44771525 13.5522847,3 13,3 L11,3 C10.4477153,3 10,3.44771525 10,4 L10,4.5 L5.5,4.5 C5.22385763,4.5 5,4.72385763 5,5 L5,5.5 C5,5.77614237 5.22385763,6 5.5,6 L18.5,6 C18.7761424,6 19,5.77614237 19,5.5 L19,5 C19,4.72385763 18.7761424,4.5 18.5,4.5 L14,4.5 Z" fill="#5d78ff" opacity="0.3"></path>										</g>									</svg>
                                                 </button>
+                                                <button class="btn btn-sm btn-clean btn-icon btn-icon-md"
+													title="View Customer Details" value="" o data-toggle="modal" data-target="#modal{{$data->id}}"><i
+														class="fa fa-eye"></i>
+											   </button>
+
+                                                <!-- view mdoal -->
+                                                <div class="modal fade" id="modal{{$data->id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+												<div class="modal-dialog modal-lg" role="document">
+													<div class="modal-content">
+														<div class="modal-header">
+															<h5 class="modal-title" id="exampleModalLabel">View Customer Evaluation Details</h5>
+															<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+															</button>
+														</div>
+														<div class="modal-body">
+											                
+											                    <div class="row">
+											                        
+											                        <div class="col-lg-12">
+											                            <div class="form-group">
+											                                <label>Customer ID Number:</label><br>
+											                                <input type="number" class="form-control" name="cus_id" placeholder="Enter Customer ID:" value="{{$data->cus_id}}" readonly>
+											                            </div>
+											                        </div>
+											                    </div>
+
+											                    <div class="row">
+											                        <div class="col-lg-6">
+											                            <div class="form-group">
+											                                <label>Quality Score (0-10):</label>
+											                                <input type="number" min="0" max="10" class="form-control" name="qualityScore" value="{{$data->qualityScore}}" readonly>
+											                            </div>
+											                        </div>
+											                        <div class="col-lg-6">
+											                            <div class="form-group">
+											                                <label>Price Score (0-10):</label>
+											                                <input type="number" min="0" max="10" class="form-control" name="priceScore" value="{{$data->priceScore}}" readonly>
+											                            </div>
+											                        </div>
+											                    </div>
+											                    <div class="row">
+											                        <div class="col-lg-6">
+											                            <div class="form-group">
+											                                <label>Delivery Score (0-10):</label>
+											                                <input type="number" class="form-control"min="0" max="10"name="DScore"  value="{{$data->DScore}}" readonly>
+											                            </div>
+											                        </div>
+											                        <div class="col-lg-6">
+											                            <div class="form-group">
+											                                <label>Overall Score (0-10):</label>
+											                                <input type="number" class="form-control" min="0" max="10"  name="OveralScore" value="{{$data->OveralScore}}" readonly>
+											                            </div>
+											                        </div>
+											                    </div>
+											                    <div class="row">
+											                        <div class="col-lg-12">
+											                            <div class="form-group">
+											                                <label>Assessment Date (MM/DD/YYYY):</label>
+											                                <input type="date" max="2999-12-31" class="form-control" name="AssesmentDate" value="{{$data->AssesmentDate}}" readonly>
+											                            </div>
+											                        </div>
+											                    </div>
+																
+																<button  class="btn btn-secondary submitBtn" type="reset" data-dismiss="modal" aria-label="Close" style="margin-right: 6px;">Cancel</button>
+											              
+													</div>
+												</div>
+											</div>
+</div>
                                             </td>
 
                                         </tr>
