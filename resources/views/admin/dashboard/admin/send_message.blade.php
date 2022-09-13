@@ -256,5 +256,16 @@
            });
 		})
 
+		let x = 0;
+		$('.ms-selectall.global').click(function(){
+			// toggle select and unselect text of this
+			if(x == 0){
+				$(this).text('Unselect All');
+				x = 1;
+				return;
+			}
+			$(this).text($(this).text() == 'select All' ? 'Unselect All' : 'select All');
+		})
+
 	</script>
 @endsection
