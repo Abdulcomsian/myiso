@@ -1,9 +1,9 @@
 'use strict';
 // Class definition
-var KTDatatableChildDataLocalDemo = function() {
+var KTDatatableChildDataLocalDemo = function () {
 	// Private functions
 
-	var subTableInit = function(e) {
+	var subTableInit = function (e) {
 		$('<div/>').attr('id', 'child_data_local_' + e.data.RecordID).appendTo(e.detailCell).KTDatatable({
 			data: {
 				type: 'local',
@@ -52,15 +52,15 @@ var KTDatatableChildDataLocalDemo = function() {
 					field: 'Status',
 					title: 'Status',
 					// callback function support for column rendering
-					template: function(row) {
+					template: function (row) {
 						var status = {
-							1: {'title': 'Pending', 'class': 'kt-badge--brand'},
-							2: {'title': 'Delivered', 'class': ' kt-badge--danger'},
-							3: {'title': 'Canceled', 'class': ' kt-badge--primary'},
-							4: {'title': 'Success', 'class': ' kt-badge--success'},
-							5: {'title': 'Info', 'class': ' kt-badge--info'},
-							6: {'title': 'Danger', 'class': ' kt-badge--danger'},
-							7: {'title': 'Warning', 'class': ' kt-badge--warning'},
+							1: { 'title': 'Pending', 'class': 'kt-badge--brand' },
+							2: { 'title': 'Delivered', 'class': ' kt-badge--danger' },
+							3: { 'title': 'Canceled', 'class': ' kt-badge--primary' },
+							4: { 'title': 'Success', 'class': ' kt-badge--success' },
+							5: { 'title': 'Info', 'class': ' kt-badge--info' },
+							6: { 'title': 'Danger', 'class': ' kt-badge--danger' },
+							7: { 'title': 'Warning', 'class': ' kt-badge--warning' },
 						};
 						return '<span class="kt-badge ' + status[row.Status].class + ' kt-badge--inline kt-badge--pill">' + status[row.Status].title + '</span>';
 					},
@@ -69,11 +69,11 @@ var KTDatatableChildDataLocalDemo = function() {
 					title: 'Type',
 					autoHide: false,
 					// callback function support for column rendering
-					template: function(row) {
+					template: function (row) {
 						var status = {
-							1: {'title': 'Online', 'state': 'danger'},
-							2: {'title': 'Retail', 'state': 'primary'},
-							3: {'title': 'Direct', 'state': 'success'},
+							1: { 'title': 'Online', 'state': 'danger' },
+							2: { 'title': 'Retail', 'state': 'primary' },
+							3: { 'title': 'Direct', 'state': 'success' },
 						};
 						return '<span class="kt-badge kt-badge--' + status[row.Type].state + ' kt-badge--dot"></span>&nbsp;<span class="kt-font-bold kt-font-' + status[row.Type].state +
 							'">' +
@@ -84,7 +84,7 @@ var KTDatatableChildDataLocalDemo = function() {
 	};
 
 	// demo initializer
-	var mainTableInit = function() {
+	var mainTableInit = function () {
 
 		var dataJSONArray = JSON.parse(
 			'[{"RecordID":1,"FirstName":"Tommie","LastName":"Pee","Company":"Roodel","Email":"tpee0@slashdot.org","Phone":"103-891-3486","Status":4,"Type":1,"Orders":[{"OrderID":"41250-166","ShipCountry":"FR","ShipAddress":"5 Rutledge Court","ShipName":"Rogahn-Shanahan","OrderDate":"3/7/2017","TotalPayment":"$591994.23","Status":5,"Type":1},{"OrderID":"0078-0595","ShipCountry":"CN","ShipAddress":"953 Schlimgen Park","ShipName":"Hilpert-Sanford","OrderDate":"5/12/2017","TotalPayment":"$79774.93","Status":1,"Type":1},{"OrderID":"47593-443","ShipCountry":"BY","ShipAddress":"46925 Memorial Park","ShipName":"Brakus and Sons","OrderDate":"2/12/2017","TotalPayment":"$1095029.28","Status":1,"Type":1},{"OrderID":"50114-5236","ShipCountry":"NZ","ShipAddress":"1420 Mockingbird Drive","ShipName":"Beer-Harris","OrderDate":"6/6/2017","TotalPayment":"$778690.72","Status":5,"Type":3},{"OrderID":"36987-2826","ShipCountry":"PL","ShipAddress":"3995 Huxley Court","ShipName":"Kling, Miller and Quitzon","OrderDate":"9/1/2017","TotalPayment":"$773995.02","Status":5,"Type":2},{"OrderID":"62750-006","ShipCountry":"ID","ShipAddress":"2064 Dennis Parkway","ShipName":"Lang, Kohler and Considine","OrderDate":"9/21/2017","TotalPayment":"$830550.45","Status":5,"Type":2},{"OrderID":"59779-597","ShipCountry":"IR","ShipAddress":"32 Golf Course Parkway","ShipName":"Jaskolski-Hilll","OrderDate":"4/4/2017","TotalPayment":"$754685.32","Status":3,"Type":3},{"OrderID":"59762-3743","ShipCountry":"HT","ShipAddress":"76 Anthes Hill","ShipName":"Reynolds Group","OrderDate":"1/23/2017","TotalPayment":"$295435.66","Status":2,"Type":1},{"OrderID":"64942-1114","ShipCountry":"ID","ShipAddress":"7511 Mayfield Avenue","ShipName":"Purdy and Sons","OrderDate":"12/1/2016","TotalPayment":"$636911.04","Status":6,"Type":2},{"OrderID":"13537-505","ShipCountry":"KZ","ShipAddress":"36303 Esch Parkway","ShipName":"Reinger, Howe and Kertzmann","OrderDate":"1/31/2016","TotalPayment":"$753691.79","Status":4,"Type":1},{"OrderID":"16781-426","ShipCountry":"SE","ShipAddress":"507 Columbus Lane","ShipName":"Carter, Gibson and Kassulke","OrderDate":"10/26/2017","TotalPayment":"$873190.14","Status":2,"Type":2},{"OrderID":"60512-1008","ShipCountry":"ID","ShipAddress":"8 Jana Lane","ShipName":"Rutherford and Sons","OrderDate":"1/10/2017","TotalPayment":"$242894.68","Status":3,"Type":1},{"OrderID":"0456-0461","ShipCountry":"CN","ShipAddress":"5127 Roxbury Trail","ShipName":"Johnson Inc","OrderDate":"12/10/2017","TotalPayment":"$328850.50","Status":5,"Type":3},{"OrderID":"63304-098","ShipCountry":"GR","ShipAddress":"54627 Randy Lane","ShipName":"Johnston, Veum and Funk","OrderDate":"12/11/2016","TotalPayment":"$278247.03","Status":3,"Type":2},{"OrderID":"64092-317","ShipCountry":"CN","ShipAddress":"292 Rusk Lane","ShipName":"Bode, Zboncak and Reichel","OrderDate":"4/10/2016","TotalPayment":"$798173.38","Status":2,"Type":2},{"OrderID":"36987-1483","ShipCountry":"CU","ShipAddress":"2225 Saint Paul Junction","ShipName":"Dach, Haag and Koss","OrderDate":"2/7/2017","TotalPayment":"$1147799.38","Status":4,"Type":2},{"OrderID":"68084-814","ShipCountry":"ID","ShipAddress":"0 Sheridan Avenue","ShipName":"Little-O\'Hara","OrderDate":"11/24/2016","TotalPayment":"$394051.79","Status":6,"Type":1},{"OrderID":"42023-131","ShipCountry":"BR","ShipAddress":"4238 Roth Drive","ShipName":"Boehm LLC","OrderDate":"4/23/2016","TotalPayment":"$300684.31","Status":6,"Type":3},{"OrderID":"14290-350","ShipCountry":"CN","ShipAddress":"41950 Troy Point","ShipName":"Windler, Larkin and Collier","OrderDate":"4/17/2017","TotalPayment":"$467794.40","Status":4,"Type":1}]},\n' +
@@ -492,15 +492,15 @@ var KTDatatableChildDataLocalDemo = function() {
 					field: 'Status',
 					title: 'Status',
 					// callback function support for column rendering
-					template: function(row) {
+					template: function (row) {
 						var status = {
-							1: {'title': 'Pending', 'class': 'kt-badge--brand'},
-							2: {'title': 'Delivered', 'class': ' kt-badge--danger'},
-							3: {'title': 'Canceled', 'class': ' kt-badge--primary'},
-							4: {'title': 'Success', 'class': ' kt-badge--success'},
-							5: {'title': 'Info', 'class': ' kt-badge--info'},
-							6: {'title': 'Danger', 'class': ' kt-badge--danger'},
-							7: {'title': 'Warning', 'class': ' kt-badge--warning'},
+							1: { 'title': 'Pending', 'class': 'kt-badge--brand' },
+							2: { 'title': 'Delivered', 'class': ' kt-badge--danger' },
+							3: { 'title': 'Canceled', 'class': ' kt-badge--primary' },
+							4: { 'title': 'Success', 'class': ' kt-badge--success' },
+							5: { 'title': 'Info', 'class': ' kt-badge--info' },
+							6: { 'title': 'Danger', 'class': ' kt-badge--danger' },
+							7: { 'title': 'Warning', 'class': ' kt-badge--warning' },
 						};
 						return '<span class="kt-badge ' + status[row.Status].class + ' kt-badge--inline kt-badge--pill">' + status[row.Status].title + '</span>';
 					},
@@ -509,11 +509,11 @@ var KTDatatableChildDataLocalDemo = function() {
 					title: 'Type',
 					autoHide: false,
 					// callback function support for column rendering
-					template: function(row) {
+					template: function (row) {
 						var status = {
-							1: {'title': 'Online', 'state': 'danger'},
-							2: {'title': 'Retail', 'state': 'primary'},
-							3: {'title': 'Direct', 'state': 'success'},
+							1: { 'title': 'Online', 'state': 'danger' },
+							2: { 'title': 'Retail', 'state': 'primary' },
+							3: { 'title': 'Direct', 'state': 'success' },
 						};
 						return '<span class="kt-badge kt-badge--' + status[row.Type].state + ' kt-badge--dot"></span>&nbsp;<span class="kt-font-bold kt-font-' + status[row.Type].state +
 							'">' +
@@ -525,34 +525,34 @@ var KTDatatableChildDataLocalDemo = function() {
 					title: 'Actions',
 					sortable: false,
 					overflow: 'visible',
-					template: function() {
+					template: function () {
 						return '\
 		                  <div class="dropdown">\
 		                      <a href="javascript:;" class="btn btn-sm btn-clean btn-icon btn-icon-md" data-toggle="dropdown">\
 		                          <i class="la la-ellipsis-h"></i>\
 		                      </a>\
 		                      <div class="dropdown-menu dropdown-menu-right">\
-		                          <a class="dropdown-item" href="#"><i class="la la-edit"></i> Edit Details</a>\
+		                          <a class="dropdown-item" href="#"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="18px" height="18px" viewBox="0 0 24 24" version="1.1">										<g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">											<rect x="0" y="0" width="24" height="24"></rect>											<path d="M12.2674799,18.2323597 L12.0084872,5.45852451 C12.0004303,5.06114792 12.1504154,4.6768183 12.4255037,4.38993949 L15.0030167,1.70195304 L17.5910752,4.40093695 C17.8599071,4.6812911 18.0095067,5.05499603 18.0083938,5.44341307 L17.9718262,18.2062508 C17.9694575,19.0329966 17.2985816,19.701953 16.4718324,19.701953 L13.7671717,19.701953 C12.9505952,19.701953 12.2840328,19.0487684 12.2674799,18.2323597 Z" fill="#5d78ff" fill-rule="nonzero" transform="translate(14.701953, 10.701953) rotate(-135.000000) translate(-14.701953, -10.701953) "></path>											<path d="M12.9,2 C13.4522847,2 13.9,2.44771525 13.9,3 C13.9,3.55228475 13.4522847,4 12.9,4 L6,4 C4.8954305,4 4,4.8954305 4,6 L4,18 C4,19.1045695 4.8954305,20 6,20 L18,20 C19.1045695,20 20,19.1045695 20,18 L20,13 C20,12.4477153 20.4477153,12 21,12 C21.5522847,12 22,12.4477153 22,13 L22,18 C22,20.209139 20.209139,22 18,22 L6,22 C3.790861,22 2,20.209139 2,18 L2,6 C2,3.790861 3.790861,2 6,2 L12.9,2 Z" fill="#5d78ff" fill-rule="nonzero" opacity="0.3"></path>										</g>									</svg> Edit Details</a>\
 		                          <a class="dropdown-item" href="#"><i class="la la-leaf"></i> Update Status</a>\
 		                          <a class="dropdown-item" href="#"><i class="la la-print"></i> Generate Report</a>\
 		                      </div>\
 		                  </div>\
 		                  <a href="javascript:;" class="btn btn-sm btn-clean btn-icon btn-icon-md" title="Edit details">\
-		                      <i class="la la-edit"></i>\
+		                      <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="18px" height="18px" viewBox="0 0 24 24" version="1.1">										<g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">											<rect x="0" y="0" width="24" height="24"></rect>											<path d="M12.2674799,18.2323597 L12.0084872,5.45852451 C12.0004303,5.06114792 12.1504154,4.6768183 12.4255037,4.38993949 L15.0030167,1.70195304 L17.5910752,4.40093695 C17.8599071,4.6812911 18.0095067,5.05499603 18.0083938,5.44341307 L17.9718262,18.2062508 C17.9694575,19.0329966 17.2985816,19.701953 16.4718324,19.701953 L13.7671717,19.701953 C12.9505952,19.701953 12.2840328,19.0487684 12.2674799,18.2323597 Z" fill="#5d78ff" fill-rule="nonzero" transform="translate(14.701953, 10.701953) rotate(-135.000000) translate(-14.701953, -10.701953) "></path>											<path d="M12.9,2 C13.4522847,2 13.9,2.44771525 13.9,3 C13.9,3.55228475 13.4522847,4 12.9,4 L6,4 C4.8954305,4 4,4.8954305 4,6 L4,18 C4,19.1045695 4.8954305,20 6,20 L18,20 C19.1045695,20 20,19.1045695 20,18 L20,13 C20,12.4477153 20.4477153,12 21,12 C21.5522847,12 22,12.4477153 22,13 L22,18 C22,20.209139 20.209139,22 18,22 L6,22 C3.790861,22 2,20.209139 2,18 L2,6 C2,3.790861 3.790861,2 6,2 L12.9,2 Z" fill="#5d78ff" fill-rule="nonzero" opacity="0.3"></path>										</g>									</svg>\
 		                  </a>\
 		                  <a href="javascript:;" class="btn btn-sm btn-clean btn-icon btn-icon-md" title="Delete">\
-		                      <i class="la la-trash"></i>\
+		                      <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="18px" height="18px" viewBox="0 0 24 24" version="1.1">										<g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">											<rect x="0" y="0" width="24" height="24"></rect>											<path d="M6,8 L6,20.5 C6,21.3284271 6.67157288,22 7.5,22 L16.5,22 C17.3284271,22 18,21.3284271 18,20.5 L18,8 L6,8 Z" fill="#5d78ff" fill-rule="nonzero"></path>											<path d="M14,4.5 L14,4 C14,3.44771525 13.5522847,3 13,3 L11,3 C10.4477153,3 10,3.44771525 10,4 L10,4.5 L5.5,4.5 C5.22385763,4.5 5,4.72385763 5,5 L5,5.5 C5,5.77614237 5.22385763,6 5.5,6 L18.5,6 C18.7761424,6 19,5.77614237 19,5.5 L19,5 C19,4.72385763 18.7761424,4.5 18.5,4.5 L14,4.5 Z" fill="#5d78ff" opacity="0.3"></path>										</g>									</svg>\
 		                  </a>\
 		              ';
 					},
 				}],
 		});
 
-		$('#kt_form_status').on('change', function() {
+		$('#kt_form_status').on('change', function () {
 			datatable.search($(this).val().toLowerCase(), 'Status');
 		});
 
-		$('#kt_form_type').on('change', function() {
+		$('#kt_form_type').on('change', function () {
 			datatable.search($(this).val().toLowerCase(), 'Type');
 		});
 
@@ -562,13 +562,13 @@ var KTDatatableChildDataLocalDemo = function() {
 
 	return {
 		// Public functions
-		init: function() {
+		init: function () {
 			// init dmeo
 			mainTableInit();
 		},
 	};
 }();
 
-jQuery(document).ready(function() {
+jQuery(document).ready(function () {
 	KTDatatableChildDataLocalDemo.init();
 });

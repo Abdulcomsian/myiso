@@ -37103,6 +37103,10 @@ body.swal2-height-auto {
     background-color: transparent;
 }
 
+table.dataTable.no-footer{
+    border-bottom: none;
+}
+
 .dataTables_wrapper .child .dtr-details {
     display: table !important;
 }
