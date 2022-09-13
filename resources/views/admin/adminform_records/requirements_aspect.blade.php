@@ -159,6 +159,45 @@ input[type="date"]::-webkit-datetime-edit-day-field{
                       </div>
                     </div>
                   </div>
+
+                   <button class="btn btn-sm btn-clean btn-icon btn-icon-md"
+													title="View Customer Details" value="" o data-toggle="modal" data-target="#modal{{$data->id}}"><i
+														class="fa fa-eye"></i>
+											   </button>
+											   <div class="modal fade" id="modal{{$data->id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+					<div class="modal-dialog" role="document">
+						<div class="modal-content">
+							<div class="modal-header">
+								<h5 class="modal-title" id="exampleModalLabel">Amend a
+									Requirement.</h5>
+								<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+								</button>
+				            </div>
+							
+							<div class="modal-body">
+								
+									
+				                    <div class="form-group">
+										<label>Requirement:</label>
+										<input type="text" class="form-control"  name="requirment_title"  placeholder="Enter Requirement:" value="{{$data->requirment_title}}" readonly>
+									</div>
+									<div class="form-group">
+										<label>Requirement Completion Date of the Activity (DD/MM/YYYY):</label>
+										<input type="date" class="form-control"  name="completion_date" required placeholder="Enter Requirement:" value="{{$data->completion_date}}" readonly>
+									</div>
+									<div class="form-group">
+										<label>Periodicity (Months):</label>
+										<input type="number" class="form-control periodicity" onkeyup="myFunction()" min="1" max="12"  name="periods" required placeholder="Enter Months:" value="{{$data->periods}}" readonly>
+									</div>
+
+							</div>
+							<div class="modal-footer">
+								<button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+				            </div>
+				        </form>
+						</div>
+					</div>
+				</div>
                                     </td>
                                         </tr>
                                         @endforeach

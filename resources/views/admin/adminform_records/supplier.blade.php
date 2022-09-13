@@ -375,14 +375,14 @@
                                 <div class="form-group">
                                     <label>Supplier ID
                                         number:</label><br>
-                                    <input type="number" class="form-control" name="idnumber" placeholder="Enter ID:">
+                                    <input type="number" class="form-control" name="idnumber" placeholder="Enter ID:" readonly>
                                 </div>
                             </div>
                             <div class="col-lg-12">
                                 <div class="form-group">
                                     <label>Supplier Name:</label><br>
                                     <input type="text" class="form-control" name="suppliername"
-                                           placeholder="Enter Supplier Name:">
+                                           placeholder="Enter Supplier Name:" readonly>
                                 </div>
                             </div>
                         </div>
@@ -392,13 +392,13 @@
                                 <div class="form-group">
                                     <label>Supplier Address:</label>
                                     <input type="text" name="supplieraddress" class="form-control"
-                                           placeholder="Enter Supplier Address:">
+                                           placeholder="Enter Supplier Address:" readonly>
                                 </div>
                             </div>
                             {{-- <div class="col-lg-6">
                                 <div class="form-group">
                                     <label>City:</label>
-                                    <input type="text"  name="suppliercity" class="form-control" placeholder="Enter City:">
+                                    <input type="text"  name="suppliercity" class="form-control" placeholder="Enter City:" readonly>
                                 </div>
                             </div> --}}
                         </div>
@@ -406,13 +406,13 @@
                         {{-- <div class="col-lg-6">
                             <div class="form-group">
                                 <label>County or State:</label>
-                                <input type="text" name="supplierstate" class="form-control" placeholder="Enter Country or State:">
+                                <input type="text" name="supplierstate" class="form-control" placeholder="Enter Country or State:" readonly>
                             </div>
                         </div> --}}
                         {{-- <div class="col-lg-6">
                             <div class="form-group">
                                 <label>Post Code or Zip Code:</label>
-                                <input type="text" name="supplierzip" class="form-control" placeholder="Enter Customer Contact Number:">
+                                <input type="text" name="supplierzip" class="form-control" placeholder="Enter Customer Contact Number:" readonly>
                             </div>
                         </div>
                     </div> --}}
@@ -421,7 +421,7 @@
                                 <div class="form-group">
                                     <label>Country:</label>
                                     <input type="text" name="suppliercountry" class="form-control"
-                                           placeholder="Enter Country">
+                                           placeholder="Enter Country" readonly>
                                 </div>
                             </div>
                             <div class="col-lg-6">
@@ -439,14 +439,14 @@
                                 <div class="form-group">
                                     <label>Supplier Email Address:</label>
                                     <input type="email" name="supplieremail" class="form-control"
-                                           placeholder="Enter Supplier Email:">
+                                           placeholder="Enter Supplier Email:" readonly>
                                 </div>
                             </div>
                             <div class="col-lg-6">
                                 <div class="form-group">
                                     <label>Supplier Contact Name:</label>
                                     <input type="text" name="supplierContactNumber" class="form-control"
-                                           placeholder="Enter Supplier Contact Number:">
+                                           placeholder="Enter Supplier Contact Number:" readonly>
                                 </div>
                             </div>
                         </div>
@@ -455,7 +455,7 @@
                                 <div class="form-group">
                                     <label>Services:</label>
                                     <input type="text" name="supplierservc" class="form-control"
-                                           placeholder="Enter Supplier Service:">
+                                           placeholder="Enter Supplier Service:" readonly>
                                 </div>
                             </div>
                         </div>
