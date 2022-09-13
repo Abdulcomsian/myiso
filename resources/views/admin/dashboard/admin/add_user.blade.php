@@ -350,8 +350,13 @@
                                     <input type="file" id="audit_report" accept=".pdf"
                                            name="audit_report">
                                 </div>
+                                <div class="col-lg-4">
+                                    <label for="iso45001_certificate">Audit Comment</label>
+                                    <textarea id="audit_comment" name="audit_comment" class="form-control"
+                                              placeholder="Audit Comment"></textarea>
+                                </div>
                             </div>
-
+                           
                             <div class="kt-portlet__foot">
 
                                 <button type="submit" id="submit" class="submitBtn" style="margin-right: -28px;">

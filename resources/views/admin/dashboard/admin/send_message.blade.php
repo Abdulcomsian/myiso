@@ -148,6 +148,7 @@
     								<option value="iso9001_certificate">Iso9001 Certificate</option>
     								<option value="iso14001_certificate">Iso14001 Certificate</option>
     								<option value="iso45001_certificate">Iso45001 Certificate</option>
+    								<option value="all">All</option>
     							</select>
     						</div>
     					</div>

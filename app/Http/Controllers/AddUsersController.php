@@ -63,6 +63,7 @@ class AddUsersController extends Controller
      */
 public function store(Request $request)
     {
+
         try {
             //currdisabl
             $this->validate($request, [
@@ -155,6 +156,7 @@ public function store(Request $request)
                     $addusers->audit_report = $audit_report_path;
                 }
             }
+             $addusers->audit_comment=$request->input('audit_comment');
 
             //$addusers->expiry_date=$request->input('expiry_date');
             $addusers->country = $request->input('country');
@@ -289,7 +291,14 @@ public function store(Request $request)
                 $users=AddUsers::where("last_login",">", Carbon::now()->subMonths($request->month))->get();
             }
             elseif($request->type="certificate" && $request->cert){
-                $users=AddUsers::where("".$request->cert."","!=",'')->get();
+                if($request->cert=="all")
+                {
+                    $users=AddUsers::where("iso9001_certificate","!=",'')->where("iso14001_certificate","!=","")->where("iso45001_certificate","!=","")->get();
+                }
+                else{
+                    $users=AddUsers::where("".$request->cert."","!=","")->get();
+                }
+                
             }
             else{
                 $users=AddUsers::where('role_type','user')->get();
@@ -583,7 +592,7 @@ public function store(Request $request)
                 $user->audit_report = $audit_report_path;
             }
         }
-
+        $addusers->audit_comment=$request->input('audit_comment');
         $user->expiry_date = $request->input('expiry_date');
 
         $user->company_name = $request->input('company_name');

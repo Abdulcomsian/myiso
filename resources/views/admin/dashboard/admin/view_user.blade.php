@@ -782,6 +782,11 @@
                                                     class="audit_report delete-certificate">Delete</a>
                                     <input type="file" id="audit_report" accept=".pdf" name="audit_report">
                                 </div>
+                                <div class="col-lg-4">
+                                    <label for="audit_comment">Audit Comment</label>&nbsp;&nbsp;
+                                    <textarea id="audit_comment" name="audit_comment" class="form-control"
+                                              placeholder="Description Audit Comment"></textarea>
+                                </div>
                             </div>
 
                         </div>
@@ -1136,10 +1141,18 @@
                                     </div>
                                 </div>
                                 <div class="form-group row">
-                                    <div class="col-lg-12">
+                                    <div class="col-lg-6">
                                         <label for="audit_report">Audit Report:</label>
                                         <br>
                                         <span id="v_audit_report"> </span>
+                                    </div>
+                                    <div class="col-lg-6">
+                                        <label for="audit_comment">Audit Comment:</label>
+                                        <br>
+                                        <textarea id="audit_comment" name="audit_comment"
+                                                  class="form-control"
+                                                  placeholder="Audit Comment" readonly
+                                                  disabled></textarea>
                                     </div>
                                 </div>
                             </div>
@@ -1186,6 +1199,7 @@
                 $("#downloadlink").empty();
                 console.log(data);
                 $("#editvalue").val(data.id);
+                $("#audit_comment").val(data.audit_comment);
                 $("input[name='idnumber']").val(data.idnumber);
                 $("input[name='name']").val(data.name);
 // 		 $("input[name='password']").val(data.password);
@@ -1379,6 +1393,7 @@
                 $("textarea[name='business_scopes']").val(data.scope);
 
                 $("textarea[name='Company_overview']").val(data.Company_overview);
+                $("textarea[name='audit_comment']").val(data.audit_comment);
 
                 $("input[name='iso9001_expirydate']").val(data.iso9001_expirydate);
                 $("textarea[name='iso9001_description']").val(data.iso9001_description);
