@@ -289,7 +289,7 @@ public function store(Request $request)
                 $users=AddUsers::where("last_login",">", Carbon::now()->subMonths($request->month))->get();
             }
             elseif($request->type="certificate" && $request->cert){
-                $users=AddUsers::where("".$request->cert."","=",$request->cert)->get();
+                $users=AddUsers::where("".$request->cert."","!=",'')->get();
             }
             else{
                 $users=AddUsers::where('role_type','user')->get();
