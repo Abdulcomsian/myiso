@@ -235,48 +235,12 @@
                                                 </button>
 												<!-- new  -->
 											<button class="btn btn-sm btn-clean btn-icon btn-icon-md"
-													title="View Customer Details" value="" o data-toggle="modal" data-target="#model1"><i
+													title="View Customer Details " onclick="viewmodal({{json_encode($item)}},{{json_encode($item->user)}})" value="" o data-toggle="modal" data-target="#model1"><i
 														class="fa fa-eye"></i>
 											</button>
 
 
-												<!-- Modal -->
-												<div class="modal fade" id="model1" tabindex="-1" role="dialog" aria-labelledby="model1Label" aria-hidden="true">
-													<div class="modal-dialog" role="document">
-													<div class="modal-content">
-													<div class="modal-header">
-														<h5 class="modal-title" id="exampleModalLabel">Total Employees Listed</h5>
-														<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-														<span aria-hidden="true">&times;</span>
-														</button>
-													</div>
-													<div class="modal-body">
-														<table class="table table-bordered table-hover">
-															<thead>
-																<tr>
-																	<th>Employee Name</th>
-																	<th>Employee ID</th>
-																	<th>Employee Email</th>
-																	<th>Employee Phone</th>
-																</tr>
-															</thead>
-															<tbody>
-																<tr>
-																	<td>test</td>
-																	<td>test</td>
-																	<td>test</td>
-																	<td>test</td>
-																</tr>
-															</tbody>
-														</table>
-
-													</div>
-														<div class="modal-footer">
-															<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-														</div>
-														</div>
-													</div>
-												</div>
+												
                                             </td>
 
                                         </tr>
@@ -324,48 +288,12 @@
 								                </button>
 													<!-- new  -->
 											<button class="btn btn-sm btn-clean btn-icon btn-icon-md"
-													title="View Customer Details" value="" o data-toggle="modal" data-target="#model2"><i
+													title="View Customer Details" onclick="viewmodal({{json_encode($item)}})" value="" o data-toggle="modal" data-target="#model2"><i
 														class="fa fa-eye"></i>
 											</button>
 
 
-												<!-- Modal -->
-												<div class="modal fade" id="model2" tabindex="-1" role="dialog" aria-labelledby="model2Label" aria-hidden="true">
-													<div class="modal-dialog" role="document">
-													<div class="modal-content">
-													<div class="modal-header">
-														<h5 class="modal-title" id="exampleModalLabel">Total Employee Skills Listed</h5>
-														<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-														<span aria-hidden="true">&times;</span>
-														</button>
-													</div>
-													<div class="modal-body">
-														<table class="table table-bordered table-hover">
-															<thead>
-																<tr>
-																	<th>Employee Name</th>
-																	<th>Employee ID</th>
-																	<th>Employee Email</th>
-																	<th>Employee Phone</th>
-																</tr>
-															</thead>
-															<tbody>
-																<tr>
-																	<td>test</td>
-																	<td>test</td>
-																	<td>test</td>
-																	<td>test</td>
-																</tr>
-															</tbody>
-														</table>
-
-													</div>
-														<div class="modal-footer">
-															<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-														</div>
-														</div>
-													</div>
-												</div>
+												
                                             </td>
 
 
@@ -415,48 +343,12 @@
 								                </button>
 													<!-- new  -->
 											<button class="btn btn-sm btn-clean btn-icon btn-icon-md"
-													title="View Customer Details" value="" o data-toggle="modal" data-target="#model3"><i
+													title="View Customer Details" onclick="viewmodal({{json_encode($item)}})" value="" o data-toggle="modal" data-target="#model3"><i
 														class="fa fa-eye"></i>
 											</button>
 
 
-												<!-- Modal -->
-												<div class="modal fade" id="model3" tabindex="-1" role="dialog" aria-labelledby="model3Label" aria-hidden="true">
-													<div class="modal-dialog" role="document">
-													<div class="modal-content">
-													<div class="modal-header">
-														<h5 class="modal-title" id="exampleModalLabel">Training Record Summary</h5>
-														<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-														<span aria-hidden="true">&times;</span>
-														</button>
-													</div>
-													<div class="modal-body">
-														<table class="table table-bordered table-hover">
-															<thead>
-																<tr>
-																	<th>Employee Name</th>
-																	<th>Employee ID</th>
-																	<th>Employee Email</th>
-																	<th>Employee Phone</th>
-																</tr>
-															</thead>
-															<tbody>
-																<tr>
-																	<td>test</td>
-																	<td>test</td>
-																	<td>test</td>
-																	<td>test</td>
-																</tr>
-															</tbody>
-														</table>
-
-													</div>
-														<div class="modal-footer">
-															<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-														</div>
-														</div>
-													</div>
-												</div>
+												
                                             </td>
 
                                         </tr>
@@ -473,6 +365,120 @@
 
 	<!--End::Section-->
 </div>
+<!-- Modal -->
+<div class="modal fade" id="model2" tabindex="-1" role="dialog" aria-labelledby="model2Label" aria-hidden="true">
+	<div class="modal-dialog" role="document">
+	<div class="modal-content">
+	<div class="modal-header">
+		<h5 class="modal-title" id="exampleModalLabel">Total Employee Skills Listed</h5>
+		<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+		<span aria-hidden="true">&times;</span>
+		</button>
+	</div>
+	<div class="modal-body">
+		<table class="table table-bordered table-hover">
+			<thead>
+				<tr>
+					<th>Employee Name</th>
+					<th>Employee ID</th>
+					<th>Employee Email</th>
+					<th>Employee Phone</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td>test</td>
+					<td>test</td>
+					<td>test</td>
+					<td>test</td>
+				</tr>
+			</tbody>
+		</table>
+
+	</div>
+		<div class="modal-footer">
+			<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+		</div>
+		</div>
+	</div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="model3" tabindex="-1" role="dialog" aria-labelledby="model3Label" aria-hidden="true">
+	<div class="modal-dialog" role="document">
+	<div class="modal-content">
+	<div class="modal-header">
+		<h5 class="modal-title" id="exampleModalLabel">Training Record Summary</h5>
+		<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+		<span aria-hidden="true">&times;</span>
+		</button>
+	</div>
+	<div class="modal-body">
+		<table class="table table-bordered table-hover">
+			<thead>
+				<tr>
+					<th>Employee Name</th>
+					<th>Employee ID</th>
+					<th>Employee Email</th>
+					<th>Employee Phone</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td>test</td>
+					<td>test</td>
+					<td>test</td>
+					<td>test</td>
+				</tr>
+			</tbody>
+		</table>
+
+	</div>
+		<div class="modal-footer">
+			<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+		</div>
+		</div>
+	</div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="model1" tabindex="-1" role="dialog" aria-labelledby="model1Label" aria-hidden="true">
+	<div class="modal-dialog" role="document">
+	<div class="modal-content">
+	<div class="modal-header">
+		<h5 class="modal-title" id="exampleModalLabel">Total Employees Listed</h5>
+		<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+		<span aria-hidden="true">&times;</span>
+		</button>
+	</div>
+	<div class="modal-body">
+		<table class="table table-bordered table-hover">
+			<thead>
+				<tr>
+					<th>Employee Name</th>
+					<th>Employee ID</th>
+					<th>Employee Email</th>
+					<th>Employee Phone</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td>test</td>
+					<td>test</td>
+					<td>test</td>
+					<td>test</td>
+				</tr>
+			</tbody>
+		</table>
+
+	</div>
+		<div class="modal-footer">
+			<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+		</div>
+		</div>
+	</div>
+</div>
+
 <div class="modal fade" id="deleteskill" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
 	<div class="modal-dialog" role="document">
 		<div class="modal-content">
@@ -966,5 +972,11 @@ function viewDetails(data) {
 
             }
 
+</script>
+<script type="text/javascript">
+	function viewmodal($data,$user)
+	{
+		console.log($user);
+	}
 </script>
 @endsection

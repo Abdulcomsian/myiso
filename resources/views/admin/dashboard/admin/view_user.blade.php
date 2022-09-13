@@ -209,6 +209,7 @@
                             <th>Address</th>--->
                             <th>Logo</th>
                             <th>Activation Date</th>
+                             <th>Expiry Date</th>
                             <th>Last Login</th>
 
                             <!--<th>Expiry date</th>-->
@@ -251,6 +252,46 @@
                                         {{ date('d-m-y H:i:sA', strtotime($item->created_at)) }}
                                     @endif
                                 </td>
+                                 @php
+                                    $iso9001 = $item->iso9001_expirydate;
+                                    $iso14001 = $item->iso14001_expirydate;
+                                    $iso45001 =$item->iso45001_expirydate;
+                                    
+                                    $x = strtotime($iso9001);
+                                    $y = strtotime($iso14001);
+                                    $z = strtotime($iso45001);
+                                  
+                                    if($iso9001==null &&  $iso14001==null  && $iso45001==null){
+                                  
+                                        $minValue = date('d-M-Y', strtotime('+3 years'));
+                                          
+                                    }else if($iso9001 != null && $iso14001 == null  && $iso45001 == null){
+                                    $minValue=$x;
+                                    $minValue = date('d-M-Y', $minValue);
+                                    }else if($iso9001 == null && $iso14001 != null  && $iso45001 == null){
+                                   
+                                    $minValue=$y;
+                                    $minValue = date('d-M-Y', $minValue);
+                                    }else if($iso9001 == null && $iso14001 == null  && $iso45001 != null){
+                                   
+                                    $minValue=$z;
+                                  $minValue = date('d-M-Y', $minValue);
+                                    }else if($iso9001 != null && $iso14001 != null  && $iso45001 == null){  
+                                    $minValue=min($x,$y);
+                                        $minValue = date('d-M-Y', $minValue);
+                                    }else if($iso9001 != null && $iso14001 == null  && $iso45001 != null){
+                                    $minValue=min($x,$z);
+                                        $minValue = date('d-M-Y', $minValue);
+                                    }else if($iso9001 == null && $iso14001 != null  && $iso45001 != null){  
+                                    $minValue=min($y,$z);
+                                        $minValue = date('d-M-Y', $minValue);
+                                    }else{
+                                        $minValue=min($x,min($y,$z));
+                                            $minValue = date('d-M-Y', $minValue);
+                                    }
+                                    
+                                    @endphp
+                                <td>{{ $minValue }}</td>
 
                                 <td>
                                     @php if($item->last_login!=NULL){ @endphp

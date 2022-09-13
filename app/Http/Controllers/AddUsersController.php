@@ -417,7 +417,7 @@ public function store(Request $request)
     }
     public function EmployeCheck($request){
 
-        $userinfo=Employee::where('user_id',$request)->orderBy('id','DESC')->get();
+        $userinfo=Employee::with('user')->where('user_id',$request)->orderBy('id','DESC')->get();
        // $employess=Employee::join('tbl_employees_skills','tbl_employees_skills.empid','=','tbl_employees.id')->where('tbl_employees.user_id',$request)->get();
         // dd($employess);
         $employess = DB::table('tbl_employees_skills')
@@ -425,9 +425,11 @@ public function store(Request $request)
             'tbl_employees_skills.empskill as empskill',
             'tbl_employees.empNumber as empNumber',
             'tbl_employees.surname as surname',
-            'tbl_employees.first_name as first_name'
+            'tbl_employees.first_name as first_name',
+            'users.email'
             )
             ->join('tbl_employees','tbl_employees_skills.empid','=','tbl_employees.id')
+            ->join('users','users.id','=','tbl_employees.user_id')
             ->where('tbl_employees_skills.user_id','=',$request)
             ->orderBy('tbl_employees_skills.created_at','DESC')
             ->get();
