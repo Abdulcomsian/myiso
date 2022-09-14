@@ -32,7 +32,7 @@ License: You must have a valid license purchased only from themeforest(the above
 		font-size:15px;
 	}
 	#kt_login_forgot{
-		color: #a7abc3;
+		color: #6d728b;
 	}
 	.AgreeUl{
 		margin-left: 18px;
@@ -65,6 +65,15 @@ License: You must have a valid license purchased only from themeforest(the above
 	}
 	.agreeInput{
 		transform: scale(1.2);
+	}
+	.form-check-label{
+		color: #6d728b;
+		opacity: 1;
+	}
+	.form-check-label:hover {
+		text-decoration: underline;
+		cursor: pointer;
+    	color: #5867dd
 	}
 
 </style>
