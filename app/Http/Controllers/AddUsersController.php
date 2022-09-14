@@ -980,10 +980,7 @@ public function store(Request $request)
     }
     public function deletecaliberinfo(Request $req )
     {
-        // dd($req);
         $userid=$req->id;
-        // echo $userid;exit;
-        // req_id2
         $req=calibration::find($userid)->delete();
         $notification = [
             'message' => 'Record  Deleted successfully.!',
@@ -996,10 +993,7 @@ public function store(Request $request)
     }
      public function deleteEmployeeskill(Request $req)
     {
-
-        // dd($req->id);exit; traning_id
         $userid=$req->id;
-        // $req=EmployeeTraning::find($userid)->delete();
         $req=DB::table('tbl_employees_skills')->where('skill_id', $userid)->delete();
         $notification = [
             'message' => 'Record  Deleted successfully.!',

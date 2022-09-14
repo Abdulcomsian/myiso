@@ -453,7 +453,7 @@
                 <div class="modal-footer">
                     <form action="{{route('deletecaliberinfo')}}" method="POST">
                         @csrf
-                        <input type="hidden" name="req_id" id="req_id2" value=""/>
+                        <input type="hidden" name="id" id="req_id2" value=""/>
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
                         <button type="submit" class="btn btn-danger">Yes</button>
                     </form>
@@ -477,7 +477,7 @@
                     <p>Are you sure you want to delete this entry?</p>
                     <form action="{{route('deleteRequirementadmin')}}" method="POST">
                         @csrf
-                        <input type="hidden" name="req_id" id="req_id" value=""/>
+                        <input type="hidden" name="id" id="req_id" value=""/>
                 </div>
                 <div class="modal-footer">
                     <button type="submit" class="btn btn-danger">Delete Requirement</button>
