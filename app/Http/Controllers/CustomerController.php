@@ -57,48 +57,49 @@ class CustomerController extends Controller
      */
     public function store(Request $request)
     {
-    //   try{
-        $customer=customers::where('idNumber',$request->input('idNumber'))->get();
-        if(count($customer)>0){
+      try{
+           $customer=customers::where('idNumber',$request->input('idNumber'))->get();
+           if(count($customer)>0){
                 return back()->with("Error","Record was not saved. The Customer ID already exists!");
-            } else {
-           $customer= new customers();
+            } else 
+            {
+               $customer= new customers();
 
-           $is_admin = $request->input('is_admin');
-           if($is_admin=="admin"){
-                $customer->user_id = $request->input('user_id');
-           }else{
-                $customer->user_id=Auth()->user()->id;
-           }
+               $is_admin = $request->input('is_admin');
+               if($is_admin=="admin"){
+                    $customer->user_id = $request->input('user_id');
+               }else{
+                    $customer->user_id=Auth()->user()->id;
+               }
 
-            $customer->idNumber=$request->input('idNumber');
+                $customer->idNumber=$request->input('idNumber');
 
-            $customer->name=$request->input('name');
-            $customer->address=$request->input('address');
-            $customer->phoneNumber=$request->input('create_phone_number');
-            if($request->input('create_phone_number_flag')=="preferred" || $request->input('create_phone_number_flag')==NULL){
-                $phoneflag = "us";
-                $phonecode="+1";
-            }else{
-                $phoneflag=$request->input('create_phone_number_flag');
-                $phonecode=$request->input('create_phone_number_country_code');
-            }
+                $customer->name=$request->input('name');
+                $customer->address=$request->input('address');
+                $customer->phoneNumber=$request->input('create_phone_number');
+                if($request->input('create_phone_number_flag')=="preferred" || $request->input('create_phone_number_flag')==NULL){
+                    $phoneflag = "us";
+                    $phonecode="+1";
+                }else{
+                    $phoneflag=$request->input('create_phone_number_flag');
+                    $phonecode=$request->input('create_phone_number_country_code');
+                }
 
-            $customer->phonecode=$phonecode;
-            $customer->phoneflag= $phoneflag;
+                $customer->phonecode=$phonecode;
+                $customer->phoneflag= $phoneflag;
 
 
-            $customer->Email=$request->input('Email');
-            $customer->contactName=$request->input('contactName');
+                $customer->Email=$request->input('Email');
+                $customer->contactName=$request->input('contactName');
 
-            $customer->save();
-    }//else customer
+                $customer->save();
+            }//else customer
 
             //  Toastr->success('Have fun storming the castle!', 'Miracle Max Says');
              return back()->with("Success","Data Save Successfully");
-        // }catch(Exception $exc){
-        //     return back()->with("Error","Error");
-        // }
+          }catch(Exception $exc){
+              return back()->with("Error","Error");
+          }
 
     }
 
