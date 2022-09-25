@@ -193,7 +193,7 @@ var KTLoginGeneral = function() {
                     var msg = '';
                     if (response.success === true){
                         type = 'success';
-                        msg = 'Password reset notification sent successfully to admin.';
+                        msg = 'Your Password reset notification sent successfully to ISOOnline Admin team who will reset & forward on your new password.';
                     }else{
                         type = 'danger';
                         msg = 'Something went wrong, try again.';

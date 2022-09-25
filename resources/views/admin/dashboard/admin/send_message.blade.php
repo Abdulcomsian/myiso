@@ -47,7 +47,7 @@
 					<i class="kt-font-brand flaticon2-line-chart"></i>
 				</span>
 				<h3 class="kt-portlet__head-title">
-					New Message
+					Login reminder Message
 				</h3>
 			</div>
 			<div class="kt-portlet__head-toolbar">
@@ -134,9 +134,12 @@
     						<div class="kt-input-icon kt-input-icon--right">
     							<select id="last_login" class="form-control">
     								<option value="">Select Month</option>
+    								<option value="1">Last 1 Month</option>
+    								<option value="2">Last 2 Month</option>
     								<option value="3">Last 3 Month</option>
     								<option value="6">Last 6 Month</option>
     								<option value="9">Last 9 Month</option>
+    								<option value="12">Last 12 Month</option>
     							</select>
     						</div>
     					</div>
@@ -145,10 +148,11 @@
     						<div class="kt-input-icon kt-input-icon--right">
     							<select id="filter_by_certificate" class="form-control">
     								<option value="">Select Certificate</option>
-    								<option value="iso9001_certificate">Iso9001 Certificate</option>
-    								<option value="iso14001_certificate">Iso14001 Certificate</option>
-    								<option value="iso45001_certificate">Iso45001 Certificate</option>
-    								<option value="all">All</option>
+    								<option value="iso9001_certificate">ISO9001 Certificate</option>
+    								<option value="iso14001_certificate">ISO14001 Certificate</option>
+    								<option value="iso45001_certificate">ISO45001 Certificate</option>
+    								<option value="ims">IMS</option>
+    								<option value="all">ALL</option>
     							</select>
     						</div>
     					</div>
