@@ -209,8 +209,8 @@
                             <th>Address</th>--->
                             <th>Logo</th>
                             <th>Activation Date</th>
-                             <th>Expiry Date</th>
                             <th>Last Login</th>
+                             <th>Expiry Date</th>
 
                             <!--<th>Expiry date</th>-->
 
@@ -291,13 +291,15 @@
                                     }
                                     
                                     @endphp
-                                <td>{{ $minValue }}</td>
 
                                 <td>
                                     @php if($item->last_login!=NULL){ @endphp
                                     {{ date('d-m-y H:i:sA', strtotime($item->last_login)) }}
                                     @php } @endphp
                                 </td>
+
+                                <td>{{ $minValue }}</td>
+
 
                                 <!--<td> ->expiry_date </td>-->
 

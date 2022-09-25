@@ -3040,7 +3040,7 @@
         $("input[name='audit_comments_actions']").val(data.audit_comments_actions);
         $("input[name='any_issues']").val(data.any_issues);
         if (data.attach_evidence) {
-            $('.evidence_attachemnt_div').empty().append(`<a target="_blank" href="${data.attach_evidence}">Click to View</a>`);
+            $('.evidence_attachemnt_div').empty().append(`<span class="text-dark">Click to view evidence  <a target="_blank" href="${data.attach_evidence}">Here</a></span>`);
         } else {
             $('.evidence_attachemnt_div').empty().append('No data found');
         }
