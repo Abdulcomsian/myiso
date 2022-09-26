@@ -151,7 +151,7 @@
     								<option value="iso9001_certificate">ISO9001 Certificate</option>
     								<option value="iso14001_certificate">ISO14001 Certificate</option>
     								<option value="iso45001_certificate">ISO45001 Certificate</option>
-    								<option value="ims">IMS</option>
+    								<!-- <option value="ims">IMS</option> -->
     								<option value="all">ALL</option>
     							</select>
     						</div>
