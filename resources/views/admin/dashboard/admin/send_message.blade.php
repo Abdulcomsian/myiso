@@ -134,12 +134,12 @@
     						<div class="kt-input-icon kt-input-icon--right">
     							<select id="last_login" class="form-control">
     								<option value="">Select Month</option>
-    								<option value="1">Last 1 Month</option>
-    								<option value="2">Last 2 Month</option>
+    								<!-- <option value="1">Last 1 Month</option> -->
+    								<!-- <option value="2">Last 2 Month</option> -->
     								<option value="3">Last 3 Month</option>
     								<option value="6">Last 6 Month</option>
     								<option value="9">Last 9 Month</option>
-    								<option value="12">Last 12 Month</option>
+    								<!-- <option value="12">Last 12 Month</option> -->
     							</select>
     						</div>
     					</div>
