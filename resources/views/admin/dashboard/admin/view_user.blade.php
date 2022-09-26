@@ -249,7 +249,8 @@
 
                                 <td>
                                     @if($item->created_at !=NULL)
-                                        {{ date('d-m-y H:i:sA', strtotime($item->created_at)) }}
+                                        <!-- {{ date('d-m-y H:i:sA', strtotime($item->created_at)) }} -->
+                                        {{ date('d-M-y', strtotime($item->created_at)) }}
                                     @endif
                                 </td>
                                  @php
@@ -294,7 +295,7 @@
 
                                 <td>
                                     @php if($item->last_login!=NULL){ @endphp
-                                    {{ date('d-m-y H:i:sA', strtotime($item->last_login)) }}
+                                    {{ date('d-M-y', strtotime($item->last_login)) }}
                                     @php } @endphp
                                 </td>
 

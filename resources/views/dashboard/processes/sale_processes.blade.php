@@ -46,7 +46,7 @@
                     		@endif
                     		</div>
                     		<div class="col-lg-3 col-xl-2 text-right">
-                    			<a style="position: relative;top: 9px;" onclick="workInstructionFrom()" class="addBtn">ADD PROCESS IMAGE</a>
+                    			<a style="position: relative;top: 9px;" onclick="workInstructionFrom()" class="addBtn">ADD ALTERNATIVE PROCESS</a>
                     		</div>
                     	</div>
                     	<div class="work_instruction_from_div">
@@ -55,18 +55,18 @@
                             @csrf
   <input type="hidden" name="user_id" value="<?php echo Auth::id(); ?>"/>
                             <div class="row">
-                    				<div class="col-lg-6">
+                    				<div class="col-lg-6 d-flex align-items-center">
                     					<div class="form-group">
 											<label>Upload Photo:</label><br>
 		<input type="file" class="form-control" name="sales_process_photo">
 
 										</div>
+										<button type="submit" class="submitBtn ml-2">SUBMIT</button>
                     				</div>
                     				
                     			</div>
 
 								
-								<button type="submit" class="submitBtn">SUBMIT</button>
                     		</form>
                     	</div>
                     </div>
