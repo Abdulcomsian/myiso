@@ -298,7 +298,7 @@ public function store(Request $request)
                 // print_r($users);
             }
             elseif($request->type="certificate" && $request->cert){
-                 dd($request->cert);
+                //  dd($request->cert);
                 if($request->cert=="iso9001_certificate"){
                     $users=AddUsers::where("iso9001_certificate","!=",'')->get(); 
                 }else if($request->cert=="iso14001_certificate"){
