@@ -213,7 +213,10 @@
 				showDropdowns: true,
 				changeYear: true,
 				maxDate: today,
-				
+				locale: {
+        format: 'DD/MM/YYYY',
+        cancelLabel: 'Clear',
+    }
 				
 			}, function(start, end, label) {
 					start_date = start.format('YYYY-MM-DD');
