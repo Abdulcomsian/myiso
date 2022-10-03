@@ -307,7 +307,9 @@ public function store(Request $request)
                     $users=AddUsers::where("iso45001_certificate","!=",'')->whereNull('iso9001_certificate')->whereNull('iso14001_certificate')->get(); 
                 }
                 else if($request->cert=="all"){
-                    $users=AddUsers::where("iso9001_certificate","!=",'')->where("iso14001_certificate","!=","")->where("iso45001_certificate","!=","")->get();
+                    // $users=AddUsers::where("iso9001_certificate","!=",'')->where("iso14001_certificate","!=","")->where("iso45001_certificate","!=","")->get();
+                    $users=AddUsers::whereNotNull("iso9001_certificate")->whereNotNull("iso14001_certificate")->whereNotNull("iso45001_certificate")->get();
+
                 }else if($request->cert=="ims"){
                     $users=AddUsers::where([["iso9001_certificate","!=", ''], ["iso14001_certificate","!=", ''], ["iso45001_certificate","!=", '']])->get();
                     // $users=AddUsers::where("iso9001_certificate","!=",'')->where("iso14001_certificate","!=","")->where("iso45001_certificate","!=","")->get();
