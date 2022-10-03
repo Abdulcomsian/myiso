@@ -286,8 +286,10 @@ public function store(Request $request)
         // $getprocess=Audit::where('user_id',$request)->get();
         if($request->ajax())
         {
-            // dd($request->all());  && $request->month
-            if($request->type="month")
+            //  dd($request->all());
+             
+             //&& $request->month
+            if($request->type=="month")
             {
                 // dd( $request->end_date);
                 $users=AddUsers::where([["last_login",">=", $request->start_date],["last_login","<=", $request->end_date]])->get();
@@ -296,9 +298,13 @@ public function store(Request $request)
                 // print_r($users);
             }
             elseif($request->type="certificate" && $request->cert){
+                // dd("here");
                 if($request->cert=="all")
                 {
                     $users=AddUsers::where("iso9001_certificate","!=",'')->where("iso14001_certificate","!=","")->where("iso45001_certificate","!=","")->get();
+                }else if($request->cert=="ims"){
+                    $users=AddUsers::where([["iso9001_certificate","!=", ''], ["iso14001_certificate","!=", ''], ["iso45001_certificate","!=", '']])->get();
+                    // $users=AddUsers::where("iso9001_certificate","!=",'')->where("iso14001_certificate","!=","")->where("iso45001_certificate","!=","")->get();
                 }
                 else{
                     $users=AddUsers::where("".$request->cert."","!=","")->get();
@@ -1114,26 +1120,26 @@ public function store(Request $request)
 
     }
     public function UpdateUserInfo(Request $request){
-        return "sfdfds";
-    //     $id=$request->id;
-    //     $Company_overview=$request->input('Company_overview');
-    //     $user=AddUsers::find($id);
-    //     if($request->input('password') !='' || !empty($request->input('password'))){
-    //         $pass=$request->input('password');
-    //         $user->password=Hash::make($pass);
-    //     }
-    //     $user->phone=$request->input('phone');
-    //     $user->director=$request->input('director');
-    //     $user->sales_process=$request->input('sales_process');
-    //   $user->company_profile=$request->input('company_profile');
-    //   $user->company_address=$request->input('company_address');
-    //   $user->purchasing_process=$request->input('purchasing_process');
-    //   $user->servicing_process=$request->input('servicing_process');
-    //   $user->competency_process=$request->input('competency_process');
-    //   $user->scope=$request->input('scope');
-    //   $user->order_number=$request->input('order_number');
-    //     $user->Company_overview=$request->input('Company_overview');
-    //   $user->save();
+        // return "sfdfds";
+        $id=$request->id;
+        $Company_overview=$request->input('Company_overview');
+        $user=AddUsers::find($id);
+        if($request->input('password') !='' || !empty($request->input('password'))){
+            $pass=$request->input('password');
+            $user->password=Hash::make($pass);
+        }
+        $user->phone=$request->input('phone');
+        $user->director=$request->input('director');
+        $user->sales_process=$request->input('sales_process');
+      $user->company_profile=$request->input('company_profile');
+      $user->company_address=$request->input('company_address');
+      $user->purchasing_process=$request->input('purchasing_process');
+      $user->servicing_process=$request->input('servicing_process');
+      $user->competency_process=$request->input('competency_process');
+      $user->scope=$request->input('scope');
+      $user->order_number=$request->input('order_number');
+        $user->Company_overview=$request->input('Company_overview');
+      $user->save();
 
     }
 

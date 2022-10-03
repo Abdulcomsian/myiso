@@ -293,14 +293,13 @@
 			$.ajax({
             type: "get",
             url: "{{url('/send_message')}}",
-            data: 
-            {'cert':cert,'type':'certificate'},
-            success: function (response) {
-                var res=JSON.parse(response);
-                $("#langOpt3").html(res[1]);
-                $(".ms-options ul").html(res[0]);
-        
-            },
+				data: {'cert':cert,'type':'certificate'},
+				success: function (response) {
+					var res=JSON.parse(response);
+					$("#langOpt3").html(res[1]);
+					$(".ms-options ul").html(res[0]);
+			
+				},
            });
 		})
 
