@@ -300,11 +300,11 @@ public function store(Request $request)
             elseif($request->type="certificate" && $request->cert){
                 //  dd($request->cert);
                 if($request->cert=="iso9001_certificate"){
-                    $users=AddUsers::where("iso9001_certificate","!=",'')->get(); 
+                    $users=AddUsers::where("iso9001_certificate","!=",'')->whereNull('iso14001_certificate')->whereNull('iso45001_certificate')->get(); 
                 }else if($request->cert=="iso14001_certificate"){
-                    $users=AddUsers::where("iso14001_certificate","!=",'')->get(); 
+                    $users=AddUsers::where("iso14001_certificate","!=",'')->whereNull('iso9001_certificate')->whereNull('iso45001_certificate')->get(); 
                 }else if($request->cert=="iso45001_certificate"){
-                    $users=AddUsers::where("iso45001_certificate","!=",'')->get(); 
+                    $users=AddUsers::where("iso45001_certificate","!=",'')->whereNull('iso9001_certificate')->whereNull('iso14001_certificate')->get(); 
                 }
                 else if($request->cert=="all"){
                     $users=AddUsers::where("iso9001_certificate","!=",'')->where("iso14001_certificate","!=","")->where("iso45001_certificate","!=","")->get();
