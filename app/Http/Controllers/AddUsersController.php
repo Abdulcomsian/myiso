@@ -286,9 +286,14 @@ public function store(Request $request)
         // $getprocess=Audit::where('user_id',$request)->get();
         if($request->ajax())
         {
-            if($request->type="month" && $request->month)
+            // dd($request->all());  && $request->month
+            if($request->type="month")
             {
-                $users=AddUsers::where("last_login",">", Carbon::now()->subMonths($request->month))->get();
+                // dd( $request->end_date);
+                $users=AddUsers::where([["last_login",">=", $request->start_date],["last_login","<=", $request->end_date]])->get();
+                // $users=AddUsers::where("last_login",">", Carbon::now()->subMonths($request->month))->get();
+
+                // print_r($users);
             }
             elseif($request->type="certificate" && $request->cert){
                 if($request->cert=="all")

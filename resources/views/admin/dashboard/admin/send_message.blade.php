@@ -1,5 +1,6 @@
 @extends('admin.dashboard.layouts.app')
 @section('styles')
+<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
 	<style>
 		.select2-search__field{
 			padding-left: 10px !important;
@@ -131,17 +132,17 @@
     					<br>
     					<div class="col-lg-6">
     						<label for="address1">Filter By Last Login:</label>
-    						<div class="kt-input-icon kt-input-icon--right">
+							<!-- <div class="kt-input-icon kt-input-icon--right"> -->
+    							<input type="text" name="daterange" class="form-control" id="last_login">
+    						<!-- </div> -->
+    						<!-- <div class="kt-input-icon kt-input-icon--right">
     							<select id="last_login" class="form-control">
     								<option value="">Select Month</option>
-    								<!-- <option value="1">Last 1 Month</option> -->
-    								<!-- <option value="2">Last 2 Month</option> -->
     								<option value="3">Last 3 Month</option>
     								<option value="6">Last 6 Month</option>
     								<option value="9">Last 9 Month</option>
-    								<!-- <option value="12">Last 12 Month</option> -->
     							</select>
-    						</div>
+    						</div> -->
     					</div>
     					<div class="col-lg-6">
     						<label for="address1">Filter By Certificate:</label>
@@ -151,7 +152,7 @@
     								<option value="iso9001_certificate">ISO9001 Certificate</option>
     								<option value="iso14001_certificate">ISO14001 Certificate</option>
     								<option value="iso45001_certificate">ISO45001 Certificate</option>
-    								<!-- <option value="ims">IMS</option> -->
+    								<option value="ims">IMS</option>
     								<option value="all">ALL</option>
     							</select>
     						</div>
@@ -188,12 +189,53 @@
 	</div>
 @endsection
 @section('myscript')
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
+    
+<script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
+
 <!-- <script type="text/javascript" src="{{asset('assets/jQuery-Multiple-Select/dist/js/bootstrap-multiselect.js')}}"></script> -->
 <script type="text/javascript" src="{{asset('assets/jquery.multiselect.js')}}"></script>
 	 <script src="http://demos.codexworld.com/multi-select-dropdown-list-with-checkbox-jquery/jquery.multiselect.js"></script>
 	 <!-- jquery.multiselect.js -->
 
 	<script>
+		//  $('input[name="date"]').daterangepicker();
+
+
+		 $(function() {
+			var today = new Date();
+			var dd = String(today.getDate()).padStart(2, '0');
+			var mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
+			var yyyy = today.getFullYear();
+
+			today  = mm + '-' + dd + '-' + yyyy;
+			$('input[name="daterange"]').daterangepicker({
+				showDropdowns: true,
+				changeYear: true,
+				maxDate: today,
+				
+				
+			}, function(start, end, label) {
+					start_date = start.format('YYYY-MM-DD');
+					end_date = end.format('YYYY-MM-DD');
+					console.log(start_date);
+					console.log(end_date);
+					$.ajax({
+						type: "get",
+						url: "{{url('/send_message')}}",
+						data: 
+						{'start_date':start_date, 'end_date':end_date, 'type':'month'},
+						success: function (response) {
+							var res=JSON.parse(response);
+							$("#langOpt3").html(res[1]);
+							$(".ms-options ul").html(res[0]);
+						},
+					});
+				// console.log("A new date selection was made: " + start.format('YYYY-MM-DD') + ' to ' + end.format('YYYY-MM-DD'));
+			});
+			});
+
+
 		// $('.select2').select2({
 		// 	placeholder: "Select users",
 		// });
@@ -228,24 +270,26 @@
 		});
 
 
-		$("#last_login").change(function(){
-			let Month=$(this).val();
-			$.ajax({
-            type: "get",
-            url: "{{url('/send_message')}}",
-            data: 
-            {'month':Month,'type':'month'},
-            success: function (response) {
-              var res=JSON.parse(response);
-               $("#langOpt3").html(res[1]);
-               $(".ms-options ul").html(res[0]);
-            },
-           });
-		})
+		// $("#last_login").change(function(){
+		// 	let Month=$(this).val();
+		// 	console.log($(this).val(););
+		// 	$.ajax({
+        //     type: "get",
+        //     url: "{{url('/send_message')}}",
+        //     data: 
+        //     {'month':Month,'type':'month'},
+        //     success: function (response) {
+        //       var res=JSON.parse(response);
+        //        $("#langOpt3").html(res[1]);
+        //        $(".ms-options ul").html(res[0]);
+        //     },
+        //    });
+		// })
 
 
 		$("#filter_by_certificate").change(function(){
 			let cert=$(this).val();
+			// console.log(cert);
 			$.ajax({
             type: "get",
             url: "{{url('/send_message')}}",
