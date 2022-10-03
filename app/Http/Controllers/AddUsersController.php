@@ -298,9 +298,15 @@ public function store(Request $request)
                 // print_r($users);
             }
             elseif($request->type="certificate" && $request->cert){
-                // dd("here");
-                if($request->cert=="all")
-                {
+                 dd($request->cert);
+                if($request->cert=="iso9001_certificate"){
+                    $users=AddUsers::where("iso9001_certificate","!=",'')->get(); 
+                }else if($request->cert=="iso14001_certificate"){
+                    $users=AddUsers::where("iso14001_certificate","!=",'')->get(); 
+                }else if($request->cert=="iso45001_certificate"){
+                    $users=AddUsers::where("iso45001_certificate","!=",'')->get(); 
+                }
+                else if($request->cert=="all"){
                     $users=AddUsers::where("iso9001_certificate","!=",'')->where("iso14001_certificate","!=","")->where("iso45001_certificate","!=","")->get();
                 }else if($request->cert=="ims"){
                     $users=AddUsers::where([["iso9001_certificate","!=", ''], ["iso14001_certificate","!=", ''], ["iso45001_certificate","!=", '']])->get();
