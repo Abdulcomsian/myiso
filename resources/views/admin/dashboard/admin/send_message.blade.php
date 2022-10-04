@@ -213,6 +213,7 @@
 				showDropdowns: true,
 				changeYear: true,
 				maxDate: today,
+				minDate: '01-01-2017',
 				locale: {
         format: 'DD/MM/YYYY',
         cancelLabel: 'Clear',
