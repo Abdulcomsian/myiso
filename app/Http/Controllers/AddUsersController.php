@@ -296,12 +296,13 @@ public function store(Request $request)
                 //$end_date = date("YYYY-mm-dd",$request->end_date);
                 // dd($start_date);..
                 if(isset($request->filter_by_certificate)){
-                    if($request->filter_by_certificate=="iso9001_certificate"){
-                        $users=AddUsers::where([["last_login",">=", $start_date],["last_login","<=", $end_date], ["iso9001_certificate","!=", ''], ["iso14001_certificate","==", ''], ["iso45001_certificate","==", '']])->get();
+                  
+                    if($request->filter_by_certificate=="iso9001_certificate"){  
+                        $users=AddUsers::where([["last_login",">=", $start_date],["last_login","<=", $end_date]])->where("iso9001_certificate","!=", NULL)->where("iso14001_certificate", NULL)->where("iso45001_certificate",NULL)->get();
                     }else if($request->filter_by_certificate=="iso14001_certificate"){
-                        $users=AddUsers::where([["last_login",">=", $start_date],["last_login","<=", $end_date], ["iso14001_certificate","!=", ''], ["iso9001_certificate","==", ''], ["iso45001_certificate","==", '']])->get();
+                        $users=AddUsers::where([["last_login",">=", $start_date],["last_login","<=", $end_date]])->where("iso14001_certificate","!=", NULL)->where("iso9001_certificate", NULL)->where("iso45001_certificate",NULL)->get();
                     }else if($request->filter_by_certificate=="iso45001_certificate"){
-                        $users=AddUsers::where([["last_login",">=", $start_date],["last_login","<=", $end_date],["iso45001_certificate","!=", ''], ["iso9001_certificate","==", ''], ["iso14001_certificate","==", '']])->get();
+                        $users=AddUsers::where([["last_login",">=", $start_date],["last_login","<=", $end_date]])->where("iso45001_certificate","!=", NULL)->where("iso9001_certificate", NULL)->where("iso14001_certificate",NULL)->get();
                     }else if($request->filter_by_certificate=="all"){
                         $users=AddUsers::where([["last_login",">=", $start_date],["last_login","<=", $end_date]])->orwhereNotNull("iso9001_certificate")->orWhereNotNull("iso14001_certificate")->orWhereNotNull("iso45001_certificate")->where('id', '!=', 1)->get();
                     }else if($request->filter_by_certificate=="ims"){
