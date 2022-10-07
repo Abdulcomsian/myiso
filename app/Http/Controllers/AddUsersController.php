@@ -291,11 +291,32 @@ public function store(Request $request)
              //&& $request->month
             if($request->type=="month")
             {
-                // dd( $request->end_date);
-                $users=AddUsers::where([["last_login",">=", $request->start_date],["last_login","<=", $request->end_date]])->get();
+                $start_date = date("YYYY=mm-dd",strtotime($request->start_date));;
+                $end_date = date("YYYY=mm-dd",strtotime($request->end_date));;
+                if(isset($request->filter_by_certificate)){
+                    if($request->filter_by_certificate=="iso9001_certificate"){
+                        $users=AddUsers::where([["last_login",">=", $start_date],["last_login","<=", $end_date], ["iso9001_certificate","!=", '']])->get();
+                    }else if($request->filter_by_certificate=="iso14001_certificate"){
+                        $users=AddUsers::where([["last_login",">=", $start_date],["last_login","<=", $end_date], ["iso14001_certificate","!=", '']])->get();
+                    }else if($request->filter_by_certificate=="iso45001_certificate"){
+                        $users=AddUsers::where([["last_login",">=", $start_date],["last_login","<=", $end_date], ["iso45001_certificate","!=", '']])->get();
+                    }
+                    // if(isset($request->start_date) && isset($request->end_date)){
+                    //     dd("here");
+                    // }else if(isset($request->start_date) && $request->end_date==NULL){
+                    //     dd("start date only");
+                    // }else if(isset($request->end_date) && $request->start_date==NULL){
+                    //     dd("end date only");
+                    // }else{
+                    //     dd("no date selected");
+                    // }
+                    // dd($users);
+                }else{
+                    dd("Please select Certification");
+                }
                 // $users=AddUsers::where("last_login",">", Carbon::now()->subMonths($request->month))->get();
 
-                // print_r($users);
+                
             }
             elseif($request->type="certificate" && $request->cert){
                 //  dd($request->cert);
@@ -320,9 +341,11 @@ public function store(Request $request)
                 
             }
             else{
-                $users=AddUsers::where('role_type','user')->get();
+              //  $users=AddUsers::where('role_type','user')->get();
+                $users='';
             }
-            if($users)
+           
+            if(isset($users))
             {
                 $list='';
                 $option='';

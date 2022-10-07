@@ -1,6 +1,8 @@
 @extends('admin.dashboard.layouts.app')
 @section('styles')
-<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
+<!-- <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" /> -->
+<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/css/bootstrap-datepicker.min.css" />
+
 	<style>
 		.select2-search__field{
 			padding-left: 10px !important;
@@ -130,10 +132,10 @@
     						<textarea name="message" id="message" cols="20" rows="5" class="form-control" placeholder="Please enter your Message"></textarea>
     					</div>
     					<br>
-    					<div class="col-lg-6">
-    						<label for="address1">Filter By Last Login:</label>
+    					<div class="col-lg-4">
+    						<label for="address1">Select Last Login Start Date:</label>
 							<!-- <div class="kt-input-icon kt-input-icon--right"> -->
-    							<input type="text" name="daterange" class="form-control" id="last_login">
+    							<input type="text" name="startdate" id="start_date" class="form-control startdate" id="last_login">
     						<!-- </div> -->
     						<!-- <div class="kt-input-icon kt-input-icon--right">
     							<select id="last_login" class="form-control">
@@ -144,7 +146,21 @@
     							</select>
     						</div> -->
     					</div>
-    					<div class="col-lg-6">
+						<div class="col-lg-4">
+    						<label for="address1">Select Last Login End Date:</label>
+							<!-- <div class="kt-input-icon kt-input-icon--right"> -->
+    							<input type="text" name="enddate" id="end_date" class="form-control enddate" id="last_login">
+    						<!-- </div> -->
+    						<!-- <div class="kt-input-icon kt-input-icon--right">
+    							<select id="last_login" class="form-control">
+    								<option value="">Select Month</option>
+    								<option value="3">Last 3 Month</option>
+    								<option value="6">Last 6 Month</option>
+    								<option value="9">Last 9 Month</option>
+    							</select>
+    						</div> -->
+    					</div>
+    					<div class="col-lg-4">
     						<label for="address1">Filter By Certificate:</label>
     						<div class="kt-input-icon kt-input-icon--right">
     							<select id="filter_by_certificate" class="form-control">
@@ -189,8 +205,9 @@
 	</div>
 @endsection
 @section('myscript')
-<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
-    
+<!-- <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script> -->
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.min.js"></script>
+
 <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
 
 <!-- <script type="text/javascript" src="{{asset('assets/jQuery-Multiple-Select/dist/js/bootstrap-multiselect.js')}}"></script> -->
@@ -200,8 +217,56 @@
 
 	<script>
 		//  $('input[name="date"]').daterangepicker();
+		var today = new Date();
+			var dd = String(today.getDate()).padStart(2, '0');
+			var mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
+			var yyyy = today.getFullYear();
 
+			today  = mm + '/' + dd + '/' + yyyy;
 
+		$('.startdate').datepicker({
+			"format": 'mm/dd/yyyy',
+			"startDate": '01/01/2017',
+			"setDate": today
+		}).on('changeDate', function(e){
+        	start_date = $("#start_date").val();
+			end_date = $("#end_date").val();
+			filter_by_certificate = $("#filter_by_certificate").val();
+			console.log(filter_by_certificate);
+
+			$.ajax({
+						type: "get",
+						url: "{{url('/send_message')}}",
+						data: 
+						{'start_date':start_date, 'end_date':end_date, 'filter_by_certificate':filter_by_certificate, 'type':'month'},
+						success: function (response) {
+							var res=JSON.parse(response);
+							$("#langOpt3").html(res[1]);
+							$(".ms-options ul").html(res[0]);
+						},
+					});
+			
+    	});
+		$('.enddate').datepicker({
+			"format": 'mm/dd/yyyy',
+			"endDate": today,
+			"setDate": today}).on('changeDate', function(e){
+				start_date = $("#start_date").val();
+				end_date = $("#end_date").val();
+				filter_by_certificate = $("#filter_by_certificate").val();
+				
+				$.ajax({
+						type: "get",
+						url: "{{url('/send_message')}}",
+						data: 
+						{'start_date':start_date, 'end_date':end_date, 'filter_by_certificate':filter_by_certificate, 'type':'month'},
+						success: function (response) {
+							var res=JSON.parse(response);
+							$("#langOpt3").html(res[1]);
+							$(".ms-options ul").html(res[0]);
+						},
+					});
+		});
 		 $(function() {
 			var today = new Date();
 			var dd = String(today.getDate()).padStart(2, '0');
@@ -268,7 +333,7 @@
 
 		$('#langOpt3').multiselect({
 			columns: 1,
-			placeholder: 'Select Languages',
+			placeholder: 'Select Users',
 			search: true,
 			selectAll: true,
 		});
@@ -292,19 +357,34 @@
 
 
 		$("#filter_by_certificate").change(function(){
-			let cert=$(this).val();
+			
 			// console.log(cert);
-			$.ajax({
-            type: "get",
-            url: "{{url('/send_message')}}",
-				data: {'cert':cert,'type':'certificate'},
+		// 	$.ajax({
+        //     type: "get",
+        //     url: "{{url('/send_message')}}",
+		// 		data: {'cert':cert,'type':'certificate'},
+		// 		success: function (response) {
+		// 			var res=JSON.parse(response);
+		// 			$("#langOpt3").html(res[1]);
+		// 			$(".ms-options ul").html(res[0]);
+			
+		// 		},
+        //    }); 
+		  	let filter_by_certificate=$(this).val();
+		 	start_date = $("#start_date").val();
+			end_date = $("#end_date").val();
+
+		   $.ajax({
+				type: "get",
+				url: "{{url('/send_message')}}",
+				data: 
+				{'start_date':start_date, 'end_date':end_date, 'filter_by_certificate':filter_by_certificate, 'type':'month'},
 				success: function (response) {
 					var res=JSON.parse(response);
 					$("#langOpt3").html(res[1]);
 					$(".ms-options ul").html(res[0]);
-			
 				},
-           });
+			});
 		})
 
 		let x = 0;
