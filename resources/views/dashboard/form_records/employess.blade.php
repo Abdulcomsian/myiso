@@ -70,8 +70,8 @@
 									</div>
 									<div class="col-lg-6">
 										<div class="form-group">
-											<label>Job Details:</label>
-											<input type="text" name="jobdetails" required class="form-control"  placeholder="Enter Job Details">
+											<label>Job Description:</label>
+											<input type="text" name="jobdetails" required class="form-control"  placeholder="Enter Job Description">
 										</div>
 									</div>
 								</div>
@@ -187,7 +187,7 @@
 											<th>Firstname</th>
 											<!--<th>Employee Number</th>-->
 											<th>Start Date</th>
-                                            <th>Job Details</th>
+                                            <th>Job Description</th>
                                             <th>CV</th>
                                             <th>Action</th>
 										</tr>
@@ -276,7 +276,7 @@
 																	</div>
 																	<div class="col-lg-6">
 																		<div class="form-group">
-																			<label>Job Details:</label>
+																			<label>Job Description:</label>
 																			<input type="text" name="jobdetails" class="form-control"  placeholder="Enter Job Details:" value="{{$item->jobdetails}}" readonly>
 																		</div>
 																	</div>
@@ -589,8 +589,8 @@
                             </div>
                             <div class="col-lg-6">
                                 <div class="form-group">
-                                    <label>Job Details:</label>
-                                    <input type="text" name="jobdetails" class="form-control"  placeholder="Enter Job Details:">
+                                    <label>Job Description:</label>
+                                    <input type="text" name="jobdetails" class="form-control"  placeholder="Enter Job Description:">
                                 </div>
                             </div>
                         </div>
