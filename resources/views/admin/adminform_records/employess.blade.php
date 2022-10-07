@@ -73,7 +73,8 @@
 									<div class="col-lg-6">
 										<div class="form-group">
 											<label>Job Description:</label>
-											<input type="text" name="jobdetails" class="form-control"  required placeholder="Enter Job Description">
+											<!-- <input type="text" name="jobdetails"   required placeholder="Enter Job Description"> -->
+											<textarea class="form-control" required placeholder="Enter Job Description" name="jobdetails" rows="4" cols="50">
 										</div>
 									</div>
 								</div>
