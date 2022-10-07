@@ -292,7 +292,8 @@ public function store(Request $request)
             if($request->type=="month")
             {
                 $start_date = date("Y-m-d", strtotime($request->start_date));
-                $end_date = date("Y-m-d", strtotime($request->end_date));
+                $end_date =  date('Y-m-d', strtotime("+1 day", strtotime($request->end_date)));
+              //  $end_date = date("Y-m-d", strtotime($request->end_date));
                 //$end_date = date("YYYY-mm-dd",$request->end_date);
                 dd($end_date);
                 if(isset($request->filter_by_certificate)){
@@ -306,7 +307,7 @@ public function store(Request $request)
                     }else if($request->filter_by_certificate=="all"){
                         $users=AddUsers::where([["last_login",">=", $start_date],["last_login","<=", $end_date]])->whereNotNull("iso9001_certificate")->orWhereNotNull("iso14001_certificate")->orWhereNotNull("iso45001_certificate")->where('id', '!=', 1)->get();
                     }else if($request->filter_by_certificate=="ims"){
-                        $users=AddUsers::where([["last_login",">=", $start_date],["last_login","<=", $end_date]])->where("iso45001_certificate","!=", NULL)->where("iso9001_certificate","!=", NULL)->where("iso14001_certificate","!=", NULL)->get();
+                        $users=AddUsers::where([["last_login",">=", $start_date],["last_login","<", $end_date]])->where("iso45001_certificate","!=", NULL)->where("iso9001_certificate","!=", NULL)->where("iso14001_certificate","!=", NULL)->get();
                     }
                     // if(isset($request->start_date) && isset($request->end_date)){
                     //     dd("here");
