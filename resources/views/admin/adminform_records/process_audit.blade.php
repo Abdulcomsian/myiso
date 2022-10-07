@@ -361,7 +361,7 @@
 									</div>
 									<div class="col-lg-12">
 										<div class="form-group">
-											<label>Attach Evidence: <span class="text-danger">(jpeg, mp3, mp4,.xls,.doc)</span></label>
+											<label>Attach Evidence: <span class="text-danger" style="color:#000 !important;">(jpeg, mp3, mp4,.xls,.doc)</span></label>
 											<!-- <input name="attach_evidence" type="file" class="form-control" accept="image/*,.doc, .docx,.txt,.pdf"> -->
 											<input name="attach_evidence" type="file" class="form-control" accept="all">
 										</div>
