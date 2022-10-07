@@ -303,7 +303,7 @@ public function store(Request $request)
                     }else if($request->filter_by_certificate=="iso45001_certificate"){
                         $users=AddUsers::where([["last_login",">=", $start_date],["last_login","<=", $end_date],["iso45001_certificate","!=", ''], ["iso9001_certificate","==", ''], ["iso14001_certificate","==", '']])->get();
                     }else if($request->filter_by_certificate=="all"){
-                        $users=AddUsers::where([["last_login",">=", $start_date],["last_login","<=", $end_date]])->whereNotNull("iso9001_certificate")->orWhereNotNull("iso14001_certificate")->orWhereNotNull("iso45001_certificate")->where('id', '!=', 1)->get();
+                        $users=AddUsers::where([["last_login",">=", $start_date],["last_login","<=", $end_date]])->orwhereNotNull("iso9001_certificate")->orWhereNotNull("iso14001_certificate")->orWhereNotNull("iso45001_certificate")->where('id', '!=', 1)->get();
                     }else if($request->filter_by_certificate=="ims"){
                         $users=AddUsers::where([["last_login",">=", $start_date],["last_login","<=", $end_date],["iso9001_certificate","!=", ''], ["iso14001_certificate","!=", ''], ["iso45001_certificate","!=", '']])->get();
                     }
