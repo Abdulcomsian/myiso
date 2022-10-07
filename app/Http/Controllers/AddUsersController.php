@@ -297,11 +297,11 @@ public function store(Request $request)
                 // dd($start_date);..
                 if(isset($request->filter_by_certificate)){
                     if($request->filter_by_certificate=="iso9001_certificate"){
-                        $users=AddUsers::where([["last_login",">=", $start_date],["last_login","<=", $end_date], ["iso9001_certificate","!=", '']])->get();
+                        $users=AddUsers::where([["last_login",">=", $start_date],["last_login","<=", $end_date], ["iso9001_certificate","!=", ''], ["iso14001_certificate","==", ''], ["iso45001_certificate","==", '']])->get();
                     }else if($request->filter_by_certificate=="iso14001_certificate"){
-                        $users=AddUsers::where([["last_login",">=", $start_date],["last_login","<=", $end_date], ["iso14001_certificate","!=", '']])->get();
+                        $users=AddUsers::where([["last_login",">=", $start_date],["last_login","<=", $end_date], ["iso14001_certificate","!=", ''], ["iso9001_certificate","==", ''], ["iso45001_certificate","==", '']])->get();
                     }else if($request->filter_by_certificate=="iso45001_certificate"){
-                        $users=AddUsers::where([["last_login",">=", $start_date],["last_login","<=", $end_date]])->get();
+                        $users=AddUsers::where([["last_login",">=", $start_date],["last_login","<=", $end_date]["iso45001_certificate","!=", ''], ["iso9001_certificate","==", ''], ["iso14001_certificate","==", '']])->get();
                         //["iso45001_certificate","!=", '']
                     }
                     // if(isset($request->start_date) && isset($request->end_date)){
