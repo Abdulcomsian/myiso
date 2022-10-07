@@ -294,7 +294,7 @@ public function store(Request $request)
                 $start_date = date("Y-m-d", strtotime($request->start_date));
                 $end_date = date("Y-m-d", strtotime($request->end_date));
                 //$end_date = date("YYYY-mm-dd",$request->end_date);
-                // dd($start_date);..
+                // dd($start_date);..dfs
                 if(isset($request->filter_by_certificate)){
                   
                     if($request->filter_by_certificate=="iso9001_certificate"){  
