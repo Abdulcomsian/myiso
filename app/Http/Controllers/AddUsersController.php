@@ -286,13 +286,15 @@ public function store(Request $request)
         // $getprocess=Audit::where('user_id',$request)->get();
         if($request->ajax())
         {
-            //  dd($request->all());
+            //  dd($request->start_date);
              
              //&& $request->month
             if($request->type=="month")
             {
-                $start_date = date("YYYY=mm-dd",strtotime($request->start_date));;
-                $end_date = date("YYYY=mm-dd",strtotime($request->end_date));;
+                $start_date = date("Y-m-d", strtotime($request->start_date));
+                $end_date = date("Y-m-d", strtotime($request->end_date));
+                //$end_date = date("YYYY-mm-dd",$request->end_date);
+                // dd($start_date);
                 if(isset($request->filter_by_certificate)){
                     if($request->filter_by_certificate=="iso9001_certificate"){
                         $users=AddUsers::where([["last_login",">=", $start_date],["last_login","<=", $end_date], ["iso9001_certificate","!=", '']])->get();
