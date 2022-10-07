@@ -72,8 +72,8 @@
 									</div>
 									<div class="col-lg-6">
 										<div class="form-group">
-											<label>Job Details:</label>
-											<input type="text" name="jobdetails" class="form-control"  required placeholder="Enter Job Details">
+											<label>Job Description:</label>
+											<input type="text" name="jobdetails" class="form-control"  required placeholder="Enter Job Description">
 										</div>
 									</div>
 								</div>
@@ -202,7 +202,7 @@
 											<th>Employee ID Number</th>
 											<th>Surname</th>
 											<th>Firstname</th>
-											<th>Job Details</th>
+											<th>Job Description</th>
 											<th>CV</th>
 											<th>Start Date</th>
                                             <!--<th>Job Title</th>-->
@@ -284,8 +284,8 @@
 								                            </div>
 								                            <div class="col-lg-6">
 								                                <div class="form-group">
-								                                    <label>Job Details:</label>
-								                                    <input type="text" name="jobdetails" class="form-control"  placeholder="Enter Job Details:" value="{{$item->jobdetails}}" readonly>
+								                                    <label>Job Description:</label>
+								                                    <input type="text" name="jobdetails" class="form-control"  placeholder="Enter Job Description:" value="{{$item->jobdetails}}" readonly>
 								                                </div>
 								                            </div>
 								                        </div>
@@ -611,8 +611,8 @@
                             </div>
                             <div class="col-lg-6">
                                 <div class="form-group">
-                                    <label>Job Details:</label>
-                                    <input type="text" name="jobdetails" class="form-control"  placeholder="Enter Job Details:">
+                                    <label>Job Description:</label>
+                                    <input type="text" name="jobdetails" class="form-control"  placeholder="Enter Job Description:">
                                 </div>
                             </div>
                         </div>
