@@ -312,7 +312,12 @@ public function store(Request $request)
                         })->get();
 //                        $users=AddUsers::where([["last_login",">=", $start_date],["last_login","<=", $end_date]])->whereNotNull("iso9001_certificate")->orWhereNotNull("iso14001_certificate")->orWhereNotNull("iso45001_certificate")->get();
                     }else if($request->filter_by_certificate=="ims"){
-                        $users=AddUsers::where([["last_login",">=", $start_date],["last_login","<=", $end_date]])->where("iso45001_certificate","!=", NULL)->where("iso9001_certificate","!=", NULL)->where("iso14001_certificate","!=", NULL)->get();
+                        $users = AddUsers::whereBetween('last_login',[$start_date,$end_date])
+                            ->where(function($q)
+                            {
+                                $q->whereNotNull("iso9001_certificate")->whereNotNull("iso14001_certificate")->whereNotNull("iso45001_certificate");
+                            })->get();
+//                        $users=AddUsers::where([["last_login",">=", $start_date],["last_login","<=", $end_date]])->where("iso45001_certificate","!=", NULL)->where("iso9001_certificate","!=", NULL)->where("iso14001_certificate","!=", NULL)->get();
                     }
                     // if(isset($request->start_date) && isset($request->end_date)){
                     //     dd("here");
