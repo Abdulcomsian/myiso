@@ -778,8 +778,8 @@ function employeeCV(){
          $("input[name='empNumber']").val(data.empNumber);
          $("input[name='first_name']").val(data.first_name);
         //  $("input[name='jobdetails']").val(data.jobdetails);
-		 $("input[name='jobdetails']").append(data.jobdetails); 
-		 
+		//  $("input[name='jobdetails']").append(data.jobdetails); 
+		 $("textarea").val(data.jobdetails);
 		//  $('#jobdetails2').append(data.jobdetails); 
          $("input[name='startDate']").val(data.startDate);
          $("input[name='surname']").val(data.surname);
