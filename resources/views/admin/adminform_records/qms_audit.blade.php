@@ -958,7 +958,7 @@
                                     </div>
                                     <div class="col-lg-12">
                                         <div class="form-group">
-                                            <label>Attach Evidence:</label>
+                                            <label>Attach Evidence (jpeg, mp3, mp4, .xls, doc):</label>
                                             <input name="attach_evidence" type="file" class="form-control"
                                                    accept="image/*,.doc, .docx,.txt,.pdf">
                                         </div>
@@ -1978,7 +1978,7 @@
                         </div>
                         <div class="col-lg-12">
                             <div class="form-group">
-                                <label>Attach Evidence:</label>
+                                <label>Attach Evidence (jpeg, mp3, mp4, .xls, doc):</label>
                                 <div class="evidence_attachemnt_div">
 
                                 </div>
@@ -2923,7 +2923,7 @@
                             </div>
                             <div class="col-lg-12">
                                 <div class="form-group">
-                                    <label>Attach Evidence :</label>
+                                    <label>Attach Evidence (jpeg, mp3, mp4, .xls, doc):</label>
                                     <input name="attach_evidence" type="file" class="form-control"
                                            accept="image/*,.doc, .docx,.txt,.pdf">
                                 </div>
