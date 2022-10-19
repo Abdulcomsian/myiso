@@ -288,7 +288,7 @@
 								                                <div class="form-group">
 								                                    <label>Job Description:</label>
 								                                    <!-- <input type="text" name="jobdetails" class="form-control"  placeholder="Enter Job Description:" value="{{$item->jobdetails}}" readonly> -->
-																	<textarea name="jobdetails" id="jobdetails2" cols="20" rows="5" class="form-control" placeholder="Enter Job Description:">{{$item->jobdetails}}</textarea>
+																	<textarea name="jobdetails" id="" cols="20" rows="5" class="form-control" placeholder="Enter Job Description:">{{$item->jobdetails}}</textarea>
 								                                </div>
 								                            </div>
 								                        </div>
@@ -779,7 +779,7 @@ function employeeCV(){
          $("input[name='first_name']").val(data.first_name);
          $("input[name='jobdetails']").val(data.jobdetails);
 		 $('#jobdetails').append(data.jobdetails); 
-		 $('#jobdetails2').append(data.jobdetails); 
+		//  $('#jobdetails2').append(data.jobdetails); 
          $("input[name='startDate']").val(data.startDate);
          $("input[name='surname']").val(data.surname);
          $("input[name='systemid']").val(data.systemid);
