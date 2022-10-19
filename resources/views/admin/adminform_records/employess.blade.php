@@ -69,23 +69,24 @@
 											<label>Start Date (MM/DD/YYYY):</label>
 											<input name="startDate" max="2999-12-31" type="date" required class="form-control" >
 										</div>
-									</div>
-									<div class="col-lg-6">
-										<div class="form-group">
-											<label>Job Description:</label>
-											<input type="text" name="jobdetails"  class="form-control" required placeholder="Enter Job Description">
-											<!-- <textarea class="form-control" required placeholder="Enter Job Description" name="jobdetails" rows="4" cols="50"> -->
-										</div>
-									</div>
-								</div>
-								<div class="row">
-									<div class="col-lg-6">
 										<div class="form-group">
 											<label>Upload Employee CV:</label>
 											<input name="employee_cv" type="file" class="form-control" accept="image/*,.doc, .docx,.txt,.pdf">
 										</div>
 									</div>
+									<div class="col-lg-6">
+										<div class="form-group">
+											<label>Job Description:</label>
+											<!-- <input type="text" name="jobdetails"  class="form-control" required placeholder="Enter Job Description"> -->
+											<textarea name="jobdetails"  cols="20" rows="5" class="form-control" placeholder="Enter Job Description:"></textarea>
+										</div>
+									</div>
 								</div>
+								<!-- <div class="row">
+									<div class="col-lg-6">
+										
+									</div>
+								</div> -->
 								 @php 
                                     $urlparam = request()->route()->parameters;
                                 @endphp
@@ -286,7 +287,8 @@
 								                            <div class="col-lg-6">
 								                                <div class="form-group">
 								                                    <label>Job Description:</label>
-								                                    <input type="text" name="jobdetails" class="form-control"  placeholder="Enter Job Description:" value="{{$item->jobdetails}}" readonly>
+								                                    <!-- <input type="text" name="jobdetails" class="form-control"  placeholder="Enter Job Description:" value="{{$item->jobdetails}}" readonly> -->
+																	<textarea name="jobdetails" id="jobdetails2" cols="20" rows="5" class="form-control" placeholder="Enter Job Description:">{{$item->jobdetails}}</textarea>
 								                                </div>
 								                            </div>
 								                        </div>
@@ -613,8 +615,8 @@
                             <div class="col-lg-6">
                                 <div class="form-group">
                                     <label>Job Description:</label>
-                                    <input type="text" name="jobdetails" class="form-control"  placeholder="Enter Job Description:">
-									<!-- <textarea class="form-control" required placeholder="Enter Job Description" name="jobdetails" rows="4" cols="50"> -->
+                                    <!-- <input type="text" name="jobdetails" class="form-control"  placeholder="Enter Job Description:"> -->
+									<textarea name="jobdetails" id="jobdetails" cols="20" rows="5" class="form-control" placeholder="Enter Job Description:"></textarea>
                                 </div>
                             </div>
                         </div>
@@ -776,6 +778,8 @@ function employeeCV(){
          $("input[name='empNumber']").val(data.empNumber);
          $("input[name='first_name']").val(data.first_name);
          $("input[name='jobdetails']").val(data.jobdetails);
+		 $('#jobdetails').append(data.jobdetails); 
+		 $('#jobdetails2').append(data.jobdetails); 
          $("input[name='startDate']").val(data.startDate);
          $("input[name='surname']").val(data.surname);
          $("input[name='systemid']").val(data.systemid);
