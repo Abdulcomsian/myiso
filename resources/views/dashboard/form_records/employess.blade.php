@@ -281,7 +281,7 @@
 																		<div class="form-group">
 																			<label>Job Description:</label>
 																			<!-- <input type="text" name="jobdetails" class="form-control"  placeholder="Enter Job Details:" value="{{$item->jobdetails}}" readonly> -->
-																			<textarea name="jobdetails" id="jobdetails2" cols="20" rows="5" class="form-control" placeholder="Enter Job Description:">{{$item->jobdetails}}</textarea>
+																			<textarea name="jobdetails" id="" cols="20" rows="5" class="form-control" placeholder="Enter Job Description:">{{$item->jobdetails}}</textarea>
 																		</div>
 																	</div>
 																</div>
