@@ -67,22 +67,25 @@
 											<label>Start Date (MM/DD/YYY):</label>
 											<input name="startDate" max="2999-12-31" required type="date" class="form-control" >
 										</div>
-									</div>
-									<div class="col-lg-6">
-										<div class="form-group">
-											<label>Job Description:</label>
-											<input type="text" name="jobdetails" required class="form-control"  placeholder="Enter Job Description">
-										</div>
-									</div>
-								</div>
-								<div class="row">
-									<div class="col-lg-6">
+
 										<div class="form-group">
 											<label>Upload Employee CV:</label>
 											<input name="employee_cv" type="file" class="form-control" accept="image/*,.doc, .docx,.txt,.pdf" >
 										</div>
 									</div>
+									<div class="col-lg-6">
+										<div class="form-group">
+											<label>Job Description:</label>
+											<!-- <input type="text" name="jobdetails" required class="form-control"  placeholder="Enter Job Description"> -->
+											<textarea name="jobdetails"  cols="20" rows="5" class="form-control" placeholder="Enter Job Description:"></textarea>
+										</div>
+									</div>
 								</div>
+								<!-- <div class="row">
+									<div class="col-lg-6">
+										
+									</div>
+								</div> -->
 								<button type="reset" onclick="emp1()" class="submitBtn" style="margin-left: 7px;">Cancel</button>
 								<button class="submitBtn">SUBMIT</button>
                     		</form>
