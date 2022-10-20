@@ -49,7 +49,7 @@
                                 <div class="card-body">
                                     <!---<p>Category single:{{$cate->id}}</p>
                                     <p>Cate from faq: {{$faq->category}}</p>--->
-                                    <p>{{$faq->answer}}</p>
+                                    {!! $faq->answer !!}
                                 </div>
                             </div>
                         </div>
