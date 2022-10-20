@@ -20,7 +20,7 @@
 	<!--Video--->
 	<div class="col-md-4 mt-2 mb-2">
 	<a href="{{url('public/uploads/explainer_videos/'.$video->video)}}" target="_blank">
-		<img src="{{url('public/uploads/explainer_videos')}}/video.jfif" class="img-thumbnail img-fluid"></a>
+		<img src="{{url('public/assets/media/icons')}}/mp4.png" class="img-thumbnail img-fluid"></a>
 	
 	<h5 style="text-align: center;margin-top: 10px;">{{$video->title}}</h5>
 	</div>
