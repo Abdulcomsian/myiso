@@ -284,6 +284,10 @@
         </div>
     </div>
 </div>
+<script src="{{ asset('assets/vendors/ckeditor/ckeditor.js') }}"></script>
+<script>
+CKEDITOR.replace( 'answer' );
+</script>
 <!---- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script>   
     $.noConflict();
