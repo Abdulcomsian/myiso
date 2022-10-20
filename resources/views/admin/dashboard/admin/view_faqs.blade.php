@@ -55,7 +55,7 @@
 									<div class="col-lg-12">
 										<div class="form-group">
 											<label for="answer">Answer</label>
-											<textarea name="answer" id="answer" class="form-control"></textarea>
+											<textarea required name="answer" id="answer" class="form-control"></textarea>
 										</div>
 									</div>
 									<div class="col-lg-12">
