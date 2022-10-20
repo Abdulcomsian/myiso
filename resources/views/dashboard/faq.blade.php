@@ -42,7 +42,7 @@
                         <div class="card category-{{str_replace(" ","-",$cate->name)}}">
                             <div class="card-header" id="accordion-tab-{{$cate->id}}-heading-{{$faq->id}}">
                                 <h5>
-                                    <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#accordion-tab-{{$cate->id}}-content-{{$faq->id}}" aria-expanded="false" aria-controls="accordion-tab-{{$cate->id}}-content-{{$faq->id}}">{{$faq->question}}</button>
+                                    <button class="btn btn-link" style="text-align:Center;" type="button" data-toggle="collapse" data-target="#accordion-tab-{{$cate->id}}-content-{{$faq->id}}" aria-expanded="false" aria-controls="accordion-tab-{{$cate->id}}-content-{{$faq->id}}">{{$faq->question}}</button>
                                 </h5>
                             </div>
                             <div class="collapse" id="accordion-tab-{{$cate->id}}-content-{{$faq->id}}" aria-labelledby="accordion-tab-{{$cate->id}}-content-{{$faq->id}}" data-parent="#accordion-tab-{{$cate->id}}">
