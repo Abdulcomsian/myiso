@@ -46,8 +46,8 @@
 									<div class="col-lg-12">
 										<div class="form-group">
 											<label for="category">Category:</label>
-											<select name="category" id="category" class="form-control">
-                                                <option value="">Select Category</option>
+											<select required name="category" id="category" class="form-control">
+                                                <option disabled="disabled" value="">Select Category</option>
 @foreach($all_cate as $cate)                                           
 		<option value="{{$cate->id}}" {{$faq->category == $cate->id ? ' selected ':'' }}>{{$cate->name}}</option>
 @endforeach                                           

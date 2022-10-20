@@ -55,14 +55,14 @@
 									<div class="col-lg-12">
 										<div class="form-group">
 											<label for="answer">Answer</label>
-											<textarea required name="answer" id="answer" class="form-control"></textarea>
+											<textarea  name="answer" id="answer" class="form-control"></textarea>
 										</div>
 									</div>
 									<div class="col-lg-12">
 										<div class="form-group">
 											<label for="category">Category:</label>
-											<select name="category" id="category" class="form-control">
-                                                <option value="">Select Category</option>
+											<select required name="category" id="category" class="form-control">
+                                                <option disabled="disabled" value="">Select Category</option>
 @foreach($all_cate as $cate)                                           
 										   <option value="{{$cate->id}}">{{$cate->name}}</option>
 @endforeach                                           
