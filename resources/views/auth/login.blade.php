@@ -114,8 +114,8 @@ License: You must have a valid license purchased only from themeforest(the above
 													<!-- Button trigger modal -->
 													<!-- <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal"> -->
 													<input class="form-check-input agreeInput mt-0 mr-1" id="firstCheckbox" type="checkbox" value="">
-													<button type="button" class="btn p-0 modal_btn" data-toggle="modal" data-target="#exampleModal" style="position: absolute;">
-														<label class="form-check-label" style="width:300px;margin-left:10px;">
+													<button type="button" class="btn p-0 modal_btn" data-toggle="modal" data-target="#exampleModal" style="position: absolute;left:10px;">
+														<label class="form-check-label" style="width:300px;">
 															I Agree to the Terms and Conditions.
 														</label>
 													</button>
