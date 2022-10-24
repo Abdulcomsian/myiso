@@ -37,6 +37,11 @@ License: You must have a valid license purchased only from themeforest(the above
 	.AgreeUl{
 		margin-left: 18px;
 	}
+	@media screen and (max-width: 1300px){
+		.modal_btn{
+			left:-10px !important;
+		}
+	}
 	@media screen and (min-width: 1300px){
 		#firstCheckboxDev{
 			transform: translate(-10px,-46px);
