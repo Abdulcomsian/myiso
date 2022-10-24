@@ -44,6 +44,9 @@ License: You must have a valid license purchased only from themeforest(the above
 		#kt_login_forgot{
 			font-size:14px !important;
 		}
+		#login_box{
+			left: 10px;position: relative;
+		}
 	}
 	@media screen and (min-width: 1300px){
 		#firstCheckboxDev{
@@ -115,7 +118,7 @@ License: You must have a valid license purchased only from themeforest(the above
 									<div class="input-group">
 										<input class="form-control" type="password" placeholder="Password" name="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="current-password">
 									</div>
-									<div class="d-flex justify-content-between kt-login__extra pl-0 ml-0 mt-3" style="    left: 10px;position: relative;">
+									<div class="d-flex justify-content-between kt-login__extra pl-0 ml-0 mt-3" style="" id="login_box">
 										<div class="">
 
 											<div class="form-check AgreeUl pl-0 ml-2 mt-4 d-flex align-items-center" id="firstCheckoxDev">
