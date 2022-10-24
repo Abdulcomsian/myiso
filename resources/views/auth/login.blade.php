@@ -39,7 +39,7 @@ License: You must have a valid license purchased only from themeforest(the above
 	}
 	@media screen and (max-width: 480px){
 		#firstCheckoxDev{
-			margin-bottom:30px !important;
+			margin-top:30px !important;
 	}
 	@media screen and (max-width: 1300px){
 		.modal_btn{
