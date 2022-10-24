@@ -41,6 +41,9 @@ License: You must have a valid license purchased only from themeforest(the above
 		.modal_btn{
 			left:-10px !important;
 		}
+		#kt_login_forgot{
+			font-size:14px !important;
+		}
 	}
 	@media screen and (min-width: 1300px){
 		#firstCheckboxDev{
