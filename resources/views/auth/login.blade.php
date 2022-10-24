@@ -37,10 +37,6 @@ License: You must have a valid license purchased only from themeforest(the above
 	.AgreeUl{
 		margin-left: 18px;
 	}
-	@media screen and (max-width: 480px){
-		#firstCheckoxDev{
-			margin-top:30px !important;
-	}
 	@media screen and (max-width: 1300px){
 		.modal_btn{
 			left:-10px !important;
@@ -51,6 +47,11 @@ License: You must have a valid license purchased only from themeforest(the above
 		#login_box{
 			left: 10px;position: relative;
 		}
+	}
+	@media screen and (max-width: 480px){
+		#firstCheckoxDev{
+			margin-top:30px !important;
+        }
 	}
 	@media screen and (min-width: 1300px){
 		#firstCheckboxDev{
