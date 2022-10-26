@@ -225,6 +225,7 @@
 			today  = mm + '/' + dd + '/' + yyyy;
 
 		$('.startdate').datepicker({
+			todayHighlight: true,
 			"format": 'mm/dd/yyyy',
 			"startDate": '01/01/2017',
 			"setDate": today
@@ -248,6 +249,7 @@
 			
     	});
 		$('.enddate').datepicker({
+			todayHighlight: true,
 			"format": 'mm/dd/yyyy',
 			"endDate": today,
 			"setDate": today}).on('changeDate', function(e){
