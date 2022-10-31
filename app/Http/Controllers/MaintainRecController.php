@@ -2,10 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Helpers\HelperFunctions;
 use App\Maintain_rec;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Schema;
 
 class MaintainRecController extends Controller
 {
@@ -64,6 +67,14 @@ class MaintainRecController extends Controller
             $mrecord->mrobservation=$request->input('mrobservation');
             $mrecord->mractions=$request->input('mractions');
             $mrecord->mractivityperofrmby=$request->input('mractivityperofrmby');
+            $mrecord->any_issues=$request->input('any_issues');
+        //Check if user attach evidence
+            if ($request->file('attach_evidence') && Schema::hasColumn('tbl_maintain_recs','attach_evidence')) {
+                //Delete previous attach evidence if exist
+                $file = $request->file('attach_evidence');
+                $path = '/uploads/user/attach_evidence/';
+                $mrecord->attach_evidence = HelperFunctions::saveFile($path,$file);
+            }
             $mrecord->save();
             return back()->with("Success","Data Save Successfully");
                 // return  view('dashboard.form_records.maintance_record',compact('mrecord'));
@@ -105,6 +116,10 @@ class MaintainRecController extends Controller
     public function update(Request $request)
     {
         $id=$request->id;
+        $any_issues = $request->input('any_issues');
+        if($any_issues==NULL){
+            $any_issues="";
+        }
         $mrecord= Maintain_rec::find($id);
             // $mrecord->mid=$request->input('mid');
       if(Auth::check() && Auth::user()->role_type == "admin"){
@@ -120,6 +135,19 @@ class MaintainRecController extends Controller
             $mrecord->mrobservation=$request->input('mrobservation');
             $mrecord->mractions=$request->input('mractions');
             $mrecord->mractivityperofrmby=$request->input('mractivityperofrmby');
+            $mrecord->any_issues=$any_issues;
+            //Check if user attach evidence
+            if ($request->file('attach_evidence') && Schema::hasColumn('tbl_maintain_recs','attach_evidence')) {
+                //Delete previous attach evidence if exist
+                if (File::exists(public_path($mrecord->attach_evidence))) {
+                    File::delete(public_path($mrecord->attach_evidence));
+                }
+
+                $file = $request->file('attach_evidence');
+                $path = '/uploads/user/attach_evidence/';
+                $mrecord->attach_evidence = HelperFunctions::saveFile($path,$file);
+            }
+
             $mrecord->save();
             return back()->with("Success","Data Save Successfully");
     }
@@ -132,8 +160,11 @@ class MaintainRecController extends Controller
      */
     public function destroy(Request $request)
     {
-        Maintain_rec::find($request->id)->delete();
-       
+        $maintain = Maintain_rec::find($request->id);
+        if (File::exists(public_path($maintain->attach_evidence))) {
+            File::delete(public_path($maintain->attach_evidence));
+        }
+        $maintain->delete();
         return back()->with("Success","Deleted");
     }
 }

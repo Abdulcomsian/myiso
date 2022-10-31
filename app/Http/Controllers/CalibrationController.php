@@ -65,6 +65,7 @@ class CalibrationController extends Controller
            $calibration->freq=$request->input('freq');
            $calibration->calibratedDate=$request->input('calibratedDate');
            $calibration->certificatenumber=$request->input('certificatenumber');
+           $calibration->any_issues=$request->input('any_issues');
 
 
            $calibration->sentence=$request->input('sentence');
@@ -108,7 +109,10 @@ class CalibrationController extends Controller
     public function update(Request $request)
     {
         $id=$request->id;
-
+        $any_issues = $request->input('any_issues');
+        if($any_issues==NULL){
+            $any_issues="";
+        }
         // try{
             $calibration=calibration::find($id);
                    if(Auth::user()->role_type == "admin"){
@@ -130,6 +134,7 @@ class CalibrationController extends Controller
             $calibration->calibratedDate=$request->input('calibratedDate');
             $calibration->certificatenumber=$request->input('certificatenumber');
             $calibration->sentence=$request->input('sentence');
+            $calibration->any_issues=$any_issues;
             $calibration->save();
              $notification = [
                 'message' => 'Record  updated successfully.!',
