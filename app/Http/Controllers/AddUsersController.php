@@ -511,7 +511,7 @@ public function store(Request $request)
     public function maintainRecCheck($request){
 
         $mainrecord=Maintain_rec::where('user_id',$request)->orderBy('id','DESC')->get();
-        return view('admin.adminform_records.∂∂∂',compact('mainrecord'));
+        return view('admin.adminform_records.maintance_record',compact('mainrecord'));
 
     }
     public function AccidentCheck($request){
