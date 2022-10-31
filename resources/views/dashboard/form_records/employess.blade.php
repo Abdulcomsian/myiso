@@ -185,13 +185,13 @@
 								<table class="common_table table table-striped- table-bordered table-hover table-checkable table-responsive" id="kt_table_agent">
 									<thead>
 										<tr>
-											<th>Employee ID Number</th>
-											<th>Surname</th>
-											<th>Firstname</th>
+											<th style="width:170px;">Employee ID Number</th>
+											<th style="width:150px;">Surname</th>
+											<th style="width:150px;">Firstname</th>
 											<!--<th>Employee Number</th>-->
-											<th>Start Date</th>
-                                            <th>Job Description</th>
-                                            <th>CV</th>
+											<th style="width:200px;">Start Date</th>
+                                            <th style="width:240px;">Job Description</th>
+                                            <th style="width:120px;">CV</th>
                                             <th>Action</th>
 										</tr>
 									</thead>
@@ -321,11 +321,11 @@
 									<thead>
 										<tr>
 											<!--<th>Skills ID</th>-->
-											<th>Employee ID Number</th>
-											<th>Surname</th>
-											<th>Firstname</th>
+											<th style="width:170px;">Employee ID Number</th>
+											<th style="width:150px;">Surname</th>
+											<th style="width:150px;">Firstname</th>
 											<!--<th>Employee Number</th>-->
-                                            <th>Skill</th>
+                                            <th style="width:200px;">Skill</th>
                                             <th>Actions</th>
 
 										</tr>
@@ -414,13 +414,13 @@
 								<table class="common_table table table-striped- table-bordered table-hover table-checkable table-responsive" id="kt_table_agent">
 									<thead>
 										<tr>
-											<th>Employee ID Number</th>
-											<th>Surname</th>
-											<th>First Name</th>
-											<th>Start Date</th>
+											<th style="width:170px;">Employee ID Number</th>
+											<th style="width:150px;">Surname</th>
+											<th style="width:150px;">First Name</th>
+											<th style="width:200px;">Start Date</th>
 											{{-- <th>Employee Stamp Number</th> --}}
-											<th>Training Date</th>
-                                            <th>Training Details</th>
+											<th style="width:240px;">Training Date</th>
+                                            <th style="width:120px;">Training Details</th>
                                             <th>Actions</th>
 
 										</tr>
