@@ -3,9 +3,12 @@
 namespace App\Http\Controllers;
 
 use App\AccidentRisk;
+use App\Helpers\HelperFunctions;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Schema;
 
 class AccidentRiskController extends Controller
 {
@@ -69,7 +72,14 @@ class AccidentRiskController extends Controller
              $Audit->reducerisk=$request->input('reducerisk');
              $Audit->revisedrisk=$request->input('revisedrisk');
              $Audit->reviseRiskSever=$request->input('reviseRiskSever');
-
+             $Audit->any_issues=$request->input('any_issues');
+             //Check if user attach evidence
+             if ($request->file('attach_evidence') && Schema::hasColumn('tbl_accident_risks','attach_evidence')) {
+                //Delete previous attach evidence if exist
+                $file = $request->file('attach_evidence');
+                $path = '/uploads/user/attach_evidence/';
+                $Audit->attach_evidence = HelperFunctions::saveFile($path,$file);
+             }
              $Audit->save();
 
              return back()->with("Success","Data Save Successfully");
@@ -112,6 +122,10 @@ class AccidentRiskController extends Controller
     public function update(Request $request)
     {
         $id=$request->id;
+        $any_issues = $request->input('any_issues');
+        if($any_issues==NULL){
+            $any_issues="";
+        }
         // try{
             $Audit= AccidentRisk::find($id);
  if(Auth::check() && Auth::user()->role_type == "admin"){
@@ -129,8 +143,20 @@ class AccidentRiskController extends Controller
              $Audit->reducerisk=$request->input('reducerisk');
              $Audit->revisedrisk=$request->input('revisedrisk');
              $Audit->reviseRiskSever=$request->input('reviseRiskSever');
+             $Audit->any_issues=$any_issues;
+            //Check if user attach evidence
+            if ($request->file('attach_evidence') && Schema::hasColumn('tbl_accident_risks','attach_evidence')) {
+                //Delete previous attach evidence if exist
+                if (File::exists(public_path($Audit->attach_evidence))) {
+                    File::delete(public_path($Audit->attach_evidence));
+                }
 
-             $Audit->save();
+                $file = $request->file('attach_evidence');
+                $path = '/uploads/user/attach_evidence/';
+                $Audit->attach_evidence = HelperFunctions::saveFile($path,$file);
+            }
+
+            $Audit->save();
              $notification = [
                 'message' => 'Record  updated successfully.!',
                 'alert-type' => 'success'
@@ -152,7 +178,11 @@ class AccidentRiskController extends Controller
     {
 
         $id=$req->id;
-        $req=AccidentRisk::find($id)->delete();
+        $risk=AccidentRisk::find($id);
+        if (File::exists(public_path($risk->attach_evidence))) {
+            File::delete(public_path($risk->attach_evidence));
+        }
+        $risk->delete();
         $notification = [
             'message' => 'Record  Deleted successfully.!',
             'alert-type' => 'success'

@@ -515,7 +515,6 @@ public function store(Request $request)
 
     }
     public function AccidentCheck($request){
-
         $riskassesment=AccidentRisk::where('user_id',$request)->orderBy('id','DESC')->get();
         return view('admin.adminform_records.accident_risk_assesment',compact('riskassesment'));
 

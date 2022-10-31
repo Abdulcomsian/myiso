@@ -3,11 +3,14 @@
 namespace App\Http\Controllers;
 
 
+use App\Helpers\HelperFunctions;
 use App\Interested;
 use App\Chemical;
 use Illuminate\Support\Facades\Auth;
 use Exception;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Schema;
 
 class chemicalController extends Controller
 {
@@ -65,7 +68,14 @@ class chemicalController extends Controller
              $Chemical->target_hazard=$request->input('target_organs');
              $Chemical->who_risk=$request->input('who_risk');
              $Chemical->protection_required=$request->input('protection_required');
-             
+             $Chemical->any_issues=$request->input('any_issues');
+            //Check if user attach evidence
+             if ($request->file('attach_evidence') && Schema::hasColumn('chemical_control','attach_evidence')) {
+                //Delete previous attach evidence if exist
+                $file = $request->file('attach_evidence');
+                $path = '/uploads/user/attach_evidence/';
+                 $Chemical->attach_evidence = HelperFunctions::saveFile($path,$file);
+             }
              
              $Chemical->still_used=$request->input('still_used');
               $Chemical->save();
@@ -113,6 +123,10 @@ class chemicalController extends Controller
     {
   
         $id=$request->id;
+        $any_issues = $request->input('any_issues');
+        if($any_issues==NULL){
+            $any_issues="";
+        }
         try{
             $Chemical=Chemical::find($id);
             $Chemical->chemical_name=$request->input('chemical_name');
@@ -126,7 +140,18 @@ class chemicalController extends Controller
             $Chemical->who_risk=$request->input('who_risk');
             $Chemical->protection_required=$request->input('protection_required');
             $Chemical->still_used=$request->input('still_used');
-            
+            $Chemical->any_issues=$any_issues;
+            //Check if user attach evidence
+            if ($request->file('attach_evidence') && Schema::hasColumn('chemical_control','attach_evidence')) {
+                //Delete previous attach evidence if exist
+                if (File::exists(public_path($Chemical->attach_evidence))) {
+                    File::delete(public_path($Chemical->attach_evidence));
+                }
+
+                $file = $request->file('attach_evidence');
+                $path = '/uploads/user/attach_evidence/';
+                $Chemical->attach_evidence = HelperFunctions::saveFile($path,$file);
+            }
             $Chemical->save();
              $notification = [
                 'message' => 'Record  updated successfully.!',
@@ -148,7 +173,11 @@ class chemicalController extends Controller
     {
 
         $id=$req->id;
-        $req=Interested::find($id)->delete();
+        $chemical=Interested::find($id);
+        if (File::exists(public_path($chemical->attach_evidence))) {
+            File::delete(public_path($chemical->attach_evidence));
+        }
+        $chemical->delete();
         $notification = [
             'message' => 'Record  Deleted successfully.!',
             'alert-type' => 'success'

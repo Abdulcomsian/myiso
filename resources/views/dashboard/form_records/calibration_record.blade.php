@@ -108,7 +108,16 @@
 											</select>
 										</div>
 									</div>
+								</div>
+								<div class="row">
+									<div class="col-lg-12">
+										<div class="form-group">
+											<label>Any other issues or points to note?</label>
+											<textarea name="any_issues" class="form-control"
+													  placeholder="Enter Any other issues:"></textarea>
+										</div>
 									</div>
+								</div>
 								<button type="submit" class="submitBtn">SUBMIT</button>
 								<button type="reset" onclick="calibration()" class="submitBtn" style="margin-right: 7px;">Cancel</button>
 									<!--<button type="button"  class="btn btn-secondary submitBtn " style="margin-right:7px;">Cancel</button>-->
@@ -238,6 +247,15 @@
 						</div>
 					</div>
 				</div>
+															<div class="row">
+																<div class="col-lg-12">
+																	<div class="form-group">
+																		<label>Any other issues or points to note?</label>
+																		<textarea name="any_issues" class="form-control"
+																				  placeholder="Enter Any other issues:"></textarea>
+																	</div>
+																</div>
+															</div>
 			</div>
 															<div class="modal-footer">
 																<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -443,7 +461,16 @@
 											<input type="email" class="form-control"  placeholder="Enter Supplier Service:">
 										</div>
 									</div>
+								</div>
+								<div class="row">
+									<div class="col-lg-12">
+										<div class="form-group">
+											<label>Any other issues or points to note?</label>
+											<textarea name="any_issues" class="form-control"
+													  placeholder="Enter Any other issues:"></textarea>
+										</div>
 									</div>
+								</div>
                     		</form>
 			</div>
 			<div class="modal-footer">
@@ -552,7 +579,16 @@
                                 </select>
                             </div>
                         </div>
-                        </div>
+					</div>
+					<div class="row">
+						<div class="col-lg-12">
+							<div class="form-group">
+								<label>Any other issues or points to note?</label>
+								<textarea name="any_issues" class="form-control"
+										  placeholder="Enter Any other issues:"></textarea>
+							</div>
+						</div>
+					</div>
                     <button type="submit" class="submitBtn ml-2">Update</button>
                     <button type="button" class="submitBtn"  data-dismiss="modal" aria-label="Close">Cancel</button>
                 </form>
@@ -579,7 +615,8 @@
          $("input[name='calibrationid']").val(data.calibrationid);
          $("input[name='calibratedDate']").val(data.calibratedDate);
          $("input[name='acceptance']").val(data.acceptance);
-         $("#editcustomer_rev").modal('show');
+		$("textarea[name='any_issues']").val(data.any_issues);
+		$("#editcustomer_rev").modal('show');
      }
      
      function calibration(){
