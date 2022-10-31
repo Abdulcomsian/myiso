@@ -24,7 +24,7 @@
                     		</div>
                     	</div>
                     	<div class="calibration_from_div">
-                            <form action="{{route('calibration')}} " method="POST">
+                            <form action="{{route('calibration')}} " method="POST"  enctype="multipart/form-data">
                                 @csrf
                     			<div class="row">
                     				{{-- <div class="col-lg-6">
@@ -112,9 +112,9 @@
 								<div class="row">
 									<div class="col-lg-12">
 										<div class="form-group">
-											<label>Any other issues or points to note?</label>
-											<textarea name="any_issues" class="form-control"
-													  placeholder="Enter Any other issues:"></textarea>
+											<label>Attach Evidence: <span class="text-danger" style="color:#000 !important;">(jpeg, mp3, mp4, .xls, doc)</span></label>
+											<input name="attach_evidence" type="file" class="form-control"
+												   accept="all">
 										</div>
 									</div>
 								</div>
@@ -250,9 +250,8 @@
 															<div class="row">
 																<div class="col-lg-12">
 																	<div class="form-group">
-																		<label>Any other issues or points to note?</label>
-																		<textarea name="any_issues" class="form-control"
-																				  placeholder="Enter Any other issues:"></textarea>
+																		<label>Attach Evidence <span class="text-danger" style="color:#000 !important;">(jpeg, mp3, mp4, .xls, doc)</span>:</label>
+																		<div class="evidence_attachemnt_div"></div>
 																	</div>
 																</div>
 															</div>
@@ -465,9 +464,9 @@
 								<div class="row">
 									<div class="col-lg-12">
 										<div class="form-group">
-											<label>Any other issues or points to note?</label>
-											<textarea name="any_issues" class="form-control"
-													  placeholder="Enter Any other issues:"></textarea>
+											<label>Attach Evidence: <span class="text-danger" style="color:#000 !important;">(jpeg, mp3, mp4, .xls, doc)</span></label>
+											<input name="attach_evidence" type="file" class="form-control"
+												   accept="all">
 										</div>
 									</div>
 								</div>
@@ -494,7 +493,7 @@
 				</button>
 			</div>
 			<div class="modal-body">
-                <form action="{{route('calibrationedit')}} " method="POST">
+                <form action="{{route('calibrationedit')}} " method="POST" enctype="multipart/form-data">
                     @csrf
                     <input type="hidden" name="id" value="" id="editproject">
                     <div class="row">
@@ -583,9 +582,9 @@
 					<div class="row">
 						<div class="col-lg-12">
 							<div class="form-group">
-								<label>Any other issues or points to note?</label>
-								<textarea name="any_issues" class="form-control"
-										  placeholder="Enter Any other issues:"></textarea>
+								<label>Attach Evidence: <span class="text-danger" style="color:#000 !important;">(jpeg, mp3, mp4, .xls, doc)</span></label>
+								<input name="attach_evidence" type="file" class="form-control"
+									   accept="all">
 							</div>
 						</div>
 					</div>
@@ -615,7 +614,6 @@
          $("input[name='calibrationid']").val(data.calibrationid);
          $("input[name='calibratedDate']").val(data.calibratedDate);
          $("input[name='acceptance']").val(data.acceptance);
-		$("textarea[name='any_issues']").val(data.any_issues);
 		$("#editcustomer_rev").modal('show');
      }
      
