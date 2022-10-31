@@ -112,7 +112,7 @@
                                         @foreach ($userinfo as $data)
                                             <tr>
                                                 <td>{{$number}}</td>
-                                                <td>{{date('d-M-Y', strtotime($data->mrdate))}}</td>
+                                                <td>{{date('d/m/Y', strtotime($data->mrdate))}}</td>
                                                 <td>{{$data->mritem}}</td>
                                                 <td>{{$data->mractivity}}</td>
                                                 <td>{{$data->mlocation}}</td>

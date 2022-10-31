@@ -127,7 +127,7 @@
 											<td>{{$data->DScore}} </td>
 											<td>{{$data->OveralScore}} </td>
 											
-                                            <td>{{date('d-M-Y', strtotime($data->AssesmentDate))}} </td>
+                                            <td>{{date('d/m/Y', strtotime($data->AssesmentDate))}} </td>
                                             <td>
 													<!-- new  -->
 													<button class="btn btn-sm btn-clean btn-icon btn-icon-md"

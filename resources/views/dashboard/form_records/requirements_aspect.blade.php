@@ -78,14 +78,14 @@
 											<td> {{ $counter}}</td>
 											<td>{{ $data->requirment_title}}</td>
 											
-											<td>{{ date("d-M-Y",strtotime($data->completion_date)) }}</td>
+											<td>{{ date("d/m/Y",strtotime($data->completion_date)) }}</td>
 											<!--<td>{{date('d-m-Y', strtotime($data->completion_date))}}</td>-->
 											<td>{{ $data->periods }}</td>
 											@php 
 											$d = strtotime("+$data->periods months",strtotime($data->completion_date)); 
 										
 											@endphp
-											<td>{{ date("d-M-Y",$d)}}</td>
+											<td>{{ date("d/m/Y",$d)}}</td>
                                         <td class="svgIcon">
                                         <button data-toggle="modal" data-target="#deleteRequirment_{{ $data->id}}" style="top: -2px;position: relative;border: none !important;background: transparent !important;">
                                            <span class="svg-icon svg-icon-md">

@@ -103,7 +103,7 @@
 						<tr class="{{($item->status == 0) ? 'New' : ''}}">
 							<td>{{$count}}</td>
 							<td>{{$item->title}}</td>
-							<td>{{date("d-M-Y H:i:sA", strtotime($item->created_at) )}}</td>
+							<td>{{date("d/m/Y H:i:sA", strtotime($item->created_at) )}}</td>
 							<td>
 							<a data-id="{{$item->id}}" data-user="user" class="read_it" href="#" data-toggle="modal" data-target="#view-notification-{{$item->id}}"> View Message </a>
 								

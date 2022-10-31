@@ -243,7 +243,7 @@
                                     <td> {{ $data->description }}</td>
                                     <td> {{ $data->root_cause_category }}</td>
 
-                                    <td>{{ date('d-M-Y', strtotime($data->dateNcR)) }}</td>
+                                    <td>{{ date('d/m/Y', strtotime($data->dateNcR)) }}</td>
                                     <td> <button class="btn btn-sm btn-clean btn-icon btn-icon-md" title="View"
                                             value="{{ $data->customerID }}"
                                             onclick="getEid({{ json_encode($data) }});">
