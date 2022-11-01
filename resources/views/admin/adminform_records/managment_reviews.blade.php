@@ -17,7 +17,9 @@
 
 		<div class="row">
 			<div class="col-lg-12">
-				<p>To add a record, click on the “Add Management review” button. To amend a record, click on the edit icon of the entry that needs to be modified or deleted.</p>
+            <p>Management Reviews are to ensure that the company can measure the effectiveness of the management system, whilst focusing on the direction of the business and its continual improvement. These should be conducted monthly, quarterly, semiannually, or annually depending on the size and nature of the business.</p>
+
+<p>To add a record, click on the “Add Management review” button. To amend a record, click on the edit icon of the entry that needs to be modified or deleted.</p>
                     <div class="procedure_div">
                     	<div class="row">
                     		<div class="col-lg-12 text-right">
