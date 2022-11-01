@@ -191,7 +191,7 @@
 											<th style="width:200px;">Start Date</th>
                                             <th style="width:240px;">Job Description</th>
                                             <th style="width:120px;">CV</th>
-                                            <th>Action</th>
+                                            <th style="width:150px;">Action</th>
 										</tr>
 									</thead>
 									<tbody>
@@ -324,8 +324,8 @@
 											<th style="width:150px;">Surname</th>
 											<th style="width:150px;">Firstname</th>
 											<!--<th>Employee Number</th>-->
-                                            <th style="width:200px;">Skill</th>
-                                            <th>Actions</th>
+                                            <th style="width:560px;">Skill</th>
+                                            <th style="width:150px;">Actions</th>
 
 										</tr>
                                     </thead>
@@ -420,7 +420,7 @@
 											{{-- <th>Employee Stamp Number</th> --}}
 											<th style="width:240px;">Training Date</th>
                                             <th style="width:120px;">Training Details</th>
-                                            <th>Actions</th>
+                                            <th style="width:150px;">Actions</th>
 
 										</tr>
                                     </thead>
