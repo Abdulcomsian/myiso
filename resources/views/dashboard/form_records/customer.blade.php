@@ -18,9 +18,8 @@
 
             <div class="row">
                 <div class="col-lg-12">
-                    <p>To add a record, click on the “Add
-                        Customer” button. To amend a record, click on the edit icon of the
-                        entry that needs to be modified.</p>
+                <p>Customers should be listed so that internal audits can be carried out on their delivery / service quality assessments, but also used to assist with customer satisfaction surveys. </p>
+					<p>To add a record, click on the “Add Customer” button. To amend a record, click on the edit icon of the entry that needs to be modified.</p>
                     @if(Session::has('Error'))<h5 class="text-danger">  {{ Session::get('Error') }} </h5>@endif
                     <div class="procedure_div">
                         <div class="row">
