@@ -17,10 +17,8 @@
 
 		<div class="row">
 			<div class="col-lg-12">
-					<p>This audit is a horizontal auditThis audit is a horizontal audit against each clause in the standard. The frequency of this audit will typically be annually and is used to determine the level of compliance to your ISO Standard.</p>
-					<p>To add a record, click on the “Add QMS Audit Details” button. To amend a record, click on the edit icon of the entry that needs to be modified. Audits will be conducted in accordance with Audits</p>
-					<p>Audits will be conducted in accordance with
-						<a href="{{url('auidt')}}">Audits</a></p>
+			<p>This audit is a horizontal audit against each clause in the standard. The frequency of this audit will typically be annually and is used to determine the level of compliance to your ISO Standard.</p>
+					<p>To add a record, click on the “Add QMS Audit Details” button. To amend a record, click on the edit icon of the entry that needs to be modified. Audits will be conducted in accordance with <a href="{{url('auidt')}}">Audits</a></p>
                     <div class="procedure_div">
                     	<div class="row">
                     		<div class="col-lg-12 text-right">
