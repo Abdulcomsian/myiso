@@ -84,7 +84,7 @@
 											<td>{{ $i++}}</td>
 											<td>{{ $data->interested_party}}</td>
 											<td>{{ $data->needs}}</td>
-											<td>{{date('d-M-Y h:i', strtotime($data->created_at))}}</td>
+											<td>{{date('d/m/Y h:i', strtotime($data->created_at))}}</td>
 
 											<td>
 											<button class="btn btn-sm btn-clean btn-icon btn-icon-md" title="Edit" onclick="getEid({{json_encode($data)}});">

@@ -80,7 +80,7 @@
 											<td>{{ $data->requirment_title}}</td>
 											
 											<td>{{ date("d/m/Y",strtotime($data->completion_date)) }}</td>
-											<!--<td>{{date('d-m-Y', strtotime($data->completion_date))}}</td>-->
+											<!--<td>{{date('d/m/Y', strtotime($data->completion_date))}}</td>-->
 											<td>{{ $data->periods }}</td>
 											@php 
 											$d = strtotime("+$data->periods months",strtotime($data->completion_date)); 

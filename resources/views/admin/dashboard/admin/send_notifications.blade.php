@@ -165,7 +165,7 @@
                                 										</div>
 
 							</td>
-							<td>{{date("d-M-Y H:i:sA", strtotime($item->notification_created_at) )}}</td>
+							<td>{{date("d/m/Y H:i:sA", strtotime($item->notification_created_at) )}}</td>
 							<td>
 							    <button class="btn btn-danger" data-toggle="modal" data-target="#delete-notification-{{$item->notification_id}}">Delete</button>
 							    <div class="modal fade" id="delete-notification-{{$item->notification_id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">

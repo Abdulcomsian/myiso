@@ -196,43 +196,43 @@
 										  
 										    if($iso9001==null &&  $iso14001==null  && $iso45001==null){
 										  
-										        $minValue = date('d-M-Y', strtotime('+3 years'));
+										        $minValue = date('d/m/Y', strtotime('+3 years'));
 										          
 										    }else if($iso9001 != null && $iso14001 == null  && $iso45001 == null){
 										    $minValue=$x;
-										    $minValue = date('d-M-Y', $minValue);
+										    $minValue = date('d/m/Y', $minValue);
 										    }else if($iso9001 == null && $iso14001 != null  && $iso45001 == null){
 										   
 										    $minValue=$y;
-										    $minValue = date('d-M-Y', $minValue);
+										    $minValue = date('d/m/Y', $minValue);
 										    }else if($iso9001 == null && $iso14001 == null  && $iso45001 != null){
 										   
 										    $minValue=$z;
-										  $minValue = date('d-M-Y', $minValue);
+										  $minValue = date('d/m/Y', $minValue);
 										    }else if($iso9001 != null && $iso14001 != null  && $iso45001 == null){  
 										    $minValue=min($x,$y);
-										        $minValue = date('d-M-Y', $minValue);
+										        $minValue = date('d/m/Y', $minValue);
 										    }else if($iso9001 != null && $iso14001 == null  && $iso45001 != null){
 										    $minValue=min($x,$z);
-										        $minValue = date('d-M-Y', $minValue);
+										        $minValue = date('d/m/Y', $minValue);
 										    }else if($iso9001 == null && $iso14001 != null  && $iso45001 != null){  
 										    $minValue=min($y,$z);
-										        $minValue = date('d-M-Y', $minValue);
+										        $minValue = date('d/m/Y', $minValue);
 										    }else{
 										        $minValue=min($x,min($y,$z));
-										            $minValue = date('d-M-Y', $minValue);
+										            $minValue = date('d/m/Y', $minValue);
                                             }
                                             
 										    @endphp
 										    {{ $minValue }}
 {{--  @if(Auth::user()->iso9001_expirydate)										    -->
-  <!--{{ date('d-M-Y', strtotime(Auth::user()->iso9001_expirydate)) }}-->
-  <!--{{ date('d-M-Y', $minValue) }}-->
+  <!--{{ date('d/m/Y', strtotime(Auth::user()->iso9001_expirydate)) }}-->
+  <!--{{ date('d/m/Y', $minValue) }}-->
 <!--    {{ $minValue }}-->
 <!--  @else-->
 <!--  @php -->
 <!--  $cus_date = strtotime('+3 years', strtotime(Auth::user()->created_at));-->
-<!--   $new_date = date('d-M-Y', $cus_date);-->
+<!--   $new_date = date('d/m/Y', $cus_date);-->
 <!--   echo $new_date;-->
 <!--@endphp-->
 <!--  @endif--> --}}

@@ -248,7 +248,7 @@
                                             <!--<td>{{$data->id}}</td>-->
 											<td>{{$data->jobNumber}}</td>
 											
-											<td>{{date('d-M-Y', strtotime($data->date))}}</td>
+											<td>{{date('d/m/Y', strtotime($data->date))}}</td>
 											<td>{{ucfirst($data->qualitySatandard)}}</td>
 											<td>{{ucfirst($data->delevryStandard)}}</td>
 											<td>{{ucfirst($data->priceRequiremnt)}}</td>

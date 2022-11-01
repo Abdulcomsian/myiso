@@ -105,7 +105,7 @@
 							<td>{{$item->name}}</td>
 							<td>{{$item->company}}</td>
 							<td>{{$item->email}}</td>
-							<td>{{date("d-M-Y H:i:sA", strtotime($item->created_at) )}}</td>
+							<td>{{date("d/m/Y H:i:sA", strtotime($item->created_at) )}}</td>
 							<td>
 
 								<a data-id="{{$item->id}}" data-user="admin" class="read_it" title="View Message" href="#" data-toggle="modal" data-target="#view-notification-{{$item->id}}"> {{$item->subject}} </a>

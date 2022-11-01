@@ -1034,7 +1034,7 @@
                                                 {{$i++}}
                                             </td>
                                             <td>
-                                                {{date('d-M-Y', strtotime($item->competedDate))}}
+                                                {{date('d/m/Y', strtotime($item->competedDate))}}
 
 
                                             </td>

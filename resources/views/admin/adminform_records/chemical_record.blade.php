@@ -209,7 +209,7 @@
 											<td>{{ $data->location_used}}</td>
 											<td>{{$data->activity_hazard}}</td>
 											<td>{{$data->still_used}}</td>
-											<!--<td>{{date('d-M-Y h:i', strtotime($data->created_at))}}</td>-->
+											<!--<td>{{date('d/m/Y h:i', strtotime($data->created_at))}}</td>-->
 
 											<td>
 											     <button class="btn btn-sm btn-clean btn-icon btn-con-md"  title="View" onclick="viewinterested({{$data}});">

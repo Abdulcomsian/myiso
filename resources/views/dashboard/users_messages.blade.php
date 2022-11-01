@@ -103,7 +103,7 @@
 						<tr>
 							<td>{{$count}}</td>
 							<td>{{$item->subject}}</td>
-							<td>{{date("d-M-Y H:i:sA", strtotime($item->created_at) )}}</td>
+							<td>{{date("d/m/Y H:i:sA", strtotime($item->created_at) )}}</td>
 							<td>
 							<a href="#" data-toggle="modal" data-target="#view-notification-{{$item->id}}" title="View Message"> View Message </a>
 								

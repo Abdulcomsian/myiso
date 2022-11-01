@@ -414,7 +414,7 @@
 											<td>{{$loop->index+1}}</td>
 											<td>{{ $data->processAudit}}</td>
 											<td>{{ $data->auditor}}</td>
-											<td>{{date('d-M-Y', strtotime($data->auditDate))}}</td>
+											<td>{{date('d/m/Y', strtotime($data->auditDate))}}</td>
 											<td>{{ $data->nonConformities}}</td>
 											<td>{{ $data->Observations}}</td>
 											<td>{{ $data->nonConfReport}}</td>

@@ -142,7 +142,7 @@
                                         @foreach ($mainrecord as $data)
                                             <tr>
                                                 <td>{{$i++}}</td>
-                                                <td> {{date('d-M-Y', strtotime($data->mrdate))}}</td>
+                                                <td> {{date('d/m/Y', strtotime($data->mrdate))}}</td>
                                                 <td>{{$data->mritem}}</td>
                                                 <td>{{$data->mractivity}}</td>
                                                 <td>{{$data->mlocation}}</td>

@@ -181,7 +181,7 @@
                                         @foreach ($mgtrev as $item)
                                            <tr>
                                                <td> {{$i++}}</td>
-                                               <td> {{date('d-M-Y', strtotime($item->reviewdate))}} </td>
+                                               <td> {{date('d/m/Y', strtotime($item->reviewdate))}} </td>
                                                <td> {{$item->meetingatt}}</td>
                                                <td> {{$item->newquality}}</td>
                                                
