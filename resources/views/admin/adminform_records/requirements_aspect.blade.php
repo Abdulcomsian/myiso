@@ -41,7 +41,7 @@ input[type="date"]::-webkit-datetime-edit-day-field{
 	<!--Begin::Section-->
 	<div class="row">
 		<div class="col-xl-12 col-lg-12">
-			<h2>Requirements and Aspects</h2>
+			<h2>Requirements Due</h2>
 		</div>
 	</div>
 	<section id="procedure_section">

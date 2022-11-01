@@ -11,14 +11,15 @@
 	<!--Begin::Section-->
 	<div class="row">
 		<div class="col-xl-12 col-lg-12">
-			<h2>Requirements and Aspects</h2>
+			<h2>Requirements Due</h2>
 		</div>
 	</div>
 	<section id="procedure_section">
 
 		<div class="row">
 			<div class="col-lg-12">
-					<p>This section can be considered as a diary. Simply add items that you required to be recalled on a regular basis, such as when management review all audits are due etc.</p>
+			<p>This section can be considered as a diary shown on your MyISOOnline control panel. Simply add items that need to be recalled on a regular basis, such as when management reviews are due, or calibration audits are required.</p>
+					<p>To add a requirement, click on the “Add a Requirement” then enter the information you would like to be reminded of and set the reminder date using the calendar.</p>
                     <div class="procedure_div">
                     	<div class="row">
                     		<div class="col-lg-12 text-right">
@@ -145,7 +146,7 @@
 														<div class="modal-dialog" role="document">
 														<div class="modal-content">
 														<div class="modal-header">
-															<h5 class="modal-title" id="exampleModalLabel"> Requirements and Aspects </h5>
+															<h5 class="modal-title" id="exampleModalLabel"> Requirements Due </h5>
 															<button type="button" class="close" data-dismiss="modal" aria-label="Close">
 															<span aria-hidden="true">&times;</span>
 															</button>
