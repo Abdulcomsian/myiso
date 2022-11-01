@@ -17,8 +17,7 @@
 		
 		<div class="row">
 			<div class="col-lg-12">
-					<p>To add a record, complete the Add a Requirement form below and select the add button. To amend a record, complete the Amend a Requirement form.</p>
-                    <p>This section can be considered as a diary shown on your MyISOOnline control panel. Simply add items that need to be recalled on a regular basis, such as when management reviews are due, or calibration audits are required.</p>
+			<p>This section can be considered as a diary shown on your MyISOOnline control panel. Simply add items that need to be recalled on a regular basis, such as when management reviews are due, or calibration audits are required.</p>
 					<p>To add a requirement, click on the “Add a Requirement” then enter the information you would like to be reminded of and set the reminder date using the calendar.</p>
                     <div class="procedure_div">
                     	<div class="row">
