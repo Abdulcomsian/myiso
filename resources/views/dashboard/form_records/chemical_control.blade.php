@@ -17,7 +17,7 @@
 
             <div class="row">
                 <div class="col-lg-12">
-                    <p>Control of Substances Hazardous to Health (COSHH). COSHH is a method that allows employers to
+                    <!-- <p>Control of Substances Hazardous to Health (COSHH). COSHH is a method that allows employers to
                         control substances that are hazardous to health. You can prevent or reduce workers exposure to
                         hazardous substances by:</p>
                     <ul>
@@ -45,7 +45,10 @@
                     <p>Most businesses use substances, or products that are mixtures of substances. Some processes
                         create substances. These could cause harm to employees, contractors and other people.</p>
                     <p>Sometimes substances are easily recognised as harmful. Common substances such as paint, bleach or
-                        dust from natural materials may also be harmful.</p>
+                        dust from natural materials may also be harmful.</p> -->
+                        <p>Chemical Control or Control of Substances Hazardous to Health (COSHH) is a method that allows employers to control substances that are hazardous to health. Prevent or reduce workers exposure to hazardous substances by maintaining a current information log of these substances.</p>
+                        <p>To add a record, click on the “Add COSHH” button. To amend a record, click on the edit icon of the entry that needs to be modified or deleted.</p>
+
                     <div class="procedure_div">
                         <div class="row">
                             <div class="col-lg-12 text-right">

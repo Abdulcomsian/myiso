@@ -17,10 +17,8 @@
 		
 		<div class="row">
 			<div class="col-lg-12">
-					<p>To add a record, click on
-						the “add an entry” button. To amend or delete a record, click on the
-						edit or delete icon of the entry that needs to be modified or
-						deleted.</p>
+			<p>Customer reviews are a tool to monitor and grade the performance levels of your customers, this performance indicator can target all areas of contact with the customer.</p>
+			<p>To add a record, click on the “Add Customer Evaluation” button. To amend a record, click on the edit icon of the entry that needs to be modified.</p>
                     <div class="procedure_div">
                     	<div class="row">
                     		<div class="col-lg-12 text-right">

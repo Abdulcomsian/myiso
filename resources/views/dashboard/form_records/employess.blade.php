@@ -17,9 +17,8 @@
 
 		<div class="row">
 			<div class="col-lg-12">
-				<p>
-			     To add a record, click on the “Add Employee” button. To amend a record, click on the edit icon of the entry that needs to be modified or deleted.
-				</p>
+			<p>Adding Employees will accurately store all relevant information of working staff, including training & skills.</p>
+			<p>To add a record, click on the “Add Employee” button. To amend a record, click on the edit icon of the entry that needs to be modified or deleted.</p>
 				@if(Session::has('Error'))
 					<h5 class="text-danger">  {{ Session::get('Error') }} </h5>
 				@endif

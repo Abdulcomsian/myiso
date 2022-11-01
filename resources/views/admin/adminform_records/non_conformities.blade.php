@@ -17,7 +17,10 @@
 
         <div class="row">
             <div class="col-lg-12">
-                <p>To add a record, click on the “Add a non-conformity” button. To amend or delete a record, click on the edit or delete icon of the entry that needs to be modified or deleted.</p>
+            <p>A Non-Conformity is the failure to meet one or more requirements that are outlined in the quality management system. For example, you received a shipment of untested products from a customer, or an employee who failed to take corrective action at the time of an issue.</p>
+
+            <p>To create a non-Conformity, click on the “Add Non-Conformity “button and follow the steps outlining the situation in detail.</p>
+
                 <div class="procedure_div">
                     <div class="row">
                         <div class="col-lg-12 text-right">

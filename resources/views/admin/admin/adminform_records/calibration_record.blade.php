@@ -17,7 +17,10 @@
 
 		<div class="row">
 			<div class="col-lg-12">
-                  
+			<p>Calibration is the testing and/or parameter settings of machinery or instruments to ensure they are working correctly. Depending on the environment this could be heavy machinery or a desktop printer. </p>
+
+			<p>To add a record, click on the “Add Calibration Record” button. All Calibration Records created require a frequency of calibration, this is shown on your MyISOOnline control panel as a reminder.</p>
+
                     <div class="procedure_div">
                     	<div class="requirments_table_div">
                     		<h4>Calibration Due</h4>
