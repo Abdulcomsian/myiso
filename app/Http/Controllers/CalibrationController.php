@@ -3,9 +3,12 @@
 namespace App\Http\Controllers;
 
 use App\calibration;
+use App\Helpers\HelperFunctions;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Schema;
 
 class CalibrationController extends Controller
 {
@@ -65,8 +68,17 @@ class CalibrationController extends Controller
            $calibration->freq=$request->input('freq');
            $calibration->calibratedDate=$request->input('calibratedDate');
            $calibration->certificatenumber=$request->input('certificatenumber');
-           $calibration->any_issues=$request->input('any_issues');
+            //Check if user attach evidence
+            if ($request->file('attach_evidence') && Schema::hasColumn('tbl_maintain_recs','attach_evidence')) {
+                //Delete previous attach evidence if exist
+                if (File::exists(public_path($mrecord->attach_evidence))) {
+                    File::delete(public_path($mrecord->attach_evidence));
+                }
 
+                $file = $request->file('attach_evidence');
+                $path = '/uploads/user/attach_evidence/';
+                $mrecord->attach_evidence = HelperFunctions::saveFile($path,$file);
+            }
 
            $calibration->sentence=$request->input('sentence');
            $calibration->save();
@@ -109,10 +121,6 @@ class CalibrationController extends Controller
     public function update(Request $request)
     {
         $id=$request->id;
-        $any_issues = $request->input('any_issues');
-        if($any_issues==NULL){
-            $any_issues="";
-        }
         // try{
             $calibration=calibration::find($id);
                    if(Auth::user()->role_type == "admin"){
@@ -134,8 +142,18 @@ class CalibrationController extends Controller
             $calibration->calibratedDate=$request->input('calibratedDate');
             $calibration->certificatenumber=$request->input('certificatenumber');
             $calibration->sentence=$request->input('sentence');
-            $calibration->any_issues=$any_issues;
-            $calibration->save();
+            //Check if user attach evidence
+            if ($request->file('attach_evidence') && Schema::hasColumn('tbl_maintain_recs','attach_evidence')) {
+                //Delete previous attach evidence if exist
+                if (File::exists(public_path($mrecord->attach_evidence))) {
+                    File::delete(public_path($mrecord->attach_evidence));
+                }
+
+                $file = $request->file('attach_evidence');
+                $path = '/uploads/user/attach_evidence/';
+                $mrecord->attach_evidence = HelperFunctions::saveFile($path,$file);
+            }
+        $calibration->save();
              $notification = [
                 'message' => 'Record  updated successfully.!',
                 'alert-type' => 'success'
@@ -160,7 +178,11 @@ class CalibrationController extends Controller
     public function destroy(Request $request)
     {
         //
-        calibration::find($request->id)->delete();
+        $calibration = calibration::find($request->id);
+        if (File::exists(public_path($calibration->attach_evidence))) {
+            File::delete(public_path($calibration->attach_evidence));
+        }
+        $calibration->delete();
         return redirect('/calibration_record')->with("Success","Data Deleted Successfully");
         
     }

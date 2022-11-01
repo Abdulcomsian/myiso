@@ -112,9 +112,9 @@
 								<div class="row">
 									<div class="col-lg-12">
 										<div class="form-group">
-											<label>Any other issues or points to note?</label>
-											<textarea name="any_issues" class="form-control"
-													  placeholder="Enter Any other issues:"></textarea>
+											<label>Attach Evidence: <span class="text-danger" style="color:#000 !important;">(jpeg, mp3, mp4, .xls, doc)</span></label>
+											<input name="attach_evidence" type="file" class="form-control"
+												   accept="all">
 										</div>
 									</div>
 								</div>
@@ -267,9 +267,9 @@
 				<div class="row">
 					<div class="col-lg-12">
 						<div class="form-group">
-							<label>Any other issues or points to note?</label>
-							<textarea name="any_issues" class="form-control"
-									  placeholder="Enter Any other issues:"></textarea>
+							<label>Attach Evidence: <span class="text-danger" style="color:#000 !important;">(jpeg, mp3, mp4, .xls, doc)</span></label>
+							<input name="attach_evidence" type="file" class="form-control"
+								   accept="all">
 						</div>
 					</div>
 				</div>
@@ -574,9 +574,9 @@
 					<div class="row">
 						<div class="col-lg-12">
 							<div class="form-group">
-								<label>Any other issues or points to note?</label>
-								<textarea name="any_issues" class="form-control"
-										  placeholder="Enter Any other issues:"></textarea>
+								<label>Attach Evidence: <span class="text-danger" style="color:#000 !important;">(jpeg, mp3, mp4, .xls, doc)</span></label>
+								<input name="attach_evidence" type="file" class="form-control"
+									   accept="all">
 							</div>
 						</div>
 					</div>
@@ -606,7 +606,6 @@
          $("input[name='calibrationid']").val(data.calibrationid);
          $("input[name='calibratedDate']").val(data.calibratedDate);
          $("input[name='acceptance']").val(data.acceptance);
-		$("textarea[name='any_issues']").val(data.any_issues);
 		$("#editcustomer_rev").modal('show');
      }
 	 function DeleteModal(data){
