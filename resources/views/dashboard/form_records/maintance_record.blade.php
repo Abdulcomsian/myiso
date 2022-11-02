@@ -295,21 +295,6 @@
                             </div>
                         </div>
                     </div>
-                    <div class="row">
-                        <div class="col-lg-6">
-                            <div class="form-group">
-                                <label>Attach Evidence: <span class="text-danger" style="color:#000 !important;">(jpeg, mp3, mp4, .xls, doc)</span></label>
-                                <input name="attach_evidence" type="file" class="form-control"
-                                       accept="all">
-                            </div>
-                        </div>
-                        <div class="col-lg-6">
-                            <div class="form-group">
-                                <label>Any other issues or points to note?</label>
-                                <textarea name="any_issues" class="form-control" placeholder="Enter Any other issues:"></textarea>
-                            </div>
-                        </div>
-                    </div>
 			</div>
 			<div class="modal-footer">
 				<button type="button" class="btn btn-secondary" data-dismiss="modal">Cancle</button>
@@ -450,13 +435,14 @@
          $("input[name='mritem']").val(data.mritem);
          $("input[name='mrobservation']").val(data.mrobservation);
          $("input[name='mid']").val(data.mid);
-         $("#viewEpmloyee").modal('show');
-         $("input[name='any_issues']").val(data.any_issues);
+        $("input[name='any_issues']").val(data.any_issues);
         if (data.attach_evidence) {
             $('.evidence_attachemnt_div').empty().append(`<span class="text-dark">Click to view evidence <a target="_blank" href="${data.attach_evidence}">Here</a></span>`);
         } else {
             $('.evidence_attachemnt_div').empty().append('No data found');
         }
+         $("#viewEpmloyee").modal('show');
+
 
      }
 

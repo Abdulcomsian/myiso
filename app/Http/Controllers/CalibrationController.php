@@ -145,13 +145,13 @@ class CalibrationController extends Controller
             //Check if user attach evidence
             if ($request->file('attach_evidence') && Schema::hasColumn('tbl_maintain_recs','attach_evidence')) {
                 //Delete previous attach evidence if exist
-                if (File::exists(public_path($mrecord->attach_evidence))) {
-                    File::delete(public_path($mrecord->attach_evidence));
+                if (File::exists(public_path($calibration->attach_evidence))) {
+                    File::delete(public_path($calibration->attach_evidence));
                 }
 
                 $file = $request->file('attach_evidence');
                 $path = '/uploads/user/attach_evidence/';
-                $mrecord->attach_evidence = HelperFunctions::saveFile($path,$file);
+                $calibration->attach_evidence = HelperFunctions::saveFile($path,$file);
             }
         $calibration->save();
              $notification = [

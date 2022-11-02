@@ -428,22 +428,6 @@
 						</div>
 					</div>
 				</div>
-				<div class="row">
-					<div class="col-lg-12">
-						<div class="form-group">
-							<label>Attach Evidence: <span class="text-danger" style="color:#000 !important;">(jpeg, mp3, mp4, .xls, doc)</span></label>
-							<input name="attach_evidence" type="file" class="form-control"
-								   accept="all">
-						</div>
-					</div>
-					<div class="col-lg-12">
-						<div class="form-group">
-							<label>Any other issues or points to note?</label>
-							<textarea name="any_issues" class="form-control"
-									  placeholder="Enter Any other issues:"></textarea>
-						</div>
-					</div>
-				</div>
 			</div>
 			<div class="modal-footer">
 				<button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
@@ -456,8 +440,8 @@
 </div>
 
 <div class="modal fade" id="viewinterestedparty" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-	<div class="modal-dialog modal-lg" role="document">
-		<div class="modal-content ">
+	<div class="modal-dialog" role="document">
+		<div class="modal-content modal-lg">
 			<div class="modal-header">
 				<h5 class="modal-title" id="exampleModalLabel">View Chemical Control Details</h5>
 				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
