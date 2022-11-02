@@ -1,5 +1,15 @@
 @extends('admin.dashboard.layouts.app')
-
+<style>
+	.E_id{
+		width: 200px;
+	}
+	.surname,.firstname{
+		width: 140px;
+	}
+	.actions{
+		width: 180px;
+	}
+</style>
 @section('content')
 <!-- begin:: Content -->
 <div class="kt-content  kt-grid__item kt-grid__item--fluid" id="kt_content">
@@ -200,14 +210,14 @@
 								<table class="common_table table table-striped- table-bordered table-hover table-checkable table-responsive" id="kt_table_agent">
 									<thead>
 										<tr>
-											<th>Employee ID Number</th>
-											<th>Surname</th>
-											<th>Firstname</th>
-											<th>Job Description</th>
+											<th class="E_id">Employee ID Number</th>
+											<th class="surname">Surname</th>
+											<th class="firstname">Firstname</th>
+											<th>Job Details</th>
 											<th>CV</th>
 											<th>Start Date</th>
                                             <!--<th>Job Title</th>-->
-                                            <th>Action</th>
+                                            <th class="actions">Action</th>
 										</tr>
 									</thead>
 									<tbody>
@@ -325,11 +335,20 @@
 									<thead>
 										<tr>
 											{{-- <th>Skills ID</th> --}}
-											<th>Employee ID Number</th>
-											<th>Last Name</th>
-											<th> First Name</th>
+											<th class="E_id">Employee ID Number</th>
+											<th class="surname">Last Name</th>
+											<th class="firstname"> First Name</th>
                                             <th>Skills</th>
-                                            <th>Actions</th>
+                                            <th class="actions">Actions</th>
+											<!-- 
+											<th class="E_id">Employee ID Number</th>
+											<th class="surname">Surname</th>
+											<th class="firstname">Firstname</th>
+											<th>Job Details</th>
+											<th>CV</th>
+											<th>Start Date</th>
+                                            <th>Job Title</th>
+                                            <th class="actions">Action</th> -->
 
 										</tr>
                                     </thead>
@@ -414,14 +433,22 @@
 								<table class="common_table table table-striped- table-bordered table-hover table-checkable table-responsive" id="kt_table_agent">
 									<thead>
 										<tr>
-											<th>Employee ID Number</th>
-											<th>Surname</th>
-											<th>First Name</th>
+											<th class="E_id">Employee ID Number</th>
+											<th class="surname">Surname</th>
+											<th class="firstname">First Name</th>
 											<th>Start Date</th>
 											{{-- <th>Employee Stamp Number</th> --}}
 											<th>Training Date</th>
                                             <th>Training Details</th>
-                                            <th>Actions</th>
+                                            <th class="actions">Actions</th>
+
+											<!-- <th class="E_id">Employee ID Number</th>
+											<th class="surname">Surname</th>
+											<th class="firstname">Firstname</th>
+											<th>Job Details</th>
+											<th>CV</th>
+											<th>Start Date</th>
+                                            <th class="actions">Action</th> -->
 
 										</tr>
                                     </thead>
