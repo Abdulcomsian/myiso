@@ -17,9 +17,8 @@
 
 		<div class="row">
 			<div class="col-lg-12">
-				<p>
-			     To add a record, click on the “Add Employee” button. To amend a record, click on the edit icon of the entry that needs to be modified or deleted.
-				</p>
+			<p>Adding Employees will accurately store all relevant information of working staff, including training & skills.</p>
+			<p>To add a record, click on the “Add Employee” button. To amend a record, click on the edit icon of the entry that needs to be modified or deleted.</p>
 				@if(Session::has('Error'))
 					<h5 class="text-danger">  {{ Session::get('Error') }} </h5>
 				@endif
@@ -67,22 +66,25 @@
 											<label>Start Date (MM/DD/YYY):</label>
 											<input name="startDate" max="2999-12-31" required type="date" class="form-control" >
 										</div>
-									</div>
-									<div class="col-lg-6">
-										<div class="form-group">
-											<label>Job Details:</label>
-											<input type="text" name="jobdetails" required class="form-control"  placeholder="Enter Job Details">
-										</div>
-									</div>
-								</div>
-								<div class="row">
-									<div class="col-lg-6">
+
 										<div class="form-group">
 											<label>Upload Employee CV:</label>
 											<input name="employee_cv" type="file" class="form-control" accept="image/*,.doc, .docx,.txt,.pdf" >
 										</div>
 									</div>
+									<div class="col-lg-6">
+										<div class="form-group">
+											<label>Job Description:</label>
+											<!-- <input type="text" name="jobdetails" required class="form-control"  placeholder="Enter Job Description"> -->
+											<textarea name="jobdetails"  cols="20" rows="5" class="form-control" placeholder="Enter Job Description:"></textarea>
+										</div>
+									</div>
 								</div>
+								<!-- <div class="row">
+									<div class="col-lg-6">
+										
+									</div>
+								</div> -->
 								<button type="reset" onclick="emp1()" class="submitBtn" style="margin-left: 7px;">Cancel</button>
 								<button class="submitBtn">SUBMIT</button>
                     		</form>
@@ -182,14 +184,14 @@
 								<table class="common_table table table-striped- table-bordered table-hover table-checkable table-responsive" id="kt_table_agent">
 									<thead>
 										<tr>
-											<th>Employee ID Number</th>
-											<th>Surname</th>
-											<th>Firstname</th>
+											<th style="width:170px;">Employee ID Number</th>
+											<th style="width:150px;">Surname</th>
+											<th style="width:150px;">Firstname</th>
 											<!--<th>Employee Number</th>-->
-											<th>Start Date</th>
-                                            <th>Job Details</th>
-                                            <th>CV</th>
-                                            <th>Action</th>
+											<th style="width:200px;">Start Date</th>
+                                            <th style="width:240px;">Job Description</th>
+                                            <th style="width:120px;">CV</th>
+                                            <th style="width:150px;">Action</th>
 										</tr>
 									</thead>
 									<tbody>
@@ -202,7 +204,7 @@
 											<td> {{$item->first_name}}</td>
 											<!--<td> {$item->empNumber}</td>-->
 
-											<td> {{date('d-M-Y', strtotime($item->startDate))}}</td>
+											<td> {{date('d/m/Y', strtotime($item->startDate))}}</td>
                                             <td> {{$item->jobdetails}}</td>
                                             <td>
 												@if(!empty($item->cv))
@@ -276,8 +278,9 @@
 																	</div>
 																	<div class="col-lg-6">
 																		<div class="form-group">
-																			<label>Job Details:</label>
-																			<input type="text" name="jobdetails" class="form-control"  placeholder="Enter Job Details:" value="{{$item->jobdetails}}" readonly>
+																			<label>Job Description:</label>
+																			<!-- <input type="text" name="jobdetails" class="form-control"  placeholder="Enter Job Details:" value="{{$item->jobdetails}}" readonly> -->
+																			<textarea name="jobdetails" id="" cols="20" rows="5" class="form-control" placeholder="Enter Job Description:">{{$item->jobdetails}}</textarea>
 																		</div>
 																	</div>
 																</div>
@@ -317,12 +320,12 @@
 									<thead>
 										<tr>
 											<!--<th>Skills ID</th>-->
-											<th>Employee ID Number</th>
-											<th>Surname</th>
-											<th>Firstname</th>
+											<th style="width:170px;">Employee ID Number</th>
+											<th style="width:150px;">Surname</th>
+											<th style="width:150px;">Firstname</th>
 											<!--<th>Employee Number</th>-->
-                                            <th>Skill</th>
-                                            <th>Actions</th>
+                                            <th style="width:560px;">Skill</th>
+                                            <th style="width:150px;">Actions</th>
 
 										</tr>
                                     </thead>
@@ -410,14 +413,14 @@
 								<table class="common_table table table-striped- table-bordered table-hover table-checkable table-responsive" id="kt_table_agent">
 									<thead>
 										<tr>
-											<th>Employee ID Number</th>
-											<th>Surname</th>
-											<th>First Name</th>
-											<th>Start Date</th>
+											<th style="width:170px;">Employee ID Number</th>
+											<th style="width:150px;">Surname</th>
+											<th style="width:150px;">First Name</th>
+											<th style="width:200px;">Start Date</th>
 											{{-- <th>Employee Stamp Number</th> --}}
-											<th>Training Date</th>
-                                            <th>Training Details</th>
-                                            <th>Actions</th>
+											<th style="width:240px;">Training Date</th>
+                                            <th style="width:120px;">Training Details</th>
+                                            <th style="width:150px;">Actions</th>
 
 										</tr>
                                     </thead>
@@ -429,8 +432,8 @@
 											<td> {{$item->surname}}</td>
                                             <td> {{$item->first_name}}</td>
 
-											<td> {{date('d-M-Y', strtotime($item->startDate))}}</td>
-											<td> {{date('d-M-Y', strtotime($item->traningdate))}} </td>
+											<td> {{date('d/m/Y', strtotime($item->startDate))}}</td>
+											<td> {{date('d/m/Y', strtotime($item->traningdate))}} </td>
                                             <td> {{$item->traningdetails}}</td>
                                             <td>
 												<button onclick="getEidtraining({{json_encode($item)}});" class="btn btn-sm btn-clean btn-icon btn-icon-md" title="Edit"><span class="svg-icon svg-icon-md">									<span class="svg-icon svg-icon-md">									<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="18px" height="18px" viewBox="0 0 24 24" version="1.1">										<g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">											<rect x="0" y="0" width="24" height="24"></rect>											<path d="M12.2674799,18.2323597 L12.0084872,5.45852451 C12.0004303,5.06114792 12.1504154,4.6768183 12.4255037,4.38993949 L15.0030167,1.70195304 L17.5910752,4.40093695 C17.8599071,4.6812911 18.0095067,5.05499603 18.0083938,5.44341307 L17.9718262,18.2062508 C17.9694575,19.0329966 17.2985816,19.701953 16.4718324,19.701953 L13.7671717,19.701953 C12.9505952,19.701953 12.2840328,19.0487684 12.2674799,18.2323597 Z" fill="#5d78ff" fill-rule="nonzero" transform="translate(14.701953, 10.701953) rotate(-135.000000) translate(-14.701953, -10.701953) "></path>											<path d="M12.9,2 C13.4522847,2 13.9,2.44771525 13.9,3 C13.9,3.55228475 13.4522847,4 12.9,4 L6,4 C4.8954305,4 4,4.8954305 4,6 L4,18 C4,19.1045695 4.8954305,20 6,20 L18,20 C19.1045695,20 20,19.1045695 20,18 L20,13 C20,12.4477153 20.4477153,12 21,12 C21.5522847,12 22,12.4477153 22,13 L22,18 C22,20.209139 20.209139,22 18,22 L6,22 C3.790861,22 2,20.209139 2,18 L2,6 C2,3.790861 3.790861,2 6,2 L12.9,2 Z" fill="#5d78ff" fill-rule="nonzero" opacity="0.3"></path>										</g>									</svg>	                            </span>
@@ -589,8 +592,9 @@
                             </div>
                             <div class="col-lg-6">
                                 <div class="form-group">
-                                    <label>Job Details:</label>
-                                    <input type="text" name="jobdetails" class="form-control"  placeholder="Enter Job Details:">
+                                    <label>Job Description:</label>
+                                    <!-- <input type="text" name="jobdetails" class="form-control"  placeholder="Enter Job Description:"> -->
+									<textarea name="jobdetails" id="jobdetails2" cols="20" rows="5" class="form-control" placeholder="Enter Job Description:"></textarea>
                                 </div>
                             </div>
                         </div>
@@ -778,7 +782,11 @@
          $("#editproject").val(data.id);
          $("input[name='empNumber']").val(data.empNumber);
          $("input[name='first_name']").val(data.first_name);
-         $("input[name='jobdetails']").val(data.jobdetails);
+        //  $("input[name='jobdetails']").val(data.jobdetails);
+		//  $("input[name='jobdetails']").append(data.jobdetails); 
+		//  $("input[name='jobdetails']").append(data.jobdetails); 
+		// $("textarea").val(data.jobdetails);
+		 $("#jobdetails2").val(data.jobdetails);
          $("input[name='startDate']").val(data.startDate);
          $("input[name='surname']").val(data.surname);
          $("input[name='systemid']").val(data.systemid);

@@ -17,12 +17,8 @@
 
 		<div class="row">
 			<div class="col-lg-12">
-					<p>To add a record, click on the “Add
-						QMS Audit Details” button. To amend a record, click on the edit icon of
-						the entry that needs to be modified.</p>
-                    <p>This audit is a horizontal audit against each clause in the standard. The frequency of this audit will typically be annually and is used to determine the level of compliance to ISO 9001:2015.</p>
-					<p>Audits will be conducted in accordance with
-						<a href="{{url('auidt')}}">Audits</a></p>
+			<p>This audit is a horizontal audit against each clause in the standard. The frequency of this audit will typically be annually and is used to determine the level of compliance to your ISO Standard.</p>
+					<p>To add a record, click on the “Add QMS Audit Details” button. To amend a record, click on the edit icon of the entry that needs to be modified. Audits will be conducted in accordance with <a href="{{url('auidt')}}">Audits</a></p>
                     <div class="procedure_div">
                     	<div class="row">
                     		<div class="col-lg-12 text-right">
@@ -862,7 +858,7 @@
 									</div>
 									<div class="col-lg-12">
 										<div class="form-group">
-											<label>Attach Evidence:</label>
+											<label>Attach Evidence (jpeg, mp3, mp4, .xls, doc):</label>
 											<input name="attach_evidence" type="file" class="form-control" accept="image/*,.doc, .docx,.txt,.pdf">
 										</div>
 									</div>
@@ -932,7 +928,7 @@
                                                 {{$i++}}
                                             </td>
                                             <td>
-												{{date('d-M-Y', strtotime($item->competedDate))}}
+												{{date('d/m/Y', strtotime($item->competedDate))}}
                                                 
 
                                             </td>
@@ -1827,7 +1823,7 @@
 									</div>
 									<div class="col-lg-12">
 										<div class="form-group">
-											<label>Attach Evidence:</label>
+											<label>Attach Evidence (jpeg, mp3, mp4, .xls, doc):</label>
 											<div class="evidence_attachemnt_div">
 											</div>
 										</div>
@@ -2700,7 +2696,7 @@
 									</div>
 									<div class="col-lg-12">
 										<div class="form-group">
-											<label>Attach Evidence:</label>
+											<label>Attach Evidence (jpeg, mp3, mp4, .xls, doc):</label>
 											<input name="attach_evidence" type="file" class="form-control" accept="image/*,.doc, .docx,.txt,.pdf">
 										</div>
 									</div>

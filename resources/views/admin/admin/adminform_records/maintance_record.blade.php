@@ -17,7 +17,9 @@
 
 		<div class="row">
 			<div class="col-lg-12">
-                  
+            <p>Carrying out frequent maintenance checks and repairs are necessary to maintain production and service. Maintenance Reviews within the working environment including equipment should be carried out monthly, quarterly, semiannually, or annually depending on the size and nature of the business.</p>
+
+<p>To add a record, click on the “Add Maintenance Record” button. To amend a record, click on the edit icon of the entry that needs to be modified or deleted.</p>
                     <div class="procedure_div">
                     	<div class="requirments_table_div">
                     		<h4>Total Records Listed</h4>

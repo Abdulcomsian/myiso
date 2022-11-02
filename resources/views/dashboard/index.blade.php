@@ -200,11 +200,11 @@
                                     @php
                                         $d = strtotime($data->completion_date);
                                     @endphp
-                                    <td>{{date("d-M-Y", $d) }}</td>
-                                <!--<td>{{date('d-m-Y', strtotime($data->completion_date))}}</td>-->
+                                    <td>{{date("d/m/Y", $d) }}</td>
+                                <!--<td>{{date('d/m/Y', strtotime($data->completion_date))}}</td>-->
                                     <td>{{ $data->periods }}</td>
                                     @php $d = strtotime("+$data->periods months",strtotime($data->completion_date)); @endphp
-                                    <td>{{ date("d-M-Y",$d)}}</td>
+                                    <td>{{ date("d/m/Y",$d)}}</td>
                                 <!--<td>{{ $data->due_date}}</td>-->
                                     <td><a href="#" data-id="{{$data->id}}" class="delete_requirement"
                                            class="btn btn-sm btn-clean btn-icon btn-icon-md" title="Delete">
@@ -276,12 +276,12 @@
                                 <td>{{$data->equipment}}</td>
                                 <td>{{$data->serialNum}}</td>
                                 <!--@php $d = strtotime("+$data->calibratedDate months",strtotime($data->calibratedDate)); @endphp-->
-                            <!--                 <td>{{ date("d-M-Y",$d)}}</td>-->
-                                <td>{{date('d-M-Y', strtotime($data->calibratedDate))}}</td>
+                            <!--                 <td>{{ date("d/m/Y",$d)}}</td>-->
+                                <td>{{date('d/m/Y', strtotime($data->calibratedDate))}}</td>
                                 <td>{{$data->freq}}</td>
                                 @php $d = strtotime("+$data->freq months",strtotime($data->calibratedDate));
                                 @endphp
-                                <td> {{ date("d-M-Y", $d) }}</td>
+                                <td> {{ date("d/m/Y", $d) }}</td>
                                 <td><a href="javascript:;" data-toggle="modal" data-id="{{$data->id}}"
                                        class="calibrationModal" class="btn btn-sm btn-clean btn-icon btn-icon-md"
                                        title="Delete"> <span class="svg-icon svg-icon-md">									<svg
@@ -348,7 +348,7 @@
                                                 </a>
                                             </td>
                                             <td>{{ $user['iso9001_description'] }}</td>
-                                            <td>{{  date("d-M-Y", strtotime($user['iso9001_expirydate'])) }}</td>
+                                            <td>{{  date("d/m/Y", strtotime($user['iso9001_expirydate'])) }}</td>
                                         </tr>
                                     @endif
                                     @if($user['iso14001_certificate'])
@@ -360,7 +360,7 @@
                                                 </a>
                                             </td>
                                             <td>{{ $user['iso14001_description'] }}</td>
-                                            <td>{{  date("d-M-Y", strtotime($user['iso14001_expirydate'])) }}</td>
+                                            <td>{{  date("d/m/Y", strtotime($user['iso14001_expirydate'])) }}</td>
                                         </tr>
                                     @endif
                                     @if($user['iso45001_certificate'])
@@ -372,7 +372,7 @@
                                                 </a>
                                             </td>
                                             <td>{{ $user['iso45001_description'] }}</td>
-                                            <td>{{  date("d-M-Y", strtotime($user['iso45001_expirydate'])) }}</td>
+                                            <td>{{  date("d/m/Y", strtotime($user['iso45001_expirydate'])) }}</td>
                                         </tr>
                                     @endif
                                     </tbody>

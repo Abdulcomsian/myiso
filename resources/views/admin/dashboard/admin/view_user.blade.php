@@ -249,8 +249,8 @@
 
                                 <td>
                                     @if($item->created_at !=NULL)
-                                        <!-- {{ date('d-m-y H:i:sA', strtotime($item->created_at)) }} -->
-                                        {{ date('d-M-y', strtotime($item->created_at)) }}
+                                        <!-- {{ date('d/m/Y H:i:sA', strtotime($item->created_at)) }} -->
+                                        {{ date('d/m/Y', strtotime($item->created_at)) }}
                                     @endif
                                 </td>
                                  @php
@@ -264,38 +264,38 @@
                                   
                                     if($iso9001==null &&  $iso14001==null  && $iso45001==null){
                                   
-                                        $minValue = date('d-M-Y', strtotime('+3 years'));
+                                        $minValue = date('d/m/Y', strtotime('+3 years'));
                                           
                                     }else if($iso9001 != null && $iso14001 == null  && $iso45001 == null){
                                     $minValue=$x;
-                                    $minValue = date('d-M-Y', $minValue);
+                                    $minValue = date('d/m/Y', $minValue);
                                     }else if($iso9001 == null && $iso14001 != null  && $iso45001 == null){
                                    
                                     $minValue=$y;
-                                    $minValue = date('d-M-Y', $minValue);
+                                    $minValue = date('d/m/Y', $minValue);
                                     }else if($iso9001 == null && $iso14001 == null  && $iso45001 != null){
                                    
                                     $minValue=$z;
-                                  $minValue = date('d-M-Y', $minValue);
+                                  $minValue = date('d/m/Y', $minValue);
                                     }else if($iso9001 != null && $iso14001 != null  && $iso45001 == null){  
                                     $minValue=min($x,$y);
-                                        $minValue = date('d-M-Y', $minValue);
+                                        $minValue = date('d/m/Y', $minValue);
                                     }else if($iso9001 != null && $iso14001 == null  && $iso45001 != null){
                                     $minValue=min($x,$z);
-                                        $minValue = date('d-M-Y', $minValue);
+                                        $minValue = date('d/m/Y', $minValue);
                                     }else if($iso9001 == null && $iso14001 != null  && $iso45001 != null){  
                                     $minValue=min($y,$z);
-                                        $minValue = date('d-M-Y', $minValue);
+                                        $minValue = date('d/m/Y', $minValue);
                                     }else{
                                         $minValue=min($x,min($y,$z));
-                                            $minValue = date('d-M-Y', $minValue);
+                                            $minValue = date('d/m/Y', $minValue);
                                     }
                                     
                                     @endphp
 
                                 <td>
                                     @php if($item->last_login!=NULL){ @endphp
-                                    {{ date('d-M-y', strtotime($item->last_login)) }}
+                                    {{ date('d/m/Y', strtotime($item->last_login)) }}
                                     @php } @endphp
                                 </td>
 

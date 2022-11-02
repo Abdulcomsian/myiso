@@ -18,9 +18,8 @@
 
 		<div class="row">
 			<div class="col-lg-12">
-					<p>To add a record, click on the “Add
-						Supplier” button. To amend or delete a record, click on the edit or delete
-						icon of the entry that needs to be modified or deleted.</p>
+            <p>A Suppliers review is a tool to monitor and grade the performance levels of your suppliers, this performance indicator can target all areas of contact with the supplier.</p>
+			<p>To add a record, click on the "Add Supplier" button. To amend or delete a record, click on the edit or delete icon of the entry that needs to be modified or deleted.</p>
                     <div class="procedure_div">
                     	<div class="row">
                     		<div class="col-lg-12 text-right">
@@ -163,16 +162,19 @@
                                             <td>{{$data->supplierContactNumber}}</td>
 											<td>{{$data->supplierservc}}</td>
 											<td>
-											<button  class="btn btn-sm btn-clean btn-icon btn-icon-md" title="Edit" onclick="getEid({{$data}});"><span class="svg-icon svg-icon-md">									<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="18px" height="18px" viewBox="0 0 24 24" version="1.1">										<g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">											<rect x="0" y="0" width="24" height="24"></rect>											<path d="M12.2674799,18.2323597 L12.0084872,5.45852451 C12.0004303,5.06114792 12.1504154,4.6768183 12.4255037,4.38993949 L15.0030167,1.70195304 L17.5910752,4.40093695 C17.8599071,4.6812911 18.0095067,5.05499603 18.0083938,5.44341307 L17.9718262,18.2062508 C17.9694575,19.0329966 17.2985816,19.701953 16.4718324,19.701953 L13.7671717,19.701953 C12.9505952,19.701953 12.2840328,19.0487684 12.2674799,18.2323597 Z" fill="#5d78ff" fill-rule="nonzero" transform="translate(14.701953, 10.701953) rotate(-135.000000) translate(-14.701953, -10.701953) "></path>											<path d="M12.9,2 C13.4522847,2 13.9,2.44771525 13.9,3 C13.9,3.55228475 13.4522847,4 12.9,4 L6,4 C4.8954305,4 4,4.8954305 4,6 L4,18 C4,19.1045695 4.8954305,20 6,20 L18,20 C19.1045695,20 20,19.1045695 20,18 L20,13 C20,12.4477153 20.4477153,12 21,12 C21.5522847,12 22,12.4477153 22,13 L22,18 C22,20.209139 20.209139,22 18,22 L6,22 C3.790861,22 2,20.209139 2,18 L2,6 C2,3.790861 3.790861,2 6,2 L12.9,2 Z" fill="#5d78ff" fill-rule="nonzero" opacity="0.3"></path>										</g>									</svg>	                            </span>
-											</button>
-											<button class="btn btn-sm btn-clean btn-icon btn-icon-md" title="Delete" onclick="deleteModal({{$data}});"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="18px" height="18px" viewBox="0 0 24 24" version="1.1">										<g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">											<rect x="0" y="0" width="24" height="24"></rect>											<path d="M6,8 L6,20.5 C6,21.3284271 6.67157288,22 7.5,22 L16.5,22 C17.3284271,22 18,21.3284271 18,20.5 L18,8 L6,8 Z" fill="#5d78ff" fill-rule="nonzero"></path>											<path d="M14,4.5 L14,4 C14,3.44771525 13.5522847,3 13,3 L11,3 C10.4477153,3 10,3.44771525 10,4 L10,4.5 L5.5,4.5 C5.22385763,4.5 5,4.72385763 5,5 L5,5.5 C5,5.77614237 5.22385763,6 5.5,6 L18.5,6 C18.7761424,6 19,5.77614237 19,5.5 L19,5 C19,4.72385763 18.7761424,4.5 18.5,4.5 L14,4.5 Z" fill="#5d78ff" opacity="0.3"></path>										</g>									</svg>
-											</button>
+											    <button  class="btn btn-sm btn-clean btn-icon btn-icon-md" title="Edit" onclick="getEid({{$data}});"><span class="svg-icon svg-icon-md">									<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="18px" height="18px" viewBox="0 0 24 24" version="1.1">										<g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">											<rect x="0" y="0" width="24" height="24"></rect>											<path d="M12.2674799,18.2323597 L12.0084872,5.45852451 C12.0004303,5.06114792 12.1504154,4.6768183 12.4255037,4.38993949 L15.0030167,1.70195304 L17.5910752,4.40093695 C17.8599071,4.6812911 18.0095067,5.05499603 18.0083938,5.44341307 L17.9718262,18.2062508 C17.9694575,19.0329966 17.2985816,19.701953 16.4718324,19.701953 L13.7671717,19.701953 C12.9505952,19.701953 12.2840328,19.0487684 12.2674799,18.2323597 Z" fill="#5d78ff" fill-rule="nonzero" transform="translate(14.701953, 10.701953) rotate(-135.000000) translate(-14.701953, -10.701953) "></path>											<path d="M12.9,2 C13.4522847,2 13.9,2.44771525 13.9,3 C13.9,3.55228475 13.4522847,4 12.9,4 L6,4 C4.8954305,4 4,4.8954305 4,6 L4,18 C4,19.1045695 4.8954305,20 6,20 L18,20 C19.1045695,20 20,19.1045695 20,18 L20,13 C20,12.4477153 20.4477153,12 21,12 C21.5522847,12 22,12.4477153 22,13 L22,18 C22,20.209139 20.209139,22 18,22 L6,22 C3.790861,22 2,20.209139 2,18 L2,6 C2,3.790861 3.790861,2 6,2 L12.9,2 Z" fill="#5d78ff" fill-rule="nonzero" opacity="0.3"></path>										</g>									</svg>	                            </span>
+											    </button>
+											    <button class="btn btn-sm btn-clean btn-icon btn-icon-md" title="Delete" onclick="deleteModal({{$data}});"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="18px" height="18px" viewBox="0 0 24 24" version="1.1">										<g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">											<rect x="0" y="0" width="24" height="24"></rect>											<path d="M6,8 L6,20.5 C6,21.3284271 6.67157288,22 7.5,22 L16.5,22 C17.3284271,22 18,21.3284271 18,20.5 L18,8 L6,8 Z" fill="#5d78ff" fill-rule="nonzero"></path>											<path d="M14,4.5 L14,4 C14,3.44771525 13.5522847,3 13,3 L11,3 C10.4477153,3 10,3.44771525 10,4 L10,4.5 L5.5,4.5 C5.22385763,4.5 5,4.72385763 5,5 L5,5.5 C5,5.77614237 5.22385763,6 5.5,6 L18.5,6 C18.7761424,6 19,5.77614237 19,5.5 L19,5 C19,4.72385763 18.7761424,4.5 18.5,4.5 L14,4.5 Z" fill="#5d78ff" opacity="0.3"></path>										</g>									</svg>
+											    </button>
                                             	<!-- new  -->
-													<button class="btn btn-sm btn-clean btn-icon btn-icon-md"
+													<!-- <button class="btn btn-sm btn-clean btn-icon btn-icon-md"
 															title="View Customer Details" value="" o data-toggle="modal" data-target="#model3"><i
 																class="fa fa-eye"></i>
-													</button>
-
+													</button> -->
+                                                
+                                                    <button class="btn btn-sm btn-clean btn-icon btn-icon-md" title="view"
+                                                        onclick="viewEid({{$data}});"><i class="fa fa-eye"></i>
+                                                </button>
 
 													<!-- Modal -->
 													<div class="modal fade" id="model3" tabindex="-1" role="dialog" aria-labelledby="model3Label" aria-hidden="true">
@@ -288,8 +290,8 @@
 			</div>
 		</div>
 	</div>
-</div>
-<div class="modal fade" id="editSupplier" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    </div>
+    <div class="modal fade" id="editSupplier" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
 	<div class="modal-dialog modal-lg" role="document">
 		<div class="modal-content">
 			<div class="modal-header">
@@ -397,6 +399,122 @@
 		</div>
 	</div>
 </div>
+
+
+<div class="modal fade" id="viewSupplier" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+         aria-hidden="true">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">View Supplier Details</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form>
+                        @csrf
+                        <input type="hidden" name="id" id="id_feild" value="">
+
+                        <div class="row">
+                            <div class="col-lg-6">
+                                <div class="form-group">
+                                    <label>Supplier ID
+                                        number:</label><br>
+                                    <input type="number" class="form-control" name="idnumber" placeholder="Enter ID:" readonly>
+                                </div>
+                            </div>
+                            <div class="col-lg-12">
+                                <div class="form-group">
+                                    <label>Supplier Name:</label><br>
+                                    <input type="text" class="form-control" name="suppliername"
+                                           placeholder="Enter Supplier Name:" readonly>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <div class="form-group">
+                                    <label>Supplier Address:</label>
+                                    <input type="text" name="supplieraddress" class="form-control"
+                                           placeholder="Enter Supplier Address:" readonly>
+                                </div>
+                            </div>
+                            {{-- <div class="col-lg-6">
+                                <div class="form-group">
+                                    <label>City:</label>
+                                    <input type="text"  name="suppliercity" class="form-control" placeholder="Enter City:" readonly>
+                                </div>
+                            </div> --}}
+                        </div>
+                        {{-- <div class="row"> --}}
+                        {{-- <div class="col-lg-6">
+                            <div class="form-group">
+                                <label>County or State:</label>
+                                <input type="text" name="supplierstate" class="form-control" placeholder="Enter Country or State:" readonly>
+                            </div>
+                        </div> --}}
+                        {{-- <div class="col-lg-6">
+                            <div class="form-group">
+                                <label>Post Code or Zip Code:</label>
+                                <input type="text" name="supplierzip" class="form-control" placeholder="Enter Customer Contact Number:" readonly>
+                            </div>
+                        </div>
+                    </div> --}}
+                        <div class="row">
+                            <div class="col-lg-6">
+                                <div class="form-group">
+                                    <label>Country:</label>
+                                    <input type="text" name="suppliercountry" class="form-control"
+                                           placeholder="Enter Country" readonly>
+                                </div>
+                            </div>
+                            <div class="col-lg-6">
+                                <div class="form-group">
+                                    <label style="display:block;">Supplier Telephone:</label>
+                                    <div id="view_phone_div">
+                                    </div>
+                                    <input type="hidden" name="phonecode" id="phonecode2">
+                                    <input type="hidden" name="phoneflag" id="phoneflag2">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-6">
+                                <div class="form-group">
+                                    <label>Supplier Email Address:</label>
+                                    <input type="email" name="supplieremail" class="form-control"
+                                           placeholder="Enter Supplier Email:" readonly>
+                                </div>
+                            </div>
+                            <div class="col-lg-6">
+                                <div class="form-group">
+                                    <label>Supplier Contact Name:</label>
+                                    <input type="text" name="supplierContactNumber" class="form-control"
+                                           placeholder="Enter Supplier Contact Number:" readonly>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <div class="form-group">
+                                    <label>Services:</label>
+                                    <input type="text" name="supplierservc" class="form-control"
+                                           placeholder="Enter Supplier Service:" readonly>
+                                </div>
+                            </div>
+                        </div>
+
+                </div>
+                <div class="modal-footer">
+
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+
+                </div>
+                </form>
+            </div>
+        </div>
+    </div>
 @endsection
 
 <script>
@@ -442,6 +560,44 @@
          $("#deleteSupplier").modal('show');
 
      }
+
+     function viewEid(data) {
+        console.log(data);
+        $('#view_phone_div').empty().append(`<input type="text" name="supplierphn" class="form-control" id="editphone2" placeholder="Enter Supplier Telephone:"/>`);
+        $("#id_feild").val(data.id);
+        $("input[name='idnumber']").val(data.idnumber);
+        $("input[name='supplierContactNumber']").val(data.supplierContactNumber);
+        $("input[name='supplieraddress']").val(data.supplieraddress);
+        $("input[name='suppliercity']").val(data.suppliercity);
+        $("input[name='suppliercountry']").val(data.suppliercountry);
+        $("input[name='supplieremail']").val(data.supplieremail);
+        $("input[name='suppliername']").val(data.suppliername);
+        $("input[name='supplierphn']").val(data.supplierphn);
+        $("input[name='supplierservc']").val(data.supplierservc);
+        $("input[name='supplierstate']").val(data.supplierstate);
+        $("input[name='supplierzip']").val(data.supplierzip);
+        var input = document.querySelector("#editphone2");
+        let phoneflag = '';
+
+        if(data.phoneflag == 'preferred' || data.phoneflag == null){
+            phoneflag = 'us';
+        }else{
+            phoneflag = data.phoneflag;
+        }
+
+        window.intlTelInput(input, {
+            separateDialCode: true,
+            initialCountry: phoneflag ,
+            customPlaceholder: function (
+                selectedCountryPlaceholder,
+                selectedCountryData
+            ) {
+                return "e.g. " + selectedCountryPlaceholder;
+            },
+        });
+        $("#viewSupplier").modal('show');
+        $('#addcust').resetForm();
+    }
  </script>
 
  @section('myscript')

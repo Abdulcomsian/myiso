@@ -17,7 +17,8 @@
 		
 		<div class="row">
 			<div class="col-lg-12">
-				<p>To add a record, complete the form below and select the add button. To amend a record, fill in the form with the correct record number and include the new data and select update. You do need to complete the whole form.</p>
+			<p>Adding Employees will accurately store all relevant information of working staff, including training & skills.</p>
+			<p>To add a record, click on the “Add Employee” button. To amend a record, click on the edit icon of the entry that needs to be modified or deleted.</p>
                     <div class="procedure_div">
                     	<div class="row">
                     		<div class="col-lg-12 text-right">

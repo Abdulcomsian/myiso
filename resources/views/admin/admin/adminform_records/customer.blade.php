@@ -17,7 +17,8 @@
 
 		<div class="row">
 			<div class="col-lg-12">
-					<p>To add a record, complete the form below and select the add button. To amend a record, fill in the form with the correct record number and include the new data and select update. You do need to complete the whole form.</p>
+					<p>Customers should be listed so that internal audits can be carried out on their delivery / service quality assessments, but also used to assist with customer satisfaction surveys. </p>
+					<p>To add a record, click on the “Add Customer” button. To amend a record, click on the edit icon of the entry that needs to be modified.</p>
                     
                     <div class="procedure_div">
                     	<div class="requirments_table_div">

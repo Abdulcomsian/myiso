@@ -221,7 +221,7 @@
                                             <td>{{$data->scop}}</td>
                                            
                                             <td>{{isset($data->CompiledBy) ? $data->CompiledBy :''}}</td>
-                                            <td>{{date('d-M-Y', strtotime($data->issueDate))}}</td>
+                                            <td>{{date('d/m/Y', strtotime($data->issueDate))}}</td>
                                             <td>{{$data->revisionstatus}}</td>
                                             <td>
                                                 <button  class="btn btn-sm btn-clean btn-icon btn-icon-md" title="View" onclick="getEid({{$data}});"><i class="fa fa-eye"></i>
@@ -291,7 +291,7 @@
 											<td> {{$item->first_name}}</td>
 											<!--<td> {$item->empNumber}</td>-->
 											
-											<td> {{date('d-M-Y', strtotime($item->startDate))}}</td>
+											<td> {{date('d/m/Y', strtotime($item->startDate))}}</td>
                                             <td> {{$item->jobdetails}}</td>
                             
 

@@ -286,16 +286,55 @@ public function store(Request $request)
         // $getprocess=Audit::where('user_id',$request)->get();
         if($request->ajax())
         {
-            //  dd($request->all());
+            //  dd($request->start_date);
              
              //&& $request->month
             if($request->type=="month")
             {
-                // dd( $request->end_date);
-                $users=AddUsers::where([["last_login",">=", $request->start_date],["last_login","<=", $request->end_date]])->get();
+                $start_date = date("Y-m-d", strtotime($request->start_date));
+                $end_date =  date('Y-m-d', strtotime("+1 day", strtotime($request->end_date)));
+              //  $end_date = date("Y-m-d", strtotime($request->end_date));
+                //$end_date = date("YYYY-mm-dd",$request->end_date);
+               // dd($end_date);
+                if(isset($request->filter_by_certificate)){
+                  
+                    if($request->filter_by_certificate=="iso9001_certificate"){  
+                        $users=AddUsers::where([["last_login",">=", $start_date],["last_login","<=", $end_date]])->where("iso9001_certificate","!=", NULL)->where("iso14001_certificate", NULL)->where("iso45001_certificate",NULL)->get();
+                    }else if($request->filter_by_certificate=="iso14001_certificate"){
+                        $users=AddUsers::where([["last_login",">=", $start_date],["last_login","<=", $end_date]])->where("iso14001_certificate","!=", NULL)->where("iso9001_certificate", NULL)->where("iso45001_certificate",NULL)->get();
+                    }else if($request->filter_by_certificate=="iso45001_certificate"){
+                        $users=AddUsers::where([["last_login",">=", $start_date],["last_login","<=", $end_date]])->where("iso45001_certificate","!=", NULL)->where("iso9001_certificate", NULL)->where("iso14001_certificate",NULL)->get();
+                    }else if($request->filter_by_certificate=="all"){
+                        $users = AddUsers::whereBetween('last_login',[$start_date,$end_date])
+                            ->where(function($q)
+                        {
+                          $q->orWhereNotNull("iso9001_certificate")->orWhereNotNull("iso14001_certificate")->orWhereNotNull("iso45001_certificate");
+                        })->get();
+//                        $users=AddUsers::where([["last_login",">=", $start_date],["last_login","<=", $end_date]])->whereNotNull("iso9001_certificate")->orWhereNotNull("iso14001_certificate")->orWhereNotNull("iso45001_certificate")->get();
+                    }else if($request->filter_by_certificate=="ims"){
+                        $users = AddUsers::whereBetween('last_login',[$start_date,$end_date])
+                            ->where(function($q)
+                            {
+                                $q->whereNotNull("iso9001_certificate")->whereNotNull("iso14001_certificate")->whereNotNull("iso45001_certificate");
+                            })->get();
+//                        $users=AddUsers::where([["last_login",">=", $start_date],["last_login","<=", $end_date]])->where("iso45001_certificate","!=", NULL)->where("iso9001_certificate","!=", NULL)->where("iso14001_certificate","!=", NULL)->get();
+                    }
+                    // if(isset($request->start_date) && isset($request->end_date)){
+                    //     dd("here");
+                    // }else if(isset($request->start_date) && $request->end_date==NULL){
+                    //     dd("start date only");
+                    // }else if(isset($request->end_date) && $request->start_date==NULL){
+                    //     dd("end date only");
+                    // }else{
+                    //     dd("no date selected");
+                    // }
+                    // dd($users);
+                }else{
+                    dd("Please select Certification");
+                }
                 // $users=AddUsers::where("last_login",">", Carbon::now()->subMonths($request->month))->get();
 
-                // print_r($users);
+                
             }
             elseif($request->type="certificate" && $request->cert){
                 //  dd($request->cert);
@@ -320,9 +359,11 @@ public function store(Request $request)
                 
             }
             else{
-                $users=AddUsers::where('role_type','user')->get();
+              //  $users=AddUsers::where('role_type','user')->get();
+                $users='';
             }
-            if($users)
+           
+            if(isset($users))
             {
                 $list='';
                 $option='';
@@ -474,7 +515,6 @@ public function store(Request $request)
 
     }
     public function AccidentCheck($request){
-
         $riskassesment=AccidentRisk::where('user_id',$request)->orderBy('id','DESC')->get();
         return view('admin.adminform_records.accident_risk_assesment',compact('riskassesment'));
 

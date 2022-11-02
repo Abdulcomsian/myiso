@@ -27,7 +27,7 @@
                     		</div>
                     	</div>
                     	<div class="accident_risk_from_div">
-                            <form method="POST" action="{{route('accident_risk')}} " class="addForm">
+                            <form method="POST" action="{{route('accident_risk')}} " class="addForm" >
                                 @csrf
                                 
                                                     @csrf
@@ -101,6 +101,19 @@
 											<input type="number" class="form-control" required min="1" max="6"  name="reviseRiskSever" onkeypress='return event.charCode >= 48 && event.charCode <= 57'>
 										</div>
 									</div>
+                                    <div class="col-lg-6">
+                                        <div class="form-group">
+                                            <label>Attach Evidence: <span class="text-danger" style="color:#000 !important;">(jpeg, mp3, mp4, .xls, doc)</span></label>
+                                            <input name="attach_evidence" type="file" class="form-control"
+                                                   accept="all">
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6">
+                                        <div class="form-group">
+                                            <label>Any other issues or points to note?</label>
+                                            <textarea name="any_issues" class="form-control" placeholder="Enter Any other issues:"></textarea>
+                                        </div>
+                                    </div>
 								</div>
 								<button type="submit" class="submitBtn">SUBMIT</button>
 									<button type="reset" onclick="accidentRiskForm()" class="btn btn-secondary submitBtn " style="margin-right:7px;">Cancel</button>
@@ -252,6 +265,18 @@
                                 <input type="number" class="form-control" min="1" required  max="6" name="reviseRiskSever" onkeypress='return event.charCode >= 48 && event.charCode <= 57'>
                             </div>
                         </div>
+                        <div class="col-lg-6">
+                            <div class="form-group">
+                                <label>Attach Evidence <span class="text-danger" style="color:#000 !important;">(jpeg, mp3, mp4, .xls, doc)</span>:</label>
+                                <div class="evidence_attachemnt_div"></div>
+                            </div>
+                        </div>
+                        <div class="col-lg-6">
+                            <div class="form-group">
+                                <label>Any other issues or points to note?</label>
+                                <textarea name="any_issues" class="form-control" placeholder="Enter Any other issues:"></textarea>
+                            </div>
+                        </div>
                     </div>
 					<button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
                 </form>
@@ -267,7 +292,7 @@
 				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
 				</button>
             </div>
-            <form  action="{{route('accidentedit')}}" method="POST">
+            <form  action="{{route('accidentedit')}}" method="POST" enctype="multipart/form-data">
                 @csrf
                 
                                     @csrf
@@ -343,6 +368,19 @@
                                 <input type="number" class="form-control validate_number" min="1" required max="6" name="reviseRiskSever" onkeypress='return event.charCode >= 48 && event.charCode <= 57'>
                             </div>
                         </div>
+                        <div class="col-lg-6">
+                            <div class="form-group">
+                                <label>Attach Evidence: <span class="text-danger" style="color:#000 !important;">(jpeg, mp3, mp4, .xls, doc)</span></label>
+                                <input name="attach_evidence" type="file" class="form-control"
+                                       accept="all">
+                            </div>
+                        </div>
+                        <div class="col-lg-6">
+                            <div class="form-group">
+                                <label>Any other issues or points to note?</label>
+                                <textarea name="any_issues" class="form-control" placeholder="Enter Any other issues:"></textarea>
+                            </div>
+                        </div>
                     </div>
 
         </div>
@@ -372,6 +410,12 @@
          $("input[name='envaccident']").val(data.envaccident);
          $("input[name='consequences']").val(data.consequences);
          $("input[name='activityscenario']").val(data.activityscenario);
+         $("textarea[name='any_issues']").val(data.any_issues);
+        if (data.attach_evidence) {
+            $('.evidence_attachemnt_div').empty().append(`<span class="text-dark">Click to view evidence <a target="_blank" href="${data.attach_evidence}">Here</a></span>`);
+        } else {
+            $('.evidence_attachemnt_div').empty().append('No data found');
+        }
          $("#editInfo").modal('show');
         resetForm();
 
@@ -387,6 +431,7 @@
          $("input[name='envaccident']").val(data.envaccident);
          $("input[name='consequences']").val(data.consequences);
          $("input[name='activityscenario']").val(data.activityscenario);
+         $("textarea[name='any_issues']").val(data.any_issues);
          $("#editmodalData").modal('show');
          resetForm();
      }

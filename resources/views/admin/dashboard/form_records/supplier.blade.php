@@ -17,7 +17,8 @@
 		
 		<div class="row">
 			<div class="col-lg-12">
-					<p>To add a record, complete the form below and select the add button. To amend a record, fill in the form with the correct record number and include the new data and select update. You do need to complete the whole form.</p>
+			<p>A Suppliers review is a tool to monitor and grade the performance levels of your suppliers, this performance indicator can target all areas of contact with the supplier.</p>
+			<p>To add a record, click on the "Add Supplier" button. To amend or delete a record, click on the edit or delete icon of the entry that needs to be modified or deleted.</p>
                     <div class="procedure_div">
                     	<div class="row">
                     		<div class="col-lg-12 text-right">

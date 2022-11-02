@@ -17,6 +17,9 @@
 
 		<div class="row">
 			<div class="col-lg-12">
+            <p>Carrying out frequent maintenance checks and repairs are necessary to maintain production and service. Maintenance Reviews within the working environment including equipment should be carried out monthly, quarterly, semiannually, or annually depending on the size and nature of the business.</p>
+
+<p>To add a record, click on the “Add Maintenance Record” button. To amend a record, click on the edit icon of the entry that needs to be modified or deleted.</p>
                     <div class="procedure_div">
                     	<div class="row">
                     		<div class="col-lg-12 text-right">
@@ -24,7 +27,7 @@
                     		</div>
                     	</div>
                     <div class="maintance_record_from_div">
-                        <form action="{{route('maintain_rec')}} " method="POST">
+                        <form action="{{route('maintain_rec')}} " method="POST" enctype="multipart/form-data">
                                 @csrf
                     			<div class="row">
        
@@ -86,7 +89,21 @@
 										</div>
 									</div>
 								</div>
-								
+                                <div class="row">
+                                    <div class="col-lg-6">
+                                        <div class="form-group">
+                                            <label>Attach Evidence: <span class="text-danger" style="color:#000 !important;">(jpeg, mp3, mp4, .xls, doc)</span></label>
+                                            <input name="attach_evidence" type="file" class="form-control"
+                                                   accept="all">
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6">
+                                        <div class="form-group">
+                                            <label>Any other issues or points to note?</label>
+                                            <textarea name="any_issues" class="form-control" placeholder="Enter Any other issues:"></textarea>
+                                        </div>
+                                    </div>
+                                </div>
 								<button type="submit" class="submitBtn">SUBMIT</button>
 								<button type="reset" onclick="maintanceRecordForm()" class="submitBtn" style="margin-right: 10px;">Cancel</button>
                     		</form>
@@ -125,7 +142,7 @@
                                         @foreach ($mainrecord as $data)
                                             <tr>
                                                 <td>{{$i++}}</td>
-                                                <td> {{date('d-M-Y', strtotime($data->mrdate))}}</td>
+                                                <td> {{date('d/m/Y', strtotime($data->mrdate))}}</td>
                                                 <td>{{$data->mritem}}</td>
                                                 <td>{{$data->mractivity}}</td>
                                                 <td>{{$data->mlocation}}</td>
@@ -186,7 +203,7 @@
 				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
 				</button>
             </div>
-		<form action="{{route('editmentainance')}} " method="POST">
+		<form action="{{route('editmentainance')}} " method="POST" enctype="multipart/form-data">
             @csrf
 			<div class="modal-body">
                 <input type="hidden" name="id" value="" id="editproject">
@@ -250,6 +267,21 @@
                             <div class="form-group">
                                 <label>Maintenance Record Activity Performed By:</label>
                                 <input type="text" class="form-control" name="mractivityperofrmby">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-6">
+                            <div class="form-group">
+                                <label>Attach Evidence: <span class="text-danger" style="color:#000 !important;">(jpeg, mp3, mp4, .xls, doc)</span></label>
+                                <input name="attach_evidence" type="file" class="form-control"
+                                       accept="all">
+                            </div>
+                        </div>
+                        <div class="col-lg-6">
+                            <div class="form-group">
+                                <label>Any other issues or points to note?</label>
+                                <textarea name="any_issues" class="form-control" placeholder="Enter Any other issues:"></textarea>
                             </div>
                         </div>
                     </div>
@@ -332,6 +364,20 @@
                             </div>
                         </div>
                     </div>
+                    <div class="row">
+                        <div class="col-lg-6">
+                            <div class="form-group">
+                                <label>Attach Evidence <span class="text-danger" style="color:#000 !important;">(jpeg, mp3, mp4, .xls, doc)</span>:</label>
+                                <div class="evidence_attachemnt_div"></div>
+                            </div>
+                        </div>
+                        <div class="col-lg-6">
+                            <div class="form-group">
+                                <label>Any other issues or points to note?</label>
+                                <textarea name="any_issues" class="form-control" placeholder="Enter Any other issues:"></textarea>
+                            </div>
+                        </div>
+                    </div>
 			</div>
 			<div class="modal-footer">
 				<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -367,7 +413,8 @@
          $("input[name='mritem']").val(data.mritem);
          $("input[name='mrobservation']").val(data.mrobservation);
          $("input[name='mid']").val(data.mid);
-         $("#editepmloyee").modal('show');
+        $("textarea[name='any_issues']").val(data.any_issues);
+        $("#editepmloyee").modal('show');
 
      }
     function viewMR(data){
@@ -381,7 +428,13 @@
          $("input[name='mritem']").val(data.mritem);
          $("input[name='mrobservation']").val(data.mrobservation);
          $("input[name='mid']").val(data.mid);
-         $("#viewMR").modal('show');
+        $("textarea[name='any_issues']").val(data.any_issues);
+        if (data.attach_evidence) {
+            $('.evidence_attachemnt_div').empty().append(`<span class="text-dark">Click to view evidence <a target="_blank" href="${data.attach_evidence}">Here</a></span>`);
+        } else {
+            $('.evidence_attachemnt_div').empty().append('No data found');
+        }
+        $("#viewMR").modal('show');
 
      }
      

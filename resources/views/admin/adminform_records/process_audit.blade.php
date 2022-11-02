@@ -361,7 +361,7 @@
 									</div>
 									<div class="col-lg-12">
 										<div class="form-group">
-											<label>Attach Evidence: <span class="text-danger">(jpeg, mp3, mp4,.xls,.doc)</span></label>
+											<label>Attach Evidence: <span class="text-danger" style="color:#000 !important;">(jpeg, mp3, mp4,.xls,.doc)</span></label>
 											<!-- <input name="attach_evidence" type="file" class="form-control" accept="image/*,.doc, .docx,.txt,.pdf"> -->
 											<input name="attach_evidence" type="file" class="form-control" accept="all">
 										</div>
@@ -414,7 +414,7 @@
 											<td>{{$loop->index+1}}</td>
 											<td>{{ $data->processAudit}}</td>
 											<td>{{ $data->auditor}}</td>
-											<td>{{date('d-M-Y', strtotime($data->auditDate))}}</td>
+											<td>{{date('d/m/Y', strtotime($data->auditDate))}}</td>
 											<td>{{ $data->nonConformities}}</td>
 											<td>{{ $data->Observations}}</td>
 											<td>{{ $data->nonConfReport}}</td>
@@ -797,7 +797,7 @@
 								<div class="row">
 									<div class="col-lg-12">
 										<div class="form-group">
-											<label>Attach Evidence:</label>
+											<label>Attach Evidence <span class="text-danger" style="color:#000 !important;">(jpeg, mp3, mp4,.xls,.doc)</span>:</label>
 											<input name="attach_evidence" type="file" class="form-control" accept="image/*,.doc, .docx,.txt,.pdf">
 										</div>
 									</div>
@@ -1147,7 +1147,7 @@
 				<div class="row">
 					<div class="col-lg-12">
 						<div class="form-group">
-							<label>Attach Evidence:</label>
+							<label>Attach Evidence <span class="text-danger" style="color:#000 !important;">(jpeg, mp3, mp4,.xls,.doc)</span>:</label>
 							<div class="evidence_attachemnt_div">
 							</div>
 						</div>

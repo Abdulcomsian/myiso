@@ -17,7 +17,7 @@
 
 		<div class="row">
 			<div class="col-lg-12">
-					<p>Control of Substances Hazardous to Health (COSHH). COSHH is a method that allows employers to control substances that are hazardous to health. You can prevent or reduce workers exposure to hazardous substances by:</p>
+					<!-- <p>Control of Substances Hazardous to Health (COSHH). COSHH is a method that allows employers to control substances that are hazardous to health. You can prevent or reduce workers exposure to hazardous substances by:</p>
 <ul><li style="font-size:13px;color:#000;font-weight:500;">finding out what the health hazards are.</li>
 <li style="font-size:13px;color:#000;font-weight:500;">deciding how to prevent harm to health (risk assessment).</li>
 <li style="font-size:13px;color:#000;font-weight:500;">providing control measures to reduce harm to health.</li>
@@ -28,7 +28,9 @@
 <li style="font-size:13px;color:#000;font-weight:500;">planning for emergencies.</li>
 </ul>
 <p>Most businesses use substances, or products that are mixtures of substances. Some processes create substances. These could cause harm to employees, contractors and other people.</p>
-<p>Sometimes substances are easily recognised as harmful. Common substances such as paint, bleach or dust from natural materials may also be harmful.</p>
+<p>Sometimes substances are easily recognised as harmful. Common substances such as paint, bleach or dust from natural materials may also be harmful.</p> -->
+<p>Chemical Control or Control of Substances Hazardous to Health (COSHH) is a method that allows employers to control substances that are hazardous to health. Prevent or reduce workers exposure to hazardous substances by maintaining a current information log of these substances.</p>
+                        <p>To add a record, click on the “Add COSHH” button. To amend a record, click on the edit icon of the entry that needs to be modified or deleted.</p>
                     <div class="procedure_div">
                     	<div class="row">
                     		<div class="col-lg-12 text-right">
@@ -36,7 +38,7 @@
                     		</div>
                     	</div>
                     	<div class="process_interested_from_div" style="display:none">
-                    		<form action="{{route('chemicalform')}}" method="POST">
+                    		<form action="{{route('chemicalform')}}" method="POST" enctype="multipart/form-data">
                                 @csrf
                     			<div class="row">
 									<div class="col-lg-12">
@@ -137,7 +139,25 @@
 										</div>
 									</div>
 								</div>
-								 @php 
+								<div class="row">
+									<div class="col-lg-12">
+										<div class="form-group">
+											<label>Attach Evidence: <span class="text-danger"
+																		  style="color:#000 !important;">(jpeg, mp3, mp4, .xls, doc)</span></label>
+											<input name="attach_evidence" type="file" class="form-control"
+												   accept="all">
+										</div>
+									</div>
+									<div class="col-lg-12">
+										<div class="form-group">
+											<label>Any other issues or points to note?</label>
+											<textarea name="any_issues" class="form-control"
+													  placeholder="Enter Any other issues:"></textarea>
+										</div>
+									</div>
+								</div>
+
+								@php
                                     $urlparam = request()->route()->parameters;
                                 @endphp
 								<input type="hidden" name="user_id" value="{{ $urlparam['userid'] }}">
@@ -189,7 +209,7 @@
 											<td>{{ $data->location_used}}</td>
 											<td>{{$data->activity_hazard}}</td>
 											<td>{{$data->still_used}}</td>
-											<!--<td>{{date('d-M-Y h:i', strtotime($data->created_at))}}</td>-->
+											<!--<td>{{date('d/m/Y h:i', strtotime($data->created_at))}}</td>-->
 
 											<td>
 											     <button class="btn btn-sm btn-clean btn-icon btn-con-md"  title="View" onclick="viewinterested({{$data}});">
@@ -283,7 +303,7 @@
 				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
 				</button>
             </div>
-            <form action="{{route('chemicalUpdate')}}" method="POST">
+            <form action="{{route('chemicalUpdate')}}" method="POST" enctype="multipart/form-data">
                 @csrf
 			<div class="modal-body">
                     <input type="hidden" value="" id="id_feild" name="id">
@@ -391,7 +411,39 @@
 									<!--		<input type="text" class="form-control" name="evidence30" placeholder="Enter Evidence::">-->
 									<!--	</div>-->
 									<!--</div>-->
-							</div> 
+							</div>
+				<div class="row">
+					<div class="col-lg-12">
+						<div class="form-group">
+							<label>Attach Evidence: <span class="text-danger" style="color:#000 !important;">(jpeg, mp3, mp4, .xls, doc)</span></label>
+							<input name="attach_evidence" type="file" class="form-control"
+								   accept="all">
+						</div>
+					</div>
+					<div class="col-lg-12">
+						<div class="form-group">
+							<label>Any other issues or points to note?</label>
+							<textarea name="any_issues" class="form-control"
+									  placeholder="Enter Any other issues:"></textarea>
+						</div>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-lg-12">
+						<div class="form-group">
+							<label>Attach Evidence: <span class="text-danger" style="color:#000 !important;">(jpeg, mp3, mp4, .xls, doc)</span></label>
+							<input name="attach_evidence" type="file" class="form-control"
+								   accept="all">
+						</div>
+					</div>
+					<div class="col-lg-12">
+						<div class="form-group">
+							<label>Any other issues or points to note?</label>
+							<textarea name="any_issues" class="form-control"
+									  placeholder="Enter Any other issues:"></textarea>
+						</div>
+					</div>
+				</div>
 			</div>
 			<div class="modal-footer">
 				<button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
@@ -519,7 +571,22 @@
 									<!--		<input type="text" class="form-control" name="evidence30" placeholder="Enter Evidence::">-->
 									<!--	</div>-->
 									<!--</div>-->
-							</div> 
+							</div>
+				<div class="row">
+					<div class="col-lg-12">
+						<div class="form-group">
+							<label>Attach Evidence <span class="text-danger" style="color:#000 !important;">(jpeg, mp3, mp4, .xls, doc)</span>:</label>
+							<div class="evidence_attachemnt_div"></div>
+						</div>
+					</div>
+					<div class="col-lg-12">
+						<div class="form-group">
+							<label>Any other issues or points to note?</label>
+							<textarea name="any_issues" class="form-control" placeholder="Enter Any other issues:"></textarea>
+
+						</div>
+					</div>
+				</div>
 			</div>
 
 			<div class="modal-footer">
@@ -534,8 +601,6 @@
 @endsection
 <script>
     function getEid(data){
-        console.log(data);
-console.log(data);
          $("#id_feild").val(data.id);
          $("input[name='chemical_name']").val(data.chemical_name);
          $("input[name='chemical_desc']").val(data.chemical_desc);
@@ -549,7 +614,8 @@ console.log(data);
          $("input[name='who_risk']").val(data.who_risk);
          $("input[name='protection_required']").val(data.protection_required);
          $("input[name='still_used'][value="+data.still_used+"]").prop('checked',true);
-         $("#editinterestedmodal").modal('show');
+		$("textarea[name='any_issues']").val(data.any_issues);
+		$("#editinterestedmodal").modal('show');
      }
 	   function viewinterested(data){
         console.log(data);
@@ -566,7 +632,13 @@ console.log(data);
          $("input[name='who_risk']").val(data.who_risk);
          $("input[name='protection_required']").val(data.protection_required);
          $("input[name='still_used'][value="+data.still_used+"]").prop('checked',true);
-         $("#viewinterestedparty").modal('show');
+		   $("textarea[name='any_issues']").val(data.any_issues);
+		   if (data.attach_evidence) {
+			   $('.evidence_attachemnt_div').empty().append(`<span class="text-dark">Click to view evidence <a target="_blank" href="${data.attach_evidence}">Here</a></span>`);
+		   } else {
+			   $('.evidence_attachemnt_div').empty().append('No data found');
+		   }
+		   $("#viewinterestedparty").modal('show');
      }
 	 
      function deleteModal(data){

@@ -37,6 +37,22 @@ License: You must have a valid license purchased only from themeforest(the above
 	.AgreeUl{
 		margin-left: 18px;
 	}
+	@media screen and (max-width: 1300px){
+		.modal_btn{
+			left:-10px !important;
+		}
+		#kt_login_forgot{
+			font-size:14px !important;
+		}
+		#login_box{
+			left: 10px;position: relative;
+		}
+	}
+	@media screen and (max-width: 480px){
+		#firstCheckoxDev{
+			margin-top:30px !important;
+        }
+	}
 	@media screen and (min-width: 1300px){
 		#firstCheckboxDev{
 			transform: translate(-10px,-46px);
@@ -85,7 +101,8 @@ License: You must have a valid license purchased only from themeforest(the above
 		<!-- begin:: Page -->
 		<div class="kt-grid kt-grid--ver kt-grid--root">
 			<div class="kt-grid kt-grid--hor kt-grid--root  kt-login kt-login--v4 kt-login--signin" id="kt_login">
-				<div class="kt-grid__item kt-grid__item--fluid kt-grid kt-grid--hor" style="background-image: url(../assets/media/bg/bg-2.jpg);">
+				<div class="kt-grid__item kt-grid__item--fluid kt-grid kt-grid--hor" style="background:#fff" >
+				<!-- style="background-image: url(../assets/media/bg/bg-2.jpg);" -->
 					<div class="kt-grid__item kt-grid__item--fluid kt-login__wrapper">
 						<div class="kt-login__container">
 							<div class="kt-login__logo">
@@ -106,15 +123,15 @@ License: You must have a valid license purchased only from themeforest(the above
 									<div class="input-group">
 										<input class="form-control" type="password" placeholder="Password" name="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="current-password">
 									</div>
-									<div class="d-flex justify-content-between kt-login__extra pl-0 ml-0 mt-3">
+									<div class="d-flex justify-content-between kt-login__extra pl-0 ml-0 mt-3" style="" id="login_box">
 										<div class="">
 
 											<div class="form-check AgreeUl pl-0 ml-2 mt-4 d-flex align-items-center" id="firstCheckoxDev">
 													<!-- Button trigger modal -->
 													<!-- <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal"> -->
 													<input class="form-check-input agreeInput mt-0 mr-1" id="firstCheckbox" type="checkbox" value="">
-													<button type="button" class="btn p-0 modal_btn" data-toggle="modal" data-target="#exampleModal">
-														<label class="form-check-label">
+													<button type="button" class="btn p-0 modal_btn" data-toggle="modal" data-target="#exampleModal" style="position: absolute;left:10px;">
+														<label class="form-check-label" style="width:300px;">
 															I Agree to the Terms and Conditions.
 														</label>
 													</button>

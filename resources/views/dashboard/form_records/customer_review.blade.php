@@ -17,9 +17,8 @@
 
 		<div class="row">
 			<div class="col-lg-12">
-					<p>To add a record, click on the “Add
-						Customer Evaluation” button. To amend a record, click on the edit icon of
-						the entry that needs to be modified.</p>
+			<p>Customer reviews are a tool to monitor and grade the performance levels of your customers, this performance indicator can target all areas of contact with the customer.</p>
+			<p>To add a record, click on the “Add Customer Evaluation” button. To amend a record, click on the edit icon of the entry that needs to be modified.</p>
                     <div class="procedure_div">
                     	<div class="row">
                     		<div class="col-lg-12 text-right">
@@ -127,7 +126,7 @@
 											<td>{{$data->DScore}} </td>
 											<td>{{$data->OveralScore}} </td>
 											
-                                            <td>{{date('d-M-Y', strtotime($data->AssesmentDate))}} </td>
+                                            <td>{{date('d/m/Y', strtotime($data->AssesmentDate))}} </td>
                                             <td>
 													<!-- new  -->
 													<button class="btn btn-sm btn-clean btn-icon btn-icon-md"
