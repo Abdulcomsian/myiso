@@ -27,7 +27,7 @@
                     		</div>
                     	</div>
                     	<div class="accident_risk_from_div">
-                            <form method="POST" action="{{route('accident_risk')}} " class="addForm" >
+                            <form method="POST" action="{{route('accident_risk')}} " class="addForm" enctype="multipart/form-data">>
                                 @csrf
                                 
                                                     @csrf
