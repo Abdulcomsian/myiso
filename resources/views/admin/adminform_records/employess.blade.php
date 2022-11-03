@@ -233,13 +233,16 @@
 											<td>
 												@if(!empty($item->cv))
 													<a target="_blank"  data-toggle="modal" data-target="#cv{{$item->id}}">View CV</a>
+													
 													<!-- href="{{ asset($item->cv) }}" -->
 													<!-- Modal -->
 												<div class="modal fade" id="cv{{$item->id}}" tabindex="-1" role="dialog" aria-labelledby="model1Label" aria-hidden="true">
 													<div class="modal-dialog" role="document">
 													<div class="modal-content">
 													<div class="modal-header">
-														<h5 class="modal-title" id="exampleModalLabel">View CV</h5>
+													<a href="{{ asset($item->cv) }}">
+														<h5 class="modal-title" id="exampleModalLabel">Download CV</h5>
+													 </a>
 														<button type="button" class="close" data-dismiss="modal" aria-label="Close">
 														<span aria-hidden="true">&times;</span>
 														</button>
@@ -249,7 +252,7 @@
 								                        <div class="row">
 								                            <div class="col-lg-12">
 								                                <div class="form-group">
-								                                    <label>CV:</label><br>
+								                                    <label>View CV:</label><br>
 								                                    <iframe frameborder="0" style="height: auto; overflow:scroll; width: 100%" scrolling="yes" src="{{ asset($item->cv) }}"></iframe>
 								                                </div>
 								                            </div>
