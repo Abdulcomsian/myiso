@@ -267,7 +267,9 @@
 								                            </div>
 								                        </div>
 													<div class="modal-footer">
-														<a target="_blank" download href="{{ asset($item->cv) }}">View CV</a>
+													<a href="{{ asset($item->cv) }}" download>
+															<h5 class="modal-title" style="float:right;text-align:Right;">View CV</h5>
+														</a>
 													</div>
 													</div>
 													</div>
