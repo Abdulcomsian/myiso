@@ -234,14 +234,15 @@
 												@if(!empty($item->cv))
 												<?php
 													$path_info = explode('.', $item->cv);
-
-													
-
-													print_r($path_info[1]); // "bill"
+													if($path_info[1]=="pdf"){
 													
 												?>
 													<a target="_blank"  data-toggle="modal" data-target="#cv{{$item->id}}">View CV</a>
-													
+												<?php
+													}else{
+												?>
+												<a href="{{ asset($item->cv) }}">View CV</a>
+												<?php } ?>
 													<!-- href="{{ asset($item->cv) }}" -->
 													<!-- Modal -->
 												<div class="modal fade" id="cv{{$item->id}}" tabindex="-1" role="dialog" aria-labelledby="model1Label" aria-hidden="true">
