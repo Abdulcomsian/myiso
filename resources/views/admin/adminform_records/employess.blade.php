@@ -249,9 +249,9 @@
 													<div class="modal-dialog" style="height:75%;" role="document">
 													<div class="modal-content">
 													<div class="modal-header">
-													<a href="{{ asset($item->cv) }}" download>
-														<h5 class="modal-title" id="exampleModalLabel">Download CV</h5>
-													 </a>
+														<a href="{{ asset($item->cv) }}" download>
+															<h5 class="modal-title" id="exampleModalLabel">View CV</h5>
+														</a>
 														<button type="button" class="close" data-dismiss="modal" aria-label="Close">
 														<span aria-hidden="true">&times;</span>
 														</button>
@@ -266,6 +266,9 @@
 								                                </div>
 								                            </div>
 								                        </div>
+													<div class="modal-footer">
+														<a target="_blank" download href="{{ asset($item->cv) }}">View CV</a>
+													</div>
 													</div>
 													</div>
 												   </div>
