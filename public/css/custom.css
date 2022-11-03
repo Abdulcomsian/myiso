@@ -1,6 +1,6 @@
 .datepicker table tr td.disabled{
   text-decoration: line-through;
-  text-decoration-thickness: 0.2rem;
+  text-decoration-thickness: 0.1rem;
 }
 
 .back_icon{
