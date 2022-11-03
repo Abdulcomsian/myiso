@@ -345,7 +345,7 @@
     </div>
     <div class="modal fade" id="editinterestedmodal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
          aria-hidden="true">
-        <div class="modal-dialog" role="document">
+        <div class="modal-dialog modal-lg" role="document">
             <div class="modal-content modal-lg">
                 <div class="modal-header">
                     <h5 class="modal-title" id="exampleModalLabel">Edit Chemical Control Details</h5>
