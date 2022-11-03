@@ -250,7 +250,7 @@
 								                            <div class="col-lg-12">
 								                                <div class="form-group">
 								                                    <label>CV:</label><br>
-								                                    <iframe frameborder="0" style="height: auto; overflow:scroll; width: 100%" scrolling="no" src="{{ asset($item->cv) }}"></iframe>
+								                                    <iframe frameborder="0" style="height: auto; overflow:scroll; width: 100%" scrolling="yes" src="{{ asset($item->cv) }}"></iframe>
 								                                </div>
 								                            </div>
 								                        </div>
