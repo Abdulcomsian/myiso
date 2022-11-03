@@ -222,12 +222,13 @@
 			var mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
 			var yyyy = today.getFullYear();
 
-			today  = mm + '/' + dd + '/' + yyyy;
+			today  = dd + '/' + mm + '/' + yyyy;
 
 		$('.startdate').datepicker({
 			todayHighlight: true,
 			"format": 'mm/dd/yyyy',
 			"startDate": '01/01/2017',
+			"endDate": today,
 			"setDate": today
 		}).on('changeDate', function(e){
         	start_date = $("#start_date").val();
