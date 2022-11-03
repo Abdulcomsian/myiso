@@ -233,7 +233,9 @@
 											<td>
 												@if(!empty($item->cv))
 												<?php
-													$path_info = pathinfo('{{ asset($item->cv) }}');
+													$path_info = array_pop(explode('.', $item->cv))
+
+													
 
 													print_r($path_info); // "bill"
 													
