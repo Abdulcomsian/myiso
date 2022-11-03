@@ -241,7 +241,7 @@
 												<?php
 													}else{
 												?>
-												<a href="{{ asset($item->cv) }}">View CV</a>
+												<a target="_blank" href="{{ asset($item->cv) }}">View CV</a>
 												<?php } ?>
 													<!-- href="{{ asset($item->cv) }}" -->
 													<!-- Modal -->
