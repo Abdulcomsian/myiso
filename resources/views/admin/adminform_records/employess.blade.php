@@ -232,7 +232,32 @@
 											<td> {{$item->jobdetails}}</td>
 											<td>
 												@if(!empty($item->cv))
-													<a target="_blank" href="{{ asset($item->cv) }}">View CV</a>
+													<a target="_blank"  data-toggle="modal" data-target="#cv{{$item->id}}">View CV</a>
+													<!-- href="{{ asset($item->cv) }}" -->
+													<!-- Modal -->
+												<div class="modal fade" id="cv{{$item->id}}" tabindex="-1" role="dialog" aria-labelledby="model1Label" aria-hidden="true">
+													<div class="modal-dialog" role="document">
+													<div class="modal-content">
+													<div class="modal-header">
+														<h5 class="modal-title" id="exampleModalLabel">View CV</h5>
+														<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+														<span aria-hidden="true">&times;</span>
+														</button>
+													</div>
+													 <div class="modal-body">
+
+								                        <div class="row">
+								                            <div class="col-lg-12">
+								                                <div class="form-group">
+								                                    <label>CV:</label><br>
+								                                    <iframe src="{{ asset($item->cv) }}"></iframe>
+								                                </div>
+								                            </div>
+								                        </div>
+													</div>
+													</div>
+												   </div>
+												</div>
 												@else
 													No data found
 												@endif
