@@ -235,7 +235,7 @@
 			end_date = $("#end_date").val();
 			filter_by_certificate = $("#filter_by_certificate").val();
 			console.log(filter_by_certificate);
-
+			$('.enddate').datepicker('setStartDate', start_date);
 			$.ajax({
 						type: "get",
 						url: "{{url('/send_message')}}",
