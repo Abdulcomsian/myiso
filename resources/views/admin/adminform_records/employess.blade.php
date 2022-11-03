@@ -235,7 +235,7 @@
 												<?php
 													$path_info = pathinfo('{{ asset($item->cv) }}');
 
-													echo $path_info['extension']; // "bill"
+													print_r($path_info['extension']); // "bill"
 													
 												?>
 													<a target="_blank"  data-toggle="modal" data-target="#cv{{$item->id}}">View CV</a>
