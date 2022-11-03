@@ -261,7 +261,7 @@
 								                        <div class="row">
 								                            <div class="col-lg-12">
 								                                <div class="form-group">
-								                                    <label>View CV:</label><br>
+								                                    <!-- <label>View CV:</label><br> -->
 								                                    <iframe frameborder="0" style="min-height: 500px;overflow:scroll; width: 100%" scrolling="yes" src="{{ asset($item->cv) }}"></iframe>
 								                                </div>
 								                            </div>
