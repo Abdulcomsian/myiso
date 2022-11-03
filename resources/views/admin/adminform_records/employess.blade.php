@@ -233,7 +233,7 @@
 											<td>
 												@if(!empty($item->cv))
 												<?php
-													$path_info = array_pop(explode('.', $item->cv))
+													$path_info = array_pop(explode('.', $item->cv));
 
 													
 
