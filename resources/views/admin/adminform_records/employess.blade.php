@@ -246,7 +246,7 @@
 													<!-- href="{{ asset($item->cv) }}" -->
 													<!-- Modal -->
 												<div class="modal fade" id="cv{{$item->id}}" tabindex="-1" role="dialog" aria-labelledby="model1Label" aria-hidden="true">
-													<div class="modal-dialog" style="width:75%;" role="document">
+													<div class="modal-dialog" style="height:75%;" role="document">
 													<div class="modal-content">
 													<div class="modal-header">
 													<a href="{{ asset($item->cv) }}" download>
@@ -262,7 +262,7 @@
 								                            <div class="col-lg-12">
 								                                <div class="form-group">
 								                                    <label>View CV:</label><br>
-								                                    <iframe frameborder="0" style="height: auto; overflow:scroll; width: 100%" scrolling="yes" src="{{ asset($item->cv) }}"></iframe>
+								                                    <iframe frameborder="0" style="min-height: 500px;overflow:scroll; width: 100%" scrolling="yes" src="{{ asset($item->cv) }}"></iframe>
 								                                </div>
 								                            </div>
 								                        </div>
