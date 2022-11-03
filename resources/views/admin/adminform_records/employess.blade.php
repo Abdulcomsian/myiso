@@ -232,6 +232,12 @@
 											<td> {{$item->jobdetails}}</td>
 											<td>
 												@if(!empty($item->cv))
+												<?php
+													$path_info = pathinfo('{{ asset($item->cv) }}');
+
+													echo $path_info['extension']; // "bill"
+													
+												?>
 													<a target="_blank"  data-toggle="modal" data-target="#cv{{$item->id}}">View CV</a>
 													
 													<!-- href="{{ asset($item->cv) }}" -->
