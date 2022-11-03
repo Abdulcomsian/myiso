@@ -241,7 +241,7 @@
 												<?php
 													}else{
 												?>
-												<a target="_blank" href="{{ asset($item->cv) }}">View CV</a>
+												<a target="_blank" download href="{{ asset($item->cv) }}">View CV</a>
 												<?php } ?>
 													<!-- href="{{ asset($item->cv) }}" -->
 													<!-- Modal -->
@@ -249,7 +249,7 @@
 													<div class="modal-dialog" role="document">
 													<div class="modal-content">
 													<div class="modal-header">
-													<a href="{{ asset($item->cv) }}">
+													<a href="{{ asset($item->cv) }}" download>
 														<h5 class="modal-title" id="exampleModalLabel">Download CV</h5>
 													 </a>
 														<button type="button" class="close" data-dismiss="modal" aria-label="Close">
