@@ -186,11 +186,19 @@
 										<tr>
 											<th style="width:170px;">Employee ID Number</th>
 											<th style="width:150px;">Surname</th>
+
+
+
+
 											<th style="width:150px;">Firstname</th>
 											<!--<th>Employee Number</th>-->
 											<th style="width:200px;">Start Date</th>
                                             <th style="width:240px;">Job Description</th>
                                             <th style="width:120px;">CV</th>
+
+
+
+											
                                             <th style="width:150px;">Action</th>
 										</tr>
 									</thead>
@@ -208,7 +216,30 @@
                                             <td> {{$item->jobdetails}}</td>
                                             <td>
 												@if(!empty($item->cv))
-													<a target="_blank" href="{{ asset($item->cv) }}">View CV</a>
+													<a data-toggle="modal" data-target="#viewcv">View CV</a>
+													<!-- <a target="_blank" href="{{ asset($item->cv) }}"  data-toggle="modal" data-target="#viewcv">View CV</a> -->
+
+
+													<!-- Modal -->
+													<div class="modal fade" id="viewcv" tabindex="-1" role="dialog" aria-labelledby="viewcvLabel" aria-hidden="true">
+													<div class="modal-dialog" role="document">
+														<div class="modal-content">
+														<div class="modal-header">
+															<h5 class="modal-title" id="viewcvLabel">View CV</h5>
+															<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+															<span aria-hidden="true">&times;</span>
+															</button>
+														</div>
+														<div class="modal-body">
+															<img src="{{ asset($item->cv) }}" class="w-100" alt="cv">
+														</div>
+														<!-- <div class="modal-footer">
+															<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+															<button type="button" class="btn btn-primary">Save changes</button>
+														</div> -->
+														</div>
+													</div>
+													</div>
 												@else
 													No data found
 												@endif

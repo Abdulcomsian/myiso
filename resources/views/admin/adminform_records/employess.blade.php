@@ -9,6 +9,11 @@
 	.actions{
 		width: 180px;
 	}
+	@media (min-width: 576px){
+		.modeldialogbg .modal-dialog {
+			max-width: 800px;
+		}
+	}
 </style>
 @section('content')
 <!-- begin:: Content -->
@@ -245,7 +250,7 @@
 												<?php } ?>
 													<!-- href="{{ asset($item->cv) }}" -->
 													<!-- Modal -->
-												<div class="modal fade" id="cv{{$item->id}}" tabindex="-1" role="dialog" aria-labelledby="model1Label" aria-hidden="true">
+												<div class="modal fade modeldialogbg bd-example-modal-lg" id="cv{{$item->id}}" tabindex="-1" role="dialog" aria-labelledby="model1Label" aria-hidden="true">
 													<div class="modal-dialog" style="height:75%;" role="document">
 													<div class="modal-content">
 													<div class="modal-header">
