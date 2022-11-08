@@ -215,13 +215,21 @@
 											<td> {{date('d/m/Y', strtotime($item->startDate))}}</td>
                                             <td> {{$item->jobdetails}}</td>
                                             <td>
-												@if(!empty($item->cv))
-													<a data-toggle="modal" data-target="#viewcv">View CV</a>
-													<!-- <a target="_blank" href="{{ asset($item->cv) }}"  data-toggle="modal" data-target="#viewcv">View CV</a> -->
-
+											@if(!empty($item->cv))
+												<?php
+													$path_info = explode('.', $item->cv);
+													if($path_info[1]=="pdf"){
+													
+												?>
+													<a target="_blank"  data-toggle="modal" data-target="#cv{{$item->id}}">View CV</a>
+												<?php
+													}else{
+												?>
+												<a target="_blank" download href="{{ asset($item->cv) }}">View CV</a>
+												<?php } ?>
 
 													<!-- Modal -->
-													<div class="modal fade" id="viewcv" tabindex="-1" role="dialog" aria-labelledby="viewcvLabel" aria-hidden="true">
+													<div class="modal fade" id="cv{{$item->id}}" tabindex="-1" role="dialog" aria-labelledby="viewcvLabel" aria-hidden="true">
 													<div class="modal-dialog" role="document">
 														<div class="modal-content">
 														<div class="modal-header">
@@ -231,7 +239,7 @@
 															</button>
 														</div>
 														<div class="modal-body">
-															<img src="{{ asset($item->cv) }}" class="w-100" alt="cv">
+														<iframe frameborder="0" style="min-height: 500px;overflow:scroll; width: 100%" scrolling="yes" src="{{ asset($item->cv) }}"></iframe>
 														</div>
 														<!-- <div class="modal-footer">
 															<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
