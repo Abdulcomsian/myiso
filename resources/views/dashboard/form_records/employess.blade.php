@@ -221,7 +221,7 @@
 													if($path_info[1]=="pdf"){
 													
 												?>
-													<a target="_blank"  data-toggle="modal" data-target="#cv{{$item->id}}">View CV</a>
+													<a target="_blank" style="color: blue;cursor: pointer;" data-toggle="modal" data-target="#cv{{$item->id}}">View CV</a>
 												<?php
 													}else{
 												?>
