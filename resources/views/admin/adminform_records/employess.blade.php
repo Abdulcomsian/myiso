@@ -10,9 +10,9 @@
 		width: 180px;
 	}
 	@media (min-width: 576px){
-		.modeldialogbg .modal-dialog {
+		/* .modeldialogbg .modal-dialog {
 			max-width: 800px;
-		}
+		} */
 	}
 </style>
 @section('content')
