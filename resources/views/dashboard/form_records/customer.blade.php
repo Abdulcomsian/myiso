@@ -440,7 +440,7 @@
                     if(res=="exist")
                     {
                         $("#idNumber").val("");
-                        $("#numbererror").html("Number is Already taken x");
+                        $("#numbererror").html("Number is Already taken.");
                     }
                     else
                     {

@@ -58,7 +58,7 @@ class CustomerController extends Controller
     public function store(Request $request)
     {
       try{
-           $customer=customers::where('idNumber',$request->input('idNumber'))->get();
+           $customer=customers::where('user_id',Auth::user()->id)->where('idNumber',$request->input('idNumber'))->get();
            if(count($customer)>0){
                 return back()->with("Error","Record was not saved. The Customer ID already exists!");
             } else 
@@ -181,7 +181,7 @@ class CustomerController extends Controller
 
     public function check_customer_number()
     {
-        $customer=customers::where('idNumber',$_GET['number'])->get();
+        $customer=customers::where('user_id',Auth::user()->id)->where('idNumber',$_GET['number'])->get();
         if(count($customer)>0)
         {
             echo"exist";
