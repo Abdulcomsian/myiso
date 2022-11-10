@@ -239,12 +239,13 @@
 															</button>
 														</div>
 														<div class="modal-body">
-														<iframe frameborder="0" style="min-height: 500px;overflow:scroll; width: 100%" scrolling="yes" src="{{ asset($item->cv) }}"></iframe>
+															<iframe frameborder="0" style="min-height: 500px;overflow:scroll; width: 100%" scrolling="yes" src="{{ asset($item->cv) }}"></iframe>
 														</div>
-														<!-- <div class="modal-footer">
-															<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-															<button type="button" class="btn btn-primary">Save changes</button>
-														</div> -->
+														<div class="modal-footer">
+																	<a href="{{ asset($item->cv) }}" download>
+																<h5 class="modal-title" style="float:right;text-align:Right;">Download CV</h5>
+														</a>
+														</div>
 														</div>
 													</div>
 													</div>
