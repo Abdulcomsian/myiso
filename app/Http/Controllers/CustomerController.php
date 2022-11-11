@@ -220,7 +220,6 @@ class CustomerController extends Controller
     {
         $is_admin = $request->input('is_admin');
         if($is_admin=="admin"){
-            
             $customer=customers::where('user_id',$request->input('user_id'))->where('idNumber',$_GET['number'])->get();
         }else{
             $customer=customers::where('user_id',Auth::user()->id)->where('idNumber',$_GET['number'])->get();
