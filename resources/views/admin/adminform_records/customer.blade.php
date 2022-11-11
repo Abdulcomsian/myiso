@@ -484,10 +484,15 @@
 
         $("#idNumber").blur(function () {
             number = $("#idNumber").val();
+            user_id = $("input[name=user_id]").val();
             $.ajax({
                 method: 'get',
                 url: '{{url("/check-customer-number")}}',
-                data: {number: number},
+                data: {
+                    number: number,
+                    is_admin: "admin",
+                    user_id: user_id,
+                },
                 success: function (res) {
                     if (res == "exist") {
                         $("#idNumber").val("");
