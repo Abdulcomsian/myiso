@@ -179,7 +179,8 @@ return back();
     
     public function get_customer_name_by_id(Request $request)
     {   $id = $request['id']; 
-        $tbl_customer = DB::table('tbl_customer')->where('idNumber',  $id)->first();
+        $user_id = $request['user_id']; 
+        $tbl_customer = DB::table('tbl_customer')->where('user_id',$request->input('user_id'))->where('idNumber',  $id)->first();
     
      echo json_encode(array('Status' => true, 'name'=>$tbl_customer->name));
     }

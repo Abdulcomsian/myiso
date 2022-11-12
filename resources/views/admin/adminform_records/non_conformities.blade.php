@@ -631,7 +631,7 @@
                                     $urlparam = request()->route()->parameters;
                                 @endphp
 								<input type="hidden" name="is_admin" value="admin"/>
-								<input type="hidden" name="user_id" value="{{ $urlparam['userid'] }}"/>
+								<input type="hidden" name="user_id" id="user_id" value="{{ $urlparam['userid'] }}"/>
                             <button type="reset" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
                             <button type="submit" class="btn btn-danger">Update</button>
 
@@ -672,7 +672,8 @@
     function get_customer(obj) {
         $this = $(obj);
         $id = $this.val();
-        // console.log($id);
+        $user_id = document.getElementById('user_id').value;
+        // console.log($user_id);
 
         jQuery.ajax({
             url: "{{ url('/get_customer_name_by_id') }}",
@@ -680,6 +681,7 @@
             data: {
                 "_token": "{{ csrf_token() }}",
                 id: $id,
+                user_id: $user_id,
             },
         }).done(function (response) {
             // console.log(response);
