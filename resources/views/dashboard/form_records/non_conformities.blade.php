@@ -28,6 +28,7 @@
                     <div class="non_conformities_from_div">
                         <form action=" {{ route('nonConfromForm') }} " method="POST">
                             @csrf
+                            <input type="hidden" name="user_id2" id="user_id2" value="{{$userid}}" />
                             <div class="row">
                                 <div class="col-lg-6">
                                     <div class="form-group">
@@ -640,6 +641,7 @@
     function get_customer(obj) {
         $this = $(obj);
         $id = $this.val();
+        $user_id = document.getElementById('user_id2').value;
 
         jQuery.ajax({
             url: "{{ url('/get_customer_name_by_id') }}",
@@ -647,6 +649,7 @@
             data: {
                 "_token": "{{ csrf_token() }}",
                 id: $id,
+                user_id: $user_id,
             },
         }).done(function (response) {
             //let ids = array();

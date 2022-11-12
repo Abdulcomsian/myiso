@@ -38,7 +38,7 @@ class nonConfromFormController extends Controller
         // dd($customers_nonconform);
         //dd($customers_nonconform);
 
-        return view('dashboard.form_records.non_conformities',compact('nonconform','customers', 'customers_nonconform'));
+        return view('dashboard.form_records.non_conformities',compact('userid', 'nonconform','customers', 'customers_nonconform'));
     }
 
     /**
