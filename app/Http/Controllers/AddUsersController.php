@@ -448,7 +448,7 @@ public function store(Request $request)
 
         $customers_nonconform = DB::table('tbl_noconformance')->join('tbl_customer','tbl_noconformance.customerID','tbl_customer.idNumber')
         ->select('tbl_noconformance.id as noid','tbl_noconformance.*','tbl_customer.*')
-        ->where('tbl_noconformance.user_id',$request)->orderBy('tbl_noconformance.id','DESC')->get();
+        ->where('tbl_noconformance.user_id',$request)->where('tbl_customer.user_id',$request)->orderBy('tbl_noconformance.id','DESC')->get();
         return view('admin.adminform_records.non_conformities',compact('noneConform','customers','customers_nonconform'));
 
     }
