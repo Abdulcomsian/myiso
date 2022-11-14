@@ -116,7 +116,7 @@
                                 <div class="row">
                                     <div class="col-lg-12">
                                         <div class="form-group">
-                                            <label>Sentence (Pass or Fail):</label>
+                                            <label>Pass or Fail:</label>
                                             <select name="sentence" class="form-control" required="required">
                                                 <option value="">Select One</option>
                                                 <option value="Pass">Pass</option>
@@ -132,6 +132,14 @@
                                                                           style="color:#000 !important;">(jpeg, mp3, mp4, .xls, doc)</span></label>
                                             <input name="attach_evidence" type="file" class="form-control"
                                                    accept="all">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-lg-12">
+                                        <div class="form-group">
+                                            <label>Any other issues or points to Note:</label>
+                                            <input type="text"  name="issues_points" placeholder="Any other issues or points to Note" class="form-control" />
                                         </div>
                                     </div>
                                 </div>
@@ -313,7 +321,7 @@
                                                                 <div class="row">
                                                                     <div class="col-lg-12">
                                                                         <div class="form-group">
-                                                                            <label>Sentence (Pass or Fail):</label>
+                                                                            <label>Pass or Fail:</label>
                                                                             <select name="sentence" class="form-control" required="required">
                                                                                 <option value="">Select One</option>
                                                                                 <option value="Pass">Pass</option>
@@ -327,6 +335,14 @@
                                                                         <div class="form-group">
                                                                             <label>Attach Evidence <span class="text-danger" style="color:#000 !important;">(jpeg, mp3, mp4, .xls, doc)</span>:</label>
                                                                             <div class="evidence_attachemnt_div"></div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="row">
+                                                                    <div class="col-lg-12">
+                                                                        <div class="form-group">
+                                                                            <label>Any other issues or points to Note:</label>
+                                                                            <input type="text" name="issues_points" placeholder="Any other issues or points to Note" class="form-control" />
                                                                         </div>
                                                                     </div>
                                                                 </div>
@@ -557,6 +573,14 @@
                                 </div>
                             </div>
                         </div>
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <div class="form-group">
+                                    <label>Any other issues or points to Note:</label>
+                                    <input type="text" name="issues_points" placeholder="Any other issues or points to Note" class="form-control" />
+                                </div>
+                            </div>
+                        </div>
                     </form>
                 </div>
                 <div class="modal-footer">
@@ -667,7 +691,7 @@
                         <div class="row">
                             <div class="col-lg-12">
                                 <div class="form-group">
-                                    <label>Sentence (Pass or Fail):</label>
+                                    <label>Pass or Fail:</label>
                                     <select name="sentence" class="form-control" required="required" id="sentence">
                                         <option value="">Select One</option>
                                         <option value="Pass">Pass</option>
@@ -685,6 +709,14 @@
                                 </div>
                             </div>
                         </div>
+                        <div class="row">
+                                    <div class="col-lg-12">
+                                        <div class="form-group">
+                                            <label>Any other issues or points to Note:</label>
+                                            <input type="text" id="issues_points" name="issues_points" placeholder="Any other issues or points to Note" class="form-control" />
+                                        </div>
+                                    </div>
+                                </div>
                         <button type="submit" class="submitBtn ml-2">Update</button>
                         <button type="button" class="submitBtn" data-dismiss="modal" aria-label="Close">Cancel</button>
                     </form>
@@ -695,13 +727,15 @@
 @endsection
 <script>
     function getEid(data) {
-        console.log(data.sentence);
+        console.log(data);
         $("#editproject").val(data.id);
         $("input[name='testMethod']").val(data.testMethod);
         $("input[name='serialNum']").val(data.serialNum);
-
+        $("input[name='issues_points']").val(data.issues_points);
+       
         $("select[name='sentence']").val(data.sentence);
         $("#sentence").val(data.sentence);
+        $("#issues_point").val(data.issues_point);
 
         $("input[name='reportRev']").val(data.reportRev);
         $("input[name='locaction']").val(data.locaction);
@@ -719,7 +753,7 @@
         $("#editproject").val(data.id);
         $("input[name='testMethod']").val(data.testMethod);
         $("input[name='serialNum']").val(data.serialNum);
-
+        $("input[name='issues_points']").val(data.issues_points);
         $("select[name='sentence']").val(data.sentence);
         $("#sentence").val(data.sentence);
 

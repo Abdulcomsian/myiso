@@ -25,6 +25,7 @@ class CalibrationController extends Controller
     {
         $userid=Auth::user()->id;
         $calibration=calibration::where('user_id',$userid)->orderBy('id','DESC')->get();
+        // dd($calibration);
         return view('dashboard.form_records.calibration_record',compact('calibration'));
     }
 
@@ -81,6 +82,7 @@ class CalibrationController extends Controller
             }
 
            $calibration->sentence=$request->input('sentence');
+           $calibration->issues_points=$request->input('issues_points');
            $calibration->save();
            return back()->with("Success","Data Save Successfully");
     //   }catch(Exception $exception){
@@ -142,6 +144,7 @@ class CalibrationController extends Controller
             $calibration->calibratedDate=$request->input('calibratedDate');
             $calibration->certificatenumber=$request->input('certificatenumber');
             $calibration->sentence=$request->input('sentence');
+            $calibration->issues_points=$request->input('issues_points');
             //Check if user attach evidence
             if ($request->file('attach_evidence') && Schema::hasColumn('tbl_maintain_recs','attach_evidence')) {
                 //Delete previous attach evidence if exist

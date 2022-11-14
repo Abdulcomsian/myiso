@@ -320,9 +320,13 @@
 			<script>
 // 			jQuery("#customer_table").dataTable();
 			$(function(){
-				var current = location.pathname;
-				
-				$('.kt-menu__nav  li a').each(function(){
+				var current2 = location.href;
+				const myArray = current2.split("/");
+				let current = myArray[myArray.length-1];
+				console.log(current);
+				var i=0;
+				$('.test123 li a').each(function(){
+					
 				    var $this = $(this);
 				    if(current==""){
 				        
@@ -330,15 +334,18 @@
 				    // if the current path is like this link, make it active
 				    if($this.attr('href').indexOf(current) !== -1){
 				        var test = $this.attr('href').indexOf(current);
-				        console.log(current);
+				        
+				        console.log(test);
 
 				        $this.parent().addClass('li_active');
 				        $this.parent().parent().parent().parent().addClass('kt-menu__item--open');
 						// var parent_li=$('.kt-menu__nav  li').hasClass('li_active');
 						// var li_parent=parent_li.parent();
 						// console.log(li_parent);
-						
+						i++;
+						if(i==1){return false;}
 				    }
+					
 				})
 			});
 			
