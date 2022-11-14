@@ -136,6 +136,14 @@
                                         </div>
                                     </div>
                                 </div>
+                                <div class="row">
+                                    <div class="col-lg-12">
+                                        <div class="form-group">
+                                            <label>Any other issues or points to Note:</label>
+                                            <input type="text"  name="issues_points" placeholder="Any other issues or points to Note" class="form-control" />
+                                        </div>
+                                    </div>
+                                </div>
                                 @php
                                     $urlparam = request()->route()->parameters;
                                 @endphp
@@ -380,7 +388,14 @@
                                                                         </div>
                                                                     </div>
                                                                 </div>
-
+                                                                <div class="row">
+                                                                    <div class="col-lg-12">
+                                                                        <div class="form-group">
+                                                                            <label>Any other issues or points to Note:</label>
+                                                                            <input type="text"  name="issues_points" placeholder="Any other issues or points to Note" class="form-control" />
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
 
                                                             </div>
 
@@ -723,6 +738,14 @@
                                             </div>
                                         </div>
                                     </div>
+                                    <div class="row">
+                                    <div class="col-lg-12">
+                                        <div class="form-group">
+                                            <label>Any other issues or points to Note:</label>
+                                            <input type="text"  name="issues_points" placeholder="Any other issues or points to Note" class="form-control" />
+                                        </div>
+                                    </div>
+                                </div>
                                     @php
                                         $urlparam = request()->route()->parameters;
                                     @endphp
@@ -967,7 +990,14 @@
                                                                             </div>
                                                                         </div>
                                                                     </div>
-
+                                                                    <div class="row">
+                                                                        <div class="col-lg-12">
+                                                                            <div class="form-group">
+                                                                                <label>Any other issues or points to Note:</label>
+                                                                                <input type="text"  name="issues_points" placeholder="Any other issues or points to Note" class="form-control" />
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
 
                                                                 </div>
 
@@ -1290,6 +1320,14 @@
                                     </div>
                                 </div>
                             </div>
+                            <div class="row">
+                                    <div class="col-lg-12">
+                                        <div class="form-group">
+                                            <label>Any other issues or points to Note:</label>
+                                            <input type="text"  name="issues_points" placeholder="Any other issues or points to Note" class="form-control" />
+                                        </div>
+                                    </div>
+                                </div>
                             <button type="submit" class="submitBtn ml-2">Update</button>
                             <button type="button" class="submitBtn" data-dismiss="modal" aria-label="Close">Cancel</button>
                         </form>
@@ -1412,6 +1450,14 @@
                                 </div>
                             </div>
                         </div>
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <div class="form-group">
+                                    <label>Any other issues or points to Note:</label>
+                                    <input type="text"  name="issues_points" placeholder="Any other issues or points to Note" class="form-control" />
+                                </div>
+                            </div>
+                        </div>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary"
@@ -1428,7 +1474,7 @@
             $("#editproject").val(data.id);
             $("input[name='testMethod']").val(data.testMethod);
             $("input[name='serialNum']").val(data.serialNum);
-
+            $("input[name='issues_points']").val(data.issues_points);
             $("select[name='sentence']").val(data.sentence);
             $("#sentence").val(data.sentence);
 
@@ -1590,7 +1636,7 @@
         $("#editproject").val(data.id);
         $("input[name='testMethod']").val(data.testMethod);
         $("input[name='serialNum']").val(data.serialNum);
-
+        $("input[name='issues_points']").val(data.issues_points);
         $("select[name='sentence']").val(data.sentence);
         $("#sentence").val(data.sentence);
 
@@ -1616,7 +1662,7 @@
         $("#editproject").val(data.id);
         $("input[name='testMethod']").val(data.testMethod);
         $("input[name='serialNum']").val(data.serialNum);
-
+        $("input[name='issues_points']").val(data.issues_points);
         $("select[name='sentence']").val(data.sentence);
         $("#sentence").val(data.sentence);
 
