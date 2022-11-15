@@ -44,7 +44,7 @@
                                 
                                 @if($no_customer==1)
                                
-                                <select onchange="get_customer(this)" class="form-control" name="customerID"
+                                <select onchange="get_customer(this)" class="form-control" required name="customerID"
                                     id="customer_id">
                                     <option value="">Enter Customer ID Number:</option>
                                    
@@ -310,7 +310,7 @@
                                 <div class="form-group">
                                     <label>Customer ID Number:</label>
                                     @if($no_customer==1)
-                                        <select readonly disabled class="form-control" name="customerID"
+                                        <select readonly disabled class="form-control" required name="customerID"
                                            >
                                             <option value="">Enter Customer ID Number:</option>
                                            
@@ -483,7 +483,7 @@
                                 <div class="form-group">
                                     <label>Customer ID Number:</label>
                                     @if($no_customer==1)
-                                        <select readonly disabled class="form-control" name="customerID"
+                                        <select readonly disabled class="form-control" required name="customerID"
                                            >
                                             <option value="">Enter Customer ID Number:</option>
                                            
