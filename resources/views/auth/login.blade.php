@@ -117,7 +117,7 @@ License: You must have a valid license purchased only from themeforest(the above
 								</div>
 								
 									@if($errors->any())
-										<div class="alert alert-danger">
+										<div class="" style="background: red;">
 											{{ implode('', $errors->all(':message')) }}
 										</div>
 									@endif
