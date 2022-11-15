@@ -26,9 +26,14 @@ class nonConfromFormController extends Controller
        
         $nonconform=Nonconform::where('user_id',$userid)->get();
         $customers = DB::table('tbl_customer')->where('user_id',$userid)->get();
-        if(count($customers)==0){
-            return redirect('/customer')->with("Success","Please add customer first");
+         if(count($customers)==0){
+            $no_customer=1;
+        }else{
+            $no_customer=0;
         }
+        // if(count($customers)==0){
+        //     return redirect('/customer')->with("Success","Please add customer first");
+        // }
         // SELECT b.name FROM `tbl_noconformance` as a, tbl_customer as b WHERE a.customerID = b.idNumber;
         $customers_nonconform = DB::table('tbl_noconformance')->join('tbl_customer','tbl_noconformance.customerID','tbl_customer.idNumber')->select('tbl_noconformance.id as noid','tbl_noconformance.*','tbl_customer.*')->where('tbl_noconformance.user_id',$userid)->where('tbl_customer.user_id',$userid)->orderBy('tbl_noconformance.id','DESC')->get();
         
@@ -38,7 +43,7 @@ class nonConfromFormController extends Controller
         // dd($customers_nonconform);
         //dd($customers_nonconform);
 
-        return view('dashboard.form_records.non_conformities',compact('userid', 'nonconform','customers', 'customers_nonconform'));
+        return view('dashboard.form_records.non_conformities',compact('userid', 'nonconform','customers', 'customers_nonconform', 'no_customer'));
     }
 
     /**

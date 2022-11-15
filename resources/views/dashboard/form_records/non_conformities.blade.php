@@ -34,13 +34,22 @@
                                     <div class="form-group">
                                         <label>Customer ID Number:</label>
                                         {{--- <input type="number" min="1" max="100000" onclick="javascript:getElementById(the_ids.show());" onkeyup="get_customer(this)" class="form-control" name="customer_id" id="customer_id" placeholder="Enter Customer ID Number:">
-                            <div id="the_ids" class="selectoption-div" style="display:none;list-style:none;border:1px solid #EEE;overflow:hidden;">
-                            @foreach($customers as $customer)
-                                <div id="{{ $customer->idNumber }}" class="option-div">{{ $customer->idNumber }}
-                                    </div>
+                                <div id="the_ids" class="selectoption-div" style="display:none;list-style:none;border:1px solid #EEE;overflow:hidden;">
+                                    @foreach($customers as $customer)
+                                     <div id="{{ $customer->idNumber }}" class="option-div">{{ $customer->idNumber }}
+                                     </div>
                                     @endforeach
                                 </div>
                                 <div id="CI_response"></div> ---}}
+                                
+                                @if($no_customer==1)
+                               
+                                <select onchange="get_customer(this)" class="form-control" name="customerID"
+                                    id="customer_id">
+                                    <option value="">Enter Customer ID Number:</option>
+                                   
+                                </select>
+                                @else
                                 <select onchange="get_customer(this)" class="form-control" name="customerID"
                                     id="customer_id">
                                     <option value="">Enter Customer ID Number:</option>
@@ -48,6 +57,7 @@
                                         <option value="{{ $customer->idNumber }}">{{ $customer->idNumber }}</option>
                                     @endforeach
                                 </select>
+                                @endif
                             </div>
                     </div>
                     <div class="col-lg-6">
@@ -299,7 +309,13 @@
                             <div class="col-lg-6">
                                 <div class="form-group">
                                     <label>Customer ID Number:</label>
-
+                                    @if($no_customer==1)
+                                        <select readonly disabled class="form-control" name="customerID"
+                                           >
+                                            <option value="">Enter Customer ID Number:</option>
+                                           
+                                        </select>
+                                    @else
                                     <select readonly disabled class="form-control" name="customerID"
                                         id="customer_id_{{ $customer->idNumber }}">
                                         <option value="">Enter Customer ID Number:</option>
@@ -308,6 +324,7 @@
                                             </option>
                                         @endforeach
                                     </select>
+                                    @endif
                                 </div>
                             </div>
                             <div class="col-lg-6">
@@ -465,6 +482,13 @@
                             <div class="col-lg-6">
                                 <div class="form-group">
                                     <label>Customer ID Number:</label>
+                                    @if($no_customer==1)
+                                        <select readonly disabled class="form-control" name="customerID"
+                                           >
+                                            <option value="">Enter Customer ID Number:</option>
+                                           
+                                        </select>
+                                    @else
                                     <select readonly  class="form-control" name="customerID"
                                         id="customer_id_{{ $customer->idNumber }}">
                                         <option value="">Enter Customer ID Number:</option>
@@ -473,6 +497,7 @@
                                             </option>
                                         @endforeach
                                     </select>
+                                    @endif
                                 </div>
                             </div>
                             <div class="col-lg-6">
