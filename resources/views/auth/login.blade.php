@@ -115,6 +115,13 @@ License: You must have a valid license purchased only from themeforest(the above
 									{{-- <h3 class="kt-login__title">SignIn</h3> --}}
 									{{-- To Admin --}}
 								</div>
+								
+									@if($errors->any())
+										<div class="alert alert-danger">
+											{{ implode('', $errors->all(':message')) }}
+										</div>
+									@endif
+								
 								<form class="kt-form" method="POST" action="{{ route('login') }}">
 									@csrf
 									<div class="input-group">
