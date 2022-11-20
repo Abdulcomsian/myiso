@@ -96,13 +96,13 @@
                         <div class="col-lg-6">
                             <div class="form-group">
                                 <label>Scenario - Describe the activity:</label><br>
-                                <input type="text" class="form-control" name="activityscenario">
+                                <input type="text" class="form-control" placeholder="Enter Activity" name="activityscenario">
                             </div>
                         </div>
                         <div class="col-lg-6">
                             <div class="form-group">
                                 <label>Risk likelihood of scenario occuring - Enter a number between 1-6 (6 being most likely):</label><br>
-                                <input type="number" class="form-control" name="risklikehood">
+                                <input type="number" class="form-control" placeholder="Enter likelihood" name="risklikehood">
                             </div>
                         </div>
                     </div>
@@ -111,13 +111,13 @@
                         <div class="col-lg-6">
                             <div class="form-group">
                                 <label>Risk severity - Enter a number between 1-6 (6 being most severe):</label>
-                                <input type="number" class="form-control" name="riskseverity" placeholder="Enter Management Review Meeting:">
+                                <input type="number" class="form-control" name="riskseverity" placeholder="Enter severity:">
                             </div>
                         </div>
                         <div class="col-lg-6">
                             <div class="form-group">
                                 <label>If an environmental accident, what gets out and how much:</label>
-                                <input type="text" class="form-control" name="envaccident" placeholder="Enter Review Previous Meeting:">
+                                <input type="text" class="form-control" name="envaccident" placeholder="Enter Potential Outcome:">
                             </div>
                         </div>
                     </div>
@@ -125,13 +125,13 @@
                         <div class="col-lg-6">
                             <div class="form-group">
                                 <label>If an environmental accident, where does it end up?</label>
-                                <input type="text" class="form-control" name="envaccidental">
+                                <input type="text" class="form-control" placeholder="Enter Location" name="envaccidental">
                             </div>
                         </div>
                         <div class="col-lg-6">
                             <div class="form-group">
                                 <label>What are the consequences?:</label>
-                                <input type="text" class="form-control" name="consequences">
+                                <input type="text" class="form-control" placeholder="Enter Potential Consequences" name="consequences">
                             </div>
                         </div>
                     </div>
@@ -139,19 +139,19 @@
                         <div class="col-lg-6">
                             <div class="form-group">
                                 <label>What can prevent or reduce the risk?:</label>
-                                <input type="text" class="form-control" name="reducerisk">
+                                <input type="text" class="form-control" c name="reducerisk">
                         </div>
                         </div>
                         <div class="col-lg-6">
                             <div class="form-group">
                                 <label>Revised Risk likelihood of scenario occuring following prevention step - A number between 1-6 (6 being most likely):</label>
-                                <input type="number" class="form-control" name="revisedrisk">
+                                <input type="number" class="form-control" placeholder="Enter new reduced risk level" name="revisedrisk">
                             </div>
                         </div>
                         <div class="col-lg-6">
                             <div class="form-group">
                                 <label>Revised Risk severity following prevention step - A number between 1-6 (6 being most severe):</label>
-                                <input type="number" class="form-control" name="reviseRiskSever">
+                                <input type="number" class="form-control" placeholder="Enter new reduced risk severity level" name="reviseRiskSever">
                             </div>
                         </div>
                     </div>

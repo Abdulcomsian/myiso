@@ -50,12 +50,12 @@
 									<div class="col-lg-6">
 										<div class="form-group">
 											<label>Management Review Meeting Attendees:</label>
-                                            <textarea class="form-control" name="meetingatt" required placeholder="" cols="30" rows="4"></textarea>
+                                            <textarea class="form-control" name="meetingatt" required placeholder="Enter attendees name:" cols="30" rows="4"></textarea>
 										</div>
 									</div>
 									<div class="col-lg-6">
 										<div class="form-group">
-											<label>Review previous meeting minutes:</label>
+											<label>Review of previous meeting minutes:</label>
                                             <textarea class="form-control" name="prevmeeting" required placeholder="" cols="30" rows="4"></textarea>
 										</div>
 									</div>
@@ -64,13 +64,13 @@
 									<div class="col-lg-6">
 										<div class="form-group">
 											<label>Changes in external and internal issues that are relevant to the quality management system and changes recommended:</label>
-                                            <textarea class="form-control" name="recommendedchange" required placeholder="" cols="30" rows="4"></textarea>
+                                            <textarea class="form-control" name="recommendedchange" required placeholder="Enter Changes" cols="30" rows="4"></textarea>
 										</div>
 									</div>
 									<div class="col-lg-6">
 										<div class="form-group">
 											<label>Summarise customer satisfaction surveys and feedback from relevant interested parties:</label>
-                                            <textarea class="form-control" name="sammarisecustomr" required placeholder="" cols="30" rows="4"></textarea>
+                                            <textarea class="form-control" placeholder="Enter Summary" name="sammarisecustomr" required placeholder="" cols="30" rows="4"></textarea>
 										</div>
 									</div>
 								</div>
@@ -78,13 +78,13 @@
 									<div class="col-lg-6">
 										<div class="form-group">
 											<label>Comment on previous objectives:</label>
-                                            <textarea class="form-control" name="prevobjectv" required placeholder="" cols="30" rows="4"></textarea>
+                                            <textarea class="form-control" name="prevobjectv" placeholder="Enter Comments of Previous Objects" required placeholder="" cols="30" rows="4"></textarea>
 										</div>
 									</div>
 									<div class="col-lg-6">
 										<div class="form-group">
 											<label>Process performance and conformity of products and services:</label>
-                                            <textarea class="form-control" name="conformity" required  placeholder="" cols="30" rows="4"></textarea>
+                                            <textarea class="form-control" placeholder="Enter Feedback of performance of products and services" name="conformity" required  placeholder="" cols="30" rows="4"></textarea>
 										</div>
 									</div>
 								</div>
@@ -92,13 +92,13 @@
 									<div class="col-lg-6">
 										<div class="form-group">
 											<label>Nonconformities and corrective actions:</label>
-                                            <textarea class="form-control" name="nonconformities" required placeholder="" cols="30" rows="4"></textarea>
+                                            <textarea class="form-control" name="nonconformities" required placeholder="Enter Nonconformities and corrective actions" cols="30" rows="4"></textarea>
 										</div>
 									</div>
 									<div class="col-lg-6">
 										<div class="form-group">
 											<label>Monitoring and measurement results:</label>
-                                            <textarea class="form-control" name="monitoringres" required  placeholder="" cols="30" rows="4"></textarea>
+                                            <textarea class="form-control" name="monitoringres" required  placeholder="Enter Outcome" cols="30" rows="4"></textarea>
 										</div>
 									</div>
 								</div>
@@ -107,12 +107,12 @@
 										<div class="form-group">
 											<label>Comment on Audit results:</label>
                                             <textarea class="form-control" name="auditres" required placeholder="" cols="30" rows="4"></textarea>
-										</div>
+									placeholder="Enter New Quality Objectives"	</div>
 									</div>
 									<div class="col-lg-6">
 										<div class="form-group">
 											<label>Comment on the performance of external providers:</label>
-                                            <textarea class="form-control" name="externalprovider" required placeholder="" cols="30" rows="4"></textarea>
+                                            <textarea class="form-control" name="externalprovider" required placeholder="Enter Comments of external providers performance" cols="30" rows="4"></textarea>
 										</div>
 									</div>
 								</div>
@@ -120,13 +120,13 @@
 									<div class="col-lg-6">
 										<div class="form-group">
 											<label>The adequacy of resources and changes recommended:</label>
-                                            <textarea class="form-control" name="adequacy" required placeholder="" cols="30" rows="4"></textarea>
+                                            <textarea class="form-control" name="adequacy" required placeholder="Enter Comments of adequacy of the resources and recommended changes" cols="30" rows="4"></textarea>
 										</div>
 									</div>
 									<div class="col-lg-6">
 										<div class="form-group">
 											<label>The effectiveness of actions taken to address risks and opportunities:</label>
-                                            <textarea class="form-control" name="effectiveness" required placeholder="" cols="30" rows="4"></textarea>
+                                            <textarea class="form-control" name="effectiveness" required placeholder= "Enter Effectiveness of actions" cols="30" rows="4"></textarea>
 										</div>
 									</div>
 								</div>
@@ -137,7 +137,7 @@
                                         opportunities for improvement. Consider who is
                                         responsible, when they will be completed and
                                         what is considered a success. Objectives should be both quality based and financial. Consider aligning objectives to the quality policy:</label>
-                                            <textarea class="form-control" name="newquality" required placeholder="" cols="30" rows="4"></textarea>
+                                            <textarea class="form-control" name="newquality" required placeholder="Enter New Quality Objectives" cols="30" rows="4"></textarea>
 										</div>
 									</div>
 								</div>
@@ -259,12 +259,12 @@
                             <div class="col-lg-6">
                                 <div class="form-group">
                                     <label>Management Review Meeting Attendees:</label>
-                                    <input type="text" readonly disabled class="form-control" name="1meetingatt" placeholder="">
+                                    <input type="text" readonly disabled class="form-control" name="1meetingatt" placeholder="Enter attendees name:">
                                 </div>
                             </div>
                             <div class="col-lg-6">
                                 <div class="form-group">
-                                    <label>Review previous meeting minutes:</label>
+                                    <label>Review of previous meeting minutes:</label>
                                     <input type="text" readonly disabled class="form-control" name="1prevmeeting" placeholder="">
                                 </div>
                             </div>
@@ -273,13 +273,13 @@
                             <div class="col-lg-6">
                                 <div class="form-group">
                                     <label>Changes in external and internal issues that are relevant to the quality management system and changes recommended:</label>
-                                    <input type="text" readonly disabled class="form-control" name="1recommendedchange">
+                                    <input type="text" readonly disabled class="form-control" placeholder="Enter Changes" name="1recommendedchange">
                                 </div>
                             </div>
                             <div class="col-lg-6">
                                 <div class="form-group">
                                     <label>Summarise customer satisfaction surveys and feedback from relevant interested parties:</label>
-                                    <input type="text" readonly disabled class="form-control" name="1sammarisecustomr">
+                                    <input type="text" readonly disabled class="form-control" placeholder="Enter Summary" name="1sammarisecustomr">
                                 </div>
                             </div>
                         </div>
@@ -287,13 +287,13 @@
                             <div class="col-lg-6">
                                 <div class="form-group">
                                     <label>Comment on previous objectives:</label>
-                                    <input type="text" readonly disabled class="form-control" name="1prevobjectv">
+                                    <input type="text" readonly disabled class="form-control" placeholder="Enter Comments of Previous Objects" name="1prevobjectv">
                                 </div>
                             </div>
                             <div class="col-lg-6">
                                 <div class="form-group">
                                     <label>Process performance and conformity of products and services:</label>
-                                    <input type="text" readonly disabled class="form-control" name="1conformity">
+                                    <input type="text" readonly disabled placeholder="Enter Feedback of performance of products and services" class="form-control" name="1conformity">
                                 </div>
                             </div>
                         </div>
@@ -301,13 +301,13 @@
                             <div class="col-lg-6">
                                 <div class="form-group">
                                     <label>Nonconformities and corrective actions:</label>
-                                    <input type="text" readonly disabled class="form-control" name="1nonconformities">
+                                    <input type="text" readonly disabled class="form-control" placeholder="Enter Nonconformities and corrective actions" name="1nonconformities">
                                 </div>
                             </div>
                             <div class="col-lg-6">
                                 <div class="form-group">
                                     <label>Monitoring and measurement results:</label>
-                                    <input type="text" readonly disabled class="form-control" name="1monitoringres">
+                                    <input type="text" readonly disabled class="form-control" placeholder="Enter Outcome" name="1monitoringres">
                                 </div>
                             </div>
                         </div>
@@ -391,12 +391,12 @@
                             <div class="col-lg-6">
                                 <div class="form-group">
                                     <label>Management Review Meeting Attendees:</label>
-                                    <input type="text" class="form-control" required name="meetingatt" placeholder="">
+                                    <input type="text" class="form-control" required name="meetingatt" placeholder="Enter attendees name:">
                                 </div>
                             </div>
                             <div class="col-lg-6">
                                 <div class="form-group">
-                                    <label>Review previous meeting minutes:</label>
+                                    <label>Review of previous meeting minutes:</label>
                                     <input type="text" class="form-control" required name="prevmeeting" placeholder="">
                                 </div>
                             </div>
@@ -405,13 +405,13 @@
                             <div class="col-lg-6">
                                 <div class="form-group">
                                     <label>Changes in external and internal issues that are relevant to the quality management system and changes recommended:</label>
-                                    <input type="text" class="form-control" required name="recommendedchange">
+                                    <input type="text" class="form-control" placeholder="Enter Changes" required name="recommendedchange">
                                 </div>
                             </div>
                             <div class="col-lg-6">
                                 <div class="form-group">
                                     <label>Summarise customer satisfaction surveys and feedback from relevant interested parties:</label>
-                                    <input type="text" class="form-control" required name="sammarisecustomr">
+                                    <input type="text" class="form-control" placeholder="Enter Summary" required name="sammarisecustomr">
                                 </div>
                             </div>
                         </div>
@@ -419,13 +419,13 @@
                             <div class="col-lg-6">
                                 <div class="form-group">
                                     <label>Comment on previous objectives:</label>
-                                    <input type="text" class="form-control" required name="prevobjectv">
+                                    <input type="text" class="form-control" placeholder="Enter Comments of Previous Objects" required name="prevobjectv">
                                 </div>
                             </div>
                             <div class="col-lg-6">
                                 <div class="form-group">
                                     <label>Process performance and conformity of products and services:</label>
-                                    <input type="text" class="form-control" required  name="conformity">
+                                    <input type="text" class="form-control" placeholder="Enter Feedback of performance of products and services" required  name="conformity">
                                 </div>
                             </div>
                         </div>
@@ -433,13 +433,13 @@
                             <div class="col-lg-6">
                                 <div class="form-group">
                                     <label>Nonconformities and corrective actions:</label>
-                                    <input type="text" class="form-control" name="nonconformities">
+                                    <input type="text" class="form-control"placeholder="Enter Nonconformities and corrective actions"  name="nonconformities">
                                 </div>
                             </div>
                             <div class="col-lg-6">
                                 <div class="form-group">
                                     <label>Monitoring and measurement results:</label>
-                                    <input type="text" class="form-control" required name="monitoringres">
+                                    <input type="text" class="form-control" placeholder="Enter Outcome" required name="monitoringres">
                                 </div>
                             </div>
                         </div>

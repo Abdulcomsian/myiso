@@ -47,12 +47,12 @@
 									<div class="col-lg-6">
 										<div class="form-group">
 											<label>Management Review Meeting Attendees:</label>
-											<input type="text" class="form-control" aria-describedby="emailHelp" placeholder="Enter Management Review Meeting:">
+											<input type="text" class="form-control" aria-describedby="emailHelp" placeholder="Enter attendees name:">
 										</div>
 									</div>
 									<div class="col-lg-6">
 										<div class="form-group">
-											<label>Review previous meeting minutes:</label>
+											<label>Review of previous meeting minutes:</label>
 											<input type="text" class="form-control" aria-describedby="emailHelp" placeholder="Enter Review Previous Meeting:">
 										</div>
 									</div>
@@ -61,13 +61,13 @@
 									<div class="col-lg-6">
 										<div class="form-group">
 											<label>Changes in external and internal issues that are relevant to the quality management system and changes recommended:</label>
-											<input type="text" class="form-control" aria-describedby="emailHelp">
+											<input type="text" class="form-control" placeholder="Enter Changes" aria-describedby="emailHelp">
 										</div>
 									</div>
 									<div class="col-lg-6">
 										<div class="form-group">
 											<label>Summarise customer satisfaction surveys and feedback from relevant interested parties:</label>
-											<input type="text" class="form-control" aria-describedby="emailHelp">
+											<input type="text" class="form-control" placeholder="Enter Summary" aria-describedby="emailHelp">
 										</div>
 									</div>
 								</div>
@@ -75,13 +75,13 @@
 									<div class="col-lg-6">
 										<div class="form-group">
 											<label>Comment on previous objectives:</label>
-											<input type="text" class="form-control" aria-describedby="emailHelp">
+											<input type="text" class="form-control" placeholder="Enter Comments of Previous Objects" aria-describedby="emailHelp">
 										</div>
 									</div>
 									<div class="col-lg-6">
 										<div class="form-group">
 											<label>Process performance and conformity of products and services:</label>
-											<input type="text" class="form-control" aria-describedby="emailHelp">
+											<input type="text" placeholder="Enter Feedback of performance of products and services" class="form-control" aria-describedby="emailHelp">
 										</div>
 									</div>
 								</div>
@@ -89,13 +89,13 @@
 									<div class="col-lg-6">
 										<div class="form-group">
 											<label>Nonconformities and corrective actions:</label>
-											<input type="text" class="form-control" aria-describedby="emailHelp">
+											<input type="text" class="form-control" placeholder="Enter Nonconformities and corrective actions" aria-describedby="emailHelp">
 										</div>
 									</div>
 									<div class="col-lg-6">
 										<div class="form-group">
 											<label>Monitoring and measurement results:</label>
-											<input type="text" class="form-control" aria-describedby="emailHelp">
+											<input type="text" class="form-control" placeholder="Enter Outcome" aria-describedby="emailHelp">
 										</div>
 									</div>
 								</div>
@@ -109,7 +109,7 @@
 									<div class="col-lg-6">
 										<div class="form-group">
 											<label>Comment on the performance of external providers:</label>
-											<input type="text" class="form-control" aria-describedby="emailHelp">
+											<input type="text" class="form-control"  placeholder="Enter Comments of external providers performance" aria-describedby="emailHelp">
 										</div>
 									</div>
 								</div>
@@ -117,13 +117,13 @@
 									<div class="col-lg-6">
 										<div class="form-group">
 											<label>The adequacy of resources and changes recommended:</label>
-											<input type="text" class="form-control" aria-describedby="emailHelp">
+											<input type="text" class="form-control" placeholder="Enter Comments of adequacy of the resources and recommended changes" aria-describedby="emailHelp">
 										</div>
 									</div>
 									<div class="col-lg-6">
 										<div class="form-group">
 											<label>The effectiveness of actions taken to address risks and opportunities:</label>
-											<input type="text" class="form-control" aria-describedby="emailHelp">
+											<input type="text" class="form-control" placeholder= "Enter Effectiveness of actions" aria-describedby="emailHelp">
 										</div>
 									</div>
 								</div>
@@ -131,7 +131,7 @@
 									<div class="col-lg-12">
 										<div class="form-group">
 											<label>Add New Quality Objectives and opportunities for improvement. Consider who is responsible, when they will be completed and what is considered a success:</label>
-											<input type="text" class="form-control" aria-describedby="emailHelp">
+											<input type="text" class="form-control" placeholder="Enter New Quality Objectives" aria-describedby="emailHelp">
 										</div>
 									</div>
 								</div>

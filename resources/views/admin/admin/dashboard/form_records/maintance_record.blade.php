@@ -47,13 +47,13 @@
 									<div class="col-lg-6">
 										<div class="form-group">
 											<label>Maintenance Record Item:</label>
-											<input type="text" class="form-control" aria-describedby="emailHelp" placeholder="Enter Management Review Meeting:">
+											<input type="text" class="form-control" aria-describedby="emailHelp" placeholder="Enter Object name:">
 										</div>
 									</div>
 									<div class="col-lg-6">
 										<div class="form-group">
 											<label>Maintenance Record Activity:</label>
-											<input type="text" class="form-control" aria-describedby="emailHelp" placeholder="Enter Review Previous Meeting:">
+											<input type="text" class="form-control" aria-describedby="emailHelp" placeholder="Enter Activity:">
 										</div>
 									</div>
 								</div>
@@ -61,13 +61,13 @@
 									<div class="col-lg-6">
 										<div class="form-group">
 											<label>Maintenance Location:</label>
-											<input type="text" class="form-control" aria-describedby="emailHelp">
+											<input type="text" class="form-control" placeholder="Enter Location" aria-describedby="emailHelp">
 										</div>
 									</div>
 									<div class="col-lg-6">
 										<div class="form-group">
 											<label>Maintenance Record Observations:</label>
-											<input type="text" class="form-control" aria-describedby="emailHelp">
+											<input type="text" class="form-control" placeholder="Enter Observation" aria-describedby="emailHelp">
 										</div>
 									</div>
 								</div>
@@ -75,13 +75,13 @@
 									<div class="col-lg-6">
 										<div class="form-group">
 											<label>Maintenance Record Actions:</label>
-											<input type="text" class="form-control" aria-describedby="emailHelp">
+											<input type="text" class="form-control" placeholder="Enter Actions Taken" aria-describedby="emailHelp">
 										</div>
 									</div>
 									<div class="col-lg-6">
 										<div class="form-group">
 											<label>Maintenance Record Activity Performed By:</label>
-											<input type="text" class="form-control" aria-describedby="emailHelp">
+											<input type="text" class="form-control"  placeholder="Enter Name of person carrying out maintenance" aria-describedby="emailHelp">
 										</div>
 									</div>
 								</div>

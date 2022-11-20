@@ -73,7 +73,7 @@
 									<div class="col-lg-6">
 										<div class="form-group">
 											<label>Non-Conformance Report Reference if applicable:</label>
-											<input type="text" class="form-control" aria-describedby="emailHelp" placeholder="Enter Non-Conformance:">
+											<input type="text" class="form-control" aria-describedby="emailHelp" placeholder="Enter Report Reference:">
 										</div>
 									</div>
 									<div class="col-lg-6">

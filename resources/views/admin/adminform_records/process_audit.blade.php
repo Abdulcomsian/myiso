@@ -89,7 +89,7 @@
 									<div class="col-lg-6">
 										<div class="form-group">
 											<label>Non-Conformance Report Reference (if applicable):</label>
-											 <input type="text"  name="nonConfReport" class="form-control validate_number"  placeholder="">
+											 <input type="text"  name="nonConfReport" class="form-control validate_number"  placeholder="Enter Report Reference">
 										</div>
 									</div>
 									<div class="col-lg-6">
@@ -525,7 +525,7 @@
                         <div class="col-lg-6">
                             <div class="form-group">
                                 <label>Non-Conformance Report Reference (if applicable):</label> 
-                                <input type="text" required name="nonConfReport" class="form-control validate_number" placeholder="Enter Non-Conformance:">
+                                <input type="text" required name="nonConfReport" class="form-control validate_number" placeholder="Enter Report Reference:">
                             </div>
                         </div>
                         <div class="col-lg-6">
@@ -876,7 +876,7 @@
                         <div class="col-lg-6">
                             <div class="form-group">
                                 <label>Non-Conformance Report Reference (if applicable):</label> 
-                                <input type="text"  name="nonConfReport" class="form-control validate_number"  placeholder="Enter Non-Conformance:" disabled>
+                                <input type="text"  name="nonConfReport" class="form-control validate_number"  placeholder="Enter Report Reference:" disabled>
                             </div>
                         </div>
                         <div class="col-lg-6">

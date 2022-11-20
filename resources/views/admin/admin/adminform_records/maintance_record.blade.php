@@ -125,13 +125,13 @@
                         <div class="col-lg-6">
                             <div class="form-group">
                                 <label>Maintenance Record Item:</label>
-                                <input type="text" class="form-control" name="mritem" placeholder="Enter Management Review Meeting:">
+                                <input type="text" class="form-control" name="mritem" placeholder="Enter Object name:">
                             </div>
                         </div>
                         <div class="col-lg-6">
                             <div class="form-group">
                                 <label>Maintenance Record Activity:</label>
-                                <input type="text" class="form-control" name="mractivity" placeholder="Enter Review Previous Meeting:">
+                                <input type="text" class="form-control" name="mractivity" placeholder="Enter Activity:">
                             </div>
                         </div>
                     </div>
@@ -139,13 +139,13 @@
                         <div class="col-lg-6">
                             <div class="form-group">
                                 <label>Maintenance Location:</label>
-                                <input type="text" class="form-control" name="mlocation">
+                                <input type="text" class="form-control" placeholder="Enter Location" name="mlocation">
                             </div>
                         </div>
                         <div class="col-lg-6">
                             <div class="form-group">
                                 <label>Maintenance Record Observations:</label>
-                                <input type="text" class="form-control" name="mrobservation">
+                                <input type="text" class="form-control" placeholder="Enter Observation" name="mrobservation">
                             </div>
                         </div>
                     </div>
@@ -153,13 +153,13 @@
                         <div class="col-lg-6">
                             <div class="form-group">
                                 <label>Maintenance Record Actions:</label>
-                                <input type="text" class="form-control" name="mractions">
+                                <input type="text" class="form-control" placeholder="Enter Action Taken" name="mractions">
                             </div>
                         </div>
                         <div class="col-lg-6">
                             <div class="form-group">
                                 <label>Maintenance Record Activity Performed By:</label>
-                                <input type="text" class="form-control" name="mractivityperofrmby">
+                                <input type="text" class="form-control" placeholder="Enter Name of person carrying out maintenance" name="mractivityperofrmby">
                             </div>
                         </div>
                     </div>

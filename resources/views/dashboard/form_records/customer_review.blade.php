@@ -40,7 +40,7 @@
 											<label>Customer ID Number:</label><br>
 											<!-- <input type="number" class="form-control" name="cus_id" placeholder="Enter Customer ID:"> -->
 											<select class="form-control" name="cus_id" required="required">
-												<option value="">Select CustomerId</option>
+												<option value="">Select Customer Id</option>
                                                 @foreach($all_customers as $customer)
                                                 <option value="{{$customer->idNumber}}">{{$customer->idNumber}}</option>
                                                 @endforeach
@@ -53,7 +53,7 @@
 									<div class="col-lg-6">
 										<div class="form-group">
 											<label>Quality Score (0-10):</label>
-											<input type="number" min="0" max="10" id="qualityScore"  class="form-control" name="qualityScore" required="required">
+											<input type="number" min="0" max="10" id="qualityScore"  class="form-control" placeholder="Enter Quality Score" name="qualityScore" required="required">
 										</div>
 									</div>
 									<div class="col-lg-6">
@@ -67,7 +67,7 @@
 									<div class="col-lg-6">
 										<div class="form-group">
 											<label>Delivery Score (0-10):</label>
-											<input type="number"min="0" max="10" class="form-control" name="DScore" required="required">
+											<input type="number"min="0" max="10" class="form-control" name="DScore" required="required" placeholder="Enter Delivery Score">
 										</div>
 									</div>
 									<div class="col-lg-6">

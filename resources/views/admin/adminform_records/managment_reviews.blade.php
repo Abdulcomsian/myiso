@@ -54,7 +54,7 @@
 									</div>
 									<div class="col-lg-6">
 										<div class="form-group">
-											<label>Review previous meeting minutes:</label>
+											<label>Review of previous meeting minutes:</label>
                                             <textarea class="form-control" name="prevmeeting" placeholder="" required  cols="30" rows="4"></textarea>
 										</div>
 									</div>
@@ -91,13 +91,13 @@
 									<div class="col-lg-6">
 										<div class="form-group">
 											<label>Nonconformities and corrective actions:</label>
-                                            <textarea class="form-control" name="nonconformities" placeholder="" required  cols="30" rows="4"></textarea>
+                                            <textarea class="form-control" placeholder="Enter Nonconformities and corrective actions" name="nonconformities" placeholder="" required  cols="30" rows="4"></textarea>
 										</div>
 									</div>
 									<div class="col-lg-6">
 										<div class="form-group">
 											<label>Monitoring and measurement results:</label>
-                                            <textarea class="form-control" name="monitoringres" placeholder="" required cols="30" rows="4"></textarea>
+                                            <textarea class="form-control" name="monitoringres" placeholder="Enter Outcome" required cols="30" rows="4"></textarea>
 										</div>
 									</div>
 								</div>
@@ -269,7 +269,7 @@
                             </div>
                             <div class="col-lg-6">
                                 <div class="form-group">
-                                    <label>Review previous meeting minutes:</label>
+                                    <label>Review of previous meeting minutes:</label>
                                     <input type="text" readonly disabled class="form-control" required name="1prevmeeting" placeholder="">
                                 </div>
                             </div>
@@ -405,12 +405,12 @@
                             <div class="col-lg-6">
                                 <div class="form-group">
                                     <label>Management Review Meeting Attendees:</label>
-                                    <input type="text" class="form-control" required name="meetingatt" placeholder="">
+                                    <input type="text" class="form-control" placeholder="" required name="meetingatt" placeholder="">
                                 </div>
                             </div>
                             <div class="col-lg-6">
                                 <div class="form-group">
-                                    <label>Review previous meeting minutes:</label>
+                                    <label>Review of previous meeting minutes:</label>
                                     <input type="text" class="form-control" required name="prevmeeting" placeholder="">
                                 </div>
                             </div>
@@ -447,13 +447,13 @@
                             <div class="col-lg-6">
                                 <div class="form-group">
                                     <label>Nonconformities and corrective actions:</label>
-                                    <input type="text" class="form-control" required name="nonconformities">
+                                    <input type="text" class="form-control" placeholder="Enter Nonconformities and corrective actions" required name="nonconformities">
                                 </div>
                             </div>
                             <div class="col-lg-6">
                                 <div class="form-group">
                                     <label>Monitoring and measurement results:</label>
-                                    <input type="text" class="form-control" required name="monitoringres">
+                                    <input type="text" class="form-control" placeholder="Enter Outcome" required name="monitoringres">
                                 </div>
                             </div>
                         </div>
