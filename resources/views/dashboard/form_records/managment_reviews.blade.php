@@ -56,7 +56,7 @@
 									<div class="col-lg-6">
 										<div class="form-group">
 											<label>Review of previous meeting minutes:</label>
-                                            <textarea class="form-control" name="prevmeeting" required placeholder="" cols="30" rows="4"></textarea>
+                                            <textarea class="form-control" name="prevmeeting" required placeholder="Enter Previous meetings key points" cols="30" rows="4"></textarea>
 										</div>
 									</div>
 								</div>
