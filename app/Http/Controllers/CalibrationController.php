@@ -50,7 +50,7 @@ class CalibrationController extends Controller
     //     $this->validate($request,[
     //        'calibrationid'=>'required',
     //    ]);
-    //   try{
+      try{
            $calibration= new calibration();
            $is_admin = $request->input('is_admin');
              if($is_admin=="admin"){
@@ -72,23 +72,24 @@ class CalibrationController extends Controller
             //Check if user attach evidence
             if ($request->file('attach_evidence') && Schema::hasColumn('tbl_maintain_recs','attach_evidence')) {
                 //Delete previous attach evidence if exist
-                if (File::exists(public_path($mrecord->attach_evidence))) {
-                    File::delete(public_path($mrecord->attach_evidence));
+                if (File::exists(public_path($calibration->attach_evidence))) {
+                    File::delete(public_path($calibration->attach_evidence));
                 }
 
                 $file = $request->file('attach_evidence');
                 $path = '/uploads/user/attach_evidence/';
-                $mrecord->attach_evidence = HelperFunctions::saveFile($path,$file);
+                $calibration->attach_evidence = HelperFunctions::saveFile($path,$file);
             }
 
            $calibration->sentence=$request->input('sentence');
            $calibration->issues_points=$request->input('issues_points');
            $calibration->save();
            return back()->with("Success","Data Save Successfully");
-    //   }catch(Exception $exception){
-    //     return back()->with("Error","Error");
+      }catch(Exception $exception){
+          echo 'Message: ' .$exception->getMessage();
+        // return back()->with("Error","Error");
 
-    //   }
+      }
     }
 
     /**

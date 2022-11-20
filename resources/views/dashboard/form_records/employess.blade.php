@@ -197,7 +197,6 @@
                                             <th style="width:120px;">CV</th>
 
 
-
 											
                                             <th style="width:150px;">Action</th>
 										</tr>
@@ -214,7 +213,8 @@
 
 											<td> {{date('d/m/Y', strtotime($item->startDate))}}</td>
                                             <td> {{$item->jobdetails}}</td>
-                                            <td>
+                                            <td> 
+
 											@if(!empty($item->cv))
 												<?php
 													$path_info = explode('.', $item->cv);
@@ -237,10 +237,16 @@
 															<button type="button" class="close" data-dismiss="modal" aria-label="Close">
 															<span aria-hidden="true">&times;</span>
 															</button>
-														</div>
+														</div> 
 														<div class="modal-body">
-															<iframe frameborder="0" style="min-height: 500px;overflow:scroll; width: 100%" scrolling="yes" src="{{ asset($item->cv) }}"></iframe>
-														</div>
+														    
+															    <!--<iframe frameborder="0" style="min-height: 500px;overflow:scroll; width: 100%" scrolling="yes" src="{{ asset($item->cv) }}"></iframe>-->
+															
+															
+															<object data="{{ asset($item->cv) }}" type="application/pdf">
+                                                              <embed src="{{ asset($item->cv) }}" type="application/pdf" />
+                                                            </object>
+														</div> 
 														<div class="modal-footer">
 																	<a href="{{ asset($item->cv) }}" download>
 																<h5 class="modal-title" style="float:right;text-align:Right;">Download CV</h5>
@@ -248,7 +254,7 @@
 														</div>
 														</div>
 													</div>
-													</div>
+													</div> 
 												@else
 													No data found
 												@endif
@@ -344,7 +350,8 @@
 
                                         </tr>
                                          @php $n++; @endphp
-                                        @endforeach
+                                        @endforeach 
+                                        
 									</tbody>
 								</table>
 								<!--end: Datatable -->
