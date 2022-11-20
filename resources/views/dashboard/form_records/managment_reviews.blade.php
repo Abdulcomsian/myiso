@@ -106,8 +106,8 @@
 									<div class="col-lg-6">
 										<div class="form-group">
 											<label>Comment on Audit results:</label>
-                                            <textarea class="form-control" name="auditres" required placeholder="" cols="30" rows="4"></textarea>
-									placeholder="Enter New Quality Objectives"	</div>
+                                            <textarea class="form-control" name="auditres" required placeholder="Enter Comments of Previous Objects" cols="30" rows="4"></textarea>
+										</div>
 									</div>
 									<div class="col-lg-6">
 										<div class="form-group">
