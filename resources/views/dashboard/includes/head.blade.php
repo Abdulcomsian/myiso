@@ -20,7 +20,7 @@ License: You must have a valid license purchased only from themeforest(the above
 		<title>{{Auth::user()->company_name}}</title>
 		<meta name="description" content="Updates and statistics">
 		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 		<!--begin::Fonts -->
 		<script src="https://ajax.googleapis.com/ajax/libs/webfont/1.6.16/webfont.js"></script>
 		<script>

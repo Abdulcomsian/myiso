@@ -1,5 +1,4 @@
 @extends('admin.dashboard.layouts.app')
-
 @section('content')
     <!-- begin:: Content -->
     <div class="kt-content  kt-grid__item kt-grid__item--fluid" id="kt_content">
@@ -31,7 +30,7 @@
                             </div>
                         </div>
                         <div class="calibration_from_div">
-                            <form action="{{route('calibration')}} " method="POST">
+                            <form action="{{route('calibration')}} " method="POST" enctype="multipart/form-data">
                                 @csrf
                                 <div class="row">
                                     {{-- <div class="col-lg-6">
@@ -633,7 +632,7 @@
                                 </div>
                             </div>
                             <div class="calibration_from_div">
-                                <form action="{{route('calibration')}} " method="POST">
+                                <form action="{{route('calibration')}} " method="POST" enctype="multipart/form-data">
                                     @csrf
                                     <div class="row">
                                         {{-- <div class="col-lg-6">
@@ -1516,7 +1515,7 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    <form action="{{route('calibrationedit')}} " method="POST">
+                    <form action="{{route('calibrationedit')}} " method="POST" enctype="multipart/form-data">
                         @csrf
                         @php
                             $urlparam = request()->route()->parameters;
