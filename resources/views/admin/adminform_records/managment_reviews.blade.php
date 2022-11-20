@@ -49,13 +49,13 @@
 									<div class="col-lg-6">
 										<div class="form-group">
 											<label>Management Review Meeting Attendees:</label>
-                                            <textarea class="form-control" name="meetingatt" placeholder="" required  cols="30" rows="4"></textarea>
+                                            <textarea class="form-control" name="meetingatt" placeholder="Enter attendees name:" required  cols="30" rows="4"></textarea>
 										</div>
 									</div>
 									<div class="col-lg-6">
 										<div class="form-group">
 											<label>Review of previous meeting minutes:</label>
-                                            <textarea class="form-control" name="prevmeeting" placeholder="" required  cols="30" rows="4"></textarea>
+                                            <textarea class="form-control" name="prevmeeting" required  cols="30" placeholder="Enter Review Previous Meeting:" rows="4"></textarea>
 										</div>
 									</div>
 								</div>
@@ -63,13 +63,13 @@
 									<div class="col-lg-6">
 										<div class="form-group">
 											<label>Changes in external and internal issues that are relevant to the quality management system and changes recommended:</label>
-                                            <textarea class="form-control" name="recommendedchange" placeholder="" required  cols="30" rows="4"></textarea>
+                                            <textarea class="form-control" name="recommendedchange" placeholder="Enter Changes" required  cols="30" rows="4"></textarea>
 										</div>
 									</div>
 									<div class="col-lg-6">
 										<div class="form-group">
 											<label>Summarise customer satisfaction surveys and feedback from relevant interested parties:</label>
-                                            <textarea class="form-control" name="sammarisecustomr" placeholder="" required  cols="30" rows="4"></textarea>
+                                            <textarea class="form-control"  placeholder="Enter Summary" name="sammarisecustomr" required  cols="30" rows="4"></textarea>
 										</div>
 									</div>
 								</div>
@@ -77,13 +77,13 @@
 									<div class="col-lg-6">
 										<div class="form-group">
 											<label>Comment on previous objectives:</label>
-                                            <textarea class="form-control" name="prevobjectv" placeholder="" required  cols="30" rows="4"></textarea>
+                                            <textarea class="form-control" name="prevobjectv" placeholder="Enter Comments of Previous Objects"  required  cols="30" rows="4"></textarea>
 										</div>
 									</div>
 									<div class="col-lg-6">
 										<div class="form-group">
 											<label>Process performance and conformity of products and services:</label>
-                                            <textarea class="form-control" name="conformity" placeholder="" required  cols="30" rows="4"></textarea>
+                                            <textarea class="form-control" name="conformity" placeholder="Enter Feedback of performance of products and services" required  cols="30" rows="4"></textarea>
 										</div>
 									</div>
 								</div>
@@ -91,7 +91,7 @@
 									<div class="col-lg-6">
 										<div class="form-group">
 											<label>Nonconformities and corrective actions:</label>
-                                            <textarea class="form-control" placeholder="Enter Nonconformities and corrective actions" name="nonconformities" placeholder="" required  cols="30" rows="4"></textarea>
+                                            <textarea class="form-control" placeholder="Enter Nonconformities and corrective actions" name="nonconformities" required  cols="30" rows="4"></textarea>
 										</div>
 									</div>
 									<div class="col-lg-6">
@@ -105,13 +105,13 @@
 									<div class="col-lg-6">
 										<div class="form-group">
 											<label>Comment on Audit results:</label>
-                                            <textarea class="form-control" name="auditres" placeholder="" required cols="30" rows="4"></textarea>
+                                            <textarea class="form-control" name="auditres"  placeholder="Enter Comments of Audit Findings" required cols="30" rows="4"></textarea>
 										</div>
 									</div>
 									<div class="col-lg-6">
 										<div class="form-group">
 											<label>Comment on the performance of external providers:</label>
-                                            <textarea class="form-control" name="externalprovider" placeholder="" required cols="30" rows="4"></textarea>
+                                            <textarea class="form-control" placeholder="Enter Comments of external providers performance" name="externalprovider"  required cols="30" rows="4"></textarea>
 										</div>
 									</div>
 								</div>
@@ -119,13 +119,13 @@
 									<div class="col-lg-6">
 										<div class="form-group">
 											<label>The adequacy of resources and changes recommended:</label>
-                                            <textarea class="form-control" name="adequacy" placeholder="" required cols="30" rows="4"></textarea>
+                                            <textarea class="form-control" name="adequacy" placeholder="Enter Comments of adequacy of the resources and recommended changes" required cols="30" rows="4"></textarea>
 										</div>
 									</div>
 									<div class="col-lg-6">
 										<div class="form-group">
 											<label>The effectiveness of actions taken to address risks and opportunities:</label>
-                                            <textarea class="form-control" name="effectiveness" placeholder=" " required cols="30" rows="4"></textarea>
+                                            <textarea class="form-control" name="effectiveness" placeholder= "Enter Effectiveness of actions" required cols="30" rows="4"></textarea>
 										</div>
 									</div>
 								</div>
@@ -138,7 +138,7 @@
 									<div class="col-lg-12">
 										<div class="form-group">
 											<label>Add New Quality Objectives and opportunities for improvement. Consider who is responsible, when they will be completed and what is considered a success. Objectives should be both quality based and financial. Consider aligning objectives to the quality policy:</label>
-                                            <textarea class="form-control" name="newquality" required placeholder="" cols="30" rows="4"></textarea>
+                                            <textarea class="form-control" name="newquality" required placeholder="Enter New Quality Objectives" cols="30" rows="4"></textarea>
 										</div>
 									</div>
 								</div>
