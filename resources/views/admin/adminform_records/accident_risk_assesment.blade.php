@@ -42,13 +42,13 @@
                     				<div class="col-lg-6">
                     					<div class="form-group">
 											<label>Scenario - Describe the activity:</label><br>
-											<input type="text" class="form-control" required name="activityscenario">
+											<input type="text" class="form-control" placeholder="Enter Activity" required name="activityscenario">
 										</div>
                     				</div>
                     				<div class="col-lg-6">
                     					<div class="form-group">
 											<label>Risk likelihood of scenario occuring - Enter a number between 1-6 (6 being most likely):</label><br>
-											<input type="number" class="form-control" min="1" max="6" required name="risklikehood" onkeypress='return event.charCode >= 48 && event.charCode <= 57'>
+											<input type="number" class="form-control"  placeholder="Enter likelihood"  min="1" max="6" required name="risklikehood" onkeypress='return event.charCode >= 48 && event.charCode <= 57'>
 										</div>
                                     </div>
 
@@ -58,13 +58,13 @@
 									<div class="col-lg-6">
 										<div class="form-group">
 											<label>Risk severity - Enter a number between 1-6 (6 being most severe):</label>
-											<input type="number" min="1" max="6" required class="form-control" name="riskseverity" placeholder="" onkeypress='return event.charCode >= 48 && event.charCode <= 57'>
+											<input type="number" min="1" max="6" required class="form-control" name="riskseverity" placeholder="Enter severity Level:" onkeypress='return event.charCode >= 48 && event.charCode <= 57'>
 										</div>
 									</div>
 									<div class="col-lg-6">
 										<div class="form-group">
 											<label>If an environmental accident, what gets out and how much:</label>
-											<input type="text" class="form-control" required name="envaccident" placeholder="">
+											<input type="text" class="form-control" placeholder="Enter Potential Outcome:" required name="envaccident" placeholder="">
 										</div>
 									</div>
 								</div>
@@ -72,13 +72,13 @@
 									<div class="col-lg-6">
 										<div class="form-group">
 											<label>If an environmental accident, where does it end up?</label>
-											<input type="text" class="form-control" required name="envaccidental">
+											<input type="text" class="form-control" placeholder="Enter Location" required name="envaccidental">
 										</div>
 									</div>
 									<div class="col-lg-6">
 										<div class="form-group">
 											<label>What are the consequences?:</label>
-											<input type="text" class="form-control" required name="consequences">
+											<input type="text" class="form-control" placeholder="Enter Potential Consequences" required name="consequences">
 										</div>
 									</div>
 								</div>
@@ -86,19 +86,19 @@
 									<div class="col-lg-6">
 										<div class="form-group">
 											<label>What can prevent or reduce the risk?:</label>
-											<input type="text" class="form-control" required  name="reducerisk">
+											<input type="text" placeholder="Enter Preventive Solution" class="form-control" required  name="reducerisk">
 									</div>
 									</div>
 									<div class="col-lg-6">
 										<div class="form-group">
 											<label>Revised Risk likelihood of scenario occuring following prevention step - A number between 1-6 (6 being most likely):</label>
-											<input type="number" class="form-control" required min="1" max="6" name="revisedrisk" onkeypress='return event.charCode >= 48 && event.charCode <= 57'>
+											<input type="number" class="form-control" required min="1" max="6" name="revisedrisk" placeholder="Enter new reduced risk level"  onkeypress='return event.charCode >= 48 && event.charCode <= 57'>
 										</div>
 									</div>
 									<div class="col-lg-6">
 										<div class="form-group">
 											<label>Revised Risk severity following prevention step - A number between 1-6 (6 being most severe):</label>
-											<input type="number" class="form-control" required min="1" max="6"  name="reviseRiskSever" onkeypress='return event.charCode >= 48 && event.charCode <= 57'>
+											<input type="number" class="form-control" required min="1" max="6"  name="reviseRiskSever" placeholder="Enter new reduced severity level" onkeypress='return event.charCode >= 48 && event.charCode <= 57'>
 										</div>
 									</div>
                                     <div class="col-lg-6">
