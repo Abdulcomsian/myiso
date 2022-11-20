@@ -51,13 +51,13 @@
 									<div class="col-lg-6">
 										<div class="form-group">
 											<label>Maintenance Record Item:</label>
-											<input type="text" class="form-control" name="mritem" required>
+											<input type="text" class="form-control" placeholder="Enter Object name:" name="mritem" required>
 										</div>
 									</div>
 									<div class="col-lg-6">
 										<div class="form-group">
 											<label>Maintenance Record Activity:</label>
-											<input type="text" class="form-control" name="mractivity" required>
+											<input type="text" class="form-control" placeholder="Enter Activity:" name="mractivity" required>
 										</div>
 									</div>
 								</div>
@@ -65,13 +65,13 @@
 									<div class="col-lg-6">
 										<div class="form-group">
 											<label>Maintenance Location:</label>
-											<input type="text" class="form-control" name="mlocation" required>
+											<input type="text" class="form-control"  placeholder="Enter Location" name="mlocation" required>
 										</div>
 									</div>
 									<div class="col-lg-6">
 										<div class="form-group">
 											<label>Maintenance Record Observations:</label>
-											<input type="text" class="form-control" name="mrobservation" required>
+											<input type="text" class="form-control" placeholder="Enter Observation"  name="mrobservation" required>
 										</div>
 									</div>
 								</div>
@@ -79,13 +79,13 @@
 									<div class="col-lg-6">
 										<div class="form-group">
 											<label>Maintenance Record Actions:</label>
-											<input type="text" class="form-control" name="mractions" required>
+											<input type="text" class="form-control" placeholder="Enter Action Taken" name="mractions" required>
 										</div>
 									</div>
 									<div class="col-lg-6">
 										<div class="form-group">
 											<label>Maintenance Record Activity Performed By:</label>
-											<input type="text" class="form-control" name="mractivityperofrmby" required>
+											<input type="text" class="form-control" placeholder="Enter Name of person carrying out maintenance" name="mractivityperofrmby" required>
 										</div>
 									</div>
 								</div>
