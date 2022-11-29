@@ -313,41 +313,41 @@
 {{--                                    @endif--}}
 {{--                                </td>--}}
 {{--                                 @php--}}
-{{--                                    $iso9001 = $item->iso9001_expirydate;--}}
-{{--                                    $iso14001 = $item->iso14001_expirydate;--}}
-{{--                                    $iso45001 =$item->iso45001_expirydate;--}}
+                                    $iso9001 = $item->iso9001_expirydate;
+                                    $iso14001 = $item->iso14001_expirydate;
+                                    $iso45001 =$item->iso45001_expirydate;
 
-{{--                                    $x = strtotime($iso9001);--}}
-{{--                                    $y = strtotime($iso14001);--}}
-{{--                                    $z = strtotime($iso45001);--}}
+                                    $x = strtotime($iso9001);
+                                    $y = strtotime($iso14001);
+                                    $z = strtotime($iso45001);
 
-{{--                                    if($iso9001==null &&  $iso14001==null  && $iso45001==null){--}}
+                                    if($iso9001==null &&  $iso14001==null  && $iso45001==null){
 
-{{--                                        $minValue = date('d/m/Y', strtotime('+3 years'));--}}
+                                        $minValue = date('d/m/Y', strtotime('+3 years'));
 
-{{--                                    }else if($iso9001 != null && $iso14001 == null  && $iso45001 == null){--}}
-{{--                                    $minValue=$x;--}}
-{{--                                    $minValue = date('d/m/Y', $minValue);--}}
-{{--                                    }else if($iso9001 == null && $iso14001 != null  && $iso45001 == null){--}}
+                                    }else if($iso9001 != null && $iso14001 == null  && $iso45001 == null){
+                                    $minValue=$x;
+                                    $minValue = date('d/m/Y', $minValue);
+                                    }else if($iso9001 == null && $iso14001 != null  && $iso45001 == null){
 
-{{--                                    $minValue=$y;--}}
-{{--                                    $minValue = date('d/m/Y', $minValue);--}}
-{{--                                    }else if($iso9001 == null && $iso14001 == null  && $iso45001 != null){--}}
+                                    $minValue=$y;
+                                    $minValue = date('d/m/Y', $minValue);
+                                    }else if($iso9001 == null && $iso14001 == null  && $iso45001 != null){
 
-{{--                                    $minValue=$z;--}}
-{{--                                  $minValue = date('d/m/Y', $minValue);--}}
-{{--                                    }else if($iso9001 != null && $iso14001 != null  && $iso45001 == null){--}}
-{{--                                    $minValue=min($x,$y);--}}
-{{--                                        $minValue = date('d/m/Y', $minValue);--}}
-{{--                                    }else if($iso9001 != null && $iso14001 == null  && $iso45001 != null){--}}
-{{--                                    $minValue=min($x,$z);--}}
-{{--                                        $minValue = date('d/m/Y', $minValue);--}}
-{{--                                    }else if($iso9001 == null && $iso14001 != null  && $iso45001 != null){--}}
-{{--                                    $minValue=min($y,$z);--}}
-{{--                                        $minValue = date('d/m/Y', $minValue);--}}
-{{--                                    }else{--}}
-{{--                                        $minValue=min($x,min($y,$z));--}}
-{{--                                            $minValue = date('d/m/Y', $minValue);--}}
+                                    $minValue=$z;
+                                  $minValue = date('d/m/Y', $minValue);
+                                    }else if($iso9001 != null && $iso14001 != null  && $iso45001 == null){
+                                    $minValue=min($x,$y);
+                                        $minValue = date('d/m/Y', $minValue);
+                                    }else if($iso9001 != null && $iso14001 == null  && $iso45001 != null){
+                                    $minValue=min($x,$z);
+                                        $minValue = date('d/m/Y', $minValue);
+                                    }else if($iso9001 == null && $iso14001 != null  && $iso45001 != null){
+                                    $minValue=min($y,$z);
+                                        $minValue = date('d/m/Y', $minValue);
+                                    }else{
+                                        $minValue=min($x,min($y,$z));
+                                            $minValue = date('d/m/Y', $minValue);
 {{--                                    }--}}
 
 {{--                                    @endphp--}}
