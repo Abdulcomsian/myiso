@@ -40,7 +40,7 @@
 											<label>Customer ID Number:</label><br>
 											<!-- <input type="number" class="form-control" name="cus_id" placeholder="Enter Customer ID:"> -->
 											<select class="form-control" name="cus_id" required="required">
-												<option value="">Select Customer Id</option>
+												<option value="" selected disabled>Select Customer Id</option>
                                                 @foreach($all_customers as $customer)
                                                 <option value="{{$customer->idNumber}}">{{$customer->idNumber}}</option>
                                                 @endforeach

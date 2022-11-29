@@ -76,7 +76,7 @@
 									<div class="col-lg-6">
 										<div class="form-group">
 											<label>What can prevent or reduce the risk?:</label>
-											<input type="text" class="form-control" required   placeholder="Enter Potential Consequences"  name="reducerisk">
+											<input type="text" class="form-control" required   placeholder="Enter preventative solutions"  name="reducerisk">
 									</div>
 									</div>
 									<div class="col-lg-6">
