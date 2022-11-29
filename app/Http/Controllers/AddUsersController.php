@@ -100,6 +100,9 @@ class AddUsersController extends Controller
 
         if($users){
             foreach($users as $r){
+                $logo_src = "https://myisoonline.com/public/".$r->profile_image;
+//                $path_image = "asset("'.$r->profile_image.'")";
+//                dd($path_image);
                 $iso9001 = $r->iso9001_expirydate;
                 $iso14001 = $r->iso14001_expirydate;
                 $iso45001 =$r->iso45001_expirydate;
@@ -144,12 +147,12 @@ class AddUsersController extends Controller
                 $nestedData['country'] = $r->country;
                 $nestedData['name'] = $r->name;
                 $nestedData['email'] = $r->email;
-                $nestedData['profile_image'] = $r->profile_image;
+                $nestedData['profile_image'] = '<img src="'.$logo_src.'" width="60px" />';
                 $nestedData['last_login'] = $r->last_login;
                 $nestedData['min_value'] = $minValue;
                 $nestedData['created_at'] = date('d-m-Y',strtotime($r->created_at));
                 $nestedData['action'] = '<button class="btn btn-sm btn-clean btn-icon btn-icon-md"
-                                            title="View Customer Details" value="" onclick="viewDetails({{$item}});"><i
+                                            title="View Customer Details" value="" onclick="viewDetails('.$r.')"><i
                                                 class="fa fa-eye"></i>
                                     </button>
                                     <button class="btn btn-sm btn-clean btn-icon btn-icon-md" title="Edit Customer"
