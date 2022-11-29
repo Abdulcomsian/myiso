@@ -57,6 +57,10 @@ class Handler extends ExceptionHandler
                     return redirect()->route('login');
                     break;
 
+                case 403:
+                    return redirect()->route('login');
+                    break;
+
                 default:
                     return $this->renderHttpException($e);
                     break;
