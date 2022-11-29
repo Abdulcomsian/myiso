@@ -41,8 +41,8 @@ class AddUsersController extends Controller
      */
     public function index()
     {
-        $users = AddUsers::where('role_type', 'user')->orderBy('id', 'desc')->get();
-        return view('admin.dashboard.admin.view_user', compact('users'));
+//        $users = AddUsers::where('role_type', 'user')->orderBy('id', 'desc')->get();
+        return view('admin.dashboard.admin.view_user');
     }
 
     public function getUsers(Request $request){
