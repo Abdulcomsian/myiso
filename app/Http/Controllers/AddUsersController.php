@@ -45,6 +45,94 @@ class AddUsersController extends Controller
         return view('admin.dashboard.admin.view_user', compact('users'));
     }
 
+    public function getUsers(Request $request){
+
+        $columns = array(
+            0 => 'id',
+            1 => 'company_name',
+            2 => 'country',
+            3 => 'name',
+            4 => 'email',
+            5 => 'profile_image',
+            6 => 'last_login',
+            7 => 'min_value',
+            8 => 'created_at',
+            9 => 'action',
+        );
+
+        $totalData = User::count();
+        $limit = $request->input('length');
+        $start = $request->input('start');
+        $order = $columns[$request->input('order.0.column')];
+        $dir = $request->input('order.0.dir');
+
+        if(empty($request->input('search.value'))){
+            $users = User::offset($start)
+                ->limit($limit)
+                ->orderBy($order,$dir)
+                ->get();
+            $totalFiltered = User::count();
+        }else{
+            $search = $request->input('search.value');
+            $users = User::where('name', 'like', "%{$search}%")
+                ->orWhere('email','like',"%{$search}%")
+                ->orWhere('created_at','like',"%{$search}%")
+                ->offset($start)
+                ->limit($limit)
+                ->orderBy($order, $dir)
+                ->get();
+            $totalFiltered = User::where('name', 'like', "%{$search}%")
+                ->orWhere('email','like',"%{$search}%")
+                ->orWhere('created_at','like',"%{$search}%")
+                ->count();
+        }
+
+
+        $data = array();
+
+        if($users){
+            foreach($users as $r){
+                $edit_url = route('add_user');
+                $nestedData['id'] = $r->id;
+                $nestedData['company_name'] = $r->company_name;
+                $nestedData['country'] = $r->country;
+                $nestedData['name'] = $r->name;
+                $nestedData['email'] = $r->email;
+                $nestedData['profile_image'] = $r->profile_image;
+                $nestedData['last_login'] = $r->last_login;
+                $nestedData['min_value'] = 1;
+                $nestedData['created_at'] = date('d-m-Y',strtotime($r->created_at));
+                $nestedData['action'] = '
+                                <div>
+                                <td>
+                                    <a class="btn btn-info btn-circle" onclick="event.preventDefault();viewInfo('.$r->id.');" title="View User" href="javascript:void(0)">
+                                        <i class="fa fa-eye"></i>
+                                    </a>
+                                    <a title="Edit User" class="btn btn-primary btn-circle"
+                                       href="'.$edit_url.'">
+                                       <i class="fa fa-edit"></i>
+                                    </a>
+                                    <a class="btn btn-danger btn-circle" onclick="event.preventDefault();del('.$r->id.');" title="Delete User" href="javascript:void(0)">
+                                        <i class="fa fa-trash"></i>
+                                    </a>
+                                </td>
+                                </div>
+                            ';
+                $data[] = $nestedData;
+            }
+        }
+
+        $json_data = array(
+            "draw"			=> intval($request->input('draw')),
+            "recordsTotal"	=> intval($totalData),
+            "recordsFiltered" => intval($totalFiltered),
+            "data"			=> $data
+        );
+
+        echo json_encode($json_data);
+
+    }
+
     /**
      * Show the form for creating a new resource.
      *

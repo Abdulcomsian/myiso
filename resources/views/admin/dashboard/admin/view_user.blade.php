@@ -1,4 +1,63 @@
 @extends('admin.dashboard.layouts.app')
+@section('data_tables')
+<script>
+    $('#users_list').DataTable(
+        {
+            "order": [
+                [1, 'asc']
+            ],
+            "processing": true,
+            "serverSide": true,
+            "responsive": true,
+            "ajax": {
+                "url":"{{ route('admin.getUsers') }}",
+                "dataType":"json",
+                "type":"POST",
+                "data":{"_token":"<?php echo csrf_token() ?>"}
+            },
+            "columns":[
+                {"data":"id","searchable":false,"orderable":false},
+                {"data":"company_name"},
+                {"data":"country"},
+                {"data":"name"},
+                {"data":"email"},
+                {"data":"profile_image"},
+                {"data":"last_login"},
+                {"data":"min_value"},
+                {"data":"created_at"},
+                {"data":"action","searchable":false,"orderable":false}
+            ]
+        }
+    );
+     /*$('#users_list').DataTable( {
+        "order": [
+            [1, 'asc']
+        ],
+        "processing": true,
+        "serverSide": true,
+        "responsive": true,
+        "ajax": {
+            "url":"{{ route('admin.getUsers') }}",
+            "dataType":"json",
+            "type":"POST",
+            "data":{"_token":"<?php echo csrf_token() ?>"}
+        },
+        "columns":[
+            {"data":"id","searchable":false,"orderable":false},
+            {"data":"order_number"},
+            {"data":"company_name"},
+            {"data":"country"},
+            {"data":"name"},
+            {"data":"email"},
+            {"data":"profile_image"},
+            {"data":"last_login"},
+            {"data":"min_value"},
+            {"data":"created_at"},
+            {"data":"action","searchable":false,"orderable":false}
+        ]
+    } );*/
+</script>
+@endsection
 @section('content')
 
     <style> .new-file-upload {
@@ -186,7 +245,7 @@
                     <!--begin: Datatable -->
 
                     <table class="table table-striped- table-bordered table-hover table-sm table-checkable"
-                           id="kt_table_agent2">
+                           id="users_list">
 
                         <thead>
 
@@ -221,7 +280,7 @@
 
                         </thead>
 
-                        <tbody>
+<!--                        <tbody>
                         @php
                             $count = 1;
                         @endphp
@@ -230,17 +289,17 @@
 
                             <tr>
 
-                            <!--<td>{{---$item->id---}}{{$count}}</td>-->
+                            &lt;!&ndash;<td>-$item->id-{{$count}}</td>&ndash;&gt;
                                 <td>{{ $item->order_number }}</td>
                                 <td>{{$item->company_name}}</td>
-                                <!--- <td>{ order_number}}</td> --->
-                                <!--- <td>{ ->name}}</td>--->
+                                &lt;!&ndash;- <td>{ order_number}}</td> -&ndash;&gt;
+                                &lt;!&ndash;- <td>{ ->name}}</td>-&ndash;&gt;
                                 <td>{{$item->country}}</td>
                                 <td>{{$item->name}}</td>
 
                                 <td>{{$item->email}}</td>
 
-                                <!----- <td>{ ->phonecode.' '. ->phone}</td> ----->
+                                &lt;!&ndash;-&#45;&#45; <td>{ ->phonecode.' '. ->phone}</td> -&#45;&#45;&ndash;&gt;
 
                                 <td><?php
                                     if (isset($item->profile_image)) {
@@ -249,7 +308,7 @@
 
                                 <td>
                                     @if($item->created_at !=NULL)
-                                        <!-- {{ date('d/m/Y H:i:sA', strtotime($item->created_at)) }} -->
+                                        &lt;!&ndash; {{ date('d/m/Y H:i:sA', strtotime($item->created_at)) }} &ndash;&gt;
                                         {{ date('d/m/Y', strtotime($item->created_at)) }}
                                     @endif
                                 </td>
@@ -257,40 +316,40 @@
                                     $iso9001 = $item->iso9001_expirydate;
                                     $iso14001 = $item->iso14001_expirydate;
                                     $iso45001 =$item->iso45001_expirydate;
-                                    
+
                                     $x = strtotime($iso9001);
                                     $y = strtotime($iso14001);
                                     $z = strtotime($iso45001);
-                                  
+
                                     if($iso9001==null &&  $iso14001==null  && $iso45001==null){
-                                  
+
                                         $minValue = date('d/m/Y', strtotime('+3 years'));
-                                          
+
                                     }else if($iso9001 != null && $iso14001 == null  && $iso45001 == null){
                                     $minValue=$x;
                                     $minValue = date('d/m/Y', $minValue);
                                     }else if($iso9001 == null && $iso14001 != null  && $iso45001 == null){
-                                   
+
                                     $minValue=$y;
                                     $minValue = date('d/m/Y', $minValue);
                                     }else if($iso9001 == null && $iso14001 == null  && $iso45001 != null){
-                                   
+
                                     $minValue=$z;
                                   $minValue = date('d/m/Y', $minValue);
-                                    }else if($iso9001 != null && $iso14001 != null  && $iso45001 == null){  
+                                    }else if($iso9001 != null && $iso14001 != null  && $iso45001 == null){
                                     $minValue=min($x,$y);
                                         $minValue = date('d/m/Y', $minValue);
                                     }else if($iso9001 != null && $iso14001 == null  && $iso45001 != null){
                                     $minValue=min($x,$z);
                                         $minValue = date('d/m/Y', $minValue);
-                                    }else if($iso9001 == null && $iso14001 != null  && $iso45001 != null){  
+                                    }else if($iso9001 == null && $iso14001 != null  && $iso45001 != null){
                                     $minValue=min($y,$z);
                                         $minValue = date('d/m/Y', $minValue);
                                     }else{
                                         $minValue=min($x,min($y,$z));
                                             $minValue = date('d/m/Y', $minValue);
                                     }
-                                    
+
                                     @endphp
 
                                 <td>
@@ -302,7 +361,7 @@
                                 <td>{{ $minValue }}</td>
 
 
-                                <!--<td> ->expiry_date </td>-->
+                                &lt;!&ndash;<td> ->expiry_date </td>&ndash;&gt;
 
 
                                 <td>
@@ -368,7 +427,7 @@
                         @endforeach
 
 
-                        </tbody>
+                        </tbody>-->
 
                     </table>
                 </div>
