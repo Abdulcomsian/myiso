@@ -49,7 +49,7 @@ License: You must have a valid license purchased only from themeforest(the above
 		<!--end::Page Vendors Styles -->
 
 		<!--begin:: Global Mandatory Vendors -->
-		<link href="{{asset('/assets/vendors/general/perfect-scrollbar/css/perfect-scrollbar.css')}}" rel="stylesheet" type="text/css" />
+		<link href="{{asset('public/assets/vendors/general/perfect-scrollbar/css/perfect-scrollbar.css')}}" rel="stylesheet" type="text/css" />
 
 		<!--end:: Global Mandatory Vendors -->
 
