@@ -173,11 +173,11 @@ class UserInfoController extends Controller
 
     public function home()
     {
-        dd(url()->full());
-        if(url()->full() === 'https://myisoonline.com/public')
-        {
-            header("Location: https://myisoonline.com/");
-        }
+//        dd(url()->full());
+//        if(url()->full() === 'https://myisoonline.com/public')
+//        {
+//            header("Location: https://myisoonline.com/");
+//        }
         return view('auth.login');
     }
 
