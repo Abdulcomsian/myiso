@@ -284,7 +284,7 @@
         </div>
     </div>
 </div>
-<script src="{{ asset('assets/vendors/ckeditor/ckeditor.js') }}"></script>
+<script src="{{ asset('public/assets/vendors/ckeditor/ckeditor.js') }}"></script>
 <script>
 CKEDITOR.replace( 'answer' );
 </script>
