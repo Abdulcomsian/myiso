@@ -50,7 +50,7 @@ class Handler extends ExceptionHandler
      */
     public function render($request, Throwable $exception)
     {
-        if ($this->isHttpException($exception)) {
+        /*if ($this->isHttpException($exception)) {
             // not found
             switch ($exception->getStatusCode()) {
                 case 404:
@@ -65,6 +65,7 @@ class Handler extends ExceptionHandler
                     return $this->renderHttpException($exception);
                     break;
             }
-        }        return parent::render($request, $exception);
+        }*/
+        return parent::render($request, $exception);
     }
 }
