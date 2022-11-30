@@ -31,16 +31,16 @@ License: You must have a valid license purchased only from themeforest(the above
                 }
             });
         </script>
-<link href="../assets/vendors/custom/vendors/fontawesome5/css/all.min.css" rel="stylesheet" type="text/css" />
+<link href="{{asset('public/')}}/assets/vendors/custom/vendors/fontawesome5/css/all.min.css" rel="stylesheet" type="text/css" />
 		<!--end::Fonts -->
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
 		<!--begin::Page Vendors Styles(used by this page) -->
-		<link href="{{asset('/assets/vendors/custom/fullcalendar/fullcalendar.bundle.css')}}" rel="stylesheet" type="text/css" />
+		<link href="{{asset('public/assets/vendors/custom/fullcalendar/fullcalendar.bundle.css')}}" rel="stylesheet" type="text/css" />
 
 		<!--end::Page Vendors Styles -->
 
 		<!--begin:: Global Mandatory Vendors -->
-		<link href="{{asset('/assets/vendors/general/perfect-scrollbar/css/perfect-scrollbar.css')}}" rel="stylesheet" type="text/css" />
+		<link href="{{asset('public/assets/vendors/general/perfect-scrollbar/css/perfect-scrollbar.css')}}" rel="stylesheet" type="text/css" />
 
 		<!--end:: Global Mandatory Vendors -->
 
