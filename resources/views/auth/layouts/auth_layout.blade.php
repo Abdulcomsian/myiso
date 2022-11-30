@@ -34,7 +34,7 @@ License: You must have a valid license purchased only from themeforest(the above
 						<div class="kt-login__container">
 							<div class="kt-login__logo">
 								<a href="#">
-									<img src="{{ asset('/assets/media/logos/logo-5.png') }}">
+									<img src="{{ asset('public/assets/media/logos/logo-5.png') }}">
 								</a>
 							</div>
 							

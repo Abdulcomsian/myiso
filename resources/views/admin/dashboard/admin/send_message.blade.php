@@ -210,8 +210,8 @@
 
 <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
 
-<!-- <script type="text/javascript" src="{{asset('assets/jQuery-Multiple-Select/dist/js/bootstrap-multiselect.js')}}"></script> -->
-<script type="text/javascript" src="{{asset('assets/jquery.multiselect.js')}}"></script>
+<!-- <script type="text/javascript" src="{{asset('public/assets/jQuery-Multiple-Select/dist/js/bootstrap-multiselect.js')}}"></script> -->
+<script type="text/javascript" src="{{asset('public/assets/jquery.multiselect.js')}}"></script>
 	 <script src="http://demos.codexworld.com/multi-select-dropdown-list-with-checkbox-jquery/jquery.multiselect.js"></script>
 	 <!-- jquery.multiselect.js -->
 

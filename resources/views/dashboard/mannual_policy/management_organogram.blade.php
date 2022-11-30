@@ -69,7 +69,7 @@
 		<div class="row">
 			<div class="col-lg-12">
 				<div class="procedure_div">
-@if($img) <img src="{{ $img }}" class="img-fluid"> @endif
+@if($'public/assets/) <'public/assets/ src="{{ $img }}" class="img-fluid"> @endif
 				</div>
 			</div>
 		</div>

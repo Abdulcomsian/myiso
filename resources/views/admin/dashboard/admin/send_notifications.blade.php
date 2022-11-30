@@ -277,7 +277,7 @@
 
 @endsection
 @section('myscript')
-	<script type="text/javascript" src="{{asset('assets/jquery.multiselect.js')}}"></script>
+	<script type="text/javascript" src="{{asset('public/assets/jquery.multiselect.js')}}"></script>
 	<script src="http://demos.codexworld.com/multi-select-dropdown-list-with-checkbox-jquery/jquery.multiselect.js"></script>
 	<script>
 		$('#langOpt3').multiselect({
