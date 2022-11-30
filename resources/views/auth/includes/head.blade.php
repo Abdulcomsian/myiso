@@ -64,13 +64,13 @@
 		<!--end::Global Theme Styles -->
 
 		<!--begin::Layout Skins(used by all pages) -->
-		<link href="{{asset('public/assets/demo/default/skins/header/base/light.css'}}" rel="stylesheet" type="text/css" />
-		<link href="{{asset('public/assets/demo/default/skins/header/menu/light.css'}}" rel="stylesheet" type="text/css" />
-		<link href="{{asset('public/assets/demo/default/skins/brand/dark.css'}}" rel="stylesheet" type="text/css" />
-		<link href="{{asset('public/assets/demo/default/skins/aside/dark.css'}}" rel="stylesheet" type="text/css" />
+		<link href="{{asset('public/assets/demo/default/skins/header/base/light.css')}}" rel="stylesheet" type="text/css" />
+		<link href="{{asset('public/assets/demo/default/skins/header/menu/light.css')}}" rel="stylesheet" type="text/css" />
+		<link href="{{asset('public/assets/demo/default/skins/brand/dark.css')}}" rel="stylesheet" type="text/css" />
+		<link href="{{asset('public/assets/demo/default/skins/aside/dark.css')}}" rel="stylesheet" type="text/css" />
 
 		<!--end::Layout Skins -->
-		<link rel="shortcut icon" href="{{asset('public/assets/media/logos/fav.png'}}" />
+		<link rel="shortcut icon" href="{{asset('public/assets/media/logos/fav.png')}}" />
 	</head>
 
 	<!-- end::Head -->
