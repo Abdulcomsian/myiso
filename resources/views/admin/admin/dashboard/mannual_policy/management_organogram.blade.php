@@ -18,7 +18,7 @@
 		<div class="row">
 			<div class="col-lg-12">
 				<div class="procedure_div">
-					<img src="../../../public/assets/media/policy/Management-Organogram.png">
+					<img src="{{asset('public/')}}/assets/media/policy/Management-Organogram.png">
 				</div>
 			</div>
 		</div>
