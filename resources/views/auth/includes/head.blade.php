@@ -2,7 +2,7 @@
 	<head>
 		<meta charset="utf-8" />
 		<title>My ISO Online | Login</title>
-		<meta name="csrf-token" content="{!! csrf_token() !!}">
+{{--		<meta name="csrf-token" content="{!! csrf_token() !!}">--}}
 		<meta name="description" content="Login page example">
 		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
@@ -29,7 +29,7 @@
 
 		<!--end:: Global Mandatory Vendors -->
 
-		<!--begin:: Global Optional Vendors -->
+		<!--begin::Global Optional Vendors -->
 		<link href="{{asset('public/assets/vendors/general/tether/dist/css/tether.css')}}" rel="stylesheet" type="text/css" />
 		<link href="{{asset('public/assets/vendors/general/bootstrap-datepicker/dist/css/bootstrap-datepicker3.css')}}" rel="stylesheet" type="text/css" />
 		<link href="{{asset('public/assets/vendors/general/bootstrap-datetime-picker/css/bootstrap-datetimepicker.css')}}" rel="stylesheet" type="text/css" />
@@ -56,20 +56,13 @@
 		<link href="{{asset('public/assets/vendors/custom/vendors/flaticon2/flaticon.css')}}" rel="stylesheet" type="text/css" />
 		<link href="{{asset('public/assets/vendors/custom/vendors/fontawesome5/css/all.min.css')}}" rel="stylesheet" type="text/css" />
 
-		<!--end:: Global Optional Vendors -->
+		<link href="{{asset('public/assets/demo/default/base/style.bundle.css')}}" rel="stylesheet" type="text/css" />
 
-		<!--begin::Global Theme Styles(used by all pages) -->
-		<link href="{{asset('public/assets/demo/default/base/style.bundle.css)}}" rel="stylesheet" type="text/css" />
-
-		<!--end::Global Theme Styles -->
-
-		<!--begin::Layout Skins(used by all pages) -->
 		<link href="{{asset('public/assets/demo/default/skins/header/base/light.css')}}" rel="stylesheet" type="text/css" />
 		<link href="{{asset('public/assets/demo/default/skins/header/menu/light.css')}}" rel="stylesheet" type="text/css" />
 		<link href="{{asset('public/assets/demo/default/skins/brand/dark.css')}}" rel="stylesheet" type="text/css" />
 		<link href="{{asset('public/assets/demo/default/skins/aside/dark.css')}}" rel="stylesheet" type="text/css" />
 
-		<!--end::Layout Skins -->
 		<link rel="shortcut icon" href="{{asset('public/assets/media/logos/fav.png')}}" />
 	</head>
 
