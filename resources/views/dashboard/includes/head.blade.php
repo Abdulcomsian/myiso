@@ -89,10 +89,10 @@ License: You must have a valid license purchased only from themeforest(the above
 
 		@if(Request::is('products*') || Request::is('user*'))
 			<!--begin::Page Vendors Styles(used by this page) -->
-			<link href="{{ asset('/assets/vendors/custom/datatables/datatables.bundle.css') }}" rel="stylesheet" type="text/css" />
+			<link href="{{ asset('public/assets/vendors/custom/datatables/datatables.bundle.css') }}" rel="stylesheet" type="text/css" />
 			<!--end::Page Vendors Styles -->
 		@endif
-		<link href="{{ asset('css/custom.css') }}" rel="stylesheet" type="text/css" />
+		<link href="{{ asset('public/css/custom.css') }}" rel="stylesheet" type="text/css" />
 		@stack('styles')
 	</head>
 <style>.iti {
