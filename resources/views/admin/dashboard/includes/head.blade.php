@@ -40,7 +40,7 @@ License: You must have a valid license purchased only from themeforest(the above
    text-align: right;
 }
 		</style>
-<link href="../assets/vendors/custom/vendors/fontawesome5/css/all.min.css" rel="stylesheet" type="text/css" />
+<link href="{{asset('public/')}}/assets/vendors/custom/vendors/fontawesome5/css/all.min.css" rel="stylesheet" type="text/css" />
 		<!--end::Fonts -->
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
 		<!--begin::Page Vendors Styles(used by this page) -->
@@ -54,53 +54,53 @@ License: You must have a valid license purchased only from themeforest(the above
 		<!--end:: Global Mandatory Vendors -->
 
 		<!--begin:: Global Optional Vendors -->
-		<link href="{{ asset('publicpublic/assets/vendors/general/tether/dist/css/tether.css') }}" rel="stylesheet" type="text/css" />
-		<link href="{{ asset('publicpublic/assets/vendors/general/bootstrap-datepicker/dist/css/bootstrap-datepicker3.css') }}" rel="stylesheet" type="text/css" />
-		<link href="{{ asset('publicpublic/assets/vendors/general/bootstrap-datetime-picker/css/bootstrap-datetimepicker.css') }}" rel="stylesheet" type="text/css" />
-		<link href="{{ asset('publicpublic/assets/vendors/general/bootstrap-timepicker/css/bootstrap-timepicker.css') }}" rel="stylesheet" type="text/css" />
-		<link href="{{ asset('publicpublic/assets/vendors/general/bootstrap-daterangepicker/daterangepicker.css') }}" rel="stylesheet" type="text/css" />
-		<link href="{{ asset('publicpublic/assets/vendors/general/bootstrap-touchspin/dist/jquery.bootstrap-touchspin.css') }}" rel="stylesheet" type="text/css" />
-		<link href="{{ asset('publicpublic/assets/vendors/general/bootstrap-select/dist/css/bootstrap-select.css') }}" rel="stylesheet" type="text/css" />
-		<link href="{{ asset('publicpublic/assets/vendors/general/bootstrap-switch/dist/css/bootstrap3/bootstrap-switch.css') }}" rel="stylesheet" type="text/css" />
-		<link href="{{ asset('publicpublic/assets/vendors/general/select2/dist/css/select2.css') }}" rel="stylesheet" type="text/css" />
-		<link href="{{ asset('publicpublic/assets/vendors/general/ion-rangeslider/css/ion.rangeSlider.css') }}" rel="stylesheet" type="text/css" />
-		<link href="{{ asset('publicpublic/assets/vendors/general/nouislider/distribute/nouislider.css') }}" rel="stylesheet" type="text/css" />
-		<link href="{{ asset('publicpublic/assets/vendors/general/owl.carousel/dist/assets/owl.carousel.css') }}" rel="stylesheet" type="text/css" />
-		<link href="{{ asset('publicpublic/assets/vendors/general/owl.carousel/dist/assets/owl.theme.default.css') }}" rel="stylesheet" type="text/css" />
-		<link href="{{ asset('publicpublic/assets/vendors/general/dropzone/dist/dropzone.css') }}" rel="stylesheet" type="text/css" />
-		<link href="{{ asset('publicpublic/assets/vendors/general/summernote/dist/summernote.css') }}" rel="stylesheet" type="text/css" />
-		<link href="{{ asset('publicpublic/assets/vendors/general/bootstrap-markdown/css/bootstrap-markdown.min.css') }}" rel="stylesheet" type="text/css" />
-		<link href="{{ asset('publicpublic/assets/vendors/general/animate.css/animate.css') }}" rel="stylesheet" type="text/css" />
-		<link href="{{ asset('publicpublic/assets/vendors/general/toastr/build/toastr.css') }}" rel="stylesheet" type="text/css" />
-		<link href="{{ asset('publicpublic/assets/vendors/general/morris.js/morris.css') }}" rel="stylesheet" type="text/css" />
-		<link href="{{ asset('publicpublic/assets/vendors/general/sweetalert2/dist/sweetalert2.css') }}" rel="stylesheet" type="text/css" />
-		<link href="{{ asset('publicpublic/assets/vendors/general/socicon/css/socicon.css') }}" rel="stylesheet" type="text/css" />
-		<link href="{{ asset('publicpublic/assets/vendors/custom/vendors/line-awesome/css/line-awesome.css') }}" rel="stylesheet" type="text/css" />
-		<link href="{{ asset('publicpublic/assets/vendors/custom/vendors/flaticon/flaticon.css') }}" rel="stylesheet" type="text/css" />
-		<link href="{{ asset('publicpublic/assets/vendors/custom/vendors/flaticon2/flaticon.css') }}" rel="stylesheet" type="text/css" />
-		<link href="{{ asset('publicpublic/assets/vendors/custom/vendors/fontawesome5/css/all.min.css') }}" rel="stylesheet" type="text/css" />
+		<link href="{{ asset('public/assets/vendors/general/tether/dist/css/tether.css') }}" rel="stylesheet" type="text/css" />
+		<link href="{{ asset('public/assets/vendors/general/bootstrap-datepicker/dist/css/bootstrap-datepicker3.css') }}" rel="stylesheet" type="text/css" />
+		<link href="{{ asset('public/assets/vendors/general/bootstrap-datetime-picker/css/bootstrap-datetimepicker.css') }}" rel="stylesheet" type="text/css" />
+		<link href="{{ asset('public/assets/vendors/general/bootstrap-timepicker/css/bootstrap-timepicker.css') }}" rel="stylesheet" type="text/css" />
+		<link href="{{ asset('public/assets/vendors/general/bootstrap-daterangepicker/daterangepicker.css') }}" rel="stylesheet" type="text/css" />
+		<link href="{{ asset('public/assets/vendors/general/bootstrap-touchspin/dist/jquery.bootstrap-touchspin.css') }}" rel="stylesheet" type="text/css" />
+		<link href="{{ asset('public/assets/vendors/general/bootstrap-select/dist/css/bootstrap-select.css') }}" rel="stylesheet" type="text/css" />
+		<link href="{{ asset('public/assets/vendors/general/bootstrap-switch/dist/css/bootstrap3/bootstrap-switch.css') }}" rel="stylesheet" type="text/css" />
+		<link href="{{ asset('public/assets/vendors/general/select2/dist/css/select2.css') }}" rel="stylesheet" type="text/css" />
+		<link href="{{ asset('public/assets/vendors/general/ion-rangeslider/css/ion.rangeSlider.css') }}" rel="stylesheet" type="text/css" />
+		<link href="{{ asset('public/assets/vendors/general/nouislider/distribute/nouislider.css') }}" rel="stylesheet" type="text/css" />
+		<link href="{{ asset('public/assets/vendors/general/owl.carousel/dist/assets/owl.carousel.css') }}" rel="stylesheet" type="text/css" />
+		<link href="{{ asset('public/assets/vendors/general/owl.carousel/dist/assets/owl.theme.default.css') }}" rel="stylesheet" type="text/css" />
+		<link href="{{ asset('public/assets/vendors/general/dropzone/dist/dropzone.css') }}" rel="stylesheet" type="text/css" />
+		<link href="{{ asset('public/assets/vendors/general/summernote/dist/summernote.css') }}" rel="stylesheet" type="text/css" />
+		<link href="{{ asset('public/assets/vendors/general/bootstrap-markdown/css/bootstrap-markdown.min.css') }}" rel="stylesheet" type="text/css" />
+		<link href="{{ asset('public/assets/vendors/general/animate.css/animate.css') }}" rel="stylesheet" type="text/css" />
+		<link href="{{ asset('public/assets/vendors/general/toastr/build/toastr.css') }}" rel="stylesheet" type="text/css" />
+		<link href="{{ asset('public/assets/vendors/general/morris.js/morris.css') }}" rel="stylesheet" type="text/css" />
+		<link href="{{ asset('public/assets/vendors/general/sweetalert2/dist/sweetalert2.css') }}" rel="stylesheet" type="text/css" />
+		<link href="{{ asset('public/assets/vendors/general/socicon/css/socicon.css') }}" rel="stylesheet" type="text/css" />
+		<link href="{{ asset('public/assets/vendors/custom/vendors/line-awesome/css/line-awesome.css') }}" rel="stylesheet" type="text/css" />
+		<link href="{{ asset('public/assets/vendors/custom/vendors/flaticon/flaticon.css') }}" rel="stylesheet" type="text/css" />
+		<link href="{{ asset('public/assets/vendors/custom/vendors/flaticon2/flaticon.css') }}" rel="stylesheet" type="text/css" />
+		<link href="{{ asset('public/assets/vendors/custom/vendors/fontawesome5/css/all.min.css') }}" rel="stylesheet" type="text/css" />
 
 		<!--end:: Global Optional Vendors -->
 
 		<!--begin::Global Theme Styles(used by all pages) -->
-		<link href="{{ asset('publicpublic/assets/demo/default/base/style.bundle.css') }}" rel="stylesheet" type="text/css" />
-		<!-- <link href="{{ asset('publicpublic/assets/jQuery-Multiple-Select/dist/css/bootstrap-multiselect.min.css') }}" rel="stylesheet" type="text/css" /> -->
-		<link href="{{ asset('publicpublic/assets/jquery.multiselect.css') }}" rel="stylesheet" type="text/css" />
+		<link href="{{ asset('public/assets/demo/default/base/style.bundle.css') }}" rel="stylesheet" type="text/css" />
+		<!-- <link href="{{ asset('public/assets/jQuery-Multiple-Select/dist/css/bootstrap-multiselect.min.css') }}" rel="stylesheet" type="text/css" /> -->
+		<link href="{{ asset('public/assets/jquery.multiselect.css') }}" rel="stylesheet" type="text/css" />
 		<!-- <link rel="stylesheet" href="http://demos.codexworld.com/multi-select-dropdown-list-with-checkbox-jquery/jquery.multiselect.css"> -->
 		<!--end::Global Theme Styles -->
 
 		<!--begin::Layout Skins(used by all pages) -->
-		<link href="{{ asset('publicpublic/assets/demo/default/skins/header/base/light.css') }}" rel="stylesheet" type="text/css" />
-		<link href="{{ asset('publicpublic/assets/demo/default/skins/header/menu/light.css') }}" rel="stylesheet" type="text/css" />
-		<link href="{{ asset('publicpublic/assets/demo/default/skins/brand/dark.css') }}" rel="stylesheet" type="text/css" />
-		<link href="{{ asset('publicpublic/assets/demo/default/skins/aside/dark.css') }}" rel="stylesheet" type="text/css" />
+		<link href="{{ asset('public/assets/demo/default/skins/header/base/light.css') }}" rel="stylesheet" type="text/css" />
+		<link href="{{ asset('public/assets/demo/default/skins/header/menu/light.css') }}" rel="stylesheet" type="text/css" />
+		<link href="{{ asset('public/assets/demo/default/skins/brand/dark.css') }}" rel="stylesheet" type="text/css" />
+		<link href="{{ asset('public/assets/demo/default/skins/aside/dark.css') }}" rel="stylesheet" type="text/css" />
 
 		<!--end::Layout Skins -->
-		<link rel="shortcut icon" href="{{ asset('publicpublic/assets/media/logos/fav.png')}}" />
+		<link rel="shortcut icon" href="{{ asset('public/assets/media/logos/fav.png')}}" />
 
 		@if(Request::is('products*') || Request::is('user*'))
 			<!--begin::Page Vendors Styles(used by this page) -->
-			<link href="{{ asset('publicpublic/assets/vendors/custom/datatables/datatables.bundle.css') }}" rel="stylesheet" type="text/css" />
+			<link href="{{ asset('public/assets/vendors/custom/datatables/datatables.bundle.css') }}" rel="stylesheet" type="text/css" />
 			<!--end::Page Vendors Styles -->
 		@endif
 		<script src="https://js.pusher.com/7.1/pusher.min.js"></script>
