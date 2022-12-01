@@ -99,6 +99,7 @@ Route::group(['middleware' => ['auth','admin']], function () {
     Route::get('/admin', 'AdminController@index');
     Route::get('/view_user', 'AddUsersController@index');
     Route::post('get-users', 'AddUsersController@getUsers')->name('admin.getUsers');
+    Route::post('get-view-details', 'AddUsersController@openViewDetails')->name('admin.openViewDetails');
     Route::post('/add_user', 'AddUsersController@store')->name('add_user');
     Route::post('/deleteuserd', 'AddUsersController@destroy')->name('deleteuserd');
     Route::post('/updateuserinfo', 'AddUsersController@update')->name('updateuserinfo');

@@ -1589,7 +1589,29 @@
 
             }
 
+            function openViewDetails(id){
+                $.ajax({
+                    url: "{{ route('admin.openViewDetails') }}",
+                    type: "post",
+                    //dataType: "json",
+                    //async: false,
+                    "data":{"_token":"<?php echo csrf_token() ?>", "user_id": id}
+                    }).done(function (response) {
+                    viewDetails(response)
+                });
+            }
 
+            function openEditDetails(id){
+                $.ajax({
+                    url: "{{ route('admin.openViewDetails') }}",
+                    type: "post",
+                    //dataType: "json",
+                    //async: false,
+                    "data":{"_token":"<?php echo csrf_token() ?>", "user_id": id}
+                }).done(function (response) {
+                    editDetails(response)
+                });
+            }
         </script>
         @section('myscript')
             <script>

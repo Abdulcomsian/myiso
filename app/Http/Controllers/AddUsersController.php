@@ -152,11 +152,11 @@ class AddUsersController extends Controller
                 $nestedData['min_value'] = $minValue;
                 $nestedData['created_at'] = date('d-m-Y',strtotime($r->created_at));
                 $nestedData['action'] = '<button class="btn btn-sm btn-clean btn-icon btn-icon-md"
-                                            title="View Customer Details" value="" onclick="viewDetails('.$r.')"><i
+                                            title="View Customer Details" value="" onclick="openViewDetails('.$r->id.')"><i
                                                 class="fa fa-eye"></i>
                                     </button>
                                     <button class="btn btn-sm btn-clean btn-icon btn-icon-md" title="Edit Customer"
-                                            onclick="editDetails('.$r.');">
+                                            onclick="openEditDetails('.$r->id.');">
 
                                         <span class="svg-icon svg-icon-md">									<svg
                                                     xmlns="http://www.w3.org/2000/svg"
@@ -1585,6 +1585,11 @@ public function store(Request $request)
                 'status'=> 0
             ]);
         }
+    }
+
+
+    public function openViewDetails(Request $reqeust){
+        return AddUsers::findorfail($reqeust->user_id)->first();
     }
 
 }
