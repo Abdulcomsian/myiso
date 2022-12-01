@@ -92,7 +92,7 @@ License: You must have a valid license purchased only from themeforest(the above
 			<link href="{{ asset('public/assets/vendors/custom/datatables/datatables.bundle.css') }}" rel="stylesheet" type="text/css" />
 			<!--end::Page Vendors Styles -->
 		@endif
-		<link href="{{ asset('publiccss/custom.css') }}" rel="stylesheet" type="text/css" />
+		<link href="{{ asset('public/css/custom.css') }}" rel="stylesheet" type="text/css" />
 		@stack('styles')
 	</head>
 <style>.iti {

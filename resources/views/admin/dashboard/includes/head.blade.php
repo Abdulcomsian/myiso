@@ -125,7 +125,7 @@ License: You must have a valid license purchased only from themeforest(the above
 				$('.count_notifications').show().text(Number(x) + 1)
 			});
 		  </script>
-		<link href="{{ asset('publiccss/custom.css') }}" rel="stylesheet" type="text/css" />
+		<link href="{{ asset('public/css/custom.css') }}" rel="stylesheet" type="text/css" />
 		@yield('styles')
 	</head>
 
