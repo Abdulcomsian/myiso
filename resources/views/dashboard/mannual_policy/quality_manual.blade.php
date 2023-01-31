@@ -881,7 +881,15 @@
 							<p>8.1.1.2 -</p>
 						</div>
 						<div class="list_content">
-							<p style="014px;">The provision of processes, documents and resources required 8.1.1.3 - Required verification, validation, inspection and test activities, including acceptance criteria</p>
+							<p style="014px;">The provision of processes, documents and resources required</p>
+						</div>
+					</div>
+						<div class="list_div">
+						<div class="list_number">
+							<p>8.1.1.3 -</p>
+						</div>
+						<div class="list_content">
+							<p style="014px;">Required verification, validation, inspection and test activities, including acceptance criteria</p>
 						</div>
 					</div>
 					<div class="list_div">
