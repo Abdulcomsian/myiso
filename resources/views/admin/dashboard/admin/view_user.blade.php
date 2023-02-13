@@ -261,38 +261,72 @@
                                     $x = strtotime($iso9001);
                                     $y = strtotime($iso14001);
                                     $z = strtotime($iso45001);
-                                  
-                                    if($iso9001==null &&  $iso14001==null  && $iso45001==null){
+                        
+                                    
+                                    
+                                      if($x == 0 &&  $y == 0  && $z == 0){
                                   
                                         $minValue = date('d/m/Y', strtotime('+3 years'));
                                           
-                                    }else if($iso9001 != null && $iso14001 == null  && $iso45001 == null){
-                                    $minValue=$x;
-                                    $minValue = date('d/m/Y', $minValue);
-                                    }else if($iso9001 == null && $iso14001 != null  && $iso45001 == null){
-                                   
-                                    $minValue=$y;
-                                    $minValue = date('d/m/Y', $minValue);
-                                    }else if($iso9001 == null && $iso14001 == null  && $iso45001 != null){
-                                   
-                                    $minValue=$z;
-                                  $minValue = date('d/m/Y', $minValue);
-                                    }else if($iso9001 != null && $iso14001 != null  && $iso45001 == null){  
-                                    $minValue=min($x,$y);
+                                    }else if($x >= 0 && $y <= 0  && $z <= 0){
+                                        $minValue=$x;
                                         $minValue = date('d/m/Y', $minValue);
-                                    }else if($iso9001 != null && $iso14001 == null  && $iso45001 != null){
-                                    $minValue=min($x,$z);
+                                    }else if($x <= 0 && $y >= 0  && $z <= 0){
+                             
+                                        $minValue=$y;
                                         $minValue = date('d/m/Y', $minValue);
-                                    }else if($iso9001 == null && $iso14001 != null  && $iso45001 != null){  
-                                    $minValue=min($y,$z);
+                                    }else if($x <= 0 && $y <= 0  && $z >= 0){
+                                   
+                                        $minValue=$z;
+                                        $minValue = date('d/m/Y', $minValue);
+                                    }else if($x >= 0 && $y >= 0  && $z <=0){      
+                                        $minValue=min($x,$y);
+                                        $minValue = date('d/m/Y', $minValue);
+                                    }else if($x >= 0 && $y <= 0  && $z >= 0){
+                                        $minValue=min($x,$z);
+                                        $minValue = date('d/m/Y', $minValue);
+                                    }else if($x <= 0 && $y >= 0  && $z >= 0){  
+                                        $minValue=min($y,$z);
                                         $minValue = date('d/m/Y', $minValue);
                                     }else{
+                                   
                                         $minValue=min($x,min($y,$z));
-                                            $minValue = date('d/m/Y', $minValue);
+                                        $minValue = date('d/m/Y', $minValue);
+                                           
                                     }
                                     
                                     @endphp
-
+          
+                                  <!--  if($iso9001==null &&  $iso14001==null  && $iso45001==null){-->
+                                  
+                                  <!--      $minValue = date('d/m/Y', strtotime('+3 years'));-->
+                                          
+                                  <!--  }else if($iso9001 != null && $iso14001 == null  && $iso45001 == null){-->
+                                  <!--  $minValue=$x;-->
+                                  <!--  $minValue = date('d/m/Y', $minValue);-->
+                                  <!--  }else if($iso9001 == null && $iso14001 != null  && $iso45001 == null){-->
+                             
+                                  <!--  $minValue=$y;-->
+                                  <!--  $minValue = date('d/m/Y', $minValue);-->
+                                  <!--  }else if($iso9001 == null && $iso14001 == null  && $iso45001 != null){-->
+                                   
+                                  <!--  $minValue=$z;-->
+                                  <!--$minValue = date('d/m/Y', $minValue);-->
+                                  <!--  }else if($iso9001 != null && $iso14001 != null  && $iso45001 == null){  -->
+                                  <!--  $minValue=min($x,$y);-->
+                                  <!--      $minValue = date('d/m/Y', $minValue);-->
+                                  <!--  }else if($iso9001 != null && $iso14001 == null  && $iso45001 != null){-->
+                                  <!--  $minValue=min($x,$z);-->
+                                  <!--      $minValue = date('d/m/Y', $minValue);-->
+                                  <!--  }else if($iso9001 == null && $iso14001 != null  && $iso45001 != null){  -->
+                                  <!--  $minValue=min($y,$z);-->
+                                  <!--      $minValue = date('d/m/Y', $minValue);-->
+                                  <!--  }else{-->
+                                   
+                                  <!--      $minValue=min($x,min($y,$z));-->
+                                  <!--          $minValue = date('d/m/Y', $minValue);-->
+                                           
+                                  <!--  }-->
                                 <td>
                                     @php if($item->last_login!=NULL){ @endphp
                                     {{ date('d/m/Y', strtotime($item->last_login)) }}
