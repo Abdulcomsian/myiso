@@ -87,7 +87,7 @@
 					<tr>
 						<th>No.</th>
 						<th>From</th>
-						<th>Company Name</th>
+						<!--<th>Company Name</th>-->
 						<th>Email Address</th>
 						<th>Received at</th>
 						<th>Subject</th>
@@ -98,12 +98,13 @@
 					<?php $count=0;?>
 
 					@foreach ($notif as $item)
+					
 					@if($item->admin_delete ==0)
 						<?php $count++; ?>
 						<tr class="{{($item->status == 0) ? 'New' : ''}}">
 							<td>{{$count}}</td>
 							<td>{{$item->name}}</td>
-							<td>{{$item->company}}</td>
+							<!--<td>{{$item->company}}</td>-->
 							<td>{{$item->email}}</td>
 							<td>{{date("d/m/Y H:i:sA", strtotime($item->created_at) )}}</td>
 							<td>
@@ -139,7 +140,11 @@
 						</td>
 							<td style="width:20%">
 							<button data-id="{{$item->id}}" data-user="admin" data-toggle="modal" data-target="#MessageModal-{{$item->id}}" class="btn btn-brand btn-elevate btn-icon-sm read_it">
-							Reply
+							   	@if ($item->replied==0)
+							        Reply
+							    @else
+							        Replied
+							    @endif
 						</button>
 						<!--send--->
 						<div class="modal fade" id="MessageModal-{{$item->id}}" tabindex="-1" role="dialog" aria-labelledby="MessageModal" aria-hidden="true">
@@ -155,6 +160,7 @@
 
 					<div class="kt-portlet__body">
 						<input type="hidden" name="userid[]" value="{{$item->user_id}}">
+						<input type="hidden" name="replied" value="{{$item->id}}">
 						<div class="form-group row">
 							<div class="col-lg-12">
 								<label for="title">Subject:</label>

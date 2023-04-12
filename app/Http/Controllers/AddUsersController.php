@@ -425,10 +425,12 @@ public function store(Request $request)
         $data['title']=$request->input('title');
         $data['message']=$request->input('message');
         $data['created_at'] = date('Y-m-d H:i:s');
-
+        //  $data['replied'] =$request->input('replied');
+// dd($data);
         foreach ($users as $user){
             $data['send_to'] = $user;
             SendNotifications::create($data);
+            DB::table('users_messages')->where('id', $request->input('replied'))->update(['replied' => 1]);
         }
 
         return redirect()->back();

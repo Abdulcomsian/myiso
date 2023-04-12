@@ -8,4 +8,5 @@ class SendNotifications extends Model
 {
     protected $guarded = [];
     protected $table='send_notification';
+     
 }
