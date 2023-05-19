@@ -200,9 +200,10 @@
                             <!----<th>Name</th>--->
 
                             <th>Country</th>
-                            <th>User Name</th>
-
                             <th>Email Address</th>
+
+
+                            <th>User Name</th>
 
                             <!--- <th>Phone</th>
 
@@ -236,9 +237,10 @@
                                 <!--- <td>{ order_number}}</td> --->
                                 <!--- <td>{ ->name}}</td>--->
                                 <td>{{$item->country}}</td>
+                                <td>{{$item->email}}</td>
                                 <td>{{$item->name}}</td>
 
-                                <td>{{$item->email}}</td>
+                                
 
                                 <!----- <td>{ ->phonecode.' '. ->phone}</td> ----->
 
@@ -507,17 +509,6 @@
 
                                 <div class="col-lg-4">
 
-                                    <label for="name">Username:</label>
-
-                                    <input type="text" id="name" name="name" class="form-control"
-                                           placeholder="Enter name">
-
-                                    <span class="form-text text-muted">Please enter the client's Username</span>
-
-                                </div>
-
-                                <div class="col-lg-4">
-
                                     <label for="name">Email Address:</label>
 
                                     <input type="text" id="email" name="email" class="form-control"
@@ -527,6 +518,16 @@
 
                                 </div>
 
+                                <div class="col-lg-4">
+
+                                    <label for="name">Username:</label>
+
+                                    <input type="text" id="name" name="name" class="form-control"
+                                           placeholder="Enter name">
+
+                                    <span class="form-text text-muted">Please enter the client's Username</span>
+
+                                </div>
 
                             </div>
 
@@ -916,16 +917,16 @@
                                         </div>
                                     </div>
                                     <div class="col-lg-4">
-                                        <label for="name">Username:</label>
-                                        <input type="text" id="name" name="name" class="form-control"
-                                               placeholder="Enter name" readonly disabled>
-                                        <span class="form-text text-muted">Please enter the client's Username</span>
-                                    </div>
-                                    <div class="col-lg-4">
                                         <label for="name">Email Address:</label>
                                         <input type="text" id="email" name="email" class="form-control"
                                                placeholder="Enter email" readonly disabled>
                                         <span class="form-text text-muted">Please enter Email Address</span>
+                                    </div>
+                                    <div class="col-lg-4">
+                                        <label for="name">Username:</label>
+                                        <input type="text" id="name" name="name" class="form-control"
+                                               placeholder="Enter name" readonly disabled>
+                                        <span class="form-text text-muted">Please enter the client's Username</span>
                                     </div>
                                 </div>
                                 <div class="form-group row">
