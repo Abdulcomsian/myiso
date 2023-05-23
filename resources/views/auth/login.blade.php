@@ -125,7 +125,7 @@ License: You must have a valid license purchased only from themeforest(the above
 								<form class="kt-form" method="POST" action="{{ route('login') }}">
 									@csrf
 									<div class="input-group">
-										<input class="form-control @error('email') is-invalid @enderror" type="email"  placeholder="Email address" name="email" autocomplete="off" value="{{ old('email') }}" required autocomplete="email" autofocus>
+										<input class="form-control @error('email') is-invalid @enderror" type="email"  placeholder="Username" name="email" autocomplete="off" value="{{ old('email') }}" required autocomplete="email" autofocus>
 									</div>
 									<div class="input-group">
 										<input class="form-control" type="password" placeholder="Password" name="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="current-password">
@@ -312,7 +312,7 @@ License: You must have a valid license purchased only from themeforest(the above
 										<input placeholder="Fullname" class="form-control @error('name') is-invalid @enderror" name="name" value="{{ old('name') }}" required autocomplete="name" autofocus>
 									</div>
 									<div class="input-group">
-										<input  placeholder="Email address"  autocomplete="off" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email">
+										<input  placeholder="Username"  autocomplete="off" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email">
 									</div>
 									<div class="input-group">
 										<input  type="password" placeholder="Password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="password">
@@ -344,7 +344,7 @@ License: You must have a valid license purchased only from themeforest(the above
 								<form class="kt-form" action="{{ route('password.reset.email') }}" method="POST">
 									@csrf
 									<div class="input-group">
-										<input class="form-control" type="text" placeholder="Email address" name="email" id="kt_email" autocomplete="off">
+										<input class="form-control" type="text" placeholder="Username" name="email" id="kt_email" autocomplete="off">
 									</div>
 									<div class="kt-login__actions">
 										{{-- <button>g</button> --}}
