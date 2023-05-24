@@ -495,7 +495,8 @@
 					<div class="kt-menu__submenu ">
 						<span class="kt-menu__arrow"></span>
 						<ul class="kt-menu__subnav">
-							<li class="kt-menu__item " aria-haspopup="true">
+
+							{{-- <li class="kt-menu__item " aria-haspopup="true">
 								<a href="https://www.isoonlinecourses.com/" class="kt-menu__link " target="_blank">
 									<i class="kt-menu__link-bullet kt-menu__link-bullet--dot">
 										<span></span>
@@ -503,6 +504,7 @@
 									<span class="kt-menu__link-text">ISO 9001: AED 3000</span>
 								</a>
 							</li>
+
 							<li class="kt-menu__item " aria-haspopup="true">
 								<a href="https://www.isoonlinecourses.com/" class="kt-menu__link" target="_blank">
 									<i class="kt-menu__link-bullet kt-menu__link-bullet--dot">
@@ -511,6 +513,7 @@
 									<span class="kt-menu__link-text">ISO 45001:	AED 3000</span>
 								</a>
 							</li>
+
 							<li class="kt-menu__item " aria-haspopup="true">
 								<a href="https://www.isoonlinecourses.com/" class="kt-menu__link " target="_blank">
 									<i class="kt-menu__link-bullet kt-menu__link-bullet--dot">
@@ -519,6 +522,52 @@
 									<span class="kt-menu__link-text">ISO 14001: AED 3000</span>
 								</a>
 							</li>
+
+							<li class="kt-menu__item " aria-haspopup="true">
+								<a href="https://www.isoonlinecourses.com/" class="kt-menu__link " target="_blank">
+									<i class="kt-menu__link-bullet kt-menu__link-bullet--dot">
+										<span></span>
+									</i>
+									<span class="kt-menu__link-text">ISO 14001: AED 3000</span>
+								</a>
+							</li> --}}
+
+							<li class="kt-menu__item " aria-haspopup="true">
+								<a href="https://www.isoonlinecourses.com/trainings/iso-90012015-qms-quality-management-system/" class="kt-menu__link " target="_blank">
+									<i class="kt-menu__link-bullet kt-menu__link-bullet--dot">
+										<span></span>
+									</i>
+									<span class="kt-menu__link-text"> ISO 9001:2015 - AED 695</span>
+								</a>
+							</li>
+
+							<li class="kt-menu__item " aria-haspopup="true">
+								<a href="https://www.isoonlinecourses.com/trainings/iso-450012018-occupational-health-safety-management-system-internal-auditor-course/" class="kt-menu__link" target="_blank">
+									<i class="kt-menu__link-bullet kt-menu__link-bullet--dot">
+										<span></span>
+									</i>
+									<span class="kt-menu__link-text">ISO 45001:2018 -  AED 695</span>
+								</a>
+							</li>
+
+							<li class="kt-menu__item " aria-haspopup="true">
+								<a href="https://www.isoonlinecourses.com/trainings/iso-140012015-environmental-management-system-internal-auditor-course/" class="kt-menu__link " target="_blank">
+									<i class="kt-menu__link-bullet kt-menu__link-bullet--dot">
+										<span></span>
+									</i>
+									<span class="kt-menu__link-text">ISO 14001:2015 -  AED 695</span>
+								</a>
+							</li>
+
+							<li class="kt-menu__item " aria-haspopup="true">
+								<a href="https://www.isoonlinecourses.com/trainings/integrated-management-system-internal-auditor-course/" class="kt-menu__link " target="_blank">
+									<i class="kt-menu__link-bullet kt-menu__link-bullet--dot">
+										<span></span>
+									</i>
+									<span class="kt-menu__link-text">IMS - AED 895</span>
+								</a>
+							</li> 
+
 						</ul>
 					</div>
 				</li>
@@ -526,6 +575,7 @@
 		</div>
 	</div>
 
+	
 	<!-- end:: Aside Menu -->
 </div>
 
