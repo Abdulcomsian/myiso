@@ -18,8 +18,36 @@
 			$companyName=Auth::user()->company_name;
 			
 		?>
+		
 		<div class="row">
 			<div class="col-lg-12">
+
+				<div class="procedure_div">
+					<div class="row">
+						<div class="col-lg-12 text-right">
+							<a onclick="environmentalshowpolicy()" class="addBtn">Add Environmental Policy</a>
+						</div>
+					</div>
+
+					<div class="environmental_add_div">
+						<form action="{{route('enviornment_policy')}}" id="addcust" method="post">
+							@csrf
+							<h3>Add Environmental Policy</h3>
+							<div class="row">
+								<div class="col-lg-12">
+									<div class="form-group">
+										<label>Enter Environmental Policy:</label><br>
+										<textarea name="message" class="form-control" rows="4" ></textarea>
+									</div>
+								</div>
+							</div>
+							<input type="hidden" name="status" value="2" />
+							<button type="submit"  class="submitBtn">SUBMIT</button>
+							<button type="reset" onclick="environmentalshowpolicy()" class="btn btn-secondary submitBtn" style="margin-right:7px;">Cancel</button>
+						</form>
+					</div>
+				</div>
+
 				<div class="procedure_div">
 				    <p>Each country has its own regulations and laws relating to Environmental Legislation within the workplace. These must be complied with by both the employer and the company employees. It is the obligation of the company to ensure that they are aware and understand their responsibilities and regularly check for updates and changes.</p>
 				    <p>ISO USER will develop and maintain procedures to identify and support the reduction of negative environmental impacts, determine controls and then implement them. These controls will be reviewed and monitored on a regular basis. The company will take all reasonable steps to reduce environmental impacts within the workplace and to provide guidance on the measures that should be applied within the hierarchy of control. </p>

@@ -22,6 +22,7 @@ use App\SendNotifications;
 use App\Supplier;
 use App\Workinstructions;
 use App\User;
+use App\CustomManual;
 use Carbon\Carbon;
 use Exception;
 use Illuminate\Http\Request;
@@ -1162,14 +1163,17 @@ public function store(Request $request)
 
     }
 
-    public function quality_manual(Request $request){
+    public function quality_manual(Request $request)
+    {
         $userid= Auth::user()->id;
         $user=User::where('id',$userid)->first();
 
          return view('dashboard.mannual_policy.quality_manual',compact('user'));
 
     }
-    public function UpdateUserInfo(Request $request){
+
+    public function UpdateUserInfo(Request $request)
+    {
         // return "sfdfds";
         $id=$request->id;
         $Company_overview=$request->input('Company_overview');

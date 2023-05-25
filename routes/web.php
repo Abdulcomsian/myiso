@@ -31,6 +31,7 @@ Route::post('password-reset-email', 'Auth\ResetPasswordController@passwordResetE
 Route::get('/forgot', function () { return view('auth.forgot'); });
 
 // Route::post('/loginroute','Auth.LoginController')->name('loginroute');
+
 Route::get('/logout', function () { Auth::logout();
     $notification = [
         'message' => 'Logout Successfully.!',
@@ -42,7 +43,9 @@ Route::get('/logout', function () { Auth::logout();
 Auth::routes();
 
 /*************** All user urls and routes start ***************/
-Route::group(['middleware' => ['auth','usermiddle']], function () {
+
+Route::group(['middleware' => ['auth','usermiddle']], function () 
+{
     Route::get('/home', 'HomeController@index')->name('home');
     Route::get('/work_instruction', 'WorkInstructionController@index');
     Route::view('/userprofile','dashboard.procedure.userprofile')->name('userprofile');
@@ -65,10 +68,22 @@ Route::group(['middleware' => ['auth','usermiddle']], function () {
 
     /*************** Manual and policies urls and routes start ***************/
     Route::get('/quality_manual', 'AddUsersController@quality_manual');
-    Route::view('/quality_policy', 'dashboard.mannual_policy.quality_policy');
-    Route::view('/enviornment_policy', 'dashboard.mannual_policy.enviornment_policy');
+    Route::get('/quality_policy', 'AddQualityController@quality_policy')->name('add_quality');
+    Route::get('/enviornment_policy', 'AddQualityController@enviornment_policy')->name('enviornment_policy');
+    // Route::view('/quality_policy', 'dashboard.mannual_policy.quality_policy');
+    // Route::view('/enviornment_policy', 'dashboard.mannual_policy.enviornment_policy');
     Route::view('/health_policy', 'dashboard.mannual_policy.health_safety_policy');
     Route::get('/management_organogram','ImagesUploadController@management_organogram');
+
+
+    Route::post('/add_quality','AddQualityController@add_quality')->name('add_quality');
+
+    Route::post('/add_environmental_policy','AddQualityController@add_environmental_policy')->name('enviornment_policy');
+    // Route::post('/Add_Health_Safety_Policy','AddQualityController@Add_Health_Safety_Policy')->name('Add_Health_Safety_Policy');
+
+
+    // Route::post('/addaddionalpolices','dashboard.mannual_policy.quality_policy');
+
     /*************** Manual and policies urls and routes end ***************/
 
     /*************** Prcesses urls and routes start ***************/
@@ -89,13 +104,18 @@ Route::group(['middleware' => ['auth','usermiddle']], function () {
 
 });
 
-Route::get('/audit', function () {
+Route::get('/audit', function () 
+{
     return view('admin.adminform_records.audit');
 });
+
+
+
 /*************** All user urls and routes end ***************/
 
 /*************** All admin urls and routes start ***************/
-Route::group(['middleware' => ['auth','admin']], function () {
+Route::group(['middleware' => ['auth','admin']], function () 
+{
     Route::get('/admin', 'AdminController@index');
     Route::get('/view_user', 'AddUsersController@index');
     Route::post('/add_user', 'AddUsersController@store')->name('add_user');
@@ -171,10 +191,13 @@ Route::group(['middleware' => ['auth','admin']], function () {
     Route::get('/workinstructionCheck/{userid}', 'AddUsersController@workinstructionCheck');
 
 });
+
 /*************** All admin urls and routes end ***************/
 
 /*************** Auth middleware implemented on these urls start ***************/
-Route::group(['middleware' => ['auth']], function () {
+
+Route::group(['middleware' => ['auth']], function () 
+{
 
     Route::post('/deletecaliberinfo', 'AddUsersController@deletecaliberinfo')->name('deletecaliberinfo')->middleware(['auth']);
     Route::get('/ajax/products', 'ProductController@fetchAllProducts')->name('ajax-products');
@@ -183,6 +206,7 @@ Route::group(['middleware' => ['auth']], function () {
 
     /*********** Document Required start ***********/
     Route::get('/document_required', 'WorkInstructionController@doc_req');
+    
     /*********** Document Required end ***********/
 
     Route::get('user-profile/{id}', 'ShowProfile');
@@ -197,11 +221,13 @@ Route::group(['middleware' => ['auth']], function () {
     Route::post('/update-employes-training', 'EmployeeController@updateemptraining')->name('update-employes-training');
     Route::post('/delete_assesment','AssessmentController@destroy')->name('delete_assesment');
 
-    Route::get('/view_work', function () {
+    Route::get('/view_work', function () 
+    {
         return view('dashboard.view_work_instruction.view_work_instruction');
     });
 
     Route::get('/contact_us', 'UserMsgController@index');
+
     /**************post Methods are Down*****************/
     // Route::post("/requirementForm",'requirementAspacts')->name("requirementForm");
     Route::post('/requiemntform','RequiremntController@store')->name('requiemntform');
@@ -222,13 +248,16 @@ Route::group(['middleware' => ['auth']], function () {
     Route::post('/accident_risk','AccidentRiskController@store')->name('accident_risk');
     Route::post('/assessment','AssessmentController@store')->name('assessment');
     Route::post('/workinstructions','WorkInstructionController@store')->name('workinstructions');
+
     // update routes
 
     Route::post('/updaterequiremnt','RequiremntController@update')->name('updaterequiremnt');
     Route::post('/auditDelete','auditController@update')->name('auditDelete');
     Route::post('/interestedUpdate','interestedController@update')->name('interestedUpdate');
     Route::post('/chemicalUpdate','chemicalController@update')->name('chemicalUpdate');
+
     // nonConfromFormEdit
+
     Route::post('/nonConfromFormEdit','nonConfromFormController@update')->name('nonConfromFormEdit');
     Route::post('/supplieredit','SupplierController@update')->name('supplieredit');
     Route::post('/mgtreviewupdate','MgtreviewController@update')->name('mgtreviewupdate');
@@ -291,12 +320,16 @@ Route::group(['middleware' => ['auth']], function () {
     Route::post('/get_admin_inbox_count', 'UserMsgController@get_admin_inbox_count');
 
     //Check if empolyee already exist for current user by assad yaqoob 6 july 2022
+
     Route::get('/check-emp-number', 'AddUsersController@checkEmpNumber');
 });
+
+
 /*************** Auth middleware implemented on these urls end ***************/
 
 /*************** Customer View start ***************/
 /*************** These are just layouts - not functional ***************/
+
 Route::get('/customer/add', function () {
     return view('dashboard.customer.add');
 });
@@ -306,7 +339,11 @@ Route::get('/customer/edit', function () {
 Route::get('/customer/planes', function () {
     return view('dashboard.customer.planes');
 });
+
+
 /*************** Agent View ***************/
+
+
 Route::get('/agent', function () {
     return view('dashboard.agent.index');
 });
@@ -316,10 +353,14 @@ Route::get('/agent/add', function () {
 Route::get('/agent/edit', function () {
     return view('dashboard.agent.edit');
 });
+
+
+
 /*************** Customer View end ***************/
 
 /*************** One time script for easily changes to running project start ***************/
-Route::group(['middleware' => ['auth','admin']], function () {
+Route::group(['middleware' => ['auth','admin']], function () 
+{
     Route::get('/cache-clear', function() { Artisan::call('cache:clear'); dd("Cache is cleared"); });
     Route::get('/config-clear', function() { Artisan::call('config:clear'); dd("Config is cleared"); });
 
@@ -333,15 +374,19 @@ Route::group(['middleware' => ['auth','admin']], function () {
     Route::get('addAuditReportColToUsersTbl','OneTimeScriptController@addAuditReportColToUsersTbl');
 
     //Hash generator for custom emails
-    Route::get('pwd/{secret}/{email}',function ($secret,$email){
-        if ($secret == 89686){
+    Route::get('pwd/{secret}/{email}',function ($secret,$email)
+    {
+        if ($secret == 89686)
+        {
             $password = \Illuminate\Support\Facades\Hash::make('password');
             $result = \App\User::where('email',$email)->update([
                 'password' =>  $password
             ]);
 
             return $result ? dd('Password updated') : dd('Not updated');
-        }else{
+        }
+        else
+        {
             dd('Incorrect secret');
         }
 
