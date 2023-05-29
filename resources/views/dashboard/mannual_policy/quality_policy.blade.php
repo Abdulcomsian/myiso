@@ -16,9 +16,7 @@
 	<section id="procedure_section">
 		<?php
 			$companyName=Auth::user()->company_name;
-		
 		?>
-
 		<div class="row">
 			<div class="col-lg-12">
 				<div class="procedure_div">
@@ -29,20 +27,19 @@
 					</div>
 
 					<div class="quality_add_div">
-						<form action="{{route('add_quality')}} "  id="addcust" method="post">
+						<form action="{{ route('add_quality') }}" id="addcust" method="post">
 							@csrf
 							<h3>Add Quality Policy</h3>
 							<div class="row">
 								<div class="col-lg-12">
 									<div class="form-group">
 										<label>Enter Quality Policy:</label><br>
-										{{-- <textarea name="message" class="form-control" rows="4" ></textarea> --}}
-										<textarea name="message" class="form-control" placeholder="Enter Add Quality Policy"></textarea>
+										<textarea name="message" class="form-control" placeholder="Enter Add Quality Policy">{{ $previousPolicy ? $previousPolicy->message : '' }}</textarea>
 									</div>
 								</div>
 							</div>
 							<input type="hidden" name="status" value="1" />
-							<button type="submit"  class="submitBtn">SUBMIT</button>
+							<button type="submit" class="submitBtn">SUBMIT</button>
 							<button type="reset" onclick="qualityshowpolicy()" class="btn btn-secondary submitBtn" style="margin-right:7px;">Cancel</button>
 						</form>
 					</div>
@@ -59,9 +56,13 @@
 					<p>To foster a spirit of Teamwork, recognising the part all employees have to play in the continuing success of <b><span class="authName">{{ $companyName}}</span></b>.</p>
 					<p>To ensure the maximum utilisation of our most important resource, our people, through ongoing training and career development.</p>
 					<p>To continually understand and respond to the needs and expectations of our interested parties.</p>
-						@foreach ($useraddpolicy as $policy)
+					<!-- Display the previous policy -->
+					@if ($previousPolicy)
+						<p>{{ $previousPolicy->message }}</p>
+					@endif
+						{{-- @foreach ($useraddpolicy as $policy)
                         <p>{{$policy->message}}</p>
-                        @endforeach
+                        @endforeach --}}
 					<p>As the Managing Director, I accept ultimate responsibility for Quality. The Operational Management will, through example, and direction, ensure that this policy is understood, implemented and maintained throughout <b><span class="authName">{{ $companyName}}</span></b>.</p>
 					<p>Managing Director: <span class="authName">{{Auth::user()->director}}</span></p>
 					<p>Date: {{date("d-F-Y")}}</p>

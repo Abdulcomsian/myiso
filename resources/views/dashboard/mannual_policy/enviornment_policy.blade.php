@@ -21,29 +21,28 @@
 		
 		<div class="row">
 			<div class="col-lg-12">
-
 				<div class="procedure_div">
 					<div class="row">
 						<div class="col-lg-12 text-right">
-							<a onclick="environmentalshowpolicy()" class="addBtn">Add Environmental Policy</a>
+							<a onclick="qualityshowpolicy()" class="addBtn">Add Environmental Policy</a>
 						</div>
 					</div>
 
-					<div class="environmental_add_div">
-						<form action="{{route('enviornment_policy')}}" id="addcust" method="post">
+					<div class="quality_add_div">
+						<form action="{{ route('enviornment_policy') }}" id="addcust" method="post">
 							@csrf
 							<h3>Add Environmental Policy</h3>
 							<div class="row">
 								<div class="col-lg-12">
 									<div class="form-group">
 										<label>Enter Environmental Policy:</label><br>
-										<textarea name="message" class="form-control" rows="4" ></textarea>
+										<textarea name="message" class="form-control" placeholder="Enter Add Environmental Policy">{{ $previousPolicy ? $previousPolicy->message : '' }}</textarea>
 									</div>
 								</div>
 							</div>
 							<input type="hidden" name="status" value="2" />
-							<button type="submit"  class="submitBtn">SUBMIT</button>
-							<button type="reset" onclick="environmentalshowpolicy()" class="btn btn-secondary submitBtn" style="margin-right:7px;">Cancel</button>
+							<button type="submit" class="submitBtn">SUBMIT</button>
+							<button type="reset" onclick="qualityshowpolicy()" class="btn btn-secondary submitBtn" style="margin-right:7px;">Cancel</button>
 						</form>
 					</div>
 				</div>
@@ -64,6 +63,13 @@
 						<li>Seek to minimise harmful emissions of its fleet and power usage.</li>
 						<li>Minimise waste by regular evaluation of operations and efficiency.</li>
 						<li>Source a product range or supply services that will minimise the environmental impact of the company’s distribution and production.</li>
+						 <!-- Display the previous policy -->
+							@if ($previousPolicy)
+							<li>{{ $previousPolicy->message }}</li>
+							@endif  
+						{{-- @foreach ($useraddpolicy as $environmental)
+                           <li>{{$environmental->message}}</li>
+                           @endforeach --}}
 					</ol>
 					<p>On behalf of <b><span class="authName">{{ $companyName}}</span></b>:</p>
 					<p>Name: <span class="authName">{{Auth::user()->director}}</span> </p>

@@ -70,16 +70,16 @@ Route::group(['middleware' => ['auth','usermiddle']], function ()
     Route::get('/quality_manual', 'AddUsersController@quality_manual');
     Route::get('/quality_policy', 'AddQualityController@quality_policy')->name('add_quality');
     Route::get('/enviornment_policy', 'AddQualityController@enviornment_policy')->name('enviornment_policy');
+    Route::get('/health_policy', 'AddQualityController@health_policy')->name('health_policy');
+
     // Route::view('/quality_policy', 'dashboard.mannual_policy.quality_policy');
     // Route::view('/enviornment_policy', 'dashboard.mannual_policy.enviornment_policy');
-    Route::view('/health_policy', 'dashboard.mannual_policy.health_safety_policy');
+    // Route::view('/health_policy', 'dashboard.mannual_policy.health_safety_policy');
+
     Route::get('/management_organogram','ImagesUploadController@management_organogram');
-
-
     Route::post('/add_quality','AddQualityController@add_quality')->name('add_quality');
-
-    Route::post('/add_environmental_policy','AddQualityController@add_environmental_policy')->name('enviornment_policy');
-    // Route::post('/Add_Health_Safety_Policy','AddQualityController@Add_Health_Safety_Policy')->name('Add_Health_Safety_Policy');
+    Route::post('/enviornment_policy','AddQualityController@add_environmental_policy')->name('enviornment_policy');
+    Route::post('/health_policy','AddQualityController@add_health_policy')->name('health_policy');
 
 
     // Route::post('/addaddionalpolices','dashboard.mannual_policy.quality_policy');

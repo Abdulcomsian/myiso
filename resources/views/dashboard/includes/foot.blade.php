@@ -329,29 +329,6 @@
 				}
 			}
 
-			function environmentalshowpolicy()
-			{
-				if($(".environmental_add_div").css("display")==="block")
-				{
-					$(".environmental_add_div").css("display","none");
-				}
-				else
-				{
-					$(".environmental_add_div").css("display","block");
-				}
-			}
-
-			function healthshowpolicy()
-			{
-				if($(".health_add_div").css("display")==="block")
-				{
-					$(".health_add_div").css("display","none");
-				}
-				else{
-					$(".health_add_div").css("display","block");
-				}
-			}
-
 		</script>
 			<script>
 // 			jQuery("#customer_table").dataTable();

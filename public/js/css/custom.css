@@ -244,7 +244,7 @@ div#kt_table_customer_paginate .pagination,div#kt_table_agent_paginate .paginati
 .process_audit_from_div,.qms_audit_from_div,.non_conformities_from_div,
 .customer_from_div,.customer_review_from_div,.managemnet_review_from_div,
 .maintance_record_from_div,.accident_risk_from_div,.risk_assessment_from_div,
-.work_instruction_from_div{
+.work_instruction_from_div,.quality_add_div{
   display: none;
   margin-bottom: 30px;
   margin-top: 30px;
