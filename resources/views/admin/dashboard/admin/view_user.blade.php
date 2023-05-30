@@ -342,10 +342,13 @@
 
 
                                 <td>
-                                    <button class="btn btn-sm btn-clean btn-icon btn-icon-md"
-                                            title="View Customer Details" value="" onclick="viewDetails({{$item}});"><i
-                                                class="fa fa-eye"></i>
-                                    </button>
+                                    {{-- eye view option hide in Action column in admin --}}
+
+                                    {{-- <button class="btn btn-sm btn-clean btn-icon btn-icon-md"
+                                            title="View Customer Details" value="" onclick="viewDetails({{$item}});">
+                                            <i class="fa fa-eye"></i>
+                                    </button> --}}
+
                                     <button class="btn btn-sm btn-clean btn-icon btn-icon-md" title="Edit Customer"
                                             onclick="editDetails({{$item}});">
 
@@ -890,7 +893,9 @@
     </div>
 
 
-    <div class="modal fade" id="viewModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+    {{-- comment the eye option on view user detail page on admin login--}}
+
+    {{-- <div class="modal fade" id="viewModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
          aria-hidden="true">
 
         <div class="modal-dialog modal-lg" role="document">
@@ -1244,7 +1249,11 @@
                 </div>
             </div>
         </div>
-    </div>
+    </div> --}}
+
+
+
+
         @endsection
         <script src="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/intlTelInput.min.js"
                 integrity="sha512-DNeDhsl+FWnx5B1EQzsayHMyP6Xl/Mg+vcnFPXGNjUZrW28hQaa1+A4qL9M+AiOMmkAhKAWYHh1a+t6qxthzUw=="

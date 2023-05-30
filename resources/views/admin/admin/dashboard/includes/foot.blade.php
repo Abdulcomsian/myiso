@@ -219,7 +219,8 @@
 					$(".customer_review_from_div").css("display","block");
 				}
 			}
-			function supplierForm(){
+			function supplierForm()
+			{
 				if($(".supplier_from_div").css("display")==="block"){
 					$(".supplier_from_div").css("display","none");
 				}
@@ -297,6 +298,17 @@
 				}
 				else{
 					$(".work_instruction_from_div").css("display","block");
+				}
+			}
+
+			function qualityshowplocies()
+			{
+				if($(".quality_add_div").css("display")==="block")
+				{
+					$(".quality_add_div").css("display","none");
+				}
+				else{
+					$(".quality_add_div").css("display","block");
 				}
 			}
 		</script>

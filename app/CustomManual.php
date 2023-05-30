@@ -13,7 +13,7 @@ class CustomManual extends Model
     protected $table="custom_manuals";
 
     protected $fillable = [
-        'message','status', 'user_id',
+        'message', 'status', 'user_id',
    ];
 
    protected $hidden = [

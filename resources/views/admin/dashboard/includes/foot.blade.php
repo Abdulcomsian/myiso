@@ -312,6 +312,17 @@
 					$(".work_instruction_from_div").css("display","block");
 				}
 			}
+			function qualityshowplocies()
+			{
+				if($(".quality_add_div").css("display")==="block")
+				{
+					$(".quality_add_div").css("display","none");
+				}
+				else
+				{
+					$(".quality_add_div").css("display","block");
+				}
+			}
 		</script>
 		@include('script')
 		@yield('myscript')

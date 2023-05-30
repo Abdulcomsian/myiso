@@ -25,7 +25,7 @@
 		border: 1px solid #0d47b3;
 	}
 </style>
-</style>
+
 @section('content')
 
 <!-- begin:: Content -->
@@ -119,7 +119,7 @@
 						<th>Email Address</th>
 						<th>Message</th>
 						<th>Sent at</th>
-						<th>Actions</th>
+						{{-- <th>Actions</th> --}}
 					</tr>
 				</thead>
 				<tbody>
@@ -166,7 +166,10 @@
 
 							</td>
 							<td>{{date("d/m/Y H:i:sA", strtotime($item->notification_created_at) )}}</td>
-							<td>
+
+							
+							{{-- notification sent and then in actions delete action remove --}}
+							{{-- <td>
 							    <button class="btn btn-danger" data-toggle="modal" data-target="#delete-notification-{{$item->notification_id}}">Delete</button>
 							    <div class="modal fade" id="delete-notification-{{$item->notification_id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
 									<div class="modal-dialog" role="document">
@@ -190,7 +193,7 @@
 										</div>
 									</div>
 								</div>
-							</td>
+							</td> --}}
 						</tr>
 
 
