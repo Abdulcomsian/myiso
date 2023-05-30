@@ -63,7 +63,7 @@
 					<h5 class="m-t-30">Purpose:</h5>
 					<p>This document specifies the policy and practices to be adopted to ensure that suitable and sufficient risk assessments are carried out in accordance with the requirements of the relevant regulations in force. It describes the system for undertaking general risk assessments at <b><span class="authName">{{ $companyName}}</span></b> as part of the programme for the management of Safety, Health and Environment. This procedure does not include risk assessments made under the control or handling of hazardous metals, chemicals and other substances or usage of display screens and repetitive actions.</p>
 					@if ($previousPolicy)
-					<p>{{ $previousPolicy->message }}</p>
+					<pre style="font-size: 13px;color: #040404 !important;font-family: inherit;font-weight: normal;">{{ $previousPolicy->message }}</pre>
 					@endif  
 					{{-- @foreach ($useraddpolicy as $health)
 						<p>{{$health->message}}</p>

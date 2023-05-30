@@ -64,10 +64,26 @@
 						<li>Minimise waste by regular evaluation of operations and efficiency.</li>
 						<li>Source a product range or supply services that will minimise the environmental impact of the company’s distribution and production.</li>
 						 <!-- Display the previous policy -->
+						 @php
+							
+							// $message = explode(PHP_EOL, $previousPolicy->message);
+							$lines = explode("\r\n", $previousPolicy->message); // or use PHP PHP_EOL constant
+							// dd($lines);
+							if ( !empty($lines) ) 
+							{
+
+								foreach ( $lines as $line ) 
+								{
+									if($line == NULL){continue;}else{
+									echo '<li>'. trim( $line ) .'</li>';}
+								}
+							}
+						 @endphp		
+						{{-- 
 							@if ($previousPolicy)
 							<li>{{ $previousPolicy->message }}</li>
 							@endif  
-						{{-- @foreach ($useraddpolicy as $environmental)
+							@foreach ($useraddpolicy as $environmental)
                            <li>{{$environmental->message}}</li>
                            @endforeach --}}
 					</ol>

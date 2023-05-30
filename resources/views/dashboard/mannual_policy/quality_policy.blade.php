@@ -58,7 +58,7 @@
 					<p>To continually understand and respond to the needs and expectations of our interested parties.</p>
 					<!-- Display the previous policy -->
 					@if ($previousPolicy)
-						<p>{{ $previousPolicy->message }}</p>
+						<pre style="font-size: 13px;color: #040404 !important;font-family: inherit;font-weight: normal;">{{ $previousPolicy->message }}</pre>
 					@endif
 						{{-- @foreach ($useraddpolicy as $policy)
                         <p>{{$policy->message}}</p>
