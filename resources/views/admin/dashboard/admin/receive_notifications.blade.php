@@ -128,8 +128,8 @@
 													@if ($item->attachement != NULL || $item->attachement)
 													<a target="_blank" class="btn btn-secondary" href="{{$item->attachement}}">View Attachment</a>
 													@endif
-<button data-toggle="modal" data-target="#MessageModal-{{$item->id}}" type="button" class="btn btn-brand btn-elevate btn-icon-sm">Reply</button>
-<button type="button" class="btn btn-secondary btn-elevate btn-icon-sm" data-dismiss="modal">Cancel</button>
+													<button data-toggle="modal" data-target="#MessageModal-{{$item->id}}" type="button" class="btn btn-danger btn-elevate btn-icon-sm">Reply</button>
+													<button type="button" class="btn btn-secondary btn-elevate btn-icon-sm" data-dismiss="modal">Cancel</button>
 													</div>
 												</div>
 											</div>
@@ -139,7 +139,7 @@
 
 						</td>
 							<td style="width:20%">
-							<button data-id="{{$item->id}}" data-user="admin" data-toggle="modal" data-target="#MessageModal-{{$item->id}}" class="{{ $item->replied == 0 ? 'btn btn-brand' : 'btn btn-success'}} btn-elevate btn-icon-sm read_it">
+							<button data-id="{{$item->id}}" data-user="admin" data-toggle="modal" data-target="#MessageModal-{{$item->id}}" class="{{ $item->replied == 0 ? 'btn btn-danger' : 'btn btn-success'}} btn-elevate btn-icon-sm read_it">
 							   	@if ($item->replied==0)
 							        Reply
 							    @else

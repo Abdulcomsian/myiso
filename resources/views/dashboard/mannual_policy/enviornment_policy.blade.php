@@ -35,8 +35,8 @@
 							<div class="row">
 								<div class="col-lg-12">
 									<div class="form-group">
-										<label>Enter Environmental Policy:</label><br>
-										<textarea name="message" class="form-control" placeholder="Enter Add Environmental Policy">{{ $previousPolicy ? $previousPolicy->message : '' }}</textarea>
+										<label>Enter additional Environmental Policies that are specific to your working Environment and Business activities</label><br>
+										<textarea name="message" class="form-control" placeholder="Set a maximum for the number of character that can be entered to 450.">{{ $previousPolicy ? $previousPolicy->message : '' }}</textarea>
 									</div>
 								</div>
 							</div>
@@ -63,6 +63,9 @@
 						<li>Seek to minimise harmful emissions of its fleet and power usage.</li>
 						<li>Minimise waste by regular evaluation of operations and efficiency.</li>
 						<li>Source a product range or supply services that will minimise the environmental impact of the company’s distribution and production.</li>
+				
+						<h5 class="mt-6" style="position: relative; left: -35px; margin-top: 15px">Additional Policies:</h5>
+					
 						 <!-- Display the previous policy -->
 						 @php
 							
@@ -71,11 +74,12 @@
 							// dd($lines);
 							if ( !empty($lines) ) 
 							{
-
 								foreach ( $lines as $line ) 
 								{
-									if($line == NULL){continue;}else{
-									echo '<li>'. trim( $line ) .'</li>';}
+									if($line == NULL){continue;}else
+									{
+									echo '<li>'. trim( $line ) .'</li>';
+								}
 								}
 							}
 						 @endphp		

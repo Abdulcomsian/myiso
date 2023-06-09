@@ -75,7 +75,8 @@ public function store(Request $request)
             ]);
             $pass = $request->input('password');
             $addusers = new AddUsers();
-            if ($request->file('user_image')) {
+            if ($request->file('user_image')) 
+            {
                 $imagePath = $request->file('user_image');
                 $imageName = uniqid() . "." . $request->file('user_image')->extension();
 
@@ -103,7 +104,8 @@ public function store(Request $request)
             ]);*/
 
 
-            if ($request->file('iso9001_certificate')) {
+            if ($request->file('iso9001_certificate')) 
+            {
 
                 $file_path = $request->file('iso9001_certificate');
                 $file_name = uniqid() . "." . $request->file('iso9001_certificate')->extension();
@@ -146,7 +148,8 @@ public function store(Request $request)
 
                 $addusers->iso45001_description = $request->input('iso45001_description');
             }
-            if (Schema::hasColumns('users', ['audit_report'])) {
+            if (Schema::hasColumns('users', ['audit_report'])) 
+            {
                 if ($request->file('audit_report')) {
 
                     $audit_report_path = $request->file('audit_report');
@@ -532,6 +535,19 @@ public function store(Request $request)
         // $employess=Workinstructions::join('tbl_employees','tbl_employees.systemid','=','tbl_workinstruction.empId')->where('tbl_employees.user_id',$request)->get();
         return view('admin.adminform_records.work_instruction',compact('work','employess'));
     }
+
+
+    public function additionalpolicies($userid)
+    {
+        // Retrieve policies specific to the user
+        $qualityPolicy = CustomManual::where('user_id', $userid)->where('status', 1)->first();
+        $environmentalPolicy = CustomManual::where('user_id', $userid)->where('status', 2)->first();
+        $healthSafetyPolicy = CustomManual::where('user_id', $userid)->where('status', 3)->first();
+    
+        return view('admin.adminform_records.additionalpolicies', compact('qualityPolicy', 'environmentalPolicy', 'healthSafetyPolicy'));
+    }
+    
+
 
 
 

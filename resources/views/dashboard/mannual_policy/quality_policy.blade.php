@@ -33,8 +33,8 @@
 							<div class="row">
 								<div class="col-lg-12">
 									<div class="form-group">
-										<label>Enter Quality Policy:</label><br>
-										<textarea name="message" class="form-control" placeholder="Enter Add Quality Policy">{{ $previousPolicy ? $previousPolicy->message : '' }}</textarea>
+										<label>Enter additional Qualily Policies that are specific to your working Environment and Business activities</label><br>
+										<textarea name="message" class="form-control" placeholder="Set a maximum for the number of character that can be entered to 450.">{{ $previousPolicy ? $previousPolicy->message : '' }}</textarea>
 									</div>
 								</div>
 							</div>
@@ -57,6 +57,7 @@
 					<p>To ensure the maximum utilisation of our most important resource, our people, through ongoing training and career development.</p>
 					<p>To continually understand and respond to the needs and expectations of our interested parties.</p>
 					<!-- Display the previous policy -->
+					<h5 class="m-t-10">Additional Policies:</h5>
 					@if ($previousPolicy)
 						<pre style="font-size: 13px;color: #040404 !important;font-family: inherit;font-weight: normal;">{{ $previousPolicy->message }}</pre>
 					@endif

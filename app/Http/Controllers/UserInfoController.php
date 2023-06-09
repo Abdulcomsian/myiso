@@ -153,7 +153,8 @@ class UserInfoController extends Controller
         $handle = $request->handle;
         $user = AddUsers::find($id);
         if ($handle == 'audit_report') {
-            if (File::exists(public_path($user->audit_report))) {
+            if (File::exists(public_path($user->audit_report))) 
+            {
                 File::delete(public_path($user->audit_report));
             }
             $user->audit_report = null;

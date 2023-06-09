@@ -175,6 +175,7 @@
 									</a>
 								</td>
 							</tr>
+
 				<tr class="odd gradeX">
 								<td>14</td>
 								<td>Risk Assessments</td>
@@ -185,7 +186,8 @@
 									</a>
 								</td>
 							</tr>
-												<tr class="odd gradeX">
+
+				    <tr class="odd gradeX">
 					<td>15</td>
 					<td>Chemical Control</td>
 					
@@ -204,6 +206,18 @@
 									</a>
 								</td>
 							</tr>
+
+
+				
+				<tr class="odd gradeX">
+					<td>17</td>
+					<td>Additional Policies</td>
+					<td>
+						<a  href="/additionalpolicies/{{ request()->route('id') }}" class="btn btn-sm btn-clean btn-icon btn-icon-md"  title="Customer Details">
+							<i class="fa fa-eye"></i>
+						</a>
+					</td>
+				</tr>
 								
 							
 						</thead>

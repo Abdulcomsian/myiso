@@ -35,8 +35,8 @@
 							<div class="row">
 								<div class="col-lg-12">
 									<div class="form-group">
-										<label>Enter Health and Safety Policy:</label><br>
-										<textarea name="message" class="form-control" placeholder="Enter Add Health and Safety Policy">{{ $previousPolicy ? $previousPolicy->message : '' }}</textarea>
+										<label>Enter additional Health and Safety Policies that are specific to your working Environment and Business activities</label><br>
+										<textarea name="message" class="form-control" placeholder="Set a maximum for the number of character that can be entered to 450.">{{ $previousPolicy ? $previousPolicy->message : '' }}</textarea>
 									</div>
 								</div>
 							</div>
@@ -59,8 +59,8 @@
 					<h5 class="m-t-30">Duties of Employees:</h5>
 					<p>Employees have a duty to take reasonable care of their own health and safety and that of other people who may be affected by their work or actions. They also have a duty to co-operate with their employer to comply with their health and safety obligations under the relevant health and safety at work regulations in their country.</p>
 					<p>It is the responsibility of the employee to ensure the correct use of machinery, equipment, means of production or safety devices provided by their employer in accordance with any instruction, training or guidance received under the relevant regulations.</p>
-					<h4 class="m-t-15">Additional Polices:</h4>
-					<h5 class="m-t-30">Purpose:</h5>
+					<h5 class="m-t-10">Additional Policies:</h5>
+					<h5 class="m-t-10">Purpose:</h5>
 					<p>This document specifies the policy and practices to be adopted to ensure that suitable and sufficient risk assessments are carried out in accordance with the requirements of the relevant regulations in force. It describes the system for undertaking general risk assessments at <b><span class="authName">{{ $companyName}}</span></b> as part of the programme for the management of Safety, Health and Environment. This procedure does not include risk assessments made under the control or handling of hazardous metals, chemicals and other substances or usage of display screens and repetitive actions.</p>
 					@if ($previousPolicy)
 					<pre style="font-size: 13px;color: #040404 !important;font-family: inherit;font-weight: normal;">{{ $previousPolicy->message }}</pre>

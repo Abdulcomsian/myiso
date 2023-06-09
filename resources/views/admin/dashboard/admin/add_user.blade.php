@@ -14,6 +14,25 @@
             border-radius: 4px;
             border: 1px solid #0d47b3;
         }
+        /* .input-group .input-group-append {
+        flex: none;
+        }
+        
+        .input-group .input-group-append .input-group-text {
+            border-left: 0;
+        }
+        
+        .input-group .fa-calendar-alt {
+            margin-left: -30px;
+            margin-right: 10px;
+        } */
+        /* .specialInput::after{
+            content: 'DD/MM/YYYY';
+            position: absolute;
+            background: white;
+            left: 19px;
+            padding: 2px 7px 0px 6px;
+        } */
     </style>
     <div class="kt-content  kt-grid__item kt-grid__item--fluid" id="kt_content">
         <div class="row">
@@ -289,11 +308,24 @@
                                     <!--<button type="button" class="new-file-upload" onclick="document.getElementById('iso9001_certificate').click()">Attach File</button>-->
 
                                 </div>
-                                <div class="col-lg-4">
+                                {{-- <div class="col-lg-4">
                                     <label for="iso9001_expirydate">Expiry date:</label>
                                     <input type="date" id="iso9001_expirydate" name="iso9001_expirydate"
-                                           class="form-control" placeholder="Expiry Date">
+                                           class="form-control specialInput" placeholder="Expire Date">
+                                </div> --}}
+
+                                <div class="col-lg-4">
+                                    <label for="iso9001_expirydate">Expiry date:</label>
+                                    <div class="input-group">
+                                        <input type="text" id="iso9001_expirydate" name="iso9001_expirydate" class="form-control specialInput" placeholder="dd/mm/yyyy">
+                                        {{-- <div class="input-group-append">
+                                            <span class="input-group-text">
+                                                <i class="fas fa-calendar-alt"></i>
+                                            </span>
+                                        </div> --}}
+                                    </div>
                                 </div>
+
                                 <div class="col-lg-4">
                                     <label for="iso9001_description">Description:</label>
                                     <textarea id="iso9001_description" name="iso9001_description" class="form-control"
@@ -310,11 +342,24 @@
                                            name="iso14001_certificate">
                                     <!--<button type="button" class="new-file-upload" onclick="document.getElementById('iso14001_certificate').click()">Attach File</button>-->
                                 </div>
-                                <div class="col-lg-4">
+                                {{-- <div class="col-lg-4">
                                     <label for="iso14001_expirydate">Expiry date:</label>
                                     <input type="date" id="iso14001_expirydate" name="iso14001_expirydate"
                                            class="form-control" placeholder="Expiry Date">
+                                </div> --}}
+                                
+                                <div class="col-lg-4">
+                                    <label for="iso14001_expirydate">Expiry date:</label>
+                                    <div class="input-group">
+                                        <input type="text" id="iso14001_expirydate" name="iso14001_expirydate" class="form-control specialInput" placeholder="dd/mm/yyyy">
+                                        {{-- <div class="input-group-append">
+                                            <span class="input-group-text">
+                                                <i class="fas fa-calendar-alt"></i>
+                                            </span>
+                                        </div> --}}
+                                    </div>
                                 </div>
+                                
                                 <div class="col-lg-4">
                                     <label for="iso14001_description">Description:</label>
                                     <textarea id="iso14001_description" name="iso14001_description" class="form-control"
@@ -333,9 +378,16 @@
                                 </div>
                                 <div class="col-lg-4">
                                     <label for="iso45001_expirydate">Expiry date:</label>
-                                    <input type="date" id="iso45001_expirydate" name="iso45001_expirydate"
-                                           class="form-control" placeholder="Expiry Date">
+                                    <div class="input-group">
+                                        <input type="text" id="iso45001_expirydate" name="iso45001_expirydate" class="form-control specialInput" placeholder="dd/mm/yyyy">
+                                        {{-- <div class="input-group-append">
+                                            <span class="input-group-text">
+                                                <i class="fas fa-calendar-alt"></i>
+                                            </span>
+                                        </div> --}}
+                                    </div>
                                 </div>
+
                                 <div class="col-lg-4">
                                     <label for="iso45001_description">Description:</label>
                                     <textarea id="iso45001_description" name="iso45001_description" class="form-control"
@@ -404,6 +456,34 @@
             image.src = URL.createObjectURL(event.target.files[0]);
         };
     </script>
+
+    <script>
+        $(document).ready(function() {
+            $('#iso9001_expirydate').datepicker({
+                format: 'dd/mm/yyyy',
+                autoclose: true
+            });
+        });
+    </script>
+
+    <script>
+        $(document).ready(function() {
+            $('#iso14001_expirydate').datepicker({
+                format: 'dd/mm/yyyy',
+                autoclose: true
+            });
+        });
+    </script>
+
+    <script>
+        $(document).ready(function() {
+            $('#iso45001_expirydate').datepicker({
+                format: 'dd/mm/yyyy',
+                autoclose: true
+            });
+        });
+    </script>
+
 @endsection
 @section('myscript')
 	@include('layouts.intlTelInput_scripts')

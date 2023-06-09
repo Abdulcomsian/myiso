@@ -44,14 +44,14 @@
                     		</div>
                     	</div>
                     	<div class="work_instruction_from_div">
-    <form enctype='multipart/form-data' action="{{url('uploadimg')}}" method="post">
+                         <form enctype='multipart/form-data' action="{{url('uploadimg')}}" method="post">
                             @csrf
-  <input type="hidden" name="user_id" value="<?php echo Auth::id(); ?>"/>
+                            <input type="hidden" name="user_id" value="<?php echo Auth::id(); ?>"/>
                             <div class="row">
                     				<div class="col-lg-6 d-flex align-items-center">
                     					<div class="form-group">
 											<label>Upload Photo:</label><br>
-		<input type="file" class="form-control" name="comp_process_photo">
+		                          <input type="file" class="form-control" name="comp_process_photo">
 
 										</div>
 										<button type="submit" class="submitBtn ml-2">SUBMIT</button>

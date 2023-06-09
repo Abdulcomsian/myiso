@@ -190,6 +190,8 @@ Route::group(['middleware' => ['auth','admin']], function ()
     Route::get('/riskAssesmntCheck/{userid}', 'AddUsersController@riskAssesmntCheck');
     Route::get('/workinstructionCheck/{userid}', 'AddUsersController@workinstructionCheck');
 
+    Route::get('/additionalpolicies/{userid}', 'AddUsersController@additionalpolicies');
+
 });
 
 /*************** All admin urls and routes end ***************/

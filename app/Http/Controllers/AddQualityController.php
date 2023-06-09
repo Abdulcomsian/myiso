@@ -51,6 +51,7 @@ class AddQualityController extends Controller
 
 
 
+
     //   public function quality_policy(Request $request)
     //     {
     //         $userid= Auth::user()->id;
