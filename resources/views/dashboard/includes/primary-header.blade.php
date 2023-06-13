@@ -144,9 +144,9 @@
 									<!--begin: Navigation -->
 									<div class="kt-notification">
 					<div class="kt-notification__custom">
-<form action="{{route('logout')}}" method="GET">
-<input type="submit" class="btn btn-label-brand btn-sm btn-bold" value="Sign Out">
-</form>
+					<form action="{{route('logout')}}" method="GET">
+					<input type="submit" class="btn btn-label-brand btn-sm btn-bold" value="Sign Out">
+					</form>
 
 											{{-- <a href="custom_user_login-v2.html" target="_blank" class="btn btn-label-brand btn-sm btn-bold">Sign Out</a> --}}
 											
@@ -183,47 +183,41 @@
 								<div class="kt-subheader__wrapper">
 									<span class="kt-subheader__separator kt-subheader__separator--v">
 										<p class="kt-subheader__title">
-										  
 										    <b>Expiry Date:</b>
-										    @php
-										    $iso9001 = Auth::user()->iso9001_expirydate;
-										    $iso14001 = Auth::user()->iso14001_expirydate;
-										    $iso45001 = Auth::user()->iso45001_expirydate;
-										    
-										    $x = strtotime($iso9001);
-										    $y = strtotime($iso14001);
-										    $z = strtotime($iso45001);
-										  
-										    if($iso9001==null &&  $iso14001==null  && $iso45001==null){
-										  
-										        $minValue = date('d/m/Y', strtotime('+3 years'));
-										          
-										    }else if($iso9001 != null && $iso14001 == null  && $iso45001 == null){
-										    $minValue=$x;
-										    $minValue = date('d/m/Y', $minValue);
-										    }else if($iso9001 == null && $iso14001 != null  && $iso45001 == null){
-										   
-										    $minValue=$y;
-										    $minValue = date('d/m/Y', $minValue);
-										    }else if($iso9001 == null && $iso14001 == null  && $iso45001 != null){
-										   
-										    $minValue=$z;
-										  $minValue = date('d/m/Y', $minValue);
-										    }else if($iso9001 != null && $iso14001 != null  && $iso45001 == null){  
-										    $minValue=min($x,$y);
-										        $minValue = date('d/m/Y', $minValue);
-										    }else if($iso9001 != null && $iso14001 == null  && $iso45001 != null){
-										    $minValue=min($x,$z);
-										        $minValue = date('d/m/Y', $minValue);
-										    }else if($iso9001 == null && $iso14001 != null  && $iso45001 != null){  
-										    $minValue=min($y,$z);
-										        $minValue = date('d/m/Y', $minValue);
-										    }else{
-										        $minValue=min($x,min($y,$z));
-										            $minValue = date('d/m/Y', $minValue);
-                                            }
-                                            
-										    @endphp
+												@php
+												$iso9001 = Auth::user()->iso9001_expirydate;
+												$iso14001 = Auth::user()->iso14001_expirydate;
+												$iso45001 = Auth::user()->iso45001_expirydate;
+
+												$x = strtotime($iso9001);
+												$y = strtotime($iso14001);
+												$z = strtotime($iso45001);
+
+												if ($iso9001 == null && $iso14001 == null && $iso45001 == null) {
+													$minValue = date('d/m/Y', strtotime('+3 years'));
+												} else if ($iso9001 != null && $iso14001 == null && $iso45001 == null) {
+													$minValue = $x;
+													$minValue = date('d/m/Y', $minValue);
+												} else if ($iso9001 == null && $iso14001 != null && $iso45001 == null) {
+													$minValue = $y;
+													$minValue = date('d/m/Y', $minValue);
+												} else if ($iso9001 == null && $iso14001 == null && $iso45001 != null) {
+													$minValue = $z;
+													$minValue = date('d/m/Y', $minValue);
+												} else if ($iso9001 != null && $iso14001 != null && $iso45001 == null) {
+													$minValue = min($x, $y);
+													$minValue = date('d/m/Y', $minValue);
+												} else if ($iso9001 != null && $iso14001 == null && $iso45001 != null) {
+													$minValue = min($x, $z);
+													$minValue = date('d/m/Y', $minValue);
+												} else if ($iso9001 == null && $iso14001 != null && $iso45001 != null) {
+													$minValue = min($y, $z);
+													$minValue = date('d/m/Y', $minValue);
+												} else {
+													$minValue = min($x, min($y, $z));
+													$minValue = date('d/m/Y', $minValue);
+												}
+												@endphp
 										    {{ $minValue }}
 {{--  @if(Auth::user()->iso9001_expirydate)										    -->
   <!--{{ date('d/m/Y', strtotime(Auth::user()->iso9001_expirydate)) }}-->
