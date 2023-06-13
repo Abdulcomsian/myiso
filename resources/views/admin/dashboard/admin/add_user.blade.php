@@ -301,7 +301,7 @@
 
                             <div class="form-group row">
 
-                                <div class="col-lg-4">
+                                <div class="col-lg-3">
                                     <label for="iso9001_certificate">ISO9001 Certificate:</label>
                                     <input type="file" id="iso9001_certificate" accept=".pdf"
                                            name="iso9001_certificate">
@@ -336,7 +336,7 @@
 
                             <div class="form-group row">
 
-                                <div class="col-lg-4">
+                                <div class="col-lg-3">
                                     <label for="iso14001_certificate">ISO14001 Certificate:</label>
                                     <input type="file" id="iso14001_certificate" accept=".pdf"
                                            name="iso14001_certificate">
@@ -370,7 +370,7 @@
 
                             <div class="form-group row">
 
-                                <div class="col-lg-4">
+                                <div class="col-lg-3">
                                     <label for="iso45001_certificate">ISO45001 Certificate:</label>
                                     <input type="file" id="iso45001_certificate" accept=".pdf"
                                            name="iso45001_certificate">
@@ -398,7 +398,7 @@
 
 
                             <div class="form-group row">
-                                <div class="col-lg-4">
+                                <div class="col-lg-3">
                                     <label for="iso45001_certificate">Audit Report</label>
                                     <input type="file" id="audit_report" accept=".pdf"
                                            name="audit_report">
