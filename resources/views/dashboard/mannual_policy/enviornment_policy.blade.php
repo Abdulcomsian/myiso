@@ -70,6 +70,7 @@
 						 @php
 							
 							// $message = explode(PHP_EOL, $previousPolicy->message);
+							if($previousPolicy!=null){
 							$lines = explode("\r\n", $previousPolicy->message); // or use PHP PHP_EOL constant
 							// dd($lines);
 							if ( !empty($lines) ) 
@@ -81,6 +82,7 @@
 									echo '<li>'. trim( $line ) .'</li>';
 								}
 								}
+							}
 							}
 						 @endphp		
 						{{-- 
