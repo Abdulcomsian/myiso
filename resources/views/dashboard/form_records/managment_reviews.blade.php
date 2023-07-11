@@ -60,6 +60,7 @@
 										</div>
 									</div>
 								</div>
+
 								<div class="row">
 									<div class="col-lg-6">
 										<div class="form-group">
@@ -74,6 +75,7 @@
 										</div>
 									</div>
 								</div>
+
 								<div class="row">
 									<div class="col-lg-6">
 										<div class="form-group">
@@ -83,11 +85,12 @@
 									</div>
 									<div class="col-lg-6">
 										<div class="form-group">
-											<label>Process performance and conformity of products and services:</label>
-                                            <textarea class="form-control" placeholder="Enter Feedback of performance of products and services" name="conformity" required  placeholder="" cols="30" rows="4"></textarea>
+											<label>Process Audit performance and conformity of products and services:</label>
+                                            <textarea class="form-control" placeholder="Enter Feedback of performance of products and services created in process audits" name="conformity" required  placeholder="" cols="30" rows="4"></textarea>
 										</div>
 									</div>
 								</div>
+
 								<div class="row">
 									<div class="col-lg-6">
 										<div class="form-group">
@@ -102,6 +105,7 @@
 										</div>
 									</div>
 								</div>
+
 								<div class="row">
 									<div class="col-lg-6">
 										<div class="form-group">
@@ -116,6 +120,7 @@
 										</div>
 									</div>
 								</div>
+
 								<div class="row">
 									<div class="col-lg-6">
 										<div class="form-group">
@@ -133,7 +138,7 @@
 								<div class="row">
 									<div class="col-lg-12">
 										<div class="form-group">
-											<label>Add New Quality Objectives and
+											<label>Add New Quality Objectives, Targets and
                                         opportunities for improvement. Consider who is
                                         responsible, when they will be completed and
                                         what is considered a success. Objectives should be both quality based and financial. Consider aligning objectives to the quality policy:</label>

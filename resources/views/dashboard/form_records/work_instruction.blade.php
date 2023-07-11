@@ -18,7 +18,7 @@
 
 		<div class="row">
 			<div class="col-lg-12">
-				<p>Work instructions are procedures that are used locally to support what the business does. If you use documents that are external to this system, that is fine as long as they are referenced here. Do this by recording the work instruction detail and put a brief summary in the scope section. This will ensure that your external work instruction is included in the document register.</p>
+				<p>Work instructions are procedures that are used locally to support what the business does. If you use documents that are external to this system, that is fine as long as they are referenced here. Do this by recording the work instruction detail and put a brief summary in the scope section. This section can also be used to add activities that you should list in your process audits</p>
                     <div class="procedure_div">
                     	<div class="row">
                     		<div class="col-lg-12 text-right">

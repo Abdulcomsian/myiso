@@ -116,8 +116,7 @@
                                 <div class="row">
                                     <div class="col-lg-12">
                                         <div class="form-group">
-                                            <label>1 - Is this process included in the system scope and is it still
-                                                relevant?</label>
+                                            <label>1 - Is this process included in the Quality Manual or Work Instructions and is it still relevant?</label>
                                             <div class="kt-radio-list">
                                                 <label class="kt-radio">
                                                     <input type="radio" required value="Yes" name="qmsCorects"> Yes
@@ -146,8 +145,7 @@
                                 <div class="row">
                                     <div class="col-lg-12">
                                         <div class="form-group">
-                                            <label>2 - Is this process being implemented as detailed in documented
-                                                information?</label>
+                                            <label>2 - Is this process being implemented in the Quality Manual or Work Instructions?</label>
                                             <div class="kt-radio-list">
                                                 <label class="kt-radio">
                                                     <input type="radio" value="Yes" required name="needExpactations">
@@ -173,11 +171,11 @@
                                         </div>
                                     </div>
                                 </div>
+
                                 <div class="row">
                                     <div class="col-lg-12">
                                         <div class="form-group">
-                                            <label>3 - Are all relevant personnel trained in this process and are
-                                                records complete?</label>
+                                            <label>3 - Are all relevant personnel trained in this process and training records maintained?</label>
                                             <div class="kt-radio-list">
                                                 <label class="kt-radio">
                                                     <input type="radio" value="Yes" required name="correction3"> Yes
@@ -202,11 +200,11 @@
                                         </div>
                                     </div>
                                 </div>
+
                                 <div class="row">
                                     <div class="col-lg-12">
                                         <div class="form-group">
-                                            <label>4 - Are key performance indicator information being monitored for
-                                                this process?</label>
+                                            <label>4 - Is key performance indicator (KPI) information being monitored for this process?</label>
                                             <div class="kt-radio-list">
                                                 <label class="kt-radio">
                                                     <input type="radio" value="Yes" required name="correction4"> Yes
@@ -224,6 +222,7 @@
 
                                         </div>
                                     </div>
+
                                     <div class="col-lg-12">
                                         <div class="form-group">
                                             <label>Evidence:</label>
@@ -235,8 +234,7 @@
                                 <div class="row">
                                     <div class="col-lg-12">
                                         <div class="form-group">
-                                            <label>5 - Have appropriate targets and objectives been set for this process
-                                                at Management Review?</label>
+                                            <label>5 - Have appropriate targets and objectives been set for this process during previous Management Review?</label>
                                             <div class="kt-radio-list">
                                                 <label class="kt-radio">
                                                     <input type="radio" value="Yes" required name="correction5"> Yes
@@ -262,11 +260,11 @@
                                         </div>
                                     </div>
                                 </div>
+
                                 <div class="row">
                                     <div class="col-lg-12">
                                         <div class="form-group">
-                                            <label>6 - Have previous targets and objectives been reviewed for this
-                                                process?</label>
+                                            <label>6 - Have previous targets and objectives been reviewed for this process?</label>
                                             <div class="kt-radio-list">
                                                 <label class="kt-radio">
                                                     <input type="radio" value="Yes" required name="correction6"> Yes
@@ -292,11 +290,11 @@
                                         </div>
                                     </div>
                                 </div>
+
                                 <div class="row">
                                     <div class="col-lg-12">
                                         <div class="form-group">
-                                            <label>7 - Are all supporting procedures and work instructions used and at
-                                                the correct revision?</label>
+                                            <label>7 - Are all supporting procedures and work instructions for this process followed and at the correct revision?</label>
                                             <div class="kt-radio-list">
                                                 <label class="kt-radio">
                                                     <input type="radio" value="Yes" required name="correction7"> Yes
@@ -322,10 +320,11 @@
                                         </div>
                                     </div>
                                 </div>
+
                                 <div class="row">
                                     <div class="col-lg-12">
                                         <div class="form-group">
-                                            <label>8 - Are all equipment calibrated, up-to-date and recorded?</label>
+                                            <label>8 - Has all equipment requiring calibration for this process been calibrated, recorded and up-to-date?</label>
                                             <div class="kt-radio-list">
                                                 <label class="kt-radio">
                                                     <input type="radio" value="Yes" required name="correction9"> Yes
@@ -351,11 +350,11 @@
                                         </div>
                                     </div>
                                 </div>
+
                                 <div class="row">
                                     <div class="col-lg-12">
                                         <div class="form-group">
-                                            <label>9 - Is the job paperwork satisfactory? Record the job details for
-                                                this process here.</label>
+                                            <label>9 - Has this process been carried out correctly?</label>
                                             <div class="kt-radio-list">
                                                 <label class="kt-radio">
                                                     <input type="radio" value="Yes" required name="correction10"> Yes
