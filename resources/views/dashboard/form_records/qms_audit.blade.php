@@ -51,7 +51,7 @@
 									<div class="col-lg-12">
 										<div class="form-group">
 										
-											<label>4.1 Understanding the organization and its context. Is this correct?</label>
+											<label>4.1 Understanding the organization and its Context. (internal & External Issues) Is this accurate? </label>
 												<div class="kt-radio-list">
 													<label class="kt-radio">
 														<input type="radio" value="Yes"  name="qmsCorects" required="required"> Yes
@@ -78,7 +78,7 @@
 								<div class="row">
 									<div class="col-lg-12">
 										<div class="form-group">
-											<label>4.2 Understanding the needs and expectations of interested parties. Is this still correct?</label>
+											<label>4.2 Understanding interested parties' requirements and expectations. Is this still accurate? </label>
 												<div class="kt-radio-list">
 													<label class="kt-radio">
 														<input type="radio" value="Yes" name="needExpactations" required="required"> Yes
@@ -105,7 +105,7 @@
 								<div class="row">
 									<div class="col-lg-12">
 										<div class="form-group">
-											<label>4.3 Determining the scope of the quality management system. Is this still correct?</label>
+											<label>4.3 Identifying the scope of the quality management system. Is this still correct? </label>
 												<div class="kt-radio-list">
 													<label class="kt-radio">
 														<input type="radio" value="Yes" name="correction3" required="required"> Yes
@@ -132,7 +132,7 @@
 								<div class="row">
 									<div class="col-lg-12">
 										<div class="form-group">
-											<label>4.4 Quality management system and its processes. Are processes owned, relevant and show interaction?</label>
+											<label>4.4 Quality management system and its procedures. Is this still relevant to the business? </label>
 												<div class="kt-radio-list">
 													<label class="kt-radio">
 														<input type="radio" value="Yes" name="correction4" required="required"> Yes
@@ -160,7 +160,7 @@
 								<div class="row">
 									<div class="col-lg-12">
 										<div class="form-group">
-											<label>5.1 Leadership and commitment. Is top level management accountable for the quality system and is it customer focused?</label>
+											<label>5.1 Leadership and commitment. Is top management responsible for the quality system, and is it customer-oriented? </label>
 												<div class="kt-radio-list">
 													<label class="kt-radio">
 														<input type="radio" value="Yes" name="correction5" required="required"> Yes
@@ -188,7 +188,7 @@
 								<div class="row">
 									<div class="col-lg-12">
 										<div class="form-group">
-											<label>5.2 Policy. Is the quality policy established and accurate, reviewed and communicated?</label>
+											<label>5.2 Policy. Is the quality policy established and accurate, reviewed and communicated? </label>
 													<div class="kt-radio-list">
 													<label class="kt-radio">
 														<input type="radio" value="Yes" name="correction6" required="required"> Yes
@@ -216,7 +216,7 @@
 								<div class="row">
 									<div class="col-lg-12">
 										<div class="form-group">
-											<label>5.3 Organizational roles, responsibilities and authorities. Are these assigned and communicated?</label>
+											<label>5.3 Organizational roles, responsibilities and authorities. Are these assigned and communicated? </label>
 												<div class="kt-radio-list">
 													<label class="kt-radio">
 														<input type="radio" value="Yes" name="correction7" required="required"> Yes
@@ -244,7 +244,7 @@
 								<div class="row">
 									<div class="col-lg-12">
 										<div class="form-group">
-											<label>6.1 Actions to address risks and opportunities. Are risks and opportunities managed, understood and reviewed?</label>
+											<label>6.1 Actions to address risks and opportunities. Are risks and opportunities managed, understood and evaluated? </label>
 												<div class="kt-radio-list">
 													<label class="kt-radio">
 														<input type="radio" value="Yes" name="correction8" required="required"> Yes
@@ -272,7 +272,7 @@
 								<div class="row">
 									<div class="col-lg-12">
 										<div class="form-group">
-											<label>6.2 Quality objectives and planning to achieve them. Are objectives set at Management Review and monitored?</label>
+											<label>6.2 Quality objectives and planning to achieve them. Are objectives established and tracked during Management Review? </label>
 												<div class="kt-radio-list">
 													<label class="kt-radio">
 														<input type="radio" value="Yes" name="correction9" required="required"> Yes
@@ -300,7 +300,7 @@
 								<div class="row">
 									<div class="col-lg-12">
 										<div class="form-group">
-											<label>6.3 Planning of changes. Have any changes occurred been planned to meet section 6.3 of the standard?</label>
+											<label>6.3 Planning of changes. Has anything changed recently to comply with section 6.3 of the standard? </label>
 													<div class="kt-radio-list">
 													<label class="kt-radio">
 														<input type="radio" value="Yes" name="correction11" required="required"> Yes
@@ -328,7 +328,7 @@
 								<div class="row">
 									<div class="col-lg-12">
 										<div class="form-group">
-											<label>7.1 Resources. Are satisfactory resources in place? Consider people, infrastructure, environment for the operation of processes, monitoring and measuring resources and organizational knowledge.</label>
+											<label>7.1 Resources. Are there sufficient resources available? Considering people, infrastructure, process-operating environment, resource monitoring and measurement, and organizational knowledge. </label>
 													<div class="kt-radio-list">
 													<label class="kt-radio">
 														<input type="radio" value="Yes" name="correction12" required="required"> Yes
@@ -356,7 +356,7 @@
 								<div class="row">
 									<div class="col-lg-12">
 										<div class="form-group">
-											<label>7.2 Competence. Are the training records current?</label>
+											<label>7.2 Competence. Are the training records being updated? </label>
 													<div class="kt-radio-list">
 													<label class="kt-radio">
 														<input type="radio" value="Yes" name="correction13" required="required"> Yes
@@ -384,7 +384,7 @@
 								<div class="row">
 									<div class="col-lg-12">
 										<div class="form-group">
-											<label>7.3 Awareness. Does employee awareness meet section 7.3 of the standard?</label>
+											<label>7.3 Awareness. Does employee awareness comply with standard's section 7.3? </label>
 												<div class="kt-radio-list">
 													<label class="kt-radio">
 														<input type="radio" value="Yes" name="correction14" required="required"> Yes
@@ -412,7 +412,7 @@
 								<div class="row">
 									<div class="col-lg-12">
 										<div class="form-group">
-											<label>7.4 Communication. Does communication meet section 7.4 of the standard?</label>
+											<label>7.4 Communication. Does communication comply with standard’s section 7.4? </label>
 												<div class="kt-radio-list">
 													<label class="kt-radio">
 														<input type="radio" value="Yes" name="correction15" required="required"> Yes
@@ -440,7 +440,7 @@
 								<div class="row">
 									<div class="col-lg-12">
 										<div class="form-group">
-											<label>7.5 Documented information. Are all documents pertaining to the quality system controlled?</label>
+											<label>7.5 Documented information. is all documentation related to the quality system being regulated as mentioned in P1?</label>
 												<div class="kt-radio-list">
 													<label class="kt-radio">
 														<input type="radio" value="Yes" name="correction16" required="required"> Yes
@@ -468,7 +468,7 @@
 								<div class="row">
 									<div class="col-lg-12">
 										<div class="form-group">
-											<label>8.1 Operational planning and control. Is the controlling system current and effective?</label>
+											<label>8.1 Planning and managing operations. Is the control system up to date and functional? </label>
 												<div class="kt-radio-list">
 													<label class="kt-radio">
 														<input type="radio" value="Yes" name="correciton17" required="required"> Yes
@@ -497,7 +497,7 @@
 								<div class="row">
 									<div class="col-lg-12">
 										<div class="form-group">
-											<label>8.2 Requirements for products and services. Is customer communication effective and has the requirements for products and services been defined, reviewed and documented?</label>
+											<label>8.2 Requirements for products and services. Are customer communications successful, and has expectations for goods and services been established, examined, and recorded? </label>
 												<div class="kt-radio-list">
 													<label class="kt-radio">
 														<input type="radio" value="Yes" name="correction18" required="required"> Yes
@@ -552,7 +552,7 @@
 								<div class="row">
 									<div class="col-lg-12">
 										<div class="form-group">
-											<label>8.4 Control of externally provided processes, products and services. Are externally provided processes, products and services controlled?</label>
+											<label>8.4 Control over procedures, goods, and services that are delivered by third parties. Are the external processes, products and services being regulated? </label>
 												<div class="kt-radio-list">
 													<label class="kt-radio">
 														<input type="radio" value="Yes" name="correction20" required="required"> Yes
@@ -579,7 +579,7 @@
 								<div class="row">
 									<div class="col-lg-12">
 										<div class="form-group">
-											<label>8.5 Production and service provision. Is production and service provision controlled, including post delivery activities?</label>
+											<label>8.5 Production and service provision. Production and service delivery, including after-delivery operations, are they under control? </label>
 												<div class="kt-radio-list">
 													<label class="kt-radio">
 														<input type="radio" value="Yes" name="correction21" required="required"> Yes
@@ -608,7 +608,7 @@
 								<div class="row">
 									<div class="col-lg-12">
 										<div class="form-group">
-											<label>8.6 Release of products and services. Are products and services completed before release to the customer?</label>
+											<label>8.6 Release of products and services. Are products and services completed and checked before release to the customer? </label>
 												<div class="kt-radio-list">
 													<label class="kt-radio">
 														<input type="radio" value="Yes" name="correction22" required="required"> Yes
@@ -636,7 +636,7 @@
 								<div class="row">
 									<div class="col-lg-12">
 										<div class="form-group">
-											<label>8.7 Control of nonconforming outputs. Are records kept and up to date?</label>
+											<label>8.7 Control of nonconforming outputs. Does the records being updated? </label>
 												<div class="kt-radio-list">
 													<label class="kt-radio">
 														<input type="radio" value="Yes" name="correction23" required="required"> Yes
@@ -665,11 +665,7 @@
 								<div class="row">
 									<div class="col-lg-12">
 										<div class="form-group">
-											<label>9.1 Monitoring,
-												measurement, analysis and evaluation, including
-												section 9.1.3. Is monitoring, measurement,
-												analysis and evaluation performed and
-												documented?</label>
+											<label>9.1 Monitoring, measurement, analysis and evaluation, including section 9.1.3. Monitoring, measurement, analysis, and evaluation are carried out and recorded? </label>
 												<div class="kt-radio-list">
 													<label class="kt-radio">
 														<input type="radio" value="Yes" name="correction24" required="required"> Yes
@@ -697,7 +693,7 @@
 								<div class="row">
 									<div class="col-lg-12">
 										<div class="form-group">
-											<label>9.1.2 Customer satisfaction. Have customer satisfaction surveys been completed?</label>
+											<label>9.1.2 Customer satisfaction. Have customer satisfaction surveys been completed? </label>
 												<div class="kt-radio-list">
 													<label class="kt-radio">
 														<input type="radio" value="Yes" name="correction25" required="required"> Yes
@@ -724,7 +720,7 @@
 								<div class="row">
 									<div class="col-lg-12">
 										<div class="form-group">
-											<label>9.2 Internal audit. Are internal audits planned and completed?</label>
+											<label>9.2 Internal audit. Are regular internal audits planned and completed? </label>
 												<div class="kt-radio-list">
 													<label class="kt-radio">
 														<input type="radio" value="Yes" name="correction26" required="required"> Yes
@@ -751,7 +747,7 @@
 								<div class="row">
 									<div class="col-lg-12">
 										<div class="form-group">
-											<label>9.3 Management review. Has the management review been planned and completed?</label>
+											<label>9.3 Management review. Has the management review been planned and completed? </label>
 												<div class="kt-radio-list">
 													<label class="kt-radio">
 														<input type="radio" value="Yes" name="correction27" required="required"> Yes
@@ -779,7 +775,7 @@
 								<div class="row">
 									<div class="col-lg-12">
 										<div class="form-group">
-											<label>10.1 Improvement - Has the organization determined and selected opportunities for improvement and implemented any necessary actions to meet customer requirements and enhance customer satisfaction?</label>
+											<label>10.1 Improvement - Has the organization identified and prioritized areas for improvement and taken any necessary steps to meet customer expectations and improve client satisfaction? </label>
 												<div class="kt-radio-list">
 													<label class="kt-radio">
 														<input type="radio" value="Yes"  name="correction28" required="required"> Yes
@@ -806,7 +802,7 @@
 									<div class="row">
 									<div class="col-lg-12">
 										<div class="form-group">
-											<label>10.2 Nonconformity and corrective action - Are these correctly documented?</label>
+											<label>10.2 Nonconformity and corrective action - Are these Properly documented? </label>
 												<div class="kt-radio-list">
 													<label class="kt-radio">
 														<input type="radio" value="Yes"  name="correction30" required="required"> Yes
@@ -833,7 +829,7 @@
 								<div class="row">
 									<div class="col-lg-12">
 										<div class="form-group">
-											<label>10.3 Continual improvement - Is there evidence that the company has continually improved?</label>
+											<label>10.3 Continual improvement - Is there proof that the company has been continuously improving? </label>
 												<div class="kt-radio-list">
 													<label class="kt-radio">
 														<input type="radio" value="Yes"  name="correction29" required="required"> Yes
