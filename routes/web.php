@@ -69,7 +69,7 @@ Route::group(['middleware' => ['auth','usermiddle']], function ()
     /*************** Manual and policies urls and routes start ***************/
     Route::get('/quality_manual', 'AddUsersController@quality_manual');
     Route::get('/quality_policy', 'AddQualityController@quality_policy')->name('add_quality');
-    Route::get('/enviornment_policy', 'AddQualityController@enviornment_policy')->name('enviornment_policy');
+    Route::get('/environment_policy', 'AddQualityController@environment_policy')->name('environment_policy');
     Route::get('/health_policy', 'AddQualityController@health_policy')->name('health_policy');
 
     // Route::view('/quality_policy', 'dashboard.mannual_policy.quality_policy');
@@ -78,7 +78,7 @@ Route::group(['middleware' => ['auth','usermiddle']], function ()
 
     Route::get('/management_organogram','ImagesUploadController@management_organogram');
     Route::post('/add_quality','AddQualityController@add_quality')->name('add_quality');
-    Route::post('/enviornment_policy','AddQualityController@add_environmental_policy')->name('enviornment_policy');
+    Route::post('/environment_policy','AddQualityController@add_environmental_policy')->name('environment_policy');
     Route::post('/health_policy','AddQualityController@add_health_policy')->name('health_policy');
 
 

@@ -9,8 +9,20 @@
 
 	<!--Begin::Section-->
 	<div class="row">
-		<div class="col-xl-12 col-lg-12">
+		<div class="col-xl-12 col-lg-12 d-flex justify-content-between">
 			<h2>Additional Policies</h2>
+		
+
+			<div class="kt-portlet__head-toolbar">
+				<div class="kt-portlet__head-wrapper">
+					<a href="/edit_user/{id}" class="btn btn-clean btn-icon-sm">
+						<i class="la la-long-arrow-left"></i>
+						Back
+					</a>
+					&nbsp;
+					
+				</div>
+			</div>
 		</div>
 	</div>
 	<section id="procedure_section">

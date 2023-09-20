@@ -125,7 +125,7 @@ class AddQualityController extends Controller
 //     return view('dashboard.mannual_policy.enviornment_policy',compact('user','useraddpolicy'));
 //    }
 
-   public function enviornment_policy(Request $request)
+   public function environment_policy(Request $request)
         {
             $userid = Auth::user()->id;
             $companyName = Auth::user()->company_name;
@@ -135,12 +135,10 @@ class AddQualityController extends Controller
     
             $previousPolicy = $userAddPolicy->first();
     
-            return view('dashboard.mannual_policy.enviornment_policy', compact('companyName', 'previousPolicy', 'userAddPolicy'));
+            return view('dashboard.mannual_policy.environment_policy', compact('companyName', 'previousPolicy', 'userAddPolicy'));
         }
 
-
-
-
+        
         public function add_health_policy(Request $request)
         {
             $userid = Auth::user()->id;
