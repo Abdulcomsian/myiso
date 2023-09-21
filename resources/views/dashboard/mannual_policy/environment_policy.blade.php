@@ -48,7 +48,7 @@
 
 				<div class="procedure_div">
 				    <p>Each country has its own regulations and laws relating to Environmental Legislation within the workplace. These must be complied with by both the employer and the company employees. It is the obligation of the company to ensure that they are aware and understand their responsibilities and regularly check for updates and changes.</p>
-				    <p>ISO USER will develop and maintain procedures to identify and support the reduction of negative environmental impacts, determine controls and then implement them. These controls will be reviewed and monitored on a regular basis. The company will take all reasonable steps to reduce environmental impacts within the workplace and to provide guidance on the measures that should be applied within the hierarchy of control. </p>
+				    <p>{{ $companyName}} will develop and maintain procedures to identify and support the reduction of negative environmental impacts, determine controls and then implement them. These controls will be reviewed and monitored on a regular basis. The company will take all reasonable steps to reduce environmental impacts within the workplace and to provide guidance on the measures that should be applied within the hierarchy of control. </p>
 					<p><b><span class="authName">{{ $companyName}}</span></b> is committed to continually monitoring and improving the environmental performance of the company. It will regularly measure its impact on the environment and set targets to ensure ongoing improvement.</p>
 					<p>It is the policy of <b><span class="authName">{{ $companyName}}</span></b> to:</p>
 					<ol>

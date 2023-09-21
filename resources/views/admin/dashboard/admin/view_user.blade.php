@@ -266,22 +266,27 @@
                         
                                     
                                     
-                                      if($x == 0 &&  $y == 0  && $z == 0){
+                                      if($x == 0 &&  $y == 0  && $z == 0)
+                                      {
                                   
                                         $minValue = date('d/m/Y', strtotime('+3 years'));
                                           
-                                    }else if($x >= 0 && $y <= 0  && $z <= 0){
+                                    }else if($x >= 0 && $y <= 0  && $z <= 0)
+                                    {
                                         $minValue=$x;
                                         $minValue = date('d/m/Y', $minValue);
-                                    }else if($x <= 0 && $y >= 0  && $z <= 0){
+                                    }else if($x <= 0 && $y >= 0  && $z <= 0)
+                                    {
                              
                                         $minValue=$y;
                                         $minValue = date('d/m/Y', $minValue);
-                                    }else if($x <= 0 && $y <= 0  && $z >= 0){
+                                    }else if($x <= 0 && $y <= 0  && $z >= 0)
+                                    {
                                    
                                         $minValue=$z;
                                         $minValue = date('d/m/Y', $minValue);
-                                    }else if($x >= 0 && $y >= 0  && $z <=0){      
+                                    }else if($x >= 0 && $y >= 0  && $z <=0)
+                                    {      
                                         $minValue=min($x,$y);
                                         $minValue = date('d/m/Y', $minValue);
                                     }else if($x >= 0 && $y <= 0  && $z >= 0){
@@ -331,11 +336,11 @@
                                   <!--  }-->
                                 <td>
                                     @php if($item->last_login!=NULL){ @endphp
-                                    {{ date('d/m/Y', strtotime($item->last_login)) }}
+                                    {{ date('d/m/Y', strtotime($item->last_login))}}
                                     @php } @endphp
                                 </td>
 
-                                <td>{{ $minValue }}</td>
+                                <td>{{ $minValue }} </td>
 
 
                                 <!--<td> ->expiry_date </td>-->
@@ -796,11 +801,18 @@
                                     <!--</button>-->
 
                                 </div>
+
                                 <div class="col-lg-4">
                                     <label for="iso9001_expirydate">Expiry date:</label>
                                     <input type="date" id="iso9001_expirydate" max="2999-12-31"
                                            name="iso9001_expirydate" class="form-control" placeholder="Expiry Date">
                                 </div>
+
+                                {{-- <div class="col-lg-4">
+                                    <label for="iso9001_expirydate">Expiry date</label>
+                                    <input type="text" id="iso9001_expirydate" name="iso9001_expirydate" class="form-control" placeholder="dd/mm/yyyy">
+                                </div> --}}
+
                                 <div class="col-lg-4">
                                     <label for="iso9001_description">Description:</label>
                                     <textarea id="iso9001_description" name="iso9001_description" class="form-control"
@@ -822,11 +834,20 @@
                                     <!--    File-->
                                     <!--</button>-->
                                 </div>
+
                                 <div class="col-lg-4">
                                     <label for="iso14001_expirydate">Expiry date:</label>
                                     <input type="date" id="iso14001_expirydate" max="2999-12-31"
                                            name="iso14001_expirydate" class="form-control" placeholder="Expiry Date">
                                 </div>
+
+                                {{-- <div class="col-lg-4">
+                                    <label for="iso14001_expirydate">Expiry date</label>
+                                    <input type="text" id="iso14001_expirydate" name="iso14001_expirydate" class="form-control" placeholder="dd/mm/yyyy">
+                                </div> --}}
+
+
+
                                 <div class="col-lg-4">
                                     <label for="iso14001_description">Description:</label>
                                     <textarea id="iso14001_description" name="iso14001_description" class="form-control"
@@ -844,11 +865,20 @@
                                     <input type="file" id="iso45001_certificate" accept=".pdf"
                                            name="iso45001_certificate">
                                 </div>
+
                                 <div class="col-lg-4">
                                     <label for="iso45001_expirydate">Expiry date:</label>
                                     <input type="date" id="iso45001_expirydate" max="2999-12-31"
                                            name="iso45001_expirydate" class="form-control" placeholder="Expiry Date">
                                 </div>
+
+                                {{-- <div class="col-lg-4">
+                                    <label for="iso45001_expirydate">Expiry date</label>
+                                    <input type="text" id="iso45001_expirydate" name="iso45001_expirydate" class="form-control" placeholder="dd/mm/yyyy">
+                                </div> --}}
+
+                                
+
                                 <div class="col-lg-4">
                                     <label for="iso45001_description">Description:</label>
                                     <textarea id="iso45001_description" name="iso45001_description" class="form-control"
@@ -1255,18 +1285,71 @@
 
 
         @endsection
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/intlTelInput.min.js"
-                integrity="sha512-DNeDhsl+FWnx5B1EQzsayHMyP6Xl/Mg+vcnFPXGNjUZrW28hQaa1+A4qL9M+AiOMmkAhKAWYHh1a+t6qxthzUw=="
-                crossorigin="anonymous"></script>
-        <link rel="stylesheet"
-              href="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/css/intlTelInput.min.css"
-              integrity="sha512-yye/u0ehQsrVrfSd6biT17t39Rg9kNc+vENcCXZuMz2a+LWFGvXUnYuWUW6pbfYj1jcBb/C39UZw2ciQvwDDvg=="
-              crossorigin="anonymous"/>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/utils.js"
-                integrity="sha512-BNZ1x39RMH+UYylOW419beaGO0wqdSkO7pi1rYDYco9OL3uvXaC/GTqA5O4CVK2j4K9ZkoDNSSHVkEQKkgwdiw=="
-                crossorigin="anonymous"></script>
+    
+                {{-- <script>
+                    document.addEventListener('DOMContentLoaded', function () 
+                    {
+                        var input = document.getElementById('iso9001_expirydate');
+                        input.addEventListener('input', function () {
+                            var value = input.value;
+                            if (/^\d{2}\/\d{2}\/\d{4}$/.test(value)) 
+                            {
+                                input.setCustomValidity('');
+                            } else 
+                            {
+                                input.setCustomValidity('Please enter a date in the format dd/mm/yyyy');
+                            }
+                        });
+                    });
+                </script> --}}
+
+
+                {{-- <script>
+                   
+                    document.addEventListener('DOMContentLoaded', function () {
+                        var input = document.getElementById('iso14001_expirydate');
+                        input.addEventListener('input', function () 
+                        {
+                            var value = input.value;
+                            if (/^\d{2}\/\d{2}\/\d{4}$/.test(value)) 
+                            {
+                                input.setCustomValidity('');
+                            } else 
+                            {
+                                input.setCustomValidity('Please enter a date in the format dd/mm/yyyy');
+                            }
+                        });
+                    });
+                </script> --}}
+
+                
+
+                {{-- <script>
+                    document.addEventListener('DOMContentLoaded', function () 
+                    {
+                        var input = document.getElementById('iso45001_expirydate');
+                        input.addEventListener('input', function () 
+                        {
+                            var value = input.value;
+                            if (/^\d{2}\/\d{2}\/\d{4}$/.test(value)) 
+                            {
+                                input.setCustomValidity('');
+                            } else {
+                                input.setCustomValidity('Please enter a date in the format dd/mm/yyyy');
+                            }
+                        });
+                    });
+                </script> --}}
+
+
+
+
+
+
+
         <script>
-            function deleteUser(id) {
+            function deleteUser(id) 
+            {
                 var userid = id;
                 $("#userid").val(userid);
                 $("#deleteUser").modal('show');
@@ -1677,3 +1760,8 @@
 
 
         </script>
+
+
+
+
+

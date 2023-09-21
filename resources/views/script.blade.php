@@ -1,6 +1,14 @@
 <style>.iti.iti--allow-dropdown.iti--separate-dial-code{width: 100%;}</style>
 <?php $id=Auth::user()->id;?>
+
 <script type="text/javascript">
+$(document).ready(function () 
+{
+   $("body").on("contextmenu",function(e)
+   {
+     return false;
+   });
+});
 
 	/*================CONTACT INIT====================*/
     function update_user_notifications_badge(){

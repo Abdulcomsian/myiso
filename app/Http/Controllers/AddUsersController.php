@@ -64,7 +64,8 @@ class AddUsersController extends Controller
      */
 public function store(Request $request)
     {
-
+// dd($request->all());
+// dd((date("Y-m-d" , strtotime($request->iso9001_expirydate))));
         try {
             //currdisabl
             $this->validate($request, [
@@ -106,7 +107,7 @@ public function store(Request $request)
 
             if ($request->file('iso9001_certificate')) 
             {
-
+               
                 $file_path = $request->file('iso9001_certificate');
                 $file_name = uniqid() . "." . $request->file('iso9001_certificate')->extension();
 
@@ -114,12 +115,13 @@ public function store(Request $request)
                 $request->file('iso9001_certificate')->move(public_path('/uploads/user'), $file_name);
                 $addusers->iso9001_certificate = $path;
 
-                $addusers->iso9001_expirydate = $request->input('iso9001_expirydate');
+                $addusers->iso9001_expirydate = date("Y-m-d" , strtotime($request->iso9001_expirydate));
 
                 $addusers->iso9001_description = $request->input('iso9001_description');
             }
 
-            if ($request->file('iso14001_certificate')) {
+            if ($request->file('iso14001_certificate')) 
+            {
 
                 $iso14001_certificate_path = $request->file('iso14001_certificate');
                 $iso14001_certificate_name = uniqid() . "." . $request->file('iso14001_certificate')->extension();
@@ -128,13 +130,13 @@ public function store(Request $request)
                 $request->file('iso14001_certificate')->move(public_path('/uploads/user'), $iso14001_certificate_name);
                 $addusers->iso14001_certificate = $iso14001_certificate_path;
 
-
-                $addusers->iso14001_expirydate = $request->input('iso14001_expirydate');
+                $addusers->iso14001_expirydate = date("Y-m-d" , strtotime($request->iso14001_expirydate));
 
                 $addusers->iso14001_description = $request->input('iso14001_description');
             }
 
-            if ($request->file('iso45001_certificate')) {
+            if ($request->file('iso45001_certificate')) 
+            {
 
                 $iso45001_certificate_path = $request->file('iso45001_certificate');
                 $iso45001_certificate_name = uniqid() . "." . $request->file('iso45001_certificate')->extension();
@@ -143,8 +145,7 @@ public function store(Request $request)
                 $request->file('iso45001_certificate')->move(public_path('/uploads/user'), $iso45001_certificate_name);
                 $addusers->iso45001_certificate = $iso45001_certificate_path;
 
-
-                $addusers->iso45001_expirydate = $request->input('iso45001_expirydate');
+                $addusers->iso45001_expirydate = date("Y-m-d" , strtotime($request->iso45001_expirydate));
 
                 $addusers->iso45001_description = $request->input('iso45001_description');
             }
