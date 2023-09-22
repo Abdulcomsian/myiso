@@ -446,19 +446,30 @@ public function store(Request $request)
         return view('admin.adminform_records.qms_audit',compact('auditreport'));
 
     }
-    public function nonConformCheck($request){
+
+    public function nonConformCheck(Request $request, $id)
+    {
         // $noneConform=Nonconform::where('user_id',$request)->get();
         // return view('admin.adminform_records.non_conformities',compact('noneConform'));
+        // dd($id);
 
-            $noneConform=Nonconform::where('user_id',$request)->get();
-        $customers = DB::table('tbl_customer')->where('user_id',$request)->get();
+        $noneConform=Nonconform::where('user_id',$id)->get();
+        $customers = DB::table('tbl_customer')->where('user_id',$id)->get();
+    
+
+        // dd($customers);
+
 
         $customers_nonconform = DB::table('tbl_noconformance')->join('tbl_customer','tbl_noconformance.customerID','tbl_customer.idNumber')
         ->select('tbl_noconformance.id as noid','tbl_noconformance.*','tbl_customer.*')
-        ->where('tbl_noconformance.user_id',$request)->where('tbl_customer.user_id',$request)->orderBy('tbl_noconformance.id','DESC')->get();
+        ->where('tbl_noconformance.user_id',$id)->where('tbl_customer.user_id',$id)->orderBy('tbl_noconformance.id','DESC')->get();
+        // dd($customers_nonconform);
         return view('admin.adminform_records.non_conformities',compact('noneConform','customers','customers_nonconform'));
 
+        
+
     }
+
     public function customerCheck($request){
         $customer=customers::where('user_id',$request)->orderBy('id','DESC')->get();
         return view('admin.adminform_records.customer',compact('customer'));

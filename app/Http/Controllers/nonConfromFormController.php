@@ -92,6 +92,7 @@ class nonConfromFormController extends Controller
            $nonConform->PI=$request->input('PI');
            $nonConform->NCR_closed=$request->input('NCR_closed');
            $nonConform->root_cause_category=$request->input('root_cause_category');
+           $nonConform->supplier_data=$request->input('supplier_data');
            $nonConform->save();
            return redirect()->back();
            return redirect('/non_confromities')->with("Success","Data Save Successfully");
@@ -157,8 +158,8 @@ class nonConfromFormController extends Controller
         $nonConform->CRE=$request->input('CRE');
         $nonConform->PI=$request->input('PI');
         $nonConform->NCR_closed=$request->input('NCR_closed');
-        
         $nonConform->root_cause_category=$request->input('root_cause_category');
+        $nonConform->supplier_data=$request->input('supplier_data');
         $test  = $nonConform->save();
 
         return back();

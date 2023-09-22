@@ -17,7 +17,7 @@
 
         <div class="row">
             <div class="col-lg-12">
-            <p>A Non-Conformity is the failure to meet one or more requirements that are outlined in the quality management system. For example, you received a shipment of untested products from a customer, or an employee who failed to take corrective action at the time of an issue.</p>
+            <p>A Non-Conformity is the failure to meet one or more requirements that are outlined in the quality management system. For example, you received a shipment of untested products from a Supplier, or an employee who failed to take corrective action at the time of an issue.</p>
 
             <p>To create a non-Conformity, click on the “Add Non-Conformity “button and follow the steps outlining the situation in detail.</p>
 
@@ -30,9 +30,9 @@
                     <div class="non_conformities_from_div">
                         <form action="{{ route('nonConfromForm') }}" method="POST">
                             @csrf
-            @php 
-            $urlparam = request()->route()->parameters;
-            @endphp
+                            @php 
+                            $urlparam = request()->route()->parameters;
+                            @endphp
                             <input type="hidden" name="user_id" value="{{ $urlparam['userid'] }}">
                             <div class="row" style="margin-top: 6px;">
 
@@ -46,11 +46,13 @@
                                             <option value="" selected="selected" disabled="disabled">Enter Customer ID Number:</option>
                                             @foreach($customers as $customer)
                                                 <option value="{{ $customer->idNumber }}">{{ $customer->idNumber }}
+                                                    {{-- @dd($customer) --}}
                                                 </option>
                                             @endforeach
                                         </select>
                                     </div>
                                 </div>
+
                                 <div class="col-lg-6">
                                     <div class="form-group">
                                         <label>Customer Name:</label>
@@ -59,10 +61,7 @@
                                     </div>
                                 </div>
 
-
-
-
-
+                               
                             </div>
                             <div class="row">
                                 <div class="col-lg-6">
@@ -179,7 +178,26 @@
                                         </select>
                                     </div>
                                 </div>
+
+                                {{-- <div class="col-lg-6">
+                                    <div class="form-group">
+                                        <label>Supplie Name:</label>
+                                        <input type="text" readonly disabled class="form-control customer_name_edit_display"
+                                            name="supplier_data" placeholder="Enter Supplie Name" id="customer_name">
+                                    </div>
+                                </div> --}}
+
+                                <div class="col-lg-6">
+                                    <div class="form-group">
+                                        <label>Supplier Name:</label>
+                                        <input type="text" class="form-control supplier_data" name="supplier_data"
+                                            placeholder="Enter Supplier Name">
+                                    </div>
+                                </div>
+
                             </div>
+
+                            
 
                             <button type="submit" class="submitBtn">SUBMIT</button>
                             <button type="reset" onclick="nonConformities()" class="btn btn-secondary submitBtn" style="margin-right: 7px;">Cancel</button>
@@ -233,12 +251,12 @@
                                 <thead>
                                     <tr>
                                         <th>NCR ID Number</th>
-                                        <th>Customer ID Number</th>
-                                        <th>Customer Name</th> 
+                                        <th>Custome ID Number</th>
+                                        <th>Custome Name</th> 
                                         <th>Fault Description</th>
                                         <th>Category</th>
-                                        <th>Date NCR
-                                            was Processed.</th>
+                                        <th>Date NCR was Processed.</th>
+                                        <th>Supplier</th>
                                         <th>Action</th>
                                     </tr>
                                 </thead>
@@ -258,6 +276,7 @@
                                             <td> {{ $data->description }}</td>
                                             <td> {{ $data->root_cause_category }}</td>
                                             <td> {{ $data->dateNcR }}</td>
+                                            <td> {{ $data->supplier_data }}</td>
                                             <td> <button class="btn btn-sm btn-clean btn-icon btn-icon-md" title="view"
                                                     value="{{ $data->customerID }}"
                                                     onclick="getEid({{ json_encode($data) }});"> <i
@@ -450,9 +469,19 @@
                                     <label>Root Cause Category:</label>
                                     <input type="text" name="root_cause_category" readonly disabled id="" value=""
                                         class="form-control">
-
                                 </div>
                             </div>
+
+                            <div class="col-lg-6">
+                                <div class="form-group">
+                                    <label>Supplier Name:</label>
+                                    <input type="text" readonly disabled class="form-control"
+                                        name="Supplier_data" placeholder="Enter Supplier Name" id="supplier_name">
+                                </div>
+                            </div>
+
+
+
                         </div>
                     </form>
                 </div>
@@ -625,6 +654,16 @@
 
                                 </div>
                             </div>
+
+
+                            <div class="col-lg-6">
+                                <div class="form-group">
+                                    <label>Supplier Name:</label>
+                                    <input type="text" readonly disabled class="form-control"
+                                        name="supplier_data" placeholder="Enter Supplier Name" id="supplier_name">
+                                </div>
+                            </div>
+
                         </div>
                         <div class="modal-footer">
                                 @php 
@@ -669,11 +708,12 @@
 
 @endsection
 <script>
-    function get_customer(obj) {
+    function get_customer(obj) 
+    {
         $this = $(obj);
         $id = $this.val();
         $user_id = document.getElementById('user_id').value;
-        // console.log($user_id);
+        console.log($user_id);
 
         jQuery.ajax({
             url: "{{ url('/get_customer_name_by_id') }}",
@@ -693,13 +733,16 @@
 
     }
 
-    function get_customer_name_by_id(the_id, the_class) {
+    function get_customer_name_by_id(the_id, the_class) 
+    {
+        $user_id = document.getElementById('user_id').value;
         jQuery.ajax({
             url: "{{ url('/get_customer_name_by_id') }}",
             type: "POST",
             data: {
                 "_token": "{{ csrf_token() }}",
                 id: the_id,
+                user_id: $user_id,
             },
         }).done(function (response) {
             response2 = JSON.parse(response);
@@ -707,7 +750,8 @@
         });
     }
 
-    function getEid(data) {
+    function getEid(data) 
+    {
         console.log(data);
         $("#id_feild").val(data.id);
         $("input[name='ActionRecurnce']").val(data.ActionRecurnce);
@@ -728,6 +772,8 @@
         $("input[name='rootCause']").val(data.rootCause);
         $("input[name='actionPrevent']").val(data.actionPrevent);
         $("input[name='root_cause_category']").val(data.root_cause_category);
+        $("input[name='supplier_data']").val(data.supplier_data);
+        // get_supplier_name_by_id(data.supplier_data, '.supplier_name_edit_display');
 
         $("input[name='rootCause']").val(data.rootCause);
 
@@ -757,6 +803,8 @@
         $("input[name='actionPrevent']").val(data.actionPrevent);
         $("select[name='root_cause_category']").val(data.root_cause_category);
         $("input[name='rootCause']").val(data.rootCause);
+        $("input[name='supplier_data']").val(data.supplier_data);
+        // get_supplier_name_by_id(data.supplier_data, '.supplier_name_edit_display');
         $("#editConfirm").modal('show');
 
     }
