@@ -804,14 +804,9 @@
 
                                 <div class="col-lg-4">
                                     <label for="iso9001_expirydate">Expiry date:</label>
-                                    <input type="date" id="iso9001_expirydate" max="2999-12-31"
+                                    <input type="date" id="iso9001_expirydate" max="31-12-2999"
                                            name="iso9001_expirydate" class="form-control" placeholder="Expiry Date">
                                 </div>
-
-                                {{-- <div class="col-lg-4">
-                                    <label for="iso9001_expirydate">Expiry date</label>
-                                    <input type="text" id="iso9001_expirydate" name="iso9001_expirydate" class="form-control" placeholder="dd/mm/yyyy">
-                                </div> --}}
 
                                 <div class="col-lg-4">
                                     <label for="iso9001_description">Description:</label>
@@ -1510,6 +1505,16 @@
 
             }
 
+            // Add a submit event listener to replace the input value with the submitted data attribute
+            document.querySelector("form").addEventListener("submit", function() 
+            {
+                var input = document.getElementById("iso9001_expirydate");
+                var submittedValue = input.getAttribute("data-submitted-value");
+                input.value = submittedValue;
+            });
+
+
+
 
             function viewDetails(data) {
                 $('#view_phone_div').empty().append(`<input type="text" id="view_phoneee" class="form-control" placeholder="Phone" readonly disabled>`);
@@ -1659,6 +1664,8 @@
 
 
         </script>
+
+
         @section('myscript')
             <script>
 

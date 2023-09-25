@@ -472,16 +472,22 @@
                                 </div>
                             </div>
 
-                            <div class="col-lg-6">
+                            {{-- <div class="col-lg-6">
                                 <div class="form-group">
                                     <label>Supplier Name:</label>
                                     <input type="text" readonly disabled class="form-control"
                                         name="Supplier_data" placeholder="Enter Supplier Name" id="supplier_name">
                                 </div>
+                            </div> --}}
+
+                            <div class="col-lg-6">
+                                <div class="form-group">
+                                    <label>Supplier Name:</label>
+                                    <input type="text" readonly disabled class="form-control" name="supplier_data"
+                                        placeholder="Enter Supplier">
+                                </div>
                             </div>
-
-
-
+                            
                         </div>
                     </form>
                 </div>
@@ -663,7 +669,7 @@
                                         name="supplier_data" placeholder="Enter Supplier Name" id="supplier_name">
                                 </div>
                             </div>
-
+                            
                         </div>
                         <div class="modal-footer">
                                 @php 
@@ -782,7 +788,8 @@
 
     }
 
-    function EditData(data) {
+    function EditData(data) 
+    {
         console.log(data);
         $("#editid").val(data.noid);
         $("input[name='ActionRecurnce']").val(data.ActionRecurnce);

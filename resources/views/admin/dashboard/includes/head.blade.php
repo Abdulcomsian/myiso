@@ -37,6 +37,11 @@ License: You must have a valid license purchased only from themeforest(the above
                 integrity="sha512-BNZ1x39RMH+UYylOW419beaGO0wqdSkO7pi1rYDYco9OL3uvXaC/GTqA5O4CVK2j4K9ZkoDNSSHVkEQKkgwdiw=="
                 crossorigin="anonymous"></script>
 
+				<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+				<link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+				<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+
+
 		<script>
 			WebFont.load({
                 google: {"families":["Poppins:300,400,500,600,700","Roboto:300,400,500,600,700"]},

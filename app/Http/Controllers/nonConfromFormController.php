@@ -26,7 +26,8 @@ class nonConfromFormController extends Controller
        
         $nonconform=Nonconform::where('user_id',$userid)->get();
         $customers = DB::table('tbl_customer')->where('user_id',$userid)->get();
-         if(count($customers)==0){
+         if(count($customers)==0)
+         {
             $no_customer=1;
         }else{
             $no_customer=0;
@@ -41,8 +42,8 @@ class nonConfromFormController extends Controller
         // ->select('tbl_noconformance.id as noid','tbl_noconformance.*','tbl_customer.*')
         // ->where('tbl_noconformance.user_id',$request)->get();
         // dd($customers_nonconform);
-        //dd($customers_nonconform);
-
+        // dd($customers);
+ 
         return view('dashboard.form_records.non_conformities',compact('userid', 'nonconform','customers', 'customers_nonconform', 'no_customer'));
     }
 
@@ -68,7 +69,8 @@ class nonConfromFormController extends Controller
 // dd($request->all());
     //    try{
         // dd()
-        if(Auth::check() && Auth::user()->role_type == "admin"){
+        if(Auth::check() && Auth::user()->role_type == "admin")
+        {
              $the_id = $request->input('user_id');
             // echo 'is admin';
             // exit;
@@ -79,6 +81,7 @@ class nonConfromFormController extends Controller
            $nonConform= new Nonconform();
            $nonConform->user_id=$the_id;
            $nonConform->customerID=$request->input('customerID');
+           $nonConform->CustomerName=$request->input('CustomerName');
            $nonConform->description=$request->input('description');
            $nonConform->rootCause=$request->input('rootCause');
            $nonConform->immediateCorp=$request->input('immediateCorp');
@@ -146,6 +149,7 @@ class nonConfromFormController extends Controller
         $nonConform->user_id= $the_id;
         
         $nonConform->customerID=$request->input('customerID');
+        $nonConform->CustomerName=$request->input('CustomerName');
         $nonConform->description=$request->input('description');
         $nonConform->rootCause=$request->input('rootCause');
         $nonConform->immediateCorp=$request->input('immediateCorp');

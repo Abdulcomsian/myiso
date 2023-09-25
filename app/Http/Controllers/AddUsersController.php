@@ -585,7 +585,8 @@ public function store(Request $request)
     {
         $id = $request->id;
         $user = AddUsers::find($id);
-        if ($request->input('password') != '' || !empty($request->input('password'))) {
+        if ($request->input('password') != '' || !empty($request->input('password'))) 
+        {
             $pass = $request->input('password');
             $user->password = Hash::make($pass);
         }
@@ -642,7 +643,8 @@ public function store(Request $request)
         $user->email = $request->input('email');
         $user->phone = $request->input('phone');
 
-        if ($request->input('phoneflag') == "preferred") {
+        if ($request->input('phoneflag') == "preferred") 
+        {
             $phoneflag = "us";
         } else {
             $phoneflag = $request->input('phoneflag');

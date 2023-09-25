@@ -16,7 +16,7 @@
     <section id="procedure_section">
         <div class="row">
             <div class="col-lg-12">
-            <p>A Non-Conformity is the failure to meet one or more requirements that are outlined in the quality management system. For example, you received a shipment of untested products from a customer, or an employee who failed to take corrective action at the time of an issue.</p>
+            <p>A Non-Conformity is the failure to meet one or more requirements that are outlined in the quality management system. For example, you received a shipment of untested products from a Supplier, or an employee who failed to take corrective action at the time of an issue.</p>
 
 <p>To create a non-Conformity, click on the “Add Non-Conformity “button and follow the steps outlining the situation in detail.</p>
                 <div class="procedure_div">
@@ -184,6 +184,24 @@
                             </select>
                         </div>
                     </div>
+
+                    {{-- <div class="col-lg-6">
+                        <div class="form-group">
+                            <label>Supplier Name:</label>
+                            <input type="text" readonly disabled class="form-control"
+                                name="supplier_data" placeholder="Enter Supplier Name" id="supplier_name">
+                        </div>
+                    </div> --}}
+
+                    <div class="col-lg-6">
+                        <div class="form-group">
+                            <label>Supplier Name:</label>
+                            <input type="text" required class="form-control" name="supplier_data"
+                                placeholder="Enter Supplier Name">
+                        </div>
+                    </div>
+
+
                 </div>
 
                 <button type="submit" class="submitBtn">SUBMIT</button>
@@ -239,6 +257,7 @@
                                 <th>Fault Description</th>
                                 <th>Category</th>
                                 <th>Date NCR was Processed.</th>
+                                <th>Supplier</th>
                                 <th>Action</th>
                             </tr>
                         </thead>
@@ -254,8 +273,8 @@
                                     <td>{{ $data->name }}</td> 
                                     <td> {{ $data->description }}</td>
                                     <td> {{ $data->root_cause_category }}</td>
-
                                     <td>{{ date('d/m/Y', strtotime($data->dateNcR)) }}</td>
+                                    <td> {{ $data->supplier_data }} </td>
                                     <td> <button class="btn btn-sm btn-clean btn-icon btn-icon-md" title="View"
                                             value="{{ $data->customerID }}"
                                             onclick="getEid({{ json_encode($data) }});">
@@ -331,7 +350,7 @@
                                 <div class="form-group">
                                     <label>Customer Name:</label>
                                     <input type="text"  readonly disabled class="form-control customer_name_edit_display"
-                                        name="CustomerName" placeholder="Enter Customer Name" id="customer_name">
+                                        name="rootCause" placeholder="Enter Customer Name" id="customer_name">
                                 </div>
                             </div>
                         </div>
@@ -446,6 +465,22 @@
 
                                 </div>
                             </div>
+
+                            {{-- <div class="col-lg-6">
+                                <div class="form-group">
+                                    <label>Supplier Name:</label>
+                                    <input type="text" readonly disabled class="form-control" name="supplier_data"
+                                        placeholder="Enter Supplier">
+                                </div>
+                            </div> --}}
+
+                            <div class="col-lg-6">
+                                <div class="form-group">
+                                    <label>Supplier Name:</label>
+                                    <input type="text"  class="form-control" name="supplier_data"
+                                        placeholder="Enter Supplier Name">
+                                </div>
+                            </div>
                         </div>
 
                     </form>
@@ -504,7 +539,7 @@
                                 <div class="form-group">
                                     <label>Customer Name:</label>
                                     <input type="text" readonly disabled class="form-control customer_name_edit_display"
-                                        name="CustomerName" placeholder="Enter Customer Name" id="customer_name">
+                                        name="rootCause" placeholder="Enter Customer Name" id="customer_name">
                                 </div>
                             </div>
                         </div>
@@ -627,6 +662,24 @@
 
                                 </div>
                             </div>
+
+                            <div class="col-lg-6">
+                                <div class="form-group">
+                                    <label>Supplier Name:</label>
+                                    <input type="text" readonly disabled class="form-control"
+                                        name="supplier_data" placeholder="Enter Supplier Name" id="supplier_name">
+                                </div>
+                            </div>
+
+
+                            {{-- <div class="col-lg-6">
+                                <div class="form-group">
+                                    <label>Supplier Name:</label>
+                                    <input type="text"  class="form-control" name="supplier_data"
+                                        placeholder="Enter Supplier Name" required>
+                                </div>
+                            </div> --}}
+
                         </div>
                         <div class="modal-footer">
                             <button type="reset" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
@@ -700,14 +753,14 @@
         });
     }
 
-    function getEid(data) {
+    function getEid(data) 
+    {
         console.log(data);
         $("#id_feild").val(data.id);
         $("input[name='ActionRecurnce']").val(data.ActionRecurnce);
         $("input[name='CRE']").val(data.CRE);
-        
         $("select[name='customerID']").val(data.customerID);
-
+        // $("input[name='CustomerName']").val(data.name);
         get_customer_name_by_id(data.customerID, '.customer_name_edit_display');
 
         $("input[name='dateNcP']").val(data.dateNcP);
@@ -715,31 +768,29 @@
         $("input[name='description']").val(data.description);
         $("input[name='effectiveDate']").val(data.effectiveDate);
         $("input[name='immediateCorp']").val(data.immediateCorp);
-
         $("input[name='reviewdBy']").val(data.reviewdBy);
         $("input[name='rootCause']").val(data.rootCause);
         $("input[name='actionPrevent']").val(data.actionPrevent);
-        $("input[name='root_cause_category']").val(data.root_cause_category);
-
         $("input[name='rootCause']").val(data.rootCause);
-
-        $("select[name='NCR_closed']").val(data.NCR_closed);
         $("select[name='PI']").val(data.PI);
+        $("select[name='NCR_closed']").val(data.NCR_closed);
+        $("input[name='root_cause_category']").val(data.root_cause_category);
+        $("input[name='supplier_data']").val(data.supplier_data);
+        
 
         $("#nonconfirmDetail").modal('show');
 
     }
 
-    function EditData(data) {
+    function EditData(data) 
+    {
         console.log(data);
         $("#editid").val(data.noid);
         $("input[name='ActionRecurnce']").val(data.ActionRecurnce);
         $("input[name='CRE']").val(data.CRE);
-        
         $("select[name='customerID']").val(data.customerID);
-
+        $("select[name='CustomerName']").val(data.CustomerName);
         get_customer_name_by_id(data.customerID, '.customer_name_edit_display');
-
         $("input[name='dateNcP']").val(data.dateNcP);
         $("input[name='dateNcR']").val(data.dateNcR);
         $("input[name='description']").val(data.description);
@@ -750,9 +801,9 @@
         $("input[name='actionPrevent']").val(data.actionPrevent);
         $("select[name='root_cause_category']").val(data.root_cause_category);
         $("input[name='rootCause']").val(data.rootCause);
-
         $("select[name='NCR_closed']").val(data.NCR_closed);
         $("select[name='PI']").val(data.PI);
+        $("input[name='supplier_data']").val(data.supplier_data);
 
         $("#editConfirm").modal('show');
 
