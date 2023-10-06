@@ -666,7 +666,7 @@
                             <div class="col-lg-6">
                                 <div class="form-group">
                                     <label>Supplier Name:</label>
-                                    <input type="text" readonly disabled class="form-control"
+                                    <input type="text" readonly class="form-control"
                                         name="supplier_data" placeholder="Enter Supplier Name" id="supplier_name">
                                 </div>
                             </div>
@@ -789,7 +789,7 @@
         $("input[name='ActionRecurnce']").val(data.ActionRecurnce);
         $("input[name='CRE']").val(data.CRE);
         $("select[name='customerID']").val(data.customerID);
-        $("select[name='CustomerName']").val(data.CustomerName);
+        // $("select[name='CustomerName']").val(data.CustomerName);
         get_customer_name_by_id(data.customerID, '.customer_name_edit_display');
         $("input[name='dateNcP']").val(data.dateNcP);
         $("input[name='dateNcR']").val(data.dateNcR);

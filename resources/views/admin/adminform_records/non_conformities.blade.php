@@ -56,7 +56,7 @@
                                 <div class="col-lg-6">
                                     <div class="form-group">
                                         <label>Customer Name:</label>
-                                        <input type="text" class="form-control customer_name" name="rootCause"
+                                        <input type="text" class="form-control customer_name" name="CustomerName"
                                             placeholder="Enter Customer Name">
                                     </div>
                                 </div>
@@ -665,7 +665,7 @@
                             <div class="col-lg-6">
                                 <div class="form-group">
                                     <label>Supplier Name:</label>
-                                    <input type="text" readonly disabled class="form-control"
+                                    <input type="text" readonly class="form-control"
                                         name="supplier_data" placeholder="Enter Supplier Name" id="supplier_name">
                                 </div>
                             </div>
@@ -765,6 +765,7 @@
         // $("input[name='PI']").val(data.PI);
         $("select[name='PI']").val(data.PI);
         $("select[name='customerID']").val(data.customerID);
+        $("input[name='CustomerName']").val(data.CustomerName);
         $("select[name='NCR_closed']").val(data.NCR_closed);
         get_customer_name_by_id(data.customerID, '.customer_name_edit_display');
 
@@ -781,7 +782,7 @@
         $("input[name='supplier_data']").val(data.supplier_data);
         // get_supplier_name_by_id(data.supplier_data, '.supplier_name_edit_display');
 
-        $("input[name='rootCause']").val(data.rootCause);
+        // $("input[name='rootCause']").val(data.rootCause);
 
 
         $("#nonconfirmDetail").modal('show');
@@ -796,6 +797,8 @@
         $("input[name='CRE']").val(data.CRE);
        
         $("select[name='customerID']").val(data.customerID);
+        $("input[name='CustomerName']").val(data.CustomerName);
+
         $("select[name='NCR_closed']").val(data.NCR_closed);
         $("select[name='PI']").val(data.PI);
         get_customer_name_by_id(data.customerID, '.customer_name_edit_display');
@@ -809,7 +812,7 @@
         $("input[name='rootCause']").val(data.rootCause);
         $("input[name='actionPrevent']").val(data.actionPrevent);
         $("select[name='root_cause_category']").val(data.root_cause_category);
-        $("input[name='rootCause']").val(data.rootCause);
+        // $("input[name='rootCause']").val(data.rootCause);
         $("input[name='supplier_data']").val(data.supplier_data);
         // get_supplier_name_by_id(data.supplier_data, '.supplier_name_edit_display');
         $("#editConfirm").modal('show');

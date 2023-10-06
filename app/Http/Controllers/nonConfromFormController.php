@@ -77,7 +77,7 @@ class nonConfromFormController extends Controller
         }else{
             $the_id = Auth()->user()->id;
         }
-
+        
            $nonConform= new Nonconform();
            $nonConform->user_id=$the_id;
            $nonConform->customerID=$request->input('customerID');
@@ -96,7 +96,9 @@ class nonConfromFormController extends Controller
            $nonConform->NCR_closed=$request->input('NCR_closed');
            $nonConform->root_cause_category=$request->input('root_cause_category');
            $nonConform->supplier_data=$request->input('supplier_data');
+
            $nonConform->save();
+        //    dd($nonConform);
            return redirect()->back();
            return redirect('/non_confromities')->with("Success","Data Save Successfully");
     //    }catch(Exception $exception){
