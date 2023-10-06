@@ -454,6 +454,7 @@
                                         </select>
                                 </div>
                             </div>
+
                             <div class="col-lg-6">
                                     <div class="form-group">
                                         <label>NCR closed (Yes or No):</label>
@@ -464,6 +465,7 @@
                                         </select>
                                     </div>
                                 </div>
+
                             <div class="col-lg-6">
                                 <div class="form-group">
                                     <label>Root Cause Category:</label>
@@ -510,6 +512,7 @@
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                 </button>
             </div>
+
             <div class="form-row">
                 <div class="col-md-12 p-3">
                     <form action="{{ route('editnonConfirm') }}" method="POST">
@@ -535,6 +538,7 @@
                                     </select>
                                 </div>
                             </div>
+                            
                             <div class="col-lg-6">
                                 <div class="form-group">
                                     <label>Customer Name:</label>

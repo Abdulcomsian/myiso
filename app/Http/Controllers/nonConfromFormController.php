@@ -149,7 +149,6 @@ class nonConfromFormController extends Controller
         }
 
         $nonConform->user_id= $the_id;
-        
         $nonConform->customerID=$request->input('customerID');
         $nonConform->CustomerName=$request->input('CustomerName');
         $nonConform->description=$request->input('description');
@@ -167,7 +166,6 @@ class nonConfromFormController extends Controller
         $nonConform->root_cause_category=$request->input('root_cause_category');
         $nonConform->supplier_data=$request->input('supplier_data');
         $test  = $nonConform->save();
-
         return back();
         // return redirect('/non_confromities')->with("Success","Data Save Successfully");
 

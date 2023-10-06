@@ -762,7 +762,6 @@
         $("select[name='customerID']").val(data.customerID);
         // $("input[name='CustomerName']").val(data.name);
         get_customer_name_by_id(data.customerID, '.customer_name_edit_display');
-
         $("input[name='dateNcP']").val(data.dateNcP);
         $("input[name='dateNcR']").val(data.dateNcR);
         $("input[name='description']").val(data.description);
@@ -776,8 +775,6 @@
         $("select[name='NCR_closed']").val(data.NCR_closed);
         $("input[name='root_cause_category']").val(data.root_cause_category);
         $("input[name='supplier_data']").val(data.supplier_data);
-        
-
         $("#nonconfirmDetail").modal('show');
 
     }
