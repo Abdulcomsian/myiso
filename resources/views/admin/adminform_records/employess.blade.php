@@ -210,7 +210,7 @@
 									Back
 								</a>
 							</div>
-							
+
                     		<div class="kt-portlet__body table-responsive">
 								<!--begin: Datatable -->
 								<table class="common_table table table-striped- table-bordered table-hover table-checkable table-responsive" id="kt_table_agent">
@@ -263,8 +263,7 @@
 														<span aria-hidden="true">&times;</span>
 														</button>
 													</div>
-													 <div class="modal-body">
-
+													 {{-- <div class="modal-body">
 								                        <div class="row">
 								                            <div class="col-lg-12">
 								                                <div class="form-group">
@@ -278,8 +277,8 @@
 															<h5 class="modal-title" style="float:right;text-align:Right;">Download CV</h5>
 														</a>
 													</div>
-													</div>
-													</div>
+												</div> --}}
+											</div>
 												   </div>
 												</div>
 												@else
