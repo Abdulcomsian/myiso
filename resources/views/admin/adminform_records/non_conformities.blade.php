@@ -39,6 +39,15 @@
 
                                 <div class="col-lg-6">
                                     <div class="form-group">
+                                        <label>Supplier Name:</label>
+                                        <input type="text" class="form-control supplier_data" name="supplier_data"
+                                            placeholder="Enter Supplier Name">
+                                    </div>
+                                </div>
+
+
+                                <div class="col-lg-6">
+                                    <div class="form-group">
                                         <label>Customer ID Number:</label>
 
                                         <select onchange="get_customer(this)" required class="form-control" name="customerID"
@@ -58,6 +67,22 @@
                                         <label>Customer Name:</label>
                                         <input type="text" class="form-control customer_name" name="CustomerName"
                                             placeholder="Enter Customer Name">
+                                    </div>
+                                </div>
+
+
+                                <div class="col-lg-6">
+                                    <div class="form-group">
+                                        <label>Root Cause Category:</label>
+                                        <select name="root_cause_category" class="form-control">
+                                            <option value="Other">Other</option>
+                                            <option value="Planning">Planning</option>
+                                            <option value="Production">Production</option>
+                                            <option value="Non-liable">Non-liable</option>
+                                            <option value="Training">Training</option>
+                                            <option value="Management">Management</option>
+                                            <option value="Human Factor">Human Factor</option>
+                                        </select>
                                     </div>
                                 </div>
 
@@ -164,20 +189,6 @@
                                         </select>
                                     </div>
                                 </div>
-                                <div class="col-lg-6">
-                                    <div class="form-group">
-                                        <label>Root Cause Category:</label>
-                                        <select name="root_cause_category" class="form-control">
-                                            <option value="Other">Other</option>
-                                            <option value="Planning">Planning</option>
-                                            <option value="Production">Production</option>
-                                            <option value="Non-liable">Non-liable</option>
-                                            <option value="Training">Training</option>
-                                            <option value="Management">Management</option>
-                                            <option value="Human Factor">Human Factor</option>
-                                        </select>
-                                    </div>
-                                </div>
 
                                 {{-- <div class="col-lg-6">
                                     <div class="form-group">
@@ -186,14 +197,6 @@
                                             name="supplier_data" placeholder="Enter Supplie Name" id="customer_name">
                                     </div>
                                 </div> --}}
-
-                                <div class="col-lg-6">
-                                    <div class="form-group">
-                                        <label>Supplier Name:</label>
-                                        <input type="text" class="form-control supplier_data" name="supplier_data"
-                                            placeholder="Enter Supplier Name">
-                                    </div>
-                                </div>
 
                             </div>
 
@@ -251,12 +254,13 @@
                                 <thead>
                                     <tr>
                                         <th>NCR ID Number</th>
+                                        <th>Supplier</th>
                                         <th>Custome ID Number</th>
                                         <th>Custome Name</th> 
                                         <th>Fault Description</th>
                                         <th>Category</th>
                                         <th>Date NCR was Processed.</th>
-                                        <th>Supplier</th>
+                                        
                                         <th>Action</th>
                                     </tr>
                                 </thead>
@@ -271,12 +275,13 @@
 
                                         <tr>
                                             <td>{{ $i++ }} </td>
+                                            <td> {{ $data->supplier_data }}</td>
                                             <td> {{ $data->customerID }}</td>
                                             <td>{{ $data->name }}</td> 
                                             <td> {{ $data->description }}</td>
                                             <td> {{ $data->root_cause_category }}</td>
                                             <td> {{ $data->dateNcR }}</td>
-                                            <td> {{ $data->supplier_data }}</td>
+                                           
                                             <td> <button class="btn btn-sm btn-clean btn-icon btn-icon-md" title="view"
                                                     value="{{ $data->customerID }}"
                                                     onclick="getEid({{ json_encode($data) }});"> <i
@@ -335,8 +340,14 @@
                 <div class="col-md-12 p-3">
                     <form>
                         @csrf
-
                         <div class="row">
+                            <div class="col-lg-6">
+                                <div class="form-group">
+                                    <label>Supplier Name:</label>
+                                    <input type="text" readonly disabled class="form-control" name="supplier_data"
+                                        placeholder="Enter Supplier">
+                                </div>
+                            </div>
                             <div class="col-lg-6">
                                 <div class="form-group">
                                     <label>Customer ID Number:</label>
@@ -356,6 +367,13 @@
                                     <label>Customer Name:</label>
                                     <input type="text" readonly disabled class="form-control customer_name_edit_display"
                                         name="CustomerName" placeholder="Enter Customer Name" id="customer_name">
+                                </div>
+                            </div>
+                            <div class="col-lg-6">
+                                <div class="form-group">
+                                    <label>Root Cause Category:</label>
+                                    <input type="text" name="root_cause_category" readonly disabled id="" value=""
+                                        class="form-control">
                                 </div>
                             </div>
                         </div>
@@ -466,14 +484,6 @@
                                     </div>
                                 </div>
 
-                            <div class="col-lg-6">
-                                <div class="form-group">
-                                    <label>Root Cause Category:</label>
-                                    <input type="text" name="root_cause_category" readonly disabled id="" value=""
-                                        class="form-control">
-                                </div>
-                            </div>
-
                             {{-- <div class="col-lg-6">
                                 <div class="form-group">
                                     <label>Supplier Name:</label>
@@ -481,15 +491,6 @@
                                         name="Supplier_data" placeholder="Enter Supplier Name" id="supplier_name">
                                 </div>
                             </div> --}}
-
-                            <div class="col-lg-6">
-                                <div class="form-group">
-                                    <label>Supplier Name:</label>
-                                    <input type="text" readonly disabled class="form-control" name="supplier_data"
-                                        placeholder="Enter Supplier">
-                                </div>
-                            </div>
-                            
                         </div>
                     </form>
                 </div>
@@ -526,6 +527,13 @@
                         <div class="row">
                             <div class="col-lg-6">
                                 <div class="form-group">
+                                    <label>Supplier Name:</label>
+                                    <input type="text" readonly class="form-control"
+                                        name="supplier_data" placeholder="Enter Supplier Name" id="supplier_name">
+                                </div>
+                            </div>
+                            <div class="col-lg-6">
+                                <div class="form-group">
                                     <label>Customer ID Number:</label>
 
                                     <select readonly class="form-control" name="customerID"
@@ -538,12 +546,27 @@
                                     </select>
                                 </div>
                             </div>
-                            
                             <div class="col-lg-6">
                                 <div class="form-group">
                                     <label>Customer Name:</label>
                                     <input type="text" readonly disabled class="form-control customer_name_edit_display"
                                         name="CustomerName" placeholder="Enter Customer Name" id="customer_name">
+                                </div>
+                            </div>
+                            <div class="col-lg-6">
+                                <div class="form-group">
+                                    <label>Root Cause Category:</label>
+                                    <select name="root_cause_category" class="form-control" required>
+                                    <option value="Other">Other</option>
+                                    <option value="Planning">Planning</option>
+                                    <option value="Production">Production</option>
+                                    <option value="Non-liable">Non-liable</option>
+                                    <option value="Training">Training</option>
+                                    <option value="Management">Management</option>
+                                    <option value="Human Factor">Human Factor</option>
+                                </select>
+                                    <!--<input type="text" name="root_cause_category" id="" value="" class="form-control" required>-->
+
                                 </div>
                             </div>
                         </div>
@@ -647,33 +670,7 @@
                                             <option value="No">No</option>
                                         </select>
                                     </div>
-                                </div>
-                            <div class="col-lg-6">
-                                <div class="form-group">
-                                    <label>Root Cause Category:</label>
-                                    <select name="root_cause_category" class="form-control" required>
-                                <option value="Other">Other</option>
-                                <option value="Planning">Planning</option>
-                                <option value="Production">Production</option>
-                                <option value="Non-liable">Non-liable</option>
-                                <option value="Training">Training</option>
-                                <option value="Management">Management</option>
-                                <option value="Human Factor">Human Factor</option>
-                            </select>
-                                    <!--<input type="text" name="root_cause_category" id="" value="" class="form-control" required>-->
-
-                                </div>
                             </div>
-
-
-                            <div class="col-lg-6">
-                                <div class="form-group">
-                                    <label>Supplier Name:</label>
-                                    <input type="text" readonly class="form-control"
-                                        name="supplier_data" placeholder="Enter Supplier Name" id="supplier_name">
-                                </div>
-                            </div>
-                            
                         </div>
                         <div class="modal-footer">
                                 @php 

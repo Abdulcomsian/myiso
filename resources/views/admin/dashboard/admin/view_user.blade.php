@@ -255,6 +255,7 @@
                                         {{ date('d/m/Y', strtotime($item->created_at)) }}
                                     @endif
                                 </td>
+
                                  @php
                                     $iso9001 = $item->iso9001_expirydate;
                                     $iso14001 = $item->iso14001_expirydate;
@@ -263,8 +264,7 @@
                                     $x = strtotime($iso9001);
                                     $y = strtotime($iso14001);
                                     $z = strtotime($iso45001);
-                        
-                                    
+
                                     
                                       if($x == 0 &&  $y == 0  && $z == 0)
                                       {
@@ -788,6 +788,9 @@
 
                             </div>
 
+
+
+
                             <div class="form-group row">
 
                                 <div class="col-lg-4">
@@ -805,8 +808,9 @@
                                 <div class="col-lg-4">
                                     <label for="iso9001_expirydate">Expiry date:</label>
                                     <input type="date" id="iso9001_expirydate" max="31-12-2999"
-                                           name="iso9001_expirydate" class="form-control" placeholder="Expiry Date">
-                                </div>
+                                    name="iso9001_expirydate" class="form-control" placeholder="Expiry Date">
+                                </div>                               
+                                
 
                                 <div class="col-lg-4">
                                     <label for="iso9001_description">Description:</label>
@@ -815,6 +819,9 @@
                                 </div>
 
                             </div>
+
+
+
 
                             <div class="form-group row">
 
@@ -1353,6 +1360,7 @@
             var intel_phone = '';
             var intel_iso_phone = '';
 
+
             function editDetails(data) {
                 intel_phone = '';
                 intel_iso_phone = '';
@@ -1405,8 +1413,9 @@
 
                 $("textarea[name='Company_overview']").val(data.Company_overview);
 
-/////
                 $("input[name='iso9001_expirydate']").val(data.iso9001_expirydate);
+                // $("input[name='iso9001_expirydate']").val(formattedDate);
+
                 $("textarea[name='iso9001_description']").val(data.iso9001_description);
 
                 $("input[name='iso14001_expirydate']").val(data.iso14001_expirydate);
@@ -1417,7 +1426,7 @@
 
                 let logo_src = "https://myisoonline.com/public/" + data.profile_image;
                 $("#output").attr("src", logo_src);
-//
+            
 
                 if (data.iso9001_certificate != null) {
                     // $('#iso9001_certificate').addClass('has_file');
@@ -1505,9 +1514,15 @@
 
             }
 
+            // // Add a submit event listener to replace the input value with the submitted data attribute
+            // document.querySelector("form").addEventListener("submit", function() 
+            // {
+            //     var input = document.getElementById("iso9001_expirydate");
+            //     var submittedValue = input.getAttribute("data-submitted-value");
+            //     input.value = submittedValue;
+            // });
             // Add a submit event listener to replace the input value with the submitted data attribute
-            document.querySelector("form").addEventListener("submit", function() 
-            {
+            document.querySelector("form").addEventListener("submit", function() {
                 var input = document.getElementById("iso9001_expirydate");
                 var submittedValue = input.getAttribute("data-submitted-value");
                 input.value = submittedValue;

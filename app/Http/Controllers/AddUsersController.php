@@ -493,8 +493,9 @@ public function store(Request $request)
         return view('admin.adminform_records.calibration_record',compact('caliber'));
 
     }
-    public function EmployeCheck($request){
-
+    
+    public function EmployeCheck($request)
+    {
         $userinfo=Employee::with('user')->where('user_id',$request)->orderBy('id','DESC')->get();
        // $employess=Employee::join('tbl_employees_skills','tbl_employees_skills.empid','=','tbl_employees.id')->where('tbl_employees.user_id',$request)->get();
         // dd($employess);
@@ -520,11 +521,11 @@ public function store(Request $request)
       return view('admin.adminform_records.employess',compact('userinfo','employess','emptraining'));
 
     }
-    public function managementCheck($request){
-
+    
+    public function managementCheck($request)
+    {
         $mgtrev=Mgtreview::where('user_id',$request)->orderBy('id','DESC')->get();
         return view('admin.adminform_records.managment_reviews',compact('mgtrev'));
-
     }
     public function maintainRecCheck($request){
 

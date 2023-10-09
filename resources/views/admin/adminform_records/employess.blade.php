@@ -246,7 +246,7 @@
 												<?php
 													}else{
 												?>
-												<a target="_blank" download href="{{ asset($item->cv) }}">View CV</a>
+												{{-- <a target="_blank" download href="{{ asset($item->cv) }}">View CV</a> --}}
 												<?php } ?>
 													<!-- href="{{ asset($item->cv) }}" -->
 													<!-- Modal -->
@@ -715,6 +715,7 @@
 		</div>
 	</div>
 </div>
+
 <!--employe skills-->
 <div class="modal fade" id="editepmloyeeskills" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
 	<div class="modal-dialog" role="document">
@@ -751,6 +752,8 @@
 		</div>
 	</div>
 </div>
+
+
 <!--edit employ traninging-->
 <div class="modal fade" id="editepmloyeetraining" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
 	<div class="modal-dialog" role="document">
