@@ -210,6 +210,7 @@
 									Back
 								</a>
 							</div>
+							
                     		<div class="kt-portlet__body table-responsive">
 								<!--begin: Datatable -->
 								<table class="common_table table table-striped- table-bordered table-hover table-checkable table-responsive" id="kt_table_agent">
@@ -239,14 +240,15 @@
 												@if(!empty($item->cv))
 												<?php
 													$path_info = explode('.', $item->cv);
-													if($path_info[1]=="pdf"){
+													if($path_info[1]=="pdf")
+													{
 													
 												?>
 													<a target="_blank" style="color: blue;cursor: pointer;"  data-toggle="modal" data-target="#cv{{$item->id}}">View CV</a>
 												<?php
 													}else{
 												?>
-												{{-- <a target="_blank" download href="{{ asset($item->cv) }}">View CV</a> --}}
+												<a target="_blank" download href="{{ asset($item->cv) }}">View CV</a>
 												<?php } ?>
 													<!-- href="{{ asset($item->cv) }}" -->
 													<!-- Modal -->
@@ -801,6 +803,7 @@
 @endsection
 @section('myscript')
 <script>
+
 //User for checking emp number for current logged in user , if exist or not by assad yaqoob
 let userId = "{{ $urlparam['userid'] }}";
 let type = '';
@@ -836,7 +839,8 @@ $('input[name="empNumber"]').blur(function(){
 		}
 	})
 });
-function employeeCV(){
+function employeeCV()
+    {
         if($(".employee_cv_from_div").css("display")=="none"){
             $(".employee_cv_from_div").css("display","block")
         } else{
