@@ -236,9 +236,6 @@
 											<td> {{$item->surname}}</td>
 											<td> {{$item->first_name}}</td>
 											<td> {{$item->jobdetails}}</td>
-
-
-
 											{{-- <td>
 												@if(!empty($item->cv))
 												<?php
@@ -292,42 +289,35 @@
 											<td>
 												@if (!empty($item->cv))
 													<?php
-													$path_info = explode('.', $item->cv);
-													if ($path_info[1] == "pdf") {
+													$path_info = pathinfo($item->cv);
+													if ($path_info['extension'] == "pdf") 
+													{
+														// PDF file - Show "View CV" link with JavaScript
 													?>
-														<a target="_blank" style="color: blue; cursor: pointer;" data-toggle="modal" data-target="#cv{{$item->id}}">View CV</a>
+													<a style="color: blue; cursor: pointer;" onclick="viewCV('{{ asset($item->cv) }}')">View CV</a>
 													<?php
 													} else {
+														// Other file types - Provide a download link
 													?>
-														<a target="_blank" href="{{ asset($item->cv) }}">View CV</a>
+													<a target="_blank" href="{{ asset($item->cv) }}">View CV</a>
 													<?php } ?>
-													<!-- href="{{ asset($item->cv) }}" -->
 													<!-- Modal -->
-													<div class="modal fade modeldialogbg bd-example-modal-lg" id="cv{{$item->id}}" tabindex="-1" role="dialog" aria-labelledby="model1Label" aria-hidden="true">
+													<div class="modal fade modeldialogbg bd-example-modal-lg" id="cvModal" tabindex="-1" role="dialog" aria-labelledby="model1Label" aria-hidden="true">
 														<div class="modal-dialog" style="height:75%;" role="document">
 															<div class="modal-content">
 																<div class="modal-header">
-																	<!-- <a href="{{ asset($item->cv) }}" download> -->
 																	<h5 class="modal-title" id="exampleModalLabel">View CV</h5>
-																	<!-- </a> -->
 																	<button type="button" class="close" data-dismiss="modal" aria-label="Close">
 																		<span aria-hidden="true">&times;</span>
 																	</button>
 																</div>
 																<div class="modal-body">
-																	<div class="row">
-																		<div class="col-lg-12">
-																			<div class="form-group">
-																				<!-- <label>View CV:</label><br> -->
-																				<iframe frameborder="0" style="min-height: 500px;overflow:scroll; width: 100%" scrolling="yes" src="{{ asset($item->cv) }}"></iframe>
-																			</div>
-																		</div>
-																	</div>
-																	<div class="modal-footer">
-																		<a href="{{ asset($item->cv) }}" download>
-																			<h5 class="modal-title" style="float:right;text-align:Right;">Download CV</h5>
-																		</a>
-																	</div>
+																	<iframe id="cvIframe" frameborder="0" style="min-height: 500px; overflow: scroll; width: 100%;" scrolling="yes"></iframe>
+																</div>
+																<div class="modal-footer">
+																	<a id="downloadLink" href="#" download>
+																		<h5 class="modal-title" style="float:right;text-align:Right;">Download CV</h5>
+																	</a>
 																</div>
 															</div>
 														</div>
@@ -903,6 +893,18 @@ function employeeCV()
         alert("data");
      }
 </script>
+
+<script>
+    function viewCV(cvUrl) {
+        // Open the modal and display the CV in an iframe
+        $('#cvModal').modal('show');
+        $('#cvIframe').attr('src', cvUrl);
+
+        // Set the download link to the CV URL
+        $('#downloadLink').attr('href', cvUrl);
+    }
+</script>
+
 <script>
     function getEid(data){
         console.log(data);
