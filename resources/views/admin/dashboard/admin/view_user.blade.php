@@ -18,7 +18,8 @@
             position: relative !important;
             left: -135px !important;
             top: 25px !important;
-        }</style>
+        }
+        </style>
 
     <!-- begin:: Content -->
 
@@ -212,10 +213,7 @@
                             <th>Activation Date</th>
                             <th>Last Login</th>
                              <th>Expiry Date</th>
-
                             <!--<th>Expiry date</th>-->
-
-
                             <th>Actions</th>
 
                         </tr>
@@ -468,7 +466,6 @@
         </div>
 
     </div>
-
 
 
     <div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
@@ -775,17 +772,10 @@
 
                                             <p><label for="file" style="cursor: pointer;">Attach JPEG file only</label>
                                             </p>
-
                                             <p><img id="output" width="200px" height="200px"/></p>
-
                                         </div>
-
                                     </div>
-
-
                                 </div>
-
-
                             </div>
 
 
@@ -802,16 +792,17 @@
                                     <!--<button type="button" class="new-file-upload"-->
                                     <!--        onclick="document.getElementById('iso9001_certificate').click()">Attach File-->
                                     <!--</button>-->
-
                                 </div>
+
+
 
                                 <div class="col-lg-4">
                                     <label for="iso9001_expirydate">Expiry date:</label>
                                     <input type="date" id="iso9001_expirydate" max="31-12-2999"
                                     name="iso9001_expirydate" class="form-control" placeholder="Expiry Date">
-                                </div>                               
+                                </div>                     
                                 
-
+                                
                                 <div class="col-lg-4">
                                     <label for="iso9001_description">Description:</label>
                                     <textarea id="iso9001_description" name="iso9001_description" class="form-control"
@@ -1343,13 +1334,11 @@
                     });
                 </script> --}}
 
-
-
-
-
-
-
+                
+                   
+            
         <script>
+
             function deleteUser(id) 
             {
                 var userid = id;
@@ -1361,7 +1350,8 @@
             var intel_iso_phone = '';
 
 
-            function editDetails(data) {
+            function editDetails(data) 
+            {
                 intel_phone = '';
                 intel_iso_phone = '';
                 $('#phone_div').empty().append(`<input type="text" id="phoneee" name="phone" class="form-control" placeholder="Phone">`);
@@ -1447,10 +1437,12 @@
                     $("#view_45001").append("<a target='_blank' href='https://myisoonline.com/public/" + data.iso45001_certificate + "'>View</a>");
                     $(".iso45001").show();
 
-                } else {
+                } else 
+                {
                     $(".iso45001").hide();
                 }
-                if (data.audit_report != null) {
+                if (data.audit_report != null) 
+                {
                     $("#edit_audit_report").append("<a target='_blank' href='" + data.audit_report + "'>View</a>");
                     $(".audit_report").show();
 
@@ -1472,7 +1464,8 @@
                         },
                     });
                 } else {
-                    intel_phone = window.intlTelInput(input, {
+                    intel_phone = window.intlTelInput(input, 
+                    {
                         separateDialCode: true,
                         initialCountry: data.phoneflag,
                         customPlaceholder: function (
@@ -1522,7 +1515,8 @@
             //     input.value = submittedValue;
             // });
             // Add a submit event listener to replace the input value with the submitted data attribute
-            document.querySelector("form").addEventListener("submit", function() {
+            document.querySelector("form").addEventListener("submit", function() 
+            {
                 var input = document.getElementById("iso9001_expirydate");
                 var submittedValue = input.getAttribute("data-submitted-value");
                 input.value = submittedValue;
@@ -1531,7 +1525,8 @@
 
 
 
-            function viewDetails(data) {
+            function viewDetails(data) 
+            {
                 $('#view_phone_div').empty().append(`<input type="text" id="view_phoneee" class="form-control" placeholder="Phone" readonly disabled>`);
                 $('#view_iso_div').empty().append(`<input type="text" id="view_contact_isooo" class="form-control" placeholder="Iso Contact number" required  readonly disabled>`);
 
@@ -1624,7 +1619,8 @@
 
                 var input = document.querySelector("#view_phoneee");
                 if (data.phoneflag == "preferred" || data.phoneflag == null) {
-                    window.intlTelInput(input, {
+                    window.intlTelInput(input, 
+                    {
                         separateDialCode: true,
                         preferredCountries: ["us"],
                         customPlaceholder: function (
@@ -1635,7 +1631,8 @@
                         },
                     });
                 } else {
-                    window.intlTelInput(input, {
+                    window.intlTelInput(input, 
+                    {
                         separateDialCode: true,
                         initialCountry: data.phoneflag,
                         customPlaceholder: function (
@@ -1779,6 +1776,7 @@
                 image.src = URL.createObjectURL(event.target.files[0]);
 
             };
+            
 
 
         </script>
