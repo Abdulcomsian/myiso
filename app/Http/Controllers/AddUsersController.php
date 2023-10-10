@@ -455,7 +455,7 @@ public function store(Request $request)
 
         $noneConform=Nonconform::where('user_id',$id)->get();
         $customers = DB::table('tbl_customer')->where('user_id',$id)->get();
-    
+        $employees= DB::table('tbl_employees')->where('user_id',$id)->get();
 
         // dd($customers);
 
@@ -464,9 +464,7 @@ public function store(Request $request)
         ->where('tbl_noconformance.user_id',$id)->where('tbl_customer.user_id',$id)->orderBy('tbl_noconformance.id','DESC')->get();
         
         // dd($customers_nonconform);
-        return view('admin.adminform_records.non_conformities',compact('noneConform','customers','customers_nonconform'));
-
-        
+        return view('admin.adminform_records.non_conformities',compact('noneConform','customers','customers_nonconform','employees'));
 
     }
 

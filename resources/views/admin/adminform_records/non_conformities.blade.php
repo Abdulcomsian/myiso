@@ -45,14 +45,12 @@
                                     </div>
                                 </div>
 
-
                                 <div class="col-lg-6">
                                     <div class="form-group">
-                                        <label>Customer ID Number:</label>
-
+                                        <label>Supplier ID Number:</label>
                                         <select onchange="get_customer(this)" required class="form-control" name="customerID"
                                             id="customer_id">
-                                            <option value="" selected="selected" disabled="disabled">Enter Customer ID Number:</option>
+                                            <option value="" selected="selected" disabled="disabled">Enter Supplier ID Number:</option>
                                             @foreach($customers as $customer)
                                                 <option value="{{ $customer->idNumber }}">{{ $customer->idNumber }}
                                                     {{-- @dd($customer) --}}
@@ -62,13 +60,60 @@
                                     </div>
                                 </div>
 
-                                <div class="col-lg-6">
+                                {{-- <div class="col-lg-6">
                                     <div class="form-group">
                                         <label>Customer Name:</label>
                                         <input type="text" class="form-control customer_name" name="CustomerName"
                                             placeholder="Enter Customer Name">
+                                   </div>
+                                </div> --}}
+
+                                <div class="col-lg-6">
+                                    <div class="form-group">
+                                        <label for="customerSelect">Customer Name:</label>
+                                        <select class="form-control" name="CustomerName" id="customerSelect">
+                                            <option value="">Select Customer</option>
+                                            @foreach ($customers as $customer)
+                                                <option value="{{ $customer->id }}">{{ $customer->name }}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                </div>                                
+
+                                <div class="col-lg-6">
+                                    <div class="form-group">
+                                        <label>Employee ID Number:</label>
+                                        <select onchange="get_employee(this)" required class="form-control" name="employee_id"
+                                            id="employee_id">
+                                            <option value="" selected="selected" disabled="disabled">Enter Employee ID Number:</option>
+                                            @foreach($employees as $employee)
+                                                <option value="{{ $employee->empNumber }}">{{ $employee->empNumber }}
+                                                    {{-- @dd($customer) --}}
+                                                </option>
+                                            @endforeach
+                                        </select>
                                     </div>
                                 </div>
+
+                                <div class="col-lg-6">
+                                    <div class="form-group">
+                                        <label>Employee Name:</label>
+                                        <input type="text" class="form-control Employee_name" name="employee_name"
+                                            placeholder="Enter Employee Name">
+                                    </div>
+                                </div>
+
+                                {{-- <div class="col-lg-6">
+                                    <div class="form-group">
+                                        <label for="employeeSelect">Employee Name:</label>
+                                        <select class="form-control" name="employee_name" id="employeeSelect">
+                                            <option value="">Select Employee</option>
+                                            @foreach ($employees as $employee)
+                                                <option value="{{ $employee->id }}">{{ $employee->name }}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                </div>                                 --}}
 
 
                                 <div class="col-lg-6">
@@ -348,6 +393,7 @@
                                         placeholder="Enter Supplier">
                                 </div>
                             </div>
+
                             <div class="col-lg-6">
                                 <div class="form-group">
                                     <label>Customer ID Number:</label>
@@ -362,6 +408,7 @@
                                     </select>
                                 </div>
                             </div>
+
                             <div class="col-lg-6">
                                 <div class="form-group">
                                     <label>Customer Name:</label>
@@ -369,6 +416,30 @@
                                         name="CustomerName" placeholder="Enter Customer Name" id="customer_name">
                                 </div>
                             </div>
+
+                            <div class="col-lg-6">
+                                <div class="form-group">
+                                    <label>Employee ID Number:</label>
+                                    <select readonly disabled class="form-control" name="employee_id"
+                                        id="employee_id">
+                                        <option value="">Enter Employee ID Number:</option>
+                                        @foreach($employees as $employee)
+                                                <option value="{{ $employee->empNumber }}">{{ $employee->empNumber }}
+                                                    {{-- @dd($customer) --}}
+                                                </option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="col-lg-6">
+                                <div class="form-group">
+                                    <label>Employee Name:</label>
+                                    <input type="text" readonly disabled class="form-control employee_name_edit_display"
+                                        name="employee_name" placeholder="Enter Employee Name" id="employee_name">
+                                </div>
+                            </div>
+
                             <div class="col-lg-6">
                                 <div class="form-group">
                                     <label>Root Cause Category:</label>
@@ -504,6 +575,8 @@
 </div>
 {{-- edit modal  editConfirm --}}
 
+
+
 <div class="modal fade" id="editConfirm" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
     aria-hidden="true">
     <div class="modal-dialog modal-lg" role="document">
@@ -553,6 +626,31 @@
                                         name="CustomerName" placeholder="Enter Customer Name" id="customer_name">
                                 </div>
                             </div>
+                            
+                            <div class="col-lg-6">
+                                <div class="form-group">
+                                    <label>Employee ID Number:</label>
+
+                                    <select readonly class="form-control" name="employee_id"
+                                        id="employee_id_">
+                                        <option value="">Enter Employee ID Number:</option>
+                                        @foreach($employees as $employee)
+                                        <option value="{{ $employee->empNumber }}">{{ $employee->empNumber }}
+                                            {{-- @dd($customer) --}}
+                                        </option>
+                                @endforeach
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="col-lg-6">
+                                <div class="form-group">
+                                    <label>Employee Name:</label>
+                                    <input type="text" readonly disabled class="form-control employee_name_edit_display"
+                                        name="employee_name" placeholder="Enter Employee Name" id="employee_name">
+                                </div>
+                            </div>
+
                             <div class="col-lg-6">
                                 <div class="form-group">
                                     <label>Root Cause Category:</label>
@@ -740,6 +838,31 @@
 
     }
 
+
+    function get_employee(obj) 
+    {
+        $this = $(obj);
+        $id = $this.val();
+        $user_id = document.getElementById('user_id').value;
+        console.log($user_id);
+
+        jQuery.ajax({
+            url: "{{ url('/get_employee_name_by_id') }}",
+            type: "POST",
+            data: {
+                "_token": "{{ csrf_token() }}",
+                id: $id,
+                user_id: $user_id,
+            },
+        }).done(function (response) 
+        {
+            // console.log(response);
+            response2 = JSON.parse(response);
+            $this.closest(".row").find(".employee_name").val(response2.name);
+
+        });
+    }
+
     function get_customer_name_by_id(the_id, the_class) 
     {
         $user_id = document.getElementById('user_id').value;
@@ -756,6 +879,28 @@
             $(the_class).val(response2.name);
         });
     }
+
+
+    function get_employee_name_by_id(the_id, the_class) 
+    {
+        $user_id = document.getElementById('user_id').value;
+        jQuery.ajax({
+            url: "{{ url('/get_employee_name_by_id') }}",
+            type: "POST",
+            data: {
+                "_token": "{{ csrf_token() }}",
+                id: the_id,
+                user_id: $user_id,
+            },
+        }).done(function (response) 
+        {
+            response2 = JSON.parse(response);
+            $(the_class).val(response2.name);
+        });
+    }
+
+
+
 
     function getEid(data) 
     {
@@ -781,11 +926,11 @@
         $("input[name='actionPrevent']").val(data.actionPrevent);
         $("input[name='root_cause_category']").val(data.root_cause_category);
         $("input[name='supplier_data']").val(data.supplier_data);
-        // get_supplier_name_by_id(data.supplier_data, '.supplier_name_edit_display');
 
+        $("select[name='employee_id']").val(data.employee_id);
+        get_employee_name_by_id(data.employee_id, '.employee_name_edit_display');
+        $("input[name='employee_name']").val(data.employee_name);
         // $("input[name='rootCause']").val(data.rootCause);
-
-
         $("#nonconfirmDetail").modal('show');
 
     }
@@ -815,12 +960,17 @@
         $("select[name='root_cause_category']").val(data.root_cause_category);
         // $("input[name='rootCause']").val(data.rootCause);
         $("input[name='supplier_data']").val(data.supplier_data);
+
+        $("input[name='employee_id']").val(data.employee_id);
+        $("input[name='employee_name']").val(data.employee_name);
+        get_employee_name_by_id(data.employee_name, '.employee_name_edit_display');
         // get_supplier_name_by_id(data.supplier_data, '.supplier_name_edit_display');
         $("#editConfirm").modal('show');
 
     }
 
-    function removeinfo(id) {
+    function removeinfo(id) 
+    {
         $("#re_id").val(id);
         $("#deleteRequirment").modal('show');
 

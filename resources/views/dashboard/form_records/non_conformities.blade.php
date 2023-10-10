@@ -17,8 +17,7 @@
         <div class="row">
             <div class="col-lg-12">
             <p>A Non-Conformity is the failure to meet one or more requirements that are outlined in the quality management system. For example, you received a shipment of untested products from a Supplier, or an employee who failed to take corrective action at the time of an issue.</p>
-
-<p>To create a non-Conformity, click on the “Add Non-Conformity “button and follow the steps outlining the situation in detail.</p>
+            <p>To create a non-Conformity, click on the “Add Non-Conformity “button and follow the steps outlining the situation in detail.</p>
                 <div class="procedure_div">
                     <div class="row">
                         <div class="col-lg-12 text-right">
@@ -30,9 +29,17 @@
                             @csrf
                             <input type="hidden" name="user_id2" id="user_id2" value="{{$userid}}" />
                             <div class="row">
+
                                 <div class="col-lg-6">
                                     <div class="form-group">
-                                        <label>Customer ID Number:</label>
+                                        <label>Supplier Name:</label>
+                                        <input type="text" required class="form-control" name="supplier_data"
+                                            placeholder="Enter Supplier Name">
+                                    </div>
+                                </div>
+                                <div class="col-lg-6">
+                                    <div class="form-group">
+                                        <label>Supplier ID Number:</label>
                                         {{--- <input type="number" min="1" max="100000" onclick="javascript:getElementById(the_ids.show());" onkeyup="get_customer(this)" class="form-control" name="customer_id" id="customer_id" placeholder="Enter Customer ID Number:">
                                 <div id="the_ids" class="selectoption-div" style="display:none;list-style:none;border:1px solid #EEE;overflow:hidden;">
                                     @foreach($customers as $customer)
@@ -46,13 +53,13 @@
                                
                                 <select onchange="get_customer(this)" class="form-control" required name="customerID"
                                     id="customer_id">
-                                    <option value="">Enter Customer ID Number:</option>
+                                    <option value="">Enter Supplier ID Number:</option>
                                    
                                 </select>
                                 @else
                                 <select onchange="get_customer(this)" class="form-control" name="customerID"
                                     id="customer_id">
-                                    <option value="">Enter Customer ID Number:</option>
+                                    <option value="">Enter Supplier ID Number:</option>
                                     @foreach($customers as $customer)
                                         <option value="{{ $customer->idNumber }}">{{ $customer->idNumber }}</option>
                                     @endforeach
@@ -60,11 +67,58 @@
                                 @endif
                             </div>
                     </div>
+
                     <div class="col-lg-6">
                         <div class="form-group">
                             <label> Customer Name:</label>
                             <input type="text" required class="form-control customer_name" name="rootCause"
                                 placeholder="Enter Customer Name">
+                        </div>
+                    </div>
+
+                    <div class="col-lg-6">
+                        <div class="form-group">
+                            <label>Employee ID Number:</label>
+                            <select onchange="get_employee(this)" required class="form-control" name="employee_id"
+                                id="employee_id">
+                                <option value="" selected="selected" disabled="disabled">Enter Employee ID Number:</option>
+                                @foreach($employees as $employee)
+                                    <option value="{{ $employee->empNumber }}">{{ $employee->empNumber }}
+                                        {{-- @dd($customer) --}}
+                                    </option>
+                                @endforeach
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-6">
+                        <div class="form-group">
+                            <label>Employee Name:</label>
+                            <input type="text" class="form-control Employee_name" name="employee_name"
+                                placeholder="Enter Employee Name">
+                        </div>
+                    </div>
+
+
+
+
+
+
+
+
+
+                    <div class="col-lg-6">
+                        <div class="form-group">
+                            <label>Root Cause Category:</label>
+                            <select name="root_cause_category" class="form-control" required>
+                                <option value="Other">Other</option>
+                                <option value="Planning">Planning</option>
+                                <option value="Production">Production</option>
+                                <option value="Non-liable">Non-liable</option>
+                                <option value="Training">Training</option>
+                                <option value="Management">Management</option>
+                                <option value="Human Factor">Human Factor</option>
+                            </select>
                         </div>
                     </div>
                 </div>
@@ -170,38 +224,7 @@
                                         </select>
                                     </div>
                                 </div>
-                    <div class="col-lg-6">
-                        <div class="form-group">
-                            <label>Root Cause Category:</label>
-                            <select name="root_cause_category" class="form-control" required>
-                                <option value="Other">Other</option>
-                                <option value="Planning">Planning</option>
-                                <option value="Production">Production</option>
-                                <option value="Non-liable">Non-liable</option>
-                                <option value="Training">Training</option>
-                                <option value="Management">Management</option>
-                                <option value="Human Factor">Human Factor</option>
-                            </select>
-                        </div>
-                    </div>
-
-                    {{-- <div class="col-lg-6">
-                        <div class="form-group">
-                            <label>Supplier Name:</label>
-                            <input type="text" readonly disabled class="form-control"
-                                name="supplier_data" placeholder="Enter Supplier Name" id="supplier_name">
-                        </div>
-                    </div> --}}
-
-                    <div class="col-lg-6">
-                        <div class="form-group">
-                            <label>Supplier Name:</label>
-                            <input type="text" required class="form-control" name="supplier_data"
-                                placeholder="Enter Supplier Name">
-                        </div>
-                    </div>
-
-
+                    
                 </div>
 
                 <button type="submit" class="submitBtn">SUBMIT</button>
@@ -325,6 +348,15 @@
                         <input type="hidden" name="id" value="" id="id_feild">
 
                         <div class="row">
+
+                            <div class="col-lg-6">
+                                <div class="form-group">
+                                    <label>Supplier Name:</label>
+                                    <input type="text"  class="form-control" name="supplier_data"
+                                        placeholder="Enter Supplier Name">
+                                </div>
+                            </div>
+
                             <div class="col-lg-6">
                                 <div class="form-group">
                                     <label>Customer ID Number:</label>
@@ -346,20 +378,54 @@
                                     @endif
                                 </div>
                             </div>
+
                             <div class="col-lg-6">
                                 <div class="form-group">
                                     <label>Customer Name:</label>
                                     <input type="text"  readonly disabled class="form-control customer_name_edit_display"
-                                        name="rootCause" placeholder="Enter Customer Name" id="customer_name">
+                                        name="CustomerName" placeholder="Enter Customer Name" id="customer_name">
                                 </div>
                             </div>
+
+                            <div class="col-lg-6">
+                                <div class="form-group">
+                                    <label>Employee ID Number:</label>
+                                    <select readonly disabled class="form-control" name="employee_id"
+                                        id="employee_id">
+                                        <option value="">Enter Employee ID Number:</option>
+                                        @foreach($employees as $employee)
+                                                <option value="{{ $employee->empNumber }}">{{ $employee->empNumber }}
+                                                    {{-- @dd($customer) --}}
+                                                </option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="col-lg-6">
+                                <div class="form-group">
+                                    <label>Employee Name:</label>
+                                    <input type="text" readonly disabled class="form-control employee_name_edit_display"
+                                        name="employee_name" placeholder="Enter Employee Name" id="employee_name">
+                                </div>
+                            </div>
+
+                            <div class="col-lg-6">
+                                <div class="form-group">
+                                    <label>Root Cause Category:</label>
+                                    <input type="text" name="root_cause_category" readonly disabled id="" value=""
+                                        class="form-control">
+
+                                </div>
+                            </div>
+
                         </div>
                         <div class="row">
                             <div class="col-lg-6">
                                 <div class="form-group">
                                     <label>Fault Description:</label>
-                                    <input type="text"  readonly disabled class="form-control" name="customerID"
-                                        placeholder="Customer ID">
+                                    <input type="text"  readonly disabled class="form-control" name="description"
+                                        placeholder="Enter Fault Description">
                                 </div>
                             </div>
                             <div class="col-lg-6">
@@ -456,31 +522,6 @@
                                         </select>
                                     </div>
                                 </div>
-                            <div class="col-lg-6">
-                                <div class="form-group">
-                                    <label>Root Cause Category:</label>
-                                    
-                                    <input type="text" name="root_cause_category" readonly disabled id="" value=""
-                                        class="form-control">
-
-                                </div>
-                            </div>
-
-                            {{-- <div class="col-lg-6">
-                                <div class="form-group">
-                                    <label>Supplier Name:</label>
-                                    <input type="text" readonly disabled class="form-control" name="supplier_data"
-                                        placeholder="Enter Supplier">
-                                </div>
-                            </div> --}}
-
-                            <div class="col-lg-6">
-                                <div class="form-group">
-                                    <label>Supplier Name:</label>
-                                    <input type="text"  class="form-control" name="supplier_data"
-                                        placeholder="Enter Supplier Name">
-                                </div>
-                            </div>
                         </div>
 
                     </form>
@@ -493,6 +534,8 @@
     </div>
 </div>
 {{-- edit modal  editConfirm --}}
+
+
 
 <div class="modal fade" id="editConfirm" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
     aria-hidden="true">
@@ -514,6 +557,15 @@
             <input type="number"  class="form-control validate_number" name="customerID" placeholder="Enter Customer ID:">
         </div> --}}
                         <div class="row">
+
+                            <div class="col-lg-6">
+                                <div class="form-group">
+                                    <label>Supplier Name:</label>
+                                    <input type="text" class="form-control"
+                                        name="supplier_data" placeholder="Enter Supplier Name" id="supplier_name">
+                                </div>
+                            </div>
+
                             <div class="col-lg-6">
                                 <div class="form-group">
                                     <label>Customer ID Number:</label>
@@ -535,13 +587,60 @@
                                     @endif
                                 </div>
                             </div>
+
+
                             <div class="col-lg-6">
                                 <div class="form-group">
                                     <label>Customer Name:</label>
                                     <input type="text" readonly disabled class="form-control customer_name_edit_display"
-                                        name="rootCause" placeholder="Enter Customer Name" id="customer_name">
+                                        name="CustomerName" placeholder="Enter Customer Name" id="customer_name">
                                 </div>
                             </div>
+
+                            <div class="col-lg-6">
+                                <div class="form-group">
+                                    <label>Employee ID Number:</label>
+
+                                    <select readonly class="form-control" name="employee_id"
+                                        id="employee_id_">
+                                        <option value="">Enter Employee ID Number:</option>
+                                        @foreach($employees as $employee)
+                                        <option value="{{ $employee->empNumber }}">{{ $employee->empNumber }}
+                                            {{-- @dd($customer) --}}
+                                        </option>
+                                @endforeach
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="col-lg-6">
+                                <div class="form-group">
+                                    <label>Employee Name:</label>
+                                    <input type="text" readonly disabled class="form-control employee_name_edit_display"
+                                        name="employee_name" placeholder="Enter Employee Name" id="employee_name">
+                                </div>
+                            </div>
+
+
+
+                            <div class="col-lg-6">
+                                <div class="form-group">
+                                    <label>Root Cause Category:</label>
+                                                                <select name="root_cause_category" class="form-control" required>
+                                <option value="Other">Other</option>
+                                <option value="Planning">Planning</option>
+                                <option value="Production">Production</option>
+                                <option value="Non-liable">Non-liable</option>
+                                <option value="Training">Training</option>
+                                <option value="Management">Management</option>
+                                <option value="Human Factor">Human Factor</option>
+                            </select>
+                                    <!--<input type="text" name="root_cause_category" id="" value="" class="form-control"-->
+                                    <!--    required>-->
+
+                                </div>
+                            </div>
+
                         </div>
                         <div class="row">
                             <div class="col-lg-6">
@@ -645,40 +744,6 @@
                                         </select>
                                     </div>
                                 </div>
-                            <div class="col-lg-6">
-                                <div class="form-group">
-                                    <label>Root Cause Category:</label>
-                                                                <select name="root_cause_category" class="form-control" required>
-                                <option value="Other">Other</option>
-                                <option value="Planning">Planning</option>
-                                <option value="Production">Production</option>
-                                <option value="Non-liable">Non-liable</option>
-                                <option value="Training">Training</option>
-                                <option value="Management">Management</option>
-                                <option value="Human Factor">Human Factor</option>
-                            </select>
-                                    <!--<input type="text" name="root_cause_category" id="" value="" class="form-control"-->
-                                    <!--    required>-->
-
-                                </div>
-                            </div>
-
-                            <div class="col-lg-6">
-                                <div class="form-group">
-                                    <label>Supplier Name:</label>
-                                    <input type="text" readonly class="form-control"
-                                        name="supplier_data" placeholder="Enter Supplier Name" id="supplier_name">
-                                </div>
-                            </div>
-
-
-                            {{-- <div class="col-lg-6">
-                                <div class="form-group">
-                                    <label>Supplier Name:</label>
-                                    <input type="text"  class="form-control" name="supplier_data"
-                                        placeholder="Enter Supplier Name" required>
-                                </div>
-                            </div> --}}
 
                         </div>
                         <div class="modal-footer">
@@ -739,6 +804,31 @@
 
     }
 
+
+    function get_employee(obj) 
+    {
+        $this = $(obj);
+        $id = $this.val();
+        $user_id = document.getElementById('user_id').value;
+        console.log($user_id);
+
+        jQuery.ajax({
+            url: "{{ url('/get_employee_name_by_id') }}",
+            type: "POST",
+            data: {
+                "_token": "{{ csrf_token() }}",
+                id: $id,
+                user_id: $user_id,
+            },
+        }).done(function (response) 
+        {
+            // console.log(response);
+            response2 = JSON.parse(response);
+            $this.closest(".row").find(".employee_name").val(response2.name);
+
+        });
+    }
+
     function get_customer_name_by_id(the_id, the_class) {
         jQuery.ajax({
             url: "{{ url('/get_customer_name_by_id') }}",
@@ -753,6 +843,24 @@
         });
     }
 
+    function get_employee_name_by_id(the_id, the_class) 
+    {
+        $user_id = document.getElementById('user_id').value;
+        jQuery.ajax({
+            url: "{{ url('/get_employee_name_by_id') }}",
+            type: "POST",
+            data: {
+                "_token": "{{ csrf_token() }}",
+                id: the_id,
+                user_id: $user_id,
+            },
+        }).done(function (response) 
+        {
+            response2 = JSON.parse(response);
+            $(the_class).val(response2.name);
+        });
+    }
+
     function getEid(data) 
     {
         console.log(data);
@@ -760,7 +868,7 @@
         $("input[name='ActionRecurnce']").val(data.ActionRecurnce);
         $("input[name='CRE']").val(data.CRE);
         $("select[name='customerID']").val(data.customerID);
-        // $("input[name='CustomerName']").val(data.name);
+        $("input[name='CustomerName']").val(data.name);
         get_customer_name_by_id(data.customerID, '.customer_name_edit_display');
         $("input[name='dateNcP']").val(data.dateNcP);
         $("input[name='dateNcR']").val(data.dateNcR);
@@ -775,6 +883,10 @@
         $("select[name='NCR_closed']").val(data.NCR_closed);
         $("input[name='root_cause_category']").val(data.root_cause_category);
         $("input[name='supplier_data']").val(data.supplier_data);
+
+        $("select[name='employee_id']").val(data.employee_id);
+        // get_employee_name_by_id(data.employee_id, '.employee_name_edit_display');
+        $("input[name='employee_name']").val(data.employee_name);
         $("#nonconfirmDetail").modal('show');
 
     }
@@ -786,7 +898,7 @@
         $("input[name='ActionRecurnce']").val(data.ActionRecurnce);
         $("input[name='CRE']").val(data.CRE);
         $("select[name='customerID']").val(data.customerID);
-        // $("select[name='CustomerName']").val(data.CustomerName);
+        $("input[name='CustomerName']").val(data.name);
         get_customer_name_by_id(data.customerID, '.customer_name_edit_display');
         $("input[name='dateNcP']").val(data.dateNcP);
         $("input[name='dateNcR']").val(data.dateNcR);
@@ -802,11 +914,16 @@
         $("select[name='PI']").val(data.PI);
         $("input[name='supplier_data']").val(data.supplier_data);
 
+
+        $("input[name='employee_id']").val(data.employee_id);
+        $("input[name='employee_name']").val(data.employee_name);
+        // get_employee_name_by_id(data.employee_name, '.employee_name_edit_display');
         $("#editConfirm").modal('show');
 
     }
 
-    function deleteModal(data) {
+    function deleteModal(data) 
+    {
         $("#re_id").val(data.noid);
         $("#deleteRequirment").modal('show');
 

@@ -217,6 +217,9 @@ Route::group(['middleware' => ['auth']], function ()
     Route::get('/interesting_parties','interestedController@index');
     Route::get('/chemical_control','chemicalController@index');
     Route::post('/get_customer_name_by_id', 'nonConfromFormController@get_customer_name_by_id');
+    Route::post('/get_employee_name_by_id', 'nonConfromFormController@get_employee_name_by_id');
+
+
     Route::get('/customer/check','CustomerController@check_customer')->name('checkcustomer');
     Route::post('/employess-delete', 'EmployeeController@destroy')->name('employess-delete');
     Route::post('/update-employes-skill', 'EmployeeController@updateempSkills')->name('update-employes-skill');

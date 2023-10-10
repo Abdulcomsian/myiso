@@ -26,6 +26,7 @@ class nonConfromFormController extends Controller
        
         $nonconform=Nonconform::where('user_id',$userid)->get();
         $customers = DB::table('tbl_customer')->where('user_id',$userid)->get();
+       
          if(count($customers)==0)
          {
             $no_customer=1;
@@ -37,6 +38,7 @@ class nonConfromFormController extends Controller
         // }
         // SELECT b.name FROM `tbl_noconformance` as a, tbl_customer as b WHERE a.customerID = b.idNumber;
         $customers_nonconform = DB::table('tbl_noconformance')->join('tbl_customer','tbl_noconformance.customerID','tbl_customer.idNumber')->select('tbl_noconformance.id as noid','tbl_noconformance.*','tbl_customer.*')->where('tbl_noconformance.user_id',$userid)->where('tbl_customer.user_id',$userid)->orderBy('tbl_noconformance.id','DESC')->get();
+        $employees= DB::table('tbl_employees')->where('user_id',$userid)->get();
         
         //  $customers_nonconform = DB::table('tbl_noconformance')->join('tbl_customer','tbl_noconformance.customerID','tbl_customer.idNumber')
         // ->select('tbl_noconformance.id as noid','tbl_noconformance.*','tbl_customer.*')
@@ -44,7 +46,7 @@ class nonConfromFormController extends Controller
         // dd($customers_nonconform);
         // dd($customers);
  
-        return view('dashboard.form_records.non_conformities',compact('userid', 'nonconform','customers', 'customers_nonconform', 'no_customer'));
+        return view('dashboard.form_records.non_conformities',compact('userid', 'nonconform','customers', 'customers_nonconform', 'no_customer','employees'));
     }
 
     /**
@@ -77,7 +79,6 @@ class nonConfromFormController extends Controller
         }else{
             $the_id = Auth()->user()->id;
         }
-        
            $nonConform= new Nonconform();
            $nonConform->user_id=$the_id;
            $nonConform->customerID=$request->input('customerID');
@@ -96,7 +97,8 @@ class nonConfromFormController extends Controller
            $nonConform->NCR_closed=$request->input('NCR_closed');
            $nonConform->root_cause_category=$request->input('root_cause_category');
            $nonConform->supplier_data=$request->input('supplier_data');
-
+           $nonConform->employee_id=$request->input('employee_id');
+           $nonConform->employee_name=$request->input('employee_name');
            $nonConform->save();
         //    dd($nonConform);
            return redirect()->back();
@@ -165,6 +167,9 @@ class nonConfromFormController extends Controller
         $nonConform->NCR_closed=$request->input('NCR_closed');
         $nonConform->root_cause_category=$request->input('root_cause_category');
         $nonConform->supplier_data=$request->input('supplier_data');
+
+        $nonConform->employee_id=$request->input('employee_id');
+        $nonConform->employee_name=$request->input('employee_name');
         $test  = $nonConform->save();
         return back();
         // return redirect('/non_confromities')->with("Success","Data Save Successfully");
@@ -193,6 +198,15 @@ return back();
         $tbl_customer = DB::table('tbl_customer')->where('user_id',$request->input('user_id'))->where('idNumber',  $id)->first();
     
      echo json_encode(array('Status' => true, 'name'=>$tbl_customer->name));
+    }
+
+
+    public function get_employee_name_by_id(Request $request)
+    {   $id = $request['id']; 
+        $user_id = $request['user_id']; 
+        $tbl_employees = DB::table('tbl_employees')->where('user_id',$request->input('user_id'))->where('empNumber',  $id)->first();
+    
+     echo json_encode(array('Status' => true, 'name'=>$tbl_employees->name));
     }
     
     

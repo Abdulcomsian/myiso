@@ -418,8 +418,11 @@
         $(document).ready(function() 
         {
             $('#iso9001_expirydate').datepicker({
-                format: 'dd/mm/yyyy',
-                autoclose: true
+                dateFormat: 'dd/mm/yyyy',
+                autoclose: true,
+                onSelect: function(dateText, inst) {
+    $(inst).val(dateText); // Write the value in the input
+  }
             });
         });
     </script>
