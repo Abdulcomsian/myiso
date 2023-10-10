@@ -37,21 +37,12 @@
                                             placeholder="Enter Supplier Name">
                                     </div>
                                 </div>
-                                <div class="col-lg-6">
-                                    <div class="form-group">
-                                        <label>Supplier ID Number:</label>
-                                        {{--- <input type="number" min="1" max="100000" onclick="javascript:getElementById(the_ids.show());" onkeyup="get_customer(this)" class="form-control" name="customer_id" id="customer_id" placeholder="Enter Customer ID Number:">
-                                <div id="the_ids" class="selectoption-div" style="display:none;list-style:none;border:1px solid #EEE;overflow:hidden;">
-                                    @foreach($customers as $customer)
-                                     <div id="{{ $customer->idNumber }}" class="option-div">{{ $customer->idNumber }}
-                                     </div>
-                                    @endforeach
-                                </div>
-                                <div id="CI_response"></div> ---}}
-                                
-                                @if($no_customer==1)
-                               
-                                <select onchange="get_customer(this)" class="form-control" required name="customerID"
+
+                     <div class="col-lg-6">
+                        <div class="form-group">
+                                <label>Supplier ID Number:</label>
+                            @if($no_customer==1)
+                            <select onchange="get_customer(this)" class="form-control" required name="customerID"
                                     id="customer_id">
                                     <option value="">Enter Supplier ID Number:</option>
                                    
@@ -65,7 +56,7 @@
                                     @endforeach
                                 </select>
                                 @endif
-                            </div>
+                        </div>
                     </div>
 
                     <div class="col-lg-6">
@@ -76,36 +67,49 @@
                         </div>
                     </div>
 
-                    <div class="col-lg-6">
+                    {{-- <div class="col-lg-6">
                         <div class="form-group">
                             <label>Employee ID Number:</label>
+
                             <select onchange="get_employee(this)" required class="form-control" name="employee_id"
                                 id="employee_id">
                                 <option value="" selected="selected" disabled="disabled">Enter Employee ID Number:</option>
                                 @foreach($employees as $employee)
                                     <option value="{{ $employee->empNumber }}">{{ $employee->empNumber }}
                                         {{-- @dd($customer) --}}
-                                    </option>
-                                @endforeach
-                            </select>
+                                    {{-- </option> --}}
+                                {{-- @endforeach --}}
+                            {{-- </select> --}}
+                        {{-- </div> --}}
+                    {{-- </div> --}}
+
+                    <div class="col-lg-6">
+                        <div class="form-group">
+                                <label>Employee ID Number:</label>
+                            @if($no_customer==1)
+                            <select onchange="get_employee(this)" class="form-control" required name="employee_id"
+                                    id="employee_id">
+                                    <option value="">Enter Employee ID Number:</option>
+                                </select>
+                                @else
+                                <select onchange="get_employee(this)" class="form-control" name="employee_id"
+                                    id="employee_id">
+                                    <option value="">Enter Employee ID Number:</option>
+                                    @foreach($employees as $employee)
+                                        <option value="{{ $employee->empNumber }}">{{ $employee->empNumber }} </option>
+                                    @endforeach
+                                </select>
+                            @endif
                         </div>
                     </div>
 
                     <div class="col-lg-6">
                         <div class="form-group">
                             <label>Employee Name:</label>
-                            <input type="text" class="form-control Employee_name" name="employee_name"
+                            <input type="text" class="form-control employee_name" name="employee_name"
                                 placeholder="Enter Employee Name">
                         </div>
                     </div>
-
-
-
-
-
-
-
-
 
                     <div class="col-lg-6">
                         <div class="form-group">
@@ -402,6 +406,7 @@
                                 </div>
                             </div>
 
+
                             <div class="col-lg-6">
                                 <div class="form-group">
                                     <label>Employee Name:</label>
@@ -592,7 +597,7 @@
                             <div class="col-lg-6">
                                 <div class="form-group">
                                     <label>Customer Name:</label>
-                                    <input type="text" readonly disabled class="form-control customer_name_edit_display"
+                                    <input type="text" class="form-control customer_name_edit_display"
                                         name="CustomerName" placeholder="Enter Customer Name" id="customer_name">
                                 </div>
                             </div>
@@ -616,7 +621,7 @@
                             <div class="col-lg-6">
                                 <div class="form-group">
                                     <label>Employee Name:</label>
-                                    <input type="text" readonly disabled class="form-control employee_name_edit_display"
+                                    <input type="text" class="form-control employee_name_edit_display"
                                         name="employee_name" placeholder="Enter Employee Name" id="employee_name">
                                 </div>
                             </div>
@@ -781,7 +786,8 @@
 	</div>
 @endsection
 <script>
-    function get_customer(obj) {
+    function get_customer(obj) 
+    {
         $this = $(obj);
         $id = $this.val();
         $user_id = document.getElementById('user_id2').value;
@@ -794,7 +800,8 @@
                 id: $id,
                 user_id: $user_id,
             },
-        }).done(function (response) {
+        }).done(function (response) 
+        {
             //let ids = array();
             response2 = JSON.parse(response);
 
@@ -804,13 +811,12 @@
 
     }
 
-
     function get_employee(obj) 
     {
         $this = $(obj);
         $id = $this.val();
-        $user_id = document.getElementById('user_id').value;
-        console.log($user_id);
+        $user_id = document.getElementById('user_id2').value;
+                // console.log("tets", $user_id);
 
         jQuery.ajax({
             url: "{{ url('/get_employee_name_by_id') }}",
@@ -824,20 +830,24 @@
         {
             // console.log(response);
             response2 = JSON.parse(response);
-            $this.closest(".row").find(".employee_name").val(response2.name);
+            $this.closest(".row").find(".employee_name").val(response2.surname);
 
         });
     }
 
-    function get_customer_name_by_id(the_id, the_class) {
+
+    function get_customer_name_by_id(the_id, the_class) 
+    {
         jQuery.ajax({
             url: "{{ url('/get_customer_name_by_id') }}",
             type: "POST",
             data: {
                 "_token": "{{ csrf_token() }}",
                 id: the_id,
+                // user_id: $user_id,
             },
-        }).done(function (response) {
+        }).done(function (response) 
+        {
             response2 = JSON.parse(response);
             $(the_class).val(response2.name);
         });
@@ -845,7 +855,7 @@
 
     function get_employee_name_by_id(the_id, the_class) 
     {
-        $user_id = document.getElementById('user_id').value;
+        // $user_id = document.getElementById('user_id').value;
         jQuery.ajax({
             url: "{{ url('/get_employee_name_by_id') }}",
             type: "POST",
@@ -857,7 +867,7 @@
         }).done(function (response) 
         {
             response2 = JSON.parse(response);
-            $(the_class).val(response2.name);
+            $(the_class).val(response2.surname);
         });
     }
 
@@ -914,10 +924,9 @@
         $("select[name='PI']").val(data.PI);
         $("input[name='supplier_data']").val(data.supplier_data);
 
-
         $("input[name='employee_id']").val(data.employee_id);
         $("input[name='employee_name']").val(data.employee_name);
-        // get_employee_name_by_id(data.employee_name, '.employee_name_edit_display');
+        // get_employee_name_by_id(data.employee_id, '.employee_name_edit_display');
         $("#editConfirm").modal('show');
 
     }

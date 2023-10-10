@@ -39,6 +39,13 @@ class nonConfromFormController extends Controller
         // SELECT b.name FROM `tbl_noconformance` as a, tbl_customer as b WHERE a.customerID = b.idNumber;
         $customers_nonconform = DB::table('tbl_noconformance')->join('tbl_customer','tbl_noconformance.customerID','tbl_customer.idNumber')->select('tbl_noconformance.id as noid','tbl_noconformance.*','tbl_customer.*')->where('tbl_noconformance.user_id',$userid)->where('tbl_customer.user_id',$userid)->orderBy('tbl_noconformance.id','DESC')->get();
         $employees= DB::table('tbl_employees')->where('user_id',$userid)->get();
+
+        if(count($employees)==0)
+        {
+           $no_employees=1;
+       }else{
+           $no_employees=0;
+       }
         
         //  $customers_nonconform = DB::table('tbl_noconformance')->join('tbl_customer','tbl_noconformance.customerID','tbl_customer.idNumber')
         // ->select('tbl_noconformance.id as noid','tbl_noconformance.*','tbl_customer.*')
@@ -187,7 +194,7 @@ class nonConfromFormController extends Controller
         //
         // echo $request->id;exit;
          $nonConform=Nonconform::find($request->id)->delete();
-return back();
+         return back();
     }
     
     
@@ -195,18 +202,18 @@ return back();
     public function get_customer_name_by_id(Request $request)
     {   $id = $request['id']; 
         $user_id = $request['user_id']; 
-        $tbl_customer = DB::table('tbl_customer')->where('user_id',$request->input('user_id'))->where('idNumber',  $id)->first();
+        $tbl_customer = DB::table('tbl_customer')->where('user_id',$request->input('user_id'))->where('idNumber', $id)->first();
     
      echo json_encode(array('Status' => true, 'name'=>$tbl_customer->name));
     }
 
 
     public function get_employee_name_by_id(Request $request)
-    {   $id = $request['id']; 
+    {   
+        $id = $request['id']; 
         $user_id = $request['user_id']; 
-        $tbl_employees = DB::table('tbl_employees')->where('user_id',$request->input('user_id'))->where('empNumber',  $id)->first();
-    
-     echo json_encode(array('Status' => true, 'name'=>$tbl_employees->name));
+        $tbl_employees = DB::table('tbl_employees')->where('user_id',$request->input('user_id'))->where('empNumber', $id)->first();
+     echo json_encode(array('Status' => true, 'surname'=>$tbl_employees->surname));
     }
     
     

@@ -60,25 +60,13 @@
                                     </div>
                                 </div>
 
-                                {{-- <div class="col-lg-6">
+                                <div class="col-lg-6">
                                     <div class="form-group">
                                         <label>Customer Name:</label>
                                         <input type="text" class="form-control customer_name" name="CustomerName"
                                             placeholder="Enter Customer Name">
                                    </div>
-                                </div> --}}
-
-                                <div class="col-lg-6">
-                                    <div class="form-group">
-                                        <label for="customerSelect">Customer Name:</label>
-                                        <select class="form-control" name="CustomerName" id="customerSelect">
-                                            <option value="">Select Customer</option>
-                                            @foreach ($customers as $customer)
-                                                <option value="{{ $customer->id }}">{{ $customer->name }}</option>
-                                            @endforeach
-                                        </select>
-                                    </div>
-                                </div>                                
+                                </div>
 
                                 <div class="col-lg-6">
                                     <div class="form-group">
@@ -94,6 +82,7 @@
                                         </select>
                                     </div>
                                 </div>
+
 
                                 <div class="col-lg-6">
                                     <div class="form-group">
@@ -626,7 +615,7 @@
                                         name="CustomerName" placeholder="Enter Customer Name" id="customer_name">
                                 </div>
                             </div>
-                            
+
                             <div class="col-lg-6">
                                 <div class="form-group">
                                     <label>Employee ID Number:</label>
@@ -858,7 +847,7 @@
         {
             // console.log(response);
             response2 = JSON.parse(response);
-            $this.closest(".row").find(".employee_name").val(response2.name);
+            $this.closest(".row").find(".employee_name").val(response2.surname);
 
         });
     }
@@ -895,7 +884,7 @@
         }).done(function (response) 
         {
             response2 = JSON.parse(response);
-            $(the_class).val(response2.name);
+            $(the_class).val(response2.surname);
         });
     }
 
