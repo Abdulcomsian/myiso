@@ -120,8 +120,8 @@ class AssessmentController extends Controller
        
         
         
-            $assessment= Assessment::find($id);
-            $assessment->user_id= $the_id;
+        $assessment= Assessment::find($id);
+        $assessment->user_id= $the_id;
         $assessment->jobNumber=$request->input('jobNumber');
         $assessment->date=$request->input('date');
         $assessment->qualitySatandard=$request->input('qualitySatandard');
@@ -136,8 +136,8 @@ class AssessmentController extends Controller
         $assessment->dateDevelry=$request->input('dateDevelry');
         $assessment->RiskProbability=$request->input('RiskProbability');
         $assessment->riskSeverity=$request->input('riskSeverity');
-             $assessment->save();
-             $notification = [
+        $assessment->save();
+        $notification = [
                 'message' => 'Record  updated successfully.!',
                 'alert-type' => 'success'
             ];
@@ -153,6 +153,7 @@ class AssessmentController extends Controller
      * @param  \App\Assessment  $assessment
      * @return \Illuminate\Http\Response
      */
+    
     public function destroy(Request $request)
     {
     Assessment::find($request->id)->delete();

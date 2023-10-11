@@ -170,6 +170,9 @@ Route::group(['middleware' => ['auth','admin']], function ()
     Route::post('/deleteMessage', 'AddUsersController@deleteMessage')->name('deleteMessage');
     Route::post('/deleteChemical', 'AddUsersController@deletechemicaladmin')->name('deletechemicaladmin');
     Route::post('/deleteChemical2', 'AddUsersController@deleteChemical2')->name('deleteChemical2');
+    
+    
+    Route::post('/userloginhistory', 'AddUsersController@userLoginHistory')->name('userloginhistory');
 
     Route::view('/edit_user/{id}', 'admin.dashboard.admin.edit_user');
 
@@ -189,8 +192,12 @@ Route::group(['middleware' => ['auth','admin']], function ()
     Route::get('/AccidentCheck/{userid}', 'AddUsersController@AccidentCheck');
     Route::get('/riskAssesmntCheck/{userid}', 'AddUsersController@riskAssesmntCheck');
     Route::get('/workinstructionCheck/{userid}', 'AddUsersController@workinstructionCheck');
-
     Route::get('/additionalpolicies/{userid}', 'AddUsersController@additionalpolicies');
+
+    
+    // Login_History show 
+    Route::post('/login-history', 'App\Http\Controllers\Auth\LoginController@login_history')->name('login-history');
+
 
 });
 
@@ -327,6 +334,9 @@ Route::group(['middleware' => ['auth']], function ()
     //Check if empolyee already exist for current user by assad yaqoob 6 july 2022
 
     Route::get('/check-emp-number', 'AddUsersController@checkEmpNumber');
+
+
+    
 });
 
 
