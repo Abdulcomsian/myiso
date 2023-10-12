@@ -94,7 +94,7 @@ class AddUsersController extends Controller
         <thead>
             <tr>
                 <th>ID</th>
-                <th>Login Time</th>
+                <th>Login Date & Time</th>
                 <th>IP Address</th>
                 <th>Browser</th>
             </tr>

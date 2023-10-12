@@ -465,8 +465,8 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    <h1>Login History for <span id="userName"></span></h1>
-                    <div id="loginHistoryTable"></div> <!-- A container to display the login history table -->
+                    <h1>Last Login History <span id="userName"></span></h1>
+                    <div id="loginHistoryTable"></div>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -1435,16 +1435,12 @@
             },
                 success: function (response) 
                 {
-                    $('#userName').text(id);
+                    // $('#userName').text(id);
                     $('#loginHistoryTable').html(response);
                     $('#viewUser').modal('show');
                 },
             });
         }
-
-
-
-
 
             function editDetails(data) 
             {
