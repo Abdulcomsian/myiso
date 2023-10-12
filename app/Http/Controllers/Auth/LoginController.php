@@ -6,8 +6,11 @@ use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Http\Request;
 use App\LoginHistoryUser;
 use App\User;
+use Jenssegers\Agent\Facades\Agent;
+
 class LoginController extends Controller
 {
     /*
@@ -30,63 +33,86 @@ class LoginController extends Controller
      *
      * @var string
      */
-    // protected $redirectTo = RouteServiceProvider::HOME;
+    protected $redirectTo = RouteServiceProvider::HOME;
 
-    // public function redirectTo() 
+   
+
+
+    // Working code 
+    // public function redirectTo()
     // {
-    //     $role = Auth::user()->role_type;
-    //     // print_r(Auth::user()->id);
-    //     // exit;
-       
-        
-    //     switch ($role) 
+    //     $user = Auth::user();
+
+    //     if ($user) 
     //     {
-    //       case 'admin':
-    //         return '/admin';
-    //         break;
-    //       case 'user':
-    //          //save login history for usre
-    //         $LoginHistoryUser = new LoginHistoryUser();
-    //         $LoginHistoryUser->user_id= Auth::user()->id;
-    //         $loginHistory->login_time = now();
-    //         $LoginHistoryUser->save();
-    //         return '/home';
-    //         break; 
-      
-    //       default:
-    //         return '/'; 
-    //       break;
+    //         $role = $user->role_type;
+
+    //         switch ($role) 
+    //         {
+    //             case 'admin':
+    //                 return '/admin';
+    //                 break;
+    //             case 'user':
+    //                 $loginHistory = new LoginHistoryUser();
+    //                 $loginHistory->user_id = $user->id;
+    //                 $loginHistory->login_time = now();
+    //                 $loginHistory->save();
+    //                 return '/home';
+    //                 break;
+    //             default:
+    //                 return '/';
+    //                 break;
+    //         }
+    //     } else {
+    //         return '/';
     //     }
-    //   }
+    // }
 
-  public function redirectTo()
-  {
-      $user = Auth::user();
 
-      if ($user) 
-      {
-          $role = $user->role_type;
+    public function redirectTo()
+    {
+        
+        $user = Auth::user();
+    
+        if ($user) 
+        {
+            $role = $user->role_type;
+    
+            switch ($role) 
+            {
 
-          switch ($role) 
-          {
-              case 'admin':
-                  return '/admin';
-                  break;
-              case 'user':
-                  $loginHistory = new LoginHistoryUser();
-                  $loginHistory->user_id = $user->id;
-                  $loginHistory->login_time = now();
-                  $loginHistory->save();
-                  return '/home';
-                  break;
-              default:
-                  return '/';
-                  break;
-          }
-      } else {
-          return '/';
-      }
-  }
+                
+                case 'admin':
+                    return '/admin';
+                    break;
+                case 'user':
+                    // Get the user's IP address
+                    $ipAddress = request()->ip();
+                    // dd($ipAddress);
+    
+                    // Create a new login history record
+                    $loginHistory = new LoginHistoryUser();
+                    $loginHistory->user_id = $user->id;
+                    $loginHistory->login_time = now();
+                    $loginHistory->ip_address = $ipAddress;
+                    $loginHistory->browser = Agent::browser();
+                    // $loginHistory->browser = $browser;
+                    $loginHistory->save();
+    
+                    return '/home';
+                    break;
+                default:
+                    return '/';
+                    break;
+            }
+        } else {
+            return '/';
+        }
+    }
+    
+
+    
+    
 
 
 

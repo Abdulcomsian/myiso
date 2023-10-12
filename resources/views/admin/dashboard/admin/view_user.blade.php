@@ -422,8 +422,7 @@
 
 
     <!-- Modal for Login History -->
-
-    <div class="modal fade" id="viewUser" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    {{-- <div class="modal fade" id="viewUser" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
@@ -444,16 +443,30 @@
                             </tr>
                         </thead>
                         <tbody id="loginHistoryBody">
-                                {{-- @foreach ($loginHistory as $record)
-                                <tr>
-                                    <td>{{ $record->id }}</td>
-                                    <td>{{ $record->login_time }}</td>
-                                    <td>{{ $record->created_at }}</td>
-                                    <td>{{ $record->updated_at }}</td>
-                                </tr>
-                                @endforeach --}}
                         </tbody>
                     </table>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div> --}}
+
+
+    <!-- Modal for Login History -->
+    <div class="modal fade" id="viewUser" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Login History</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <h1>Login History for <span id="userName"></span></h1>
+                    <div id="loginHistoryTable"></div> <!-- A container to display the login history table -->
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -1391,24 +1404,46 @@
             var intel_iso_phone = '';
 
 
-            function get_history(id) 
-            {
-            $.ajax({
-                type: "post",
-                url: "{{ url('/userloginhistory') }}",
-                headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
-                data: {
-                    user_id: id,
-                    _token: $('meta[name="csrf-token"]').attr('content')
-                },
+        //     function get_history(id) 
+        //     {
+        //     $.ajax({
+        //         type: "post",
+        //         url: "{{ url('/userloginhistory') }}",
+        //         headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
+        //         data: {
+        //             user_id: id,
+        //             _token: $('meta[name="csrf-token"]').attr('content')
+        //         },
+        //         success: function (response) 
+        //         {
+        //             console.log(response);
+        //             $('#viewUser .modal-body').html(response);
+        //             $('#viewUser').modal('show');
+        //         },
+        //     });
+        //   }
+
+        function get_history(id) 
+        {
+        $.ajax({
+            type: "post",
+            url: "{{ url('/userloginhistory') }}",
+            headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
+            data: {
+                user_id: id,
+                _token: $('meta[name="csrf-token"]').attr('content')
+            },
                 success: function (response) 
                 {
-                    console.log(response);
-                    $('#viewUser .modal-body').html(response);
+                    $('#userName').text(id);
+                    $('#loginHistoryTable').html(response);
                     $('#viewUser').modal('show');
                 },
             });
         }
+
+
+
 
 
             function editDetails(data) 

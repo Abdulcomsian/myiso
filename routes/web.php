@@ -409,4 +409,10 @@ Route::group(['middleware' => ['auth','admin']], function ()
 });
 
 
+Route::get('test' , function(){
+    // $browser = Jenssegers\Agent\Facades\Agent::browser();
+    // dd($browser);
+});
+
+
 /*************** One time script for easily changes to running project end ***************/
