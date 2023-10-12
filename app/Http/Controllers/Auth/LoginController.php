@@ -86,8 +86,9 @@ class LoginController extends Controller
                     break;
                 case 'user':
                     // Get the user's IP address
-                    $ipAddress = request()->ip();
-                    // dd($ipAddress);
+                    // $ipAddress = request()->ip();
+                    $ipAddress = request()->header('X-Forwarded-For') ?? request()->header('X-Real-IP') ?? request()->ip();
+                    
     
                     // Create a new login history record
                     $loginHistory = new LoginHistoryUser();
