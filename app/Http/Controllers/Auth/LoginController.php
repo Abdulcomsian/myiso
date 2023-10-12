@@ -94,8 +94,9 @@ class LoginController extends Controller
                     $loginHistory->user_id = $user->id;
                     $loginHistory->login_time = now();
                     $loginHistory->ip_address = $ipAddress;
-                    dd($loginHistory->ip_address);
                     $loginHistory->browser = Agent::browser();
+                    dd($loginHistory->browser);
+
                     // $loginHistory->browser = $browser;
                     $loginHistory->save();
     
