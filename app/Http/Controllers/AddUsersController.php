@@ -47,31 +47,61 @@ class AddUsersController extends Controller
         return view('admin.dashboard.admin.view_user', compact('users'));
     }
 
-    // public function userLoginHistory()
+
+    // Check Login History of User 
+
+    // public function userLoginHistory(Request $request)
     // {
-    // //   dd("abc");
-      
-    //     $loginHistory = LoginHistoryUser::where('user_id', $user->id)->get();
-    //     return view('admin.dashboard.admin.view_user', compact('loginHistory', 'user'));
+    //     $user_id = $request->input('user_id');
+        
+    //     $list ='<table><tr><th>ID</th><th>Date Time</th></tr>';
+        
+    //     $i=1;
+        
+    //     $loginHistory = LoginHistoryUser::where('user_id', $user_id)->orderBy('id', 'desc')->get();
+        
+    //     foreach($loginHistory as $history)
+    //     {
+    //         $list .= '<tr><td style="padding:8px 25px" >'.$i.'</td><td  style="padding:8px 25px">'.date('d-m-Y H:i:s', strtotime($history->login_time)).'</td></tr>';
+    //         $i++;
+    //     }
+        
+    //     return $list;
     // }
-
-
 
     public function userLoginHistory(Request $request)
     {
         $user_id = $request->input('user_id');
-        $list ='<table><tr><th>ID</th><th>Date Time</th></tr>';
-        $i=1;
+        
         $loginHistory = LoginHistoryUser::where('user_id', $user_id)->orderBy('id', 'desc')->get();
-        foreach($loginHistory as $history){
-            $list .= '<tr><td style="padding:8px 25px" >'.$i.'</td><td  style="padding:8px 25px">'.date('d-m-Y H:i:s', strtotime($history->login_time)).'</td></tr>';
+        
+        // Start building the table
+        $list = '<table class="table">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Login Time</th>
+            </tr>
+        </thead>
+        <tbody>';
+        
+        $i = 1;
+        
+        foreach ($loginHistory as $history) {
+            $list .= '<tr>';
+            $list .= '<td style="text-align: center;">' . $i . '</td>';
+            $list .= '<td style="padding:5px 15px; text-align: center;">' . date('d-m-Y H:i:s', strtotime($history->login_time)) . '</td>';
+            $list .= '</tr>';
             $i++;
         }
+        
+        // Close the table
+        $list .= '</tbody>
+        </table>';
+        
         return $list;
     }
-    
 
-    
     /**
      * Show the form for creating a new resource.
      *

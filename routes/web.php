@@ -171,7 +171,7 @@ Route::group(['middleware' => ['auth','admin']], function ()
     Route::post('/deleteChemical', 'AddUsersController@deletechemicaladmin')->name('deletechemicaladmin');
     Route::post('/deleteChemical2', 'AddUsersController@deleteChemical2')->name('deleteChemical2');
     
-    
+    // Show Login Histroy of User by Admin
     Route::post('/userloginhistory', 'AddUsersController@userLoginHistory')->name('userloginhistory');
 
     Route::view('/edit_user/{id}', 'admin.dashboard.admin.edit_user');
@@ -194,7 +194,6 @@ Route::group(['middleware' => ['auth','admin']], function ()
     Route::get('/workinstructionCheck/{userid}', 'AddUsersController@workinstructionCheck');
     Route::get('/additionalpolicies/{userid}', 'AddUsersController@additionalpolicies');
 
-    
     // Login_History show 
     Route::post('/login-history', 'App\Http\Controllers\Auth\LoginController@login_history')->name('login-history');
 

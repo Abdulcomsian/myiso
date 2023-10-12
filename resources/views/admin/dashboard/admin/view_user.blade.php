@@ -421,50 +421,46 @@
     </div>
 
 
+    <!-- Modal for Login History -->
 
-
-        <!-- Modal for Login History -->
-        <div class="modal fade" id="viewUser" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-            <div class="modal-dialog" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel">Login History</h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                    <div class="modal-body">
-                        <h1>Login History for <span id="userName"></span></h1>
-                        <table class="table">
-                            <thead>
+    <div class="modal fade" id="viewUser" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Login History</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <h1>Login History for <span id="userName"></span></h1>
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Login Time</th>
+                                <th>Created At</th>
+                                <th>Updated At</th>
+                            </tr>
+                        </thead>
+                        <tbody id="loginHistoryBody">
+                                {{-- @foreach ($loginHistory as $record)
                                 <tr>
-                                    <th>ID</th>
-                                    <th>Login Time</th>
-                                    <th>Created At</th>
-                                    <th>Updated At</th>
+                                    <td>{{ $record->id }}</td>
+                                    <td>{{ $record->login_time }}</td>
+                                    <td>{{ $record->created_at }}</td>
+                                    <td>{{ $record->updated_at }}</td>
                                 </tr>
-                            </thead>
-                            <tbody id="loginHistoryBody">
-                                    {{-- @foreach ($loginHistory as $record)
-                                    <tr>
-                                        <td>{{ $record->id }}</td>
-                                        <td>{{ $record->login_time }}</td>
-                                        <td>{{ $record->created_at }}</td>
-                                        <td>{{ $record->updated_at }}</td>
-                                    </tr>
-                                    @endforeach --}}
-                            </tbody>
-                        </table>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    </div>
+                                @endforeach --}}
+                        </tbody>
+                    </table>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                 </div>
             </div>
         </div>
-
-
-
+    </div>
 
 
 
