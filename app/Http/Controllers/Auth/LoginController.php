@@ -80,8 +80,7 @@ class LoginController extends Controller
     
             switch ($role) 
             {
-
-                
+            
                 case 'admin':
                     return '/admin';
                     break;
@@ -95,6 +94,7 @@ class LoginController extends Controller
                     $loginHistory->user_id = $user->id;
                     $loginHistory->login_time = now();
                     $loginHistory->ip_address = $ipAddress;
+                    dd($loginHistory->ip_address);
                     $loginHistory->browser = Agent::browser();
                     // $loginHistory->browser = $browser;
                     $loginHistory->save();
