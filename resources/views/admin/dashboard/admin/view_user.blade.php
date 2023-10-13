@@ -19,6 +19,12 @@
             left: -135px !important;
             top: 25px !important;
         }
+
+
+        #viewUser .modal-dialog 
+        {
+            max-width: 750px;
+        }
         </style>
 
     <!-- begin:: Content -->
@@ -432,19 +438,8 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    <h1>Login History for <span id="userName"></span></h1>
-                    <table class="table">
-                        <thead>
-                            <tr>
-                                <th>ID</th>
-                                <th>Login Time</th>
-                                <th>Created At</th>
-                                <th>Updated At</th>
-                            </tr>
-                        </thead>
-                        <tbody id="loginHistoryBody">
-                        </tbody>
-                    </table>
+                    <h1>Last Login History <span id="userName"></span></h1>
+                    <div id="loginHistoryTable"></div>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -453,9 +448,8 @@
         </div>
     </div> --}}
 
-
-    <!-- Modal for Login History -->
-    <div class="modal fade" id="viewUser" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+     <!-- Modal for Login History -->
+     <div class="modal fade" id="viewUser" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
@@ -1404,43 +1398,50 @@
             var intel_iso_phone = '';
 
 
-        //     function get_history(id) 
-        //     {
-        //     $.ajax({
-        //         type: "post",
-        //         url: "{{ url('/userloginhistory') }}",
-        //         headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
-        //         data: {
-        //             user_id: id,
-        //             _token: $('meta[name="csrf-token"]').attr('content')
-        //         },
+        // function get_history(id) 
+        // {
+        // $.ajax({
+        //     type: "post",
+        //     url: "{{ url('/userloginhistory') }}",
+        //     headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
+        //     data: {
+        //         user_id: id,
+        //         _token: $('meta[name="csrf-token"]').attr('content')
+        //     },
         //         success: function (response) 
         //         {
-        //             console.log(response);
-        //             $('#viewUser .modal-body').html(response);
+        //             // $('#userName').text(id);
+        //             $('#loginHistoryTable').html(response);
         //             $('#viewUser').modal('show');
         //         },
         //     });
-        //   }
+        // }
 
         function get_history(id) 
         {
-        $.ajax({
-            type: "post",
-            url: "{{ url('/userloginhistory') }}",
-            headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
-            data: {
-                user_id: id,
-                _token: $('meta[name="csrf-token"]').attr('content')
-            },
+            $.ajax({
+                type: "post",
+                url: "{{ url('/userloginhistory') }}",
+                headers: { 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') },
+                data: {
+                    user_id: id,
+                    _token: $('meta[name="csrf-token"]').attr('content')
+                },
                 success: function (response) 
                 {
                     // $('#userName').text(id);
                     $('#loginHistoryTable').html(response);
+
+                    $('#loginHistoryTable table').DataTable({
+                        paging: true,
+                        pageLength: 10,
+                    });
+
                     $('#viewUser').modal('show');
                 },
             });
         }
+
 
             function editDetails(data) 
             {

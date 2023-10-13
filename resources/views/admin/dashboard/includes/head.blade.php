@@ -21,7 +21,12 @@ License: You must have a valid license purchased only from themeforest(the above
 		<meta name="description" content="Updates and statistics">
 		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 		<meta name="csrf-token" content="{{ csrf_token() }}">
-<link href="//cdn.datatables.net/1.11.1/css/jquery.dataTables.min.css" rel="stylesheet" type="text/css" />
+        <link href="//cdn.datatables.net/1.11.1/css/jquery.dataTables.min.css" rel="stylesheet" type="text/css" />
+
+		<!-- Add this to your HTML to include DataTables CSS and JavaScript -->
+		<link href="https://cdn.datatables.net/1.10.25/css/jquery.dataTables.min.css" rel="stylesheet">
+		<script src="https://cdn.datatables.net/1.10.25/js/jquery.dataTables.min.js"></script>
+
 
 		<!--begin::Fonts -->
 		<script src="https://ajax.googleapis.com/ajax/libs/webfont/1.6.16/webfont.js"></script>

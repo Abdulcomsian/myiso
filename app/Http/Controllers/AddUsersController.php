@@ -89,7 +89,6 @@ class AddUsersController extends Controller
         
         $loginHistory = LoginHistoryUser::where('user_id', $user_id)->orderBy('id', 'desc')->get();
         
-        // Start building the table
         $list = '<table class="table">
         <thead>
             <tr>
@@ -113,7 +112,6 @@ class AddUsersController extends Controller
             $i++;
         }
         
-        // Close the table
         $list .= '</tbody>
         </table>';
         
