@@ -31,10 +31,10 @@
 <body>
     <h1>Process Audit Report</h1>
 
-    @if($audit->isEmpty())
+    @if($process_audit->isEmpty())
         <p>No audit data available.</p>
     @else
-        @foreach($audit as $auditdata)
+        @foreach($process_audit as $auditdata)
             <div class="container">
                 <table>
                     <tr>

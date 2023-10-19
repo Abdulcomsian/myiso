@@ -44,23 +44,26 @@ class qmsauditController extends Controller
 
     public function generatePDFgms(Request $request)
     {
-        // $userId = auth()->user()->id;
-        $qmsaudit = Qmsaudit::where('id', $request->qms_id)->get();
-   
-        $pdf = PDF::loadView('dashboard.form_records.qms_audits', compact('qmsaudit'));
+        $qms_audit = Qmsaudit::where('id', $request->qms_id)->get();
 
-        $pdfPath = public_path('QMS_audit_report.pdf');
+        $pdf = PDF::loadView('dashboard.form_records.qms_audits', compact('qms_audit'));
+
+        $timestamp = now()->format('Y-m-d_H-i-s');
+        $pdfFileName = 'qms_audit_pdf/' . $timestamp . 'qms_audit.pdf';
+
+        $pdfPath = public_path($pdfFileName);
 
         $pdf->save($pdfPath);
-
-        return response()->json(['url' => asset('QMS_audit_report.pdf')]);
+        return response()->json(['url' => asset($pdfFileName)]);
     }
-    
+
     public function downloadPDFqms()
     {
-        $pdfPath = public_path('qms_audit.pdf');
-        
-        return Response::download($pdfPath, 'QMS_audit.pdf');
+        $pdfFileName = 'qms_audit.pdf';
+
+        $pdfPath = public_path('qms_audit_pdf/' . $pdfFileName);
+
+        return Response::download($pdfPath, $pdfFileName);
     }
 
 

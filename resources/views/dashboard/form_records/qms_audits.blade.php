@@ -30,7 +30,7 @@
 </head>
 <body>
     <h1>QMS Audit Report</h1>
-        @forelse($qmsaudit as $auditdata)
+        @forelse($qms_audit as $auditdata)
             <div class="container">
                 <table>
                     <tr>

@@ -2758,45 +2758,24 @@
 
 <script>
 
-function qmsfun(id)
-{
-            $.ajax({
-                url: '/generate-pdf-qms',
-                method: 'POST',
-                headers: {
-                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                },
-                data: { qms_id: id },
-                success: function(response) 
-				{
-                    window.open(response.url, '_blank');
-                },
-                error: function() {
-                    console.error("Failed to generate PDF");
-                }
-            });
-}
-// $(document).on("click", ".download-pdf-qms", function() 
-//         {
-//             // process_id=this->processid;
-//             qms_id = $(this).attr("data-qmsid");
-//             $.ajax({
-//                 url: '/generate-pdf-qms',
-//                 method: 'POST',
-//                 headers: {
-//                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-//                 },
-//                 data: {qms_id:qms_id},
-//                 success: function(response) 
-// 				{
-//                     window.open(response.url, '_blank');
-//                 },
-//                 error: function() {
-//                     console.error("Failed to generate PDF");
-//                 }
-//             });
-//         });
-
+	function qmsfun(id)
+	{
+				$.ajax({
+					url: '/generate-pdf-qms',
+					method: 'POST',
+					headers: {
+						'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+					},
+					data: { qms_id: id },
+					success: function(response) 
+					{
+						window.open(response.url, '_blank');
+					},
+					error: function() {
+						console.error("Failed to generate PDF");
+					}
+				});
+	}
 
     function getEid(data){
 		if($(".qms_audit_from_div").is(":visible")){
