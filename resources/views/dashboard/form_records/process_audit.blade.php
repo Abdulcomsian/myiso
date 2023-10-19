@@ -23,6 +23,7 @@
                     <p>To add a record, click on the “Add
                         Process Audit Details” button. To amend a record, click on the edit icon of
                         the entry that needs to be modified.</p>
+
                     <div class="procedure_div">
                         <div class="row">
                             <div class="col-lg-12 text-right">
@@ -30,6 +31,11 @@
                                 <a onclick="processAuditForm()" class="addBtn">Add process audit details</a>
                             </div>
                         </div>
+
+
+
+
+
                         <div class="process_audit_from_div">
                             <form action="{{route('auditform')}}" method="POST" enctype="multipart/form-data"
                                   class="addForm">
@@ -404,7 +410,15 @@
                                 </button>
                             </form>
                         </div>
+
+
+
+
+
+
+
                     </div>
+
                     <div class="procedure_div">
                         <div class="requirments_table_div">
                             <div class="kt-portlet__body">
@@ -476,16 +490,40 @@
                                                                             fill="#5d78ff" fill-rule="nonzero"
                                                                             opacity="0.3"></path>										</g>									</svg>	                            </span>
                                                     </button>
+
                                                     <button class="btn btn-sm btn-clean btn-icon btn-con-md"
                                                             title="View" onclick="viewaudit({{$data}});">
-                                                 <span class="svg-icon svg-icon-primary svg-icon-2x"> <span class="fa fa-eye"></span></span>
-                                                       
-
+                                                           <span class="svg-icon svg-icon-primary svg-icon-2x"> <span class="fa fa-eye"></span></span>
                                                     </button>
+
                                                     <button class="btn btn-sm btn-clean btn-icon btn-icon-md"
                                                             title="Delete" onclick="deleteModal({{$data}});"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="18px" height="18px" viewBox="0 0 24 24" version="1.1">										<g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">											<rect x="0" y="0" width="24" height="24"></rect>											<path d="M6,8 L6,20.5 C6,21.3284271 6.67157288,22 7.5,22 L16.5,22 C17.3284271,22 18,21.3284271 18,20.5 L18,8 L6,8 Z" fill="#5d78ff" fill-rule="nonzero"></path>											<path d="M14,4.5 L14,4 C14,3.44771525 13.5522847,3 13,3 L11,3 C10.4477153,3 10,3.44771525 10,4 L10,4.5 L5.5,4.5 C5.22385763,4.5 5,4.72385763 5,5 L5,5.5 C5,5.77614237 5.22385763,6 5.5,6 L18.5,6 C18.7761424,6 19,5.77614237 19,5.5 L19,5 C19,4.72385763 18.7761424,4.5 18.5,4.5 L14,4.5 Z" fill="#5d78ff" opacity="0.3"></path>										</g>									</svg>
                                                     </button>
 
+
+                                                   {{-- <button class="bi bi-printer btn btn-sm btn-clean btn-icon"
+                                                            title="Print"
+                                                            onclick="window.print();">
+                                                        <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="18px" height="18px" viewBox="0 0 24 24" version="1.1">
+                                                            <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                                                                <rect x="0" y="0" width="24" height="24"></rect>
+                                                                <path d="M6,8 L6,20.5 C6,21.3284271 6.67157288,22 7.5,22 L16.5,22 C17.3284271,22 18,21.3284271 18,20.5 L18,8 L6,8 Z" fill="#5d78ff" fill-rule="nonzero"></path>
+                                                                <path d="M14,4.5 L14,4 C14,3.44771525 13.5522847,3 13,3 L11,3 C10.4477153,3 10,3.44771525 10,4 L10,4.5 L5.5,4.5 C5.22385763,4.5 5,4.72385763 5,5 L5,5.5 C5,5.77614237 5.22385763,6 5.5,6 L18.5,6 C18.7761424,6 19,5.77614237 19,5.5 L19,5 C19,4.72385763 18.7761424,4.5 18.5,4.5 L14,4.5 Z" fill="#5d78ff" opacity="0.3"></path>
+                                                            </g>
+                                                        </svg>
+                                                    </button>                                                  --}}
+
+                                                    
+                                                    {{-- <button class="btn btn-sm btn-clean btn-icon btn-con-md downlaodpdf" title="Download PDF">
+                                                        <i class="fa fa-download"></i>
+                                                    </button>       
+                                                                                                                                                    --}}
+                                                    <button data-processid="{{ $data->id }}" class="btn btn-sm btn-clean btn-icon btn-con-md download-pdf" title="Download PDF">
+                                                       <i class="fa fa-download"></i>
+                                                    </button>
+                                                                                                                                                    
+                                                                                                                                                                                                        
+                                                    
                                                 </td>
                                             </tr>
                                         @endforeach
@@ -524,6 +562,8 @@
             </div>
         </div>
     </div>
+
+
     <div class="modal fade" id="editProcessAudit" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
          aria-hidden="true">
         <div class="modal-dialog" role="document">
@@ -906,6 +946,11 @@
         </div>
     </div>
 
+
+
+
+
+
     <div class="modal fade" id="viewProcessAudit" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
          aria-hidden="true">
         <div class="modal-dialog modal-lg" role="document">
@@ -989,8 +1034,10 @@
                             </div>
                         </div>
 
-                        <hr/>
-                        <div class="row">
+                        
+
+                <hr/>
+                    <div class="row">
                             <div class="col-lg-12">
                                 <div class="form-group">
                                     <label>1 - Is this process included in the system scope and is it still
@@ -1019,6 +1066,8 @@
                                 </div>
                             </div>
                         </div>
+
+
                         <div class="row">
                             <div class="col-lg-12">
                                 <div class="form-group">
@@ -1048,6 +1097,7 @@
                                 </div>
                             </div>
                         </div>
+
                         <div class="row">
                             <div class="col-lg-12">
                                 <div class="form-group">
@@ -1077,6 +1127,7 @@
                                 </div>
                             </div>
                         </div>
+
                         <div class="row">
                             <div class="col-lg-12">
                                 <div class="form-group">
@@ -1107,6 +1158,7 @@
                                 </div>
                             </div>
                         </div>
+
                         <div class="row">
                             <div class="col-lg-12">
                                 <div class="form-group">
@@ -1137,6 +1189,7 @@
                                 </div>
                             </div>
                         </div>
+
                         <div class="row">
                             <div class="col-lg-12">
                                 <div class="form-group">
@@ -1197,6 +1250,7 @@
                                 </div>
                             </div>
                         </div>
+
                         <div class="row">
                             <div class="col-lg-12">
                                 <div class="form-group">
@@ -1226,6 +1280,7 @@
                                 </div>
                             </div>
                         </div>
+
                         <div class="row">
                             <div class="col-lg-12">
                                 <div class="form-group">
@@ -1256,6 +1311,7 @@
                                 </div>
                             </div>
                         </div>
+
                         <div class="row">
                             <div class="col-lg-12">
                                 <div class="form-group">
@@ -1264,6 +1320,7 @@
                                 </div>
                             </div>
                         </div>
+
                         <div class="row">
                             <div class="col-lg-12">
                                 <div class="form-group">
@@ -1273,7 +1330,6 @@
                                 </div>
                             </div>
                         </div>
-
                     </div>
 
                     <div class="modal-footer">
@@ -1284,12 +1340,21 @@
             </div>
         </div>
     </div>
+
+
+
+
+
+
+
 @endsection
 @section('myscript')
     <script>
-        function getEid(data) {
+        function getEid(data) 
+        {
             console.log(data);
-            if ($(".process_audit_from_div").is(":visible")) {
+            if ($(".process_audit_from_div").is(":visible")) 
+            {
                 processAuditForm();
             }
             $("#id_feild").val(data.id);
@@ -1329,7 +1394,9 @@
             $("#editProcessAudit").modal('show');
         }
 
-        function viewaudit(data) {
+
+        function viewaudit(data) 
+        {
             console.log(data);
             if ($(".process_audit_from_div").is(":visible")) {
                 processAuditForm();
@@ -1418,6 +1485,32 @@
                 $('#nonConformities1').val('');
             }
         });
+
+
+
+        $(document).on("click", ".download-pdf", function() 
+        {
+            // process_id=this->processid;
+            process_id = $(this).attr("data-processid");
+            $.ajax({
+                url: '/generate-pdf',
+                method: 'POST',
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
+                data: {process_id:process_id},
+                success: function(response) {
+                    window.open(response.url, '_blank');
+                },
+                error: function() {
+                    console.error("Failed to generate PDF");
+                }
+            });
+        });
+
+
+
+
 
     </script>
 @endsection

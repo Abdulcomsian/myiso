@@ -10,6 +10,8 @@ use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Schema;
 use Yoeunes\Toastr\Facades\Toastr;
 use DB;
+use PDF;
+use Illuminate\Support\Facades\Response;
 
 class qmsauditController extends Controller
 {
@@ -39,6 +41,31 @@ class qmsauditController extends Controller
     {
         //
     }
+
+    public function generatePDFgms(Request $request)
+    {
+        // $userId = auth()->user()->id;
+        $qmsaudit = Qmsaudit::where('id', $request->qms_id)->get();
+   
+        $pdf = PDF::loadView('dashboard.form_records.qms_audits', compact('qmsaudit'));
+
+        $pdfPath = public_path('QMS_audit_report.pdf');
+
+        $pdf->save($pdfPath);
+
+        return response()->json(['url' => asset('QMS_audit_report.pdf')]);
+    }
+    
+    public function downloadPDFqms()
+    {
+        $pdfPath = public_path('qms_audit.pdf');
+        
+        return Response::download($pdfPath, 'QMS_audit.pdf');
+    }
+
+
+
+    
 
     /**
      * Store a newly created resource in storage.

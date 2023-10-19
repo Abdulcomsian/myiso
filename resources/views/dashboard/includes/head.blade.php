@@ -20,10 +20,20 @@ License: You must have a valid license purchased only from themeforest(the above
 		<title>{{Auth::user()->company_name}}</title>
 		<meta name="description" content="Updates and statistics">
 		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<meta name="csrf-token" content="{{ csrf_token() }}">
 		<!--begin::Fonts -->
 		<script src="https://ajax.googleapis.com/ajax/libs/webfont/1.6.16/webfont.js"></script>
-		<script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.3.2/html2canvas.min.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.4.0/jspdf.umd.min.js"></script>
+		<script src="path/to/jspdf.min.js"></script>
+		{{-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script> --}}
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"></script>
+
+
+
+
+				<script>
 			WebFont.load({
                 google: {"families":["Poppins:300,400,500,600,700","Roboto:300,400,500,600,700"]},
                 active: function() {
@@ -83,6 +93,7 @@ License: You must have a valid license purchased only from themeforest(the above
 		<link href="{{ asset('/assets/demo/default/skins/header/menu/light.css') }}" rel="stylesheet" type="text/css" />
 		<link href="{{ asset('/assets/demo/default/skins/brand/dark.css') }}" rel="stylesheet" type="text/css" />
 		<link href="{{ asset('/assets/demo/default/skins/aside/dark.css') }}" rel="stylesheet" type="text/css" />
+
 
 		<!--end::Layout Skins -->
 		<link rel="shortcut icon" href="{{ asset('/assets/media/logos/fav.png')}}" />

@@ -744,6 +744,7 @@
 										</div>
 									</div>
 								</div>
+
 								<div class="row">
 									<div class="col-lg-12">
 										<div class="form-group">
@@ -859,6 +860,7 @@
 										</div>
 									</div>
 							</div> 
+
 								<div class="row">
 									<div class="col-lg-12">
 										<div class="form-group">
@@ -866,6 +868,7 @@
 											<input type="text" class="form-control" name="audit_comments_actions" required="required" placeholder="Enter Comment:">
 										</div>
 									</div>
+
 									<div class="col-lg-12">
 										<div class="form-group">
 											<label>Date Completed (DD/MM/YYYY)):</label>
@@ -952,10 +955,16 @@
                                             
                                             @endphp
                                                     
-<button data-toggle="modal" data-target="#confirm-{{$item->id}}" id="remove_{{$item->id}}" title="Delete" class="btn btn-sm btn-clean btn-icon btn-icon-md">
- <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="18px" height="18px" viewBox="0 0 24 24" version="1.1">										<g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">											<rect x="0" y="0" width="24" height="24"></rect>											<path d="M6,8 L6,20.5 C6,21.3284271 6.67157288,22 7.5,22 L16.5,22 C17.3284271,22 18,21.3284271 18,20.5 L18,8 L6,8 Z" fill="#5d78ff" fill-rule="nonzero"></path>											<path d="M14,4.5 L14,4 C14,3.44771525 13.5522847,3 13,3 L11,3 C10.4477153,3 10,3.44771525 10,4 L10,4.5 L5.5,4.5 C5.22385763,4.5 5,4.72385763 5,5 L5,5.5 C5,5.77614237 5.22385763,6 5.5,6 L18.5,6 C18.7761424,6 19,5.77614237 19,5.5 L19,5 C19,4.72385763 18.7761424,4.5 18.5,4.5 L14,4.5 Z" fill="#5d78ff" opacity="0.3"></path>										</g>									</svg>
-</button>
-                  <!-- Delete Modal -->
+											<button data-toggle="modal" data-target="#confirm-{{$item->id}}" id="remove_{{$item->id}}" title="Delete" class="btn btn-sm btn-clean btn-icon btn-icon-md">
+											<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="18px" height="18px" viewBox="0 0 24 24" version="1.1">										<g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">											<rect x="0" y="0" width="24" height="24"></rect>											<path d="M6,8 L6,20.5 C6,21.3284271 6.67157288,22 7.5,22 L16.5,22 C17.3284271,22 18,21.3284271 18,20.5 L18,8 L6,8 Z" fill="#5d78ff" fill-rule="nonzero"></path>											<path d="M14,4.5 L14,4 C14,3.44771525 13.5522847,3 13,3 L11,3 C10.4477153,3 10,3.44771525 10,4 L10,4.5 L5.5,4.5 C5.22385763,4.5 5,4.72385763 5,5 L5,5.5 C5,5.77614237 5.22385763,6 5.5,6 L18.5,6 C18.7761424,6 19,5.77614237 19,5.5 L19,5 C19,4.72385763 18.7761424,4.5 18.5,4.5 L14,4.5 Z" fill="#5d78ff" opacity="0.3"></path>										</g>									</svg>
+											</button>
+
+
+											<button data-qmsid="{{ $item->id }}" class="btn btn-sm btn-clean btn-icon btn-con-md download-pdf-qms" onclick = "qmsfun({{ $item->id }})" title="Download PDF">
+												<i class="fa fa-download"></i>
+											 </button>
+
+                                          <!-- Delete Modal -->
 
                   <div class="modal fade modal-mini modal-primary" id="confirm-{{$item->id}}" tabindex="-1" role="dialog" aria-labelledby="confirm" aria-hidden="true">
                     <div class="modal-dialog">
@@ -991,6 +1000,8 @@
 
 	<!--End::Section-->
 </div>
+
+
 
 <div class="modal fade" id="editProcessAudit" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
 	<div class="modal-dialog" role="document">
@@ -1067,6 +1078,7 @@
 										</div>
 									</div>
 								</div>
+
 								<div class="row">
 									<div class="col-lg-12">
 										<div class="form-group">
@@ -1094,6 +1106,7 @@
 										</div>
 									</div>
 								</div>
+
 								<div class="row">
 									<div class="col-lg-12">
 										<div class="form-group">
@@ -1122,6 +1135,7 @@
 										</div>
 									</div>
 								</div>
+
 								<div class="row">
 									<div class="col-lg-12">
 										<div class="form-group">
@@ -1150,6 +1164,7 @@
 										</div>
 									</div>
 								</div>
+
 								<div class="row">
 									<div class="col-lg-12">
 										<div class="form-group">
@@ -1178,6 +1193,7 @@
 										</div>
 									</div>
 								</div>
+
 								<div class="row">
 									<div class="col-lg-12">
 										<div class="form-group">
@@ -1206,6 +1222,7 @@
 										</div>
 									</div>
 								</div>
+								
 								<div class="row">
 									<div class="col-lg-12">
 										<div class="form-group">
@@ -2740,6 +2757,47 @@
 @endsection
 
 <script>
+
+function qmsfun(id)
+{
+            $.ajax({
+                url: '/generate-pdf-qms',
+                method: 'POST',
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
+                data: { qms_id: id },
+                success: function(response) 
+				{
+                    window.open(response.url, '_blank');
+                },
+                error: function() {
+                    console.error("Failed to generate PDF");
+                }
+            });
+}
+// $(document).on("click", ".download-pdf-qms", function() 
+//         {
+//             // process_id=this->processid;
+//             qms_id = $(this).attr("data-qmsid");
+//             $.ajax({
+//                 url: '/generate-pdf-qms',
+//                 method: 'POST',
+//                 headers: {
+//                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+//                 },
+//                 data: {qms_id:qms_id},
+//                 success: function(response) 
+// 				{
+//                     window.open(response.url, '_blank');
+//                 },
+//                 error: function() {
+//                     console.error("Failed to generate PDF");
+//                 }
+//             });
+//         });
+
+
     function getEid(data){
 		if($(".qms_audit_from_div").is(":visible")){
 			qmsAudit();
@@ -2950,4 +3008,10 @@
          $("#deleteRequirment").modal('show');
 
      }
+
+
+
+	//  QMS PDF REPORT
+	
+
  </script>

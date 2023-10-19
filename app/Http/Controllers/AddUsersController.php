@@ -41,6 +41,7 @@ class AddUsersController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    
     public function index()
     {
         $users = AddUsers::where('role_type', 'user')->orderBy('id', 'desc')->get();
@@ -83,11 +84,16 @@ class AddUsersController extends Controller
     //     return $list;
     // }
 
+
+
+    
+    // working code 
     public function userLoginHistory(Request $request)
     {
         $user_id = $request->input('user_id');
         
         $loginHistory = LoginHistoryUser::where('user_id', $user_id)->orderBy('id', 'desc')->get();
+        // dd($loginHistory);
         
         $list = '<table class="table">
         <thead>
@@ -102,7 +108,8 @@ class AddUsersController extends Controller
         
         $i = 1;
         
-        foreach ($loginHistory as $history) {
+        foreach ($loginHistory as $history) 
+        {
             $list .= '<tr>';
             $list .= '<td style="text-align: center;">' . $i . '</td>';
             $list .= '<td style="padding:5px 15px; text-align: center;">' . date('d-m-Y H:i:s', strtotime($history->login_time)) . '</td>';
@@ -117,6 +124,69 @@ class AddUsersController extends Controller
         
         return $list;
     }
+
+
+
+    // public function userLoginHistory(Request $request) 
+    // {
+    //     // dd("abc");
+    //     $user_id = $request->input('user_id');
+    //     $page = $request->input('page', 1);
+    //     $perPage = 10;
+    //     $offset = ($page - 1) * $perPage;
+        
+    //     $loginHistory = LoginHistoryUser::where('user_id', $user_id)
+    //         ->orderBy('id', 'desc')
+    //         ->skip($offset)
+    //         ->take($perPage)
+    //         ->get();
+        
+    //     $list = '<table class="table">
+    //     <thead>
+    //         <tr>
+    //             <th>ID</th>
+    //             <th>Login Date & Time</th>
+    //             <th>IP Address</th>
+    //             <th>Browser</th>
+    //         </tr>
+    //     </thead>
+    //     <tbody>';
+        
+    //     $i = 1;
+        
+    //     foreach ($loginHistory as $history) 
+    //     {
+    //         $list .= '<tr>';
+    //         $list .= '<td style="text-align: center;">' . $i . '</td>';
+    //         $list .= '<td style="padding:5px 15px; text-align: center;">' . date('d-m-Y H:i:s', strtotime($history->login_time)) . '</td>';
+    //         $list .= '<td style="padding:5px 15px; text-align: center;">' . $history->ip_address . '</td>';
+    //         $list .= '<td style="padding:5px 15px; text-align: center;">' . $history->browser . '</td>';
+    //         $list .= '</tr>';
+    //         $i++;
+    //     }
+        
+    //     $list .= '</tbody>
+    //     </table>';
+        
+    //     $pagination = $loginHistory->links()->toHtml();
+    //     return response()->json(['data' => $list, 'pagination' => $pagination]);
+    // }
+
+
+//     public function userLoginHistory(Request $request) 
+// {
+//     $user_id = $request->input('user_id');
+//     $perPage = 10;
+    
+//     $loginHistory = LoginHistoryUser::where('user_id', $user_id)
+//         ->orderBy('id', 'desc')
+//         ->paginate($perPage);
+
+//     return view('admin.dashboard.admin.view_user', compact('loginHistory'));
+// }
+
+
+
 
 
     

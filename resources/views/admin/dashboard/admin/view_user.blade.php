@@ -427,8 +427,8 @@
     </div>
 
 
-    <!-- Modal for Login History -->
-    {{-- <div class="modal fade" id="viewUser" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    {{-- <!-- Modal for Login History -->
+    <div class="modal fade" id="viewUser" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
@@ -448,6 +448,8 @@
         </div>
     </div> --}}
 
+    
+      {{-- working code --}}
      <!-- Modal for Login History -->
      <div class="modal fade" id="viewUser" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
@@ -468,6 +470,54 @@
             </div>
         </div>
     </div>
+
+
+        <!-- Modal for Login History -->
+{{-- <div class="modal fade" id="viewUser" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Login History</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <h1>Last Login History <span id="userName"></span></h1>
+
+                <div id="loginHistoryTable">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Login Date & Time</th>
+                                <th>IP Address</th>
+                                <th>Browser</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach ($loginHistory as $history)
+                                <tr>
+                                    <td style="text-align: center">{{ $loop->index + 1 }}</td>
+                                    <td style="padding: 5px 15px; text-align: center">{{ date('d-m-Y H:i:s', strtotime($history->login_time)) }}</td>
+                                    <td style="padding: 5px 15px; text-align: center">{{ $history->ip_address }}</td>
+                                    <td style="padding: 5px 15px; text-align: center">{{ $history->browser }}</td>
+                                </tr>
+                            @endforeach
+                        </tbody>
+                    </table>
+                </div>
+                {{ $loginHistory->links() }}
+            
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div> --}}
+
+
 
 
 
@@ -1417,6 +1467,9 @@
         //     });
         // }
 
+
+
+        // working code 
         function get_history(id) 
         {
             $.ajax({
