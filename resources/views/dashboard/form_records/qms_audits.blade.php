@@ -420,7 +420,7 @@
                         <th>Question: Date Completed (DD/MM/YYYY)</th>
                     </tr>
                     <tr>
-                        <td>Answer: {{ $auditdata->competedDate }}</td>
+                        <td>Answer: {{ date('d/m/Y', strtotime($auditdata->competedDate)) }}</td>
                     </tr>
                 </table>
 
