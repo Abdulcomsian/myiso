@@ -237,7 +237,7 @@
 									<div class="col-lg-12">
 										<div class="form-group">
 											<label>Evidence:</label>
-											<input type="text" name="evidance7" class="form-control"  placeholder="Enter Evidence:">
+											<input type="text" name="evidance7_1" class="form-control"  placeholder="Enter Evidence:">
 										</div>
 									</div>
 								</div>
@@ -1218,7 +1218,7 @@
 									<div class="col-lg-12">
 										<div class="form-group">
 											<label>Evidence:</label>
-											<input type="text" name="evidance7" class="form-control"  placeholder="Enter Evidence:">
+											<input type="text" name="evidance7_1" class="form-control"  placeholder="Enter Evidence:">
 										</div>
 									</div>
 								</div>
@@ -2092,7 +2092,7 @@
 									<div class="col-lg-12">
 										<div class="form-group">
 											<label>Evidence:</label>
-											<input type="text" name="evidance7" class="form-control"  placeholder="Enter Evidence:">
+											<input type="text" name="evidance7_1" class="form-control"  placeholder="Enter Evidence:">
 										</div>
 									</div>
 								</div>

@@ -112,7 +112,7 @@
                         <td>Answer: {{ $auditdata->correction7 }}</td>
                     </tr>
                     <tr>
-                        <td>Evidence: {{ $auditdata->evidance7 }}</td>
+                        <td>Evidence: {{ $auditdata->evidance7_1 }}</td>
                     </tr>
                 </table>
 
