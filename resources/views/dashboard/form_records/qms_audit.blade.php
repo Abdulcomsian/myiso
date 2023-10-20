@@ -1851,7 +1851,7 @@
 									</div>
 									<div class="col-lg-12">
 										<div class="form-group">
-											<label>Date Completed (MM/DD/YYYY):</label>
+											<label>Date Completed (DD/MM/YYYY):</label>
 											<input type="date" max="2999-12-31" name="competedDate" class="form-control"  placeholder="Enter Evidence:">
 										</div>
 									</div>
@@ -2723,7 +2723,7 @@
 									</div>
 									<div class="col-lg-12">
 										<div class="form-group">
-											<label>Date Completed (MM/DD/YYYY):</label>
+											<label>Date Completed (DD/MM/YYYY):</label>
 											<input  required  type="date" max="2999-12-31" name="competedDate" class="form-control"  placeholder="Enter Evidence:">
 										</div>
 									</div>

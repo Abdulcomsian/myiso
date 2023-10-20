@@ -984,7 +984,7 @@
                             </div>
                             <div class="col-lg-6">
                                 <div class="form-group">
-                                    <label>Audit Date (MM/DD/YYYY):</label>
+                                    <label>Audit Date (DD/MM/YYYY):</label>
                                     <input disabled type="date" max="2999-12-31" name="auditDate" class="form-control"
                                            required="required">
                                 </div>
