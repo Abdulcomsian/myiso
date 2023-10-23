@@ -59,13 +59,23 @@
                         </div>
                     </div>
 
+
                     <div class="col-lg-6">
+                        <div class="form-group">
+                            <label>Employee Name:</label>
+                            <input type="text" class="form-control employee_name" name="employee_name"
+                                placeholder="Enter Employee Name">
+                        </div>
+                    </div>
+
+                    {{-- customer comment --}}
+                    {{-- <div class="col-lg-6">
                         <div class="form-group">
                             <label> Customer Name:</label>
                             <input type="text" required class="form-control customer_name" name="rootCause"
                                 placeholder="Enter Customer Name">
                         </div>
-                    </div>
+                    </div> --}}
 
                     {{-- <div class="col-lg-6">
                         <div class="form-group">
@@ -103,13 +113,6 @@
                         </div>
                     </div>
 
-                    <div class="col-lg-6">
-                        <div class="form-group">
-                            <label>Employee Name:</label>
-                            <input type="text" class="form-control employee_name" name="employee_name"
-                                placeholder="Enter Employee Name">
-                        </div>
-                    </div>
 
                     <div class="col-lg-6">
                         <div class="form-group">
@@ -125,8 +128,7 @@
                             </select>
                         </div>
                     </div>
-                </div>
-                <div class="row">
+
                     <div class="col-lg-6">
                         <div class="form-group">
                             <label>Fault Description:</label>
@@ -134,6 +136,8 @@
                                 placeholder="Enter Fault Description" required>
                         </div>
                     </div>
+                </div>
+                <div class="row">
                     <div class="col-lg-6">
                         <div class="form-group">
                             <label>Root Cause:</label>
@@ -141,8 +145,6 @@
                                 required>
                         </div>
                     </div>
-                </div>
-                <div class="row">
                     <div class="col-lg-6">
                         <div class="form-group">
                             <label>Immediate Corrective Action:</label>
@@ -150,6 +152,8 @@
                                 placeholder="Enter Immediate Corrective Action" required>
                         </div>
                     </div>
+                </div>
+                <div class="row">
                     <div class="col-lg-6">
                         <div class="form-group">
                             <label>Action to Prevent Recurrence:</label>
@@ -157,8 +161,7 @@
                                 placeholder="Enter action/s to prevent recurrence." required>
                         </div>
                     </div>
-                </div>
-                <div class="row">
+
                     <div class="col-lg-6">
                         <div class="form-group">
                             <label>Effectiveness of Action to Prevent Recurrence:</label>
@@ -166,6 +169,9 @@
                                 placeholder="Enter details of the effectiveness of action/s to prevent recurrence" required>
                         </div>
                     </div>
+                </div>
+
+                <div class="row">
                     <div class="col-lg-6">
                         <div class="form-group">
                             <label>Effectiveness Review Date (MM/DD/YYYY):</label>
@@ -173,8 +179,7 @@
                                 placeholder="Enter Prevent Recurrence" required>
                         </div>
                     </div>
-                </div>
-                <div class="row">
+
                     <div class="col-lg-6">
                         <div class="form-group">
                             <label>Review performed by:</label>
@@ -182,6 +187,9 @@
                                 required>
                         </div>
                     </div>
+                </div>
+
+                <div class="row">
                     <div class="col-lg-6">
                         <div class="form-group">
                             <label>Date when NC was processed (MM/DD/YYYY):</label>
@@ -189,8 +197,6 @@
                                 placeholder="Enter Prevent Recurrence" required>
                         </div>
                     </div>
-                </div>
-                <div class="row">
                     <div class="col-lg-6">
                         <div class="form-group">
                             <label>Date when NC was received (MM/DD/YYYY):</label>
@@ -198,6 +204,9 @@
                                 placeholder="Enter a name" required>
                         </div>
                     </div>
+                </div>
+
+                <div class="row">
                     <div class="col-lg-6">
                         <div class="form-group">
                             <label>Customer Response Expected Time (Days):</label>
@@ -205,8 +214,6 @@
                                 placeholder="Enter number of days" required>
                         </div>
                     </div>
-                </div>
-                <div class="row">
                     <div class="col-lg-6">
                         <div class="form-group">
                             <label>Product Impact (Yes or No):</label>
@@ -218,17 +225,19 @@
                             </select>
                         </div>
                     </div>
+                </div>
+
+                <div class="row">
                     <div class="col-lg-6">
-                                    <div class="form-group">
-                                        <label>NCR closed (Yes or No):</label>
-                                        <select name="NCR_closed" class="form-control">
-                                            <option value=""></option>
-                                            <option value="Yes">Yes</option>
-                                            <option value="No">No</option>
-                                        </select>
-                                    </div>
-                                </div>
-                    
+                      <div class="form-group">
+                         <label>NCR closed (Yes or No):</label>
+                            <select name="NCR_closed" class="form-control">
+                                <option value=""></option>
+                                <option value="Yes">Yes</option>
+                                <option value="No">No</option>
+                            </select>
+                        </div>
+                    </div>
                 </div>
 
                 <button type="submit" class="submitBtn">SUBMIT</button>
@@ -336,6 +345,7 @@
     <!--End::Section-->
 </div>
 
+
 <div class="modal fade" id="nonconfirmDetail" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
     aria-hidden="true">
     <div class="modal-dialog modal-lg" role="document">
@@ -385,11 +395,18 @@
 
                             <div class="col-lg-6">
                                 <div class="form-group">
+                                    <label>Employee Name:</label>
+                                    <input type="text" readonly disabled class="form-control employee_name_edit_display"
+                                        name="employee_name" placeholder="Enter Employee Name" id="employee_name">
+                                </div>
+                            </div>
+                            {{-- <div class="col-lg-6">
+                                <div class="form-group">
                                     <label>Customer Name:</label>
                                     <input type="text"  readonly disabled class="form-control customer_name_edit_display"
                                         name="CustomerName" placeholder="Enter Customer Name" id="customer_name">
                                 </div>
-                            </div>
+                            </div> --}}
 
                             <div class="col-lg-6">
                                 <div class="form-group">
@@ -406,26 +423,14 @@
                                 </div>
                             </div>
 
-
-                            <div class="col-lg-6">
-                                <div class="form-group">
-                                    <label>Employee Name:</label>
-                                    <input type="text" readonly disabled class="form-control employee_name_edit_display"
-                                        name="employee_name" placeholder="Enter Employee Name" id="employee_name">
-                                </div>
-                            </div>
-
                             <div class="col-lg-6">
                                 <div class="form-group">
                                     <label>Root Cause Category:</label>
                                     <input type="text" name="root_cause_category" readonly disabled id="" value=""
                                         class="form-control">
-
                                 </div>
                             </div>
 
-                        </div>
-                        <div class="row">
                             <div class="col-lg-6">
                                 <div class="form-group">
                                     <label>Fault Description:</label>
@@ -433,6 +438,9 @@
                                         placeholder="Enter Fault Description">
                                 </div>
                             </div>
+                        </div>
+
+                        <div class="row">
                             <div class="col-lg-6">
                                 <div class="form-group">
                                     <label>Root Cause:</label>
@@ -440,8 +448,6 @@
                                         placeholder="Enter Root Cause">
                                 </div>
                             </div>
-                        </div>
-                        <div class="row">
                             <div class="col-lg-6">
                                 <div class="form-group">
                                     <label>Immediate Corrective Action:</label>
@@ -449,6 +455,9 @@
                                         placeholder="Enter Immediate Corrective Action">
                                 </div>
                             </div>
+                        </div>
+
+                        <div class="row">
                             <div class="col-lg-6">
                                 <div class="form-group">
                                     <label>Action to Prevent Recurrence:</label>
@@ -456,8 +465,7 @@
                                         placeholder="Enter Prevent Recurrence">
                                 </div>
                             </div>
-                        </div>
-                        <div class="row">
+
                             <div class="col-lg-6">
                                 <div class="form-group">
                                     <label>Effectiveness of Action to Prevent Recurrence:</label>
@@ -465,6 +473,9 @@
                                         placeholder="Enter details of the effectiveness of action/s to prevent recurrence">
                                 </div>
                             </div>
+                        </div>
+
+                        <div class="row">
                             <div class="col-lg-6">
                                 <div class="form-group">
                                     <label>Effectiveness Review Date (MM/DD/YYYY):</label>
@@ -472,8 +483,6 @@
                                         placeholder="Select Effectiveness Review Date">
                                 </div>
                             </div>
-                        </div>
-                        <div class="row">
                             <div class="col-lg-6">
                                 <div class="form-group">
                                     <label>Review Performed By:</label>
@@ -481,6 +490,9 @@
                                         placeholder="Review performed by">
                                 </div>
                             </div>
+                        </div>
+
+                        <div class="row">
                             <div class="col-lg-6">
                                 <div class="form-group">
                                     <label>Date when NC was processed (MM/DD/YYYY):</label>
@@ -488,8 +500,6 @@
                                         placeholder="Enter Prevent Recurrence">
                                 </div>
                             </div>
-                        </div>
-                        <div class="row">
                             <div class="col-lg-6">
                                 <div class="form-group">
                                     <label>Date NC Received (MM/DD/YYYY):</label>
@@ -497,26 +507,29 @@
                                         placeholder="Enter a name">
                                 </div>
                             </div>
+                        </div>
+
+                        <div class="row">
                             <div class="col-lg-6">
                                 <div class="form-group">
                                     <label>Customer Response Expected Time (Days):</label>
                                     <input type="number" readonly disabled class="form-control validate_number"
-                                        name="CRE" placeholder="Enter
-                    number of days.">
+                                        name="CRE" placeholder="Enter number of days.">
                                 </div>
                             </div>
-                        </div>
-                        <div class="row">
                             <div class="col-lg-6">
                                 <div class="form-group">
                                     <label>Product Impact (Yes or No):</label>
                                     <select name="PI" class="form-control" readonly disabled>
-                                <option value="">Product Impact</option>
-                                <option value="Yes">Yes</option>
-                                <option value="No">No</option>
-                            </select>
+                                        <option value="">Product Impact</option>
+                                        <option value="Yes">Yes</option>
+                                        <option value="No">No</option>
+                                    </select>
                                 </div>
                             </div>
+                        </div>
+
+                        <div class="row">
                             <div class="col-lg-6">
                                     <div class="form-group">
                                         <label>NCR closed (Yes or No):</label>
@@ -525,8 +538,8 @@
                                             <option value="Yes">Yes</option>
                                             <option value="No">No</option>
                                         </select>
-                                    </div>
-                                </div>
+                                  </div>
+                            </div>
                         </div>
 
                     </form>
@@ -593,14 +606,21 @@
                                 </div>
                             </div>
 
-
                             <div class="col-lg-6">
+                                <div class="form-group">
+                                    <label>Employee Name:</label>
+                                    <input type="text" class="form-control employee_name_edit_display"
+                                        name="employee_name" placeholder="Enter Employee Name" id="employee_name">
+                                </div>
+                            </div>
+
+                            {{-- <div class="col-lg-6">
                                 <div class="form-group">
                                     <label>Customer Name:</label>
                                     <input type="text" class="form-control customer_name_edit_display"
                                         name="CustomerName" placeholder="Enter Customer Name" id="customer_name">
                                 </div>
-                            </div>
+                            </div> --}}
 
                             <div class="col-lg-6">
                                 <div class="form-group">
@@ -620,16 +640,6 @@
 
                             <div class="col-lg-6">
                                 <div class="form-group">
-                                    <label>Employee Name:</label>
-                                    <input type="text" class="form-control employee_name_edit_display"
-                                        name="employee_name" placeholder="Enter Employee Name" id="employee_name">
-                                </div>
-                            </div>
-
-
-
-                            <div class="col-lg-6">
-                                <div class="form-group">
                                     <label>Root Cause Category:</label>
                                                                 <select name="root_cause_category" class="form-control" required>
                                 <option value="Other">Other</option>
@@ -639,15 +649,13 @@
                                 <option value="Training">Training</option>
                                 <option value="Management">Management</option>
                                 <option value="Human Factor">Human Factor</option>
-                            </select>
+                                </select>
                                     <!--<input type="text" name="root_cause_category" id="" value="" class="form-control"-->
                                     <!--    required>-->
 
                                 </div>
                             </div>
 
-                        </div>
-                        <div class="row">
                             <div class="col-lg-6">
                                 <div class="form-group">
                                     <label>Fault Description:</label>
@@ -655,6 +663,9 @@
                                         placeholder="Enter Fault Description" required>
                                 </div>
                             </div>
+                        </div>
+
+                        <div class="row">
                             <div class="col-lg-6">
                                 <div class="form-group">
                                     <label>Root Cause:</label>
@@ -662,8 +673,6 @@
                                         placeholder="Enter Root Cause" required>
                                 </div>
                             </div>
-                        </div>
-                        <div class="row">
                             <div class="col-lg-6">
                                 <div class="form-group">
                                     <label>Immediate Corrective Action:</label>
@@ -671,6 +680,10 @@
                                         placeholder="Enter Immediate Corrective Action" required>
                                 </div>
                             </div>
+                        </div>
+
+
+                        <div class="row">
                             <div class="col-lg-6">
                                 <div class="form-group">
                                     <label>Action to Prevent Recurrence:</label>
@@ -678,8 +691,6 @@
                                         placeholder="Enter effectiveness of action/s to prevent recurrence." required>
                                 </div>
                             </div>
-                        </div>
-                        <div class="row">
                             <div class="col-lg-6">
                                 <div class="form-group">
                                     <label>Effectiveness of Action to Prevent Recurrence:</label>
@@ -687,6 +698,9 @@
                                         placeholder="Enter details of the effectiveness of action/s to prevent recurrence" required>
                                 </div>
                             </div>
+                        </div>
+                        <div class="row">
+                            
                             <div class="col-lg-6">
                                 <div class="form-group">
                                     <label>Effectiveness Review Date (MM/DD/YYYY):</label>
@@ -694,8 +708,6 @@
                                         placeholder="Enter Prevent Recurrence" required>
                                 </div>
                             </div>
-                        </div>
-                        <div class="row">
                             <div class="col-lg-6">
                                 <div class="form-group">
                                     <label>Review Performed By:</label>
@@ -703,6 +715,10 @@
                                         placeholder="Review performed by" required>
                                 </div>
                             </div>
+                        </div>
+
+                        <div class="row">
+                           
                             <div class="col-lg-6">
                                 <div class="form-group">
                                     <label>Date when NC was processed (MM/DD/YYYY):</label>
@@ -710,8 +726,6 @@
                                         placeholder="Date when NC was processed" required>
                                 </div>
                             </div>
-                        </div>
-                        <div class="row">
                             <div class="col-lg-6">
                                 <div class="form-group">
                                     <label>Date NC Received (MM/DD/YYYY):</label>
@@ -719,6 +733,10 @@
                                         placeholder="Enter a name" required>
                                 </div>
                             </div>
+                        </div>
+
+                        <div class="row">
+                            
                             <div class="col-lg-6">
                                 <div class="form-group">
                                     <label>Customer Response Expected Time (Days):</label>
@@ -726,8 +744,6 @@
                                         name="CRE" placeholder="Enter number of days" required="required">
                                 </div>
                             </div>
-                        </div>
-                        <div class="row">
                             <div class="col-lg-6">
                                 <div class="form-group">
                                     <label>Product Impact (Yes or No):</label>
@@ -739,6 +755,10 @@
                                         </select>   
                                 </div>
                             </div>
+                        </div>
+
+                        <div class="row">
+                            
                             <div class="col-lg-6">
                                     <div class="form-group">
                                         <label>NCR closed (Yes or No):</label>
@@ -749,7 +769,6 @@
                                         </select>
                                     </div>
                                 </div>
-
                         </div>
                         <div class="modal-footer">
                             <button type="reset" class="btn btn-secondary" data-dismiss="modal">Cancel</button>

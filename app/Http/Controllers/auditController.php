@@ -9,6 +9,8 @@ use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Schema;
+use PDF;
+use Illuminate\Support\Facades\Response;
 
 class auditController extends Controller
 {
@@ -17,6 +19,7 @@ class auditController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+
     public function index(Request $request)
     {
         $userid=Auth::user()->id;
@@ -33,6 +36,57 @@ class auditController extends Controller
     {
         //
     }
+
+
+    // public function generatePDF(Request $request)
+    // {
+    //     // $userId = auth()->user()->id;
+    //     $audit = Audit::where('id', $request->process_id)->get();
+
+    //     $pdf = PDF::loadView('dashboard.form_records.proces_audit', compact('audit'));
+
+    //     $pdfPath = public_path('process_audit_report.pdf');
+
+    //     $pdf->save($pdfPath);
+
+    //     return response()->json(['url' => asset('process_audit_report.pdf')]);
+    // }
+    
+    // public function downloadPDF()
+    // {
+    //     $pdfPath = public_path('temp_audit.pdf');
+        
+    //     return Response::download($pdfPath, 'process_audit.pdf');
+    // }
+
+
+
+    public function generatePDF(Request $request)
+    {
+        $process_audit = Audit::where('id', $request->process_id)->get();
+        $pdf = PDF::loadView('dashboard.form_records.proces_audit', compact('process_audit'));
+
+        $timestamp = now()->format('Y-m-d_H-i-s');
+        $pdfFileName = 'process_audit_pdf/' . $timestamp . 'process_audit.pdf';
+
+        $pdfPath = public_path($pdfFileName);
+
+        $pdf->save($pdfPath);
+        return response()->json(['url' => asset($pdfFileName)]);
+    }
+
+    public function downloadPDF()
+    {
+        $pdfFileName = 'process_audit.pdf';
+
+        $pdfPath = public_path('Process_Audit/' . $pdfFileName);
+
+        return Response::download($pdfPath, $pdfFileName);
+    }
+
+
+
+
 
     /**
      * Store a newly created resource in storage.
@@ -55,6 +109,7 @@ class auditController extends Controller
 //         ]);
 
         try{
+
             $Audit= new Audit;
             $Audit->user_id=Auth()->user()->id;
              $Audit->auditId=111;

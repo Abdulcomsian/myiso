@@ -52,8 +52,17 @@ Route::group(['middleware' => ['auth','usermiddle']], function ()
     Route::view('/customer', 'dashboard.customer.index');
     Route::get('/requirements_aspect','RequiremntController@index');
     Route::get('/process_audit','auditController@index');
+
+    Route::post('/generate-pdf', 'auditController@generatePDF')->name('generate-pdf');
+    Route::post('/download-pdf', 'auditController@downloadPDF')->name('download-pdf');
+
     Route::post('/chemical_control_delete','chemicalController@destroy_chemical');
     Route::get('/qms_audit','qmsauditController@index');
+
+    Route::post('/generate-pdf-qms', 'qmsauditController@generatePDFgms')->name('generate-pdf-qms');
+    Route::post('/download-pdf-qms', 'qmsauditController@downloadPDFqms')->name('download-pdf-qms');
+
+    
     Route::get('/non_confromities','nonConfromFormController@index');
     Route::get('/customer','CustomerController@index');
     Route::get('/customer_review', 'CustomerReviewController@index');
@@ -417,6 +426,12 @@ Route::group(['middleware' => ['auth','admin']], function ()
 
     });
 
+});
+
+
+Route::get('test' , function(){
+    // $browser = Jenssegers\Agent\Facades\Agent::browser();
+    // dd($browser);
 });
 
 
