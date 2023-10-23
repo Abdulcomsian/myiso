@@ -6,7 +6,7 @@
 /public/index.php
 /storage
 /vendor
-.env
+/.env
 /nbproject
 .phpunit.result.cache
 package-lock.json

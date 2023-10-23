@@ -124,7 +124,10 @@ Route::group(['middleware' => ['auth','admin']], function ()
     Route::get('/send_notifications', 'AddUsersController@send_notifications');
     Route::get('/receive_notifications', 'AddUsersController@receive_notifications');
     Route::get('/send_message', 'AddUsersController@send_message');
-    
+    Route::get('/sent_notification', 'AddUsersController@sentNotification')->name('sentNotification');
+    Route::get('/received_Notification', 'AddUsersController@receivedNotifications')->name('receiveNotification');
+    Route::get('/message', 'AddUsersController@individualMessageAdmin')->name('individualMessage');
+    Route::post('/storeReplyMessageAdmin', 'AddUsersController@storeReplyMessageAdmin')->name('storeReplyMessageAdmin');
     Route::post('/add_faq', 'AddUsersController@add_faq');
     Route::post('/add_faq_cate', 'AddUsersController@add_faq_cate');
     Route::get('/faq_edit/{id}', 'AddUsersController@faq_edit');
@@ -132,6 +135,7 @@ Route::group(['middleware' => ['auth','admin']], function ()
     Route::post('/faq_delete/{id}', 'AddUsersController@faq_delete');
     Route::get('/all_faqs', 'AddUsersController@all_faqs');
     Route::post('/cat_delete/{id}', 'AddUsersController@cat_delete');
+    Route::post('/mark-as-read', 'AddUsersController@markAsRead')->name('markasread');
 
     Route::post('/add_video', 'AddUsersController@add_video');
     Route::get('/video_edit/{id}', 'AddUsersController@video_edit');
@@ -166,6 +170,7 @@ Route::group(['middleware' => ['auth','admin']], function ()
     Route::post('/deleteAssesmnetadmin', 'AddUsersController@deleteAssesmnetadmin')->name('deleteAssesmnetadmin');
     Route::post('/deleteWorkadmin', 'AddUsersController@deleteWorkadmin')->name('deleteWorkadmin');
     Route::post('/sendNotifications', 'AddUsersController@sendNotifications')->name('sendNotifications');
+
     Route::post('/deleteNotifications', 'AddUsersController@deleteNotifications')->name('deleteNotifications');
     Route::post('/deleteMessage', 'AddUsersController@deleteMessage')->name('deleteMessage');
     Route::post('/deleteChemical', 'AddUsersController@deletechemicaladmin')->name('deletechemicaladmin');
@@ -282,8 +287,14 @@ Route::group(['middleware' => ['auth']], function ()
     Route::post('/accidentedit','AccidentRiskController@update')->name('accidentedit');
     Route::post('/editworkinstructions','WorkInstructionController@update')->name('editworkinstructions');
     Route::post('/update_qmsaudit','qmsauditController@update')->name('update_qmsaudit');
-    Route::get('/inboxmessage','SendNotificationsController@index')->name('inboxmessage');
-
+    Route::get('/inboxmessage','SendNotificationsController@oldNotifications');
+    Route::get('/create-message', 'SendNotificationsController@createUserMessage')->name('storeMessage');
+    Route::post('/store-message', 'SendNotificationsController@storeNotification')->name('storeNotification');
+    Route::get('/received-messages', 'SendNotificationsController@index')->name('inboxMessages');
+    Route::get('/sent_messages', 'SendNotificationsController@sentNotifications')->name('sentMessages');
+    Route::get('/user-message', 'SendNotificationsController@individualMessageUser')->name('individualMessageUser');
+    Route::post('/storeReplyMessageUser', 'SendNotificationsController@storeReplyMessageUser')->name('storeReplyMessageUser');
+    Route::post('/mark-as-read-user', 'SendNotificationsController@markAsRead')->name('markread');
     Route::post('/deleteqmsAudit','qmsauditController@destroy')->name('deleteqmsAudit');
     Route::post('/delete_customer_review','CustomerReviewController@destroy')->name('delete_customer_review');
     Route::post('/delete_maintain_rec','MaintainRecController@destroy')->name('delete_m_r');

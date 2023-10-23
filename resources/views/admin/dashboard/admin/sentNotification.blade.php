@@ -1,4 +1,4 @@
-@extends('dashboard.layouts.app')
+@extends('admin.dashboard.layouts.app')
 
 @section('content')
 <style>tr.New>td {color: #000 !important;font-weight: 800;cursor: pointer;}tr.New>button{color: #FFF !important;font-weight: 800;cursor: pointer;}
@@ -22,8 +22,6 @@
 	        <!-- </div> -->
 	</div>
 	@endif
-
-
 	<div class="kt-portlet kt-portlet--mobile">
 		<div class="kt-portlet__head kt-portlet__head--lg">
 			<div class="kt-portlet__head-label">
@@ -31,47 +29,9 @@
 					<i class="kt-font-brand flaticon2-line-chart"></i>
 				</span>
 				<h3 class="kt-portlet__head-title">
-					Inbox
+					Sent Messages
 				</h3>
-				
 			</div>
-			{{-- <div class="procedure_div">
-				<div class="row">
-					<div class="col-lg-12 text-right">
-						<a onclick="requirementFrom()" class="addBtn">Send a Message</a>
-					</div>
-				</div>
-				<div class="requirments_from_div">
-		
-					<form action="{{route('requiemntform')}}" method="POST">
-						 @csrf
-						<div class="form-group">
-							<label>Requirement:</label>
-							<input type="text" name="requirement" class="form-control"  placeholder="Enter Requirement:" required>
-						</div>
-						<div class="row">
-							<div class="col-lg-6">
-								<div class="form-group">
-									<label>Requirement Completion Date of the Activity (DD/MM/YYYY):</label>
-									<input type="date" max="2999-12-31" name="completiondate" max="2999-12-31" class="form-control" required>
-								</div>
-							</div>
-							<div class="col-lg-6">
-								<div class="form-group">
-									<label>Periodicity (Months):</label>
-									<input type="number" name="month" id="month" oninput="this.value = Math.abs(this.value)" min="1" max="12" class="form-control" placeholder="Enter Months:" required>
-								</div>
-							</div>
-						</div>
-						
-						<button type="submit" class="submitBtn">SUBMIT</button>
-						<button onclick="requirementFrom()" style="float: right;margin-right: 6px;border: none;background: #646c9a;color: #fff;padding: 8px 47px;border-radius: 5px;" type="reset"> Cancel </button>
-					</form>
-				</div>
-			</div> --}}
-		
-			
-
 			<div class="kt-portlet__head-toolbar">
 				<div class="kt-portlet__head-wrapper">
 					<div class="kt-portlet__head-actions">
@@ -133,18 +93,19 @@
 				<thead>
 					<tr>
 						<th>No.</th>
-						<th>From</th>
+						<th>To</th>
 						<th>Subject</th>
-						<td>Received at</td>						
+						<td>Sent at</td>
+						{{-- <th>Message</th> --}}
+						
 					</tr>
 				</thead>
 				<tbody>
 
 					<?php $count=0;?>
-					@foreach ($message_info as $item)
+					@foreach ($users as $item)
 					<?php $count++; $counter = App\SendNotifications::where('unique_id', $item->unique_id)->count(); ?>
-						
-                            <tr data-item-id = "{{ $item->unique_id }}" data-href = "{{ route('individualMessageUser', ['id'=>$item->unique_id]) }}"  class="{{($item->status == 0) ? 'New' : 'read'}} ">
+                            <tr data-href = "{{ route('individualMessage', ['id'=>$item->unique_id]) }}"  class="read">
                                     <td>{{$count}}</td>
                                     <td> {{$item->name . ' (' . $counter . ')'}} </td>
                                     <td>{{$item->title}}</td>
@@ -199,7 +160,7 @@
 	}
 	function editDetails(data){
 		console.log(data);
-		$("#editvalue").val(data.id);
+		 $("#editvalue").val(data.id);
          $("input[name='idnumber']").val(data.idnumber);
 		 $("input[name='name']").val(data.name);
 		 $("input[name='email']").val(data.email);
@@ -222,22 +183,22 @@
 		$('tr[data-href]').click(function(event) {
 			event.preventDefault();
 			var row = $(this);
-			var isUnread = row.hasClass('New');
-			if (isUnread) {
-				row.removeClass('New');
-				var itemID = row.data('item-id');
-				$.ajax({
-					type: 'POST',
-					url: '{{ route('markread') }}',
-					data: {
-						item_id: itemID,
-						_token: $('meta[name="csrf-token"]').attr('content')
-					},
-					success: function() {
-						// Optional: You can update the UI further if needed
-					},
-				});
-			}
+			// var isUnread = row.hasClass('New');
+			// if (isUnread) {
+			// 	row.removeClass('New');
+			// 	var itemID = row.data('item-id');
+			// 	$.ajax({
+			// 		type: 'POST',
+			// 		url: '{{ route('markasread') }}',
+			// 		data: {
+			// 			item_id: itemID,
+			// 			_token: $('meta[name="csrf-token"]').attr('content')
+			// 		},
+			// 		success: function() {
+			// 			// Optional: You can update the UI further if needed
+			// 		},
+			// 	});
+			// }
 			// Redirect to the link specified in data-href
 			window.location.href = row.attr('data-href');
 		});

@@ -1,4 +1,4 @@
-@extends('dashboard.layouts.app')
+@extends('admin.dashboard.layouts.app')
 
 @section('content')
 <style>tr.New>td {color: #000 !important;font-weight: 800;cursor: pointer;}tr.New>button{color: #FFF !important;font-weight: 800;cursor: pointer;}
@@ -135,18 +135,18 @@
 						<th>No.</th>
 						<th>From</th>
 						<th>Subject</th>
-						<td>Received at</td>						
+						<td>Received at</td>
 					</tr>
 				</thead>
 				<tbody>
-
+					{{-- @dd($message_info); --}}
 					<?php $count=0;?>
 					@foreach ($message_info as $item)
-					<?php $count++; $counter = App\SendNotifications::where('unique_id', $item->unique_id)->count(); ?>
-						
-                            <tr data-item-id = "{{ $item->unique_id }}" data-href = "{{ route('individualMessageUser', ['id'=>$item->unique_id]) }}"  class="{{($item->status == 0) ? 'New' : 'read'}} ">
+						<?php $count++; $counter = App\SendNotifications::where('unique_id', $item->unique_id)->count(); ?>
+                            <tr data-item-id = "{{ $item->unique_id }}" data-href = "{{ route('individualMessage', ['id'=>$item->unique_id]) }}"  class="{{($item->status == 0) ? 'New' : 'read'}} ">
                                     <td>{{$count}}</td>
-                                    <td> {{$item->name . ' (' . $counter . ')'}} </td>
+                                    {{-- <td> Me, {{$item->name}} </td> --}}
+                                    <td>{{$item->name . ' (' . $counter . ')'}} </td>
                                     <td>{{$item->title}}</td>
                                     <td>{{date("d/m/Y H:i:sA", strtotime($item->created_at) )}}</td>
                                     {{-- <td>
@@ -217,6 +217,22 @@
 		 $("#editModal").modal('show');
 	}
 
+	// $(document).ready(function() {
+	// 	// Add a click event listener to the table rows with the data-href attribute
+	// 	$('tr[data-href]').click(function() {
+	// 		var row = $(this);
+
+	// 		// Check if the row has the 'New' class (or any other class that indicates unread status)
+	// 		if (row.hasClass('New')) {
+	// 			// Remove the 'New' class
+	// 			row.removeClass('New');
+
+	// 			// Redirect to the link specified in data-href
+	// 			window.location.href = row.attr('data-href');
+	// 		}
+	// 	});
+	// });
+
 	$(document).ready(function() {
 		// Add a click event listener to the table rows with the data-href attribute
 		$('tr[data-href]').click(function(event) {
@@ -228,7 +244,7 @@
 				var itemID = row.data('item-id');
 				$.ajax({
 					type: 'POST',
-					url: '{{ route('markread') }}',
+					url: '{{ route('markasread') }}',
 					data: {
 						item_id: itemID,
 						_token: $('meta[name="csrf-token"]').attr('content')
@@ -242,4 +258,7 @@
 			window.location.href = row.attr('data-href');
 		});
 	});
+
 </script>
+
+			

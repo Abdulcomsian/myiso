@@ -1,7 +1,6 @@
 <?php
 
 namespace App\Http\Controllers;
-
 use App\AccidentRisk;
 use App\AddUsers;
 use App\Assessment;
@@ -31,6 +30,8 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
+// use Illuminate\Support\Facades\Notification;
+use App\Notifications\messageNotification;
 use App\Chemical;
 use Illuminate\Support\Facades\Schema;
 
@@ -128,7 +129,6 @@ public function store(Request $request)
                 'name' => 'required',
                 'password' => 'required',
                 'email' => 'required'
-
             ]);
             $pass = $request->input('password');
             $addusers = new AddUsers();
@@ -348,7 +348,7 @@ public function store(Request $request)
         if($request->ajax())
         {
             //  dd($request->start_date);
-             
+            //  dd($request->all());
              //&& $request->month
             if($request->type=="month")
             {
@@ -393,9 +393,7 @@ public function store(Request $request)
                 }else{
                     dd("Please select Certification");
                 }
-                // $users=AddUsers::where("last_login",">", Carbon::now()->subMonths($request->month))->get();
-
-                
+                // $users=AddUsers::where("last_login",">", Carbon::now()->subMonths($request->month))->get(); 
             }
             elseif($request->type="certificate" && $request->cert){
                 //  dd($request->cert);
@@ -420,10 +418,9 @@ public function store(Request $request)
                 
             }
             else{
-              //  $users=AddUsers::where('role_type','user')->get();
+            //    $users=AddUsers::where('role_type','user')->get();
                 $users='';
             }
-           
             if(isset($users))
             {
                 $list='';
@@ -439,7 +436,6 @@ public function store(Request $request)
             }else{
                 echo"error";
             }
-            
         }
         else{
             $users=AddUsers::where('role_type','user')->get();
@@ -448,10 +444,21 @@ public function store(Request $request)
             ->where('admin_delete',false)
             ->orderby('notification_id','desc')
             ->get();
+            
             return view('admin.dashboard.admin.send_message',compact('users','adminmessage'));
         }
-        
+    }
 
+// function used to show sent notification on Admin Panel
+    public function sentNotification(){
+        $user_id = Auth::user()->id;
+        $users = SendNotifications::join('users','users.id','=','send_notification.send_to')
+        ->select('send_notification.*', 'users.name')
+        ->orderby('send_notification.id', 'desc')
+        ->where('send_notification.send_by', $user_id)
+        ->groupBy('send_notification.unique_id')
+        ->get();
+        return view('admin.dashboard.admin.sentNotification',compact('users'));
     }
 
 
@@ -472,7 +479,14 @@ public function store(Request $request)
     }
 
     public function sendNotifications(Request $request){
+
+        // $request->validate([
+        //         'userid' => 'required'
+        //     ],
+        // );
+
         $users = $request->userid;
+        // dd($users);
         $data = [];
 
         if ($request->file('attachment')) {
@@ -482,25 +496,36 @@ public function store(Request $request)
             $request->file('attachment')->move(public_path('uploads/user'), $imageName);
             $data['attachement'] = $path;
         }
+        $user_id = Auth::user()->id;
 
         $data['title']=$request->input('title');
         $data['message']=$request->input('message');
         $data['created_at'] = date('Y-m-d H:i:s');
-        //  $data['replied'] =$request->input('replied');
-// dd($data);
-        foreach ($users as $user){
-            $data['send_to'] = $user;
-            SendNotifications::create($data);
-            DB::table('users_messages')->where('id', $request->input('replied'))->update(['replied' => 1]);
+        $data['send_by'] = $user_id;
+        if($users==NULL){
+            return redirect()->back()->with('error', 'Please select at least one User');
+        }else{
+            foreach ($users as $user){
+                $randomBytes = random_bytes(4); 
+                $randomInt = unpack('L', $randomBytes)[1];
+                $data['unique_id'] = intval(microtime(true) + $randomInt);
+                $data['send_to'] = $user;
+                // storing data into database
+                SendNotifications::create($data);
+                // sending notification to user(s)
+                $user = User::where('id', $user)->first();
+                $senderName = Auth::user()->name;
+                $notificationMessage = new messageNotification($senderName);
+                $user->notify($notificationMessage);
+                DB::table('users_messages')->where('id', $request->input('replied'))->update(['replied' => 1]);
+            }
+            return redirect()->back()->with('success', 'Your message has been Sent');
         }
-
-        return redirect()->back();
     }
 
     public function AuditsCheck($request){
         $auditreport=Qmsaudit::where('user_id',$request)->orderBy('id','DESC')->get();
         return view('admin.adminform_records.qms_audit',compact('auditreport'));
-
     }
 
     public function nonConformCheck(Request $request, $id)
@@ -877,11 +902,90 @@ public function store(Request $request)
             print_r($exc->getMessage());
         }
     }
+
+    // function used to display the messages in old Inbox
     public function receive_notifications()
     {
         $notif = DB::table('users_messages')->orderBy('id', 'desc')->get();
 		return view('admin.dashboard.admin.receive_notifications',compact('notif'));
     }  
+
+    // function used to show messages in New Inbox
+    public function receivedNotifications(Request $request){
+        $userid=Auth::user()->id;
+        $message_info=SendNotifications::join('users', 'users.id','=','send_notification.send_by')
+        ->select('send_notification.*', 'users.name')
+        ->where('send_notification.send_to',$userid)
+        ->groupBy('send_notification.unique_id')
+        ->orderBy('send_notification.created_at', 'desc')
+        ->get();
+        return view('admin.dashboard.admin.receive_notification_inbox', compact('message_info'));      
+    }
+
+    public function markAsRead(Request $request) {
+        $item_id = $request->input('item_id');
+        SendNotifications::where('unique_id', $item_id)->update(['status' => 1]);
+    }
+    
+
+    public function individualMessageAdmin(){
+        $messageId = $_GET['id'];
+        // dd()
+        $userId = Auth::user()->id;
+        $message_information = SendNotifications::join('users', 'users.id','=','send_notification.send_by')
+        ->where('unique_id', $messageId)
+        ->select('send_notification.*', 'users.name')
+        ->get();
+
+        $user_id = Auth::user()->id;
+        $parent_message_id = SendNotifications::where('unique_id', $messageId)
+        ->where('send_by', $user_id)
+        ->first(['id']);
+
+    
+        // dd($parent_message_id);
+        return view('admin.dashboard.admin.admin_individual_message', compact('message_information', 'parent_message_id'));
+    }
+
+    // function used to store the message from the Admin 
+    public function storeReplyMessageAdmin(Request $request){
+        $user_id = Auth::user()->id;
+        $receiver = $request->input('receiver');
+        $sender = $request->input('sender');
+        $parentId = $request->input('parentId');
+        $parentIdArray = json_decode($parentId, true);
+        if (is_array($parentIdArray) && isset($parentIdArray['id'])) {
+            $id = $parentIdArray['id'];
+            
+        }
+        $reply = new SendNotifications;
+        $reply->title = $request->input('title');
+        $reply->message = $request->input('replyMessage');
+        
+        if($receiver == $user_id){
+            $reply->send_by = $user_id;
+            $reply->send_to = $sender;
+        }else{
+            $reply->send_to = $receiver;
+            $reply->send_by = $user_id;
+        }
+
+        if ($request->hasFile('attachment')) {
+            $imagePath = $request->file('attachment');
+            $imageName = uniqid() . "." .$imagePath->extension();
+            $path = $request->file('attachment')->storeAs('uploads/user', $imageName, 'public');
+            $request->file('attachment')->move(public_path('uploads/user'), $imageName);
+            $reply->attachement = $path;
+        }
+
+        $reply->created_at = date('Y-m-d H:i:s');
+        $reply->unique_id = $request->input('messageId');
+        $reply->save();
+        if(!empty($id)){
+            SendNotifications::where('id', $id)->update(['status'=>0]);
+        }
+        return redirect()->back();
+    }
 
     // updateauditadmin
     public function updateauditadmin(Request $request)
@@ -900,7 +1004,7 @@ public function store(Request $request)
              $Audit->AdutiActions=$request->input('AdutiActions');
              $Audit->dateFrequency=$request->input('dateFrequency');
 
-			  $Audit->qmsCorects=$request->input('qmsCorects');
+			 $Audit->qmsCorects=$request->input('qmsCorects');
              $Audit->evidence=$request->input('evidence');
              $Audit->needExpactations=$request->input('needExpactations');
              $Audit->evidance2=$request->input('evidance2');
