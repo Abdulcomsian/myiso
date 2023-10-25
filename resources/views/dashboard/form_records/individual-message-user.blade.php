@@ -53,7 +53,7 @@
 					<div class="card-header" id="heading{{ $item->id }}">
 						<h2 class="mb-0">
 							<button class="btn btn-link" type="button" data-toggle="collapse"
-								data-target="#collapse{{ $item->id }}" aria-expanded="{{ $key === count($message_information) - 1 ? 'true' : 'false' }}"
+								data-target="#collapse{{ $item->id }}" aria-expanded="{{ $key === 0 ? 'true' : 'false' }}"
 								aria-controls="collapse{{ $item->id }}">
 								From - Me
 							</button>
@@ -69,7 +69,7 @@
 						</h2>
 					</div>
 
-					<div id="collapse{{ $item->id }}" class="collapse {{ $key === count($message_information) - 1 ? 'show' : '' }}" aria-labelledby="heading{{ $item->id }}"
+					<div id="collapse{{ $item->id }}" class="collapse {{ $key === 0 ? 'show' : '' }}" aria-labelledby="heading{{ $item->id }}"
 						data-parent="#accordionExample">
 						<div class="card-body">
 							{{ $item->message }}
@@ -81,7 +81,7 @@
 					<div class="card-header" id="heading{{ $item->id }}">
 						<h2 class="mb-0">
 							<button class="btn btn-link" type="button" data-toggle="collapse"
-								data-target="#collapse{{ $item->id }}" aria-expanded="{{ $key === count($message_information) - 1 ? 'true' : 'false' }}"
+								data-target="#collapse{{ $item->id }}" aria-expanded="{{ $key === 0 ? 'true' : 'false' }}"
 								aria-controls="collapse{{ $item->id }}">
 								From - {{ $item->name }}
 							</button>
@@ -97,7 +97,7 @@
 						</h2>
 					</div>
 
-					<div id="collapse{{ $item->id }}" class="collapse {{ $key === count($message_information) - 1 ? 'show' : '' }}" aria-labelledby="heading{{ $item->id }}"
+					<div id="collapse{{ $item->id }}" class="collapse {{ $key === 0 ? 'show' : '' }}" aria-labelledby="heading{{ $item->id }}"
 						data-parent="#accordionExample">
 						<div class="card-body">
 							{{ $item->message }}

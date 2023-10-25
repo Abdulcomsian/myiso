@@ -146,7 +146,7 @@
 						
                             <tr data-item-id = "{{ $item->unique_id }}" data-href = "{{ route('individualMessageUser', ['id'=>$item->unique_id]) }}"  class="{{($item->status == 0) ? 'New' : 'read'}} ">
                                     <td>{{$count}}</td>
-                                    <td> {{$item->name . ' (' . $counter . ')'}} </td>
+                                    <td> {{$item->company_name . ' (' . $counter . ')'}} </td>
                                     <td>{{$item->title}}</td>
                                     <td>{{date("d/m/Y H:i:sA", strtotime($item->created_at) )}}</td>
                                     {{-- <td>

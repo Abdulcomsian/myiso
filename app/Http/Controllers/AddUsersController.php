@@ -542,10 +542,10 @@ public function store(Request $request)
     public function sentNotification(){
         $user_id = Auth::user()->id;
         $users = SendNotifications::join('users','users.id','=','send_notification.send_to')
-        ->select('send_notification.*', 'users.name')
-        ->orderby('send_notification.id', 'desc')
+        ->select('send_notification.*', 'users.name', 'users.company_name')
         ->where('send_notification.send_by', $user_id)
         ->groupBy('send_notification.unique_id')
+        ->orderby('send_notification.updated_at', 'desc')
         ->get();
         return view('admin.dashboard.admin.sentNotification',compact('users'));
     }
@@ -1003,10 +1003,10 @@ public function store(Request $request)
     public function receivedNotifications(Request $request){
         $userid=Auth::user()->id;
         $message_info=SendNotifications::join('users', 'users.id','=','send_notification.send_by')
-        ->select('send_notification.*', 'users.name')
+        ->select('send_notification.*', 'users.name', 'users.company_name')
         ->where('send_notification.send_to',$userid)
         ->groupBy('send_notification.unique_id')
-        ->orderBy('send_notification.created_at', 'desc')
+        ->orderBy('send_notification.updated_at', 'desc')
         ->get();
         return view('admin.dashboard.admin.receive_notification_inbox', compact('message_info'));      
     }
@@ -1023,6 +1023,7 @@ public function store(Request $request)
         $userId = Auth::user()->id;
         $message_information = SendNotifications::join('users', 'users.id','=','send_notification.send_by')
         ->where('unique_id', $messageId)
+        ->orderby('send_notification.id', 'desc')
         ->select('send_notification.*', 'users.name')
         ->get();
 

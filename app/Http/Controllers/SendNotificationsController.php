@@ -25,9 +25,11 @@ class SendNotificationsController extends Controller
     {
         $userid=Auth::user()->id;
         $message_info=SendNotifications::join('users', 'users.id','=','send_notification.send_by')
-        ->select('send_notification.*', 'users.name')
+        ->select('send_notification.*', 'users.name', 'users.company_name')
         ->where('send_notification.send_to',$userid)
-        ->orderBy('send_notification.id', 'desc')->groupby('send_notification.unique_id')->get();
+        ->groupby('send_notification.unique_id')
+        ->orderBy('send_notification.updated_at', 'desc')
+        ->get();
         return view('dashboard.form_records.inboxmessage',compact('message_info'));
     }
 
@@ -198,9 +200,10 @@ class SendNotificationsController extends Controller
     public function sentNotifications(){
         $user_id = Auth::user()->id;
         $users = SendNotifications::join('users','users.id','=','send_notification.send_to')
-        ->orderby('send_notification.id', 'desc')
+        ->select('send_notification.*', 'users.name', 'users.company_name')
         ->where('send_notification.send_by', $user_id)
         ->groupBy('send_notification.unique_id')
+        ->orderby('send_notification.updated_at', 'desc')
         ->get();
         return view('dashboard.form_records.sentMessages', compact('users'));
     }
@@ -209,15 +212,9 @@ class SendNotificationsController extends Controller
         $messageId = $_GET['id'];
         $message_information = SendNotifications::join('users', 'users.id','=','send_notification.send_by')
         ->where('unique_id', $messageId)
+        ->orderby('send_notification.id', 'desc')
         ->select('send_notification.*', 'users.name')
         ->get();
-
-        // $user_id = Auth::user()->id;
-        // $parent_message_id = SendNotifications::where('unique_id', $messageId)
-        // ->when($user_id == 'send_by', function ($query) use ($user_id) {
-        //     $query->where('send_by', $user_id);
-        // })
-        // ->first(['id']);
 
         $user_id = Auth::user()->id;
         $parent_message_id = SendNotifications::where('unique_id', $messageId)

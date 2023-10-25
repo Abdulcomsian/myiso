@@ -107,7 +107,7 @@
 					<?php $count++; $counter = App\SendNotifications::where('unique_id', $item->unique_id)->count(); ?>
                             <tr data-href = "{{ route('individualMessage', ['id'=>$item->unique_id]) }}"  class="read">
                                     <td>{{$count}}</td>
-                                    <td> {{$item->name . ' (' . $counter . ')'}} </td>
+                                    <td> {{$item->company_name . ' (' . $counter . ')'}} </td>
                                     <td>{{$item->title}}</td>
                                     <td>{{date("d/m/Y H:i:sA", strtotime($item->created_at) )}}</td>
                                     {{-- <td>

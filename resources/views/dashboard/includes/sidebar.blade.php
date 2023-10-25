@@ -482,7 +482,7 @@
                     </div>
                 </li>
 
-				<li id="notifications" class="kt-menu__item   kt-menu__item--submenu" aria-haspopup="true" data-ktmenu-submenu-toggle="hover">
+				{{-- <li id="notifications" class="kt-menu__item   kt-menu__item--submenu" aria-haspopup="true" data-ktmenu-submenu-toggle="hover">
 					<a href="{{ url('/inboxmessage') }}" class="kt-menu__link kt-menu__toggle">
 						<span class="kt-menu__link-icon">
 							<i class="fa fa-envelope" aria-hidden="true"></i>
@@ -498,7 +498,7 @@
 						</span>
 						<span class="kt-menu__link-text">Sent (OLD)</span>
 					</a>
-				</li>
+				</li> --}}
 					<li class="kt-menu__item   kt-menu__item--submenu" aria-haspopup="true" data-ktmenu-submenu-toggle="hover">
 					<a href="javascript:;" class="kt-menu__link kt-menu__toggle">
 						<span class="kt-menu__link-icon">
