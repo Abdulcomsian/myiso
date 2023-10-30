@@ -38,7 +38,7 @@
             <div class="container">
                 <table>
                     <tr>
-                        <th>Question: Process being audited</th>
+                        <th>Question: <i>Process being audited</i></th>
                     </tr>
                     <tr>
                         <td>Answer: {{ $auditdata->processAudit }}</td>
@@ -47,13 +47,13 @@
 
                 <table>
                     <tr>
-                        <th>Question: Auditor</th>
+                        <th>Question: <i>Auditor</i></th>
                     </tr>
                     <tr>
                         <td>Answer: {{ $auditdata->auditor }}</td>
                     </tr>
                     <tr>
-                        <th>Question: Audit Date (DD/MM/YYYY)</th>
+                        <th>Question: <i> Audit Date (DD/MM/YYYY) </i> </th>
                     </tr>
                     <tr>
                         <td>Answer: {{ date('d/m/Y', strtotime($auditdata->auditDate)) }}</td>
@@ -62,13 +62,13 @@
 
                 <table>
                       <tr>
-                        <th>Question: Number of Non-Conformities:</th>
+                        <th>Question: <i> Number of Non-Conformities: </i> </th>
                       </tr>
                       <tr>
                         <td>Answer: {{ $auditdata->nonConformities }}</td>
                       </tr>
                     <tr>
-                        <th>Question: Number of Observations:</th>
+                        <th>Question: <i> Number of Observations: </i> </th>
                     </tr>
                     <tr>
                         <td>Answer: {{ $auditdata->Observations }}</td>
@@ -77,13 +77,13 @@
 
                 <table>
                     <tr>
-                        <th>Question: Non-Conformance Report Reference (if applicable):</th>
+                        <th>Question: <i> Non-Conformance Report Reference (if applicable): </i> </th>
                     </tr>
                     <tr>
                         <td>Answer: {{ $auditdata->nonConfReport }}</td>
                     </tr>
                     <tr>
-                        <th>Question: Audit Actions:</th>
+                        <th>Question: <i> Audit Actions: </i> </th>
                     </tr>
                     <tr>
                         <td>Answer: {{ $auditdata->AdutiActions }}</td>
@@ -92,7 +92,7 @@
 
                 <table>
                     <tr>
-                        <th>Question: Audit Frequency (Months):</th>
+                        <th>Question: <i> Audit Frequency (Months): </i> </th>
                     </tr>
                     <tr>
                         <td>Answer: {{ $auditdata->dateFrequency }}</td>
@@ -101,7 +101,7 @@
 
                 <table>
                     <tr>
-                        <th>Question No:1 Is this process included in the Quality Manual or Work Instructions and is it still relevant?</th>
+                        <th>Question No:1 <i> Is this process included in the Quality Manual or Work Instructions and is it still relevant? </i> </th>
                     </tr>
                     <tr>
                         <td>Answer: {{ $auditdata->qmsCorects }}</td>
@@ -113,7 +113,7 @@
 
                 <table>
                     <tr>
-                        <th>Question No:2 Is this process being implemented as detailed in documented information?</th>
+                        <th>Question No:2 <i> Is this process being implemented as detailed in documented information? </i> </th>
                     </tr>
                     <tr>
                         <td>Answer: {{ $auditdata->needExpactations }}</td>
@@ -125,7 +125,7 @@
 
                 <table>
                     <tr>
-                        <th>Question No:3 Are all relevant personnel trained in this process and are records complete?</th>
+                        <th>Question No:3 <i> Are all relevant personnel trained in this process and are records complete? </i> </th>
                     </tr>
                     <tr>
                         <td>Answer: {{ $auditdata->correction3 }}</td>
@@ -137,7 +137,7 @@
 
                 <table>
                     <tr>
-                        <th>Question No:4 Are key performance indicator information being monitored for this process?</th>
+                        <th>Question No:4 <i> Are key performance indicator information being monitored for this process? </i> </th>
                     </tr>
                     <tr>
                         <td>Answer: {{ $auditdata->correction4 }}</td>
@@ -149,7 +149,7 @@
 
                 <table>
                     <tr>
-                        <th>Question No:5 Have appropriate targets and objectives been set for this process at Management Review?</th>
+                        <th>Question No:5 <i> Have appropriate targets and objectives been set for this process at Management Review? </i> </th>
                     </tr>
                     <tr>
                         <td>Answer: {{ $auditdata->correction5 }}</td>
@@ -161,7 +161,7 @@
 
                 <table>
                     <tr>
-                        <th>Question No:6 Have previous targets and objectives been reviewed for this process?</th>
+                        <th>Question No:6 <i> Have previous targets and objectives been reviewed for this process? </i> </th>
                     </tr>
                     <tr>
                         <td>Answer: {{ $auditdata->correction6 }}</td>
@@ -173,7 +173,7 @@
 
                 <table>
                     <tr>
-                        <th>Question No:7 Are all supporting procedures and work instructions used and at the correct revision?</th>
+                        <th>Question No:7  <i> Are all supporting procedures and work instructions used and at the correct revision? </i> </th>
                     </tr>
                     <tr>
                         <td>Answer: {{ $auditdata->correction7 }}</td>
@@ -185,7 +185,7 @@
 
                 <table>
                     <tr>
-                        <th>Question No:8 Are all equipment calibrated, up-to-date and recorded?</th>
+                        <th>Question No:8 <i> Are all equipment calibrated, up-to-date and recorded? </i> </th>
                     </tr>
                     <tr>
                         <td>Answer: {{ $auditdata->correction9 }}</td>
@@ -197,7 +197,7 @@
 
                 <table>
                     <tr>
-                        <th>Question No:9 Is the job paperwork satisfactory? Record the job details for this process here.</th>
+                        <th>Question No:9 <i> Is the job paperwork satisfactory? Record the job details for this process here. </i></th>
                     </tr>
                     <tr>
                         <td>Answer: {{ $auditdata->correction10 }}</td>
@@ -209,7 +209,7 @@
 
                 <table>
                     <tr>
-                        <th>Question: Attach Evidence</th>
+                        <th>Question: <i>Attach Evidence </i> </th>
                     </tr>
                     <tr>
                         <td>Answer: {{ $auditdata->attach_evidence }}</td>
@@ -218,7 +218,7 @@
 
                 <table>
                     <tr>
-                        <th>Question: Any other issues or points to note?</th>
+                        <th>Question: <i> Any other issues or points to note? </i> </th>
                     </tr>
                     <tr>
                         <td>Answer: {{ $auditdata->any_issues }}</td>
