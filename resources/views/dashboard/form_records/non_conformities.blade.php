@@ -209,7 +209,7 @@
                 <div class="row">
                     <div class="col-lg-6">
                         <div class="form-group">
-                            <label>Customer Response Expected Time (Days):</label>
+                            <label>Supplier Response Expected Time (Days):</label>
                             <input type="text" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*?)\..*/g, '$1');"  required class="form-control validate_number" name="CRE"
                                 placeholder="Enter number of days" required>
                         </div>
@@ -288,12 +288,12 @@
                         <thead>
                             <tr>
                                 <th>NCR ID Number</th>
-                                <th>Customer ID Number</th> 
-                                <th>Customer Name</th> 
+                                <th>Supplier ID Number</th> 
+                                <th>Supplier Name</th> 
                                 <th>Fault Description</th>
                                 <th>Category</th>
                                 <th>Date NCR was Processed.</th>
-                                <th>Supplier</th>
+                                <th>Employee who reported NCR</th>
                                 <th>Action</th>
                             </tr>
                         </thead>
@@ -306,11 +306,12 @@
                                 <tr>
                                     <td>{{ $i++ }} </td>
                                     <td>  {{$data->customerID }}</td> 
-                                    <td>{{ $data->name }}</td> 
+                                    <td>{{ $data->supplier_data }}</td> 
                                     <td> {{ $data->description }}</td>
                                     <td> {{ $data->root_cause_category }}</td>
                                     <td>{{ date('d/m/Y', strtotime($data->dateNcR)) }}</td>
-                                    <td> {{ $data->supplier_data }} </td>
+                                    {{-- <td> {{ $data->supplier_data }} </td> --}}
+                                    <td> {{ $data->employee_name }} </td>
                                     <td> <button class="btn btn-sm btn-clean btn-icon btn-icon-md" title="View"
                                             value="{{ $data->customerID }}"
                                             onclick="getEid({{ json_encode($data) }});">
@@ -373,7 +374,7 @@
 
                             <div class="col-lg-6">
                                 <div class="form-group">
-                                    <label>Customer ID Number:</label>
+                                    <label>Supplier ID Number:</label>
                                     @if($no_customer==1)
                                         <select readonly disabled class="form-control" required name="customerID"
                                            >
@@ -512,7 +513,7 @@
                         <div class="row">
                             <div class="col-lg-6">
                                 <div class="form-group">
-                                    <label>Customer Response Expected Time (Days):</label>
+                                    <label>Supplier Response Expected Time (Days):</label>
                                     <input type="number" readonly disabled class="form-control validate_number"
                                         name="CRE" placeholder="Enter number of days.">
                                 </div>
@@ -586,17 +587,17 @@
 
                             <div class="col-lg-6">
                                 <div class="form-group">
-                                    <label>Customer ID Number:</label>
+                                    <label>Supplier ID Number: </label>
                                     @if($no_customer==1)
                                         <select readonly disabled class="form-control" required name="customerID"
                                            >
-                                            <option value="">Enter Customer ID Number:</option>
+                                            <option value="">Enter Supplier ID Number: </option>
                                            
                                         </select>
                                     @else
                                     <select readonly  class="form-control" name="customerID"
                                         id="customer_id_{{ $customer->idNumber }}">
-                                        <option value="">Enter Customer ID Number:</option>
+                                        <option value="">Enter Supplier ID Number:</option>
                                         @foreach($customers as $customer)
                                             <option value="{{ $customer->idNumber }}">{{ $customer->idNumber }}
                                             </option>
@@ -739,7 +740,7 @@
                             
                             <div class="col-lg-6">
                                 <div class="form-group">
-                                    <label>Customer Response Expected Time (Days):</label>
+                                    <label>Supplier Response Expected Time (Days):</label>
                                     <input type="number" required min="1" max="9999" class="form-control validate_number"
                                         name="CRE" placeholder="Enter number of days" required="required">
                                 </div>
