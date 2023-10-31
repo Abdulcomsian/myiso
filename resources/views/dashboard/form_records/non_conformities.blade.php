@@ -610,7 +610,7 @@
                             <div class="col-lg-6">
                                 <div class="form-group">
                                     <label>Employee Name:</label>
-                                    <input type="text" class="form-control employee_name_edit_display"
+                                    <input type="text" class="form-control employee_name_edit_display employee_name"
                                         name="employee_name" placeholder="Enter Employee Name" id="employee_name">
                                 </div>
                             </div>
@@ -623,21 +623,29 @@
                                 </div>
                             </div> --}}
 
+
+
+                            
                             <div class="col-lg-6">
                                 <div class="form-group">
-                                    <label>Employee ID Number:</label>
-
-                                    <select readonly class="form-control" name="employee_id"
-                                        id="employee_id_">
-                                        <option value="">Enter Employee ID Number:</option>
-                                        @foreach($employees as $employee)
-                                        <option value="{{ $employee->empNumber }}">{{ $employee->empNumber }}
-                                            {{-- @dd($customer) --}}
-                                        </option>
-                                @endforeach
-                                    </select>
+                                        <label>Employee ID Number:</label>
+                                    @if($no_customer==1)
+                                    <select onchange="get_employee(this)" class="form-control" required name="employee_id"
+                                            id="employee_id">
+                                            <option value="">Enter Employee ID Number:</option>
+                                        </select>
+                                        @else
+                                        <select onchange="get_employee(this)" class="form-control" name="employee_id"
+                                            id="employee_id">
+                                            <option value="">Enter Employee ID Number:</option>
+                                            @foreach($employees as $employee)
+                                                <option value="{{ $employee->empNumber }}">{{ $employee->empNumber }} </option>
+                                            @endforeach
+                                        </select>
+                                    @endif
                                 </div>
                             </div>
+
 
                             <div class="col-lg-6">
                                 <div class="form-group">
@@ -835,6 +843,7 @@
     {
         $this = $(obj);
         $id = $this.val();
+        // alert($id);
         $user_id = document.getElementById('user_id2').value;
                 // console.log("tets", $user_id);
 
@@ -851,7 +860,7 @@
             // console.log(response);
             response2 = JSON.parse(response);
             $this.closest(".row").find(".employee_name").val(response2.surname);
-
+            // $('#employee_name').val(response2.surname);
         });
     }
 
@@ -946,6 +955,7 @@
 
         $("input[name='employee_id']").val(data.employee_id);
         $("input[name='employee_name']").val(data.employee_name);
+        $("select[name='employee_id']").val(data.employee_id);
         // get_employee_name_by_id(data.employee_id, '.employee_name_edit_display');
         $("#editConfirm").modal('show');
 

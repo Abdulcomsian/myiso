@@ -213,7 +213,7 @@ class nonConfromFormController extends Controller
         $id = $request['id']; 
         $user_id = $request['user_id']; 
         $tbl_employees = DB::table('tbl_employees')->where('user_id',$request->input('user_id'))->where('empNumber', $id)->first();
-     echo json_encode(array('Status' => true, 'surname'=>$tbl_employees->surname));
+        echo json_encode(array('Status' => true, 'surname'=>$tbl_employees->surname));
     }
     
     
