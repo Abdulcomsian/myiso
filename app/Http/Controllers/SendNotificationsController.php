@@ -190,8 +190,8 @@ class SendNotificationsController extends Controller
         // sending Notification
         $user = User::where('id', $admin_id)->first();
         $senderName = Auth::user()->name;
-        $notificationMessage = new messageNotification($senderName);
-        $user->notify($notificationMessage);
+        // $notificationMessage = new messageNotification($senderName);
+        // $user->notify($notificationMessage);
 
         // DB::table('users_messages')->where('id', $request->input('replied'))->update(['replied' => 1]);
         return redirect()->back()->with('success', 'Your message has been Sent');

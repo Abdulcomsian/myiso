@@ -604,8 +604,8 @@ public function store(Request $request)
                 // sending notification to user(s)
                 $user = User::where('id', $user)->first();
                 $senderName = Auth::user()->name;
-                $notificationMessage = new messageNotification($senderName);
-                $user->notify($notificationMessage);
+                // $notificationMessage = new messageNotification($senderName);
+                // $user->notify($notificationMessage);
                 DB::table('users_messages')->where('id', $request->input('replied'))->update(['replied' => 1]);
             }
             return redirect()->back()->with('success', 'Your message has been Sent');
