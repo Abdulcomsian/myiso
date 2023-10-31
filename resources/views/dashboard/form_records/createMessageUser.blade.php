@@ -1,4 +1,4 @@
-@extends('admin.dashboard.layouts.app')
+@extends('dashboard.layouts.app')
 @section('styles')
 <!-- <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" /> -->
 <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/css/bootstrap-datepicker.min.css" />
@@ -37,17 +37,7 @@
 			DataTables has the ability to read data from virtually any JSON data source that can be obtained by Ajax. This can be done, in its most simple form, by setting the ajax option to the address of the JSON data source.
 			See official documentation <a class="kt-link kt-font-bold" href="https://datatables.net/examples/data_sources/ajax.html" target="_blank">here</a>.
 		</div> -->
-	        <!-- <div class="alert alert-success"> -->
-	            <p>{{ $message }}</p>
-	        <!-- </div> -->
-	</div>
-	@elseif($message = Session::get('error'))
-	<div class="alert alert-danger alert-elevate" role="alert">
-		<!-- <div class="alert-icon"><i class="flaticon-warning kt-font-brand"></i></div> -->
-		<!-- <div class="alert-text">
-			DataTables has the ability to read data from virtually any JSON data source that can be obtained by Ajax. This can be done, in its most simple form, by setting the ajax option to the address of the JSON data source.
-			See official documentation <a class="kt-link kt-font-bold" href="https://datatables.net/examples/data_sources/ajax.html" target="_blank">here</a>.
-		</div> -->
+
 	        <!-- <div class="alert alert-success"> -->
 	            <p>{{ $message }}</p>
 	        <!-- </div> -->
@@ -117,7 +107,7 @@
 		</div>
 		<div class="kt-portlet__body">
 
-            <form class="kt-form kt-form--label-right"  action="{{route('sendNotifications')}}" enctype="multipart/form-data" method="POST">
+            <form class="kt-form kt-form--label-right"  action="{{route('storeNotification')}}" enctype="multipart/form-data" method="POST">
     	@csrf
     	<div class="modal-body">
     
@@ -126,7 +116,7 @@
     				<div class="form-group row">
     					<div class="col-lg-8">
     						<label for="title">Subject:</label>
-    						<input type="text" id="title" name="title" class="form-control" placeholder="Please enter Message Subject">
+    						<input type="text" id="title" name="title" class="form-control" placeholder="Please enter Message Subject" required>
     					</div>
                         <div class="col-md-4">
     						<label for="attachment">Attachment</label>
@@ -142,56 +132,9 @@
     						<textarea name="message" id="message" cols="20" rows="5" class="form-control" placeholder="Please enter your Message"></textarea>
     					</div>
     					<br>
-    					<div class="col-lg-4">
-    						<label for="address1">Select Last Login Start Date:</label>
-							<!-- <div class="kt-input-icon kt-input-icon--right"> -->
-    							<input type="text" name="startdate" id="start_date" class="form-control startdate" id="last_login">
-    						<!-- </div> -->
-    						<!-- <div class="kt-input-icon kt-input-icon--right">
-    							<select id="last_login" class="form-control">
-    								<option value="">Select Month</option>
-    								<option value="3">Last 3 Month</option>
-    								<option value="6">Last 6 Month</option>
-    								<option value="9">Last 9 Month</option>
-    							</select>
-    						</div> -->
-    					</div>
-						<div class="col-lg-4">
-    						<label for="address1">Select Last Login End Date:</label>
-							<!-- <div class="kt-input-icon kt-input-icon--right"> -->
-    							<input type="text" name="enddate" id="end_date" class="form-control enddate" id="last_login">
-    						<!-- </div> -->
-    						<!-- <div class="kt-input-icon kt-input-icon--right">
-    							<select id="last_login" class="form-control">
-    								<option value="">Select Month</option>
-    								<option value="3">Last 3 Month</option>
-    								<option value="6">Last 6 Month</option>
-    								<option value="9">Last 9 Month</option>
-    							</select>
-    						</div> -->
-    					</div>
-    					<div class="col-lg-4">
-    						<label for="address1">Filter By Certificate:</label>
-    						<div class="kt-input-icon kt-input-icon--right">
-    							<select id="filter_by_certificate" class="form-control">
-    								<option value="">Select Certificate</option>
-    								<option value="iso9001_certificate">ISO9001 Certificate</option>
-    								<option value="iso14001_certificate">ISO14001 Certificate</option>
-    								<option value="iso45001_certificate">ISO45001 Certificate</option>
-    								<option value="ims">IMS</option>
-    								<option value="all">ALL</option>
-    							</select>
-    						</div>
-    					</div>
     					<div class="col-lg-12">
     						<label for="address1">Send to:</label>
-    						<div class="kt-input-icon kt-input-icon--right">
-    							<select name="userid[]" id="langOpt3" class="form-control" multiple>
-    								@foreach ($users as $item)
-    							        <option value="{{$item->id}}">{{$item->name}} </option>
-    								@endforeach
-    							</select>
-    						</div>
+    						<input name="userid" class="form-control" value="Admin" disabled>
     					</div>
     					<div class="col-lg-2">
     
@@ -221,7 +164,7 @@
 
 <!-- <script type="text/javascript" src="{{asset('assets/jQuery-Multiple-Select/dist/js/bootstrap-multiselect.js')}}"></script> -->
 <script type="text/javascript" src="{{asset('assets/jquery.multiselect.js')}}"></script>
-<script src="http://demos.codexworld.com/multi-select-dropdown-list-with-checkbox-jquery/jquery.multiselect.js"></script>
+	 <script src="http://demos.codexworld.com/multi-select-dropdown-list-with-checkbox-jquery/jquery.multiselect.js"></script>
 	 <!-- jquery.multiselect.js -->
 
 	<script>
@@ -291,17 +234,16 @@
 				changeYear: true,
 				maxDate: today,
 				minDate: '01-01-2017',
-					locale: {
-					format: 'DD/MM/YYYY',
-					cancelLabel: 'Clear',
-				}
+				locale: {
+        format: 'DD/MM/YYYY',
+        cancelLabel: 'Clear',
+    }
 				
 			}, function(start, end, label) {
 					start_date = start.format('YYYY-MM-DD');
 					end_date = end.format('YYYY-MM-DD');
 					console.log(start_date);
 					console.log(end_date);
-					
 					$.ajax({
 						type: "get",
 						url: "{{url('/send_message')}}",

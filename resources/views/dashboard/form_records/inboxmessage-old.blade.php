@@ -1,7 +1,7 @@
 @extends('dashboard.layouts.app')
 
 @section('content')
-
+<style>tr.New>td {color: #000 !important;font-weight: 800;cursor: pointer;}tr.New>button{color: #FFF !important;font-weight: 800;cursor: pointer;}</style>
 <!-- begin:: Content -->
 <div class="kt-content  kt-grid__item kt-grid__item--fluid" id="kt_content">
 	@if ($message = Session::get('success'))
@@ -24,7 +24,7 @@
 					<i class="kt-font-brand flaticon2-line-chart"></i>
 				</span>
 				<h3 class="kt-portlet__head-title">
-					Sent
+					Inbox
 				</h3>
 			</div>
 			<div class="kt-portlet__head-toolbar">
@@ -84,12 +84,12 @@
 		<div class="kt-portlet__body">
 
 			<!--begin: Datatable -->
-			<table class="table table-striped- table-bordered table-hover">
+			<table class="common_table table table-striped- table-bordered table-hover table-checkable table-responsive" id="kt_table_user">
 				<thead>
 					<tr>
 						<th>No.</th>
 						<th>Subject</th>
-						<td>Sent at</td>
+						<td>Received at</td>
 						<th>Message</th>
 						
 					</tr>
@@ -100,29 +100,29 @@
 					@foreach ($message_info as $item)
 					
 						<?php $count++; ?>
-						<tr>
+						<tr class="{{($item->status == 0) ? 'New' : ''}}">
 							<td>{{$count}}</td>
-							<td>{{$item->subject}}</td>
+							<td>{{$item->title}}</td>
 							<td>{{date("d/m/Y H:i:sA", strtotime($item->created_at) )}}</td>
 							<td>
-							<a href="#" data-toggle="modal" data-target="#view-notification-{{$item->id}}" title="View Message"> View Message </a>
+							<a data-id="{{$item->id}}" data-user="user" class="read_it" href="#" data-toggle="modal" data-target="#view-notification-{{$item->id}}"> View Message </a>
 								
-							<div class="modal fade" id="view-notification-{{$item->id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">	
+<div class="modal fade" id="view-notification-{{$item->id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">	
 											<div class="modal-dialog" role="document">
 												<div class="modal-content">
 													<div class="modal-header">
-														<h5 class="modal-title" id="exampleModalLabel">Message To Admin</h5>
+														<h5 class="modal-title" id="exampleModalLabel">Message From Admin</h5>
 														<button type="button" class="close" data-dismiss="modal" aria-label="Close">
 														</button>
 													</div>
 													<div class="modal-body">
-														<h5>{{$item->subject}}</h5>
+														<h5>{{$item->title}}</h5>
 														<p>&nbsp;</p>
-														<p>{{$item->comments}}</p>
+														<p>{{$item->message}}</p>
 													</div>
 													<div class="modal-footer">								
 													@if ($item->attachement != NULL || $item->attachement)
-													<a target="_blank" href="{{$item->attachement}}">View Attachment</a>
+													<a target="_blank" href="public/{{$item->attachement}}">View Attachment</a> 
 													@endif
 													
 											<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -130,8 +130,11 @@
 													</div>
 												</div>
 											</div>
-									</div>			
+										</div>			
+							
 							</td>
+							
+							
 						</tr>
 					@endforeach
 					
@@ -141,4 +144,32 @@
 		</div>
 	</div>
 </div>
+
+
 @endsection
+<script>
+	function deleteUser(id){
+		var userid=id;
+		$("#userid").val(userid);
+		$("#deleteUser").modal('show');
+	}
+	function editDetails(data){
+		console.log(data);
+		$("#editvalue").val(data.id);
+         $("input[name='idnumber']").val(data.idnumber);
+		 $("input[name='name']").val(data.name);
+		 $("input[name='email']").val(data.email);
+		 $("input[name='phone']").val(data.phone);
+		 $("input[name='director']").val(data.director);
+		 $("input[name='sales_process']").val(data.sales_process);
+		 $("input[name='company_profile']").val(data.company_profile);
+		 $("input[name='company_name']").val(data.company_name);
+		 $("input[name='company_address']").val(data.company_address);
+		 $("input[name='purchasing_process']").val(data.purchasing_process);
+		 $("input[name='servicing_process']").val(data.servicing_process);
+		 $("input[name='competency_process']").val(data.competency_process);
+		 $("input[name='order_number']").val(data.order_number);
+		 $("input[name='scope']").val(data.scope);
+		 $("#editModal").modal('show');
+	}
+</script>

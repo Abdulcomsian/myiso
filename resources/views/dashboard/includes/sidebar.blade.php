@@ -429,12 +429,65 @@
 						<span class="kt-menu__link-text">Contact Us</span>
 					</a>
 				</li>
-				<li id="notifications" class="kt-menu__item   kt-menu__item--submenu" aria-haspopup="true" data-ktmenu-submenu-toggle="hover">
-					<a href="{{ route('inboxmessage') }}" class="kt-menu__link kt-menu__toggle">
+				
+
+				<li id="admin_notifications" class="kt-menu__item   kt-menu__item--submenu" aria-haspopup="true" data-ktmenu-submenu-toggle="hover">
+                    <a href="javascript:;" class="kt-menu__link kt-menu__toggle">
+                        <span class="kt-menu__link-icon">
+                            <i class="fa fa-envelope" aria-hidden="true"></i>
+                        </span>
+                        <span class="kt-menu__link-text">Notifications</span>
+                        <span class="badge badge-primary count_notifications" style="color:#FFF !important;"></span>
+                        <i class="kt-menu__ver-arrow la la-angle-right"></i>
+                    </a>
+                    <div class="kt-menu__submenu ">
+                        <span class="kt-menu__arrow"></span>
+                        <ul class="kt-menu__subnav">
+                            <li class="kt-menu__item " aria-haspopup="true">
+                                <a href="{{ route('storeMessage') }}" class="kt-menu__link ">
+                                    <i class="kt-menu__link-bullet kt-menu__link-bullet--dot">
+                                        <span></span>
+                                    </i>
+                                    <span class="kt-menu__link-text">Create Message</span>
+                                </a>
+                            </li>
+                            <li class="kt-menu__item " aria-haspopup="true">
+                                <a href="{{ route('inboxMessages') }}" class="kt-menu__link ">
+                                    <i class="kt-menu__link-bullet kt-menu__link-bullet--dot">
+                                        <span></span>
+                                    </i>
+                                    <span class="kt-menu__link-text">Inbox</span>
+                                </a>
+                            </li>
+
+                            <li class="kt-menu__item " aria-haspopup="true">
+                                <a href="{{ route("sentMessages") }}" class="kt-menu__link ">
+                                    <i class="kt-menu__link-bullet kt-menu__link-bullet--dot">
+                                        <span></span>
+                                    </i>
+                                    <span class="kt-menu__link-text">Sent</span>
+                                </a>
+                            </li>
+                            
+                            {{-- <li class="kt-menu__item " aria-haspopup="true">
+                                <a href="{{ url('/send_notifications') }}" class="kt-menu__link ">
+                                    <i class="kt-menu__link-bullet kt-menu__link-bullet--dot">
+                                        <span></span>
+                                    </i>
+                                    <span class="kt-menu__link-text">Sent</span>
+                                </a>
+                            </li> --}}
+                            
+                        </ul>
+                    </div>
+                </li>
+
+				{{-- <li id="notifications" class="kt-menu__item   kt-menu__item--submenu" aria-haspopup="true" data-ktmenu-submenu-toggle="hover">
+					<a href="{{ url('/inboxmessage') }}" class="kt-menu__link kt-menu__toggle">
 						<span class="kt-menu__link-icon">
 							<i class="fa fa-envelope" aria-hidden="true"></i>
 						</span>
-						<span class="kt-menu__link-text">Notifications</span>
+						<span class="kt-menu__link-text">Notifications(OLD)</span>
 						<span class="badge badge-primary count_notifications" style="color:#FFF !important;"></span>
 					</a>
 				</li>
@@ -443,9 +496,9 @@
 						<span class="kt-menu__link-icon">
 							<i class="fa fa-envelope" aria-hidden="true"></i>
 						</span>
-						<span class="kt-menu__link-text">Sent</span>
+						<span class="kt-menu__link-text">Sent (OLD)</span>
 					</a>
-				</li>
+				</li> --}}
 					<li class="kt-menu__item   kt-menu__item--submenu" aria-haspopup="true" data-ktmenu-submenu-toggle="hover">
 					<a href="javascript:;" class="kt-menu__link kt-menu__toggle">
 						<span class="kt-menu__link-icon">
