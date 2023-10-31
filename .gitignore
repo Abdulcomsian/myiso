@@ -23,4 +23,23 @@ Homestead.json
 .phpunit.result.cache
 
 /public/assets
+/node_modules
+/public/hot
+/public/storage
 /public/uploads
+/public/isocloud
+/public/index.php
+/storage
+/vendor
+/.env
+/nbproject
+.phpunit.result.cache
+package-lock.json
+Homestead.json
+Homestead.yaml
+npm-debug.log
+yarn-error.log
+/composer.lock
+.idea
+/nbproject/private/
+/storage/logs/

@@ -587,17 +587,17 @@
 
                             <div class="col-lg-6">
                                 <div class="form-group">
-                                    <label>Supplier ID Number:</label>
+                                    <label>Supplier ID Number: </label>
                                     @if($no_customer==1)
                                         <select readonly disabled class="form-control" required name="customerID"
                                            >
-                                            <option value="">Enter Supplier ID Number:</option>
+                                            <option value="">Enter Supplier ID Number: </option>
                                            
                                         </select>
                                     @else
                                     <select readonly  class="form-control" name="customerID"
                                         id="customer_id_{{ $customer->idNumber }}">
-                                        <option value="">Enter Customer ID Number:</option>
+                                        <option value="">Enter Supplier ID Number:</option>
                                         @foreach($customers as $customer)
                                             <option value="{{ $customer->idNumber }}">{{ $customer->idNumber }}
                                             </option>
