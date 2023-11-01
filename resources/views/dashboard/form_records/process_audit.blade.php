@@ -28,7 +28,10 @@
                         <div class="row">
                             <div class="col-lg-12 text-right">
 
+                                <a href="{{ asset('download_process_audit/Process-Audit.pdf') }}" target="_blank" class="addBtn">Download Process Audits</a>
+
                                 <a onclick="processAuditForm()" class="addBtn">Add process audit details</a>
+
                             </div>
                         </div>
 
