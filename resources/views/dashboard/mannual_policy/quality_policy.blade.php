@@ -34,7 +34,10 @@
 								<div class="col-lg-12">
 									<div class="form-group">
 										<label>Enter additional Qualily Policies that are specific to your working Environment and Business activities</label><br>
-										<textarea name="message" class="form-control" placeholder="Set a maximum for the number of character that can be entered to 450.">{{ $previousPolicy ? $previousPolicy->message : '' }}</textarea>
+										<textarea name="message" maxlength="10000" class="form-control" placeholder="Set a maximum for the number of character that can be entered to 10000." required>{{ $previousPolicy ? $previousPolicy->message : '' }}</textarea>
+										@error('message')
+											<span class="text-danger">{{ $message }}</span>
+										@enderror
 									</div>
 								</div>
 							</div>

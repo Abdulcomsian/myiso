@@ -29,6 +29,12 @@ class AddQualityController extends Controller
 
     public function add_quality(Request $request)
     {
+        $request->validate([
+                'message' => 'required|max:10000',
+            ],[
+                'message.required' => 'This field is required',
+            ]
+        );
         $userid = Auth::user()->id;
         $message = $request->input('message');
         $status = $request->input('status');
@@ -93,6 +99,12 @@ class AddQualityController extends Controller
 
     public function add_environmental_policy(Request $request)
     {
+        $request->validate([
+                'message' => 'required|max:10000',
+            ],[
+                'message.required' => 'This field is required',
+            ]
+        );
         $userid = Auth::user()->id;
         $message = $request->input('message');
         $status = $request->input('status');
@@ -141,6 +153,12 @@ class AddQualityController extends Controller
         
         public function add_health_policy(Request $request)
         {
+            $request->validate([
+                'message' => 'required|max:10000',
+            ],[
+                'message.required' => 'This field is required',
+            ]);
+            
             $userid = Auth::user()->id;
             $message = $request->input('message');
             $status = $request->input('status');
