@@ -22,6 +22,10 @@
                     <div class="procedure_div">
                     	<div class="row">
                     		<div class="col-lg-12 text-right">
+
+								<a href="{{ asset('download_qms_audit/QMS-Audit-Report.pdf') }}" target="_blank" class="addBtn">Download QMS Audit</a>
+
+
                     			<a onclick="qmsAudit()" class="addBtn">Add QMS Audit Details</a>
                     		</div>
                     	</div>
