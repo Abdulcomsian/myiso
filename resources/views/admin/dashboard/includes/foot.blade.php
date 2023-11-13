@@ -323,6 +323,20 @@
 					$(".quality_add_div").css("display","block");
 				}
 			}
+			$(function(){
+                var current = location.pathname;
+                $('.kt-menu__nav  li a').each(function(){
+                    var $this = $(this);
+                    // if the current path is like this link, make it active
+                    if($this.attr('href').indexOf(current) !== -1){
+                        $this.parent().addClass('li_active');
+                        $this.parent().parent().parent().parent().addClass('kt-menu__item--open');
+                        // var parent_li=$('.kt-menu__nav  li').hasClass('li_active');
+                        // var li_parent=parent_li.parent();
+                        // console.log(li_parent);
+                    }
+                })
+            });
 		</script>
 		@include('script')
 		@yield('myscript')

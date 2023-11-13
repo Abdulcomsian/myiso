@@ -542,9 +542,9 @@ public function store(Request $request)
     public function sentNotification(){
         $user_id = Auth::user()->id;
         $users = SendNotifications::join('users','users.id','=','send_notification.send_to')
-        ->select('send_notification.*', 'users.name', 'users.company_name')
+        ->select('send_notification.*', 'users.id', 'users.name', 'users.company_name')
         ->where('send_notification.send_by', $user_id)
-        ->groupBy('send_notification.unique_id')
+        ->groupBy('users.name')
         ->orderby('send_notification.updated_at', 'desc')
         ->get();
         return view('admin.dashboard.admin.sentNotification',compact('users'));
@@ -999,17 +999,46 @@ public function store(Request $request)
 		return view('admin.dashboard.admin.receive_notifications',compact('notif'));
     }  
 
+    // public function unreadMessages(){
+    //     $user_id = Auth::user()->id;
+    //     $unreadMessages = SendNotifications::join('users', 'users.id','=','send_notification.send_by')
+    //     ->select('send_notification.*', 'users.name', 'users.company_name')
+    //     ->where('send_notification.send_to',$user_id)
+    //     ->where('send_notification.status', 0)
+    //     ->groupBy('send_notification.unique_id')
+    //     ->orderBy('send_notification.updated_at', 'desc')
+    //     ->get();
+    //     // dd($unreadMessages);
+    //     return view('admin.dashboard.includes.sidebar', compact('unreadMessages'));
+    // }
+
+
+
     // function used to show messages in New Inbox
     public function receivedNotifications(Request $request){
         $userid=Auth::user()->id;
         $message_info=SendNotifications::join('users', 'users.id','=','send_notification.send_by')
-        ->select('send_notification.*', 'users.name', 'users.company_name')
+        ->select('send_notification.*', 'users.id', 'users.name', 'users.company_name')
         ->where('send_notification.send_to',$userid)
-        ->groupBy('send_notification.unique_id')
+        ->groupBy('users.name')
         ->orderBy('send_notification.updated_at', 'desc')
         ->get();
+       
+
         return view('admin.dashboard.admin.receive_notification_inbox', compact('message_info'));      
     }
+
+    // this function is used for previous message inbox -  now its just a backup 
+    // public function receivedNotifications(Request $request){
+    //     $userid=Auth::user()->id;
+    //     $message_info=SendNotifications::join('users', 'users.id','=','send_notification.send_by')
+    //     ->select('send_notification.*', 'users.name', 'users.company_name')
+    //     ->where('send_notification.send_to',$userid)
+    //     ->groupBy('send_notification.unique_id')
+    //     ->orderBy('send_notification.updated_at', 'desc')
+    //     ->get();
+    //     return view('admin.dashboard.admin.receive_notification_inbox', compact('message_info'));      
+    // }
 
     public function markAsRead(Request $request) {
         $item_id = $request->input('item_id');
@@ -1017,28 +1046,55 @@ public function store(Request $request)
     }
     
 
-    public function individualMessageAdmin(){
-        $messageId = $_GET['id'];
-        // dd()
+    public function individualMessageAdmin(Request $request){
+        // dd($request->all());
         $userId = Auth::user()->id;
+        $otherUserId = $_GET['id'];
+        // $messageId = $_GET['messageId'];
         $message_information = SendNotifications::join('users', 'users.id','=','send_notification.send_by')
-        ->where('unique_id', $messageId)
+        ->where('send_to', $userId)
+        ->where('send_by', $otherUserId)
+        ->orwhere('send_by', $userId)
+        ->where('send_to', $otherUserId)
         ->orderby('send_notification.id', 'desc')
         ->select('send_notification.*', 'users.name')
         ->get();
 
-        $user_id = Auth::user()->id;
-        $parent_message_id = SendNotifications::where('unique_id', $messageId)
-        ->where('send_by', $user_id)
-        ->first(['id']);
+        // $user_id = Auth::user()->id;
+        // $parent_message_id = SendNotifications::where('unique_id', $messageId)
+        // ->where('send_by', $user_id)
+        // ->first(['id']);
 
     
         // dd($parent_message_id);
-        return view('admin.dashboard.admin.admin_individual_message', compact('message_information', 'parent_message_id'));
+        return view('admin.dashboard.admin.admin_individual_message', compact('message_information'));
     }
+
+    // backup for individual Message Admin 
+
+    // public function individualMessageAdmin(){
+    //     $messageId = $_GET['id'];
+    //     // dd()
+    //     $userId = Auth::user()->id;
+    //     $message_information = SendNotifications::join('users', 'users.id','=','send_notification.send_by')
+    //     ->where('unique_id', $messageId)
+    //     ->orderby('send_notification.id', 'desc')
+    //     ->select('send_notification.*', 'users.name')
+    //     ->get();
+
+    //     $user_id = Auth::user()->id;
+    //     $parent_message_id = SendNotifications::where('unique_id', $messageId)
+    //     ->where('send_by', $user_id)
+    //     ->first(['id']);
+
+    
+    //     // dd($parent_message_id);
+    //     return view('admin.dashboard.admin.admin_individual_message', compact('message_information', 'parent_message_id'));
+    // }
 
     // function used to store the message from the Admin 
     public function storeReplyMessageAdmin(Request $request){
+        // dd($request->all());
         $user_id = Auth::user()->id;
         $receiver = $request->input('receiver');
         $sender = $request->input('sender');

@@ -422,7 +422,7 @@
 					</div>
 				</li>
 				<li class="kt-menu__item   kt-menu__item--submenu" aria-haspopup="true" data-ktmenu-submenu-toggle="hover">
-					<a href="{{ url('contact_us') }}" class="kt-menu__link kt-menu__toggle">
+					<a href="{{ route('storeMessage') }}" class="kt-menu__link kt-menu__toggle">
 						<span class="kt-menu__link-icon">
 							<i class="fa fa-mobile" aria-hidden="true"></i>
 						</span>

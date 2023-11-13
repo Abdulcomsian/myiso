@@ -136,6 +136,7 @@ Route::group(['middleware' => ['auth','admin']], function ()
     Route::get('/sent_notification', 'AddUsersController@sentNotification')->name('sentNotification');
     Route::get('/received_Notification', 'AddUsersController@receivedNotifications')->name('receiveNotification');
     Route::get('/message', 'AddUsersController@individualMessageAdmin')->name('individualMessage');
+    // Route::get('/admin', 'AddUsersController@unreadMessages')->name('unreadMessages');
     Route::post('/storeReplyMessageAdmin', 'AddUsersController@storeReplyMessageAdmin')->name('storeReplyMessageAdmin');
     Route::post('/add_faq', 'AddUsersController@add_faq');
     Route::post('/add_faq_cate', 'AddUsersController@add_faq_cate');
