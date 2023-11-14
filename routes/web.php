@@ -185,6 +185,9 @@ Route::group(['middleware' => ['auth','admin']], function ()
     Route::post('/deleteMessage', 'AddUsersController@deleteMessage')->name('deleteMessage');
     Route::post('/deleteChemical', 'AddUsersController@deletechemicaladmin')->name('deletechemicaladmin');
     Route::post('/deleteChemical2', 'AddUsersController@deleteChemical2')->name('deleteChemical2');
+
+    // showing badge on notification sidebar
+    Route::post('/messageCounter', 'AddUsersController@showUnreadMessage')->name('showUnreadMessage');
     
     // Show Login Histroy of User by Admin
     Route::post('/userloginhistory', 'AddUsersController@userLoginHistory')->name('userloginhistory');
@@ -349,7 +352,7 @@ Route::group(['middleware' => ['auth']], function ()
     Route::get('/users_messages', 'UserMsgController@users_messages');
     Route::post('/upd_msg_status', 'UserMsgController@upd_msg_status');
     Route::post('/get_user_inbox_count', 'UserMsgController@get_user_inbox_count');
-    Route::post('/get_admin_inbox_count', 'UserMsgController@get_admin_inbox_count');
+    Route::post('/get_admin_inbox_count', 'UserMsgController@get_admin_inbox_count')->name('get_admin_inbox_count');
 
     //Check if empolyee already exist for current user by assad yaqoob 6 july 2022
 

@@ -142,20 +142,20 @@
                             <i class="fa fa-envelope" aria-hidden="true"></i>
                         </span>
                         <span class="kt-menu__link-text">Notifications (Old)</span>
-                        <span class="badge badge-primary count_notifications" style="color:#FFF !important;"></span>
+                        {{-- <span class="badge badge-primary count_notifications" style="color:#FFF !important;"></span> --}}
                         <i class="kt-menu__ver-arrow la la-angle-right"></i>
                     </a>
                     <div class="kt-menu__submenu ">
                         <span class="kt-menu__arrow"></span>
                         <ul class="kt-menu__subnav">
-                            <li class="kt-menu__item " aria-haspopup="true">
+                            {{-- <li class="kt-menu__item " aria-haspopup="true">
                                 <a href="{{ url('/send_message') }}" class="kt-menu__link ">
                                     <i class="kt-menu__link-bullet kt-menu__link-bullet--dot">
                                         <span></span>
                                     </i>
                                     <span class="kt-menu__link-text">Create Message</span>
                                 </a>
-                            </li>
+                            </li> --}}
                             <li class="kt-menu__item " aria-haspopup="true">
                                 <a href="{{ url('/receive_notifications') }}" class="kt-menu__link ">
                                     <i class="kt-menu__link-bullet kt-menu__link-bullet--dot">

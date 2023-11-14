@@ -161,7 +161,7 @@
                         {{-- @dd($message_info); --}}
                         <?php $count = 0; ?>
 							@foreach ($message_info as $item)
-                            <tr data-item-id="{{ $item->id }}"
+                            <tr data-item-id="{{ $item->unique_id }}"
                                 data-href="{{ route('individualMessage', ['id' => $item->id]) }}"
                                 class="{{ $item->status == 0 ? 'New' : 'read' }}">
                                 <td class="td-item-inbox">										
@@ -225,8 +225,8 @@
         // Add a click event listener to the table rows with the data-href attribute
         $('tr[data-href]').click(function(event) {
             event.preventDefault();
-            var row = $(this);
-            var isUnread = row.hasClass('New');
+            let row = $(this);
+            let isUnread = row.hasClass('New');
             if (isUnread) {
                 row.removeClass('New');
                 var itemID = row.data('item-id');

@@ -11,11 +11,13 @@ jQuery.ajax({
 	 },
   
 }).done(function(resp) {
- if(resp != 0){
-	 jQuery('#notifications>a>span.count_notifications').html(resp);
- }else{
-     jQuery('#notifications>a>span.count_notifications').hide();
- }
+    if(resp == 0 && resp <= 0){
+        jQuery('#admin_notifications>a>span.count_notifications').hide();
+    }else if(resp == 2){
+        jQuery('#admin_notifications>a>span.count_notifications').html(1);
+    }else{
+        jQuery('#admin_notifications>a>span.count_notifications').html(resp);
+    }
 });
 	}
 function update_admin_notifications_badge(){		
@@ -28,11 +30,13 @@ jQuery.ajax({
 	 },
   
 }).done(function(resp) {
- if(resp != 0){
-	 jQuery('#admin_notifications>a>span.count_notifications').html(resp);
- }else{
-     jQuery('#admin_notifications>a>span.count_notifications').hide();
- }
+    if(resp == 0 && resp <= 0){
+        jQuery('#admin_notifications>a>span.count_notifications').hide();
+    }else if(resp == 2){
+        jQuery('#admin_notifications>a>span.count_notifications').html(1);
+    }else{
+        jQuery('#admin_notifications>a>span.count_notifications').html(resp);
+    }
 });
 	}
 	

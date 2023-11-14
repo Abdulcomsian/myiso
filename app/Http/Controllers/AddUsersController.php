@@ -544,13 +544,12 @@ public function store(Request $request)
         $users = SendNotifications::join('users','users.id','=','send_notification.send_to')
         ->select('send_notification.*', 'users.id', 'users.name', 'users.company_name')
         ->where('send_notification.send_by', $user_id)
-        ->groupBy('users.name')
+        ->whereRaw('send_notification.updated_at = (SELECT MAX(updated_at) FROM send_notification WHERE send_notification.send_by = users.id)')
         ->orderby('send_notification.updated_at', 'desc')
+        ->groupBy('users.id')
         ->get();
         return view('admin.dashboard.admin.sentNotification',compact('users'));
     }
-
-
 
     public function addreq(Request $request){
         //   dd($request->all());
@@ -1015,16 +1014,16 @@ public function store(Request $request)
 
 
     // function used to show messages in New Inbox
-    public function receivedNotifications(Request $request){
+    public function receivedNotifications(Request $request){        
         $userid=Auth::user()->id;
-        $message_info=SendNotifications::join('users', 'users.id','=','send_notification.send_by')
+        $message_info = SendNotifications::join('users', 'users.id','=','send_notification.send_by')
         ->select('send_notification.*', 'users.id', 'users.name', 'users.company_name')
-        ->where('send_notification.send_to',$userid)
-        ->groupBy('users.name')
+        ->where('send_notification.send_to', $userid)
+        ->whereRaw('send_notification.updated_at = (SELECT MAX(updated_at) FROM send_notification WHERE send_notification.send_by = users.id)')
         ->orderBy('send_notification.updated_at', 'desc')
+        ->groupBy('users.id')
         ->get();
-       
-
+        // dd($message_info);
         return view('admin.dashboard.admin.receive_notification_inbox', compact('message_info'));      
     }
 
