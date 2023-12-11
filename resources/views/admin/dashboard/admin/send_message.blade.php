@@ -238,7 +238,8 @@
 			"format": 'mm/dd/yyyy',
 			"startDate": '01/01/2017',
 			"endDate": today,
-			"setDate": today
+			"setDate": today,
+			"autoclose": true,
 		}).on('changeDate', function(e){
         	start_date = $("#start_date").val();
 			end_date = $("#end_date").val();
@@ -262,7 +263,9 @@
 			todayHighlight: true,
 			"format": 'mm/dd/yyyy',
 			"endDate": today,
-			"setDate": today}).on('changeDate', function(e){
+			"setDate": today,
+			"autoclose": true,
+		}).on('changeDate', function(e){
 				start_date = $("#start_date").val();
 				end_date = $("#end_date").val();
 				filter_by_certificate = $("#filter_by_certificate").val();

@@ -126,6 +126,51 @@ class AddUsersController extends Controller
         return $list;
     }
 
+    public function userEmailDetails(Request $request){
+        $itemID = $request->input('user_id');
+        // dd($itemID);
+        $details = SendNotifications::where('send_to', '=', $itemID)
+        ->where(function($query) {
+            $query->where('total_days', '=', 90)
+                ->orWhere('total_days', '=', 180)
+                ->orWhere('total_days', '=', 300);
+        })
+        ->get();
+
+
+        $list = '<table class="table">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Status</th>
+                <th>Date</th>
+            </tr>
+        </thead>
+        <tbody>';
+
+
+        $i = 1;
+        foreach($details as $detail){
+            $list .= '<tr>';
+            $list .= '<td style="text-align: center;">' . $i . '</td>';
+            if($detail->total_days == 90){
+                $list .= '<td style="padding:5px 15px; text-align: center;">Three Months Notification has been Sent</td>';
+            }
+            if($detail->total_days == 180){
+                $list .= '<td style="padding:5px 15px; text-align: center;">Six Months Notification has been Sent</td>';
+            }
+            if($detail->total_days == 300){
+                $list .= '<td style="padding:5px 15px; text-align: center;">Ten Months Notification has been Sent</td>';
+            }
+            $list .= '<td style="padding:5px 15px; text-align: center;">' . date('d-m-Y H:i:s', strtotime($detail->created_at)) . '</td>';
+            $list .= '</tr>';
+            $i++;
+        }
+
+        $list .= '</tbody>
+        </table>';
+        return response()->json(['list' => $list]);
+    }
 
 
     // public function userLoginHistory(Request $request) 

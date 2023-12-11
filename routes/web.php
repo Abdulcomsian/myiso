@@ -7,6 +7,10 @@ use App\requirement;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Route;
+use App\User;
+use Illuminate\Notifications\Notification;
+use App\Notifications\ThreeMonthNotification;
+use Carbon\Carbon;
 
 /*
 |--------------------------------------------------------------------------
@@ -191,6 +195,9 @@ Route::group(['middleware' => ['auth','admin']], function ()
     
     // Show Login Histroy of User by Admin
     Route::post('/userloginhistory', 'AddUsersController@userLoginHistory')->name('userloginhistory');
+
+    // Route for showing the email details of clients who haven`t login for 3, 6 or 10 months 
+    Route::post('/user-email-details', 'AddUsersController@userEmailDetails')->name('user.email.details');
 
     Route::view('/edit_user/{id}', 'admin.dashboard.admin.edit_user');
 
@@ -430,13 +437,46 @@ Route::group(['middleware' => ['auth','admin']], function ()
 
     });
 
+   
+
 });
 
 
-Route::get('test' , function(){
-    // $browser = Jenssegers\Agent\Facades\Agent::browser();
-    // dd($browser);
-});
+// Route::get('test' , function(){
+//         $userIdToExclude = 1011;
+//         $user = User::where('last_login', '<=', Carbon::now()->subDays(90))
+//         ->where('id', '!=', $userIdToExclude)
+//         ->get();
+    
+    
+//         foreach($user as $u){
+//             // dd($u->id);
+//             $lastLogin = Carbon::parse($u->last_login);
+//             $totalDays = now()->diffInDays($lastLogin);
+//             $name = $u->name;
+//                 if ($totalDays == 90 || $totalDays == 180 || $totalDays == 300) {
+//                     // echo "here"; exit;
+//                     $u->notify(new ThreeMonthNotification());
+//                     $randomBytes = random_bytes(4); 
+//                     $randomInt = unpack('L', $randomBytes)[1];
+//                     DB::table('send_notification')->insert([
+//                         'title' => 'You haven`t SignIn for the last ' . $totalDays . ' Days',
+//                         'send_by' => 1011,
+//                         'send_to' => $u->id,
+//                         'unique_id' => intval(microtime(true) + $randomInt),
+//                         'total_days' => $totalDays,
+//                     ]);
+//                     echo "Email Send Successfully " . $totalDays . " <br>";
+//                 } else {
+//                     print_r("Days is not matching to 90, 180 or 300. Days are " . $totalDays);
+//                     echo "<br>";
+//                 }
+//         }
+// });
 
+
+Route::get('testViewEmail/{totalDays}', function(){
+    return view('mails.monthWiseEmail');
+});
 
 /*************** One time script for easily changes to running project end ***************/

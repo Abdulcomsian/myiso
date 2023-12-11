@@ -84,15 +84,13 @@ class UserMsgController extends Controller
  
  
   public function get_user_inbox_count(Request $request){
-	 $id=Auth::user()->id;
-		 $count = DB::table('send_notification')->where(['status' => 0, 'send_to'=>$id])->groupBy('unique_id')->count();
-	  echo $count;    
- }
+    $id=Auth::user()->id;
+      $count = DB::table('send_notification')->where(['status' => 0, 'send_to'=>$id])->groupBy('unique_id')->count();
+      echo $count;    
+  }
   public function get_admin_inbox_count(Request $request){
     $id=Auth::user()->id;
     $count = DB::table('send_notification')->where(['status' => 0, 'send_to'=>$id])->groupBy('unique_id')->count();
     echo $count;
   }
- 
-   
 }

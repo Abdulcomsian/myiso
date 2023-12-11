@@ -357,8 +357,11 @@
                                     onclick="get_history({{$item->id}});">
                                     <i class="fa fa-eye"></i>
                                 </button>
-                        
 
+                                {{-- Button used to show the Email sending Details who haven`t logged In for 3, 6, 10 Months  --}}
+                                <button class="btn btn-sm btn-clean btn-icon btn-icon-md" title="View Customer Details" onclick="userEmailDetail({{$item->id}})">
+                                    <i class="fa fa-envelope" aria-hidden="true"></i>                                
+                                </button>
                         <button class="btn btn-sm btn-clean btn-icon btn-icon-md" title="Edit Customer"
                                             onclick="editDetails({{$item}});">
 
@@ -463,6 +466,28 @@
                 <div class="modal-body">
                     <h1>Last Login History <span id="userName"></span></h1>
                     <div id="loginHistoryTable"></div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    {{-- Modal for showing the email details of the clients who haven`t login  --}}
+    <div class="modal fade" id="user-email-details" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">User Email Details</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body" id="modalBody">
+                    
+                    <div id="userDetailEmailTable"></div>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -1495,6 +1520,23 @@
             });
         }
 
+        
+            function userEmailDetail(id){
+                $.ajax({
+                    type: "post",
+                    url: "{{route('user.email.details')}}",
+                    headers: { 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') },
+                    data:{
+                        user_id: id,
+                        _token: $('meta[name="csrf-token"]').attr('content')
+                    },
+                    success:function(response){
+                        // console.log(response);
+                        $('#userDetailEmailTable').html(response.list);
+                        $("#user-email-details").modal('show');
+                    }
+                })
+            }
 
             function editDetails(data) 
             {
@@ -1819,6 +1861,7 @@
                 $("#viewModal").modal('show');
 
             }
+
 
 
         </script>

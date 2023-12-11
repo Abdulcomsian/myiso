@@ -13,6 +13,9 @@
 		font-weight: 800;
 		cursor: pointer;
 	}
+	.height-400{
+		height: 400px;
+	}
 </style>
 <!-- begin:: Content -->
 <div class="kt-content  kt-grid__item kt-grid__item--fluid" id="kt_content">
@@ -46,8 +49,16 @@
 			{{-- @foreach ($message_information as $item)
 			<h1>{{ $item->title }}</h1>
 			@endforeach --}}
+			
 			@foreach ($message_information as $key=>$item)
 			<div class="accordion" id="accordionExample">
+				@if($item->total_days == 90)
+				<iframe src="{{ url('/testViewEmail', ['totalDays' => $item->total_days]) }}" class="w-100 height-400"></iframe>
+				@elseif($item->total_days == 180)
+				<iframe src="{{ url('/testViewEmail', ['totalDays' => $item->total_days]) }}" class="w-100 height-400"></iframe>
+				@elseif($item->total_days == 300)
+				<iframe src="{{ url('/testViewEmail', ['totalDays' => $item->total_days]) }}" class="w-100 height-400"></iframe>
+				@else
 				@if (Auth::user()->id == $item->send_by)
 				<div class="card">
 					<div class="card-header" id="heading{{ $item->id }}">
@@ -105,6 +116,8 @@
 					</div>
 				</div>
 				@endif
+				@endif
+				
 			</div>
 			@endforeach
 
@@ -136,7 +149,6 @@
 		</div>
 	</div>
 </div>
-@endsection
 <script>
 
     const accordionItems = document.querySelectorAll('.card');
@@ -210,3 +222,4 @@
     // })
     // data-href="{{ route('individualMessage') }}"
 </script>
+@endsection
