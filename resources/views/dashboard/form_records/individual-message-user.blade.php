@@ -53,11 +53,11 @@
 			@foreach ($message_information as $key=>$item)
 			<div class="accordion" id="accordionExample">
 				@if($item->total_days == 90)
-				<iframe src="{{ url('/testViewEmail', ['totalDays' => $item->total_days]) }}" class="w-100 height-400"></iframe>
+				<iframe src="{{ url('/three-month-email') }}" class="w-100 height-400"></iframe>
 				@elseif($item->total_days == 180)
-				<iframe src="{{ url('/testViewEmail', ['totalDays' => $item->total_days]) }}" class="w-100 height-400"></iframe>
+				<iframe src="{{ url('/six-month-email') }}" class="w-100 height-400"></iframe>
 				@elseif($item->total_days == 300)
-				<iframe src="{{ url('/testViewEmail', ['totalDays' => $item->total_days]) }}" class="w-100 height-400"></iframe>
+				<iframe src="{{ url('/ten-month-email') }}" class="w-100 height-400"></iframe>
 				@else
 				@if (Auth::user()->id == $item->send_by)
 				<div class="card">

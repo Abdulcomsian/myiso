@@ -8,8 +8,10 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Route;
 use App\User;
-use Illuminate\Notifications\Notification;
+use Illuminate\Support\Facades\Notification;
 use App\Notifications\ThreeMonthNotification;
+use App\Notifications\SixMonthNotification;
+use App\Notifications\TenMonthNotification;
 use Carbon\Carbon;
 
 /*
@@ -446,17 +448,21 @@ Route::group(['middleware' => ['auth','admin']], function ()
 //         $userIdToExclude = 1011;
 //         $user = User::where('last_login', '<=', Carbon::now()->subDays(90))
 //         ->where('id', '!=', $userIdToExclude)
-//         ->get();
-    
-    
+//         ->get();    
 //         foreach($user as $u){
-//             // dd($u->id);
 //             $lastLogin = Carbon::parse($u->last_login);
 //             $totalDays = now()->diffInDays($lastLogin);
-//             $name = $u->name;
+//             $toEmailAddress = "info@isoonline.com";
 //                 if ($totalDays == 90 || $totalDays == 180 || $totalDays == 300) {
-//                     // echo "here"; exit;
-//                     $u->notify(new ThreeMonthNotification());
+//                     if($totalDays == 90){
+//                         Notification::route('mail', $toEmailAddress)->notify(new SixMonthNotification());
+//                     }elseif($totalDays == 180){
+//                         Notification::route('mail', $toEmailAddress)->notify(new SixMonthNotification());
+//                     }elseif($totalDays == 300){
+//                         Notification::route('mail', $toEmailAddress)->notify(new SixMonthNotification());
+//                     }else{
+//                         print_r("No email template Found");
+//                     }
 //                     $randomBytes = random_bytes(4); 
 //                     $randomInt = unpack('L', $randomBytes)[1];
 //                     DB::table('send_notification')->insert([
@@ -468,15 +474,22 @@ Route::group(['middleware' => ['auth','admin']], function ()
 //                     ]);
 //                     echo "Email Send Successfully " . $totalDays . " <br>";
 //                 } else {
-//                     print_r("Days is not matching to 90, 180 or 300. Days are " . $totalDays);
+//                     print_r("Days are not matching to 90, 180 or 300. Days are " . $totalDays);
 //                     echo "<br>";
 //                 }
 //         }
 // });
 
-
-Route::get('testViewEmail/{totalDays}', function(){
-    return view('mails.monthWiseEmail');
+// Mail Routes for generating emails for 3, 6 and 10 months
+Route::get('three-month-email', function(){
+    return view('mails.threeMonthEmail');
 });
 
+Route::get('six-month-email', function(){
+    return view('mails.sixMonthEmail');
+});
+
+Route::get('ten-month-email', function(){
+    return view('mails.tenMonthEmail');
+});
 /*************** One time script for easily changes to running project end ***************/

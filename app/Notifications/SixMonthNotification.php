@@ -7,7 +7,7 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
 
-class ThreeMonthNotification extends Notification
+class SixMonthNotification extends Notification
 {
     use Queueable;
 
@@ -18,11 +18,11 @@ class ThreeMonthNotification extends Notification
      */
     public function __construct()
     {
-
+        //
     }
 
     /**
-     * Get the notification's delivery channels.    
+     * Get the notification's delivery channels.
      *
      * @param  mixed  $notifiable
      * @return array
@@ -41,7 +41,7 @@ class ThreeMonthNotification extends Notification
     public function toMail($notifiable)
     {
         return (new MailMessage)
-        ->view('mails.threeMonthEmail')
+        ->view('mails.sixMonthEmail')
         ->bcc('m.muneebulrahman@gmail.com');
     }
 
@@ -58,6 +58,3 @@ class ThreeMonthNotification extends Notification
         ];
     }
 }
-
-
-

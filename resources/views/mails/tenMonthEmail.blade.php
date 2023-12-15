@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -16,8 +17,9 @@
 
         .container {
             max-width: 500px;
-            height: 400px;
-            margin: 50px auto; /* Center the container vertically */
+            height: auto;
+            margin: 50px auto;
+            /* Center the container vertically */
             padding: 20px;
             background-color: #fff;
             border-radius: 5px;
@@ -25,12 +27,16 @@
             text-align: center;
         }
 
-        p {
+        /* p {
             margin: 20px 0;
             font-size: 16px;
             line-height: 1.6;
             text-align: center;
             
+        } */
+
+        .content-area {
+            text-align: left;
         }
 
         img {
@@ -41,24 +47,24 @@
 
         /* Basic button styles */
         .button {
-        display: inline-block;
-        padding: 10px 20px;
-        font-size: 16px;
-        font-weight: bold;
-        text-align: center;
-        text-decoration: none;
-        cursor: pointer;
-        border: 2px solid #3498db;
-        color: #fff;
-        background-color: #3498db;
-        border-radius: 5px;
-        transition: background-color 0.3s, color 0.3s, border-color 0.3s;
+            display: inline-block;
+            padding: 10px 20px;
+            font-size: 16px;
+            font-weight: bold;
+            text-align: center;
+            text-decoration: none;
+            cursor: pointer;
+            border: 2px solid #3498db;
+            color: #fff;
+            background-color: #3498db;
+            border-radius: 5px;
+            transition: background-color 0.3s, color 0.3s, border-color 0.3s;
         }
 
         /* Hover effect */
         .button:hover {
-        background-color: #2980b9;
-        border-color: #2980b9;
+            background-color: #2980b9;
+            border-color: #2980b9;
         }
 
 
@@ -69,24 +75,25 @@
         }
     </style>
 </head>
+
 <body>
     <div class="container">
-        <img src="{{ asset('assets/media/logos/MyISOOnline-Logo.png') }}" alt="Logo">
-        <p>Hello</p>
-        <?php
-        $totalDays = request('totalDays');
-        ?>
-        @if($totalDays == 90)
-        <p>You Haven`t SignIn to MYISO for the last 3 months</p>
-        @endif
+        <img src="https://myisoonline.com/assets/media/logos/MyISOOnline-Logo.png" alt="Logo">
+        <div class="content-area">
+            <p><strong>Dear Sir’s</strong></p>
+            <p>
+                This is a follow-up to our recent communications regarding the importance of updating your documentation, to avoid your certificate being revoked.
+            </p>
+            <p>
+                Time is of the essence. Please act urgently to ensure the continued validity of your ISO certification. 
+            </p>
+        </div>
 
-        @if($totalDays == 180)
-        <p>You Haven`t SignIn to MYISO for the last 6 months</p>
-        @endif
         <a class="button" href="https://myisoonline.com/" target="_blank">Sign In</a>
     </div>
     <footer>
         <p style="text-align: center;">All Rights Reserved. MyISOOnline</p>
     </footer>
 </body>
+
 </html>
