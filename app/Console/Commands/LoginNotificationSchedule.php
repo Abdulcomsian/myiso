@@ -55,11 +55,11 @@ class LoginNotificationSchedule extends Command
             $toEmailAddress = "info@isoonline.com";
                 if ($totalDays == 90 || $totalDays == 180 || $totalDays == 300) {
                     if($totalDays == 90){
-                        Notification::route('mail', $toEmailAddress)->notify(new SixMonthNotification());
+                        Notification::route('mail', $toEmailAddress)->notify(new ThreeMonthNotification());
                     }elseif($totalDays == 180){
                         Notification::route('mail', $toEmailAddress)->notify(new SixMonthNotification());
                     }elseif($totalDays == 300){
-                        Notification::route('mail', $toEmailAddress)->notify(new SixMonthNotification());
+                        Notification::route('mail', $toEmailAddress)->notify(new TenMonthNotification());
                     }else{
                         print_r("No email template Found");
                     }
