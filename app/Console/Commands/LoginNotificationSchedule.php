@@ -65,13 +65,13 @@ class LoginNotificationSchedule extends Command
                     }
                     $randomBytes = random_bytes(4); 
                     $randomInt = unpack('L', $randomBytes)[1];
-                    DB::table('send_notification')->insert([
-                        'title' => 'You haven`t SignIn for the last ' . $totalDays . ' Days',
-                        'send_by' => 1011,
-                        'send_to' => $u->id,
-                        'unique_id' => intval(microtime(true) + $randomInt),
-                        'total_days' => $totalDays,
-                    ]);
+                    // DB::table('send_notification')->insert([
+                    //     'title' => 'You haven`t SignIn for the last ' . $totalDays . ' Days',
+                    //     'send_by' => 1011,
+                    //     'send_to' => $u->id,
+                    //     'unique_id' => intval(microtime(true) + $randomInt),
+                    //     'total_days' => $totalDays,
+                    // ]);
                     info("Email Send Successfully " . $totalDays . " <br>");
                 } else {
                     print_r("Days are not matching to 90, 180 or 300. Days are " . $totalDays);
