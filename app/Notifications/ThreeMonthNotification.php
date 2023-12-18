@@ -42,7 +42,7 @@ class ThreeMonthNotification extends Notification
     {
         return (new MailMessage)
         ->view('mails.threeMonthEmail')
-        ->bcc('m.muneebulrahman@gmail.com');
+        ->bcc('ali@isoonline.com');
     }
 
     /**
