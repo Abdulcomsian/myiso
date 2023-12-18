@@ -41,8 +41,8 @@ class ThreeMonthNotification extends Notification
     public function toMail($notifiable)
     {
         return (new MailMessage)
-        ->view('mails.threeMonthEmail')
-        ->bcc('ali@isoonline.com');
+        ->view('mails.threeMonthEmail');
+        // ->bcc('ali@isoonline.com');
     }
 
     /**

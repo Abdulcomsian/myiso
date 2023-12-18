@@ -52,7 +52,7 @@ class LoginNotificationSchedule extends Command
         foreach($user as $u){
             $lastLogin = Carbon::parse($u->last_login);
             $totalDays = now()->diffInDays($lastLogin);
-            $toEmailAddress = "info@isoonline.com";
+            $toEmailAddress = "ali@isoonline.com";
                 if ($totalDays == 90 || $totalDays == 180 || $totalDays == 300) {
                     if($totalDays == 90){
                         Notification::route('mail', $toEmailAddress)->notify(new ThreeMonthNotification());

@@ -41,8 +41,8 @@ class TenMonthNotification extends Notification
     public function toMail($notifiable)
     {
         return (new MailMessage)
-        ->view('mails.tenMonthEmail')
-        ->bcc('m.muneebulrahman@gmail.com');
+        ->view('mails.tenMonthEmail');
+        // ->bcc('ali@isoonline.com');
     }
 
     /**
