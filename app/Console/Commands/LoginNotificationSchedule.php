@@ -72,7 +72,7 @@ class LoginNotificationSchedule extends Command
                         'unique_id' => intval(microtime(true) + $randomInt),
                         'total_days' => $totalDays,
                     ]);
-                    echo "Email Send Successfully " . $totalDays . " <br>";
+                    info("Email Send Successfully " . $totalDays . " <br>");
                 } else {
                     print_r("Days are not matching to 90, 180 or 300. Days are " . $totalDays);
                     echo "<br>";
