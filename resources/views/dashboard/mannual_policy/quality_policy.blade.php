@@ -62,7 +62,7 @@
 					<!-- Display the previous policy -->
 					<h5 class="m-t-10">Additional Policies:</h5>
 					@if ($previousPolicy)
-						<pre style="font-size: 13px;color: #040404 !important; text-wrap: wrap; font-family: inherit;font-weight: normal;">{{ $previousPolicy->message }}</pre>
+						<pre style="font-size: 13px;color: #040404 !important; white-space: pre-wrap; font-family: inherit;font-weight: normal;">{{ $previousPolicy->message }}</pre>
 					@endif
 						{{-- @foreach ($useraddpolicy as $policy)
                         <p>{{$policy->message}}</p>
