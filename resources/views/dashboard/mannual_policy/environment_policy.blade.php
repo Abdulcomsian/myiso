@@ -65,30 +65,11 @@
 						<li>Seek to minimise harmful emissions of its fleet and power usage.</li>
 						<li>Minimise waste by regular evaluation of operations and efficiency.</li>
 						<li>Source a product range or supply services that will minimise the environmental impact of the company’s distribution and production.</li>
-						<h5 class="mt-6" style="position: relative; left: -35px; margin-top: 15px">Additional Policies:</h5>
 					</ol>
-						
-						 <!-- Display the previous policy -->
-						 <?php
-							
-							// $message = explode(PHP_EOL, $previousPolicy->message);
-							if($previousPolicy!=null){
-							$lines = explode("\r\n", $previousPolicy->message); // or use PHP PHP_EOL constant
-							// dd($lines);
-							if ( !empty($lines) ) 
-							{
-								foreach ( $lines as $line ) 
-								{
-									if($line == NULL){continue;}else
-									{
-						?>
-									<pre style="font-size: 13px;color: #040404 !important; text-wrap: wrap; font-family: inherit;font-weight: normal;"><?php echo trim($line); ?></pre>
-						<?php
-								}
-								}
-							}
-							}
-						?>	
+					<h5 class="mt-6" style="position: relative;  margin-top: 15px">Additional Policies:</h5>
+					@if ($previousPolicy)
+						<pre style="font-size: 13px;color: #040404 !important; text-wrap: wrap; font-family: inherit;font-weight: normal;">{{ $previousPolicy->message }}</pre>
+					@endif
 						{{-- 
 							@if ($previousPolicy)
 							<li>{{ $previousPolicy->message }}</li>
