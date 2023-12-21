@@ -65,11 +65,11 @@
 						<li>Seek to minimise harmful emissions of its fleet and power usage.</li>
 						<li>Minimise waste by regular evaluation of operations and efficiency.</li>
 						<li>Source a product range or supply services that will minimise the environmental impact of the company’s distribution and production.</li>
-				
 						<h5 class="mt-6" style="position: relative; left: -35px; margin-top: 15px">Additional Policies:</h5>
-					
+					</ol>
+						
 						 <!-- Display the previous policy -->
-						 @php
+						 <?php
 							
 							// $message = explode(PHP_EOL, $previousPolicy->message);
 							if($previousPolicy!=null){
@@ -81,12 +81,14 @@
 								{
 									if($line == NULL){continue;}else
 									{
-									echo '<p>'. trim( $line ) .'</p>';
+						?>
+									<pre style="font-size: 13px;color: #040404 !important; text-wrap: wrap; font-family: inherit;font-weight: normal;"><?php echo trim($line); ?></pre>
+						<?php
 								}
 								}
 							}
 							}
-						 @endphp		
+						?>	
 						{{-- 
 							@if ($previousPolicy)
 							<li>{{ $previousPolicy->message }}</li>
@@ -94,7 +96,7 @@
 							@foreach ($useraddpolicy as $environmental)
                            <li>{{$environmental->message}}</li>
                            @endforeach --}}
-					</ol>
+					
 					<p>On behalf of <b><span class="authName">{{ $companyName}}</span></b>:</p>
 					<p>Name: <span class="authName">{{Auth::user()->director}}</span> </p>
 					<p>Date: {{date("d-F-Y")}}</p>
