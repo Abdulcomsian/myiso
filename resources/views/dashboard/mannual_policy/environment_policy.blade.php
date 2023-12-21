@@ -81,7 +81,7 @@
 								{
 									if($line == NULL){continue;}else
 									{
-									echo '<li>'. trim( $line ) .'</li>';
+									echo '<p>'. trim( $line ) .'</p>';
 								}
 								}
 							}
