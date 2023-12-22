@@ -1,6 +1,11 @@
 @extends('dashboard.layouts.app')
 
 @section('content')
+<style>
+	.align-class{
+		margin-left: 23px;
+	}
+</style>
 <!-- begin:: Content -->
 <div class="kt-content  kt-grid__item kt-grid__item--fluid" id="kt_content">
 
@@ -67,20 +72,22 @@
 						<li>Source a product range or supply services that will minimise the environmental impact of the company’s distribution and production.</li>
 					</ol>
 					<h5 class="mt-6" style="position: relative;  margin-top: 15px">Additional Policies:</h5>
-					@if ($previousPolicy)
-						<pre style="font-size: 13px;color: #040404 !important; white-space: pre-wrap; font-family: inherit;font-weight: normal;">{{ $previousPolicy->message }}</pre>
-					@endif
-						{{-- 
-							@if ($previousPolicy)
-							<li>{{ $previousPolicy->message }}</li>
-							@endif  
-							@foreach ($useraddpolicy as $environmental)
-                           <li>{{$environmental->message}}</li>
-                           @endforeach --}}
-					
-					<p>On behalf of <b><span class="authName">{{ $companyName}}</span></b>:</p>
-					<p>Name: <span class="authName">{{Auth::user()->director}}</span> </p>
-					<p>Date: {{date("d-F-Y")}}</p>
+					<div class="align-class">
+						@if ($previousPolicy)
+							<pre style="font-size: 13px;color: #040404 !important; white-space: pre-wrap; font-family: inherit;font-weight: normal;">{{ $previousPolicy->message }}</pre>
+						@endif
+							{{-- 
+								@if ($previousPolicy)
+								<li>{{ $previousPolicy->message }}</li>
+								@endif  
+								@foreach ($useraddpolicy as $environmental)
+							   <li>{{$environmental->message}}</li>
+							   @endforeach --}}
+						
+						<p>On behalf of <b><span class="authName">{{ $companyName}}</span></b>:</p>
+						<p>Name: <span class="authName">{{Auth::user()->director}}</span> </p>
+						<p>Date: {{date("d-F-Y")}}</p>
+					</div>
 				</div>
 			</div>
 		</div>
