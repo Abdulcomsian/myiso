@@ -453,13 +453,15 @@ Route::group(['middleware' => ['auth','admin']], function ()
 //             $lastLogin = Carbon::parse($u->last_login);
 //             $totalDays = now()->diffInDays($lastLogin);
 //             $toEmailAddress = "info@isoonline.com";
+//             $clientName = $u->name;
+//             $clientEmail = $u->email;
 //                 if ($totalDays == 90 || $totalDays == 180 || $totalDays == 300) {
 //                     if($totalDays == 90){
-//                         Notification::route('mail', $toEmailAddress)->notify(new ThreeMonthNotification());
+//                         Notification::route('mail', $toEmailAddress)->notify(new ThreeMonthNotification($clientName, $totalDays, $clientEmail));
 //                     }elseif($totalDays == 180){
-//                         Notification::route('mail', $toEmailAddress)->notify(new SixMonthNotification());
+//                         Notification::route('mail', $toEmailAddress)->notify(new SixMonthNotification($clientName, $totalDays, $clientEmail));
 //                     }elseif($totalDays == 300){
-//                         Notification::route('mail', $toEmailAddress)->notify(new TenMonthNotification());
+//                         Notification::route('mail', $toEmailAddress)->notify(new TenMonthNotification($clientName, $totalDays, $clientEmail));
 //                     }else{
 //                         print_r("No email template Found");
 //                     }

@@ -26,7 +26,13 @@
 
         <div class="content-area" style="text-align: left;">
 
-            <p><strong>Dear Sir’s</strong></p>
+            <p><strong>
+                <?php if(isset($clientName)) { ?>
+                    Dear {{$clientName}}
+                <?php }else{ ?>
+                    Dear Client
+                <?php } ?>
+                </strong></p>
             <p>
                 Your ISO Certificate's validity depends on maintaining your documentation. As of now, insufficient activity has been made on your account. Please act to update and maintain your records
             </p>
@@ -36,6 +42,23 @@
             <p>Your prompt attention is crucial to ensure the continuous validity of your ISO certifications.</p>
 
         </div>
+
+        <?php if(isset($clientName) && isset($clientEmail) && isset($totalDays)) { ?>
+            <table style="width: 100%; margin-top: 20px; margin-bottom: 20px; border-collapse: collapse; border: 1px solid #ddd;">
+                <tr>
+                    <td style="border: 1px solid #ddd; padding: 8px; text-align: left;"><strong>Client Name:</strong></td>
+                    <td style="border: 1px solid #ddd; padding: 8px; text-align: center;">{{ $clientName }}</td> 
+                </tr>
+                <tr>
+                    <td style="border: 1px solid #ddd; padding: 8px; text-align: left;"><strong>Client Email:</strong></td>
+                    <td style="border: 1px solid #ddd; padding: 8px; text-align: center;">{{ $clientEmail }}</td> 
+                </tr>
+                <tr>
+                    <td style="border: 1px solid #ddd; padding: 8px; text-align: left;"><strong>Client Haven't Signed In to MyISO for the last:</strong></td>
+                    <td style="border: 1px solid #ddd; padding: 8px; text-align: center;">{{ $totalDays }} Days</td>
+                </tr>
+            </table>        
+        <?php } ?>
 
         <a href="https://myisoonline.com/" target="_blank" style="display: inline-block; padding: 10px 20px; font-size: 16px; font-weight: bold; text-align: center; text-decoration: none; cursor: pointer; border: 2px solid #3498db; color: #fff; background-color: #3498db; border-radius: 5px; transition: background-color 0.3s, color 0.3s, border-color 0.3s;"
             class="button">Sign In</a>

@@ -16,9 +16,11 @@ class ThreeMonthNotification extends Notification
      *
      * @return void
      */
-    public function __construct()
+    public function __construct($clientName, $totalDays, $clientEmail)
     {
-
+        $this->clientName = $clientName;
+        $this->totalDays = $totalDays;
+        $this->clientEmail = $clientEmail;
     }
 
     /**
@@ -41,7 +43,12 @@ class ThreeMonthNotification extends Notification
     public function toMail($notifiable)
     {
         return (new MailMessage)
-        ->view('mails.threeMonthEmail');
+        ->view('mails.threeMonthEmail',
+        [
+            'clientName' => $this->clientName,
+            'totalDays' => $this->totalDays,
+            'clientEmail' => $this->clientEmail,
+        ]);
         // ->bcc('ali@isoonline.com');
     }
 
