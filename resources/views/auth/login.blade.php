@@ -92,6 +92,16 @@ License: You must have a valid license purchased only from themeforest(the above
     	color: #5867dd
 	}
 
+	@media (max-width: 768px){
+		.kt-login.kt-login--v4 .kt-login__wrapper .kt-login__container {
+			width: 74% !important;
+		}
+		.img-fluid{
+			width: 80%;
+		}
+	}
+}
+
 </style>
 	@include('auth.includes.head')
 
