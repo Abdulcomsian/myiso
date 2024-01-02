@@ -100,7 +100,6 @@ License: You must have a valid license purchased only from themeforest(the above
 			width: 80%;
 		}
 	}
-}
 
 </style>
 	@include('auth.includes.head')
