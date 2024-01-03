@@ -74,7 +74,7 @@
 					<h5 class="mt-6" style="position: relative;  margin-top: 15px">Additional Policies:</h5>
 					<div class="align-class">
 						@if ($previousPolicy)
-							<pre style="font-size: 13px;color: #040404 !important; white-space: pre-wrap; font-family: inherit;font-weight: normal;">{{ $previousPolicy->message }}</pre>
+							<pre style="font-size: 13px;color: #040404 !important; white-space: pre-wrap; font-family: inherit;font-weight: normal; overflow: hidden;">{{ $previousPolicy->message }}</pre>
 						@endif
 							{{-- 
 								@if ($previousPolicy)
