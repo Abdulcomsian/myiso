@@ -1108,10 +1108,8 @@ public function store(Request $request)
         // $parent_message_id = SendNotifications::where('unique_id', $messageId)
         // ->where('send_by', $user_id)
         // ->first(['id']);
-
-    
-        // dd($parent_message_id);
-        return view('admin.dashboard.admin.admin_individual_message', compact('message_information'));
+        $other_user_detail = User::where('id', '=', $otherUserId)->first();
+        return view('admin.dashboard.admin.admin_individual_message', compact('message_information', 'other_user_detail'));
     }
 
     // backup for individual Message Admin 

@@ -50,7 +50,7 @@
 					<i class="kt-font-brand flaticon2-line-chart"></i>
 				</span>
 				<h3 class="kt-portlet__head-title">
-					Login reminder Message
+					Create Message
 				</h3>
 			</div>
 			<div class="kt-portlet__head-toolbar">

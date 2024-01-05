@@ -353,13 +353,13 @@
                                 <td>
                                     {{-- eye view option hide in Action column in admin --}}
 
-                                <button class="btn btn-sm btn-clean btn-icon btn-icon-md" title="View Customer Details" value=""
+                                <button class="btn btn-sm btn-clean btn-icon btn-icon-md" title="Login History" value=""
                                     onclick="get_history({{$item->id}});">
-                                    <i class="fa fa-eye"></i>
+                                    <i class="fas fa-sign-in-alt"></i>
                                 </button>
 
                                 {{-- Button used to show the Email sending Details who haven`t logged In for 3, 6, 10 Months  --}}
-                                <button class="btn btn-sm btn-clean btn-icon btn-icon-md" title="View Customer Details" onclick="userEmailDetail({{$item->id}})">
+                                <button class="btn btn-sm btn-clean btn-icon btn-icon-md" title="Activity Reminder Details" onclick="userEmailDetail({{$item->id}})">
                                     <i class="fa fa-envelope" aria-hidden="true"></i>                                
                                 </button>
                         <button class="btn btn-sm btn-clean btn-icon btn-icon-md" title="Edit Customer"
@@ -480,7 +480,7 @@
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">User Email Details</h5>
+                    <h5 class="modal-title" id="exampleModalLabel">Activity Reminder Details</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
@@ -1400,7 +1400,7 @@
 
 
 
-        @endsection
+
     
                 {{-- <script>
                     document.addEventListener('DOMContentLoaded', function () 
@@ -1973,4 +1973,4 @@
 
 
 
-
+@endsection

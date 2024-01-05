@@ -165,7 +165,7 @@
                                 data-href="{{ route('individualMessage', ['id' => $item->id]) }}"
                                 class="{{ $item->status == 0 ? 'New' : 'read' }}">
                                 <td class="td-item-inbox">										
-                                   <p class="mb-0">Discussion | {{ $item->name }}</p>									
+                                   <p class="mb-0">{{ $item->name }}</p>									
                                    <p class="mb-0">{{ date('d/m/Y H:i:sA', strtotime($item->updated_at)) }}</p>
                                 </td>
                              </tr>                             

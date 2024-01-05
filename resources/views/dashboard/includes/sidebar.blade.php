@@ -421,14 +421,14 @@
 						</ul>
 					</div>
 				</li>
-				<li class="kt-menu__item   kt-menu__item--submenu" aria-haspopup="true" data-ktmenu-submenu-toggle="hover">
+				{{-- <li class="kt-menu__item   kt-menu__item--submenu" aria-haspopup="true" data-ktmenu-submenu-toggle="hover">
 					<a href="{{ route('storeMessage') }}" class="kt-menu__link kt-menu__toggle">
 						<span class="kt-menu__link-icon">
 							<i class="fa fa-mobile" aria-hidden="true"></i>
 						</span>
 						<span class="kt-menu__link-text">Contact Us</span>
 					</a>
-				</li>
+				</li> --}}
 				
 
 				<li id="admin_notifications" class="kt-menu__item   kt-menu__item--submenu" aria-haspopup="true" data-ktmenu-submenu-toggle="hover">
@@ -502,7 +502,9 @@
 					<li class="kt-menu__item   kt-menu__item--submenu" aria-haspopup="true" data-ktmenu-submenu-toggle="hover">
 					<a href="javascript:;" class="kt-menu__link kt-menu__toggle">
 						<span class="kt-menu__link-icon">
-							<i class="fab fa-wpforms"></i>
+							{{-- <i class="fab fa-wpforms"></i> --}}
+							<i class="fa fa-book" aria-hidden="true"></i>
+
 						</span>
 						<span class="kt-menu__link-text">Support</span>
 						<i class="kt-menu__ver-arrow la la-angle-right"></i>

@@ -73,7 +73,7 @@
                         <i class="kt-font-brand flaticon2-line-chart"></i>
                     </span>
                     <h3 class="kt-portlet__head-title">
-                        Disscussion
+                        {{$other_user_detail->name}}
                     </h3>
                 </div>
 
@@ -122,7 +122,7 @@
                                         <div class="card-header">
                                             <div class="d-flex justify-content-between">
                                                 <div>
-                                                    <strong>From - Me</strong>
+                                                    <strong>From - ISOOnline Admin</strong>
                                                 </div>
                                                 <div class="text-muted">
                                                     {{ date('d/m/Y H:i:sA', strtotime($item->created_at)) }}
