@@ -151,24 +151,24 @@
 </div>
 <script>
 
-    const accordionItems = document.querySelectorAll('.card');
+    // const accordionItems = document.querySelectorAll('.card');
 
-    accordionItems.forEach((item) => {
-        const button = item.querySelector('button');
+    // accordionItems.forEach((item) => {
+    //     const button = item.querySelector('button');
 
-        button.addEventListener('click', () => {
-            const collapse = item.querySelector('.collapse');
-            const expanded = button.getAttribute('aria-expanded') === 'true';
+    //     button.addEventListener('click', () => {
+    //         const collapse = item.querySelector('.collapse');
+    //         const expanded = button.getAttribute('aria-expanded') === 'true';
 
-            if (expanded) {
-                collapse.classList.remove('show');
-                button.setAttribute('aria-expanded', 'false');
-            } else {
-                collapse.classList.add('show');
-                button.setAttribute('aria-expanded', 'true');
-            }
-        });
-    });
+    //         if (expanded) {
+    //             collapse.classList.remove('show');
+    //             button.setAttribute('aria-expanded', 'false');
+    //         } else {
+    //             collapse.classList.add('show');
+    //             button.setAttribute('aria-expanded', 'true');
+    //         }
+    //     });
+    // });
 
 	function deleteUser(id) {
         var userid = id;
