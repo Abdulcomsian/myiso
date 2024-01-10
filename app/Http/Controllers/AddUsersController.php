@@ -154,15 +154,15 @@ class AddUsersController extends Controller
             $list .= '<tr>';
             $list .= '<td style="text-align: center;">' . $i . '</td>';
             if($detail->total_days == 90){
-                $list .= '<td style="padding:5px 15px; text-align: center;">Three Months Notification has been Sent</td>';
+                $list .= '<td style="padding:5px 10px; text-align: center;">Three Months Notification has been Sent</td>';
             }
             if($detail->total_days == 180){
-                $list .= '<td style="padding:5px 15px; text-align: center;">Six Months Notification has been Sent</td>';
+                $list .= '<td style="padding:5px 10px; text-align: center;">Six Months Notification has been Sent</td>';
             }
             if($detail->total_days == 300){
-                $list .= '<td style="padding:5px 15px; text-align: center;">Ten Months Notification has been Sent</td>';
+                $list .= '<td style="padding:5px 10px; text-align: center;">Ten Months Notification has been Sent</td>';
             }
-            $list .= '<td style="padding:5px 15px; text-align: center;">' . date('d-m-Y H:i:s', strtotime($detail->created_at)) . '</td>';
+            $list .= '<td style="padding:5px 10px; text-align: center;">' . date('d-m-Y H:i:s', strtotime($detail->created_at)) . '</td>';
             $list .= '</tr>';
             $i++;
         }
