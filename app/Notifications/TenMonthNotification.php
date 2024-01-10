@@ -43,7 +43,7 @@ class TenMonthNotification extends Notification
     public function toMail($notifiable)
     {
         return (new MailMessage)
-        ->view('mails.threeMonthEmail',
+        ->view('mails.tenMonthEmail',
         [
             'clientName' => $this->clientName,
             'totalDays' => $this->totalDays,
