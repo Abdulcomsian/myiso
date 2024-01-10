@@ -1,3 +1,26 @@
+<style>
+	/* .image-logo-hover:hover{
+		img
+	} */
+
+	.kt-menu__link {
+		position: relative;
+		display: inline-block;
+	}
+
+	.image-hover {
+		position: absolute;
+		top: 12px;
+		left: 25px;
+		opacity: 0;
+	}
+
+	.kt-menu__link:hover .image-hover {
+		opacity: 1; /* Show the hover image on menu hover */
+	}
+
+
+</style>
 <!-- begin:: Aside -->
 <button class="kt-aside-close " id="kt_aside_close_btn">
 	<i class="la la-close"></i>
@@ -501,9 +524,12 @@
 				</li> --}}
 					<li class="kt-menu__item   kt-menu__item--submenu" aria-haspopup="true" data-ktmenu-submenu-toggle="hover">
 					<a href="javascript:;" class="kt-menu__link kt-menu__toggle">
-						<span class="kt-menu__link-icon">
+						<span class="kt-menu__link-icon image-logo-hover">
 							{{-- <i class="fab fa-wpforms"></i> --}}
-							<i class="fa fa-book" aria-hidden="true"></i>
+							{{-- <i class="fa fa-book" aria-hidden="true"></i> --}}
+							<img class="image-main" src="{{asset('assets/media/icons/support-black-24.png')}}" alt="logo-image">
+							<img class="image-hover" src="{{asset('assets/media/icons/support-blue.png')}}" alt="logo-image">
+
 
 						</span>
 						<span class="kt-menu__link-text">Support</span>
