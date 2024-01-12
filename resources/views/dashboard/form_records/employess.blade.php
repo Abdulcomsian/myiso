@@ -63,7 +63,7 @@
 								<div class="row">
 									<div class="col-lg-6">
 										<div class="form-group">
-											<label>Start Date (MM/DD/YYY):</label>
+											<label>Start Date (DD/MM/YYYY):</label>
 											<input name="startDate" max="2999-12-31" required type="date" class="form-control" >
 										</div>
 
@@ -516,7 +516,7 @@
 																	</div>
 																	<div class="col-lg-6">
 																		<div class="form-group">
-																			<label>Training Date (MM/DD/YYYY):</label>
+																			<label>Training Date (DD/MM/YYYY):</label>
 																			<input type="text" class="form-control" name="first_name"  placeholder="Enter First Name" value="{{$item->traningdate}}" readonly>
 																		</div>
 																	</div>
