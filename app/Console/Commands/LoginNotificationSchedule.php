@@ -68,7 +68,7 @@ class LoginNotificationSchedule extends Command
                     $randomBytes = random_bytes(4); 
                     $randomInt = unpack('L', $randomBytes)[1];
                     DB::table('send_notification')->insert([
-                        'title' => 'You haven`t SignIn for the last ' . $totalDays . ' Days',
+                        'title' => 'You haven`t signed in for the last ' . $totalDays . ' Days',
                         'send_by' => 1011,
                         'send_to' => $u->id,
                         'unique_id' => intval(microtime(true) + $randomInt),

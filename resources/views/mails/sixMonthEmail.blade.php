@@ -22,7 +22,7 @@
 
     <div class="container" style="max-width: 500px; height: auto; margin: 50px auto; padding: 20px; background-color: #fff; border-radius: 5px; box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); text-align: center;">
 
-        <img src="https://myisoonline.com/assets/media/logos/MyISOOnline-Logo.png" alt="Logo" style="height: 50px; margin-bottom: 20px;">
+        <img src="https://myisoonline.com/assets/media/logos/newmyisologo50.png" alt="Logo" style="height: 50px; margin-bottom: 20px;">
 
         <div class="content-area" style="text-align: left;">
 
@@ -34,7 +34,7 @@
                 <?php } ?>
                 </strong></p>
             <p>
-                Your ISO Certificate's validity depends on maintaining your documentation. As of now, insufficient activity has been made on your account. Please act to update and maintain your records
+                Your ISO Certificate's validity depends on maintaining your documentation. As of now, insufficient activity has been made on your account. Please update and maintain your records
             </p>
             <p>
                 For any assistance or clarification, please visit the support section on your account where you will find video tutorials and other useful tools. Alternatively, our team is ready to support you with any questions you may have.
@@ -58,11 +58,11 @@
                     <td style="border: 1px solid #ddd; padding: 8px; text-align: center;">{{ $totalDays }} Days</td>
                 </tr>
             </table>        
-        <?php } ?>
-
-        <a href="https://myisoonline.com/" target="_blank" style="display: inline-block; padding: 10px 20px; font-size: 16px; font-weight: bold; text-align: center; text-decoration: none; cursor: pointer; border: 2px solid #3498db; color: #fff; background-color: #3498db; border-radius: 5px; transition: background-color 0.3s, color 0.3s, border-color 0.3s;"
+            
+            <a href="https://myisoonline.com/" target="_blank" style="display: inline-block; padding: 10px 20px; font-size: 16px; font-weight: bold; text-align: center; text-decoration: none; cursor: pointer; border: 2px solid #3498db; color: #fff; background-color: #3498db; border-radius: 5px; transition: background-color 0.3s, color 0.3s, border-color 0.3s;"
             class="button">Sign In</a>
-
+            
+        <?php } ?>
     </div>
 
     <footer style="margin-top: 20px; text-align: center; color: #888;">
