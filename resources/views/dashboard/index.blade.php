@@ -1,6 +1,11 @@
 @extends('dashboard.layouts.app')
 
 @section('content')
+<style>
+    .newWidth{
+        width: 50%;
+    }
+</style>
     <!-- begin:: Content -->
     <div class="kt-content  kt-grid__item kt-grid__item--fluid" id="kt_content">
 
@@ -29,6 +34,7 @@
                             </div>
                             <div class="kt-widget17__stats">
                                 <div class="kt-widget17__items">
+                                    <a href="{{url('quality_manual')}}" class="newWidth">
                                     <div class="kt-widget17__item newColor">
 															<span class="kt-widget17__icon">
 																<svg xmlns="http://www.w3.org/2000/svg"
@@ -49,11 +55,14 @@
                                                                               height="18" rx="1"/>
 																	</g>
 																</svg> </span>
-                                        <span class="kt-widget17__subtitle text-warning">
-															<a href="{{url('quality_manual')}}">
-																Main Procedures and Forms</a>	
+                                        <span class="kt-widget17__subtitle text-warning" style="color: white !important;">
+															{{-- <a href="{{url('quality_manual')}}"> --}}
+																Main Procedures and Forms
+                                                            {{-- </a>	 --}}
 															</span>
                                     </div>
+                                </a>
+                                <a href="{{url('sale_processes')}}" class="newWidth">
                                     <div class="kt-widget17__item newColor">
 															<span class="kt-widget17__icon">
 																<svg xmlns="http://www.w3.org/2000/svg"
@@ -72,14 +81,17 @@
                                                                               id="Path" fill="#000000" opacity="0.3"/>
 																	</g>
 																</svg> </span>
-                                        <span class="kt-widget17__subtitle text-success">
-																<a href="{{url('sale_processes')}}">
-																	Processes</a>
+                                        <span class="kt-widget17__subtitle text-success" style="color: white !important;">
+																{{-- <a href="{{url('sale_processes')}}"> --}}
+																	Processes
+                                                                {{-- </a> --}}
 																
 															</span>
                                     </div>
+                                </a>
                                 </div>
                                 <div class="kt-widget17__items">
+                                    <a href="{{url('documented_information')}}" class="newWidth">
                                     <div class="kt-widget17__item newColor">
 															<span class="kt-widget17__icon">
 																<svg xmlns="http://www.w3.org/2000/svg"
@@ -98,12 +110,15 @@
                                                                               id="Combined-Shape" fill="#000000"/>
 																	</g>
 																</svg> </span>
-                                        <span class="kt-widget17__subtitle text-warning">
-																<a href="{{url('documented_information')}}">
-																	Procedures</a>
+                                        <span class="kt-widget17__subtitle text-warning" style="color: white !important;">
+																{{-- <a href="{{url('documented_information')}}"> --}}
+																	Procedures
+                                                                {{-- </a> --}}
 																
 															</span>
                                     </div>
+                                </a>
+                                <a href="{{url('requirements_aspect')}}" class="newWidth">
                                     <div class="kt-widget17__item newColor">
 															<span class="kt-widget17__icon">
 													<span class="svg-icon svg-icon-primary svg-icon-2x"><!--begin::Svg Icon | path:/var/www/preview.keenthemes.com/metronic/releases/2020-09-29-132851/theme/html/demo1/dist/../src/media/svg/icons/Files/File.svg--><svg
@@ -119,13 +134,17 @@
     </g>
 </svg><!--end::Svg Icon--></span>
  </span>
-                                        <span class="kt-widget17__subtitle">
-																<a href="{{url('requirements_aspect')}}"> Forms and Records</a>
+                                        <span class="kt-widget17__subtitle" style="color: white !important;">
+																{{-- <a href="{{url('requirements_aspect')}}"> --}}
+                                                                     Forms and Records
+                                                                    {{-- </a> --}}
 																
 															</span>
                                     </div>
+                                </a>
                                 </div>
                                 <div class="kt-widget17__items">
+                                    <a href="{{url('work_instruction')}}" style="width: 100%;">
                                     <div class="kt-widget17__item newColor">
 															<span class="kt-widget17__icon">
 																<svg xmlns="http://www.w3.org/2000/svg"
@@ -144,12 +163,14 @@
                                                                               id="Rectangle-102-Copy" fill="#000000"/>
 																	</g>
 																</svg> </span>
-                                        <span class="kt-widget17__subtitle">
+                                        <span class="kt-widget17__subtitle" style="color: white !important;">
 																
-																<a href="{{url('work_instruction')}}">
-																	Local Work Instructions</a>
+																{{-- <a href="{{url('work_instruction')}}"> --}}
+																	Local Work Instructions
+                                                                {{-- </a> --}}
 															</span>
                                     </div>
+                                </a>
                                 </div>
                             </div>
                         </div>
