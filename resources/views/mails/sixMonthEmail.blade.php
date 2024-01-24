@@ -54,7 +54,7 @@
                     <td style="border: 1px solid #ddd; padding: 8px; text-align: center;">{{ $clientEmail }}</td> 
                 </tr>
                 <tr>
-                    <td style="border: 1px solid #ddd; padding: 8px; text-align: left;"><strong>Client Haven't Signed In to MyISO for the last:</strong></td>
+                    <td style="border: 1px solid #ddd; padding: 8px; text-align: left;"><strong>Client haven't signed in to MyISO for the last:</strong></td>
                     <td style="border: 1px solid #ddd; padding: 8px; text-align: center;">{{ $totalDays }} Days</td>
                 </tr>
             </table>        
