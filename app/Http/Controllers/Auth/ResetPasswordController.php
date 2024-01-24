@@ -35,7 +35,8 @@ class ResetPasswordController extends Controller
         
         $from_email = "noreply@myisoonline.com";
         $from_name = "noreply@myisoonline.com";
-        $to_email = "jennywalker181@gmail.com";
+        // $to_email = "jennywalker181@gmail.com";
+        $to_email = "info@isoonline.com";
 
 
         if ($success && !empty($from_email) && !empty($from_name) && $to_email){
