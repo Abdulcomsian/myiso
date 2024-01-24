@@ -444,44 +444,43 @@ Route::group(['middleware' => ['auth','admin']], function ()
 });
 
 
-Route::get('test' , function(){
-    $userIdToExclude = 1011;
-    $user = User::where('last_login', '<=', Carbon::now()->subDays(90))
-    ->where('id', '!=', $userIdToExclude)
-    ->get();    
-    foreach($user as $u){
-        $lastLogin = Carbon::parse($u->last_login);
-        $totalDays = now()->diffInDays($lastLogin);
-        $toEmailAddress = "info@isoonline.com";
-        $clientName = $u->name;
-        $clientEmail = $u->email;
-            // if ($totalDays == 90 || $totalDays == 180 || $totalDays == 300) {
-                if ($totalDays > 300) {
-                // if($totalDays == 90){
-                //     Notification::route('mail', $toEmailAddress)->notify(new ThreeMonthNotification($clientName, $totalDays, $clientEmail));
-                // }elseif($totalDays == 180){
-                //     Notification::route('mail', $toEmailAddress)->notify(new SixMonthNotification($clientName, $totalDays, $clientEmail));
-                // }elseif($totalDays == 300){
-                Notification::route('mail', $toEmailAddress)->notify(new TenMonthNotification($clientName, $totalDays, $clientEmail));
-                // }else{
-                //     print_r("No email template Found");
-                // }
-                $randomBytes = random_bytes(4); 
-                $randomInt = unpack('L', $randomBytes)[1];
-                DB::table('send_notification')->insert([
-                    'title' => 'You haven`t signed in for the last ' . $totalDays . ' Days',
-                    'send_by' => 1011,
-                    'send_to' => $u->id,
-                    'unique_id' => intval(microtime(true) + $randomInt),
-                    'total_days' => $totalDays,
-                ]);
-                echo "Email Send Successfully " . $totalDays . " <br>";
-            } else {
-                print_r("Days are not matching to 90, 180 or 300. Days are " . $totalDays);
-                echo "<br>";
-            }
-    }
-});
+// Route::get('test' , function(){
+//     $userIdToExclude = 1011;
+//     $user = User::where('last_login', '<=', Carbon::now()->subDays(90))
+//     ->where('id', '!=', $userIdToExclude)
+//     ->get();    
+//     foreach($user as $u){
+//         $lastLogin = Carbon::parse($u->last_login);
+//         $totalDays = now()->diffInDays($lastLogin);
+//         $toEmailAddress = "info@isoonline.com";
+//         $clientName = $u->name;
+//         $clientEmail = $u->email;
+//             if ($totalDays == 90 || $totalDays == 180 || $totalDays == 300) {
+//                 if($totalDays == 90){
+//                     Notification::route('mail', $toEmailAddress)->notify(new ThreeMonthNotification($clientName, $totalDays, $clientEmail));
+//                 }elseif($totalDays == 180){
+//                     Notification::route('mail', $toEmailAddress)->notify(new SixMonthNotification($clientName, $totalDays, $clientEmail));
+//                 }elseif($totalDays == 300){
+//                 Notification::route('mail', $toEmailAddress)->notify(new TenMonthNotification($clientName, $totalDays, $clientEmail));
+//                 }else{
+//                     print_r("No email template Found");
+//                 }
+//                 $randomBytes = random_bytes(4); 
+//                 $randomInt = unpack('L', $randomBytes)[1];
+//                 DB::table('send_notification')->insert([
+//                     'title' => 'You haven`t signed in for the last ' . $totalDays . ' Days',
+//                     'send_by' => 1011,
+//                     'send_to' => $u->id,
+//                     'unique_id' => intval(microtime(true) + $randomInt),
+//                     'total_days' => $totalDays,
+//                 ]);
+//                 echo "Email Send Successfully " . $totalDays . " <br>";
+//             } else {
+//                 print_r("Days are not matching to 90, 180 or 300. Days are " . $totalDays);
+//                 echo "<br>";
+//             }
+//     }
+// });
 
 // Mail Routes for generating emails for 3, 6 and 10 months
 Route::get('three-month-email', function(){
