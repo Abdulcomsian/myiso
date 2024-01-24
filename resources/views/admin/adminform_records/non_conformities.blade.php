@@ -70,7 +70,7 @@
 
                                 <div class="col-lg-6">
                                     <div class="form-group">
-                                        <label>Employee Name:</label>
+                                        <label>Employee who reported NCR</label>
                                         <input type="text" class="form-control Employee_name" name="employee_name"
                                             placeholder="Enter Employee Name">
                                     </div>
@@ -123,7 +123,7 @@
                                 </div>
                                 <div class="col-lg-6">
                                     <div class="form-group">
-                                        <label>Fault Description:</label>
+                                        <label>NCR Description:</label>
                                         <input type="text" class="form-control" name="description"
                                             placeholder="Enter Fault Description">
                                     </div>
@@ -295,10 +295,11 @@
                                 <thead>
                                     <tr>
                                         <th>NCR ID Number</th>
-                                        <th>Employee who reported NCR</th>
+                                        <th>Supplier Name</th>
                                         <th>Supplier ID Number</th>
-                                        <th>Employee Name</th> 
-                                        <th>Fault Description</th>
+                                        <th>Employee who reported NCR</th> 
+                                        <th>Employee ID Number</th> 
+                                        <th>NCR Description</th>
                                         <th>Category</th>
                                         <th>Date NCR was Processed.</th>
                                         
@@ -319,6 +320,7 @@
                                             <td> {{ $data->supplier_data }}</td>
                                             <td> {{ $data->customerID }}</td>
                                             <td>{{ $data->employee_name }}</td> 
+                                            <td>{{ $data->employee_id }}</td> 
                                             <td> {{ $data->description }}</td>
                                             <td> {{ $data->root_cause_category }}</td>
                                             <td> {{ $data->dateNcR }}</td>
@@ -414,7 +416,7 @@
                             </div> --}}
                             <div class="col-lg-6">
                                 <div class="form-group">
-                                    <label>Employee Name:</label>
+                                    <label>Employee who reported NCR</label>
                                     <input type="text" readonly disabled class="form-control employee_name_edit_display"
                                         name="employee_name" placeholder="Enter Employee Name" id="employee_name">
                                 </div>
@@ -445,7 +447,7 @@
                             </div>
                             <div class="col-lg-6">
                                 <div class="form-group">
-                                    <label>Fault Description:</label>
+                                    <label>NCR Description:</label>
                                     <input type="text" readonly disabled class="form-control" name="description"
                                         placeholder="Enter Fault Description">
                                 </div>
@@ -630,7 +632,7 @@
                             </div> --}}
                             <div class="col-lg-6">
                                 <div class="form-group">
-                                    <label>Employee Name:</label>
+                                    <label>Employee who reported NCR</label>
                                     <input type="text" readonly disabled class="form-control employee_name_edit_display"
                                         name="employee_name" placeholder="Enter Employee Name" id="employee_name">
                                 </div>
@@ -672,7 +674,7 @@
 
                             <div class="col-lg-6">
                                 <div class="form-group">
-                                    <label>Fault Description:</label>
+                                    <label>NCR Description:</label>
                                     <input type="text" class="form-control" name="description"
                                         placeholder="Enter Fault Description" required>
                                 </div>

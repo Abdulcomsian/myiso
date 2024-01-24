@@ -86,7 +86,7 @@
 						
 						<p>On behalf of <b><span class="authName">{{ $companyName}}</span></b>:</p>
 						<p>Name: <span class="authName">{{Auth::user()->director}}</span> </p>
-						<p>Date: {{date("d-F-Y")}}</p>
+						<p>Date: {{$date}}</p>
 					</div>
 				</div>
 			</div>

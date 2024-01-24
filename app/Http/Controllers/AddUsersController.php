@@ -1086,7 +1086,12 @@ public function store(Request $request)
 
     public function markAsRead(Request $request) {
         $item_id = $request->input('item_id');
-        SendNotifications::where('unique_id', $item_id)->update(['status' => 1]);
+        $userId = Auth::user()->id;
+        if($userId == 1011){
+            sendNotifications::where('send_to', 1011)->where('unique_id', $item_id)->update(['status'=>1]);
+        }else{
+            SendNotifications::where('unique_id', $item_id)->update(['status' => 1]);
+        }
     }
     
 
@@ -1144,7 +1149,6 @@ public function store(Request $request)
         $parentIdArray = json_decode($parentId, true);
         if (is_array($parentIdArray) && isset($parentIdArray['id'])) {
             $id = $parentIdArray['id'];
-            
         }
         $reply = new SendNotifications;
         $reply->title = $request->input('title');

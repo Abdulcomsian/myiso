@@ -69,7 +69,7 @@
                         @endforeach --}}
 					<p>As the Managing Director, I accept ultimate responsibility for Quality. The Operational Management will, through example, and direction, ensure that this policy is understood, implemented and maintained throughout <b><span class="authName">{{ $companyName}}</span></b>.</p>
 					<p>Managing Director: <span class="authName">{{Auth::user()->director}}</span></p>
-					<p>Date: {{date("d-F-Y")}}</p>
+					<p>Date: {{$date}}</p>
 				</div>
 			</div>
 		</div>

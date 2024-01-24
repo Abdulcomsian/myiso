@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\CustomManual;
 use App\User;
+use App\AddUsers;
 use Illuminate\Http\Request;
 use Exception;
 use Illuminate\Support\Facades\Auth;
@@ -92,8 +93,10 @@ class AddQualityController extends Controller
                 ->get();
     
             $previousPolicy = $userAddPolicy->first();
-    
-            return view('dashboard.mannual_policy.quality_policy', compact('companyName', 'previousPolicy', 'userAddPolicy'));
+
+            $userDetail = AddUsers::select('created_at')->where('id', '=', $userid)->first();
+            $date = $userDetail->created_at->format('d-M-Y');
+            return view('dashboard.mannual_policy.quality_policy', compact('companyName', 'previousPolicy', 'userAddPolicy', 'date'));
         }
     
 
@@ -146,8 +149,11 @@ class AddQualityController extends Controller
                 ->get();
     
             $previousPolicy = $userAddPolicy->first();
+
+            $userDetail = AddUsers::select('created_at')->where('id', '=', $userid)->first();
+            $date = $userDetail->created_at->format('d-M-Y');
     
-            return view('dashboard.mannual_policy.environment_policy', compact('companyName', 'previousPolicy', 'userAddPolicy'));
+            return view('dashboard.mannual_policy.environment_policy', compact('companyName', 'previousPolicy', 'userAddPolicy', 'date'));
         }
 
         
@@ -189,6 +195,9 @@ class AddQualityController extends Controller
 
             $previousPolicy = $userAddPolicy->first();
 
-            return view('dashboard.mannual_policy.health_safety_policy', compact('companyName', 'previousPolicy', 'userAddPolicy'));
+            $userDetail = AddUsers::select('created_at')->where('id', '=', $userid)->first();
+            $date = $userDetail->created_at->format('d-M-Y');
+
+            return view('dashboard.mannual_policy.health_safety_policy', compact('companyName', 'previousPolicy', 'userAddPolicy', 'date'));
         }   
 }

@@ -13,6 +13,14 @@
 		font-weight: 800;
 		cursor: pointer;
 	}
+	.height-900{
+		height: 900px;
+	}
+
+	.height-500{
+		height: 500px;
+	}
+
 	.height-400{
 		height: 400px;
 	}
@@ -53,9 +61,9 @@
 			@foreach ($message_information as $key=>$item)
 			<div class="accordion" id="accordionExample">
 				@if($item->total_days == 90)
-				<iframe src="{{ url('/three-month-email') }}" class="w-100 height-400"></iframe>
+				<iframe src="{{ url('/three-month-email') }}" class="w-100 height-900"></iframe>
 				@elseif($item->total_days == 180)
-				<iframe src="{{ url('/six-month-email') }}" class="w-100 height-400"></iframe>
+				<iframe src="{{ url('/six-month-email') }}" class="w-100 height-500"></iframe>
 				@elseif($item->total_days == 300)
 				<iframe src="{{ url('/ten-month-email') }}" class="w-100 height-400"></iframe>
 				@else
