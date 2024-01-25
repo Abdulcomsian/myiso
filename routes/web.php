@@ -482,6 +482,62 @@ Route::group(['middleware' => ['auth','admin']], function ()
 //     }
 // });
 
+
+// send an email for a specific user
+
+Route::get('test', function(){
+    $userid = 11432; // Enter the id of a user
+    $user  = User::where('id', $userid)->first();
+
+    $threeMonth = 90;
+    $sixMonth = 180;
+    $tenMonth = 300;
+    $toEmailAddress = "info@isoonline.com";
+    $clientName = $user['name'];
+    $clientEmail = $user['email'];
+
+    // Send Emails
+    Notification::route('mail', $toEmailAddress)->notify(new ThreeMonthNotification($clientName, $threeMonth, $clientEmail));
+    Notification::route('mail', $toEmailAddress)->notify(new SixMonthNotification($clientName, $sixMonth, $clientEmail));
+    Notification::route('mail', $toEmailAddress)->notify(new TenMonthNotification($clientName, $tenMonth, $clientEmail));
+
+    // sending email on MYISO online
+    $randomBytes = random_bytes(4); 
+    $randomInt = unpack('L', $randomBytes)[1];
+    DB::table('send_notification')->insert([
+        'title' => 'You haven`t signed in for the last ' . $threeMonth . ' Days',
+        'send_by' => 1011,
+        'send_to' => $userid,
+        'unique_id' => intval(microtime(true) + $randomInt),
+        'total_days' => $threeMonth,
+    ]);
+    echo "Email Send Successfully " . $threeMonth . " <br>";
+
+    $randomBytes = random_bytes(4); 
+    $randomInt = unpack('L', $randomBytes)[1];
+    DB::table('send_notification')->insert([
+        'title' => 'You haven`t signed in for the last ' . $sixMonth . ' Days',
+        'send_by' => 1011,
+        'send_to' => $userid,
+        'unique_id' => intval(microtime(true) + $randomInt),
+        'total_days' => $sixMonth,
+    ]);
+    echo "Email Send Successfully " . $sixMonth . " <br>";
+    
+    $randomBytes = random_bytes(4); 
+    $randomInt = unpack('L', $randomBytes)[1];
+    DB::table('send_notification')->insert([
+        'title' => 'You haven`t signed in for the last ' . $tenMonth . ' Days',
+        'send_by' => 1011,
+        'send_to' => $userid,
+        'unique_id' => intval(microtime(true) + $randomInt),
+        'total_days' => $tenMonth,
+    ]);
+    echo "Email Send Successfully " . $tenMonth . " <br>";
+
+});
+
+
 // Mail Routes for generating emails for 3, 6 and 10 months
 Route::get('three-month-email', function(){
     return view('mails.threeMonthEmail');

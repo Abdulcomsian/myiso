@@ -62,7 +62,7 @@
 
                     <div class="col-lg-6">
                         <div class="form-group">
-                            <label>Employee Name:</label>
+                            <label>Employee who reported NCR:</label>
                             <input type="text" class="form-control employee_name" name="employee_name"
                                 placeholder="Enter Employee Name">
                         </div>
@@ -131,7 +131,7 @@
 
                     <div class="col-lg-6">
                         <div class="form-group">
-                            <label>Fault Description:</label>
+                            <label>NCR Description:</label>
                             <input type="text" required class="form-control" name="description"
                                 placeholder="Enter Fault Description" required>
                         </div>
@@ -228,7 +228,7 @@
                 </div>
 
                 <div class="row">
-                    <div class="col-lg-6">
+                    <div class="col-lg-12">
                       <div class="form-group">
                          <label>NCR closed (Yes or No):</label>
                             <select name="NCR_closed" class="form-control">
@@ -288,12 +288,14 @@
                         <thead>
                             <tr>
                                 <th>NCR ID Number</th>
-                                <th>Supplier ID Number</th> 
-                                <th>Supplier Name</th> 
-                                <th>Fault Description</th>
+                                <th>Supplier Name</th>
+                                <th>Supplier ID Number</th>
+                                <th>Employee who reported NCR</th> 
+                                <th>Employee ID Number</th> 
+                                <th>NCR Description</th>
                                 <th>Category</th>
                                 <th>Date NCR was Processed.</th>
-                                <th>Employee who reported NCR</th>
+                                
                                 <th>Action</th>
                             </tr>
                         </thead>
@@ -305,13 +307,13 @@
 
                                 <tr>
                                     <td>{{ $i++ }} </td>
-                                    <td>  {{$data->customerID }}</td> 
-                                    <td>{{ $data->supplier_data }}</td> 
+                                    <td> {{ $data->supplier_data }}</td>
+                                    <td> {{ $data->customerID }}</td>
+                                    <td>{{ $data->employee_name }}</td> 
+                                    <td>{{ $data->employee_id }}</td> 
                                     <td> {{ $data->description }}</td>
                                     <td> {{ $data->root_cause_category }}</td>
-                                    <td>{{ date('d/m/Y', strtotime($data->dateNcR)) }}</td>
-                                    {{-- <td> {{ $data->supplier_data }} </td> --}}
-                                    <td> {{ $data->employee_name }} </td>
+                                    <td> {{ $data->dateNcR }}</td>
                                     <td> <button class="btn btn-sm btn-clean btn-icon btn-icon-md" title="View"
                                             value="{{ $data->customerID }}"
                                             onclick="getEid({{ json_encode($data) }});">
@@ -396,7 +398,7 @@
 
                             <div class="col-lg-6">
                                 <div class="form-group">
-                                    <label>Employee Name:</label>
+                                    <label>Employee who reported NCR:</label>
                                     <input type="text" readonly disabled class="form-control employee_name_edit_display"
                                         name="employee_name" placeholder="Enter Employee Name" id="employee_name">
                                 </div>
@@ -434,7 +436,7 @@
 
                             <div class="col-lg-6">
                                 <div class="form-group">
-                                    <label>Fault Description:</label>
+                                    <label>NCR Description:</label>
                                     <input type="text"  readonly disabled class="form-control" name="description"
                                         placeholder="Enter Fault Description">
                                 </div>
@@ -531,7 +533,7 @@
                         </div>
 
                         <div class="row">
-                            <div class="col-lg-6">
+                            <div class="col-lg-12">
                                     <div class="form-group">
                                         <label>NCR closed (Yes or No):</label>
                                         <select name="NCR_closed" class="form-control">
@@ -609,7 +611,7 @@
 
                             <div class="col-lg-6">
                                 <div class="form-group">
-                                    <label>Employee Name:</label>
+                                    <label>Employee who reported NCR:</label>
                                     <input type="text" class="form-control employee_name_edit_display employee_name"
                                         name="employee_name" placeholder="Enter Employee Name" id="employee_name">
                                 </div>
@@ -667,7 +669,7 @@
 
                             <div class="col-lg-6">
                                 <div class="form-group">
-                                    <label>Fault Description:</label>
+                                    <label>NCR Description:</label>
                                     <input type="text" required class="form-control" name="description"
                                         placeholder="Enter Fault Description" required>
                                 </div>
@@ -768,7 +770,7 @@
 
                         <div class="row">
                             
-                            <div class="col-lg-6">
+                            <div class="col-lg-12">
                                     <div class="form-group">
                                         <label>NCR closed (Yes or No):</label>
                                         <select name="NCR_closed"  class="form-control">
