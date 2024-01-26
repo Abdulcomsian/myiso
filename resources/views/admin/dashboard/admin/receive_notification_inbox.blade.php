@@ -229,18 +229,18 @@
             let isUnread = row.hasClass('New');
             if (isUnread) {
                 row.removeClass('New');
-                var itemID = row.data('item-id');
-                $.ajax({
-                    type: 'POST',
-                    url: '{{ route('markasread') }}',
-                    data: {
-                        item_id: itemID,
-                        _token: $('meta[name="csrf-token"]').attr('content')
-                    },
-                    success: function() {
-                        // Optional: You can update the UI further if needed
-                    },
-                });
+            //     var itemID = row.data('item-id');
+            //     $.ajax({
+            //         type: 'POST',
+            //         url: '{{ route('markasread') }}',
+            //         data: {
+            //             item_id: itemID,
+            //             _token: $('meta[name="csrf-token"]').attr('content')
+            //         },
+            //         success: function() {
+            //             console.log("hello");
+            //         },
+            //     });
             }
             // Redirect to the link specified in data-href
             window.location.href = row.attr('data-href');

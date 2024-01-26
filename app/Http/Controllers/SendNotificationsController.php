@@ -221,6 +221,9 @@ class SendNotificationsController extends Controller
         ->where('send_by', $user_id)
         ->first(['id']);
 
+        // Marking the message as unread
+        $unreadUserMessage = SendNotifications::where('unique_id', $messageId)->where('send_to', $user_id)->update(['status' => 1]);
+
         return view('dashboard.form_records.individual-message-user', compact('message_information', 'parent_message_id'));
     }
 
@@ -263,11 +266,11 @@ class SendNotificationsController extends Controller
         return redirect()->back();
     }
     
-    public function markAsRead(Request $request) {
-        $user_id = Auth::user()->id;
-        $item_id = $request->input('item_id');
-        SendNotifications::where('unique_id', $item_id)->update(['status' => 1]);
-    }
+    // public function markAsRead(Request $request) {
+    //     $user_id = Auth::user()->id;
+    //     $item_id = $request->input('item_id');
+    //     SendNotifications::where('unique_id', $item_id)->update(['status' => 1]);
+    // }
 
     /**
      * Display the specified resource.
