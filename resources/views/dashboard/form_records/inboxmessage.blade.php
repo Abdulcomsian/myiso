@@ -135,6 +135,7 @@
 						<th>No.</th>
 						<th>From</th>
 						<th>Subject</th>
+						<td>Open at</td>						
 						<td>Received at</td>						
 					</tr>
 				</thead>
@@ -149,6 +150,7 @@
                                     <td> {{$item->name . ' (' . $counter . ')'}} </td>
                                     <td>{{$item->title}}</td>
                                     <td>{{date("d/m/Y H:i:sA", strtotime($item->updated_at) )}}</td>
+                                    <td>{{date("d/m/Y H:i:sA", strtotime($item->created_at) )}}</td>
                                     {{-- <td>
                                     <a data-id="{{$item->id}}" data-user="user" class="read_it" href="#" data-toggle="modal" data-target="#view-notification-{{$item->id}}"> View Message </a>
                                         
