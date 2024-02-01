@@ -589,7 +589,7 @@ public function store(Request $request)
         $users = SendNotifications::join('users','users.id','=','send_notification.send_to')
         ->select('send_notification.*', 'users.id', 'users.name', 'users.company_name')
         ->where('send_notification.send_by', $user_id)
-        ->whereRaw('send_notification.updated_at = (SELECT MAX(updated_at) FROM send_notification WHERE send_notification.send_by = users.id)')
+        ->whereRaw('send_notification.updated_at = (SELECT MAX(updated_at) FROM send_notification WHERE send_notification.send_to = users.id)')
         ->orderby('send_notification.updated_at', 'desc')
         ->groupBy('users.id')
         ->get();
