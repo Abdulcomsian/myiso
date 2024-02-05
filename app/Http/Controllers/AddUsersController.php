@@ -130,11 +130,12 @@ class AddUsersController extends Controller
         $itemID = $request->input('user_id');
         // dd($itemID);
         $details = SendNotifications::where('send_to', '=', $itemID)
-        ->where(function($query) {
-            $query->where('total_days', '=', 90)
-                ->orWhere('total_days', '=', 180)
-                ->orWhere('total_days', '=', 300);
-        })
+        // ->where(function($query) {
+        //     $query->where('total_days', '=', 90)
+        //         ->orWhere('total_days', '=', 180)
+        //         ->orWhere('total_days', '=', 300);
+        // })
+        ->where('total_days', '!=', null)
         ->get();
 
 
@@ -153,13 +154,13 @@ class AddUsersController extends Controller
         foreach($details as $detail){
             $list .= '<tr>';
             $list .= '<td style="text-align: center;">' . $i . '</td>';
-            if($detail->total_days == 90){
+            if($detail->total_days > 90 || $details->total_days < 180){
                 $list .= '<td style="padding:5px 10px; text-align: center;">Three Months Notification has been Sent</td>';
             }
-            if($detail->total_days == 180){
+            if($detail->total_days > 180 || $details->total_days < 300){
                 $list .= '<td style="padding:5px 10px; text-align: center;">Six Months Notification has been Sent</td>';
             }
-            if($detail->total_days == 300){
+            if($detail->total_days >= 300){
                 $list .= '<td style="padding:5px 10px; text-align: center;">Ten Months Notification has been Sent</td>';
             }
             $list .= '<td style="padding:5px 10px; text-align: center;">' . date('d-m-Y H:i:s', strtotime($detail->created_at)) . '</td>';
