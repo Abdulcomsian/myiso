@@ -148,11 +148,11 @@
                                                 <h5 class="card-title">(no subject)</h5>
                                             @endif
 
-                                            @if($item->total_days == 90)
+                                            @if($item->total_days >= 90 && $item->total_days < 180)
                                             <iframe src="{{ url('/three-month-email') }}" class="w-100 height-900"></iframe>
-                                            @elseif($item->total_days == 180)
+                                            @elseif($item->total_days >= 180 && $item->total_days < 300)
                                             <iframe src="{{ url('/six-month-email') }}" class="w-100 height-500"></iframe>
-                                            @elseif($item->total_days == 300)
+                                            @elseif($item->total_days >= 300)
                                             <iframe src="{{ url('/ten-month-email') }}" class="w-100 height-400"></iframe>
                                             @else   
                                                 <p class="card-text">{{ $item->message }}</p>
