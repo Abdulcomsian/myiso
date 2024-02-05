@@ -154,13 +154,11 @@ class AddUsersController extends Controller
         foreach($details as $detail){
             $list .= '<tr>';
             $list .= '<td style="text-align: center;">' . $i . '</td>';
-            if($detail->total_days > 90 || $details->total_days < 180){
+            if ($detail->total_days >= 90 && $detail->total_days < 180) {
                 $list .= '<td style="padding:5px 10px; text-align: center;">Three Months Notification has been Sent</td>';
-            }
-            if($detail->total_days > 180 || $details->total_days < 300){
+            } elseif ($detail->total_days >= 180 && $detail->total_days < 300) {
                 $list .= '<td style="padding:5px 10px; text-align: center;">Six Months Notification has been Sent</td>';
-            }
-            if($detail->total_days >= 300){
+            } elseif ($detail->total_days >= 300) {
                 $list .= '<td style="padding:5px 10px; text-align: center;">Ten Months Notification has been Sent</td>';
             }
             $list .= '<td style="padding:5px 10px; text-align: center;">' . date('d-m-Y H:i:s', strtotime($detail->created_at)) . '</td>';
