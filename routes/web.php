@@ -551,7 +551,7 @@ Route::get('test', function(){
         $toEmailAddress = "info@isoonline.com";
         $clientName = $u->name;
         $clientEmail = $u->email;
-            if ($totalDays > 90 && $totalDays < 180) {
+            if ($totalDays > 180 && $totalDays < 300) {
                 // Notification::route('mail', $toEmailAddress)->notify(new TenMonthNotification($clientName, $totalDays, $clientEmail));
                 $randomBytes = random_bytes(4); 
                 $randomInt = unpack('L', $randomBytes)[1];
