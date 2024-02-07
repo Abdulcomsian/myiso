@@ -1068,6 +1068,8 @@ public function store(Request $request)
         ->groupBy('users.id')
         ->get();
         // dd($message_info);
+
+
         return view('admin.dashboard.admin.receive_notification_inbox', compact('message_info'));      
     }
 

@@ -158,7 +158,7 @@
 					</tr>
 				</thead> --}}
                     <tbody>
-                        {{-- @dd($message_info); --}}
+                        {{-- @dd($message_info) --}}
                         <?php $count = 0; ?>
 							@foreach ($message_info as $item)
                             <tr data-item-id="{{ $item->unique_id }}"
