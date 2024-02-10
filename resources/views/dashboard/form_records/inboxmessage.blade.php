@@ -150,7 +150,11 @@
                                     <td> {{$item->name . ' (' . $counter . ')'}} </td>
                                     <td>{{$item->title}}</td>
                                     {{-- <td>{{date("d/m/Y H:i:sA", strtotime($item->updated_at) )}}</td> --}}
-                                    <td>{{date("d/m/Y H:i:sA", strtotime($item->created_at) )}}</td>
+									@php
+										// getting the date of the last message to show here
+										$latestMessage = App\SendNotifications::where('unique_id', $item->unique_id)->orderBy('created_at', 'desc')->first();
+									@endphp
+                                    <td>{{date("d/m/Y H:i:sA", strtotime($latestMessage['created_at']) )}}</td>
                                     {{-- <td>
                                     <a data-id="{{$item->id}}" data-user="user" class="read_it" href="#" data-toggle="modal" data-target="#view-notification-{{$item->id}}"> View Message </a>
                                         

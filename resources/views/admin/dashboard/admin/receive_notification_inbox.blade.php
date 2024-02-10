@@ -165,8 +165,11 @@
                                 data-href="{{ route('individualMessage', ['id' => $item->id]) }}"
                                 class="{{ $item->status == 0 ? 'New' : 'read' }}">
                                 <td class="td-item-inbox">										
-                                   <p class="mb-0">{{ $item->name }}</p>									
-                                   <p class="mb-0">{{ date('d/m/Y H:i:sA', strtotime($item->created_at)) }}</p>
+                                   <p class="mb-0">{{ $item->name }}</p>
+                                   @php
+                                    $lastMessageDate = App\SendNotifications::where('send_to', $item->send_to)->where('send_by', $item->send_by)->orderBy('created_at', 'desc')->first();
+                                   @endphp
+                                   <p class="mb-0">{{ date('d/m/Y H:i:sA', strtotime($lastMessageDate['created_at'])) }}</p>
                                 </td>
                              </tr>                             
 							@endforeach					
