@@ -170,7 +170,7 @@
 						<span class="kt-menu__link-icon">
 							<i class="fa fa-spinner" aria-hidden="true"></i>
 						</span>
-						<span class="kt-menu__link-text">Processes</span>
+						<span class="kt-menu__link-text">Process Flow Charts</span>
 						<i class="kt-menu__ver-arrow la la-angle-right"></i>
 					</a>
 					<div class="kt-menu__submenu ">

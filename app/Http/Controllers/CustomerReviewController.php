@@ -47,11 +47,18 @@ class CustomerReviewController extends Controller
     {
         
         // dd($request->all());
-      if(Auth::check() && Auth::user()->role_type == "admin"){
-            $the_id = intval($request->input('user_id'));
-       }else{
-           $the_id = Auth()->user()->id;
-       }  
+        if(Auth::check() && Auth::user()->role_type == "admin"){
+                $the_id = intval($request->input('user_id'));
+        }else{
+            $the_id = Auth()->user()->id;
+        } 
+        // uploading evidence
+        if($request->file('attach_evidence')){
+            $file = $request->file('attach_evidence');
+            $fileDestination = public_path('customer_review_evidence/');
+            $filename = rand() . time() . '.' .$request->file('attach_evidence')->getClientOriginalExtension();
+            $file->move($fileDestination, $filename);
+        }
         // try{
             $customer= new customer_review();
             $customer->user_id=$the_id;
@@ -62,6 +69,8 @@ class CustomerReviewController extends Controller
              $customer->DScore=$request->input('DScore');
              $customer->OveralScore=$request->input('OveralScore');
              $customer->AssesmentDate=$request->input('AssesmentDate');
+             $customer->other_issues=$request->input('other_issue');
+             $customer->attach_evidence = $filename;
              $customer->save();
              //  Toastr->success('Have fun storming the castle!', 'Miracle Max Says');
               return redirect()->back()->with("Success","Data Save Successfully");
@@ -100,7 +109,12 @@ class CustomerReviewController extends Controller
      */
     public function update(Request $request)
     {
-        // dd($request->all());
+        if($request->file('attach_evidence')){
+            $file = $request->file('attach_evidence');
+            $filename = rand() . time() . '.' . $request->file('attach_evidence')->getClientOriginalExtension();
+            $filepath = public_path('customer_review_evidence/');
+            $file->move($filepath, $filename);
+        }
         $id=$request->id;
         // try{
               if(Auth::check() && Auth::user()->role_type == "admin"){
@@ -117,6 +131,8 @@ class CustomerReviewController extends Controller
              $customer->DScore=$request->input('DScore');
              $customer->OveralScore=$request->input('OveralScore');
              $customer->AssesmentDate=$request->input('AssesmentDate');
+             $customer->other_issues = $request->input('other_issue');
+             $customer->attach_evidence = $filename;
              $customer->save();
              $notification = [
                 'message' => 'Record  updated successfully.!',

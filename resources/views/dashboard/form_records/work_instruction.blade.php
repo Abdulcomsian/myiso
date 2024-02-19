@@ -18,7 +18,7 @@
 
 		<div class="row">
 			<div class="col-lg-12">
-				<p>Work instructions are procedures that are used locally to support what the business does. If you use documents that are external to this system, that is fine as long as they are referenced here. Do this by recording the work instruction detail and put a brief summary in the scope section. This section can also be used to add activities that you should list in your process audits</p>
+				<p>Work Instructions are also reffered to as Processes.These are used as a step-by-step guide of how to conduct an activity in the workplace.This section should be used to create activities that are later selected to perform internal audits from your process audits. If you use documents that are external to this system, that is fine as long as they are referenced here. Do this by recording the work instruction detail and put a brief summary in the scope section.</p>
                     <div class="procedure_div">
                     	<div class="row">
                     		<div class="col-lg-12 text-right">
@@ -31,8 +31,8 @@
                     			<div class="row">
                     				<div class="col-lg-6">
                     					<div class="form-group">
-											<label>Work Instruction Title:</label><br>
-											<input type="text" class="form-control" name="workinstruction" required="required">
+											<label>Work Instruction / Process Title:</label><br>
+											<input type="text" class="form-control" name="workinstruction" placeholder="Add Work Instruction / Process" required="required">
 										</div>
                     				</div>
                     				<div class="col-lg-6">
