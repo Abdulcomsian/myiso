@@ -145,9 +145,11 @@
 
                                         <td>{{date('d/m/Y', strtotime($data->AssesmentDate))}} </td>
                                         <td>{{$data->other_issues}}</td>
-                                        @isset($data->attach_evidence)
-                                        <td><a href="{{asset('customer_review_evidence/' . $data->attach_evidence)}}" target="_blank">View File</a></td>                                            
-                                        @endisset
+                                        <td>
+                                            @isset($data->attach_evidence)
+                                            <a href="{{asset('customer_review_evidence/' . $data->attach_evidence)}}" target="_blank">View File</a>
+                                            @endisset
+                                        </td>                                            
                                         <td>
                                             <!-- new  -->
                                             <button class="btn btn-sm btn-clean btn-icon btn-icon-md" onclick="getView({{$data}});" title="View Customer Details" value="" o data-toggle="modal" data-target="#model3"><i class="fa fa-eye"></i>
