@@ -17,10 +17,10 @@
 
 		<div class="row">
 			<div class="col-lg-12">
-					<p>Process audits are sometimes known as job audits or vertical audits. These audits are performed by the auditor selecting a routine job and making sure that it is processed correctly. The audit frequency should be based on past results and the importance of the process to the company.</p>
-                    <p>To add a record, click on the
-						“Add Process Audit” button. To amend or delete a record, click on the edit
-						or delete icon of the entry that needs to be modified or deleted.</p>
+				<p>Process Audits are also reffered to as Work Instruction Audits, these audits are performed by the internal auditor. The audit frequency should be based on past results and the importance of the process to the company.</p>
+				<p>To add a record, click on the “Add
+					Process Audit Details” button. To amend a record, click on the edit icon of
+					the entry that needs to be modified.</p>
 						
 						<div class="procedure_div">
                         <div class="row">
@@ -51,11 +51,21 @@
 										</div>
 									</div> --}}
 									<div class="col-lg-12">
-										<div class="form-group">
-											<label>Process:</label>
-											<input type="text" name="processAudit" class="form-control processAudit" placeholder="Enter Process Name:" required>
-										</div>
-									</div>
+                                        <div class="form-group">
+                                            <label>Process / Work Instruction title being audited:</label>
+                                            {{-- <input type="text" name="processAudit" class="form-control"
+                                                   placeholder="Enter Process / Work Instruction title" id="processAudit"
+                                                   required="required"> --}}
+
+                                            <select name="processAudit" class="form-control">
+                                                @isset($workInstructionsData)
+                                                    @foreach($workInstructionsData as $item)
+                                                        <option value="{{$item->workinstruction}}">{{$item->workinstruction}}</option>
+                                                    @endforeach
+                                                @endisset
+                                            </select>
+                                        </div>
+                                    </div>
 								</div>
 								<div class="row">
 									<div class="col-lg-6">
@@ -486,12 +496,22 @@
                                 <input type="number" name="auditId" class="form-control"  placeholder="Enter Audit ID:">
                             </div>
                         </div> --}}
-                        <div class="col-lg-6">
-                            <div class="form-group">
-                                <label>Enter Process Name</label>
-                                <input type="text" name="processAudit" class="form-control"  placeholder="Enter Process Name:" required>
-                            </div>
-                        </div>
+                        <div class="col-lg-12">
+							<div class="form-group">
+								<label>Process / Work Instruction title being audited:</label>
+								{{-- <input type="text" name="processAudit" class="form-control"
+									   placeholder="Enter Process / Work Instruction title" id="processAudit"
+									   required="required"> --}}
+
+								<select name="processAudit" class="form-control">
+									@isset($workInstructionsData)
+										@foreach($workInstructionsData as $item)
+											<option value="{{$item->workinstruction}}">{{$item->workinstruction}}</option>
+										@endforeach
+									@endisset
+								</select>
+							</div>
+						</div>
                     </div>
                     <div class="row">
                         <div class="col-lg-6">
@@ -837,9 +857,9 @@
                     <input type="hidden" value="" id="id_feild" name="id">
                     <div class="row">
                        
-                        <div class="col-lg-6">
+                        <div class="col-lg-12">
                             <div class="form-group">
-                                <label>Process being audited:</label>
+								<label>Process / Work Instruction title being audited:</label>
                                 <input type="text" name="processAudit" class="form-control"  placeholder="Enter Months:" disabled>
                             </div>
                         </div>

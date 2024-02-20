@@ -145,7 +145,9 @@
 
                                         <td>{{date('d/m/Y', strtotime($data->AssesmentDate))}} </td>
                                         <td>{{$data->other_issues}}</td>
-                                        <td><a href="{{asset('customer_review_evidence/' . $data->attach_evidence)}}" target="_blank">View File</a></td>
+                                        @isset($data->attach_evidence)
+                                        <td><a href="{{asset('customer_review_evidence/' . $data->attach_evidence)}}" target="_blank">View File</a></td>                                            
+                                        @endisset
                                         <td>
                                             <!-- new  -->
                                             <button class="btn btn-sm btn-clean btn-icon btn-icon-md" onclick="getView({{$data}});" title="View Customer Details" value="" o data-toggle="modal" data-target="#model3"><i class="fa fa-eye"></i>
@@ -229,10 +231,8 @@
 																		{{-- <input type="file" class="form-control" name="attach_evidence" required="required"> --}}
 																	</div>
 																</div>
-															</div>
-															<button  class="submitBtn"  type="submit">Update</button>
-															
-															<button  class="btn btn-secondary submitBtn" type="reset" data-dismiss="modal" aria-label="Close" style="margin-right: 6px;">Cancel</button>
+															</div>															
+															<button  class="btn btn-secondary" type="reset" data-dismiss="modal" aria-label="Close" style="margin-right: 6px;">Close</button>
                                                         </div>
                                                         <div class="modal-footer">
                                                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -394,6 +394,7 @@
         $("input[name='qualityScore']").val(data.qualityScore);
         $("input[name='revnumber']").val(data.revnumber);
         $("input[name='qualityScore']").val(data.qualityScore);
+        $("input[name='other_issue']").val(data.other_issues);
         $("#editcustomer_rev").modal('show');
     }
 
@@ -408,6 +409,7 @@
         $("input[name='revnumber']").val(data.revnumber);
         $("input[name='qualityScore']").val(data.qualityScore);
         $("input[name='other_issue']").val(data.other_issues);
+
 		var assetUrl = $("#assetUrl").val();
     	$("a[name='attach_evidence']").attr("href", assetUrl + "/" + data.attach_evidence);
         // $("#editcustomer_rev").modal('show');

@@ -439,10 +439,10 @@ public function store(Request $request)
 
     public function ProcessCheck($request)
     {
+        $userid=Auth::user()->id;
         $getprocess=Audit::where('user_id',$request)->orderBy('id','DESC')->get();
-
-
-        return view('admin.adminform_records.process_audit',compact('getprocess'));
+        $workInstructionsData = Workinstructions::where('user_id', $userid)->get();
+        return view('admin.adminform_records.process_audit',compact('getprocess', 'workInstructionsData'));
 
     }
     /*Delete notifications*/
