@@ -33,31 +33,31 @@
                                 <div class="col-lg-6">
                                     <div class="form-group">
                                         <label>Supplier Name:</label>
-                                        <input type="text" required class="form-control" name="supplier_data"
+                                        <input type="text" required class="form-control supplier_name" name="supplier_data"
                                             placeholder="Enter Supplier Name">
                                     </div>
                                 </div>
 
-                     <div class="col-lg-6">
-                        <div class="form-group">
-                                <label>Supplier ID Number:</label>
-                            @if($no_customer==1)
-                            <select onchange="get_customer(this)" class="form-control" required name="customerID"
-                                    id="customer_id">
-                                    <option value="">Enter Supplier ID Number:</option>
-                                   
-                                </select>
-                                @else
-                                <select onchange="get_customer(this)" class="form-control" name="customerID"
-                                    id="customer_id">
-                                    <option value="">Enter Supplier ID Number:</option>
-                                    @foreach($customers as $customer)
-                                        <option value="{{ $customer->idnumber }}">{{ $customer->idnumber }}</option>
-                                    @endforeach
-                                </select>
-                                @endif
-                        </div>
-                    </div>
+                                <div class="col-lg-6">
+                                    <div class="form-group">
+                                            <label>Supplier ID Number:</label>
+                                        @if($no_customer==1)
+                                        <select onchange="get_customer(this)" class="form-control" required name="customerID"
+                                                id="customer_id">
+                                                <option value="">Enter Supplier ID Number:</option>
+                                            
+                                            </select>
+                                            @else
+                                            <select onchange="get_customer(this)" class="form-control" name="customerID"
+                                                id="customer_id">
+                                                <option value="">Enter Supplier ID Number:</option>
+                                                @foreach($customers as $customer)
+                                                    <option value="{{ $customer->idnumber }}" >{{ $customer->idnumber }}</option>
+                                                @endforeach
+                                            </select>
+                                            @endif
+                                    </div>
+                                </div>
 
 
                     <div class="col-lg-6">
@@ -834,9 +834,7 @@
         {
             //let ids = array();
             response2 = JSON.parse(response);
-
-            $this.closest(".row").find(".customer_name").val(response2.name);
-
+            $this.closest(".row").find(".supplier_name").val(response2.name);
         });
 
     }
@@ -969,5 +967,6 @@
         $("#deleteRequirment").modal('show');
 
     }
+    
 
 </script>
