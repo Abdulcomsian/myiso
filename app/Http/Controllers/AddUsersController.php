@@ -667,7 +667,7 @@ public function store(Request $request)
         // dd($id);
 
         $noneConform=Nonconform::where('user_id',$id)->get();
-        $customers = DB::table('tbl_customer')->where('user_id',$id)->get();
+        $customers = DB::table('tbl_suppliers')->where('user_id',$id)->get();
         $employees= DB::table('tbl_employees')->where('user_id',$id)->get();
 
         // dd($customers);

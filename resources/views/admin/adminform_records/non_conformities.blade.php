@@ -40,7 +40,7 @@
                                 <div class="col-lg-6">
                                     <div class="form-group">
                                         <label>Supplier Name:</label>
-                                        <input type="text" class="form-control supplier_data" name="supplier_data"
+                                        <input type="text" class="form-control supplier_name" name="supplier_data"
                                             placeholder="Enter Supplier Name">
                                     </div>
                                 </div>
@@ -52,7 +52,7 @@
                                             id="customer_id">
                                             <option value="" selected="selected" disabled="disabled">Enter Supplier ID Number:</option>
                                             @foreach($customers as $customer)
-                                                <option value="{{ $customer->idNumber }}">{{ $customer->idNumber }}
+                                                <option value="{{ $customer->idnumber }}">{{ $customer->idnumber }}
                                                     {{-- @dd($customer) --}}
                                                 </option>
                                             @endforeach
@@ -387,7 +387,7 @@
                             <div class="col-lg-6">
                                 <div class="form-group">
                                     <label>Supplier Name:</label>
-                                    <input type="text" readonly disabled class="form-control" name="supplier_data"
+                                    <input type="text" readonly disabled class="form-control supplier_name" name="supplier_data"
                                         placeholder="Enter Supplier">
                                 </div>
                             </div>
@@ -400,7 +400,7 @@
                                         id="customer_id_">
                                         <option value="">Enter Supplier ID Number:</option>
                                         @foreach($customers as $customer)
-                                            <option value="{{ $customer->idNumber }}">{{ $customer->idNumber }}
+                                            <option value="{{ $customer->idnumber }}">{{ $customer->idnumber }}
                                             </option>
                                         @endforeach
                                     </select>
@@ -605,7 +605,7 @@
                             <div class="col-lg-6">
                                 <div class="form-group">
                                     <label>Supplier Name:</label>
-                                    <input type="text" readonly class="form-control"
+                                    <input type="text" readonly class="form-control supplier_name"
                                         name="supplier_data" placeholder="Enter Supplier Name" id="supplier_name">
                                 </div>
                             </div>
@@ -617,7 +617,7 @@
                                         id="customer_id_">
                                         <option value="">Enter Supplier ID Number:</option>
                                         @foreach($customers as $customer)
-                                            <option value="{{ $customer->idNumber }}">{{ $customer->idNumber }}
+                                            <option value="{{ $customer->idnumber }}">{{ $customer->idnumber }}
                                             </option>
                                         @endforeach
                                     </select>
@@ -842,8 +842,7 @@
         }).done(function (response) {
             // console.log(response);
             response2 = JSON.parse(response);
-
-            $this.closest(".row").find(".customer_name").val(response2.name);
+            $this.closest(".row").find(".supplier_name").val(response2.name);
 
         });
 
