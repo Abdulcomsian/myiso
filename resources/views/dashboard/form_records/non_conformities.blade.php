@@ -52,7 +52,7 @@
                                     id="customer_id">
                                     <option value="">Enter Supplier ID Number:</option>
                                     @foreach($customers as $customer)
-                                        <option value="{{ $customer->idNumber }}">{{ $customer->idNumber }}</option>
+                                        <option value="{{ $customer->idnumber }}">{{ $customer->idnumber }}</option>
                                     @endforeach
                                 </select>
                                 @endif
@@ -385,10 +385,10 @@
                                         </select>
                                     @else
                                     <select readonly disabled class="form-control" name="customerID"
-                                        id="customer_id_{{ $customer->idNumber }}">
+                                        id="customer_id_{{ $customer->idnumber }}">
                                         <option value="">Enter Customer ID Number:</option>
                                         @foreach($customers as $customer)
-                                            <option value="{{ $customer->idNumber }}">{{ $customer->idNumber }}
+                                            <option value="{{ $customer->idnumber }}">{{ $customer->idnumber }}
                                             </option>
                                         @endforeach
                                     </select>
@@ -598,10 +598,10 @@
                                         </select>
                                     @else
                                     <select readonly  class="form-control" name="customerID"
-                                        id="customer_id_{{ $customer->idNumber }}">
+                                        id="customer_id_{{ $customer->idnumber }}">
                                         <option value="">Enter Supplier ID Number:</option>
                                         @foreach($customers as $customer)
-                                            <option value="{{ $customer->idNumber }}">{{ $customer->idNumber }}
+                                            <option value="{{ $customer->idnumber }}">{{ $customer->idnumber }}
                                             </option>
                                         @endforeach
                                     </select>

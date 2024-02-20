@@ -25,7 +25,7 @@ class nonConfromFormController extends Controller
         $userid=Auth::user()->id;
        
         $nonconform=Nonconform::where('user_id',$userid)->get();
-        $customers = DB::table('tbl_customer')->where('user_id',$userid)->get();
+        $customers = DB::table('tbl_suppliers')->where('user_id',$userid)->get();
        
          if(count($customers)==0)
          {
