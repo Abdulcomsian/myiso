@@ -54,6 +54,7 @@
                                                    required="required"> --}}
 
                                             <select name="processAudit" class="form-control">
+                                                <option value="">Select Option</option>
                                                 @isset($workInstructionsData)
                                                     @foreach($workInstructionsData as $item)
                                                         <option value="{{$item->workinstruction}}">{{$item->workinstruction}}</option>
