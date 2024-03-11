@@ -71,6 +71,7 @@ class CustomerReviewController extends Controller
              $customer->AssesmentDate=$request->input('AssesmentDate');
              $customer->other_issues=$request->input('other_issue');
              $customer->attach_evidence = $filename;
+             $customer->product_activity_area = $request->input('product_activity_area');
              $customer->save();
              //  Toastr->success('Have fun storming the castle!', 'Miracle Max Says');
               return redirect()->back()->with("Success","Data Save Successfully");
@@ -109,6 +110,7 @@ class CustomerReviewController extends Controller
      */
     public function update(Request $request)
     {
+        // dd($request->all());
         if($request->file('attach_evidence')){
             $file = $request->file('attach_evidence');
             $filename = rand() . time() . '.' . $request->file('attach_evidence')->getClientOriginalExtension();
@@ -133,6 +135,7 @@ class CustomerReviewController extends Controller
              $customer->AssesmentDate=$request->input('AssesmentDate');
              $customer->other_issues = $request->input('other_issue');
              $customer->attach_evidence = $filename;
+             $customer->product_activity_area = $request->input('product_activity_area_edit');
              $customer->save();
              $notification = [
                 'message' => 'Record  updated successfully.!',

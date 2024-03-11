@@ -17,7 +17,7 @@
 
         <div class="row">
             <div class="col-lg-12">
-                <p>Customer reviews are a tool to monitor and grade your performance levels provided by your customers, this performance indicator can target all areas of contact with the customer.</p>
+                <p>Customer reviews are a tool to monitor and grade your performance levels provided by your customers, this performance indicator can target all areas of contact with the customer. For example: "quality of service or product" "delivery time accuracy" "politeness of our staff" or similar and relivant</p>
                 <p>To add a record, click on the “Add Customer Evaluation” button. To amend a record, click on the edit icon of the entry that needs to be modified.</p>
                 <div class="procedure_div">
                     <div class="row">
@@ -35,7 +35,7 @@
 											<input type="number" class="form-control" name="revnumber" placeholder="Enter ID:">
 										</div>
                     				</div> --}}
-                                <div class="col-lg-12">
+                                <div class="col-lg-6">
                                     <div class="form-group">
                                         <label>Customer ID Number:</label><br>
                                         <!-- <input type="number" class="form-control" name="cus_id" placeholder="Enter Customer ID:"> -->
@@ -45,6 +45,14 @@
                                             <option value="{{$customer->idNumber}}">{{$customer->idNumber}}</option>
                                             @endforeach
                                         </select>
+                                    </div>
+                                </div>
+
+                                <div class="col-lg-6">
+                                    <div class="form-group">
+                                        <label>Product / Activity / Area being reviewed</label><br>
+                                        <!-- <input type="number" class="form-control" name="cus_id" placeholder="Enter Customer ID:"> -->
+                                        <input class="form-control" type="text" name="product_activity_area" placeholder="Enter Product / Activity / Area being reviewed">
                                     </div>
                                 </div>
                             </div>
@@ -59,7 +67,7 @@
                                 <div class="col-lg-6">
                                     <div class="form-group">
                                         <label>Price Score (0-10):</label>
-                                        <input type="number" class="form-control" min="0" max="10" name="priceScore" required="required">
+                                        <input type="number" class="form-control" min="0" max="10" name="priceScore" placeholder="If Applicable" required="required">
                                     </div>
                                 </div>
                             </div>
@@ -73,7 +81,7 @@
                                 <div class="col-lg-6">
                                     <div class="form-group">
                                         <label>Overall Score (0-10):</label>
-                                        <input type="number" class="form-control" min="0" max="10" name="OveralScore" required="required">
+                                        <input type="number" class="form-control" min="0" max="10" name="OveralScore" required="required" placeholder="Enter Overall Score">
                                     </div>
                                 </div>
                             </div>
@@ -123,6 +131,7 @@
                                         <th>Review Date</th>
                                         <th>Other Issues</th>
                                         <th>Attached Evidence</th>
+                                        <th>Product / Activity / Area being reviewed</th>
                                         <th>Action</th>
                                     </tr>
                                 </thead>
@@ -149,7 +158,10 @@
                                             @isset($data->attach_evidence)
                                             <a href="{{asset('customer_review_evidence/' . $data->attach_evidence)}}" target="_blank">View File</a>
                                             @endisset
-                                        </td>                                            
+                                        </td>    
+                                        <td>
+                                            {{$data->product_activity_area}}
+                                        </td>                                        
                                         <td>
                                             <!-- new  -->
                                             <button class="btn btn-sm btn-clean btn-icon btn-icon-md" onclick="getView({{$data}});" title="View Customer Details" value="" o data-toggle="modal" data-target="#model3"><i class="fa fa-eye"></i>
@@ -174,12 +186,19 @@
 																		<input type="number" class="form-control" name="revnumber" placeholder="Enter ID:">
 																	</div>
 																</div> --}}
-																<div class="col-lg-12">
+																<div class="col-lg-6">
 																	<div class="form-group">
 																		<label>Customer ID Number:</label><br>
 																		<input type="number" class="form-control" required name="cus_id" placeholder="Enter Customer ID:" readonly>
 																	</div>
 																</div>
+
+                                                                <div class="col-lg-6">
+                                                                    <div class="form-group">
+                                                                        <label>Product / Activity / Area being reviewed</label><br>
+                                                                        <input class="form-control" type="text" name="product_activity_area_id" placeholder="Enter Product / Activity / Area being reviewed" value="" readonly>
+                                                                    </div>
+                                                                </div>
 															</div>
 										
 															<div class="row">
@@ -315,15 +334,29 @@
                                 <input type="number" class="form-control" name="revnumber" placeholder="Enter ID:">
                             </div>
                         </div> --}}
-                        <div class="col-lg-12">
+                        <div class="col-lg-6">
                             <div class="form-group">
                                 <label>Customer ID Number:</label><br>
-                                <input type="number" class="form-control" required name="cus_id" placeholder="Enter Customer ID:" readonly>
+                                {{-- <input type="number" class="form-control" required name="cus_id" placeholder="Enter Customer ID:" readonly> --}}
+                                <select class="form-control" name="cus_id" required="required">
+                                    <option value="" selected disabled>Select Customer Id</option>
+                                    @foreach($all_customers as $customer)
+                                    <option value="{{$customer->idNumber}}">{{$customer->idNumber}}</option>
+                                    @endforeach
+                                </select>  
                             </div>
                         </div>
+                        
+                        <div class="col-lg-6">
+                            <div class="form-group">
+                                <label>Product / Activity / Area being reviewed</label><br>
+                                <!-- <input type="number" class="form-control" name="cus_id" placeholder="Enter Customer ID:"> -->
+                                <input class="form-control" type="text" name="product_activity_area_edit" placeholder="Enter Product / Activity / Area being reviewed">
+                            </div>
+                        </div>                  
+                        
                     </div>
-
-                    <div class="row">
+                        <div class="row">
                         <div class="col-lg-6">
                             <div class="form-group">
                                 <label>Quality Score (0-10):</label>
@@ -391,9 +424,10 @@
         $("input[name='AssesmentDate']").val(data.AssesmentDate);
         $("input[name='DScore']").val(data.DScore);
         $("input[name='OveralScore']").val(data.OveralScore);
-        $("input[name='cus_id']").val(data.cus_id);
-        $("input[name='priceScore']").val(data.priceScore);
+        $("select[name='cus_id']").val(data.cus_id);
+        $("input[name='priceScore']").val(data.priceScore); // product_activity_area_edit
         $("input[name='qualityScore']").val(data.qualityScore);
+        $("input[name='product_activity_area_edit']").val(data.product_activity_area);
         $("input[name='revnumber']").val(data.revnumber);
         $("input[name='qualityScore']").val(data.qualityScore);
         $("input[name='other_issue']").val(data.other_issues);
@@ -406,6 +440,7 @@
         $("input[name='DScore']").val(data.DScore);
         $("input[name='OveralScore']").val(data.OveralScore);
         $("input[name='cus_id']").val(data.cus_id);
+        $("input[name='product_activity_area_id']").val(data.product_activity_area);
         $("input[name='priceScore']").val(data.priceScore);
         $("input[name='qualityScore']").val(data.qualityScore);
         $("input[name='revnumber']").val(data.revnumber);
