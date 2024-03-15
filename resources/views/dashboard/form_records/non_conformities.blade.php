@@ -16,7 +16,7 @@
     <section id="procedure_section">
         <div class="row">
             <div class="col-lg-12">
-            <p>A Non-Conformity is the failure to meet one or more requirements that are outlined in the quality management system. For example, you received a shipment of untested products from a Supplier, or an employee who failed to take corrective action at the time of an issue.</p>
+            <p>A Non-Confirmance occurs when something does not meet the specifications or requirements in some way - in a services, product, process, goods from a supplier, or staff. There are two types of Non - Conformities, Minor & Major. An example of a Minor Non-Conformity coule be an invoicing mistake. An example of a Major Non-Confirmity could be employees stealing company property.</p>
             <p>To create a non-Conformity, click on the “Add Non-Conformity “button and follow the steps outlining the situation in detail.</p>
                 <div class="procedure_div">
                     <div class="row">
@@ -34,7 +34,7 @@
                                     <div class="form-group">
                                         <label>Supplier Name:</label>
                                         <input type="text" required class="form-control supplier_name" name="supplier_data"
-                                            placeholder="Enter Supplier Name">
+                                            placeholder="Enter Supplier Name (if applicable)">
                                     </div>
                                 </div>
 
@@ -44,7 +44,7 @@
                                         @if($no_customer==1)
                                         <select onchange="get_customer(this)" class="form-control" required name="customerID"
                                                 id="customer_id">
-                                                <option value="">Enter Supplier ID Number:</option>
+                                                <option value="">Enter Supplier ID Number (If Applicable)</option>
                                             
                                             </select>
                                             @else

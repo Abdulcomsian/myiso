@@ -17,7 +17,7 @@
 
 		<div class="row">
 			<div class="col-lg-12">
-				<p>Process Audits are also reffered to as Work Instruction Audits, these audits are performed by the internal auditor. The audit frequency should be based on past results and the importance of the process to the company.</p>
+				<p>Process Audits are also reffered to as Work Instruction Audits, these audits are performed by the internal auditor. This is an audit carried out by selecting a work instruction, or process flow chart audit and make sure that it is processed correctly.</p>
 				<p>To add a record, click on the “Add
 					Process Audit Details” button. To amend a record, click on the edit icon of
 					the entry that needs to be modified.</p>
@@ -50,7 +50,7 @@
 											<input type="number" name="auditId" class="form-control" placeholder="Enter Audit ID:">
 										</div>
 									</div> --}}
-									<div class="col-lg-12">
+									<div class="col-lg-6">
                                         <div class="form-group">
                                             <label>Process / Work Instruction title being audited:</label>
                                             {{-- <input type="text" name="processAudit" class="form-control"
@@ -59,6 +59,11 @@
 
                                             <select name="processAudit" class="form-control">
 												<option value="">Select Option</option>
+                                                <option value="QP1-Sales Process">QP1-Sales Process</option>
+                                                <option value="QP2-Purchasing Process">QP2-Purchasing Process</option>
+                                                <option value="QP3-Servicing of a Contract">QP3-Servicing of a Contract</option>
+                                                <option value="QP4-Competency Process">QP4-Competency Process</option>
+                                                <option value="Process Interaction">Process Interaction</option>
                                                 @isset($workInstructionsData)
                                                     @foreach($workInstructionsData as $item)
                                                         <option value="{{$item->workinstruction}}">{{$item->workinstruction}}</option>
@@ -67,51 +72,49 @@
                                             </select>
                                         </div>
                                     </div>
-								</div>
-								<div class="row">
 									<div class="col-lg-6">
 										<div class="form-group">
 											<label>Auditor:</label>
 											<input type="text" name="auditor" class="form-control" required placeholder="Enter Auditor Name:" required>
 										</div>
 									</div>
+								</div>
+								<div class="row">									
 									<div class="col-lg-6">
 										<div class="form-group">
 											<label>Audit Date (DD/MM/YYYY):</label>
 											<input type="date" required name="auditDate" id="format_date" placeholder="dd/mm/yyyy" class="form-control" required>
 										</div>
 									</div>
-								</div>
-								<div class="row">
 									<div class="col-lg-6">
 										<div class="form-group">
 											<label>Number of Non-Conformities:</label>
 											<input type="number" min="0" required onkeyup="myFunction('nonConformities')" name="nonConformities" class="validate-number-2 form-control nonConformities" placeholder="Enter Number of Non-Conformities:" required>
 										</div>
 									</div>
+								</div>
+								<div class="row">									
 									<div class="col-lg-6">
 										<div class="form-group">
 											<label>Number of Observations:</label>
 											<input type="number" min="0" required onkeyup="myFunction('Observations')" name="Observations" class="validate-number-2 form-control Observations"  placeholder="Enter Number of Observations:" required>
 										</div>
 									</div>
-								</div>
-								<div class="row">
 									<div class="col-lg-6">
 										<div class="form-group">
 											<label>Non-Conformance Report Reference (if applicable):</label>
 											 <input type="text"  name="nonConfReport" class="form-control validate_number"  placeholder="Enter Report Reference">
 										</div>
 									</div>
+								</div>
+								<div class="row">									
 									<div class="col-lg-6">
 										<div class="form-group">
 											<label>Audit Actions:</label>
 											<textarea required name="AdutiActions" class="form-control" placeholder="Enter Audit Actions:" required></textarea>
 										</div>
 									</div>
-								</div>
-								<div class="row">
-									<div class="col-lg-12">
+									<div class="col-lg-6">
 										<div class="form-group">
 											<label>Audit Frequency (Months):</label>
 											<input type="number" required  onkeyup="myFunction('auditfrequency')" min="1" max="12" name="dateFrequency" class="validate-number-2 form-control auditfrequency"  placeholder="Enter Number of Months:" required>
@@ -497,7 +500,7 @@
                                 <input type="number" name="auditId" class="form-control"  placeholder="Enter Audit ID:">
                             </div>
                         </div> --}}
-                        <div class="col-lg-12">
+                        <div class="col-lg-6">
 							<div class="form-group">
 								<label>Process / Work Instruction title being audited:</label>
 								{{-- <input type="text" name="processAudit" class="form-control"
@@ -505,6 +508,12 @@
 									   required="required"> --}}
 
 								<select name="processAudit" class="form-control">
+									<option value="">Select Option</option>
+                                                <option value="QP1-Sales Process">QP1-Sales Process</option>
+                                                <option value="QP2-Purchasing Process">QP2-Purchasing Process</option>
+                                                <option value="QP3-Servicing of a Contract">QP3-Servicing of a Contract</option>
+                                                <option value="QP4-Competency Process">QP4-Competency Process</option>
+                                                <option value="Process Interaction">Process Interaction</option>
 									@isset($workInstructionsData)
 										@foreach($workInstructionsData as $item)
 											<option value="{{$item->workinstruction}}">{{$item->workinstruction}}</option>
@@ -513,51 +522,52 @@
 								</select>
 							</div>
 						</div>
-                    </div>
-                    <div class="row">
-                        <div class="col-lg-6">
+						<div class="col-lg-6">
                             <div class="form-group">
                                 <label>Auditor:</label>
                                 <input type="text" name="auditor" class="form-control" placeholder="Enter Auditor Name:" required>
                             </div>
                         </div>
+                    </div>
+                    <div class="row">
+                        
                         <div class="col-lg-6">
                             <div class="form-group">
                                 <label>Audit Date (MM/DD/YYYY):</label>
                                 <input type="date" name="auditDate" class="form-control" required>
                             </div>
                         </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-lg-6">
+						<div class="col-lg-6">
                             <div class="form-group">
                                 <label>Number of Non-Conformities:</label>
                                 <input type="text" min="0" onkeyup="myFunction('nonConformities')" name="nonConformities" class="validate-number-2 form-control nonConformities"  placeholder="Enter Number of Non-Conformities:" required>
                             </div>
                         </div>
+                    </div>
+                    <div class="row">
+                       
                         <div class="col-lg-6">
                             <div class="form-group">
                                 <label>Number of Observations:</label>
                                 <input type="number" min="0" onkeyup="myFunction('Observations')" name="Observations" class="validate-number-2 form-control Observations"  placeholder="Enter Number of Observations:" required>
                             </div>
                         </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-lg-6">
+						<div class="col-lg-6">
                             <div class="form-group">
                                 <label>Non-Conformance Report Reference (if applicable):</label> 
                                 <input type="text" required name="nonConfReport" class="form-control validate_number" placeholder="Enter Report Reference:">
                             </div>
                         </div>
+                    </div>
+                    <div class="row">
+                        
                         <div class="col-lg-6">
                             <div class="form-group">
                                 <label>Audit Actions:</label>
                                 <textarea required name="AdutiActions" class="form-control" placeholder="Enter Audit Actions:" required></textarea>
                             </div>
                         </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-lg-12">
+						<div class="col-lg-6">
                             <div class="form-group">
                                 <label>Audit Frequency (Months):</label>
                                 <input type="number" min="1" max="12" onkeyup="myFunction('auditfrequency')" name="dateFrequency" class="validate-number-2 form-control auditfrequency"  placeholder="Enter Number of Months:" required>
@@ -858,57 +868,58 @@
                     <input type="hidden" value="" id="id_feild" name="id">
                     <div class="row">
                        
-                        <div class="col-lg-12">
+                        <div class="col-lg-6">
                             <div class="form-group">
 								<label>Process / Work Instruction title being audited:</label>
                                 <input type="text" name="processAudit" class="form-control"  placeholder="Enter Months:" disabled>
                             </div>
                         </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-lg-6">
+						<div class="col-lg-6">
                             <div class="form-group">
                                 <label>Auditor:</label>
                                 <input type="text" name="auditor" class="form-control"  placeholder="Enter Auditor:" disabled>
                             </div>
                         </div>
+                    </div>
+                    <div class="row">
+                        
                         <div class="col-lg-6">
                             <div class="form-group">
                                 <label>Audit Date (MM/DD/YYYY):</label>
                                 <input type="date" name="auditDate" class="form-control" disabled>
                             </div>
                         </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-lg-6">
+						<div class="col-lg-6">
                             <div class="form-group">
                                 <label>Number of Non-Conformities:</label>
                                 <input type="number" name="nonConformities" required class="validate-number-2 form-control"  placeholder="Enter Non-Conformities:" disabled>
                             </div>
                         </div>
+                    </div>
+                    <div class="row">
+                       
                         <div class="col-lg-6">
                             <div class="form-group">
                                 <label>Number of Observations:</label>
                                 <input type="number" name="Observations" class="validate-number-2 form-control"  placeholder="Enter Observations:" disabled>
                             </div>
                         </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-lg-6">
+						<div class="col-lg-6">
                             <div class="form-group">
                                 <label>Non-Conformance Report Reference (if applicable):</label> 
                                 <input type="text"  name="nonConfReport" class="form-control validate_number"  placeholder="Enter Report Reference:" disabled>
                             </div>
                         </div>
+                    </div>
+                    <div class="row">
+                        
                         <div class="col-lg-6">
                             <div class="form-group">
                                 <label>Audit Actions:</label>
                                 <input type="text" name="AdutiActions" class="form-control"  placeholder="Enter Audit Actions:" disabled>
                             </div>
                         </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-lg-12">
+						<div class="col-lg-6">
                             <div class="form-group">
                                 <label>Audit Frequency (Months):</label>
                                 <input type="number" min="1" max="12" onkeyup="myFunction('auditfrequency')" name="dateFrequency" class="validate-number-2 form-control auditfrequency" disabled>
