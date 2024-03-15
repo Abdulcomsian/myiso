@@ -23,7 +23,6 @@ class nonConfromFormController extends Controller
     public function index(Request $request)
     {
         $userid=Auth::user()->id;
-       
         $nonconform=Nonconform::where('user_id',$userid)->get();
         $customers = DB::table('tbl_suppliers')->where('user_id',$userid)->get();
        
@@ -37,7 +36,9 @@ class nonConfromFormController extends Controller
         //     return redirect('/customer')->with("Success","Please add customer first");
         // }
         // SELECT b.name FROM `tbl_noconformance` as a, tbl_customer as b WHERE a.customerID = b.idNumber;
-        $customers_nonconform = DB::table('tbl_noconformance')->join('tbl_customer','tbl_noconformance.customerID','tbl_customer.idNumber')->select('tbl_noconformance.id as noid','tbl_noconformance.*','tbl_customer.*')->where('tbl_noconformance.user_id',$userid)->where('tbl_customer.user_id',$userid)->orderBy('tbl_noconformance.id','DESC')->get();
+        // $customers_nonconform = DB::table('tbl_noconformance')->join('tbl_customer','tbl_noconformance.customerID','tbl_customer.idNumber')->select('tbl_noconformance.id as noid','tbl_noconformance.*','tbl_customer.*')->where('tbl_noconformance.user_id',$userid)->where('tbl_customer.user_id',$userid)->orderBy('tbl_noconformance.id','DESC')->get();
+        $customers_nonconform = DB::table('tbl_noconformance')->join('tbl_suppliers','tbl_noconformance.customerID','tbl_suppliers.idNumber')->select('tbl_noconformance.id as noid','tbl_noconformance.*','tbl_suppliers.*')->where('tbl_noconformance.user_id',$userid)->where('tbl_suppliers.user_id',$userid)->orderBy('tbl_noconformance.id','DESC')->get();
+        // dd($customers_nonconform);
         $employees= DB::table('tbl_employees')->where('user_id',$userid)->get();
 
         if(count($employees)==0)
@@ -106,6 +107,7 @@ class nonConfromFormController extends Controller
            $nonConform->supplier_data=$request->input('supplier_data');
            $nonConform->employee_id=$request->input('employee_id');
            $nonConform->employee_name=$request->input('employee_name');
+           $nonConform->non_confirm_status =$request->input('minor_major');
            $nonConform->save();
         //    dd($nonConform);
            return redirect()->back();
@@ -177,6 +179,7 @@ class nonConfromFormController extends Controller
 
         $nonConform->employee_id=$request->input('employee_id');
         $nonConform->employee_name=$request->input('employee_name');
+        $nonConform->non_confirm_status =$request->input('minor_major');
         $test  = $nonConform->save();
         return back();
         // return redirect('/non_confromities')->with("Success","Data Save Successfully");
