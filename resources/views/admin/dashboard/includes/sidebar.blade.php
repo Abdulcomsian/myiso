@@ -137,14 +137,14 @@
                 <!-------->
 
                 <li id="admin_notifications" class="kt-menu__item   kt-menu__item--submenu" aria-haspopup="true" data-ktmenu-submenu-toggle="hover">
-                    <a href="javascript:;" class="kt-menu__link kt-menu__toggle">
+                    {{-- <a href="javascript:;" class="kt-menu__link kt-menu__toggle">
                         <span class="kt-menu__link-icon">
                             <i class="fa fa-envelope" aria-hidden="true"></i>
                         </span>
                         <span class="kt-menu__link-text">Notifications (Old)</span>
-                        {{-- <span class="badge badge-primary count_notifications" style="color:#FFF !important;"></span> --}}
+                        <span class="badge badge-primary count_notifications" style="color:#FFF !important;"></span>
                         <i class="kt-menu__ver-arrow la la-angle-right"></i>
-                    </a>
+                    </a> --}}
                     <div class="kt-menu__submenu ">
                         <span class="kt-menu__arrow"></span>
                         <ul class="kt-menu__subnav">
