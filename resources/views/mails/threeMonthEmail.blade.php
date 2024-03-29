@@ -12,7 +12,7 @@
 
     <div class="container" style="max-width: 500px; height: auto; margin: 50px auto; padding: 20px; background-color: #fff; border-radius: 5px; box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); text-align: center;">
 
-        <img src="https://myisoonline.com/assets/media/logos/newmyisologo50.png" alt="Logo" style="height: 50px; margin-bottom: 20px;">
+        <img src="https://myisoonline.com/assets/media/logos/MyISOOnline-Logo.png " alt="Logo" style="height: 50px; margin-bottom: 20px;">
 
         <div class="content-area" style="text-align: left;">
 
