@@ -20,7 +20,7 @@
 
 		<div class="row">
 			<div class="col-lg-12">
-                <p>Work Instructions are also reffered to as Processes.These are used as a step-by-step guide of how to conduct an activity in the workplace.This section should be used to create activities that are later selected to perform internal audits from your process audits. If you use documents that are external to this system, that is fine as long as they are referenced here. Do this by recording the work instruction detail and put a brief summary in the scope section.</p>
+                <p>Work Instructions are also referred to as Processes.These are used as a step-by-step guide of how to conduct an activity in the workplace.This section should be used to create activities that are later selected to perform internal audits from your process audits. If you use documents that are external to this system, that is fine as long as they are referenced here. Do this by recording the work instruction detail and put a brief summary in the scope section.</p>
 
                     <div class="procedure_div">
                     	<div class="row">
