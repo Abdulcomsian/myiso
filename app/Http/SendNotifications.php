@@ -10,4 +10,5 @@ class SendNotifications extends Model
 {
     // use Notifiable;
     protected $table='send_notification';
+
 }
