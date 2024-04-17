@@ -219,6 +219,7 @@
                             <th>Activation Date</th>
                             <th>Last Login</th>
                              <th>Expiry Date</th>
+                             <th>User Id</th>
                             <!--<th>Expiry date</th>-->
                             <th>Actions</th>
 
@@ -349,7 +350,7 @@
 
                                 <!--<td> ->expiry_date </td>-->
 
-
+                                <td>{{$item->id}}</td>
                                 <td>
                                     {{-- eye view option hide in Action column in admin --}}
 
