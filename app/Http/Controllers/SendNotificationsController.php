@@ -222,7 +222,9 @@ class SendNotificationsController extends Controller
         ->first(['id']);
 
         // Marking the message as unread
-        $unreadUserMessage = SendNotifications::where('unique_id', $messageId)->where('send_to', $user_id)->update(['status' => 1]);
+        $update_at = SendNotifications::where('unique_id', $messageId)->where('send_to', $user_id)
+        ->value("updated_at");
+        $unreadUserMessage = SendNotifications::where('unique_id', $messageId)->where('send_to', $user_id)->update(['status' => 1, 'updated_at' => $update_at]);
 
         return view('dashboard.form_records.individual-message-user', compact('message_information', 'parent_message_id'));
     }
