@@ -134,7 +134,9 @@ class CustomerReviewController extends Controller
              $customer->OveralScore=$request->input('OveralScore');
              $customer->AssesmentDate=$request->input('AssesmentDate');
              $customer->other_issues = $request->input('other_issue');
-             $customer->attach_evidence = $filename;
+             if($request->hasFile('attach_evidence')){
+                $customer->attach_evidence = $filename;
+            }
              $customer->product_activity_area = $request->input('product_activity_area_edit');
              $customer->save();
              $notification = [

@@ -293,7 +293,7 @@
                                 <div class="col-lg-4">
                                     <label for="iso9001_expirydate">Expiry date:</label>
                                     <div class="input-group">
-                                        <input type="text" id="iso9001_expirydate" name="iso9001_expirydate" class="form-control specialInput" placeholder="dd/mm/yyyy">
+                                        <input type="text" id="iso9001_expirydate" name="iso9001_expirydate" class="form-control specialInput" placeholder="mm/dd/yyyy">
                                     </div>
                                 </div>
 
@@ -317,7 +317,7 @@
                                 <div class="col-lg-4">
                                     <label for="iso14001_expirydate">Expiry date:</label>
                                     <div class="input-group">
-                                        <input type="text" id="iso14001_expirydate" name="iso14001_expirydate" class="form-control specialInput" placeholder="dd/mm/yyyy">
+                                        <input type="text" id="iso14001_expirydate" name="iso14001_expirydate" class="form-control specialInput" placeholder="mm/dd/yyyy">
                                     </div>
                                 </div>
                                 
@@ -341,7 +341,7 @@
                                 <div class="col-lg-4">
                                     <label for="iso45001_expirydate">Expiry date:</label>
                                     <div class="input-group">
-                                        <input type="text" id="iso45001_expirydate" name="iso45001_expirydate" class="form-control specialInput" placeholder="dd/mm/yyyy">
+                                        <input type="text" id="iso45001_expirydate" name="iso45001_expirydate" class="form-control specialInput" placeholder="mm/dd/yyyy">
                                     </div>
                                 </div>
 
@@ -418,11 +418,11 @@
         $(document).ready(function() 
         {
             $('#iso9001_expirydate').datepicker({
-                dateFormat: 'dd/mm/yyyy',
+                dateFormat: 'mm/dd/yyyy',
                 autoclose: true,
                 onSelect: function(dateText, inst) {
-    $(inst).val(dateText); // Write the value in the input
-  }
+                    $(inst).val(dateText); // Write the value in the input
+                }
             });
         });
     </script>
@@ -430,7 +430,7 @@
     <script>
         $(document).ready(function() {
             $('#iso14001_expirydate').datepicker({
-                format: 'dd/mm/yyyy',
+                format: 'mm/dd/yyyy',
                 autoclose: true
             });
         });
@@ -439,7 +439,7 @@
     <script>
         $(document).ready(function() {
             $('#iso45001_expirydate').datepicker({
-                format: 'dd/mm/yyyy',
+                format: 'mm/dd/yyyy',
                 autoclose: true
             });
         });
