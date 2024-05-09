@@ -47,7 +47,7 @@
 
 
                                 <div class="row">
-                                    <div class="col-lg-9">
+                                    <div class="col-lg-9" style="margin-top: 22px;">
                                         <div class="form-group">
                                             <label>Subject</label>
                                             <input type="text" required class="form-control" placeholder="Enter subject"
@@ -55,7 +55,7 @@
                                         </div>
                                     </div>
                                     <div class="col-lg-3">
-                                        <label for="attachment">Attachment (doc, docx, xls, xlsx, .pdf, txt, jpeg, jpg, png, gif)</label>
+                                        <label for="attachment" style="text-align: left !important;">Attachment (doc, docx, xls, xlsx, .pdf, txt, jpeg, jpg, png, gif)</label>
                                         <div class="kt-input-icon kt-input-icon--right">
                                             <input type="file" name="attachment" class="form-control" id="attachment"
                                                 accept=".pdf,.png,.jpg,.mp4,.mp3,.doc,.docx,.jpeg,.csv,.txt,.xlx,.xls,">

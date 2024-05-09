@@ -124,12 +124,12 @@
     			<div class="kt-portlet__body">
     				<input type="hidden" name="id" id="editvalue" value="">
     				<div class="form-group row">
-    					<div class="col-lg-8">
+    					<div class="col-lg-8" style="margin-top: 22px !important;">
     						<label for="title">Subject:</label>
     						<input type="text" id="title" name="title" class="form-control" placeholder="Please enter Message Subject">
     					</div>
                         <div class="col-md-4">
-    						<label for="attachment">Attachment (doc, docx, xls, xlsx, .pdf, txt, jpeg, jpg, png, gif)</label>
+    						<label for="attachment" style="text-align: left !important;">Attachment (doc, docx, xls, xlsx, .pdf, txt, jpeg, jpg, png, gif)</label>
     						<div class="kt-input-icon kt-input-icon--right">
     						<input type="file" name="attachment" class="form-control" id="attachment">
     						</div>
