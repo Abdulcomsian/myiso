@@ -51,7 +51,7 @@
 										</div>
 									</div>
 									<div class="col-lg-3">
-								<label for="attachment">Attachment</label>
+								<label for="attachment">Attachment (doc, docx, xls, xlsx, .pdf, txt, jpeg, jpg, png, gif)</label>
 								<div class="kt-input-icon kt-input-icon--right">
 								<input type="file" name="attachment" class="form-control" id="attachment" accept=".pdf,.png,.jpg,.mp4,.mp3,.doc,.docx,.jpeg,.csv,.txt,.xlx,.xls," required>
 

@@ -119,7 +119,7 @@
     						<input type="text" id="title" name="title" class="form-control" placeholder="Please enter Message Subject" required>
     					</div>
                         <div class="col-md-4">
-    						<label for="attachment">Attachment</label>
+    						<label for="attachment">Attachment (doc, docx, xls, xlsx, .pdf, txt, jpeg, jpg, png, gif)</label>
     						<div class="kt-input-icon kt-input-icon--right">
     						<input type="file" name="attachment" class="form-control" id="attachment">
     						</div>

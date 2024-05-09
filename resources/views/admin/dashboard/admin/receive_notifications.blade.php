@@ -172,7 +172,7 @@
 							</div>
 
 							<div class="col-md-12">
-								<label for="attachment">Attachment</label>
+								<label for="attachment">Attachment (doc, docx, xls, xlsx, .pdf, txt, jpeg, jpg, png, gif)</label>
 								<div class="kt-input-icon kt-input-icon--right">
 								<input type="file" name="attachment" class="form-control" id="attachment">
 								</div>
