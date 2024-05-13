@@ -1,4 +1,10 @@
 @extends('dashboard.layouts.app')
+<style>
+    .attachment-ext{
+		font-size: 9px;
+		color: black;
+	}
+</style>
 @push('styles')
     <script src="https://js.pusher.com/7.1/pusher.min.js"></script>
 @endpush
@@ -47,7 +53,7 @@
 
 
                                 <div class="row">
-                                    <div class="col-lg-9" style="margin-top: 22px;">
+                                    <div class="col-lg-9">
                                         <div class="form-group">
                                             <label>Subject</label>
                                             <input type="text" required class="form-control" placeholder="Enter subject"
@@ -55,7 +61,8 @@
                                         </div>
                                     </div>
                                     <div class="col-lg-3">
-                                        <label for="attachment" style="text-align: left !important;">Attachment (doc, docx, xls, xlsx, .pdf, txt, jpeg, jpg, png, gif)</label>
+                                        <label for="attachment" style="text-align: left !important;">Attachment</label>
+                                        <span class="attachment-ext">(doc, docx, xls, xlsx, .pdf, txt, jpeg, jpg, png, gif)</span>
                                         <div class="kt-input-icon kt-input-icon--right">
                                             <input type="file" name="attachment" class="form-control" id="attachment"
                                                 accept=".pdf,.png,.jpg,.mp4,.mp3,.doc,.docx,.jpeg,.csv,.txt,.xlx,.xls,">

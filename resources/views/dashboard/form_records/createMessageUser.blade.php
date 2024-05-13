@@ -24,10 +24,16 @@
 		.ms-options-wrap button{
 			border: 1px solid #0d47b3;
 		}
+		
 	</style>
 @endsection
 @section('content')
-<style>tr.New>td {    color: #000 !important;    font-weight: 800;    cursor: pointer;}tr.New>button {    color: #FFF !important;    font-weight: 800;    cursor: pointer;}</style>
+<style>tr.New>td {    color: #000 !important;    font-weight: 800;    cursor: pointer;}tr.New>button {    color: #FFF !important;    font-weight: 800;    cursor: pointer;}
+.attachment-ext{
+			font-size: 9px;
+			color: black;
+		}
+</style>
 <!-- begin:: Content -->
 <div class="kt-content  kt-grid__item kt-grid__item--fluid" id="kt_content">
 	@if ($message = Session::get('success'))
@@ -114,12 +120,13 @@
     			<div class="kt-portlet__body">
     				<input type="hidden" name="id" id="editvalue" value="">
     				<div class="form-group row">
-    					<div class="col-lg-8" style="margin-top: 22px;">
+    					<div class="col-lg-8">
     						<label for="title">Subject:</label>
     						<input type="text" id="title" name="title" class="form-control" placeholder="Please enter Message Subject" required>
     					</div>
                         <div class="col-md-4">
-    						<label for="attachment" style="text-align: left !important;">Attachment (doc, docx, xls, xlsx, .pdf, txt, jpeg, jpg, png, gif)</label>
+    						<label for="attachment" style="text-align: left !important;">Attachment</label>
+							<span class="attachment-ext">(doc, docx, xls, xlsx, .pdf, txt, jpeg, jpg, png, gif)</span>
     						<div class="kt-input-icon kt-input-icon--right">
     						<input type="file" name="attachment" class="form-control" id="attachment">
     						</div>
