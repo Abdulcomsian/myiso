@@ -948,12 +948,8 @@ public function store(Request $request)
         }
         $loginHistories = LoginHistoryUser::where('user_id', $userid)->delete();
         $user->delete();
-        $notification = [
-            'message' => 'Record  Deleted successfully.!',
-            'alert-type' => 'success'
-        ];
 
-        return redirect('/view_user')->with($notification);
+        return redirect('/view_user')->with("success", "User deleted Successfully.");
 
     }
 
