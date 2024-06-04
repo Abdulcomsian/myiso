@@ -11,6 +11,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\File;
+use App\Certificate;
+use App\CertificateOption;
 
 class EmployeeController extends Controller
 {
@@ -44,7 +46,25 @@ class EmployeeController extends Controller
         $emptraining=Employee::join('tbl_employees_traning','tbl_employees_traning.empid','=','tbl_employees.id')
             ->where('tbl_employees.user_id',$userid)->orderBy('tbl_employees_traning.created_at','DESC')->get();
 
-        return view('dashboard.form_records.employess',compact('userinfo','employess','emptraining'));
+            //  $empcertificates=Employee::join('wp_users','wp_users.user_email','=','tbl_employees.email')
+            //  ->orderBy('tbl_employees.id','DESC')->get();
+
+             $users = Employee::where('user_id',$userid)->orderBy('id','DESC')->get();
+             //dd($users);
+             $wp_users = [];
+             foreach($users as $user){
+                $wp_users[] = Certificate::where('user_email', $user->email)->get();
+             }
+            //  foreach($wp_users as $wp_user){
+            //     foreach($wp_user as $user){
+            //     $uid= '"user_id";i:'.$user->ID.';';
+            //     $options = CertificateOption::where('option_name', 'LIKE', "%user_cert_%")->and('option_value', 'LIKE', "%".$uid."%")->get();
+            //     }
+            // }
+
+        return view('dashboard.form_records.employess',compact('userinfo','employess','emptraining', 'wp_users'));
+
+        //return view('dashboard.form_records.employess',compact('userinfo','employess','emptraining'));
 
     }
     public function empSkills(Request $request){
@@ -155,6 +175,7 @@ class EmployeeController extends Controller
         $employee->systemid=123;
         $employee->surname=$request->input('surname');
         $employee->first_name=$request->input('first_name');
+        $employee->email=$request->input('email');
         $employee->empNumber=$request->input('empNumber');
         $employee->startDate=$request->input('startDate');
         $employee->jobdetails=$request->input('jobdetails');

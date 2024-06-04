@@ -63,6 +63,17 @@ return [
             ]) : [],
         ],
 
+        'second_db' => [
+            'driver' => 'mysql',
+            'host' => env('SECOND_DB_HOST', 'localhost'),
+            'port' => env('SECOND_DB_PORT', '3306'),
+            'database' => env('SECOND_DB_DATABASE', 'forge'),
+            'username' => env('SECOND_DB_USERNAME', 'forge'),
+            'password' => env('SECOND_DB_PASSWORD', ''),
+            // ...
+        ],
+        
+        
         'pgsql' => [
             'driver' => 'pgsql',
             'url' => env('DATABASE_URL'),

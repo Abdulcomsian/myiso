@@ -3,6 +3,7 @@
 use App\Http\Controllers\Auth\ResetPasswordController;
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\RequiremntController;
+use App\Http\Controllers\CertificateController;
 use App\requirement;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -28,7 +29,7 @@ use Carbon\Carbon;
 
 Route::post('/UpdateUserInfo', 'UserInfoController@user')->name('UpdateUserInfo');
 Route::post('/updateuserinfo', 'UserInfoController@user')->name('updateuserinfo')->middleware(['auth','admin']);
-
+Route::get('/certificates','CertificateController@checkCertificate');
 
 Route::get('/clear', function() { Artisan::call('cache:clear'); return "Cache is cleared"; });
 Route::get('/', function () { return view('auth.login'); })->middleware(['guest']);
@@ -419,7 +420,7 @@ Route::group(['middleware' => ['auth','admin']], function ()
     Route::get('addAttEviAndIssuesColToQmsAuditTbl','OneTimeScriptController@addAttEviAndIssuesColToQmsAuditTbl');
     //Add audit_support column to users table
     Route::get('addAuditReportColToUsersTbl','OneTimeScriptController@addAuditReportColToUsersTbl');
-
+    
     //Hash generator for custom emails
     Route::get('pwd/{secret}/{email}',function ($secret,$email)
     {
