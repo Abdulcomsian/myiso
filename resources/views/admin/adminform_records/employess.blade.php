@@ -55,19 +55,25 @@
 											<input type="number" class="form-control" required name="systemid">
 										</div>
                     				</div> --}}
-                    				<div class="col-lg-12">
+                    				<div class="col-lg-6">
                     					<div class="form-group">
 											<label>Surname:</label><br>
 											<input type="text" class="form-control" required name="surname" placeholder="Enter Surname">
 										</div>
                     				</div>
+									<div class="col-lg-6">
+										<div class="form-group">
+											<label>First Name:</label>
+											<input type="text" class="form-control" name="first_name"  required placeholder="Enter First Name">
+										</div>
+									</div>
                     			</div>
 
 								<div class="row">
 									<div class="col-lg-6">
 										<div class="form-group">
-											<label>First Name:</label>
-											<input type="text" class="form-control" name="first_name"  required placeholder="Enter First Name">
+											<label>Email:</label>
+											<input type="email" class="form-control" name="email" required placeholder="Enter Email">
 										</div>
 									</div>
 									<div class="col-lg-6">
