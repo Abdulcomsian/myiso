@@ -13,6 +13,8 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\File;
 use App\Certificate;
 use App\CertificateOption;
+use Notification;
+use App\Notifications\NotifyEmployee;
 
 class EmployeeController extends Controller
 {
@@ -154,6 +156,7 @@ class EmployeeController extends Controller
      */
     public function store(Request $request)
     {
+        // dd($request->all()); 
         $employee= new Employee();
         if(isset($request->is_admin) && $request->is_admin=="admin")
         {
@@ -187,6 +190,8 @@ class EmployeeController extends Controller
         }
 
         $employee->save();
+
+        Notification::route("mail", $request->email)->notify(new NotifyEmployee());
         return back();
     }
 
