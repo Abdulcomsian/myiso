@@ -618,7 +618,77 @@
 								<!--end: Datatable -->
                     		</div>
 						</div>
-                    </div>
+					</div>
+						<div class="procedure_div m-t-20">
+							<div class="requirments_table_div" style="margin-top: 0px;">
+								<h4>Certificates Record Summary</h4>
+								<div class="kt-portlet__body table-responsive">
+									<!--begin: Datatable -->
+									<table class="common_table table table-striped- table-bordered table-hover table-checkable table-responsive" id="kt_table_agent">
+										<thead>
+											<tr>
+												
+												<th style="width:150px;">Name</th>
+												<th style="width:150px;">Email</th>
+												<th style="width:170px;">Courses</th>
+												<th style="width:240px;">Certificates</th>
+												{{-- <th>Employee Stamp Number</th> --}}
+												
+	
+											</tr>
+										</thead>
+										<tbody>
+										
+											@foreach ($wp_users as $wpuser)
+											@foreach($wpuser as $user)
+											@php
+												$uid= '"user_id";i:'.$user->ID.';';
+												   $options = App\CertificateOption::where('option_name', 'LIKE', "%user_cert_%")->Where('option_value', 'LIKE', "%".$uid."%")->get();
+												//print_r($options);
+												if(count($options)>0)
+												{   
+													foreach ($options as $key => $option) {
+														$serializedata = $option->option_value;
+														//echo $serializedata . "<br>";
+														//echo "<pre>";
+														$unserializedata = unserialize($serializedata);
+														//print_r($unserializedata);
+														//echo $unserializedata['course_id'];
+														//echo "<br>";
+														$courses = App\CertificateCourse::where('ID',$unserializedata['course_id'])->get();
+													  // dd($courses);	
+													   foreach ($courses as $key => $course) {
+														$usercourses[]= $course->post_title;
+													   }		
+														
+													}
+													
+											@endphp
+											<tr>
+											
+												<td> {{$user->display_name}}</td>
+												<td> {{$user->user_email}}</td>
+												<td>
+													
+													@foreach($usercourses as $key => $usercourse)
+													   <li>
+														{{ $usercourse}}
+														</li>
+													@endforeach
+													
+												</td>
+												
+												<td> </td>
+											</tr>
+											@php } @endphp 
+											@endforeach
+											@endforeach
+										</tbody>
+									</table>
+									<!--end: Datatable -->
+								</div>
+							</div>
+						</div>
                     </div>
                     </div>
 	</section>

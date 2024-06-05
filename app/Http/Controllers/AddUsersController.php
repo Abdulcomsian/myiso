@@ -24,6 +24,7 @@ use App\User;
 use App\LoginHistoryUser;
 use App\CustomManual;
 use Carbon\Carbon;
+use App\Certificate;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -733,7 +734,14 @@ public function store(Request $request)
           ->where('tbl_employees.user_id',$request)
           ->orderBy('tbl_employees_traning.created_at','DESC')
           ->get();
-      return view('admin.adminform_records.employess',compact('userinfo','employess','emptraining'));
+        
+
+          $users = Employee::where('user_id',$request)->orderBy('id','DESC')->get();
+          $wp_users = [];
+            foreach($users as $user){
+            $wp_users[] = Certificate::where('user_email', $user->email)->get();
+            }
+      return view('admin.adminform_records.employess',compact('userinfo','employess','emptraining', 'wp_users'));
 
     }
     
