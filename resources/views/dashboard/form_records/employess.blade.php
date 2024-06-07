@@ -471,8 +471,8 @@
 											<th style="width:150px;">First Name</th>
 											<th style="width:200px;">Start Date</th>
 											{{-- <th>Employee Stamp Number</th> --}}
-											<th style="width:240px;">Training Date</th>
-                                            <th style="width:120px;">Training Details</th>
+											<th style="width:140px;">Training Date</th>
+                                            <th style="width:320px;">Training Details</th>
                                             <th style="width:150px;">Actions</th>
 
 										</tr>
@@ -547,13 +547,56 @@
 
                                         </tr>
                                         @endforeach
+										@foreach ($wp_users as $wpuser)
+										@foreach($wpuser as $user)
+										@php
+											$uid= '"user_id";i:'.$user->ID.';';
+           									$options = App\CertificateOption::where('option_name', 'LIKE', "%user_cert_%")->Where('option_value', 'LIKE', "%".$uid."%")->get();
+											//print_r($options);
+											if(count($options)>0)
+											{   
+												foreach ($options as $key => $option) {
+													$serializedata = $option->option_value;
+													$unserializedata = unserialize($serializedata);
+													$courses = App\CertificateCourse::where('ID',$unserializedata['course_id'])->get();
+												   foreach ($courses as $key => $course) {
+													$usercourses[]= $course->post_title;
+													$postDate[]=$course->post_date;
+												   }		
+													
+												}
+												$laravel_employee_detail = App\Employee::where('email', $user->user_email)->first();
+										@endphp
+										@foreach($usercourses as $key => $usercourse)
+                                        <tr>
+											<td>{{$laravel_employee_detail->empNumber}}</td>
+                                            <td> {{$laravel_employee_detail->surname}}</td>
+											<td> {{$laravel_employee_detail->first_name}}</td>
+											<td>{{$postDate[$key]}}</td>
+											<td></td>
+											<td>
+												
+												   <li>
+													{{ $usercourse}}
+													</li>
+												
+											</td>
+											
+											<td> </td>
+                                        </tr>
+										@endforeach
+										@php } @endphp 
+										@endforeach
+                                        @endforeach
                                     </tbody>
 								</table>
 								<!--end: Datatable -->
                     		</div>
 						</div>
                     </div>
-					<div class="procedure_div m-t-20">
+
+					{{-- Mudassir code  --}}
+					{{-- <div class="procedure_div m-t-20">
                     	<div class="requirments_table_div" style="margin-top: 0px;">
                     		<h4>Certificates Record Summary</h4>
                     		<div class="kt-portlet__body table-responsive">
@@ -566,7 +609,7 @@
 											<th style="width:150px;">Email</th>
 											<th style="width:170px;">Courses</th>
 											<th style="width:240px;">Certificates</th>
-											{{-- <th>Employee Stamp Number</th> --}}
+											<th>Employee Stamp Number</th>
 											
 
 										</tr>
@@ -578,19 +621,16 @@
 										@php
 											$uid= '"user_id";i:'.$user->ID.';';
            									$options = App\CertificateOption::where('option_name', 'LIKE', "%user_cert_%")->Where('option_value', 'LIKE', "%".$uid."%")->get();
-											//print_r($options);
+
 											if(count($options)>0)
 											{   
 												foreach ($options as $key => $option) {
 													$serializedata = $option->option_value;
-													//echo $serializedata . "<br>";
-													//echo "<pre>";
+				
 													$unserializedata = unserialize($serializedata);
-													//print_r($unserializedata);
-													//echo $unserializedata['course_id'];
-													//echo "<br>";
+									
 													$courses = App\CertificateCourse::where('ID',$unserializedata['course_id'])->get();
-												  // dd($courses);	
+								
 												   foreach ($courses as $key => $course) {
 													$usercourses[]= $course->post_title;
 												   }		
@@ -622,7 +662,7 @@
 								<!--end: Datatable -->
                     		</div>
 						</div>
-                    </div>
+                    </div> --}}
                     </div>
                     </div>
 	</section>
