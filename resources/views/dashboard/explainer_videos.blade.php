@@ -20,9 +20,8 @@
 	<!--Video--->
 	<div class="col-md-4 mt-2 mb-2" style="    text-align: center;">
 	<a href="{{url('public/uploads/explainer_videos/'.$video->video)}}" target="_blank">
-		<img src="{{ asset('assets/media/icons')}}/mp4.png" class="img-thumbnail img-fluid"></a>
-	
-	<h5 style="text-align: center;margin-top: 10px;">{{$video->title}}</h5>
+		<img src="{{ asset('assets/media/video_images/' . $video->video_image)}}" class="img-thumbnail img-fluid"></a>
+	{{-- <h5 style="text-align: center;margin-top: 10px;">{{$video->title}}</h5> --}}
 	</div>
 	@endforeach
 	

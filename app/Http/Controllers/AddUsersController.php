@@ -1722,8 +1722,6 @@ public function store(Request $request)
 /**/
 
     public function add_video(Request $request){
-
-
 			$path='';
         if ($request->file('video')) {
 			   $request->validate([

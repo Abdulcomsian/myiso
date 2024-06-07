@@ -83,7 +83,7 @@
 
                         <th style="text-align:center">No.</th>
 
-                        <th>Title</th>
+                        <th>Image</th>
                         <th>Video</th>
 
                         
@@ -102,7 +102,8 @@
 
                         <th style="text-align:center">{{$count}}</th>
 
-                        <th>{{$video->title}}</th>
+                        {{-- <th>{{$video->title}}</th> --}}
+                        <th><img src="{{ asset('assets/media/video_images/' . $video->video_image)}}"></th>
                         <th>
 <video width="440" height="180" controls>
   <source src="{{url('public/uploads/explainer_videos/'.$video->video)}}" type="video/mp4">
