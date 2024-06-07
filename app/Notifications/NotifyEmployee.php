@@ -16,9 +16,9 @@ class NotifyEmployee extends Notification
      *
      * @return void
      */
-    public function __construct()
+    public function __construct($empName)
     {
-        //
+        $this->empName = $empName;
     }
 
     /**
@@ -42,8 +42,10 @@ class NotifyEmployee extends Notification
     {
         return (new MailMessage)
                     ->subject('You have been added to MYISOOnline')
-                    ->line('Your Email address has been added to MYISOonline. Please use this link to view courses')
-                    ->action('View Courses', url('https://myisoonline.com/public/lms/'))
+                    ->greeting('Dear ' . $this->empName)
+                    ->line('We are pleased to inform you that your email address has been successfully added to MYISOonline. You are now eligible to access and take advantage of our free MYISOonline courses')
+                    ->line('To get started, please register on our LMS system using your official email address:')
+                    ->action('Register Now', url('https://myisoonline.com/public/lms/account/?action=register'))
                     ->line('Thank you for using our application!');
     }
 

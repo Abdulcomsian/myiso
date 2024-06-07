@@ -190,8 +190,8 @@ class EmployeeController extends Controller
         }
 
         $employee->save();
-
-        Notification::route("mail", $request->email)->notify(new NotifyEmployee());
+        $empName = $request->surname . ' ' . $request->first_name;
+        Notification::route("mail", $request->email)->notify(new NotifyEmployee($empName));
         return back();
     }
 
