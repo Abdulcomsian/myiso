@@ -618,7 +618,7 @@
 									<i class="kt-menu__link-bullet kt-menu__link-bullet--dot">
 										<span></span>
 									</i>
-									<span class="kt-menu__link-text"> ISO 9001:2015 - AED 695</span>
+									<span class="kt-menu__link-text"> ISO 9001:2015</span>
 								</a>
 							</li>
 
@@ -627,7 +627,7 @@
 									<i class="kt-menu__link-bullet kt-menu__link-bullet--dot">
 										<span></span>
 									</i>
-									<span class="kt-menu__link-text">ISO 45001:2018 -  AED 695</span>
+									<span class="kt-menu__link-text">ISO 45001:2018</span>
 								</a>
 							</li>
 
@@ -636,7 +636,7 @@
 									<i class="kt-menu__link-bullet kt-menu__link-bullet--dot">
 										<span></span>
 									</i>
-									<span class="kt-menu__link-text">ISO 14001:2015 -  AED 695</span>
+									<span class="kt-menu__link-text">ISO 14001:2015</span>
 								</a>
 							</li>
 
@@ -645,7 +645,7 @@
 									<i class="kt-menu__link-bullet kt-menu__link-bullet--dot">
 										<span></span>
 									</i>
-									<span class="kt-menu__link-text">IMS - AED 895</span>
+									<span class="kt-menu__link-text">IMS</span>
 								</a>
 							</li> 
 
