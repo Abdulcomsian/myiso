@@ -640,14 +640,14 @@
 								</a>
 							</li>
 
-							<li class="kt-menu__item " aria-haspopup="true">
+							{{-- <li class="kt-menu__item " aria-haspopup="true">
 								<a href="https://www.isoonlinecourses.com/trainings/integrated-management-system-internal-auditor-course/" class="kt-menu__link " target="_blank">
 									<i class="kt-menu__link-bullet kt-menu__link-bullet--dot">
 										<span></span>
 									</i>
 									<span class="kt-menu__link-text">IMS</span>
 								</a>
-							</li> 
+							</li>  --}}
 
 						</ul>
 					</div>
