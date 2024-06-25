@@ -614,40 +614,40 @@
 							</li> --}}
 
 							<li class="kt-menu__item " aria-haspopup="true">
-								<a href="https://www.isoonlinecourses.com/trainings/iso-90012015-qms-quality-management-system/" class="kt-menu__link " target="_blank">
+								<a href="https://myisoonline.com/public/lms/courses/iso-90012015-qms-quality-management-system/" class="kt-menu__link " target="_blank">
 									<i class="kt-menu__link-bullet kt-menu__link-bullet--dot">
 										<span></span>
 									</i>
-									<span class="kt-menu__link-text"> ISO 9001:2015 - AED 695</span>
+									<span class="kt-menu__link-text"> ISO 9001:2015</span>
 								</a>
 							</li>
 
 							<li class="kt-menu__item " aria-haspopup="true">
-								<a href="https://www.isoonlinecourses.com/trainings/iso-450012018-occupational-health-safety-management-system-internal-auditor-course/" class="kt-menu__link" target="_blank">
+								<a href="https://myisoonline.com/public/lms/courses/iso-450012018-occupational-health-safety-management-system-internal-auditor-course/" class="kt-menu__link" target="_blank">
 									<i class="kt-menu__link-bullet kt-menu__link-bullet--dot">
 										<span></span>
 									</i>
-									<span class="kt-menu__link-text">ISO 45001:2018 -  AED 695</span>
+									<span class="kt-menu__link-text">ISO 45001:2018</span>
 								</a>
 							</li>
 
 							<li class="kt-menu__item " aria-haspopup="true">
-								<a href="https://www.isoonlinecourses.com/trainings/iso-140012015-environmental-management-system-internal-auditor-course/" class="kt-menu__link " target="_blank">
+								<a href="https://myisoonline.com/public/lms/courses/iso-140012015-environmental-management-system-internal-auditor-course/" class="kt-menu__link " target="_blank">
 									<i class="kt-menu__link-bullet kt-menu__link-bullet--dot">
 										<span></span>
 									</i>
-									<span class="kt-menu__link-text">ISO 14001:2015 -  AED 695</span>
+									<span class="kt-menu__link-text">ISO 14001:2015</span>
 								</a>
 							</li>
 
-							<li class="kt-menu__item " aria-haspopup="true">
+							{{-- <li class="kt-menu__item " aria-haspopup="true">
 								<a href="https://www.isoonlinecourses.com/trainings/integrated-management-system-internal-auditor-course/" class="kt-menu__link " target="_blank">
 									<i class="kt-menu__link-bullet kt-menu__link-bullet--dot">
 										<span></span>
 									</i>
-									<span class="kt-menu__link-text">IMS - AED 895</span>
+									<span class="kt-menu__link-text">IMS</span>
 								</a>
-							</li> 
+							</li>  --}}
 
 						</ul>
 					</div>

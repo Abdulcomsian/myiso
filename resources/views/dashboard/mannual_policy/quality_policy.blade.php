@@ -59,6 +59,7 @@
 					<p>To foster a spirit of Teamwork, recognising the part all employees have to play in the continuing success of <b><span class="authName">{{ $companyName}}</span></b>.</p>
 					<p>To ensure the maximum utilisation of our most important resource, our people, through ongoing training and career development.</p>
 					<p>To continually understand and respond to the needs and expectations of our interested parties.</p>
+					<p>As the Managing Director, I accept ultimate responsibility for Quality. The Operational Management will, through example, and direction, ensure that this policy is understood, implemented and maintained throughout <b><span class="authName">{{ $companyName}}</span></b>.</p>
 					<!-- Display the previous policy -->
 					<h5 class="m-t-10">Additional Policies:</h5>
 					@if ($previousPolicy)
@@ -66,8 +67,7 @@
 					@endif
 						{{-- @foreach ($useraddpolicy as $policy)
                         <p>{{$policy->message}}</p>
-                        @endforeach --}}
-					<p>As the Managing Director, I accept ultimate responsibility for Quality. The Operational Management will, through example, and direction, ensure that this policy is understood, implemented and maintained throughout <b><span class="authName">{{ $companyName}}</span></b>.</p>
+                        @endforeach --}}					
 					<p>Managing Director: <span class="authName">{{Auth::user()->director}}</span></p>
 					<p>Date: {{$date}}</p>
 				</div>

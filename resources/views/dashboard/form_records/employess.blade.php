@@ -552,28 +552,31 @@
 										@php
 											$uid= '"user_id";i:'.$user->ID.';';
            									$options = App\CertificateOption::where('option_name', 'LIKE', "%user_cert_%")->Where('option_value', 'LIKE', "%".$uid."%")->get();
+											$finshedcourses = App\CertificateUserItems::Where('user_id', $user->ID)->where('status','finished')->get();
+
 											//print_r($options);
-											if(count($options)>0)
+											if(count($finshedcourses)>0)
 											{   
-												foreach ($options as $key => $option) {
-													$serializedata = $option->option_value;
-													$unserializedata = unserialize($serializedata);
-													$courses = App\CertificateCourse::where('ID',$unserializedata['course_id'])->get();
-												   foreach ($courses as $key => $course) {
-													$usercourses[]= $course->post_title;
-													$postDate[]=$course->post_date;
-												   }		
-													
+												foreach ($finshedcourses as $key => $finshedcourse) {
+													$courses = App\CertificateCourse::where('ID',$finshedcourse->item_id)->get();
+													foreach ($courses as $key => $course) {
+														$usercourses[]= $course->post_title;
+														$postDate[]=$course->post_date;
+													}
+												   
+													$startdate=$finshedcourse->start_time;
+													$endate=$finshedcourse->end_time;
 												}
 												$laravel_employee_detail = App\Employee::where('email', $user->user_email)->first();
 										@endphp
 										@foreach($usercourses as $key => $usercourse)
+
                                         <tr>
 											<td>{{$laravel_employee_detail->empNumber}}</td>
                                             <td> {{$laravel_employee_detail->surname}}</td>
 											<td> {{$laravel_employee_detail->first_name}}</td>
-											<td>{{$postDate[$key]}}</td>
-											<td></td>
+											<td>{{$startdate}}</td>
+											<td>{{$endate}}</td>
 											<td>
 												
 												   <li>
