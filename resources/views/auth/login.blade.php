@@ -174,14 +174,14 @@ License: You must have a valid license purchased only from themeforest(the above
 										<div class="modal-dialog modal-dialog-scrollable">
 											<div class="modal-content">
 											<div class="modal-header">
-												<h5 class="modal-title" id="exampleModalLabel">ME FZE TERMS & CONDITIONS</h5>
+												<h5 class="modal-title" id="exampleModalLabel">J M Enterprises TERMS & CONDITIONS</h5>
 												<button type="button" class="close" data-dismiss="modal" aria-label="Close">
 												<span aria-hidden="true">&times;</span>
 												</button>
 											</div>
 											<div class="modal-body">
 												<h6>Agreement to Terms</h6>
-												<p>This document governs your relationship with  Myisoonline™  JME FZE owns
+												<p>This document governs your relationship with  Myisoonline™  J M Enterprises owns
 													and   operates   this   website.   Access   to   and   use   of   this   website   and   the
 													products   and   services   available   through   this   website   (collectively,   the
 													"Services") are subject to the following terms, conditions, and notices (the
@@ -203,7 +203,7 @@ License: You must have a valid license purchased only from themeforest(the above
 													<h6>Intellectual Property, Software, and Content</h6>
 													<p>The   intellectual   property   rights   in   all   software   and   content   (including
 													photographic   images)   made   available   to   you   on   or   through   this   Website
-													remains the property of JME FZE and are protected by copyright laws and
+													remains the property of J M Enterprises and are protected by copyright laws and
 													treaties worldwide. You may store, print, and display the content supplied
 													solely   for   personal   use.   You   are   not   permitted   to   publish,   manipulate,
 													distribute,   or   otherwise   reproduce,   in   any   format,   any   of   the   content   or
@@ -230,7 +230,7 @@ License: You must have a valid license purchased only from themeforest(the above
 													<h6>Disclaimer of Liability</h6>
 													<p>The material displayed on this Website is provided without any guarantees,
 													conditions, or warranties regarding its accuracy. Unless expressly stated to
-													the contrary to the fullest extent permitted by law JME FZE and its suppliers,
+													the contrary to the fullest extent permitted by law J M Enterprises and its suppliers,
 													content providers, and advertisers hereby expressly exclude all conditions,
 													warranties, and other terms which might otherwise be implied by statute,
 													common law, or the law of equity and shall not be liable for any damages
@@ -247,18 +247,18 @@ License: You must have a valid license purchased only from themeforest(the above
 													<p>Except where expressly stated to the contrary, all persons (including their
 													names   and   images),   third-party   trademarks   and   content,   services,   and
 													locations   featured   on   this   Website   are   in   no   way   associated,   linked,   or
-													affiliated with JME FZE, and you should not rely on the existence of such a
+													affiliated with J M Enterprises, and you should not rely on the existence of such a
 													connection   or   affiliation.   The   respective   trademark   owners   own   any trademarks/names featured on this Website. Where a trademark or brand
 													name is referred to, it is used solely to describe or identify the products and
 													services and is in no way an assertion that such products or services are
-													endorsed by or connected to JME FZE. </p>
+													endorsed by or connected to J M Enterprises. </p>
 													<h6>Indemnity</h6>
-													<p>You agree to indemnify, defend and hold harmless JME FZE, its directors,
+													<p>You agree to indemnify, defend and hold harmless J M Enterprises, its directors,
 													officers, employees, consultants, agents, and affiliates, from any third-party
 													claims, liability, damages, and costs (including, but not limited to, legal fees)
 													arising from your use this Website or your breach of the Terms of Service.</p>
 													<h6>Variation</h6>
-													<p>JME FZE shall have the right in its absolute discretion at any time and without
+													<p>J M Enterprises shall have the right in its absolute discretion at any time and without
 													notice to amend, remove or vary the Services and any page of this Website.</p>
 													<h6>Invalidity</h6>
 													<p>If any part of the Terms of Service is unenforceable (including any provision
@@ -278,12 +278,12 @@ License: You must have a valid license purchased only from themeforest(the above
 													<h6>Entire Agreement</h6>
 													<p>The  above  Terms  of  Service  constitute   the  parties'   entire  agreement and
 													supersede  any preceding and contemporaneous  agreements between you
-													and JME FZE. Any waiver of any provision of the Terms of Service will be
-													effective only if in writing and signed by a Director of JME FZE.</p>
+													and J M Enterprises. Any waiver of any provision of the Terms of Service will be
+													effective only if in writing and signed by a Director of J M Enterprises.</p>
 													<h6>CONTACT US</h6>
 													<p>If you have questions or comments about this Terms and Conditions, please
 													get in touch with us at: <br>
-													JME FZE, <br>
+													J M Enterprises, <br>
 													UG13-A5, RAKEZ Amenity Center. <br>
 													Al Hamra Industrial Zone-FZ, <br>
 													United Arab Emirates. <br>
