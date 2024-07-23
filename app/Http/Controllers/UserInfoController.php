@@ -171,5 +171,10 @@ class UserInfoController extends Controller
         $user->save();
 
     }
+    
+
+    public function userDownload(){
+        return view("dashboard.download");
+    }
 
 }

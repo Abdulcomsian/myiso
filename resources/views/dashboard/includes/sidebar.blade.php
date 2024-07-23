@@ -554,6 +554,14 @@
 									<span class="kt-menu__link-text">Training Videos</span>
 								</a>
 							</li>
+							<li class="kt-menu__item " aria-haspopup="true">
+								<a href="{{url('userDownload')}}" class="kt-menu__link ">
+									<i class="kt-menu__link-bullet kt-menu__link-bullet--dot">
+										<span></span>
+									</i>
+									<span class="kt-menu__link-text">Downloads</span>
+								</a>
+							</li>
 							<!--<li class="kt-menu__item " aria-haspopup="true">-->
 							<!--	<a href="{{url('quick_links')}}" class="kt-menu__link ">-->
 							<!--		<i class="kt-menu__link-bullet kt-menu__link-bullet--dot">-->
