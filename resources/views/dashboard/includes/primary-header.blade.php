@@ -76,7 +76,7 @@
 									<span class="kt-header__topbar-icon kt-pulse kt-pulse--brand">
 										
 										@if (Auth::user()->member_scaiso==1)
-										<span class="kt-subheader__desc"><img src="{{asset('assets/media/logos/caiso.jpeg')}}" width="180px"> </span>	
+										<span class="kt-subheader__desc"><img src="{{asset('assets/media/logos/sca-iso-final-logo.png')}}" width="180px"> </span>	
 										@endif
 									
 									</span>
