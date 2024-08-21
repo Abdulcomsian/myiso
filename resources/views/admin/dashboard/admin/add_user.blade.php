@@ -63,6 +63,13 @@
                         @csrf
                         <div class="kt-portlet__body">
                             <div class="form-group row">
+                                <div class="col-lg-12" align="right" style="margin-bottom:-50px;">
+                                    
+                                    <input type="checkbox" name="scaiso" value="1">
+                                    <label for="iso45001_certificate">Member of SCAISO</label>
+                                 </div>
+                            </div>
+                            <div class="form-group row">
 
                                 <div class="col-lg-3">
                                     <label for="address2">Company ID:</label>
@@ -359,10 +366,15 @@
                                     <input type="file" id="audit_report" accept=".pdf"
                                            name="audit_report">
                                 </div>
-                                <div class="col-lg-4">
+                                <div class="col-lg-3">
                                     <label for="iso45001_certificate">Audit Comment</label>
                                     <textarea id="audit_comment" name="audit_comment" class="form-control"
                                               placeholder="Audit Comment"></textarea>
+                                </div>
+                                <div class="col-lg-3" style="margin-top: 40px;">
+                                    
+                                   <input type="checkbox" name="scaiso" value="1">
+                                   <label for="iso45001_certificate">Member of SCAISO</label>
                                 </div>
                             </div>
                            

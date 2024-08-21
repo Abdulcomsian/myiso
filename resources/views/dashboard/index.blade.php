@@ -20,7 +20,7 @@
                     <div class="kt-portlet__head kt-portlet__head--noborder kt-portlet__space-x">
                         <div class="kt-portlet__head-label">
                             <h3 class="kt-portlet__head-title">
-                                Welcome {{Auth::user()->name}}
+                                Welcome {{Auth::user()->name}}  
                             </h3>
                         </div>
                     </div>

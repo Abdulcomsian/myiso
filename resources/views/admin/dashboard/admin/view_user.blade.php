@@ -163,7 +163,12 @@
                                     </ul>
 
                                 </div> --}}
-
+                            <form action="{{url('/view_user')}}" id="showuserform">
+                                <select name="showusers" id="showusers">
+                                    <option value="0" {{ request('showusers') == 0 ? 'selected' : '' }}>All Users</option>
+                                    <option value="1" {{ request('showusers') == 1 ? 'selected' : '' }}>SCAISO Users</option>
+                                </select>
+                            </form>
                             </div>
 
                             &nbsp;
@@ -1964,8 +1969,16 @@
 
             };
             
+            // document.getElementById('showusers').addEventListener('change', function() {
+            //     document.getElementById('showuserform').submit();
+            // });
 
-
+            $(document).ready(function() {
+                $('#showusers').on('change', function() {
+                    $('#showuserform').submit();
+                });
+           
+            });
         </script>
 
 
