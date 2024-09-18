@@ -561,6 +561,12 @@
 									</i>
 									<span class="kt-menu__link-text">Downloads</span>
 								</a>
+								<a href="{{url('viewDownload')}}" class="kt-menu__link ">
+									<i class="kt-menu__link-bullet kt-menu__link-bullet--dot">
+										<span></span>
+									</i>
+									<span class="kt-menu__link-text">View My Downloads</span>
+								</a>
 							</li>
 							<!--<li class="kt-menu__item " aria-haspopup="true">-->
 							<!--	<a href="{{url('quick_links')}}" class="kt-menu__link ">-->
@@ -660,6 +666,28 @@
 						</ul>
 					</div>
 				</li>
+				{{-- <li class="kt-menu__item   kt-menu__item--submenu" aria-haspopup="true" data-ktmenu-submenu-toggle="hover">
+					<a href="javascript:;" class="kt-menu__link kt-menu__toggle">
+						<span class="kt-menu__link-icon">
+							<i class="fab fa-wpforms"></i>
+						</span>
+						<span class="kt-menu__link-text">Manage Downloads</span>
+						<i class="kt-menu__ver-arrow la la-angle-right"></i>
+					</a>
+					<div class="kt-menu__submenu ">
+						<span class="kt-menu__arrow"></span>
+						<ul class="kt-menu__subnav">
+							<li class="kt-menu__item " aria-haspopup="true">
+								<a href="https://myisoonline.com/public/lms/courses/iso-140012015-environmental-management-system-internal-auditor-course/" class="kt-menu__link " target="_blank">
+									<i class="kt-menu__link-bullet kt-menu__link-bullet--dot">
+										<span></span>
+									</i>
+									<span class="kt-menu__link-text">ViewDownloads</span>
+								</a>
+							</li>
+						</ul>
+					</div>
+				</li> --}}
 			</ul>
 		</div>
 	</div>

@@ -16,10 +16,100 @@
 	<div class="container">
 	<div class="row">
 
-        <h1 style="text-align: center;">Coming Soon</h1>
+		<div class="kt-portlet__body" style="width: 100%">
+            <!--begin: Video -->
+            <table class="table table-striped- table-bordered table-hover table-sm table-checkable table-responsive" id="kt_table_user">
+
+                <thead>
+
+                    <tr>
+
+                        <th style="text-align:center">No.</th>
+
+                        <th>Name</th>
+                        <th>ICA Member</th>
+                        <th>Download File</th>
+
+                        
+
+                       
+                    </tr>
+
+                </thead>
+
+                <tbody>
+				<?php $count=0;?>
+				@foreach($all_downloads as $download)
+				<?php $count++; 
+                if($download->ICA_member==1){
+                $icamember="Yes";
+                }
+                else{
+                    $icamember="No";
+                }
+                ?>
+                    <tr>
+                        
+                        <td style="text-align:center; width:20%">{{$count}}</td>
+                        
+                        
+                        <td style="width:40%">{{$download->name}}</td>
+                        
+                        
+                            <td style="width:40%">{{$icamember}}</td>
+                       
+                          
+                            <td style="width:40%"><a class="btn-fetch-data" href="{{asset('uploads/downloads/' . $download->download_file)}}" data-id="{{$download->id}}" target="_blank">{{$download->download_file}}</a></td>
+                       
+                        
+
+                        
+
+                    </tr>
+				@endforeach	
+                </tbody>
+            </table>
+            <!--end: Video -->
+
+
+        </div>
 	
 	</div>
 	</div>
+	<script>
+		$(document).on('click', '.btn-fetch-data', function(e) {
+			e.preventDefault();
+			var hrefValue = $(this).attr('href');  // Get the href attribute value
+			// Get the data-id from the clicked button
+			var dataId = $(this).data('id');
+			
+			$.ajax({
+				url: "{{ route('user.get-data') }}",
+				type: 'POST',
+				data: {
+					id: dataId,
+					_token: "{{ csrf_token() }}"
+				},
+				success: function(response) {
+					if (response.status === 'success') {
+						// Handle success
+						//console.log(response.data);
+						//alert("Data fetched successfully!");
+						window.open(hrefValue, '_blank');  // Opens the URL in a new tab
+						return true;
+					} else {
+						// Handle error
+						console.log(response.message);
+						alert("Error: " + response.message);
+					}
+				},
+				error: function(xhr, status, error) {
+					console.log(xhr.responseText);
+					alert("An error occurred!");
+				}
+			});
+		});
+	</script>
 	</section>
 	<!--End::Section-->
 </div>

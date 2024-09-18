@@ -3,11 +3,12 @@
 namespace App\Http\Controllers;
 
 use App\AddUsers;
+use App\UserDownload;
 use DB;
 use Hash;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
-
+use Illuminate\Support\Facades\Auth;
 class UserInfoController extends Controller
 {
 
@@ -174,7 +175,45 @@ class UserInfoController extends Controller
     
 
     public function userDownload(){
-        return view("dashboard.download");
+        $all_downloads  = DB::table('downloads')->get();
+		return view('dashboard.download', compact('all_downloads'));
+        //return view("dashboard.download");
     }
 
+    public function getDownloadUser(Request $request)
+    { 
+        //dd($request->all());
+        $id = $request->id;
+        $userid=Auth::user()->id;
+       // dd($userid);
+        // Fetch data based on $id or perform any actions
+        // For example, you can fetch a user or product based on this ID
+        $downloadData =  DB::table('downloads')->find($id);
+        // dd($downloadData->name);
+        $downloadexist =  DB::table('users_downloads')->where('download_id',$id)->where('user_id',$userid)->first();
+        
+        //dd($downloadexist);
+        if(empty($downloadexist)){
+        $insert = DB::table('users_downloads')->insert(
+            array(
+                'user_id' => $userid,
+                'download_id' => $id
+            )
+        );
+        }
+        if ($downloadData) {
+            return response()->json(['status' => 'success', 'data' => $downloadData]);
+        } else {
+            return response()->json(['status' => 'error', 'message' => 'Data not found']);
+        }
+    }
+    
+    public function viewDownload(){
+        $userid=Auth::user()->id;
+        // $view_downloads  = DB::table('users_downloads')->where('user_id',$userid)->get();
+        $view_downloads  = UserDownload::with('downloads', 'user')->where('user_id',$userid)->get();
+        //dd($view_downloads);
+		return view('dashboard.view-userdownload', compact('view_downloads'));
+    }
+    
 }
