@@ -1895,7 +1895,8 @@ public function store(Request $request)
 	}
 
     public function viewUsersDownloads(){
-        $view_downloads  = UserDownload::with('downloads')->get();
-		return view('admin.dashboard.admin.view_users_downloads', compact('view_downloads'));
+        // $view_downloads  = UserDownload::with('downloads')->get();
+        $users = User::with('userDownload', 'userDownload.downloads')->get();
+		return view('admin.dashboard.admin.view_users_downloads', compact('users'));
     }
 }

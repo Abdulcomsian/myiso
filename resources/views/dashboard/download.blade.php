@@ -18,17 +18,16 @@
 
 		<div class="kt-portlet__body" style="width: 100%">
             <!--begin: Video -->
-            <table class="table table-striped- table-bordered table-hover table-sm table-checkable table-responsive" id="kt_table_user">
+            <table style="width: 100%" class="table table-striped- table-bordered table-hover table-sm table-checkable table-responsive" id="kt_table_user">
 
                 <thead>
 
                     <tr>
 
-                        <th style="text-align:center">No.</th>
+                        <th  style="text-align:center">No.</th>
 
-                        <th>Name</th>
-                        <th>ICA Member</th>
-                        <th>Download File</th>
+                        <th  >Name</th>
+                        <th >Download File</th>
 
                         
 
@@ -41,25 +40,19 @@
 				<?php $count=0;?>
 				@foreach($all_downloads as $download)
 				<?php $count++; 
-                if($download->ICA_member==1){
-                $icamember="Yes";
-                }
-                else{
-                    $icamember="No";
-                }
+               
                 ?>
                     <tr>
                         
                         <td style="text-align:center; width:20%">{{$count}}</td>
                         
                         
-                        <td style="width:40%">{{$download->name}}</td>
+                        <td style="width:65%">{{$download->name}}</td>
                         
                         
-                            <td style="width:40%">{{$icamember}}</td>
                        
                           
-                            <td style="width:40%"><a class="btn-fetch-data" href="{{asset('uploads/downloads/' . $download->download_file)}}" data-id="{{$download->id}}" target="_blank">{{$download->download_file}}</a></td>
+                            <td style="width:100%"><a class="btn-fetch-data" href="{{asset('uploads/downloads/' . $download->download_file)}}" data-id="{{$download->id}}" target="_blank">{{$download->download_file}}</a></td>
                        
                         
 

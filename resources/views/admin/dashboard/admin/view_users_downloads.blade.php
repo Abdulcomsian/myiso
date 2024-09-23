@@ -73,44 +73,52 @@
     
                             <th style="text-align:center">No.</th>
                             <th>User</th>
-                            <th>Name</th>
-                            <th>Downloaded File</th>
-                            <th>Date</th>
-    
-                            
-    
-                          
-    
                         </tr>
     
                     </thead>
     
                     <tbody>
-                    <?php $count=0;?>
-                    @foreach($view_downloads as $userdownload)
-                    <?php $count++; 
-                    
+                    <?php $count=1;?>
+                    {{-- @foreach($view_downloads as $userdownload)
+                    <?php $count++;
                     ?>
                         <tr>
-                            
                             <td style="text-align:center; width:5%">{{$count}}</td>
-                            
                             <td style="width:40%">{{$userdownload->user->name ?? ''}}</td>
-
                             <td style="width:40%">{{$userdownload->downloads->name}}</td>
-                            
-                            
-                                <td style="width:45%">{{$userdownload->downloads->download_file}}</td>
-                           
-                              
-                                <td style="width:50%">{{$userdownload->dated}}</td>
-                           
-                            
-    
-                            
-    
+                            <td style="width:45%">{{$userdownload->downloads->download_file}}</td>
+                            <td style="width:50%">{{$userdownload->dated}}</td>    
                         </tr>
-                    @endforeach	
+                    @endforeach	 --}}
+                    {{-- @dd($users) --}}
+                
+                    @foreach ($users as $user)
+                    @if(isset($user->userDownload) && count($user->userDownload) > 0)
+                    <tr>
+                        <td>{{$count}}</td>
+                        <td>{{$user->name}}</td>
+                        <td style="width:100%">
+                            <table style="width:100%">
+                                <thead>
+                                    <th>Name</th>
+                                    <th>Downloaded File</th>
+                                    <th>Date</th>
+                                </thead>
+                                <tbody>
+                                    @foreach($user->userDownload as $download)
+                                    <tr>
+                                        <td>{{$download->downloads->name}}</td>
+                                        <td>{{$download->downloads->download_file}}</td>
+                                        <td>{{$download->dated}}</td>
+                                    </tr>
+                                    @endforeach
+                                </tbody>
+                            </table>
+                        </td>
+                    </tr>
+                    @endif
+                   
+                    @endforeach
                     </tbody>
                 </table>
                 <!--end: Video -->

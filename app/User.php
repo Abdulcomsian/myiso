@@ -43,4 +43,8 @@ class User extends Authenticatable
     public function notifications(){
         return $this->hasMany(SendNotifications::class, 'send_by', 'id');
     }
+
+    public function userDownload(){
+        return $this->hasMany(UserDownload::class, 'user_id');
+    }
 }
