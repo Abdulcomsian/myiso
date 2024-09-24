@@ -178,7 +178,13 @@ class UserInfoController extends Controller
         //dd(Auth::user()->member_scaiso);
         $member_scaiso=Auth::user()->member_scaiso;
         //dd($member_scaiso);
-        $all_downloads  = DB::table('downloads')->where('ICA_member',$member_scaiso)->get();
+        if($member_scaiso==0){
+            $all_downloads  = DB::table('downloads')->where('ICA_member',$member_scaiso)->get();
+        }else{
+
+            $all_downloads  = DB::table('downloads')->get();
+        }
+       
 		return view('dashboard.download', compact('all_downloads'));
         //return view("dashboard.download");
     }

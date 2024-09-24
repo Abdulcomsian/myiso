@@ -51,7 +51,7 @@
                                 <div class="form-group">
 									
                                  <input type="checkbox" name="ica_member" value="1">
-                                 <label for="title"> ICA member</label>
+                                 <label for="title">SCA member</label>
 								</div>
 								<div class="row">
 									<div class="col-lg-12">

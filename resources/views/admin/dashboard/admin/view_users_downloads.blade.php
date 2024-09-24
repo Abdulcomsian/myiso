@@ -35,8 +35,8 @@
 								</div>
                                 <div class="form-group">
 									
-                                 <input type="checkbox" name="ica_member" value="1">
-                                 <label for="title"> ICA member</label>
+                                 <input type="checkbox" name="SCA_member" value="1">
+                                 <label for="title">SCA member</label>
 								</div>
 								<div class="row">
 									<div class="col-lg-12">
@@ -91,11 +91,11 @@
                         </tr>
                     @endforeach	 --}}
                     {{-- @dd($users) --}}
-                
+                    <?php $i=1;?>
                     @foreach ($users as $user)
                     @if(isset($user->userDownload) && count($user->userDownload) > 0)
                     <tr>
-                        <td>{{$count}}</td>
+                        <td>{{$i}}</td>
                         <td style="vertical-align: middle;">{{$user->name}}</td>
                         <td style="width:100%">
                             <table style="width:100%">
@@ -116,8 +116,9 @@
                             </table>
                         </td>
                     </tr>
+                    <?php $i ++;?>
                     @endif
-                   
+                    
                     @endforeach
                     </tbody>
                 </table>
