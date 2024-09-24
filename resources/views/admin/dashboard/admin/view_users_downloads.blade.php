@@ -107,9 +107,9 @@
                                 <tbody>
                                     @foreach($user->userDownload as $download)
                                     <tr>
-                                        <td>{{$download->downloads->name}}</td>
-                                        <td>{{$download->downloads->download_file}}</td>
-                                        <td>{{$download->dated}}</td>
+                                        <td>{{$download->downloads->name ?? ''}}</td>
+                                        <td>{{$download->downloads->download_file ?? ''}}</td>
+                                        <td>{{$download->dated ?? ''}}</td>
                                     </tr>
                                     @endforeach
                                 </tbody>
