@@ -88,7 +88,7 @@
                         <th style="text-align:center">No.</th>
 
                         <th>Name</th>
-                        <th>ICA Member</th>
+                        <th>SCA member</th>
                         <th>Download File</th>
 
                         
