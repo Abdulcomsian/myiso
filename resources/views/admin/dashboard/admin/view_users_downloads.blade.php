@@ -96,7 +96,7 @@
                     @if(isset($user->userDownload) && count($user->userDownload) > 0)
                     <tr>
                         <td>{{$count}}</td>
-                        <td>{{$user->name}}</td>
+                        <td style="vertical-align: middle;">{{$user->name}}</td>
                         <td style="width:100%">
                             <table style="width:100%">
                                 <thead>
