@@ -49,13 +49,13 @@
                         <td style="text-align:center; width:5%">{{$count}}</td>
                         
                         
-                        <td style="width:40%">{{$userdownload->downloads->name}}</td>
+                        <td style="width:40%">{{$userdownload->downloads->name ?? ''}}</td>
                         
                         
-                            <td style="width:45%">{{$userdownload->downloads->download_file}}</td>
+                            <td style="width:45%">{{$userdownload->downloads->download_file ?? ''}}</td>
                        
                           
-                            <td style="width:50%">{{$userdownload->dated}}</td>
+                            <td style="width:50%">{{$userdownload->dated ?? ''}}</td>
                        
                         
 
