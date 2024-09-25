@@ -1890,7 +1890,8 @@ public function store(Request $request)
 
     public function download_delete(Request $request){
 		DB::table('downloads')->delete($request['id']);
-			session()->flash('msg', 'Download deleted successfully.');
+        UserDownload::where('download_id',$request['id'])->delete();
+		session()->flash('msg', 'Download deleted successfully.');
     return redirect()->back();
 	}
 

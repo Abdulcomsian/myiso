@@ -24,7 +24,7 @@
 
                     <tr>
 
-                        <th style="text-align:center">No.</th>
+                        <th style="text-align:center">S No.</th>
 
                         <th>Name</th>
                         <th>Downloaded File</th>
@@ -46,16 +46,16 @@
                 ?>
                     <tr>
                         
-                        <td style="text-align:center; width:5%">{{$count}}</td>
+                        <td style="text-align:center; width:100px;">{{$count}}</td>
                         
                         
-                        <td style="width:40%">{{$userdownload->downloads->name ?? ''}}</td>
+                        <td style="width:200px">{{$userdownload->downloads->name ?? ''}}</td>
                         
                         
-                            <td style="width:45%">{{$userdownload->downloads->download_file ?? ''}}</td>
-                       
-                          
-                            <td style="width:50%">{{$userdownload->dated ?? ''}}</td>
+                        <td style="width:200px">{{$userdownload->downloads->download_file ?? ''}}</td>
+                    
+                        
+                        <td style="width:200px">{{$userdownload->dated ?? ''}}</td>
                        
                         
 

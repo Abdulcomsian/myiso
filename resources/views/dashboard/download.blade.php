@@ -24,7 +24,7 @@
 
                     <tr>
 
-                        <th  style="text-align:center">No.</th>
+                        <th  style="text-align:center">S No.</th>
 
                         <th  >Name</th>
                         <th >Download File</th>

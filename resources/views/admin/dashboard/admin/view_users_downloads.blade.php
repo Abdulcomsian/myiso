@@ -71,8 +71,8 @@
     
                         <tr>
     
-                            <th style="text-align:center">No.</th>
-                            <th>User</th>
+                            <th style="text-align:center;">S No.</th>
+                            <th >User</th>
                         </tr>
     
                     </thead>
@@ -95,21 +95,21 @@
                     @foreach ($users as $user)
                     @if(isset($user->userDownload) && count($user->userDownload) > 0)
                     <tr>
-                        <td>{{$i}}</td>
-                        <td style="vertical-align: middle;">{{$user->name}}</td>
+                        <td style="width:5%">{{$i}}</td>
+                        <td style="vertical-align: middle; width:20%"><a href="edit_user/{{$user->id ?? ''}}" target="_blank">{{$user->name}}</a></td>
                         <td style="width:100%">
                             <table style="width:100%">
                                 <thead>
-                                    <th>Name</th>
-                                    <th>Downloaded File</th>
-                                    <th>Date</th>
+                                    <th style="width:40%; ">Name</th>
+                                    <th style="width:40%;">Downloaded File</th>
+                                    <th style="width:40%;">Date</th>
                                 </thead>
                                 <tbody>
                                     @foreach($user->userDownload as $download)
                                     <tr>
-                                        <td>{{$download->downloads->name ?? ''}}</td>
-                                        <td>{{$download->downloads->download_file ?? ''}}</td>
-                                        <td>{{$download->dated ?? ''}}</td>
+                                        <td style="width:40%;">{{$download->downloads->name ?? ''}}</td>
+                                        <td style="width:40%;">{{$download->downloads->download_file ?? ''}}</td>
+                                        <td style="width:40%;">{{$download->dated ?? ''}}</td>
                                     </tr>
                                     @endforeach
                                 </tbody>
