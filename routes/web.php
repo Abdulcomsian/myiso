@@ -195,7 +195,8 @@ Route::group(['middleware' => ['auth','admin']], function ()
 
     // showing badge on notification sidebar
     Route::post('/messageCounter', 'AddUsersController@showUnreadMessage')->name('showUnreadMessage');
-    
+    // Show download Histroy of User by Admin
+    Route::post('/userdownloadhistory', 'AddUsersController@userDownloadHistory')->name('userloginhistory');
     // Show Login Histroy of User by Admin
     Route::post('/userloginhistory', 'AddUsersController@userLoginHistory')->name('userloginhistory');
 

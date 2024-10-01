@@ -355,7 +355,10 @@
                                 <!--<td> ->expiry_date </td>-->
                                 <td>
                                     {{-- eye view option hide in Action column in admin --}}
-
+                                    <button class="btn btn-sm btn-clean btn-icon btn-icon-md" title="Download History" value=""
+                                    onclick="get_downloads({{$item->id}});">
+                                    <i class="fa fa-download"></i>
+                                </button>
                                 <button class="btn btn-sm btn-clean btn-icon btn-icon-md" title="Login History" value=""
                                     onclick="get_history({{$item->id}});">
                                     <i class="fas fa-sign-in-alt"></i>
@@ -456,6 +459,27 @@
 
     
       {{-- working code --}}
+
+       <!-- Modal for Download History -->
+     <div class="modal fade" id="viewUserDownloads" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Download History</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <h1>User Download History <span id="userName"></span></h1>
+                    <div id="loginHistoryTable"></div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
      <!-- Modal for Login History -->
      <div class="modal fade" id="viewUser" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
@@ -476,6 +500,7 @@
             </div>
         </div>
     </div>
+
 
 
     {{-- Modal for showing the email details of the clients who haven`t login  --}}
@@ -1498,6 +1523,30 @@
 
 
         // working code 
+        function get_downloads(id) 
+        {
+            $.ajax({
+                type: "post",
+                url: "{{ url('/userdownloadhistory') }}",
+                headers: { 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') },
+                data: {
+                    user_id: id,
+                    _token: $('meta[name="csrf-token"]').attr('content')
+                },
+                success: function (response) 
+                {
+                    // $('#userName').text(id);
+                    $('#loginHistoryTable').html(response);
+
+                    $('#loginHistoryTable table').DataTable({
+                        paging: true,
+                        pageLength: 10,
+                    });
+
+                    $('#viewUserDownloads').modal('show');
+                },
+            });
+        }
         function get_history(id) 
         {
             $.ajax({
