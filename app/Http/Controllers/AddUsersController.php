@@ -153,7 +153,7 @@ class AddUsersController extends Controller
         $users = User::with('userDownload', 'userDownload.downloads')->where('id', $user_id)->first();
        // $loginHistory = LoginHistoryUser::where('user_id', $user_id)->orderBy('id', 'desc')->get();   
         
-        $list = '<table class="table">
+        $list = '<table class="table" width="100%">
         <thead>
             <tr>
                 <th>ID</th>
