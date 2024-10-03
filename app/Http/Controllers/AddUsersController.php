@@ -1889,7 +1889,7 @@ public function store(Request $request)
         }
     }
 
-    public function manage_downloads(){
+    public function manage_uploads(){
         $all_downloads  = DB::table('downloads')->get();
 		return view('admin.dashboard.admin.view_downloads', compact('all_downloads'));
     }
@@ -1916,6 +1916,7 @@ public function store(Request $request)
        $insert = DB::table('downloads')->insert(
             array(
                 'name' => $request['name'],
+                'des' => $request['description'],
                 'ICA_member' => $icamember,
                 'download_file' => $fileName
             )

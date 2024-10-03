@@ -31,7 +31,7 @@
                                  @csrf 
 								<div class="form-group">
 									<label for="title">Name:</label>
-									<input type="text" id="name" name="name" class="form-control" placeholder="Name:" required="required"/>
+									<input type="text"   name="name" class="form-control" placeholder="Name:" required="required"/>
 								</div>
                                 <div class="form-group">
 									
@@ -131,4 +131,5 @@
         </div>
     </div>
 </div>
+
 @endsection

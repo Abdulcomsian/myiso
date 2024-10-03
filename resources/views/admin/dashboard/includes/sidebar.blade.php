@@ -215,11 +215,11 @@
                                 </a>
                             </li>
                             <li class="kt-menu__item " aria-haspopup="true">
-                                <a href="{{ url('/downloads') }}" class="kt-menu__link ">
+                                <a href="{{ url('/upload') }}" class="kt-menu__link ">
                                     <i class="kt-menu__link-bullet kt-menu__link-bullet--dot">
                                         <span></span>
                                     </i>
-                                    <span class="kt-menu__link-text">Downloads</span>
+                                    <span class="kt-menu__link-text">Uploads</span>
                                 </a>
                             </li>
                             <li class="kt-menu__item " aria-haspopup="true">

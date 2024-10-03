@@ -10,7 +10,7 @@
                     <i class="kt-font-brand flaticon2-line-chart"></i>
                 </span>
                 <h3 class="kt-portlet__head-title">
-                    Downloads
+                    Uploads
                 </h3>
             </div>
             <div class="kt-portlet__head-toolbar">
@@ -23,7 +23,7 @@
                         <a href="#" class="btn btn-brand btn-elevate btn-icon-sm" data-toggle="collapse"
                             data-target="#new_video">
                             <i class="la la-plus"></i>
-                            New Download
+                            New Upload
                         </a>
 
                     </div>
@@ -40,7 +40,7 @@
         <div class="row">
             <div class="col-md-6">
                 <div id="new_video" class="collapse p-4">
-                    <h3>Add New Download</h3>
+                    <h3>New Upload</h3>
 
                     <form action="{{ url('/add_download') }}" method="POST" enctype="multipart/form-data">
                                  @csrf 
@@ -48,6 +48,10 @@
 									<label for="title">Name:</label>
 									<input type="text" id="name" name="name" class="form-control" placeholder="Name:" required="required"/>
 								</div>
+                                <div class="form-group">
+                                    <label for="message">Description:</label>
+                                    <textarea name="description" id="summernote"></textarea>
+                                </div>
                                 <div class="form-group">
 									
                                  <input type="checkbox" name="ica_member" value="1">
@@ -115,13 +119,16 @@
                         <td style="text-align:center; width:20%">{{$count}}</td>
                         
                         
-                        <td style="width:30%">{{$download->name}}</td>
+                        <td style="width:30%">{{$download->name}}
+                            <br>
+                            <div id="summernote">{!!$download->des!!} </div>
+                        </td>
                         
                         
                             <td style="width:30%">{{$icamember}}</td>
                        
                           
-                            <td style="width:30%"><a href="{{asset('uploads/downloads/' . $download->download_file)}}" target="_blank">{{$download->download_file}}</a></td>
+                            <td style="width:30%"><a href="{{asset('uploads/downloads/' . $download->download_file)}}" target="_blank">Download {{$download->name}}</a></td>
                        
                         
 
@@ -167,4 +174,23 @@
         </div>
     </div>
 </div>
+<script>
+    $(document).ready(function() {
+        $('#summernote').summernote({
+        placeholder: 'Please enter your Details',
+        tabsize: 2,
+        width:700,
+        height: 150,
+        toolbar: [
+          ['style', ['style']],
+          ['font', ['bold', 'underline', 'clear']],
+          ['color', ['color']],
+          ['para', ['ul', 'ol', 'paragraph']],
+          ['table', ['table']],
+          ['insert', ['link', 'picture', 'video']],
+          ['view', ['fullscreen', 'codeview', 'help']]
+        ]
+      });
+    });
+  </script>
 @endsection

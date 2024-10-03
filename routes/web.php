@@ -227,7 +227,7 @@ Route::group(['middleware' => ['auth','admin']], function ()
     Route::post('/login-history', 'App\Http\Controllers\Auth\LoginController@login_history')->name('login-history');
 
     // to manage downloads
-    Route::get('/downloads', 'AddUsersController@manage_downloads');
+    Route::get('/upload', 'AddUsersController@manage_uploads');
     Route::post('/add_download', 'AddUsersController@add_download');
     Route::post('/download_delete/{id}', 'AddUsersController@download_delete');
     Route::get('/view_users_downloads', 'AddUsersController@viewUsersDownloads');

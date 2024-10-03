@@ -27,6 +27,8 @@
                         <th  style="text-align:center">S No.</th>
 
                         <th  >Name</th>
+						<th  >Description</th>
+
                         <th >Download File</th>
 
                         
@@ -47,12 +49,15 @@
                         <td style="text-align:center; width:20%">{{$count}}</td>
                         
                         
-                        <td style="width:65%">{{$download->name}}</td>
+                        <td style="width:20%">{{$download->name}}</td>
+						<td style="width:30%">
+							<div>{!!$download->des!!}</div>
+						</td>
                         
                         
                        
                           
-                            <td style="width:100%"><a class="btn-fetch-data" href="{{asset('uploads/downloads/' . $download->download_file)}}" data-id="{{$download->id}}" target="_blank">{{$download->download_file}}</a></td>
+                            <td style="width:30%"><a class="btn-fetch-data" href="{{asset('uploads/downloads/' . $download->download_file)}}" data-id="{{$download->id}}" target="_blank">Download {{$download->name}}</a></td>
                        
                         
 
