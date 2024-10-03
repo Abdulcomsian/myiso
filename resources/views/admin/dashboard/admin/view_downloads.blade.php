@@ -116,16 +116,16 @@
                 ?>
                     <tr>
                         
-                        <td style="text-align:center; width:20%">{{$count}}</td>
+                        <td style="text-align:center; width:5%">{{$count}}</td>
                         
                         
-                        <td style="width:30%">{{$download->name}}
+                        <td style="width:30%"><h5>{{$download->name}}</h5>
                             <br>
                             <div id="summernote">{!!$download->des!!} </div>
                         </td>
                         
                         
-                            <td style="width:30%">{{$icamember}}</td>
+                            <td style="width:10%">{{$icamember}}</td>
                        
                           
                             <td style="width:30%"><a href="{{asset('uploads/downloads/' . $download->download_file)}}" target="_blank">Download {{$download->name}}</a></td>

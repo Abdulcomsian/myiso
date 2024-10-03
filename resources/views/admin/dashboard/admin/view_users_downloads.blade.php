@@ -96,20 +96,22 @@
                     @if(isset($user->userDownload) && count($user->userDownload) > 0)
                     <tr>
                         <td style="width:5%">{{$i}}</td>
-                        <td style="vertical-align: middle; width:20%"><a href="edit_user/{{$user->id ?? ''}}" target="_blank">{{$user->name}}</a></td>
+                        <td style="vertical-align: middle; width:15%"><a href="edit_user/{{$user->id ?? ''}}" target="_blank">{{$user->name}}</a></td>
                         <td style="width:100%">
                             <table style="width:100%">
                                 <thead>
-                                    <th style="width:40%; ">Name</th>
-                                    <th style="width:40%;">Downloaded File</th>
-                                    <th style="width:40%;">Date</th>
+                                    <th style="width:45%; ">Name</th>
+                                    <th style="width:30%;">Downloaded File</th>
+                                    <th style="width:30%;">Date</th>
                                 </thead>
                                 <tbody>
                                     @foreach($user->userDownload as $download)
                                     <tr>
-                                        <td style="width:40%;">{{$download->downloads->name ?? ''}}</td>
-                                        <td style="width:40%;">{{$download->downloads->download_file ?? ''}}</td>
-                                        <td style="width:40%;">{{$download->dated ?? ''}}</td>
+                                        <td style="width:50%;"><h5>{{$download->downloads->name ?? ''}}</h5>
+                                            {!!$download->downloads->des ?? '' !!}
+                                        </td>
+                                        <td style="width:35%;">{{$download->downloads->download_file ?? ''}}</td>
+                                        <td style="width:35%;">{{$download->dated ?? ''}}</td>
                                     </tr>
                                     @endforeach
                                 </tbody>

@@ -158,6 +158,7 @@ class AddUsersController extends Controller
             <tr>
                 <th>ID</th>
                 <th>Name</th>
+                 <th>Description</th>
                 <th>Downloaded File</th>
                 <th>Date</th>
             </tr>
@@ -170,8 +171,9 @@ class AddUsersController extends Controller
             {
                 $list .= '<tr>';
                 $list .= '<td style="text-align: center;">' . $i . '</td>';
-                $list .= '<td style="padding:5px 15px; text-align: center;">' . $ud->downloads->name ?? '' . '</td>';
-                $list .= '<td style="padding:5px 15px; text-align: center;"><a class="btn-fetch-data" href="'.asset('uploads/downloads/'. $ud->downloads->download_file).'" data-id="'.$ud->downloads->id.'" target="_blank">' . $ud->downloads->download_file ?? '' . '</a></td>';
+                $list .= '<td style="padding:5px 15px; text-align: center;"><h5>' . $ud->downloads->name ?? ''  . '</h5></td>';
+                $list .= '<td style="padding:5px 15px; text-align: center;">' . $ud->downloads->des ?? ''  . '</td>';
+                $list .= '<td style="padding:5px 15px; text-align: center;"><a class="btn-fetch-data" href="'.asset('uploads/downloads/'. $ud->downloads->download_file).'" data-id="'.$ud->downloads->id.'" target="_blank"> Download ' . $ud->downloads->name ?? '' . '</a></td>';
                 $list .= '<td style="padding:5px 15px; text-align: center;">' . $ud->dated ?? '' . '</td>';
                 $list .= '</tr>';
                 $i++;

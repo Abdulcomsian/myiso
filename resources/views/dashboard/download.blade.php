@@ -46,10 +46,10 @@
                 ?>
                     <tr>
                         
-                        <td style="text-align:center; width:20%">{{$count}}</td>
+                        <td style="text-align:center; width:7%">{{$count}}</td>
                         
                         
-                        <td style="width:20%">{{$download->name}}</td>
+                        <td style="width:50%"><h5>{{$download->name}}</h5></td>
 						<td style="width:30%">
 							<div>{!!$download->des!!}</div>
 						</td>
