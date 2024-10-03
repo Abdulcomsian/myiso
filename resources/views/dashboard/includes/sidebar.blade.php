@@ -562,14 +562,14 @@
 									<span class="kt-menu__link-text">Downloads</span>
 								</a>
 							</li>
-							<li class="kt-menu__item " aria-haspopup="true">
+							{{-- <li class="kt-menu__item " aria-haspopup="true">
 								<a href="{{url('viewDownload')}}" class="kt-menu__link ">
 									<i class="kt-menu__link-bullet kt-menu__link-bullet--dot">
 										<span></span>
 									</i>
 									<span class="kt-menu__link-text">View My Downloads</span>
 								</a>
-							</li>
+							</li> --}}
 							
 						</ul>
 					</div>
