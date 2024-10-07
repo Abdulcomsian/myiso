@@ -444,12 +444,12 @@
                         <div class="kt-widget17 p-4">
                             <div class="row ml-0 mr-0 table-responsive">
                                 @if(!empty($user['audit_comment']))
-                                    {{$user['audit_comment']}}
+                                <p><a href="/uploads/user/pdfs/Use-Of-Certificate-and-Certification-Marks.pdf" target="_blank">
+                                    <i class="far fa-file-pdf fa-2x" style="color:red;"></i>
+                                </a></p>
                                 @else
-                                    {{-- <p class="text-dark ml-2">Not Comment</p> --}}
-                                    <p><a href="/uploads/user/pdfs/Use-Of-Certificate-and-Certification-Marks.pdf" target="_blank">
-                                        <i class="far fa-file-pdf fa-2x" style="color:red;"></i>
-                                    </a></p>
+                                    <p class="text-dark ml-2">Not Comment</p>
+                                    
                                 @endif
                             </div>
                         </div>
