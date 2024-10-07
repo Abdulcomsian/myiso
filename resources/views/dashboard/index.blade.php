@@ -426,7 +426,7 @@
 									</a>
 								@else
 									{{-- <p class="text-dark ml-2">Not found</p> --}}
-                                    <p style="display: flex; gap: 30px;"> <strong>Remote Audit Overview</strong> <a href="/uploads/user/pdfs/Remote-Audit-Overview.pdf" target="_blank">
+                                    <p style="display: flex; gap: 30px;"> <th>Remote Audit Overview</th> <a href="/uploads/user/pdfs/Remote-Audit-Overview.pdf" target="_blank">
                                         <i class="far fa-file-pdf fa-2x" style="color:red;"></i>
                                     </a></p>
 								@endif
@@ -444,7 +444,7 @@
                         <div class="kt-widget17 p-4">
                             <div class="row ml-0 mr-0 table-responsive">
                                 @if(!empty($user['audit_comment']))
-                                <p style="display: flex; gap: 30px;">  <strong>Use Of Certificate & Certification Marks</strong> <a href="/uploads/user/pdfs/Use-Of-Certificate-and-Certification-Marks.pdf" target="_blank">
+                                <p style="display: flex; gap: 30px;">  <th>Use Of Certificate & Certification Marks</th> <a href="/uploads/user/pdfs/Use-Of-Certificate-and-Certification-Marks.pdf" target="_blank">
                                     <i class="far fa-file-pdf fa-2x" style="color:red;"></i>
                                 </a> </p>
                                 @else
