@@ -471,7 +471,7 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    <div id="loginHistoryTable"></div>
+                    <div id="downloadHistoryTable"></div>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -1535,9 +1535,9 @@
                 success: function (response) 
                 {
                     // $('#userName').text(id);
-                    $('#loginHistoryTable').html(response);
+                    $('#downloadHistoryTable').html(response);
 
-                    $('#loginHistoryTable table').DataTable({
+                    $('#downloadHistoryTable table').DataTable({
                         paging: true,
                         pageLength: 10,
                     });
