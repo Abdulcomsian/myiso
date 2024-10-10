@@ -490,7 +490,7 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    <h1>Last Login History <span id="userName"></span></h1>
+                    {{-- <h1>Last Login History <span id="userName"></span></h1> --}}
                     <div id="loginHistoryTable"></div>
                 </div>
                 <div class="modal-footer">
