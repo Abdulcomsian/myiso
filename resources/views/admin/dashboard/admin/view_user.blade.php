@@ -167,6 +167,7 @@
                                 <select name="showusers" id="showusers">
                                     <option value="0" {{ request('showusers') == 0 ? 'selected' : '' }}>All Users</option>
                                     <option value="1" {{ request('showusers') == 1 ? 'selected' : '' }}>SCAISO Users</option>
+                                    <option value="2" {{ request('showusers') == 2 ? 'selected' : '' }}>ADEK School</option>
                                 </select>
                             </form>
                             </div>

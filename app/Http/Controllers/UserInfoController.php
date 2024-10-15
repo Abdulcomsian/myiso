@@ -177,14 +177,17 @@ class UserInfoController extends Controller
     public function userDownload(){
         //dd(Auth::user()->member_scaiso);
         $member_scaiso=Auth::user()->member_scaiso;
-        //dd($member_scaiso);
-        if($member_scaiso==0){
-            $all_downloads  = DB::table('downloads')->where('ICA_member',$member_scaiso)->get();
-        }else{
+        $adek_school=Auth::user()->adek_school;
+        //dd($adek_school);
+    //     if($member_scaiso==0){
+    //         $all_downloads  = DB::table('downloads')->where('ICA_member',$member_scaiso)->get();
+    //     }
+    //    else{
 
-            $all_downloads  = DB::table('downloads')->get();
-        }
-       
+    //         $all_downloads  = DB::table('downloads')->get();
+    //     }
+    $all_downloads  = DB::table('downloads')->where('ICA_member',$member_scaiso)->orwhere('adek_school',$adek_school)->get();
+    //dd($all_downloads);
 		return view('dashboard.download', compact('all_downloads'));
         //return view("dashboard.download");
     }

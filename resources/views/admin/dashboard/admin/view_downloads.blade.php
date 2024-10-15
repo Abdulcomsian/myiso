@@ -57,6 +57,11 @@
                                  <input type="checkbox" name="ica_member" value="1">
                                  <label for="title">SCA member</label>
 								</div>
+                                <div class="form-group">
+									
+                                    <input type="checkbox" name="adekschool" value="1">
+                                    <label for="title">ADEK School</label>
+                                   </div>
 								<div class="row">
 									<div class="col-lg-12">
 										<div class="form-group">
@@ -93,6 +98,7 @@
 
                         <th>Name</th>
                         <th>SCA member</th>
+                        <th>ADEK School</th>
                         <th>Download File</th>
 
                         
@@ -113,6 +119,12 @@
                 else{
                     $icamember="No";
                 }
+                if($download->ADEK_school==1){
+                $adek="Yes";
+                }
+                else{
+                    $adek="No";
+                }
                 ?>
                     <tr>
                         
@@ -126,6 +138,7 @@
                         
                         
                             <td style="width:10%">{{$icamember}}</td>
+                            <td style="width:10%">{{$adek}}</td>
                        
                           
                             <td style="width:30%"><a href="{{asset('uploads/downloads/' . $download->download_file)}}" target="_blank">Download {{$download->name}}</a></td>

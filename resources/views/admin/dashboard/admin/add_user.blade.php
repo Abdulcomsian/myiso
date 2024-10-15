@@ -63,6 +63,13 @@
                         @csrf
                         <div class="kt-portlet__body">
                             <div class="form-group row">
+                                <div class="col-lg-12" align="right" style="margin-bottom:-50px; padding-right: 52px;">
+                                    
+                                    <input type="checkbox" name="adek_school" value="1">
+                                    <label for="adek_school">ADEK School</label>
+                                 </div>
+                            </div>
+                            <div class="form-group row">
                                 <div class="col-lg-12" align="right" style="margin-bottom:-50px;">
                                     
                                     <input type="checkbox" name="scaiso" value="1">
