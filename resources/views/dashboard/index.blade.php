@@ -444,8 +444,7 @@
                         <div class="kt-widget17 p-4">
                             <div class="row ml-0 mr-0 table-responsive">
                                 @if(!empty($user['audit_comment']))
-                                <a href="public/{{$user['audit_comment']}}" target="_blank" class="text-dark ml-2">
-                                    Click to view auditor comments
+                               {{$user['audit_comment']}}
                                 </a>
                                 @else
                                     <p class="text-dark ml-2">Not Comment</p>
