@@ -422,17 +422,17 @@
                             <div class="row ml-0 mr-0 table-responsive">
 								@if(!empty($user['audit_report']))
 									<a href="public/{{$user['audit_report']}}" target="_blank" class="text-dark ml-2">
-										Click to view Audit report
+										Click to view audit report
 									</a>
 								@else
-									{{-- <p class="text-dark ml-2">Not found</p> --}}
-                                    <p style="display: flex; gap: 30px;"> <th>Remote Audit Overview</th> <a href="/uploads/user/pdfs/Remote-Audit-Overview.pdf" target="_blank">
-                                        <i class="far fa-file-pdf fa-2x" style="color:red;"></i>
-                                    </a></p>
+									<p class="text-dark ml-2">Not audit report</p>
+                                   
 								@endif
                             </div>
                         </div>
                     </div>
+
+                   
                     <div class="kt-portlet__head" style="border-bottom: none">
                         <div class="kt-portlet__head-label">
                             <h3 class="kt-portlet__head-title">
@@ -444,13 +444,49 @@
                         <div class="kt-widget17 p-4">
                             <div class="row ml-0 mr-0 table-responsive">
                                 @if(!empty($user['audit_comment']))
-                                <p style="display: flex; gap: 30px;">  <th>Use Of Certificate & Certification Marks</th> <a href="/uploads/user/pdfs/Use-Of-Certificate-and-Certification-Marks.pdf" target="_blank">
-                                    <i class="far fa-file-pdf fa-2x" style="color:red;"></i>
-                                </a> </p>
+                                <a href="public/{{$user['audit_comment']}}" target="_blank" class="text-dark ml-2">
+                                    Click to view auditor comments
+                                </a>
                                 @else
                                     <p class="text-dark ml-2">Not Comment</p>
                                     
                                 @endif
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="kt-portlet__head" style="border-bottom: none">
+                        <div class="kt-portlet__head-label">
+                            <h3 class="kt-portlet__head-title">
+                                Remote Audit Overview
+                            </h3>
+                        </div>
+                    </div>
+                    <div class="kt-portlet__body kt-portlet__body--fit">
+                        <div class="kt-widget17 p-4">
+                            <div class="row ml-0 mr-0 table-responsive">
+                                <p style="display: flex; gap: 30px;"> <a href="/uploads/user/pdfs/Remote-Audit-Overview.pdf" target="_blank">
+                                    <i class="far fa-file-pdf fa-2x" style="color:red;"></i>
+                                </a></p>
+
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="kt-portlet__head" style="border-bottom: none">
+                        <div class="kt-portlet__head-label">
+                            <h3 class="kt-portlet__head-title">
+                                Use Of Certificate & Certification Marks
+                            </h3>
+                        </div>
+                    </div>
+                    <div class="kt-portlet__body kt-portlet__body--fit">
+                        <div class="kt-widget17 p-4">
+                            <div class="row ml-0 mr-0 table-responsive">
+                                <p style="display: flex; gap: 30px;"> <a href="/uploads/user/pdfs/Use-Of-Certificate-and-Certification-Marks.pdf" target="_blank">
+                                    <i class="far fa-file-pdf fa-2x" style="color:red;"></i>
+                                </a> </p>
+
                             </div>
                         </div>
                     </div>
