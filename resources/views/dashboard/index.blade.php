@@ -458,37 +458,24 @@
                         <div class="kt-portlet__head-label">
                             <h3 class="kt-portlet__head-title">
                                 Remote Audit Overview
-                            </h3>
+                            </h3> <a href="/uploads/user/pdfs/Remote-Audit-Overview.pdf" target="_blank">
+                                <i class="far fa-file-pdf fa-2x" style="color:red; margin-left: 50px"></i>
+                            </a>
                         </div>
                     </div>
-                    <div class="kt-portlet__body kt-portlet__body--fit">
-                        <div class="kt-widget17 p-4">
-                            <div class="row ml-0 mr-0 table-responsive">
-                                <p style="display: flex; gap: 30px;"> <a href="/uploads/user/pdfs/Remote-Audit-Overview.pdf" target="_blank">
-                                    <i class="far fa-file-pdf fa-2x" style="color:red;"></i>
-                                </a></p>
-
-                            </div>
-                        </div>
-                    </div>
+                   
 
                     <div class="kt-portlet__head" style="border-bottom: none">
                         <div class="kt-portlet__head-label">
                             <h3 class="kt-portlet__head-title">
                                 Use Of Certificate & Certification Marks
                             </h3>
+                            <a href="/uploads/user/pdfs/Use-Of-Certificate-and-Certification-Marks.pdf" target="_blank">
+                                    <i class="far fa-file-pdf fa-2x" style="color:red; margin-left: 50px"></i>
+                                </a> 
                         </div>
                     </div>
-                    <div class="kt-portlet__body kt-portlet__body--fit">
-                        <div class="kt-widget17 p-4">
-                            <div class="row ml-0 mr-0 table-responsive">
-                                <p style="display: flex; gap: 30px;"> <a href="/uploads/user/pdfs/Use-Of-Certificate-and-Certification-Marks.pdf" target="_blank">
-                                    <i class="far fa-file-pdf fa-2x" style="color:red;"></i>
-                                </a> </p>
-
-                            </div>
-                        </div>
-                    </div>
+                    
                 </div>
                 
             @php

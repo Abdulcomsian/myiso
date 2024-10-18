@@ -141,7 +141,7 @@
                             <td style="width:10%">{{$adek}}</td>
                        
                           
-                            <td style="width:30%"><a href="{{asset('uploads/downloads/' . $download->download_file)}}" target="_blank">Download {{$download->name}}</a></td>
+                            <td style="width:30%"><a href="{{asset('uploads/downloads/' . $download->download_file)}}" target="_blank">Download</a></td>
                        
                         
 
