@@ -4,9 +4,11 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\User;
+use App\UserType;
+
 Use Carbon\Carbon;
 
-class UserController extends Controller
+class   UserController extends Controller
 {
     /**
      * Create a new controller instance.
@@ -45,7 +47,6 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-        
         $request->validate([
             'name' => 'required',
             'email' => 'required',

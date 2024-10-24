@@ -55,11 +55,11 @@ class AddUsersController extends Controller
              // Example logic based on the value of 'showusers'
              if ($showUsers == '1') {
                  // Fetch SCAISO Users
-                 $users = AddUsers::where('role_type', 'user')->where('member_scaiso', '1')->orderBy('id', 'desc')->get();
+                 $users = AddUsers::where('role_type', 'user')->where('user_type', '1')->orderBy('id', 'desc')->get();
              }
              elseif ($showUsers == '2') {
                 // Fetch SCAISO Users
-                $users = AddUsers::where('role_type', 'user')->where('adek_school', '1')->orderBy('id', 'desc')->get();
+                $users = AddUsers::where('role_type', 'user')->where('user_type', '2')->orderBy('id', 'desc')->get();
             } else {
                  // Fetch All Users
                  $users = AddUsers::where('role_type', 'user')->orderBy('id', 'desc')->get();
@@ -456,20 +456,20 @@ public function store(Request $request)
                 $addusers->company_profile = $path;
 
             }
-            if($request->input('scaiso')!=''){
-                $scaiso=1;
+            // if($request->input('scaiso')!=''){
+            //     $scaiso=1;
 
-            }
-            else{
-                $scaiso=0;
-            }
-            if($request->input('adek_school')!=''){
-                $adekschool=1;
+            // }
+            // else{
+            //     $scaiso=0;
+            // }
+            // if($request->input('adek_school')!=''){
+            //     $adekschool=1;
 
-            }
-            else{
-                $adekschool=0;
-            }
+            // }
+            // else{
+            //     $adekschool=0;
+            // }
             //dd($scaiso);
             $addusers->company_name = $request->input('company_name');
             $addusers->company_address = $request->input('company_address');
@@ -483,8 +483,10 @@ public function store(Request $request)
             $current = Carbon::now();
             $expiry = $current->addYears(3);
             $addusers->expiry_date = $expiry;
-            $addusers->member_scaiso = $scaiso;
-            $addusers->adek_school = $adekschool;
+            $addusers->user_type = $request->input('user_type');
+            //$addusers->member_scaiso = $scaiso;
+            //$addusers->adek_school = $adekschool;
+           
 
             $addusers->save();
             return redirect('/add_user')->with("Success", "User added Successfully.");
@@ -632,8 +634,7 @@ public function store(Request $request)
                 
             }
             else{
-            //    $users=AddUsers::where('role_type','user')->get();
-                $users='';
+               $users=AddUsers::where('role_type','user')->get();
             }
             if(isset($users))
             {
@@ -652,6 +653,21 @@ public function store(Request $request)
             }
         }
         else{
+            // if($request->id == 1 || $request->id == 2){
+            //     $users=AddUsers::where('role_type','user')->where('user_type', $request->id)->get();
+            //     $list= '<div class="kt-input-icon kt-input-icon--right"  style="margin-top: 10px;">';
+            //     $list .= '<select name="userid[]" id="langOpt3" class="form-control" multiple>';
+            //         $i = 1; 
+            //     foreach($users as $user){
+            //         $list .= ' <option value="'.$user->id.'">'.$user->name.' </option>';
+            //         $i++;
+            //     }
+        
+            //     $list .= '</select>
+    		// 		</div>';
+            // }else{
+            //     $users=AddUsers::where('role_type','user')->get();
+            // }
             $users=AddUsers::where('role_type','user')->get();
             $adminmessage=SendNotifications::join('users','users.id','=','send_notification.send_to')
             ->select('send_notification.id as notification_id','send_notification.*','users.*')
@@ -660,6 +676,21 @@ public function store(Request $request)
             ->get();
             
             return view('admin.dashboard.admin.send_message',compact('users','adminmessage'));
+        }
+    }
+
+    public function fetchUsers(Request $request){
+        if($request->id == 1 || $request->id == 2){
+            $users=AddUsers::where('role_type','user')->where('user_type', $request->id)->get();
+        }else{
+            $users=AddUsers::where('role_type','user')->get();
+        }
+
+        if(isset($users) && count($users) > 0){
+            $html = view('components.users_dropdown', ['users' => $users])->render();
+            return response()->json(['success' => true, "html" => $html], 200);
+        }else{
+            return response()->json(['success' => false, "msg" => "Some error occurred"], 400);
         }
     }
 
@@ -1904,7 +1935,7 @@ public function store(Request $request)
     }
 
     public function manage_uploads(){
-        $all_downloads  = DB::table('downloads')->get();
+        $all_downloads  = Download::get();
 		return view('admin.dashboard.admin.view_downloads', compact('all_downloads'));
     }
     
@@ -1921,25 +1952,12 @@ public function store(Request $request)
             // Move the file to the upload Folder
             $file = $file->move($path, $fileName);
         }
-     if($request['ica_member']=='1'){
-        $icamember=1;
-     }
-     else{
-        $icamember=0;
-     }
-     if($request['adekschool']=='1'){
-        $adekschool=1;
-     }
-     else{
-        $adekschool=0;
-     }
+   
        $insert = DB::table('downloads')->insert(
             array(
                 'name' => $request['name'],
                 'des' => $request['description'],
-                'ICA_member' => $icamember,
-                'ADEK_school' => $adekschool,
-                'download_file' => $fileName
+                'user_type' => $request['user_type']
             )
         );
 

@@ -163,11 +163,15 @@
                                     </ul>
 
                                 </div> --}}
+                            @php
+                                $usertypes = \App\UserType::get();
+                            @endphp    
                             <form action="{{url('/view_user')}}" id="showuserform">
                                 <select name="showusers" id="showusers">
                                     <option value="0" {{ request('showusers') == 0 ? 'selected' : '' }}>All Users</option>
-                                    <option value="1" {{ request('showusers') == 1 ? 'selected' : '' }}>SCAISO Users</option>
-                                    <option value="2" {{ request('showusers') == 2 ? 'selected' : '' }}>ADEK School</option>
+                                    @foreach ($usertypes as $usertype)
+                                    <option value="{{$usertype->id}}" {{ request('showusers') == $usertype->id ? 'selected' : '' }}>{{$usertype->name}}</option> 
+                                    @endforeach
                                 </select>
                             </form>
                             </div>

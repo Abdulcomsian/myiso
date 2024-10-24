@@ -41,7 +41,9 @@
             <div class="col-md-6">
                 <div id="new_video" class="collapse p-4">
                     <h3>New Upload</h3>
-
+                    @php
+                    $usertypes = \App\UserType::get();
+                    @endphp
                     <form action="{{ url('/add_download') }}" method="POST" enctype="multipart/form-data">
                                  @csrf 
 								<div class="form-group">
@@ -53,15 +55,15 @@
                                     <textarea name="description" id="summernote"></textarea>
                                 </div>
                                 <div class="form-group">
-									
-                                 <input type="checkbox" name="ica_member" value="1">
-                                 <label for="title">SCA member</label>
+									<select name="user_type" id="showusers">
+                                        <option value="0" {{ request('showusers') == 0 ? 'selected' : '' }}>All Users</option>
+                                        @foreach ($usertypes as $usertype)
+                                        <option value="{{$usertype->id}}" {{ request('showusers') == $usertype->id ? 'selected' : '' }}>{{$usertype->name}}</option> 
+                                        @endforeach
+                                    </select>
+                                
 								</div>
-                                <div class="form-group">
-									
-                                    <input type="checkbox" name="adekschool" value="1">
-                                    <label for="title">ADEK School</label>
-                                   </div>
+                              
 								<div class="row">
 									<div class="col-lg-12">
 										<div class="form-group">
@@ -97,8 +99,7 @@
                         <th style="text-align:center">No.</th>
 
                         <th>Name</th>
-                        <th>SCA member</th>
-                        <th>ADEK School</th>
+                        <th>Users</th>
                         <th>Download File</th>
 
                         
@@ -113,18 +114,16 @@
 				<?php $count=0;?>
 				@foreach($all_downloads as $download)
 				<?php $count++; 
-                if($download->ICA_member==1){
-                $icamember="Yes";
+                if($download->user_type==0){
+                $usertype="All";
                 }
-                else{
-                    $icamember="No";
+                elseif($download->user_type==1){
+                    $usertype="Member of SCAISO";
                 }
-                if($download->ADEK_school==1){
-                $adek="Yes";
+                elseif($download->user_type==2){
+                $usertype="ADEK School";
                 }
-                else{
-                    $adek="No";
-                }
+               
                 ?>
                     <tr>
                         
@@ -137,8 +136,7 @@
                         </td>
                         
                         
-                            <td style="width:10%">{{$icamember}}</td>
-                            <td style="width:10%">{{$adek}}</td>
+                            <td style="width:10%">{{$download->downloadusertype->name ?? 'All'}}</td>
                        
                           
                             <td style="width:30%"><a href="{{asset('uploads/downloads/' . $download->download_file)}}" target="_blank">Download</a></td>

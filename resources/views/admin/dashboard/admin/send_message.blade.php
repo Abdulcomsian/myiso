@@ -188,15 +188,27 @@
     							</select>
     						</div>
     					</div>
-    					<div class="col-lg-12">
+						@php
+                        $usertypes = \App\UserType::get();
+                   		 @endphp
+    					<div class="col-lg-12" style="margin-top: 10px;">
+							
     						<label for="address1">Send to:</label>
-    						<div class="kt-input-icon kt-input-icon--right">
-    							<select name="userid[]" id="langOpt3" class="form-control" multiple>
-    								@foreach ($users as $item)
-    							        <option value="{{$item->id}}">{{$item->name}} </option>
-    								@endforeach
-    							</select>
-    						</div>
+							<select name="showusers" id="showusers">
+								<option value="0" {{ request('showusers') == 0 ? 'selected' : '' }}>All Users</option>
+								@foreach ($usertypes as $usertype)
+								<option value="{{$usertype->id}}" {{ request('showusers') == $usertype->id ? 'selected' : '' }}>{{$usertype->name}}</option> 
+								@endforeach
+							</select>
+							<div class="users_dropdown">
+								<div class="kt-input-icon kt-input-icon--right" id="select_dropdown"  style="margin-top: 10px;">
+									<select name="userid[]" id="langOpt3" class="form-control" multiple>
+										@foreach ($users as $item)
+											<option value="{{$item->id}}">{{$item->name}} </option>
+										@endforeach
+									</select>
+								</div>
+							</div>
     					</div>
     					<div class="col-lg-2">
     
@@ -287,6 +299,29 @@
 						},
 					});
 		});
+
+		$(document).on("change", "#showusers",function(){
+			let selectVal  = $(this).val();
+			$.ajax({
+				type: "get",
+				url: `{{route('fetch.users')}}\?id=${selectVal}`,
+				success: function (response) {
+					if(response.success == true){
+						$("#select_dropdown").hide();
+						$(".users_dropdown").html(response.html);
+
+						$('#langOpt3').multiselect({
+			columns: 1,
+			placeholder: 'Select Users',
+			search: true,
+			selectAll: true,
+		});
+		
+					}
+				},
+			})
+		})
+
 		 $(function() {
 			var today = new Date();
 			var dd = String(today.getDate()).padStart(2, '0');

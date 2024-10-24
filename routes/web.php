@@ -139,7 +139,8 @@ Route::group(['middleware' => ['auth','admin']], function ()
     Route::post('/updateuserinfo', 'AddUsersController@update')->name('updateuserinfo');
     Route::get('/send_notifications', 'AddUsersController@send_notifications');
     Route::get('/receive_notifications', 'AddUsersController@receive_notifications');
-    Route::get('/send_message', 'AddUsersController@send_message');
+    Route::get('/send_message', 'AddUsersController@send_message')->name('send.message');
+    Route::get('/fetch_users', 'AddUsersController@fetchUsers')->name('fetch.users');
     Route::get('/sent_notification', 'AddUsersController@sentNotification')->name('sentNotification');
     Route::get('/received_Notification', 'AddUsersController@receivedNotifications')->name('receiveNotification');
     Route::get('/message', 'AddUsersController@individualMessageAdmin')->name('individualMessage');

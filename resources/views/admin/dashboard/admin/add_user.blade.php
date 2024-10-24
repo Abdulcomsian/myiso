@@ -56,26 +56,28 @@
                             </div>
                         </div>
                     </div>
-
+                    @php
+                        $usertypes = \App\UserType::get();
+                    @endphp
                     <!--begin::Form-->
                     <form class="kt-form kt-form--label-right" method="POST" action="{{route('add_user')}}"
                           enctype="multipart/form-data">
                         @csrf
                         <div class="kt-portlet__body">
-                            <div class="form-group row">
+                           
+                            <div class="form-group row" style="margin-bottom:50px; ">
                                 <div class="col-lg-12" align="right" style="margin-bottom:-50px; padding-right: 52px;">
-                                    
-                                    <input type="checkbox" name="adek_school" value="1">
-                                    <label for="adek_school">ADEK School</label>
+                                 <select name="user_type" id="user_type">
+                                <option value="0">Select User Type</option>    
+                                @foreach ($usertypes as $usertype)
+                                <option value="{{$usertype->id}}">{{$usertype->name}}</option> 
+                                @endforeach
+                                       
+                                </select>    
+                                
                                  </div>
                             </div>
-                            <div class="form-group row">
-                                <div class="col-lg-12" align="right" style="margin-bottom:-50px;">
-                                    
-                                    <input type="checkbox" name="scaiso" value="1">
-                                    <label for="iso45001_certificate">Member of SCAISO</label>
-                                 </div>
-                            </div>
+                            
                             <div class="form-group row">
 
                                 <div class="col-lg-3">
