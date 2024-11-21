@@ -3,9 +3,12 @@
 namespace App\Http\Controllers;
 
 use App\Mgtreview;
+use App\Helpers\HelperFunctions;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Schema;
 
 class MgtreviewController extends Controller
 {
@@ -50,6 +53,11 @@ class MgtreviewController extends Controller
           'mgtreviewId'=>'required',
 
       ]);
+        if(Auth::check() && Auth::user()->role_type == "admin"){
+            $the_id = intval($request->input('user_id'));
+    }else{
+        $the_id = Auth()->user()->id;
+    }   
       try{
             $mgtRev= new Mgtreview();
             $is_admin = $request->input('is_admin');
@@ -75,6 +83,13 @@ class MgtreviewController extends Controller
 
             $mgtRev->effectiveness=$request->input('effectiveness');
             $mgtRev->newquality=$request->input('newquality');
+            //Check if user attach file
+           
+            if ($request->file('attach_file') && Schema::hasColumn('tbl_mgtreviews','attach_file')) {
+                $file = $request->file('attach_file');
+                $path = '/uploads/user/mgtreviews_files/';
+                $mgtRev->attach_file = HelperFunctions::saveFile($path,$file);
+            }
             $mgtRev->save();
             // if(Auth()->user()->role_type=="admin"){
             //     return back()->with($notification);
@@ -146,6 +161,20 @@ class MgtreviewController extends Controller
 
         $mgtRev->effectiveness=$request->input('effectiveness');
         $mgtRev->newquality=$request->input('newquality');
+
+        //Check if user attach file
+        //dd($request->file('attach_file') );
+    if ($request->file('attach_file') && Schema::hasColumn('tbl_mgtreviews','attach_file')) {
+        //Delete previous attach evidence if exist
+            if (File::exists(public_path($mgtRev->attach_file))) {
+                File::delete(public_path($mgtRev->attach_file));
+            }
+    
+            $file = $request->file('attach_file');
+            $path = '/uploads/user/mgtreviews_files/';
+            $mgtRev->attach_file = HelperFunctions::saveFile($path,$file);
+        }
+
         $mgtRev->save();
         return back();
         // return redirect('/add_management_review')->with("Success","Data Save Successfully");

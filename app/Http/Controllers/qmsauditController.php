@@ -162,6 +162,12 @@ class qmsauditController extends Controller
                 $path = '/uploads/user/attach_evidence_'. $the_id .'/';
                 $Qmsaudit->attach_evidence = HelperFunctions::saveFile($path,$file);
             }
+             //Check if user attach file
+             if ($request->file('attach_file') && Schema::hasColumn('tbl_qmsaudit','attach_file')) {
+                $file = $request->file('attach_file');
+                $path = '/uploads/user/attach_file_'. $the_id .'/';
+                $Qmsaudit->attach_file = HelperFunctions::saveFile($path,$file);
+            }
              $Qmsaudit->save();
 
             //  Toastr->success('Have fun storming the castle!', 'Miracle Max Says');
@@ -293,6 +299,17 @@ class qmsauditController extends Controller
         $path = '/uploads/user/attach_evidence_'.$the_id.'/';
         $Qmsaudit->attach_evidence = HelperFunctions::saveFile($path,$file);
     }
+    //Check if user attach file
+    if ($request->file('attach_file') && Schema::hasColumn('tbl_qmsaudit','attach_file')) {
+        //Delete previous attach evidence if exist
+            if (File::exists(public_path($Qmsaudit->attach_file))) {
+                File::delete(public_path($Qmsaudit->attach_file));
+            }
+    
+            $file = $request->file('attach_file');
+            $path = '/uploads/user/attach_file_'.$the_id.'/';
+            $Qmsaudit->attach_file = HelperFunctions::saveFile($path,$file);
+        }
 
 
     $Qmsaudit->save();
@@ -311,6 +328,9 @@ class qmsauditController extends Controller
         $req = Qmsaudit::find($request->id);
         if (File::exists(public_path($req->attach_evidence))) {
             File::delete(public_path($req->attach_evidence));
+        }
+        if (File::exists(public_path($req->attach_file))) {
+            File::delete(public_path($req->attach_file));
         }
         $req->delete();
         session()->flash('msg', 'Record deleted successfully.');

@@ -114,15 +114,15 @@
 				<?php $count=0;?>
 				@foreach($all_downloads as $download)
 				<?php $count++; 
-                if($download->user_type==0){
-                $usertype="All";
-                }
-                elseif($download->user_type==1){
-                    $usertype="Member of SCAISO";
-                }
-                elseif($download->user_type==2){
-                $usertype="ADEK School";
-                }
+                // if($download->user_type==0){
+                // $usertype="All";
+                // }
+                // elseif($download->user_type==1){
+                //     $usertype="Member of SCAISO";
+                // }
+                // elseif($download->user_type==2){
+                // $usertype="ADEK School";
+                // }
                
                 ?>
                     <tr>

@@ -1957,6 +1957,7 @@ public function store(Request $request)
             array(
                 'name' => $request['name'],
                 'des' => $request['description'],
+                'download_file' => $fileName,
                 'user_type' => $request['user_type']
             )
         );

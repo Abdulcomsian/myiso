@@ -896,7 +896,14 @@
 										</div>
 									</div>
 								</div>
-								
+								<div class="row">
+									<div class="col-lg-12">
+										<div class="form-group">
+											<label>Attachment File (PDF, jpeg, txt, .docx, doc, png):</label>
+											<input name="attach_file" type="file" class="form-control" accept="image/*,.doc, .docx,.txt,.pdf,.jpeg,.png">
+										</div>
+									</div>
+								</div>
 								<button type="submit" class="submitBtn">SUBMIT</button>
 								<button type="reset" style="margin-right: 10px;"  class="btn btn-secondary submitBtn" onclick="qmsAudit()">Cancel</button>
 							
@@ -1877,6 +1884,16 @@
 									</div>
 								</div>
 
+								<div class="row">
+									<div class="col-lg-12">
+										<div class="form-group">
+											<label>Attachment File (PDF, jpeg, txt, .docx, doc, png):</label>
+											<div class="file_attachemnt_div">
+											</div>
+										</div>
+									</div>
+								</div>
+
 			</div>
 			<div class="modal-footer">
 				<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -2748,7 +2765,15 @@
 										</div>
 									</div>
 								</div>
-
+								<div class="row">
+									<div class="col-lg-12">
+										<div class="form-group">
+											<label>Attachment File (PDF, jpeg, txt, .docx, doc, png):</label>
+											<input name="attach_file" type="file" class="form-control" accept="image/*,.doc, .docx,.txt,.pdf,.png,.jpeg">
+										</div>
+									</div>
+								</div>
+								
 			</div>
 			<div class="modal-footer">
 					<button type="submit" class="btn btn-danger">Update</button>
@@ -2845,6 +2870,11 @@
 			$('.evidence_attachemnt_div').empty().append(`<a target="_blank" href="${data.attach_evidence}">Click to View</a>`);
 		}else{
 			$('.evidence_attachemnt_div').empty().append('No data found');
+		}
+		if(data.attach_file){
+			$('.file_attachemnt_div').empty().append(`<a target="_blank" href="${data.attach_file}">Click to View</a>`);
+		}else{
+			$('.file_attachemnt_div').empty().append('No data found');
 		}
          $("input[name='qmsCorects'][value="+data.qmsCorects+"]").prop('checked',true);
          $("input[name='needExpactations'][value="+data.needExpactations+"]").prop('checked',true);

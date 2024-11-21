@@ -28,7 +28,7 @@
                     		</div>
                     	</div>
                     	<div class="managemnet_review_from_div">
-                        <form action="{{route('mgtreview')}}" method="POST">
+                        <form action="{{route('mgtreview')}}" method="POST" enctype="multipart/form-data">
                             @csrf
                             <div class="row">
                     				<!-- <div class="col-lg-6">
@@ -143,6 +143,14 @@
                                         responsible, when they will be completed and
                                         what is considered a success. Objectives should be both quality based and financial. Consider aligning objectives to the quality policy:</label>
                                             <textarea class="form-control" name="newquality" required placeholder="Enter New Quality Objectives" cols="30" rows="4"></textarea>
+										</div>
+									</div>
+								</div>
+                                <div class="row">
+									<div class="col-lg-12">
+										<div class="form-group">
+											<label>Attachment File (PDF, jpeg, txt, .docx, doc, png):</label>
+                                            <input name="attach_file" type="file" class="form-control" accept="image/*,.doc, .docx,.txt,.pdf,.jpeg,.png">
 										</div>
 									</div>
 								</div>
@@ -352,6 +360,15 @@
                                 </div>
                             </div>
                         </div>
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <div class="form-group">
+                                    <label>Attachment File (PDF, jpeg, txt, .docx, doc, png):</label>
+                                    <div class="file_attachemnt_div">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
 
 			</div>
 			<div class="modal-footer">
@@ -373,7 +390,7 @@
 				</button>
 			</div>
 			<div class="modal-body">
-                <form action="{{route('mgtreviewupdate')}}" method="POST">
+                <form action="{{route('mgtreviewupdate')}}" method="POST" enctype="multipart/form-data">
                     @csrf
 
                         <div class="row">
@@ -484,6 +501,14 @@
                                 </div>
                             </div>
                         </div>
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <div class="form-group">
+                                    <label>Attachment File (PDF, jpeg, txt, .docx, doc, png):</label>
+                                    <input name="attach_file" type="file" class="form-control" accept="image/*,.doc, .docx,.txt,.pdf,.jpeg,.png">
+                                </div>
+                            </div>
+                        </div>
 
 			</div>
 			<div class="modal-footer">
@@ -544,6 +569,12 @@
          $("input[name='1reviewdate']").val(data.reviewdate);
          $("input[name='1sammarisecustomr']").val(data.sammarisecustomr);
          console.log("modal here");
+
+         if(data.attach_file){
+			$('.file_attachemnt_div').empty().append(`<a target="_blank" href="${data.attach_file}">Click to View</a>`);
+		}else{
+			$('.file_attachemnt_div').empty().append('No data found');
+		}
 
         $("#DetailModal").modal('show');
      }
