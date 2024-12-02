@@ -1,6 +1,7 @@
 @extends('admin.dashboard.layouts.app')
 @section('content')
 
+
     <!-- begin:: Content -->
     <style>
         .new-file-upload {
@@ -380,8 +381,14 @@
                                     <textarea id="audit_comment" name="audit_comment" class="form-control"
                                               placeholder="Audit Comment"></textarea>
                                 </div>
-                                
+
+                                {{-- google recaptcha  --}}
+                                <div class="col-lg-4"> 
+                                    <div class="g-recaptcha mt-4" data-sitekey={{config('services.recaptcha.key')}}></div>
+                                </div>
                             </div>
+
+                            
                            
                             <div class="kt-portlet__foot">
 
@@ -465,6 +472,7 @@
 @endsection
 @section('myscript')
 	@include('layouts.intlTelInput_scripts')
+    <script async src="https://www.google.com/recaptcha/api.js"></script>
     <script>
         //By assad yaqoob
 
