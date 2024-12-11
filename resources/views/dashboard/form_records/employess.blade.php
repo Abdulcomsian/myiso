@@ -140,7 +140,7 @@
                     		</div>
                     	</div>
                     	<div class="employee_record_from_div">
-                            <form action=" {{route('empTraining')}} " method="POST">
+                            <form action=" {{route('empTraining')}} " method="POST" enctype="multipart/form-data">
                                 @csrf
                     			<div class="row">
                     				<div class="col-lg-6">
@@ -164,14 +164,21 @@
 											<input type="date" max="2999-12-31" required class="form-control" name="traningdate">
 										</div>
                     				</div>
+									
                     			</div>
                     			<div class="row">
-                    				<div class="col-lg-12">
+                    				<div class="col-lg-6">
                     					<div class="form-group">
 											<label>Training Details:</label><br>
 											<input type="text" class="form-control"  required name="traningdetails">
 										</div>
                     				</div>
+									<div class="col-lg-6">
+										<div class="form-group">
+											<label>Add Cert of Training (PDF, jpeg,  png):</label>
+											<input name="attach_file" type="file" class="form-control" accept="image/*,.pdf,.jpeg,.png">
+										</div>
+									</div>
                     			</div>
                     			<button type="reset" onclick="emp3()" class="submitBtn" style="margin-left: 7px;">Cancel</button>
 								<button type="submit" class="submitBtn">SUBMIT</button>
@@ -536,6 +543,18 @@
 																		</div>
 																	</div>
 																</div>
+																@if ($item->attach_cert)
+																	
+																
+																<div class="row">
+																	<div class="col-lg-12">
+																		<div class="form-group edit-emp-number-div">
+																			<label>Training Cert</label><br>
+																			<a href="{{$item->attach_cert}}" target="_blank">CClick to View</a>
+																		</div>
+																	</div>
+																</div>
+																@endif	
 															</div>
 															<div class="modal-footer">
 																<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>

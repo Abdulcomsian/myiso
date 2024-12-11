@@ -61,7 +61,7 @@
                         $usertypes = \App\UserType::get();
                     @endphp
                     <!--begin::Form-->
-                    <form class="kt-form kt-form--label-right" method="POST" action="{{route('add_user')}}"
+                    <form class="kt-form kt-form--label-right" method="POST" action="{{route('add_user')}}" id="add_user"
                           enctype="multipart/form-data">
                         @csrf
                         <div class="kt-portlet__body">
@@ -381,11 +381,6 @@
                                     <textarea id="audit_comment" name="audit_comment" class="form-control"
                                               placeholder="Audit Comment"></textarea>
                                 </div>
-
-                                {{-- google recaptcha  --}}
-                                {{-- <div class="col-lg-4"> 
-                                    <div class="g-recaptcha mt-4" data-sitekey={{config('services.recaptcha.key')}}></div>
-                                </div> --}}
                             </div>
 
                             
@@ -472,8 +467,26 @@
 @endsection
 @section('myscript')
 	@include('layouts.intlTelInput_scripts')
-    {{-- <script async src="https://www.google.com/recaptcha/api.js"></script> --}}
     <script>
+        $('#add_user').submit(function(event) {
+
+            event.preventDefault();
+
+
+
+            grecaptcha.ready(function() {
+
+                grecaptcha.execute("{{ env('GOOGLE_RECAPTCHA_KEY') }}", {action: 'add_user'}).then(function(token) {
+
+                    $('#add_user').prepend('<input type="hidden" name="token" value="' + token + '">');
+
+                    $('#add_user').unbind('submit').submit();
+
+                });;
+
+            });
+
+            });
         //By assad yaqoob
 
         var phone_input = document.querySelector("#phone");

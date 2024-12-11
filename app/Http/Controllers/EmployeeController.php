@@ -11,6 +11,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Schema;
 use App\Certificate;
 use App\CertificateOption;
 use Notification;
@@ -110,7 +111,12 @@ class EmployeeController extends Controller
                 $employee->empid=$request->input('empid');
                 $employee->traningdate=$request->input('traningdate');
                 $employee->traningdetails=$request->input('traningdetails');
-                
+                 //Check if user attach file
+                if ($request->file('attach_file') && Schema::hasColumn('tbl_employees_traning','attach_cert')) {
+                    $file = $request->file('attach_file');
+                    $path = '/uploads/user/attach_cert/';
+                    $employee->attach_cert = HelperFunctions::saveFile($path,$file);
+                }
                 $employee->save();
                 return back()->with("Success","Data Save Successfully");
             }catch(Exception $exception){
