@@ -175,7 +175,7 @@
                     				</div>
 									<div class="col-lg-6">
 										<div class="form-group">
-											<label>Add Cert of Training (PDF, jpeg,  png):</label>
+											<label>Upload Training Certificate (PDF, jpeg,  png):</label>
 											<input name="attach_file" type="file" class="form-control" accept="image/*,.pdf,.jpeg,.png">
 										</div>
 									</div>
@@ -549,8 +549,8 @@
 																<div class="row">
 																	<div class="col-lg-12">
 																		<div class="form-group edit-emp-number-div">
-																			<label>Training Cert</label><br>
-																			<a href="{{$item->attach_cert}}" target="_blank">CClick to View</a>
+																			<label>Training Certificate</label><br>
+																			<a href="{{$item->attach_cert}}" target="_blank">Click to View</a>
 																		</div>
 																	</div>
 																</div>
