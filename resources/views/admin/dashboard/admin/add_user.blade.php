@@ -468,25 +468,25 @@
 @section('myscript')
 	@include('layouts.intlTelInput_scripts')
     <script>
-        $('#add_user').submit(function(event) {
+        // $('#add_user').submit(function(event) {
 
-            event.preventDefault();
+        //     event.preventDefault();
 
 
 
-            grecaptcha.ready(function() {
+        //     grecaptcha.ready(function() {
 
-                grecaptcha.execute("{{ env('GOOGLE_RECAPTCHA_KEY') }}", {action: 'add_user'}).then(function(token) {
+        //         grecaptcha.execute("{{ env('GOOGLE_RECAPTCHA_KEY') }}", {action: 'add_user'}).then(function(token) {
 
-                    $('#add_user').prepend('<input type="hidden" name="token" value="' + token + '">');
+        //             $('#add_user').prepend('<input type="hidden" name="token" value="' + token + '">');
 
-                    $('#add_user').unbind('submit').submit();
+        //             $('#add_user').unbind('submit').submit();
 
-                });;
+        //         });;
 
-            });
+        //     });
 
-            });
+        //     });
         //By assad yaqoob
 
         var phone_input = document.querySelector("#phone");
