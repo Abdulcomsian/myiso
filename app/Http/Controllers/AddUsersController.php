@@ -1952,12 +1952,34 @@ public function store(Request $request)
             // Move the file to the upload Folder
             $file = $file->move($path, $fileName);
         }
+        if( $request->hasFile('file2') ) {
+            $file = $request->file('file2');
+            // Get the Image Name
+            $fileName2 = rand().'.'.$file->getClientOriginalExtension();
+            // Set the Filepath 
+            $path = public_path('uploads/downloads') ;
+            // Move the file to the upload Folder
+            $file = $file->move($path, $fileName2);
+        }
+        if( $request->hasFile('thumbnail') ) {
+            $file = $request->file('thumbnail');
+            // Get the Image Name
+            $thumbnail = rand().'.'.$file->getClientOriginalExtension();
+            // Set the Filepath 
+
+            $path = public_path('uploads/downloads') ;
+            // Move the file to the upload Folder
+            $file = $file->move($path, $thumbnail);
+        }
    
        $insert = DB::table('downloads')->insert(
             array(
                 'name' => $request['name'],
+                'category' => $request['category'],
                 'des' => $request['description'],
                 'download_file' => $fileName,
+                'download_file2' => $fileName2,
+                'thumb_nail' => $thumbnail,
                 'user_type' => $request['user_type']
             )
         );
@@ -1978,4 +2000,14 @@ public function store(Request $request)
         $users = User::with('userDownload', 'userDownload.downloads')->get();
 		return view('admin.dashboard.admin.view_users_downloads', compact('users'));
     }
+
+    public function filter(Request $request)
+    {
+    $category = $request->category;
+    $downloads = DB::table('downloads')->where('category', $category)->get();
+
+    // Return the filtered data as a view partial
+    return view('admin.dashboard.admin.view_category_downloads', compact('downloads'));
+    }
+
 }

@@ -13,67 +13,57 @@
 	</div> --}}
 	<section id="procedure_section" class="mt-3">
 		
-	<div class="container">
-	<div class="row">
 
-		<div class="kt-portlet__body" style="width: 100%">
-            <!--begin: Video -->
-            <table style="width: 100%" class="table table-striped- table-bordered table-hover table-sm table-checkable table-responsive" id="kt_table_user">
-
-                <thead>
-
-                    <tr>
-
-                        <th  style="text-align:center">S No.</th>
-
-                        <th  >Name</th>
-						<th  >Description</th>
-
-                        <th >Download File</th>
-
-                        
-
-                       
-                    </tr>
-
-                </thead>
-
-                <tbody>
-				<?php $count=0;?>
-				@foreach($all_downloads as $download)
-				<?php $count++; 
-               
-                ?>
-                    <tr>
-                        
-                        <td style="text-align:center; width:7%">{{$count}}</td>
-                        
-                        
-                        <td style="width:50%"><h5>{{$download->name}}</h5></td>
-						<td style="width:40%">
-							<div>{!!$download->des!!}</div>
-						</td>
-                        
-                        
-                       
-                          
-                            <td style="width:30%"><a class="btn-fetch-data" href="{{asset('uploads/downloads/' . $download->download_file)}}" data-id="{{$download->id}}" target="_blank">Download</a></td>
-                       
-                        
-
-                        
-
-                    </tr>
-				@endforeach	
-                </tbody>
-            </table>
-            <!--end: Video -->
-
-
+	  <!-- Category Dropdown -->
+<div class="row">
+    <div class="col-md-6">
+        <div class="form-group" style="margin-left: 2em">
+            <label>Category:</label><br>
+            <select id="category-select" name="category" required class="form-control">
+                <option value="" selected disabled>Select Category</option>
+                <option value="Emergency Signs">Emergency Signs</option>
+                <option value="Environmental signs">Environmental signs</option>
+                <option value="Mandatory Signs">Mandatory Signs</option>
+                <option value="Warning Signs">Warning Signs</option>
+            </select>
         </div>
-	
-	</div>
-	</div>
+    </div>
+</div>
+
+<!-- Default Downloads -->
+<div id="default-downloads" style="width: 100%;">
+    @foreach($all_downloads as $download)
+  
+        <div style="display: flex; justify-content:space-between; margin-left: 2em; margin-right: 2em; background:#f0f4fd; gap:20px; margin-bottom:20px; padding:30px 20px; align-items:center; border-radius:12px; width:75%;">
+            <div style="">
+                @if ($download->thumb_nail)
+                <div>
+                    <img src="{{ asset('uploads/downloads/' . $download->thumb_nail) }}" width="110" height="156">
+                </div>
+                @endif
+            </div>
+            <div style="color:#084f95; font-size: 18px; font-weight:600; text-align:left;align-items:left !important;">{{ $download->name }}</div>
+         <div style="display: flex; gap:20px;justify-content:space-between;">
+            <div style="display: flex; flex-direction: column;">
+                @if ($download->download_file)
+                <a href="{{ asset('uploads/downloads/' . $download->download_file) }}" target="_blank"><img src="assets/img/a4-btn.png"  style="width: 80%"></a><br>
+                @endif
+                @if ($download->download_file2)
+                <a href="{{ asset('uploads/downloads/' . $download->download_file2) }}" target="_blank"><img src="assets/img/a5-btn.png"  style="width: 80%"></a><br>
+                @endif
+            </div>
+           
+         </div>
+        </div>
+    @endforeach
+</div>
+
+<!-- Filtered Downloads -->
+<div id="filtered-downloads" style="display: none;">
+    <!-- This will be updated dynamically -->
+</div>
+
+
 	<script>
 		$(document).on('click', '.btn-fetch-data', function(e) {
 			e.preventDefault();
@@ -105,6 +95,30 @@
 					console.log(xhr.responseText);
 					alert("An error occurred!");
 				}
+			});
+		});
+	</script>
+	  <script>
+		$(document).ready(function() {
+			$('#category-select').change(function() {
+				let category = $(this).val();
+	
+				// Make an AJAX request to filter downloads
+				$.ajax({
+					url: "{{ route('downloads.userfilter') }}", // Define this route in web.php
+					type: "GET",
+					data: { category: category },
+					success: function(response) {
+						// Hide the default downloads   
+						$('#default-downloads').hide();
+	
+						// Display the filtered downloads
+						$('#filtered-downloads').html(response).show();
+					},
+					error: function() {
+						alert('Error loading downloads. Please try again.');
+					}
+				});
 			});
 		});
 	</script>

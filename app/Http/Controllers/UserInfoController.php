@@ -228,5 +228,13 @@ class UserInfoController extends Controller
         //dd($view_downloads);
 		return view('dashboard.view-userdownload', compact('view_downloads'));
     }
-    
+    public function userfilter(Request $request)
+    {
+        $user_type=Auth::user()->user_type;
+        $category = $request->category;
+        $downloads = DB::table('downloads')->where('category', $category)->where('user_type',$user_type)->get();
+
+    // Return the filtered data as a view partial
+    return view('dashboard.category-download', compact('downloads'));
+    }
 }
