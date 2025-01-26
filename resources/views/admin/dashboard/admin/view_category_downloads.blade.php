@@ -19,7 +19,7 @@
         @endif
     </div>
     <div>
-        <button class="footer-button">GET ACCESS</button>
+        
         <a href="javascript:;" data-toggle="modal" data-target="#delete-{{ $download->id }}" title="Delete"><img src="assets/img/delete.png"  style="width: 80%"></a><br>
     </div>
  </div>
