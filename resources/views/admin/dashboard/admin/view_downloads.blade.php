@@ -116,8 +116,8 @@
         <div class="form-group" style="margin-left: 2em">
             <label>Category:</label><br>
             <select id="category-select" name="category" required class="form-control">
-                <option value="" selected disabled>Select Category</option>
-                <option value="Emergency Signs">Emergency Signs</option>
+                {{-- <option value="" selected disabled>Select Category</option> --}}
+                <option value="Emergency Signs" selected>Emergency Signs</option>
                 <option value="Environmental signs">Environmental signs</option>
                 <option value="Mandatory Signs">Mandatory Signs</option>
                 <option value="Warning Signs">Warning Signs</option>
@@ -131,14 +131,14 @@
     @foreach($all_downloads as $download)
   
         <div style="display: flex; justify-content:space-between; margin-left: 2em; margin-right: 2em; background:#f0f4fd; gap:20px; margin-bottom:20px; padding:30px 20px; align-items:center; border-radius:12px; width:100%;">
-            <div style="">
+            <div style="width:130px;"> 
                 @if ($download->thumb_nail)
                 <div>
                     <img src="{{ asset('uploads/downloads/' . $download->thumb_nail) }}" width="110" height="156">
                 </div>
                 @endif
             </div>
-            <div style="color:#084f95; font-size: 18px; font-weight:600; text-align:left;align-items:left !important;">{{ $download->name }}</div>
+            <div style="color:#084f95; font-size: 18px; font-weight:600; text-align:left; width:20% ">{{ $download->name }}</div>
          <div style="display: flex; gap:20px;justify-content:space-between;">
             <div style="display: flex; flex-direction: column;">
                 @if ($download->download_file)
@@ -155,7 +155,7 @@
                 <div class="modal-dialog" role="document">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <h5 class="modal-title" id="exampleModalLabel">Deleting Video</h5>
+                            <h5 class="modal-title" id="exampleModalLabel">Deleting Record</h5>
                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             </button>
                         </div>

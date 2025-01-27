@@ -1935,7 +1935,7 @@ public function store(Request $request)
     }
 
     public function manage_uploads(){
-        $all_downloads  = Download::get();
+        $all_downloads  = DB::table('downloads')->where('category', 'Emergency Signs')->get();
 		return view('admin.dashboard.admin.view_downloads', compact('all_downloads'));
     }
     

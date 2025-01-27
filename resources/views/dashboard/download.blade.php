@@ -20,8 +20,8 @@
         <div class="form-group" style="margin-left: 2em">
             <label>Category:</label><br>
             <select id="category-select" name="category" required class="form-control">
-                <option value="" selected disabled>Select Category</option>
-                <option value="Emergency Signs">Emergency Signs</option>
+                {{-- <option value="" selected disabled>Select Category</option> --}}
+                <option value="Emergency Signs" selected>Emergency Signs</option>
                 <option value="Environmental signs">Environmental signs</option>
                 <option value="Mandatory Signs">Mandatory Signs</option>
                 <option value="Warning Signs">Warning Signs</option>
