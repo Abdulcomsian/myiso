@@ -34,15 +34,16 @@
 <div id="default-downloads" style="width: 100%;">
     @foreach($all_downloads as $download)
   
-        <div style="display: flex; justify-content:space-between; margin-left: 2em; margin-right: 2em; background:#f0f4fd; gap:20px; margin-bottom:20px; padding:30px 20px; align-items:center; border-radius:12px; width:75%;">
-            <div style="">
+        <div style="display: flex; margin-left: 2em; margin-right: 2em; background:#f0f4fd; gap:80px; margin-bottom:20px; padding:30px 20px; align-items:center; border-radius:12px; ">
+            <div style="display:flex; align-items:center; gap:40px">
                 @if ($download->thumb_nail)
                 <div>
                     <img src="{{ asset('uploads/downloads/' . $download->thumb_nail) }}" width="110" height="156">
                 </div>
                 @endif
+				<div style="color:#084f95; font-size: 18px; font-weight:600; text-align:left;width:170px;">{{ $download->name }}</div>
             </div>
-            <div style="color:#084f95; font-size: 18px; font-weight:600; text-align:left;align-items:left !important;">{{ $download->name }}</div>
+           
          <div style="display: flex; gap:20px;justify-content:space-between;">
             <div style="display: flex; flex-direction: column;">
                 @if ($download->download_file)
