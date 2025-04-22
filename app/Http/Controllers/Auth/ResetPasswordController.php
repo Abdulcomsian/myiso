@@ -8,6 +8,7 @@ use App\User;
 use Illuminate\Foundation\Auth\ResetsPasswords;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Http;
 use Illuminate\Validation\Validator;
 
 class ResetPasswordController extends Controller
@@ -19,8 +20,17 @@ class ResetPasswordController extends Controller
     public function passwordResetEmail(Request $request){
         $validator = \Validator::make($request->all(), [
             'email'  => 'required|email|max:255|exists:users,email',
+            'recaptcha_token' => 'required',
         ]);
+        $response = Http::asForm()->post('https://www.google.com/recaptcha/api/siteverify', [
+            'secret' => config('services.captcha.secret'),
+            'response' => $request->recaptcha_token,
+        ]);
+        $result = $response->json();
 
+        if (!isset($result['success']) || !$result['success'] || $result['score'] < 0.5) {
+            return back()->withErrors(['recaptcha' => 'reCAPTCHA verification failed.']);
+        }
         $success = true;
 
         if ($validator->fails())

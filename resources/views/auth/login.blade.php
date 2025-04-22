@@ -350,18 +350,47 @@ License: You must have a valid license purchased only from themeforest(the above
 									<div class="kt-login__desc" style="color: #6a6f74;
 								">Enter your email address to reset your password.</div>
 								</div>
+								{{-- new code --}}
+								<script src="https://www.google.com/recaptcha/api.js?render={{ config('services.captcha.sitekey') }}"></script>
+								<script>
+									grecaptcha.ready(function() {
+										grecaptcha.execute('{{ config('services.captcha.sitekey') }}', {action: 'reset_password'}).then(function(token) {
+											document.getElementById('recaptcha_token').value = token;
+										});
+									});
+								</script>
+
 								<form class="kt-form" action="{{ route('password.reset.email') }}" method="POST">
+									@csrf
+
+									<input type="hidden" name="recaptcha_token" id="recaptcha_token">
+
+									<div class="input-group">
+										<input class="form-control" type="text" placeholder="Email Address" name="email" id="kt_email" autocomplete="off">
+									</div>
+									@if ($errors->has('recaptcha'))
+									<div class="alert alert-danger">{{ $errors->first('recaptcha') }}</div>
+									@endif
+									<div class="kt-login__actions">
+										<button id="kt_login_forgot_submit" class="btn btn-brand btn-pill kt-login__btn-primary" type='submit'>Submit</button>&nbsp;&nbsp;
+										<button id="kt_login_forgot_cancel" class="btn btn-secondary btn-pill kt-login__btn-secondary">Cancel</button>
+									</div>
+								</form>
+                                
+								{{-- old code --}}
+
+								{{-- <form class="kt-form" action="{{ route('password.reset.email') }}" method="POST">
 									@csrf
 									<div class="input-group">
 										<input class="form-control" type="text" placeholder="Email Address" name="email" id="kt_email" autocomplete="off">
 									</div>
 									<div class="kt-login__actions">
-										{{-- <button>g</button> --}}
-{{--										<button id="kt_login_forgot_submit" class="btn btn-brand btn-pill kt-login__btn-primary" type='submit'>Submit</button>&nbsp;&nbsp;--}}
+									
 										<button id="kt_login_forgot_submit" class="btn btn-brand btn-pill kt-login__btn-primary" type='submit'>Submit</button>&nbsp;&nbsp;
 										<button id="kt_login_forgot_cancel" class="btn btn-secondary btn-pill kt-login__btn-secondary">Cancel</button>
 									</div>
-								</form>
+								</form> --}}
+
 							</div>
 							{{-- <div class="kt-login__account">
 								<span class="kt-login__account-msg">
