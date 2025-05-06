@@ -459,7 +459,7 @@ Route::group(['middleware' => ['auth','admin']], function ()
 });
 
 
-// Route::get('test' , function(){
+Route::get('test' , function(){
     $userIdToExclude = 1011;
     $user = User::where('last_login', '<=', Carbon::now()->subDays(90))
     ->where('id', '!=', $userIdToExclude)
