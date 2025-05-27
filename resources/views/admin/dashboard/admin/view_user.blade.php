@@ -364,14 +364,15 @@
                                     onclick="get_downloads({{$item->id}});">
                                     <i class="fa fa-download"></i>
                                 </button>
+                                  <button class="btn btn-sm btn-clean btn-icon btn-icon-md" title="Notes History" value=""
+                                    onclick="get_notes({{$item->order_number}});">
+                                   <i class="fas fa-info-circle"></i>
+                                  </button>
                                 <button class="btn btn-sm btn-clean btn-icon btn-icon-md" title="Login History" value=""
                                     onclick="get_history({{$item->id}});">
                                     <i class="fas fa-sign-in-alt"></i>
                                 </button>
-                                <button class="btn btn-sm btn-clean btn-icon btn-icon-md" title="Notes History" value=""
-                                    onclick="get_notes({{$item->order_number}});">
-                                   <i class="fas fa-info-circle"></i>
-                                  </button>
+                              
                                 {{-- Button used to show the Email sending Details who haven`t logged In for 3, 6, 10 Months  --}}
                                 <button class="btn btn-sm btn-clean btn-icon btn-icon-md" title="Activity Reminder Details" onclick="userEmailDetail({{$item->id}})">
                                     <i class="fa fa-envelope" aria-hidden="true"></i>                                
