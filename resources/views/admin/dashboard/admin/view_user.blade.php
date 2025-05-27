@@ -368,7 +368,10 @@
                                     onclick="get_history({{$item->id}});">
                                     <i class="fas fa-sign-in-alt"></i>
                                 </button>
-
+                                <button class="btn btn-sm btn-clean btn-icon btn-icon-md" title="Notes History" value=""
+                                    onclick="get_notes({{$item->order_number}});">
+                                   <i class="fas fa-info-circle"></i>
+                                  </button>
                                 {{-- Button used to show the Email sending Details who haven`t logged In for 3, 6, 10 Months  --}}
                                 <button class="btn btn-sm btn-clean btn-icon btn-icon-md" title="Activity Reminder Details" onclick="userEmailDetail({{$item->id}})">
                                     <i class="fa fa-envelope" aria-hidden="true"></i>                                
@@ -406,7 +409,7 @@
                                                             fill="#5d78ff" opacity="0.3"></path>										</g>									</svg>								</span>
 
                                     </button>
-
+                                   
                                     <a href="/edit_user/{{$item->id}}" class="btn btn-sm btn-clean btn-icon btn-icon-md"
                                        title="View Customer Forms">
 
@@ -497,6 +500,63 @@
                 <div class="modal-body">
                     {{-- <h1>Last Login History <span id="userName"></span></h1> --}}
                     <div id="loginHistoryTable"></div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+  <!-- Modal for Admin Note -->
+     <div class="modal fade" id="userNote" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">User Notes History</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                     <form class="kt-form kt-form--label-right" id="addform" method="POST"
+                      action="{{route('addusernote')}}" enctype="multipart/form-data">
+
+                    @csrf
+
+                    <div class="modal-body">
+
+
+                        <div class="kt-portlet__body">
+
+                            <input type="hidden" name="editcompanyid" id="editcompanyid" value="">
+
+  
+                            <div class="form-group row">
+
+                                <div class="col-lg-12">
+                                    <label for="audit_comment">Add Note</label>&nbsp;&nbsp;
+                                    <textarea id="add_note" name="add_note" class="form-control"
+                                              placeholder="Description Audit Comment"></textarea>
+                                </div>
+                            </div>
+
+                        </div>
+
+
+                    </div>
+
+                    <div class="modal-footer">
+
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+
+                        <button type="submit" class="btn btn-danger">Add</button>
+
+                    </div>
+
+                </form>
+
+                    {{-- <h1>Last Login History <span id="userName"></span></h1> --}}
+                    <div id="notesHistoryTable"></div>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -1575,7 +1635,34 @@
                 },
             });
         }
+        function get_notes(id) 
+        {
+            document.getElementById("editcompanyid").value = id;
+                    $.ajax({
+                        type: "post",
+                        url: "{{ url('/usernoteshistory') }}",
+                        headers: { 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') },
+                        data: {
+                            user_id: id,
+                            _token: $('meta[name="csrf-token"]').attr('content')
+                        },
+                        success: function (response) 
+                        {
+                            // $('#userName').text(id);
+                            $('#notesHistoryTable').html(response);
 
+                            $('#notesHistoryTable table').DataTable({
+                                paging: true,
+                                pageLength: 10,
+                                lengthChange: false, // Hides "Show entries"
+                                searching: false      // Hides search box
+                            });
+                            
+                            $('#userNote').modal('show');
+                           
+                        },
+                    });
+        }
         
             function userEmailDetail(id){
                 $.ajax({

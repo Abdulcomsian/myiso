@@ -26,6 +26,7 @@ use App\CustomManual;
 use Carbon\Carbon;
 use App\Certificate;
 use App\UserDownload;
+use App\UserNotesHistory;
 use App\Download;
 use Exception;
 use Illuminate\Http\Request;
@@ -142,6 +143,40 @@ class AddUsersController extends Controller
             $list .= '<td style="padding:5px 15px; text-align: center;">' . date('d-m-Y H:i:s', strtotime($history->login_time)) . '</td>';
             $list .= '<td style="padding:5px 15px; text-align: center;">' . $history->ip_address . '</td>';
             $list .= '<td style="padding:5px 15px; text-align: center;">' . $history->browser . '</td>';
+            $list .= '</tr>';
+            $i++;
+        }
+        
+        $list .= '</tbody>
+        </table>';
+        
+        return $list;
+    }
+    public function userNoteshistory(Request $request)
+    {
+        $user_id = $request->input('user_id');
+        
+        $notesHistory = UserNotesHistory::where('company_id', $user_id)->orderBy('id', 'desc')->get();
+        //dd($notesHistory);
+        
+        $list = '<table class="table">
+        <thead>
+            <tr>
+                <th>S/N</th>
+                <th>Note</th>
+               <th>Date & Time</th>
+            </tr>
+        </thead>
+        <tbody>';
+        
+        $i = 1;
+        
+        foreach ($notesHistory as $nhistory) 
+        {
+            $list .= '<tr>';
+            $list .= '<td style="text-align: center;">' . $i . '</td>';
+            $list .= '<td style="padding:5px 15px; text-align: center;">' . $nhistory->note . '</td>';
+            $list .= '<td style="padding:5px 15px; text-align: center;">' . date('d-m-Y H:i:s', strtotime($nhistory->dated)) . '</td>';
             $list .= '</tr>';
             $i++;
         }
@@ -1095,61 +1130,23 @@ public function store(Request $request)
         // return redirect("/requiremntCheck/$returnId")->with($notification);
     }
        //store audit info
-    public function storeadminaudit(Request $request)
+    public function addUsernote(Request $request)
     {
-		$this->validate($request,[
-            'processAudit'=>'required',
-            'auditor'=>'required',
-            'auditDate'=>'required',
-            'nonConformities'=>'required',
-            'Observations'=>'required',
-            'nonConfReport'=>'required',
-            'AdutiActions'=>'required',
-            'dateFrequency'=>'required',
-        ]);
+		// $this->validate($request,[
+        //     'add_note'=>'add_note',
+            
+        // ]);
 
         try{
-             $Audit= new Audit;
-             $Audit->user_id=$request->user_id;
-             $Audit->auditId=111;
-             $Audit->processAudit=$request->input('processAudit');
-             $Audit->auditor=$request->input('auditor');
-             $Audit->auditDate=$request->input('auditDate');
-             $Audit->nonConformities=$request->input('nonConformities');
-             $Audit->Observations=$request->input('Observations');
-             $Audit->nonConfReport=$request->input('nonConfReport');
-             $Audit->AdutiActions=$request->input('AdutiActions');
-             $Audit->dateFrequency=$request->input('dateFrequency');
-             $Audit->qmsCorects=$request->input('qmsCorects');
-             $Audit->evidence=$request->input('evidence');
-             $Audit->needExpactations=$request->input('needExpactations');
-             $Audit->evidance2=$request->input('evidance2');
-             $Audit->correction3=$request->input('correction3');
-             $Audit->evidence3=$request->input('evidence3');
-             $Audit->correction4=$request->input('correction4');
-             $Audit->evidance4=$request->input('evidance4');
-             $Audit->correction5=$request->input('correction5');
-             $Audit->evidence5=$request->input('evidence5');
-             $Audit->correction6=$request->input('correction6');
-             $Audit->evidance7=$request->input('evidance7');
-             $Audit->correction7=$request->input('correction7');
-             $Audit->evidance8=$request->input('evidance8');
-             $Audit->correction9=$request->input('correction9');
-             $Audit->evidance9=$request->input('evidance9');
-             $Audit->correction10=$request->input('correction10');
-             $Audit->evidance10=$request->input('evidance10');
-             $Audit->any_issues=$request->input('any_issues');
+             $usernote= new UserNotesHistory;
+             $usernote->company_id=$request->editcompanyid;
+             $usernote->note=$request->input('add_note');
+             
 
-            //Check if user attach evidence
-            if ($request->file('attach_evidence') && Schema::hasColumn('tbl_audit','attach_evidence')) {
-                $file = $request->file('attach_evidence');
-                $path = '/uploads/user/attach_evidence/';
-                $Audit->attach_evidence = HelperFunctions::saveFile($path,$file);
-            }
+            
+             $usernote->save();
 
-             $Audit->save();
-
-              return redirect()->back();
+             return redirect()->back();
         }catch(Exception $exc){
             print_r($exc->getMessage());
         }
