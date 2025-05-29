@@ -160,31 +160,35 @@ class AddUsersController extends Controller
         //dd($notesHistory);
         
         $list = '<table class="table">
-        <thead>
-            <tr>
-                <th>S/N</th>
-                <th>Note</th>
-               <th>Date & Time</th>
-            </tr>
-        </thead>
-        <tbody>';
-        
-        $i = 1;
-        
-        foreach ($notesHistory as $nhistory) 
-        {
-            $list .= '<tr>';
-            $list .= '<td style="text-align: center;">' . $i . '</td>';
-            $list .= '<td style="padding:5px 15px; text-align: center;">' . $nhistory->note . '</td>';
-            $list .= '<td style="padding:5px 15px; text-align: center;">' . date('d-m-Y H:i:s', strtotime($nhistory->dated)) . '</td>';
-            $list .= '</tr>';
-            $i++;
-        }
-        
-        $list .= '</tbody>
-        </table>';
-        
-        return $list;
+    <thead>
+        <tr>
+            <th>S/N</th>
+            <th>Note</th>
+            <th>Date & Time</th>
+            <th colspan="2">Action</th>
+        </tr>
+    </thead>
+    <tbody>';
+
+$i = 1;
+
+foreach ($notesHistory as $nhistory) {
+    $list .= '<tr id="note-row-' . $nhistory->id . '">';
+    $list .= '<td style="text-align: center;">' . $i . '</td>';
+    $list .= '<td style="padding:5px 15px; text-align: center;" id="note-text-' . $nhistory->id . '">' . $nhistory->note . '</td>';
+    $list .= '<td style="padding:5px 15px; text-align: center;">' . date('d-m-Y H:i:s', strtotime($nhistory->dated)) . '</td>';
+    $list .= '<td style="text-align: center;">
+        <button onclick="editNote(' . $nhistory->id . ', \'' . addslashes($nhistory->note) . '\')" class="btn btn-sm btn-clean" title="Edit"><i class="fa fa-edit"></i></button>
+        <button onclick="deleteNote(' . $nhistory->id . ')" class="btn btn-sm btn-clean" title="Delete"><i class="fa fa-trash"></i></button>
+    </td>';
+    $list .= '</tr>';
+    $i++;
+}
+
+$list .= '</tbody>
+</table>';
+
+return $list;
     }
     public function userDownloadHistory(Request $request)
     {
@@ -1130,27 +1134,86 @@ public function store(Request $request)
         // return redirect("/requiremntCheck/$returnId")->with($notification);
     }
        //store audit info
-    public function addUsernote(Request $request)
+public function addUsernote(Request $request)
+{
+    try {
+        if ($request->note_id) {
+            // Updating existing note
+            $note = UserNotesHistory::find($request->note_id);
+        } else {
+            //  Creating a new note
+            $note = new UserNotesHistory;
+            $note->company_id = $request->company_id;
+            $note->dated = now();
+        }
+
+        $note->note = $request->note;
+        $note->save();
+
+        return response()->json(['success' => true]);
+    } catch (Exception $exc) {
+        return response()->json(['error' => $exc->getMessage()]);
+    }
+}
+
+    // public function addUsernote(Request $request)
+    // {
+    //     $noteId = $request->input('note_id');
+    //     $companyId = $request->input('editcompanyid');
+
+    //     if ($noteId) {
+    //         $note = UserNotesHistory::find($noteId);
+    //         if ($note) {
+    //             $note->note = $request->add_note;
+    //             $note->save();
+    //             return redirect()->back();
+    //         }
+    //     } else {
+    //         UserNotesHistory::create([
+    //             'company_id' => $companyId,
+    //             'note' => $request->add_note,
+    //             'dated' => now(),
+    //         ]);
+    //         return redirect()->back();
+    //     }
+
+    //     return redirect()->back(); // or return response if using AJAX
+    // }
+    public function updateUsernote(Request $request, $id)
     {
-		// $this->validate($request,[
-        //     'add_note'=>'add_note',
-            
-        // ]);
+        try {
+            $note = UserNotesHistory::findOrFail($id);
+            $note->update([
+                'note' => $request->input('note'),
+            ]);
 
-        try{
-             $usernote= new UserNotesHistory;
-             $usernote->company_id=$request->editcompanyid;
-             $usernote->note=$request->input('add_note');
-             
-
-            
-             $usernote->save();
-
-             return redirect()->back();
-        }catch(Exception $exc){
-            print_r($exc->getMessage());
+            return response()->json(['success' => true]);
+        } catch (\Exception $exc) {
+            return response()->json(['error' => $exc->getMessage()], 500);
         }
     }
+
+    public function deleteUsernote($id)
+    {
+        try {
+            $note = UserNotesHistory::findOrFail($id);
+            $note->delete();
+
+            return response()->json(['success' => true]);
+        } catch (\Exception $exc) {
+            return response()->json(['error' => $exc->getMessage()], 500);
+        }
+    }
+
+
+    // public function deleteNote(Request $request)
+    // {
+    //     $note = UserNotesHistory::find($request->id);
+    //     if ($note) {
+    //         $note->delete();
+    //     }
+    //     return response()->json(['status' => 'success']);
+    // }
 
     // function used to display the messages in old Inbox
     public function receive_notifications()

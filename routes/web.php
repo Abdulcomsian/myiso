@@ -203,7 +203,10 @@ Route::group(['middleware' => ['auth','admin']], function ()
     Route::post('/userloginhistory', 'AddUsersController@userLoginHistory')->name('userloginhistory');
      // Show Notes Histroy of User by Admin
     Route::post('/usernoteshistory', 'AddUsersController@userNoteshistory')->name('usernoteshistory');
-
+    
+   Route::put('/updateusernote/{id}', 'AddUsersController@updateUsernote')->name('updateusernote');
+   Route::delete('/deleteusernote/{id}', 'AddUsersController@deleteUsernote')->name('deleteusernote');
+    //Route::post('/deletenote', 'AddUsersController@deleteNote')->name('deletenote');
     // Route for showing the email details of clients who haven`t login for 3, 6 or 10 months 
     Route::post('/user-email-details', 'AddUsersController@userEmailDetails')->name('user.email.details');
 

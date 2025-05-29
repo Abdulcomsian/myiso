@@ -25,7 +25,15 @@
         {
             max-width: 750px;
         }
-        </style>
+        button.btn.btn-danger {
+        background: #3758ff;
+        border-color:#3758ff;
+        }
+         #userNote .modal-body {
+            max-height: 400px;
+            overflow-y: auto;
+        }
+                </style>
 
     <!-- begin:: Content -->
 
@@ -510,51 +518,32 @@
     </div>
   <!-- Modal for Admin Note -->
      <div class="modal fade" id="userNote" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog" role="document">
+        <div class="modal-dialog modal-lg" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">User Notes History</h5>
+                    <h5 class="modal-title" id="exampleModalLabel">User Notes</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
                 <div class="modal-body">
-                     <form class="kt-form kt-form--label-right" id="addform" method="POST"
-                      action="{{route('addusernote')}}" enctype="multipart/form-data">
+     <form class="kt-form kt-form--label-right" id="addform" method="POST" action="{{ route('addusernote') }}">
+    @csrf
+    <input type="hidden" name="editcompanyid" id="editcompanyid" value="">
+    <input type="hidden" name="_method" id="_method" value="POST"> <!-- will update dynamically -->
+    <input type="hidden" id="note_id" name="note_id" value="">
+    <div class="form-group row">
+        <div class="col-lg-12">
+            <label for="add_note">Add Note</label>
+          <textarea id="add_note" name="note" rows="4" class="form-control" placeholder="Description Audit Comment"></textarea>
+        </div>
+    </div>
 
-                    @csrf
-
-                    <div class="modal-body">
-
-
-                        <div class="kt-portlet__body">
-
-                            <input type="hidden" name="editcompanyid" id="editcompanyid" value="">
-
-  
-                            <div class="form-group row">
-
-                                <div class="col-lg-12">
-                                    <label for="audit_comment">Add Note</label>&nbsp;&nbsp;
-                                    <textarea id="add_note" name="add_note" class="form-control"
-                                              placeholder="Description Audit Comment"></textarea>
-                                </div>
-                            </div>
-
-                        </div>
-
-
-                    </div>
-
-                    <div class="modal-footer">
-
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-
-                        <button type="submit" class="btn btn-danger">Add</button>
-
-                    </div>
-
-                </form>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+        <button type="submit" class="btn btn-danger">Save</button>
+    </div>
+</form>
 
                     {{-- <h1>Last Login History <span id="userName"></span></h1> --}}
                     <div id="notesHistoryTable"></div>
@@ -1652,12 +1641,12 @@
                             // $('#userName').text(id);
                             $('#notesHistoryTable').html(response);
 
-                            $('#notesHistoryTable table').DataTable({
-                                paging: true,
-                                pageLength: 10,
-                                lengthChange: false, // Hides "Show entries"
-                                searching: false      // Hides search box
-                            });
+                            // $('#notesHistoryTable table').DataTable({
+                            //     paging: false,
+                            //     // pageLength: 10,
+                            //     lengthChange: false, // Hides "Show entries"
+                            //     searching: false      // Hides search box
+                            // });
                             
                             $('#userNote').modal('show');
                            
@@ -2123,6 +2112,89 @@
         </script>
 
 
+<script>
+// JavaScript/jQuery to handle edit and delete actions
+
+$(document).on('submit', '#addform', function(e) {
+    e.preventDefault();
+
+    const form = $(this);
+    const actionUrl = form.attr('action');
+
+    $.ajax({
+        type: "POST",
+        url: actionUrl,
+        data: {
+            company_id: $('#editcompanyid').val(),
+            note: $('#add_note').val(),
+            note_id: $('#note_id').val(), // ✅ important
+            _token: $('meta[name="csrf-token"]').attr('content')
+        },
+        success: function(response) {
+            if (response.success) {
+                $('#add_note').val('');
+                $('#note_id').val('');
+                $('#addform').attr('action', '{{ route("addusernote") }}');
+                $('#_method').val('POST');
+                get_notes($('#editcompanyid').val());
+            }
+        },
+        error: function(xhr) {
+            alert('Error: ' + xhr.responseText);
+        }
+    });
+});
+
+
+// $('#addform').submit(function(e) {
+//     e.preventDefault();
+
+//     let noteContent = $('#add_note').val().trim();
+//     if (noteContent === '') {
+//         alert('Note cannot be empty.');
+//         return;
+//     }
+
+//     // rest of the AJAX code...
+// });
+
+function editNote(id, note) {
+    $('#note_id').val(id);
+    $('#add_note').val(note);
+    $('#_method').val('PUT');
+    $('#addform').attr('action', '/updateusernote/' + id);
+    $('#userNote').modal('show');
+}
+function editNote(noteId, noteText) {
+    $('#add_note').val(noteText);
+    $('#note_id').val(noteId); // ✅ Set the note ID to tell backend to update
+}
+
+// $('#userNote').on('hidden.bs.modal', function () {
+//     $('#addform')[0].reset();
+//     $('#addform').attr('action', '{{ route("addusernote") }}');
+//     $('#_method').val('POST');
+// });
+function deleteNote(id) {
+    if (confirm('Are you sure you want to delete this note?')) {
+        $.ajax({
+            url: '/deleteusernote/' + id,
+            type: 'DELETE',
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            },
+            success: function(response) {
+                if (response.success) {
+                    $('#note-row-' + id).remove();
+                } else {
+                    alert('Error deleting note.');
+                }
+            }
+        });
+    }
+}
+
+</script>
 
 
 @endsection
