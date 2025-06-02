@@ -18,7 +18,7 @@ class ImagesUploadController extends Controller
       $ext = $request->file('sales_process_photo')->extension();
       $img_only = 'sale_processes_'.$r.'.'.$ext;
        $file->move($optimizePath.'/',$img_only);
-       $img = asset('public/uploads/process/'.$img_only);
+       $img = asset('uploads/process/'.$img_only);
 
       if(DB::table('images_uploads')->Where('user_id',$user->id)->exists()){
             $update = DB::table('images_uploads')->where('user_id',$user->id)->update(['sales_process' => $img]); 
@@ -40,7 +40,7 @@ class ImagesUploadController extends Controller
       
       $img_only = 'purch_process_photo_'.$r.'.'.$ext;
        $file->move($optimizePath.'/',$img_only);
-       $img = asset('public/uploads/process/'.$img_only);
+       $img = asset('/uploads/process/'.$img_only);
 
       if(DB::table('images_uploads')->Where('user_id',$user->id)->exists()){
             $update = DB::table('images_uploads')->where('user_id',$user->id)->update([ 'purchasing_process' => $img]); 
@@ -63,7 +63,7 @@ class ImagesUploadController extends Controller
       $ext = $request->file('serv_process_photo')->extension();
       $img_only = 'serv_process_photo_'.$r.'.'.$ext;
        $file->move($optimizePath.'/',$img_only);
-       $img = asset('public/uploads/process/'.$img_only);
+       $img = asset('/uploads/process/'.$img_only);
 
       if(DB::table('images_uploads')->Where('user_id',$user->id)->exists()){
             $update = DB::table('images_uploads')->where('user_id',$user->id)->update([ 'servicing_contract' => $img]); 
@@ -86,7 +86,7 @@ class ImagesUploadController extends Controller
       $ext = $request->file('comp_process_photo')->extension();
      $img_only = 'competency_process_'.$r.'.'.$ext;
        $file->move($optimizePath.'/',$img_only);
-       $img = asset('public/uploads/process/'.$img_only);
+       $img = asset('/uploads/process/'.$img_only);
 
       if(DB::table('images_uploads')->Where('user_id',$user->id)->exists()){
             $update = DB::table('images_uploads')->where('user_id',$user->id)->update([ 'competency_process' => $img]); 
@@ -109,7 +109,7 @@ class ImagesUploadController extends Controller
       $ext = $request->file('process_int_photo')->extension();
          $img_only = 'process_interaction_'.$r.'.'.$ext;
        $file->move($optimizePath.'/',$img_only);
-       $img = asset('public/uploads/process/'.$img_only);
+       $img = asset('/uploads/process/'.$img_only);
 
       if(DB::table('images_uploads')->Where('user_id',$user->id)->exists()){
             $update = DB::table('images_uploads')->where('user_id',$user->id)->update([ 'process_interaction' => $img]); 
@@ -132,7 +132,7 @@ class ImagesUploadController extends Controller
       $ext = $request->file('organogram')->extension();
          $img_only = 'management_organogram_'.$r.'.'.$ext;
        $file->move($optimizePath.'/',$img_only);
-       $img = asset('public/uploads/process/'.$img_only);
+       $img = asset('/uploads/process/'.$img_only);
 
       if(DB::table('images_uploads')->Where('user_id',$user->id)->exists()){
             $update = DB::table('images_uploads')->where('user_id',$user->id)->update([ 'management_organogram' => $img]); 
