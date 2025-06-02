@@ -152,6 +152,7 @@ class AddUsersController extends Controller
         
         return $list;
     }
+
     public function userNoteshistory(Request $request)
     {
         $user_id = $request->input('user_id');
@@ -189,7 +190,8 @@ $list .= '</tbody>
 </table>';
 
 return $list;
-    }
+ }
+
     public function userDownloadHistory(Request $request)
     {
         $user_id = $request->input('user_id');
@@ -1134,6 +1136,66 @@ public function store(Request $request)
         // return redirect("/requiremntCheck/$returnId")->with($notification);
     }
        //store audit info
+    public function storeadminaudit(Request $request)
+    {
+		$this->validate($request,[
+            'processAudit'=>'required',
+            'auditor'=>'required',
+            'auditDate'=>'required',
+            'nonConformities'=>'required',
+            'Observations'=>'required',
+            'nonConfReport'=>'required',
+            'AdutiActions'=>'required',
+            'dateFrequency'=>'required',
+        ]);
+
+        try{
+             $Audit= new Audit;
+             $Audit->user_id=$request->user_id;
+             $Audit->auditId=111;
+             $Audit->processAudit=$request->input('processAudit');
+             $Audit->auditor=$request->input('auditor');
+             $Audit->auditDate=$request->input('auditDate');
+             $Audit->nonConformities=$request->input('nonConformities');
+             $Audit->Observations=$request->input('Observations');
+             $Audit->nonConfReport=$request->input('nonConfReport');
+             $Audit->AdutiActions=$request->input('AdutiActions');
+             $Audit->dateFrequency=$request->input('dateFrequency');
+             $Audit->qmsCorects=$request->input('qmsCorects');
+             $Audit->evidence=$request->input('evidence');
+             $Audit->needExpactations=$request->input('needExpactations');
+             $Audit->evidance2=$request->input('evidance2');
+             $Audit->correction3=$request->input('correction3');
+             $Audit->evidence3=$request->input('evidence3');
+             $Audit->correction4=$request->input('correction4');
+             $Audit->evidance4=$request->input('evidance4');
+             $Audit->correction5=$request->input('correction5');
+             $Audit->evidence5=$request->input('evidence5');
+             $Audit->correction6=$request->input('correction6');
+             $Audit->evidance7=$request->input('evidance7');
+             $Audit->correction7=$request->input('correction7');
+             $Audit->evidance8=$request->input('evidance8');
+             $Audit->correction9=$request->input('correction9');
+             $Audit->evidance9=$request->input('evidance9');
+             $Audit->correction10=$request->input('correction10');
+             $Audit->evidance10=$request->input('evidance10');
+             $Audit->any_issues=$request->input('any_issues');
+
+            //Check if user attach evidence
+            if ($request->file('attach_evidence') && Schema::hasColumn('tbl_audit','attach_evidence')) {
+                $file = $request->file('attach_evidence');
+                $path = '/uploads/user/attach_evidence/';
+                $Audit->attach_evidence = HelperFunctions::saveFile($path,$file);
+            }
+
+             $Audit->save();
+
+              return redirect()->back();
+        }catch(Exception $exc){
+            print_r($exc->getMessage());
+        }
+    }
+  /// to add admin note for user      
 public function addUsernote(Request $request)
 {
     try {
@@ -1156,29 +1218,7 @@ public function addUsernote(Request $request)
     }
 }
 
-    // public function addUsernote(Request $request)
-    // {
-    //     $noteId = $request->input('note_id');
-    //     $companyId = $request->input('editcompanyid');
-
-    //     if ($noteId) {
-    //         $note = UserNotesHistory::find($noteId);
-    //         if ($note) {
-    //             $note->note = $request->add_note;
-    //             $note->save();
-    //             return redirect()->back();
-    //         }
-    //     } else {
-    //         UserNotesHistory::create([
-    //             'company_id' => $companyId,
-    //             'note' => $request->add_note,
-    //             'dated' => now(),
-    //         ]);
-    //         return redirect()->back();
-    //     }
-
-    //     return redirect()->back(); // or return response if using AJAX
-    // }
+   
     public function updateUsernote(Request $request, $id)
     {
         try {
@@ -1204,17 +1244,7 @@ public function addUsernote(Request $request)
             return response()->json(['error' => $exc->getMessage()], 500);
         }
     }
-
-
-    // public function deleteNote(Request $request)
-    // {
-    //     $note = UserNotesHistory::find($request->id);
-    //     if ($note) {
-    //         $note->delete();
-    //     }
-    //     return response()->json(['status' => 'success']);
-    // }
-
+   
     // function used to display the messages in old Inbox
     public function receive_notifications()
     {

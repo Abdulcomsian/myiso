@@ -527,7 +527,7 @@
                     </button>
                 </div>
                 <div class="modal-body">
-     <form class="kt-form kt-form--label-right" id="addform" method="POST" action="{{ route('addusernote') }}">
+     <form class="kt-form kt-form--label-right" id="addusernotform" method="POST" action="{{ route('addusernote') }}">
     @csrf
     <input type="hidden" name="editcompanyid" id="editcompanyid" value="">
     <input type="hidden" name="_method" id="_method" value="POST"> <!-- will update dynamically -->
@@ -2115,7 +2115,7 @@
 <script>
 // JavaScript/jQuery to handle edit and delete actions
 
-$(document).on('submit', '#addform', function(e) {
+$(document).on('submit', '#addusernotform', function(e) {
     e.preventDefault();
 
     const form = $(this);
@@ -2127,14 +2127,14 @@ $(document).on('submit', '#addform', function(e) {
         data: {
             company_id: $('#editcompanyid').val(),
             note: $('#add_note').val(),
-            note_id: $('#note_id').val(), // ✅ important
+            note_id: $('#note_id').val(), // 
             _token: $('meta[name="csrf-token"]').attr('content')
         },
         success: function(response) {
             if (response.success) {
                 $('#add_note').val('');
                 $('#note_id').val('');
-                $('#addform').attr('action', '{{ route("addusernote") }}');
+                $('#addusernotform').attr('action', '{{ route("addusernote") }}');
                 $('#_method').val('POST');
                 get_notes($('#editcompanyid').val());
             }
@@ -2146,23 +2146,11 @@ $(document).on('submit', '#addform', function(e) {
 });
 
 
-// $('#addform').submit(function(e) {
-//     e.preventDefault();
-
-//     let noteContent = $('#add_note').val().trim();
-//     if (noteContent === '') {
-//         alert('Note cannot be empty.');
-//         return;
-//     }
-
-//     // rest of the AJAX code...
-// });
-
 function editNote(id, note) {
     $('#note_id').val(id);
     $('#add_note').val(note);
     $('#_method').val('PUT');
-    $('#addform').attr('action', '/updateusernote/' + id);
+    $('#addusernotform').attr('action', '/updateusernote/' + id);
     $('#userNote').modal('show');
 }
 function editNote(noteId, noteText) {
@@ -2170,11 +2158,6 @@ function editNote(noteId, noteText) {
     $('#note_id').val(noteId); // ✅ Set the note ID to tell backend to update
 }
 
-// $('#userNote').on('hidden.bs.modal', function () {
-//     $('#addform')[0].reset();
-//     $('#addform').attr('action', '{{ route("addusernote") }}');
-//     $('#_method').val('POST');
-// });
 function deleteNote(id) {
     if (confirm('Are you sure you want to delete this note?')) {
         $.ajax({
