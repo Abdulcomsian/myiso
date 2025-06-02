@@ -527,7 +527,7 @@
                     </button>
                 </div>
                 <div class="modal-body">
-     <form class="kt-form kt-form--label-right" id="addusernotform" method="POST" action="{{ route('addusernote') }}">
+     <form class="kt-form kt-form--label-right" id="addusernotform" method="POST" action="{{ route('addusernote') }}"  enctype="multipart/form-data">
     @csrf
     <input type="hidden" name="editcompanyid" id="editcompanyid" value="">
     <input type="hidden" name="_method" id="_method" value="POST"> <!-- will update dynamically -->
@@ -538,6 +538,15 @@
           <textarea id="add_note" name="note" rows="4" class="form-control" placeholder="Description Audit Comment"></textarea>
         </div>
     </div>
+<div class="form-group row">
+    <div class="col-lg-12">
+        <label for="note_img">Note Image (optional)</label>
+        <input type="file" name="note_img" id="note_img" class="form-control" accept="image/*">
+        <div id="drop-area" style="border: 2px dashed #ccc; padding: 20px; text-align:center; margin-top:10px;">
+            Drag & Drop Image Here
+        </div>
+    </div>
+</div>
 
     <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
@@ -2115,27 +2124,62 @@
 <script>
 // JavaScript/jQuery to handle edit and delete actions
 
-$(document).on('submit', '#addusernotform', function(e) {
+// $(document).on('submit', '#addusernotform', function(e) {
+//     e.preventDefault();
+
+//     const form = $(this);
+//     const actionUrl = form.attr('action');
+
+//     $.ajax({
+//         type: "POST",
+//         url: actionUrl,
+//         data: {
+//             company_id: $('#editcompanyid').val(),
+//             note: $('#add_note').val(),
+//             note_id: $('#note_id').val(), // 
+//             _token: $('meta[name="csrf-token"]').attr('content')
+//         },
+//         success: function(response) {
+//             if (response.success) {
+//                 $('#add_note').val('');
+//                 $('#note_id').val('');
+//                 $('#addusernotform').attr('action', '{{ route("addusernote") }}');
+//                 $('#_method').val('POST');
+//                 get_notes($('#editcompanyid').val());
+//             }
+//         },
+//         error: function(xhr) {
+//             alert('Error: ' + xhr.responseText);
+//         }
+//     });
+// });
+
+$('#addusernotform').submit(function(e) {
     e.preventDefault();
 
-    const form = $(this);
-    const actionUrl = form.attr('action');
+    let formData = new FormData(this);
+    formData.append('company_id', $('#editcompanyid').val());
+    formData.append('_token', $('meta[name="csrf-token"]').attr('content'));
+
+    const noteId = $('#note_id').val();
+    const isEdit = noteId !== '';
+
+    // If editing, override the URL and method
+    let actionUrl = isEdit ? `/updateusernote/${noteId}` : $(this).attr('action');
 
     $.ajax({
-        type: "POST",
+        type: 'POST',
         url: actionUrl,
-        data: {
-            company_id: $('#editcompanyid').val(),
-            note: $('#add_note').val(),
-            note_id: $('#note_id').val(), // 
-            _token: $('meta[name="csrf-token"]').attr('content')
-        },
+        data: formData,
+        contentType: false,
+        processData: false,
         success: function(response) {
             if (response.success) {
                 $('#add_note').val('');
+                $('#note_img').val('');
                 $('#note_id').val('');
-                $('#addusernotform').attr('action', '{{ route("addusernote") }}');
                 $('#_method').val('POST');
+                $('#addusernotform').attr('action', '{{ route("addusernote") }}');
                 get_notes($('#editcompanyid').val());
             }
         },
@@ -2146,17 +2190,26 @@ $(document).on('submit', '#addusernotform', function(e) {
 });
 
 
-function editNote(id, note) {
-    $('#note_id').val(id);
-    $('#add_note').val(note);
-    $('#_method').val('PUT');
-    $('#addusernotform').attr('action', '/updateusernote/' + id);
-    $('#userNote').modal('show');
-}
+
+// function editNote(id, note) {
+//     $('#note_id').val(id);
+//     $('#add_note').val(note);
+//     $('#_method').val('PUT');
+//     $('#addusernotform').attr('action', '/updateusernote/' + id);
+//     $('#userNote').modal('show');
+// }
+
 function editNote(noteId, noteText) {
     $('#add_note').val(noteText);
-    $('#note_id').val(noteId); // ✅ Set the note ID to tell backend to update
+    $('#note_id').val(noteId);
+    $('#_method').val('PUT');
+    $('#addusernotform').attr('action', '/updateusernote/' + noteId);
+    $('#userNote').modal('show');
 }
+// function editNote(noteId, noteText) {
+//     $('#add_note').val(noteText);
+//     $('#note_id').val(noteId); //  Set the note ID to tell backend to update
+// }
 
 function deleteNote(id) {
     if (confirm('Are you sure you want to delete this note?')) {
@@ -2176,6 +2229,26 @@ function deleteNote(id) {
         });
     }
 }
+
+$('#drop-area').on('dragover', function(e) {
+    e.preventDefault();
+    $(this).css('background', '#eee');
+});
+
+$('#drop-area').on('dragleave', function(e) {
+    e.preventDefault();
+    $(this).css('background', '');
+});
+
+$('#drop-area').on('drop', function(e) {
+    e.preventDefault();
+    $(this).css('background', '');
+    let files = e.originalEvent.dataTransfer.files;
+    if (files.length > 0) {
+        $('#note_img')[0].files = files;
+    }
+});
+
 
 </script>
 

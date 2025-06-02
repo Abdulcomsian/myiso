@@ -163,8 +163,9 @@ class AddUsersController extends Controller
         $list = '<table class="table">
     <thead>
         <tr>
-            <th>S/N</th>
             <th>Note</th>
+            <th></th>
+             
             <th>Date & Time</th>
             <th colspan="2">Action</th>
         </tr>
@@ -176,7 +177,14 @@ $i = 1;
 foreach ($notesHistory as $nhistory) {
     $list .= '<tr id="note-row-' . $nhistory->id . '">';
     $list .= '<td style="text-align: center;">' . $i . '</td>';
-    $list .= '<td style="padding:5px 15px; text-align: center;" id="note-text-' . $nhistory->id . '">' . $nhistory->note . '</td>';
+   $list .= '<td style="padding:5px 15px; text-align: left;" id="note-text-' . $nhistory->id . '">' .
+            nl2br($nhistory->note);
+
+if ($nhistory->note_img) {
+    $list .= '<br><img src="' . asset($nhistory->note_img) . '" alt="Note Image" style="max-width:250px; margin-top:10px;">';
+}
+
+$list .= '</td>';
     $list .= '<td style="padding:5px 15px; text-align: center;">' . date('d-m-Y H:i:s', strtotime($nhistory->dated)) . '</td>';
     $list .= '<td style="text-align: center;">
         <button onclick="editNote(' . $nhistory->id . ', \'' . addslashes($nhistory->note) . '\')" class="btn btn-sm btn-clean" title="Edit"><i class="fa fa-edit"></i></button>
@@ -1196,40 +1204,85 @@ public function store(Request $request)
         }
     }
   /// to add admin note for user      
+// public function addUsernote(Request $request)
+// {
+//     try {
+//         if ($request->note_id) {
+//             // Updating existing note
+//             $note = UserNotesHistory::find($request->note_id);
+//         } else {
+//             //  Creating a new note
+//             $note = new UserNotesHistory;
+//             $note->company_id = $request->company_id;
+//             $note->dated = now();
+//         }
+
+//         $note->note = $request->note;
+//         $note->save();
+
+//         return response()->json(['success' => true]);
+//     } catch (Exception $exc) {
+//         return response()->json(['error' => $exc->getMessage()]);
+//     }
+// }
+
 public function addUsernote(Request $request)
 {
     try {
-        if ($request->note_id) {
-            // Updating existing note
-            $note = UserNotesHistory::find($request->note_id);
-        } else {
-            //  Creating a new note
-            $note = new UserNotesHistory;
-            $note->company_id = $request->company_id;
-            $note->dated = now();
+        $note = new UserNotesHistory;
+        $note->company_id = $request->editcompanyid;
+        $note->note = $request->input('note');
+        $note->dated = now();
+
+        if ($request->hasFile('note_img')) {
+            $file = $request->file('note_img');
+            $filename = time() . '_' . $file->getClientOriginalName();
+            $file->move(public_path('uploads/notes'), $filename);
+            $note->note_img = 'uploads/notes/' . $filename;
         }
 
-        $note->note = $request->note;
         $note->save();
 
         return response()->json(['success' => true]);
-    } catch (Exception $exc) {
-        return response()->json(['error' => $exc->getMessage()]);
+    } catch (\Exception $e) {
+        return response()->json(['error' => $e->getMessage()], 500);
     }
 }
 
    
+    // public function updateUsernote(Request $request, $id)
+    // {
+    //     try {
+    //         $note = UserNotesHistory::findOrFail($id);
+    //         $note->update([
+    //             'note' => $request->input('note'),
+    //         ]);
+
+    //         return response()->json(['success' => true]);
+    //     } catch (\Exception $exc) {
+    //         return response()->json(['error' => $exc->getMessage()], 500);
+    //     }
+    // }
+
     public function updateUsernote(Request $request, $id)
     {
         try {
             $note = UserNotesHistory::findOrFail($id);
-            $note->update([
-                'note' => $request->input('note'),
-            ]);
+            $note->note = $request->input('note');
+            $note->dated = now(); // or keep the original date
+
+            if ($request->hasFile('note_img')) {
+                $file = $request->file('note_img');
+                $filename = time() . '_' . $file->getClientOriginalName();
+                $file->move(public_path('uploads/notes'), $filename);
+                $note->note_img = 'uploads/notes/' . $filename;
+            }
+
+            $note->save();
 
             return response()->json(['success' => true]);
-        } catch (\Exception $exc) {
-            return response()->json(['error' => $exc->getMessage()], 500);
+        } catch (\Exception $e) {
+            return response()->json(['error' => $e->getMessage()], 500);
         }
     }
 
