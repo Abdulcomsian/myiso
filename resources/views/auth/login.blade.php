@@ -4,7 +4,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>SCAISO - TAQEEM | ISO Portal</title>
+    {{-- <title>SCAISO - TAQEEM | ISO Portal</title> --}}
+	<title>MyISOOnline.com</title>
     <meta name="description" content="Tailwind CSS Saas HTML Template Is A Multi Purpose Landing Page Template, Corporate, Authentication, Launching Web, Agency or Business Startup, Clean, Modern, Creative, Multipurpose and Tailwind CSS Tailwind v3 etc."/>
     <meta name="author" content="Zoyothemes"/>
     <!-- Main Css -->
@@ -37,12 +38,12 @@
 			@endif
             <form class="text-start w-full" action="{{route('login')}}" method="POST">
 				@csrf
-                    <div class="flex md:justify-between justify-center items-center mb-8 md:gap-9 gap-2">
+                    {{-- <div class="flex md:justify-between justify-center items-center mb-8 md:gap-9 gap-2">
                         <a href="javascript:;" class="w-full inline-flex items-center justify-center px-6 gap-4 py-2.5 font-medium backdrop-blur-2xl border border-gray-300 bg-primary text-white rounded-md transition-all duration-500">
                             <img src="{{asset("assets/img/google.png")}}" alt="" class="max-w-5 h-5 text-dark ">English
                         </a>
                         <a href="https://myisoonline.me/" lang="ar" dir="rtl"   class="w-full inline-flex items-center justify-center px-6 gap-4 py-2.5 font-medium backdrop-blur-2xl border border-gray-300 bg-white text-dark rounded-md transition-all duration-500 group"><img src="{{asset("assets/img/facebook.png")}}" alt="" class="max-w-5 h-5 text-dark">العربية</a>
-                    </div>   
+                    </div>    --}}
 
                     <div class="mb-4">
                         
