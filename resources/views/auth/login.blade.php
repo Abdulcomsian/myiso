@@ -195,11 +195,11 @@
 													<h6>CONTACT US</h6>
 													<p>If you have questions or comments about this Terms and Conditions, please
 													get in touch with us at: <br>
-													J M Enterprises, <br>
-													UG13-A5, RAKEZ Amenity Center. <br>
-													Al Hamra Industrial Zone-FZ, <br>
-													United Arab Emirates. <br>
-													[Email]</p>
+													J M Enterprises LLC, <br>
+													Office 1003, C34 Building,. <br>
+													Ar Razqi St, Al Danah, <br>
+													Abu Dhabi, United Arab Emirates, 2220. <br>
+													Email: ceo@jmegrp.com </p>
 													<!-- <div class="ml-2">
 															<input class="form-check-input agreeInput" type="checkbox" value="" id="TermConditions">
 															<label class="form-check-label" for="TermConditions">
