@@ -57,7 +57,7 @@
 			{{-- @foreach ($message_information as $item)
 			<h1>{{ $item->title }}</h1>
 			@endforeach --}}
-			
+
 			@foreach ($message_information as $key=>$item)
 			<div class="accordion" id="accordionExample">
 				@if($item->total_days >= 90 && $item->total_days < 180)
@@ -91,7 +91,7 @@
 					<div id="collapse{{ $item->id }}" class="collapse {{ $key === 0 ? 'show' : '' }}" aria-labelledby="heading{{ $item->id }}"
 						data-parent="#accordionExample">
 						<div class="card-body">
-							{{ $item->message }}
+							{!! $item->message !!}
 						</div>
 					</div>
 				</div>
@@ -104,7 +104,7 @@
 								aria-controls="collapse{{ $item->id }}">
 								From - {{ $item->name }}
 							</button>
-							
+
 							<div class="float-right" style="display: flex; font-size: 14px; color: #888; padding-top: 12px; padding-right: 10px;">
 								@if ($item->attachement)
 									<a href="{{ asset($item->attachement) }}" download><i class="fa fa-download"> Attachment</i></a>
@@ -119,13 +119,13 @@
 					<div id="collapse{{ $item->id }}" class="collapse {{ $key === 0 ? 'show' : '' }}" aria-labelledby="heading{{ $item->id }}"
 						data-parent="#accordionExample">
 						<div class="card-body">
-							{{ $item->message }}
+							{!! $item->message !!}
 						</div>
 					</div>
 				</div>
 				@endif
 				@endif
-				
+
 			</div>
 			@endforeach
 
@@ -204,7 +204,7 @@
         $("#editModal").modal('show');
     }
 
-    // function used show or hide the reply box 
+    // function used show or hide the reply box
     function replyBox() {
 		const replyBox = document.getElementById('replyButton');
         const replyContainer = document.getElementById('replyContainer');
