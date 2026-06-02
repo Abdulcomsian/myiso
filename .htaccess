@@ -1,0 +1,30 @@
+<IfModule mod_rewrite.c>
+RewriteEngine On
+
+# =========================
+# DO NOT TOUCH /public URL
+# =========================
+RewriteRule ^public(/.*)?$ - [L]
+
+# =========================
+# DO NOT TOUCH /lms
+# =========================
+RewriteRule ^lms(/.*)?$ - [L]
+
+# =========================
+# DO NOT TOUCH /ar
+# =========================
+#RewriteRule ^ar(/.*)?$ - [L]
+RewriteRule ^ar(/.*)?$ ar/index.php [L]
+# =========================
+# Allow real files/folders
+# =========================
+RewriteCond %{REQUEST_FILENAME} -f [OR]
+RewriteCond %{REQUEST_FILENAME} -d
+RewriteRule ^ - [L]
+
+# =========================
+# Send everything else to Laravel
+# =========================
+RewriteRule ^ index.php [L]
+</IfModule>
