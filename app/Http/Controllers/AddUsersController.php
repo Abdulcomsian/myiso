@@ -128,7 +128,7 @@ class AddUsersController extends Controller
         $userLogo = '';
         $username = '';
         if (isset($user->profile_image)) {
-            $userLogo = 'https://myisoonline.com/' . $user->profile_image;
+            $userLogo = asset($user->profile_image);
             $username = $user->name ?? '';
         }
 

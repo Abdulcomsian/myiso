@@ -21,7 +21,7 @@
         }
 
 
-        #viewUser .modal-dialog 
+        #viewUser .modal-dialog
         {
             max-width: 750px;
         }
@@ -173,7 +173,7 @@
                                 </div> --}}
                             @php
                                 $usertypes = \App\UserType::get();
-                            @endphp    
+                            @endphp
                             <!--<form action="{{url('/view_user')}}" id="showuserform">-->
                             <!--    <select name="showusers" id="showusers">-->
                             <!--        <option value="0" {{ request('showusers') == 0 ? 'selected' : '' }}>All Users</option>-->
@@ -262,13 +262,13 @@
                                 <td>{{$item->email}}</td>
                                 <td>{{$item->name}}</td>
 
-                                
+
 
                                 <!----- <td>{ ->phonecode.' '. ->phone}</td> ----->
 
                                 <td><?php
                                     if (isset($item->profile_image)) {
-                                        $logo = "<img src='https://myisoonline.com/" . $item->profile_image . "' width='60px'>";
+                                        $logo = "<img src='". asset($item->profile_image) ."' width='60px'>";
                                     } echo ($item->profile_image != "") ? $logo : ""  ?></td>
 
                                 <td>
@@ -282,63 +282,63 @@
                                     $iso9001 = $item->iso9001_expirydate;
                                     $iso14001 = $item->iso14001_expirydate;
                                     $iso45001 =$item->iso45001_expirydate;
-                                    
+
                                     $x = strtotime($iso9001);
                                     $y = strtotime($iso14001);
                                     $z = strtotime($iso45001);
 
-                                    
+
                                       if($x == 0 &&  $y == 0  && $z == 0)
                                       {
-                                  
+
                                         $minValue = date('d/m/Y', strtotime('+3 years'));
-                                          
+
                                     }else if($x >= 0 && $y <= 0  && $z <= 0)
                                     {
                                         $minValue=$x;
                                         $minValue = date('d/m/Y', $minValue);
                                     }else if($x <= 0 && $y >= 0  && $z <= 0)
                                     {
-                             
+
                                         $minValue=$y;
                                         $minValue = date('d/m/Y', $minValue);
                                     }else if($x <= 0 && $y <= 0  && $z >= 0)
                                     {
-                                   
+
                                         $minValue=$z;
                                         $minValue = date('d/m/Y', $minValue);
                                     }else if($x >= 0 && $y >= 0  && $z <=0)
-                                    {      
+                                    {
                                         $minValue=min($x,$y);
                                         $minValue = date('d/m/Y', $minValue);
                                     }else if($x >= 0 && $y <= 0  && $z >= 0){
                                         $minValue=min($x,$z);
                                         $minValue = date('d/m/Y', $minValue);
-                                    }else if($x <= 0 && $y >= 0  && $z >= 0){  
+                                    }else if($x <= 0 && $y >= 0  && $z >= 0){
                                         $minValue=min($y,$z);
                                         $minValue = date('d/m/Y', $minValue);
                                     }else{
-                                   
+
                                         $minValue=min($x,min($y,$z));
                                         $minValue = date('d/m/Y', $minValue);
-                                           
+
                                     }
-                                    
+
                                     @endphp
-          
+
                                   <!--  if($iso9001==null &&  $iso14001==null  && $iso45001==null){-->
-                                  
+
                                   <!--      $minValue = date('d/m/Y', strtotime('+3 years'));-->
-                                          
+
                                   <!--  }else if($iso9001 != null && $iso14001 == null  && $iso45001 == null){-->
                                   <!--  $minValue=$x;-->
                                   <!--  $minValue = date('d/m/Y', $minValue);-->
                                   <!--  }else if($iso9001 == null && $iso14001 != null  && $iso45001 == null){-->
-                             
+
                                   <!--  $minValue=$y;-->
                                   <!--  $minValue = date('d/m/Y', $minValue);-->
                                   <!--  }else if($iso9001 == null && $iso14001 == null  && $iso45001 != null){-->
-                                   
+
                                   <!--  $minValue=$z;-->
                                   <!--$minValue = date('d/m/Y', $minValue);-->
                                   <!--  }else if($iso9001 != null && $iso14001 != null  && $iso45001 == null){  -->
@@ -351,10 +351,10 @@
                                   <!--  $minValue=min($y,$z);-->
                                   <!--      $minValue = date('d/m/Y', $minValue);-->
                                   <!--  }else{-->
-                                   
+
                                   <!--      $minValue=min($x,min($y,$z));-->
                                   <!--          $minValue = date('d/m/Y', $minValue);-->
-                                           
+
                                   <!--  }-->
                                 <td>
                                     @php if($item->last_login!=NULL){ @endphp
@@ -380,10 +380,10 @@
                                     onclick="get_history({{$item->id}});">
                                     <i class="fas fa-sign-in-alt"></i>
                                 </button>
-                              
+
                                 {{-- Button used to show the Email sending Details who haven`t logged In for 3, 6, 10 Months  --}}
                                 <button class="btn btn-sm btn-clean btn-icon btn-icon-md" title="Activity Reminder Details" onclick="userEmailDetail({{$item->id}})">
-                                    <i class="fa fa-envelope" aria-hidden="true"></i>                                
+                                    <i class="fa fa-envelope" aria-hidden="true"></i>
                                 </button>
                         <button class="btn btn-sm btn-clean btn-icon btn-icon-md" title="Edit Customer"
                                             onclick="editDetails({{$item}});">
@@ -418,7 +418,7 @@
                                                             fill="#5d78ff" opacity="0.3"></path>										</g>									</svg>								</span>
 
                                     </button>
-                                   
+
                                     <a href="/edit_user/{{$item->id}}" class="btn btn-sm btn-clean btn-icon btn-icon-md"
                                        title="View Customer Forms">
 
@@ -474,7 +474,7 @@
         </div>
     </div> --}}
 
-    
+
       {{-- working code --}}
 
        <!-- Modal for Download History -->
@@ -577,7 +577,7 @@
                     </button>
                 </div>
                 <div class="modal-body" id="modalBody">
-                    
+
                     <div id="userDetailEmailTable"></div>
                 </div>
                 <div class="modal-footer">
@@ -624,7 +624,7 @@
                     </table>
                 </div>
                 {{ $loginHistory->links() }}
-            
+
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -1015,9 +1015,9 @@
                                     <label for="iso9001_expirydate">Expiry date:</label>
                                     <input type="date" id="iso9001_expirydate" max="31-12-2999"
                                     name="iso9001_expirydate" class="form-control" placeholder="Expiry Date">
-                                </div>                     
-                                
-                                
+                                </div>
+
+
                                 <div class="col-lg-4">
                                     <label for="iso9001_description">Description:</label>
                                     <textarea id="iso9001_description" name="iso9001_description" class="form-control"
@@ -1084,7 +1084,7 @@
                                     <input type="text" id="iso45001_expirydate" name="iso45001_expirydate" class="form-control" placeholder="dd/mm/yyyy">
                                 </div> --}}
 
-                                
+
 
                                 <div class="col-lg-4">
                                     <label for="iso45001_description">Description:</label>
@@ -1115,7 +1115,7 @@
                                                     class="qa_certification delete-qa_certification">Delete</a>
                                     <input type="file" id="qa_certification" accept=".pdf" name="qa_certification">
                                 </div>
-                                
+
                             </div>
                         </div>
 
@@ -1501,17 +1501,17 @@
 
 
 
-    
+
                 {{-- <script>
-                    document.addEventListener('DOMContentLoaded', function () 
+                    document.addEventListener('DOMContentLoaded', function ()
                     {
                         var input = document.getElementById('iso9001_expirydate');
                         input.addEventListener('input', function () {
                             var value = input.value;
-                            if (/^\d{2}\/\d{2}\/\d{4}$/.test(value)) 
+                            if (/^\d{2}\/\d{2}\/\d{4}$/.test(value))
                             {
                                 input.setCustomValidity('');
-                            } else 
+                            } else
                             {
                                 input.setCustomValidity('Please enter a date in the format dd/mm/yyyy');
                             }
@@ -1521,16 +1521,16 @@
 
 
                 {{-- <script>
-                   
+
                     document.addEventListener('DOMContentLoaded', function () {
                         var input = document.getElementById('iso14001_expirydate');
-                        input.addEventListener('input', function () 
+                        input.addEventListener('input', function ()
                         {
                             var value = input.value;
-                            if (/^\d{2}\/\d{2}\/\d{4}$/.test(value)) 
+                            if (/^\d{2}\/\d{2}\/\d{4}$/.test(value))
                             {
                                 input.setCustomValidity('');
-                            } else 
+                            } else
                             {
                                 input.setCustomValidity('Please enter a date in the format dd/mm/yyyy');
                             }
@@ -1538,16 +1538,16 @@
                     });
                 </script> --}}
 
-                
+
 
                 {{-- <script>
-                    document.addEventListener('DOMContentLoaded', function () 
+                    document.addEventListener('DOMContentLoaded', function ()
                     {
                         var input = document.getElementById('iso45001_expirydate');
-                        input.addEventListener('input', function () 
+                        input.addEventListener('input', function ()
                         {
                             var value = input.value;
-                            if (/^\d{2}\/\d{2}\/\d{4}$/.test(value)) 
+                            if (/^\d{2}\/\d{2}\/\d{4}$/.test(value))
                             {
                                 input.setCustomValidity('');
                             } else {
@@ -1557,12 +1557,12 @@
                     });
                 </script> --}}
 
-                
-                   
-            
+
+
+
         <script>
 
-            function deleteUser(id) 
+            function deleteUser(id)
             {
                 var userid = id;
                 $("#userid").val(userid);
@@ -1573,7 +1573,7 @@
             var intel_iso_phone = '';
 
 
-        // function get_history(id) 
+        // function get_history(id)
         // {
         // $.ajax({
         //     type: "post",
@@ -1583,7 +1583,7 @@
         //         user_id: id,
         //         _token: $('meta[name="csrf-token"]').attr('content')
         //     },
-        //         success: function (response) 
+        //         success: function (response)
         //         {
         //             // $('#userName').text(id);
         //             $('#loginHistoryTable').html(response);
@@ -1594,8 +1594,8 @@
 
 
 
-        // working code 
-        function get_downloads(id) 
+        // working code
+        function get_downloads(id)
         {
             $.ajax({
                 type: "post",
@@ -1605,7 +1605,7 @@
                     user_id: id,
                     _token: $('meta[name="csrf-token"]').attr('content')
                 },
-                success: function (response) 
+                success: function (response)
                 {
                     // $('#userName').text(id);
                     $('#downloadHistoryTable').html(response);
@@ -1619,7 +1619,7 @@
                 },
             });
         }
-        function get_history(id) 
+        function get_history(id)
         {
             $.ajax({
                 type: "post",
@@ -1629,7 +1629,7 @@
                     user_id: id,
                     _token: $('meta[name="csrf-token"]').attr('content')
                 },
-                success: function (response) 
+                success: function (response)
                 {
                     // $('#userName').text(id);
                     $('#loginHistoryTable').html(response);
@@ -1643,7 +1643,7 @@
                 },
             });
         }
-        function get_notes(id) 
+        function get_notes(id)
         {
             document.getElementById("editcompanyid").value = id;
                     $.ajax({
@@ -1654,7 +1654,7 @@
                             user_id: id,
                             _token: $('meta[name="csrf-token"]').attr('content')
                         },
-                        success: function (response) 
+                        success: function (response)
                         {
                             // $('#userName').text(id);
                             $('#notesHistoryTable').html(response);
@@ -1665,13 +1665,13 @@
                             //     lengthChange: false, // Hides "Show entries"
                             //     searching: false      // Hides search box
                             // });
-                            
+
                             $('#userNote').modal('show');
-                           
+
                         },
                     });
         }
-        
+
             function userEmailDetail(id){
                 $.ajax({
                     type: "post",
@@ -1689,7 +1689,7 @@
                 })
             }
 
-            function editDetails(data) 
+            function editDetails(data)
             {
                 intel_phone = '';
                 intel_iso_phone = '';
@@ -1756,7 +1756,7 @@
 
                 let logo_src = "https://myisoonline.com/public/" + data.profile_image;
                 $("#output").attr("src", logo_src);
-            
+
 
                 if (data.iso9001_certificate != null) {
                     // $('#iso9001_certificate').addClass('has_file');
@@ -1777,11 +1777,11 @@
                     $("#view_45001").append("<a target='_blank' href='https://myisoonline.com/public/" + data.iso45001_certificate + "'>View</a>");
                     $(".iso45001").show();
 
-                } else 
+                } else
                 {
                     $(".iso45001").hide();
                 }
-                if (data.audit_report != null) 
+                if (data.audit_report != null)
                 {
                     $("#edit_audit_report").append("<a target='_blank' href='" + data.audit_report + "'>View</a>");
                     $(".audit_report").show();
@@ -1789,7 +1789,7 @@
                 } else {
                     $(".audit_report").hide();
                 }
-                if (data.qa_certification != null) 
+                if (data.qa_certification != null)
                 {
                     $("#edit_qa_certification").append("<a target='_blank' href='" + data.qa_certification + "'>View</a>");
                     $(".qa_certification").show();
@@ -1812,7 +1812,7 @@
                         },
                     });
                 } else {
-                    intel_phone = window.intlTelInput(input, 
+                    intel_phone = window.intlTelInput(input,
                     {
                         separateDialCode: true,
                         initialCountry: data.phoneflag,
@@ -1856,14 +1856,14 @@
             }
 
             // // Add a submit event listener to replace the input value with the submitted data attribute
-            // document.querySelector("form").addEventListener("submit", function() 
+            // document.querySelector("form").addEventListener("submit", function()
             // {
             //     var input = document.getElementById("iso9001_expirydate");
             //     var submittedValue = input.getAttribute("data-submitted-value");
             //     input.value = submittedValue;
             // });
             // Add a submit event listener to replace the input value with the submitted data attribute
-            document.querySelector("form").addEventListener("submit", function() 
+            document.querySelector("form").addEventListener("submit", function()
             {
                 var input = document.getElementById("iso9001_expirydate");
                 var submittedValue = input.getAttribute("data-submitted-value");
@@ -1873,7 +1873,7 @@
 
 
 
-            function viewDetails(data) 
+            function viewDetails(data)
             {
                 $('#view_phone_div').empty().append(`<input type="text" id="view_phoneee" class="form-control" placeholder="Phone" readonly disabled>`);
                 $('#view_iso_div').empty().append(`<input type="text" id="view_contact_isooo" class="form-control" placeholder="Iso Contact number" required  readonly disabled>`);
@@ -1962,7 +1962,7 @@
 
                 if (data.qa_certification != null) {
                     $("#v_qa_certification").append("<a target='_blank' href='" + data.audit_report + "'>View</a>");
-                } else 
+                } else
                 if (data.qa_certification != null) {
                     $("#v_qa_certification").append("<a target='_blank' href='" + data.audit_report + "'>View</a>");
                 } else {
@@ -1971,7 +1971,7 @@
 
                 var input = document.querySelector("#view_phoneee");
                 if (data.phoneflag == "preferred" || data.phoneflag == null) {
-                    window.intlTelInput(input, 
+                    window.intlTelInput(input,
                     {
                         separateDialCode: true,
                         preferredCountries: ["us"],
@@ -1983,7 +1983,7 @@
                         },
                     });
                 } else {
-                    window.intlTelInput(input, 
+                    window.intlTelInput(input,
                     {
                         separateDialCode: true,
                         initialCountry: data.phoneflag,
@@ -2152,7 +2152,7 @@
                 image.src = URL.createObjectURL(event.target.files[0]);
 
             };
-            
+
             // document.getElementById('showusers').addEventListener('change', function() {
             //     document.getElementById('showuserform').submit();
             // });
@@ -2161,7 +2161,7 @@
                 $('#showusers').on('change', function() {
                     $('#showuserform').submit();
                 });
-           
+
             });
         </script>
 
