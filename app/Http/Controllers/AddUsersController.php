@@ -126,8 +126,10 @@ class AddUsersController extends Controller
         $user = AddUsers::where('id', $user_id)->first();
 
         $userLogo = '';
+        $username = '';
         if (isset($user->profile_image)) {
             $userLogo = 'https://myisoonline.com/' . $user->profile_image;
+            $username = $user->name ?? '';
         }
 
         $list = '<div class="d-flex gap-1 mb-4 align-items-center" style="gap: 5px;">
@@ -135,7 +137,7 @@ class AddUsersController extends Controller
                 <img src="' . $userLogo . '" class="rounded-circle" style="width:50px;height:50px" />
             </div>
             <div class="flex-grow-1 ms-2">
-                <h5 class="mb-1">' . $user->name ?? '' . '</h5>
+                <h5 class="mb-1">' . $username . '</h5>
             </div>
         </div>
         <table class="table">
