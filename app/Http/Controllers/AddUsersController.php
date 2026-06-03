@@ -46,7 +46,7 @@ class AddUsersController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    
+
      public function index(Request $request)
      {
          // Get the 'showusers' query parameter from the URL
@@ -74,17 +74,17 @@ class AddUsersController extends Controller
              return view('admin.dashboard.admin.view_user', compact('users'));
          }
      }
-     
 
 
-    // Check Login History of User 
+
+    // Check Login History of User
 
     // public function userLoginHistory(Request $request)
     // {
     //     $user_id = $request->input('user_id');
-        
+
     //     $loginHistory = LoginHistoryUser::where('user_id', $user_id)->orderBy('id', 'desc')->get();
-        
+
     //     // Start building the table
     //     $list = '<table class="table">
     //     <thead>
@@ -94,9 +94,9 @@ class AddUsersController extends Controller
     //         </tr>
     //     </thead>
     //     <tbody>';
-        
+
     //     $i = 1;
-        
+
     //     foreach ($loginHistory as $history) {
     //         $list .= '<tr>';
     //         $list .= '<td style="text-align: center;">' . $i . '</td>';
@@ -104,26 +104,34 @@ class AddUsersController extends Controller
     //         $list .= '</tr>';
     //         $i++;
     //     }
-        
+
     //     // Close the table
     //     $list .= '</tbody>
     //     </table>';
-        
+
     //     return $list;
     // }
 
 
 
-    
-    // working code 
+
+    // working code
     public function userLoginHistory(Request $request)
     {
         $user_id = $request->input('user_id');
-        
+
         $loginHistory = LoginHistoryUser::where('user_id', $user_id)->orderBy('id', 'desc')->get();
         // dd($loginHistory);
-        
-        $list = '<table class="table">
+
+        $list = '<div class="d-flex">
+            <div>
+                <img src="../assets/media/users/300_1.jpg" class="rounded-circle" />
+            </div>
+            <div class="flex-grow-1 ms-2">
+                <h5 class="mb-1">User Name</h5>
+            </div>
+        </div>
+        <table class="table">
         <thead>
             <tr>
                 <th>ID</th>
@@ -133,10 +141,10 @@ class AddUsersController extends Controller
             </tr>
         </thead>
         <tbody>';
-        
+
         $i = 1;
-        
-        foreach ($loginHistory as $history) 
+
+        foreach ($loginHistory as $history)
         {
             $list .= '<tr>';
             $list .= '<td style="text-align: center;">' . $i . '</td>';
@@ -146,20 +154,20 @@ class AddUsersController extends Controller
             $list .= '</tr>';
             $i++;
         }
-        
+
         $list .= '</tbody>
         </table>';
-        
+
         return $list;
     }
 
     public function userNoteshistory(Request $request)
     {
         $user_id = $request->input('user_id');
-        
+
         $notesHistory = UserNotesHistory::where('company_id', $user_id)->orderBy('id', 'desc')->get();
         //dd($notesHistory);
-        
+
     //     $list = '<table class="table">
     // <thead>
     //     <tr>
@@ -188,11 +196,11 @@ foreach ($notesHistory as $nhistory) {
     $list .= '<td style="text-align: center;">' . $i . '</td>';
    $list .= '<td style="padding:5px 15px; text-align: left;" id="note-text-' . $nhistory->id . '">' .
             nl2br($nhistory->note);
- 
+
 if ($nhistory->note_img) {
     $filePath = asset('uploads/notes/' . $nhistory->note_img);
     $list .= '<br><a href="' . $filePath . '" target="_blank">View Attachment</a>';
-} 
+}
 
 $list .= '</td>';
     $list .= '<td style="padding:5px 15px; text-align: center;">' . date('d-m-Y H:i:s', strtotime($nhistory->dated)) . '</td>';
@@ -214,8 +222,8 @@ return $list;
     {
         $user_id = $request->input('user_id');
         $users = User::with('userDownload', 'userDownload.downloads')->where('id', $user_id)->first();
-       // $loginHistory = LoginHistoryUser::where('user_id', $user_id)->orderBy('id', 'desc')->get();   
-        
+       // $loginHistory = LoginHistoryUser::where('user_id', $user_id)->orderBy('id', 'desc')->get();
+
         $list = '<table class="table" width="100%">
         <thead>
             <tr>
@@ -227,7 +235,7 @@ return $list;
             </tr>
         </thead>
         <tbody>';
-        
+
         $i = 1;
         if(isset($users->userDownload)){
             foreach ($users->userDownload as $ud)
@@ -241,12 +249,12 @@ return $list;
                 $list .= '</tr>';
                 $i++;
             }
-        }   
-        
-        
+        }
+
+
         $list .= '</tbody>
         </table>';
-        
+
         return $list;
 
     }
@@ -296,20 +304,20 @@ return $list;
     }
 
 
-    // public function userLoginHistory(Request $request) 
+    // public function userLoginHistory(Request $request)
     // {
     //     // dd("abc");
     //     $user_id = $request->input('user_id');
     //     $page = $request->input('page', 1);
     //     $perPage = 10;
     //     $offset = ($page - 1) * $perPage;
-        
+
     //     $loginHistory = LoginHistoryUser::where('user_id', $user_id)
     //         ->orderBy('id', 'desc')
     //         ->skip($offset)
     //         ->take($perPage)
     //         ->get();
-        
+
     //     $list = '<table class="table">
     //     <thead>
     //         <tr>
@@ -320,10 +328,10 @@ return $list;
     //         </tr>
     //     </thead>
     //     <tbody>';
-        
+
     //     $i = 1;
-        
-    //     foreach ($loginHistory as $history) 
+
+    //     foreach ($loginHistory as $history)
     //     {
     //         $list .= '<tr>';
     //         $list .= '<td style="text-align: center;">' . $i . '</td>';
@@ -333,20 +341,20 @@ return $list;
     //         $list .= '</tr>';
     //         $i++;
     //     }
-        
+
     //     $list .= '</tbody>
     //     </table>';
-        
+
     //     $pagination = $loginHistory->links()->toHtml();
     //     return response()->json(['data' => $list, 'pagination' => $pagination]);
     // }
 
 
-//     public function userLoginHistory(Request $request) 
+//     public function userLoginHistory(Request $request)
 // {
 //     $user_id = $request->input('user_id');
 //     $perPage = 10;
-    
+
 //     $loginHistory = LoginHistoryUser::where('user_id', $user_id)
 //         ->orderBy('id', 'desc')
 //         ->paginate($perPage);
@@ -358,7 +366,7 @@ return $list;
 
 
 
-    
+
 
     /**
      * Show the form for creating a new resource.
@@ -389,7 +397,7 @@ public function store(Request $request)
             ]);
             $pass = $request->input('password');
             $addusers = new AddUsers();
-            if ($request->file('user_image')) 
+            if ($request->file('user_image'))
             {
                 $imagePath = $request->file('user_image');
                 $imageName = uniqid() . "." . $request->file('user_image')->extension();
@@ -418,9 +426,9 @@ public function store(Request $request)
             ]);*/
 
 
-            if ($request->file('iso9001_certificate')) 
+            if ($request->file('iso9001_certificate'))
             {
-               
+
                 $file_path = $request->file('iso9001_certificate');
                 $file_name = uniqid() . "." . $request->file('iso9001_certificate')->extension();
 
@@ -433,7 +441,7 @@ public function store(Request $request)
                 $addusers->iso9001_description = $request->input('iso9001_description');
             }
 
-            if ($request->file('iso14001_certificate')) 
+            if ($request->file('iso14001_certificate'))
             {
 
                 $iso14001_certificate_path = $request->file('iso14001_certificate');
@@ -448,7 +456,7 @@ public function store(Request $request)
                 $addusers->iso14001_description = $request->input('iso14001_description');
             }
 
-            if ($request->file('iso45001_certificate')) 
+            if ($request->file('iso45001_certificate'))
             {
 
                 $iso45001_certificate_path = $request->file('iso45001_certificate');
@@ -462,7 +470,7 @@ public function store(Request $request)
 
                 $addusers->iso45001_description = $request->input('iso45001_description');
             }
-            if (Schema::hasColumns('users', ['audit_report'])) 
+            if (Schema::hasColumns('users', ['audit_report']))
             {
                 if ($request->file('audit_report')) {
 
@@ -474,7 +482,7 @@ public function store(Request $request)
                     $addusers->audit_report = $audit_report_path;
                 }
             }
-             if (Schema::hasColumns('users', ['qa_certification'])) 
+             if (Schema::hasColumns('users', ['qa_certification']))
             {
                 //($request->file('qa_certification'));
                 if ($request->file('qa_certification')) {
@@ -558,7 +566,7 @@ public function store(Request $request)
             $addusers->user_type = $request->input('user_type');
             //$addusers->member_scaiso = $scaiso;
             //$addusers->adek_school = $adekschool;
-           
+
 
             $addusers->save();
             return redirect('/add_user')->with("Success", "User added Successfully.");
@@ -628,8 +636,8 @@ public function store(Request $request)
             ->get();
         return view('admin.dashboard.admin.send_notifications',compact('users','adminmessage'));
 
-    }  
-    
+    }
+
     public function send_message(Request $request)
     {
         // $getprocess=Audit::where('user_id',$request)->get();
@@ -646,8 +654,8 @@ public function store(Request $request)
                 //$end_date = date("YYYY-mm-dd",$request->end_date);
                // dd($end_date);
                 if(isset($request->filter_by_certificate)){
-                  
-                    if($request->filter_by_certificate=="iso9001_certificate"){  
+
+                    if($request->filter_by_certificate=="iso9001_certificate"){
                         $users=AddUsers::where([["last_login",">=", $start_date],["last_login","<=", $end_date]])->where("iso9001_certificate","!=", NULL)->where("iso14001_certificate", NULL)->where("iso45001_certificate",NULL)->get();
                     }else if($request->filter_by_certificate=="iso14001_certificate"){
                         $users=AddUsers::where([["last_login",">=", $start_date],["last_login","<=", $end_date]])->where("iso14001_certificate","!=", NULL)->where("iso9001_certificate", NULL)->where("iso45001_certificate",NULL)->get();
@@ -681,16 +689,16 @@ public function store(Request $request)
                 }else{
                     dd("Please select Certification");
                 }
-                // $users=AddUsers::where("last_login",">", Carbon::now()->subMonths($request->month))->get(); 
+                // $users=AddUsers::where("last_login",">", Carbon::now()->subMonths($request->month))->get();
             }
             elseif($request->type="certificate" && $request->cert){
                 //  dd($request->cert);
                 if($request->cert=="iso9001_certificate"){
-                    $users=AddUsers::where("iso9001_certificate","!=",'')->whereNull('iso14001_certificate')->whereNull('iso45001_certificate')->get(); 
+                    $users=AddUsers::where("iso9001_certificate","!=",'')->whereNull('iso14001_certificate')->whereNull('iso45001_certificate')->get();
                 }else if($request->cert=="iso14001_certificate"){
-                    $users=AddUsers::where("iso14001_certificate","!=",'')->whereNull('iso9001_certificate')->whereNull('iso45001_certificate')->get(); 
+                    $users=AddUsers::where("iso14001_certificate","!=",'')->whereNull('iso9001_certificate')->whereNull('iso45001_certificate')->get();
                 }else if($request->cert=="iso45001_certificate"){
-                    $users=AddUsers::where("iso45001_certificate","!=",'')->whereNull('iso9001_certificate')->whereNull('iso14001_certificate')->get(); 
+                    $users=AddUsers::where("iso45001_certificate","!=",'')->whereNull('iso9001_certificate')->whereNull('iso14001_certificate')->get();
                 }
                 else if($request->cert=="all"){
                     // $users=AddUsers::where("iso9001_certificate","!=",'')->where("iso14001_certificate","!=","")->where("iso45001_certificate","!=","")->get();
@@ -703,7 +711,7 @@ public function store(Request $request)
                 else{
                     $users=AddUsers::where("".$request->cert."","!=","")->get();
                 }
-                
+
             }
             else{
                $users=AddUsers::where('role_type','user')->get();
@@ -729,12 +737,12 @@ public function store(Request $request)
             //     $users=AddUsers::where('role_type','user')->where('user_type', $request->id)->get();
             //     $list= '<div class="kt-input-icon kt-input-icon--right"  style="margin-top: 10px;">';
             //     $list .= '<select name="userid[]" id="langOpt3" class="form-control" multiple>';
-            //         $i = 1; 
+            //         $i = 1;
             //     foreach($users as $user){
             //         $list .= ' <option value="'.$user->id.'">'.$user->name.' </option>';
             //         $i++;
             //     }
-        
+
             //     $list .= '</select>
     		// 		</div>';
             // }else{
@@ -746,7 +754,7 @@ public function store(Request $request)
             ->where('admin_delete',false)
             ->orderby('notification_id','desc')
             ->get();
-            
+
             return view('admin.dashboard.admin.send_message',compact('users','adminmessage'));
         }
     }
@@ -822,7 +830,7 @@ public function store(Request $request)
             return redirect()->back()->with('error', 'Please select at least one User');
         }else{
             foreach ($users as $user){
-                $randomBytes = random_bytes(4); 
+                $randomBytes = random_bytes(4);
                 $randomInt = unpack('L', $randomBytes)[1];
                 $data['unique_id'] = intval(microtime(true) + $randomInt);
                 $data['send_to'] = $user;
@@ -863,7 +871,7 @@ public function store(Request $request)
         $customers_nonconform = DB::table('tbl_noconformance')->join('tbl_suppliers','tbl_noconformance.customerID','tbl_suppliers.idnumber')
         ->select('tbl_noconformance.id as noid','tbl_noconformance.*','tbl_suppliers.*')
         ->where('tbl_noconformance.user_id',$id)->where('tbl_suppliers.user_id',$id)->orderBy('tbl_noconformance.id','DESC')->get();
-        
+
         // dd($customers_nonconform);
         return view('admin.adminform_records.non_conformities',compact('noneConform','customers','customers_nonconform','employees'));
 
@@ -892,7 +900,7 @@ public function store(Request $request)
         return view('admin.adminform_records.calibration_record',compact('caliber'));
 
     }
-    
+
     public function EmployeCheck($request)
     {
         $userinfo=Employee::with('user')->where('user_id',$request)->orderBy('id','DESC')->get();
@@ -917,7 +925,7 @@ public function store(Request $request)
           ->where('tbl_employees.user_id',$request)
           ->orderBy('tbl_employees_traning.created_at','DESC')
           ->get();
-        
+
 
           $users = Employee::where('user_id',$request)->orderBy('id','DESC')->get();
           $wp_users = [];
@@ -927,7 +935,7 @@ public function store(Request $request)
       return view('admin.adminform_records.employess',compact('userinfo','employess','emptraining', 'wp_users'));
 
     }
-    
+
     public function managementCheck($request)
     {
         $mgtrev=Mgtreview::where('user_id',$request)->orderBy('id','DESC')->get();
@@ -962,10 +970,10 @@ public function store(Request $request)
         $qualityPolicy = CustomManual::where('user_id', $userid)->where('status', 1)->first();
         $environmentalPolicy = CustomManual::where('user_id', $userid)->where('status', 2)->first();
         $healthSafetyPolicy = CustomManual::where('user_id', $userid)->where('status', 3)->first();
-    
+
         return view('admin.adminform_records.additionalpolicies', compact('qualityPolicy', 'environmentalPolicy', 'healthSafetyPolicy'));
     }
-    
+
 
 
 
@@ -992,7 +1000,7 @@ public function store(Request $request)
     {
         $id = $request->id;
         $user = AddUsers::find($id);
-        if ($request->input('password') != '' || !empty($request->input('password'))) 
+        if ($request->input('password') != '' || !empty($request->input('password')))
         {
             $pass = $request->input('password');
             $user->password = Hash::make($pass);
@@ -1050,7 +1058,7 @@ public function store(Request $request)
         $user->email = $request->input('email');
         $user->phone = $request->input('phone');
 
-        if ($request->input('phoneflag') == "preferred") 
+        if ($request->input('phoneflag') == "preferred")
         {
             $phoneflag = "us";
         } else {
@@ -1239,14 +1247,14 @@ public function store(Request $request)
             print_r($exc->getMessage());
         }
     }
-  /// to add admin note for user      
+  /// to add admin note for user
 public function addUsernote(Request $request)
 {
     $request->validate([
         'note' => 'required|string',
         'note_file' => 'nullable|mimes:jpeg,png,jpg,gif,doc,docx,xls,xlsx,pdf|max:20480' // 20MB
     ]);
-  
+
     try {
         $note = new UserNotesHistory;
         $note->company_id = $request->editcompanyid;
@@ -1311,13 +1319,13 @@ public function deleteUsernote($id)
         return response()->json(['error' => $exc->getMessage()], 500);
     }
 }
-   
+
     // function used to display the messages in old Inbox
     public function receive_notifications()
     {
         $notif = DB::table('users_messages')->orderBy('id', 'desc')->get();
 		return view('admin.dashboard.admin.receive_notifications',compact('notif'));
-    }  
+    }
 
     // public function unreadMessages(){
     //     $user_id = Auth::user()->id;
@@ -1335,7 +1343,7 @@ public function deleteUsernote($id)
 
 
     // function used to show messages in New Inbox
-    public function receivedNotifications(Request $request){        
+    public function receivedNotifications(Request $request){
         $userid=Auth::user()->id;
         $message_info = SendNotifications::join('users', 'users.id','=','send_notification.send_by')
         ->select('send_notification.*', 'users.id', 'users.name', 'users.company_name')
@@ -1345,10 +1353,10 @@ public function deleteUsernote($id)
         ->groupBy('users.id')
         ->get();
         // dd($message_info);
-        return view('admin.dashboard.admin.receive_notification_inbox', compact('message_info'));      
+        return view('admin.dashboard.admin.receive_notification_inbox', compact('message_info'));
     }
 
-    // this function is used for previous message inbox -  now its just a backup 
+    // this function is used for previous message inbox -  now its just a backup
     // public function receivedNotifications(Request $request){
     //     $userid=Auth::user()->id;
     //     $message_info=SendNotifications::join('users', 'users.id','=','send_notification.send_by')
@@ -1357,7 +1365,7 @@ public function deleteUsernote($id)
     //     ->groupBy('send_notification.unique_id')
     //     ->orderBy('send_notification.updated_at', 'desc')
     //     ->get();
-    //     return view('admin.dashboard.admin.receive_notification_inbox', compact('message_info'));      
+    //     return view('admin.dashboard.admin.receive_notification_inbox', compact('message_info'));
     // }
 
     // public function markAsRead(Request $request) {
@@ -1369,7 +1377,7 @@ public function deleteUsernote($id)
     //         SendNotifications::where('unique_id', $item_id)->update(['status' => 1]);
     //     }
     // }
-    
+
 
     public function individualMessageAdmin(Request $request){
         // dd($request->all());
@@ -1392,7 +1400,7 @@ public function deleteUsernote($id)
         ->where('send_to', $userId)
         ->orderby('send_notification.id', 'desc')
         ->value("updated_at");
-        
+
         // for marking as unread
         $unreadAdminMessage = SendNotifications::where('send_to', $userId)
         ->where('send_by', $otherUserId)
@@ -1401,7 +1409,7 @@ public function deleteUsernote($id)
         ->orderby('send_notification.id', 'desc')
         ->update(['status' => 1, 'updated_at' => $updatedAt]);
 
-        
+
         // $user_id = Auth::user()->id;
         // $parent_message_id = SendNotifications::where('unique_id', $messageId)
         // ->where('send_by', $user_id)
@@ -1410,7 +1418,7 @@ public function deleteUsernote($id)
         return view('admin.dashboard.admin.admin_individual_message', compact('message_information', 'other_user_detail'));
     }
 
-    // backup for individual Message Admin 
+    // backup for individual Message Admin
 
     // public function individualMessageAdmin(){
     //     $messageId = $_GET['id'];
@@ -1427,12 +1435,12 @@ public function deleteUsernote($id)
     //     ->where('send_by', $user_id)
     //     ->first(['id']);
 
-    
+
     //     // dd($parent_message_id);
     //     return view('admin.dashboard.admin.admin_individual_message', compact('message_information', 'parent_message_id'));
     // }
 
-    // function used to store the message from the Admin 
+    // function used to store the message from the Admin
     public function storeReplyMessageAdmin(Request $request){
         // dd($request->all());
         $user_id = Auth::user()->id;
@@ -1446,7 +1454,7 @@ public function deleteUsernote($id)
         $reply = new SendNotifications;
         $reply->title = $request->input('title');
         $reply->message = $request->input('replyMessage');
-        
+
         if($receiver == $user_id){
             $reply->send_by = $user_id;
             $reply->send_to = $sender;
@@ -2095,8 +2103,8 @@ public function deleteUsernote($id)
         $all_downloads  = DB::table('downloads')->where('category', 'Emergency Signs')->get();
 		return view('admin.dashboard.admin.view_downloads', compact('all_downloads'));
     }
-    
-    
+
+
     public function add_download(Request $request){
        // dd($request->all());
         $path='';
@@ -2104,7 +2112,7 @@ public function deleteUsernote($id)
             $file = $request->file('file');
             // Get the Image Name
             $fileName = time().'.'.$file->getClientOriginalExtension();
-            // Set the Filepath 
+            // Set the Filepath
             $path = public_path('uploads/downloads') ;
             // Move the file to the upload Folder
             $file = $file->move($path, $fileName);
@@ -2113,7 +2121,7 @@ public function deleteUsernote($id)
             $file = $request->file('file2');
             // Get the Image Name
             $fileName2 = rand().'.'.$file->getClientOriginalExtension();
-            // Set the Filepath 
+            // Set the Filepath
             $path = public_path('uploads/downloads') ;
             // Move the file to the upload Folder
             $file = $file->move($path, $fileName2);
@@ -2122,13 +2130,13 @@ public function deleteUsernote($id)
             $file = $request->file('thumbnail');
             // Get the Image Name
             $thumbnail = rand().'.'.$file->getClientOriginalExtension();
-            // Set the Filepath 
+            // Set the Filepath
 
             $path = public_path('uploads/downloads') ;
             // Move the file to the upload Folder
             $file = $file->move($path, $thumbnail);
         }
-   
+
        $insert = DB::table('downloads')->insert(
             array(
                 'name' => $request['name'],
