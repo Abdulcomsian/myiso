@@ -20,7 +20,7 @@
                     <div class="kt-portlet__head kt-portlet__head--noborder kt-portlet__space-x">
                         <div class="kt-portlet__head-label">
                             <h3 class="kt-portlet__head-title">
-                                Welcome {{Auth::user()->name}}  
+                                Welcome {{Auth::user()->name}}
                             </h3>
                         </div>
                     </div>
@@ -85,7 +85,7 @@
 																{{-- <a href="{{url('sale_processes')}}"> --}}
 																	Processes
                                                                 {{-- </a> --}}
-																
+
 															</span>
                                     </div>
                                 </a>
@@ -114,7 +114,7 @@
 																{{-- <a href="{{url('documented_information')}}"> --}}
 																	Procedures
                                                                 {{-- </a> --}}
-																
+
 															</span>
                                     </div>
                                 </a>
@@ -138,7 +138,7 @@
 																{{-- <a href="{{url('requirements_aspect')}}"> --}}
                                                                      Forms and Records
                                                                     {{-- </a> --}}
-																
+
 															</span>
                                     </div>
                                 </a>
@@ -164,7 +164,7 @@
 																	</g>
 																</svg> </span>
                                         <span class="kt-widget17__subtitle" style="color: white !important;">
-																
+
 																{{-- <a href="{{url('work_instruction')}}"> --}}
 																	Local Work Instructions
                                                                 {{-- </a> --}}
@@ -419,23 +419,23 @@
                     </div>
                     <div class="kt-portlet__body kt-portlet__body--fit">
                         <div class="kt-widget17 p-4">
-                            <div class="row ml-0 mr-0 table-responsive" style="display:flex;">
+                            <div class="row ml-0 mr-0 table-responsive" style="display: flex;align-items: center">
 								@if(!empty($user['audit_report']))
 									<a href="{{ asset($user['audit_report']) }}" target="_blank" class="text-dark ml-2">
 										Click to view audit report
-									</a> 
+									</a>
 									<a href="{{ asset($user['audit_report']) }}" target="_blank">
-                                     <i class="far fa-file-pdf fa-2x" style="color:red; margin-left: 50px"></i>
+                                     <i class="far fa-file-pdf fa-2x" style="color:red;"></i>
                                      </a>
 								@else
 									<p class="text-dark ml-2">Not audit report</p>
-                                   
+
 								@endif
                             </div>
                         </div>
                     </div>
 
-                   
+
                     <div class="kt-portlet__head" style="border-bottom: none">
                         <div class="kt-portlet__head-label">
                             <h3 class="kt-portlet__head-title">
@@ -451,7 +451,7 @@
                                 </a>
                                 @else
                                     <p class="text-dark ml-2">Not Comment</p>
-                                    
+
                                 @endif
                             </div>
                         </div>
@@ -461,21 +461,21 @@
                         <div class="kt-portlet__head-label">
                             <h3 class="kt-portlet__head-title">
                                 Remote Audit Overview
-                            </h3> <a href="/uploads/user/pdfs/Remote-Audit-Overview.pdf" target="_blank">
-                                <i class="far fa-file-pdf fa-2x" style="color:red; margin-left: 50px"></i>
+                            </h3> <a href="/uploads/user/pdfs/Remote-Audit-Overview.pdf" target="_blank" class="ml-2">
+                                <i class="far fa-file-pdf fa-2x" style="color:red;"></i>
                             </a>
                         </div>
                     </div>
-                   
+
 
                     <div class="kt-portlet__head" style="border-bottom: none">
                         <div class="kt-portlet__head-label">
                             <h3 class="kt-portlet__head-title">
                                 Use Of Certificate & Certification Marks
                             </h3>
-                            <a href="/uploads/user/pdfs/Use-Of-Certificate-and-Certification-Marks.pdf" target="_blank">
-                                    <i class="far fa-file-pdf fa-2x" style="color:red; margin-left: 50px"></i>
-                                </a> 
+                            <a href="/uploads/user/pdfs/Use-Of-Certificate-and-Certification-Marks.pdf" target="_blank" class="ml-2">
+                                    <i class="far fa-file-pdf fa-2x" style="color:red;"></i>
+                                </a>
                         </div>
                     </div>
                      @if(!empty($user['qa_certification']))
@@ -484,15 +484,15 @@
                             <h3 class="kt-portlet__head-title">
                                 QA Certification Agreement
                             </h3>
-                            <a href="{{ asset($user['qa_certification']) }}" target="_blank">
-                                    <i class="far fa-file-pdf fa-2x" style="color:red; margin-left: 50px"></i>
-                                </a> 
+                            <a href="{{ asset($user['qa_certification']) }}" target="_blank" class="ml-2">
+                                    <i class="far fa-file-pdf fa-2x" style="color:red;"></i>
+                                </a>
                         </div>
                     </div>
                      @endif
-                    
+
                 </div>
-                
+
             @php
 
                     @endphp
