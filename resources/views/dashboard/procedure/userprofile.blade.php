@@ -72,52 +72,52 @@
 </div>
 
 	<!--Begin::Section-->
-	
+
 	<section id="procedure_section">
-		
+
 		<div class="row">
 			<div class="col-lg-12">
 				<div class="procedure_div">
 					<table class="common_table table table-sm table-striped table-responsive" style="width:100%">
                         <tr>
                             <td style="padding-right:200px;width:270px;">Username</td>
-                    
+
                     <td>{{Auth::user()->name}} </td>
-                            
+
                         </tr>
                         <tr>
                             <td>Email Address</td>
                             <td>{{Auth::user()->email}} </td>
 
-                            
+
                         </tr>
                         <tr>
                             <td>Company Name</td>
                             <td>{{Auth::user()->company_name}} </td>
 
-                            
+
                         </tr>
                         <tr>
                             <td>Company Phone Number</td>
                     <td>{{Auth::user()->phonecode." ".Auth::user()->phone}} </td>
-                            
-                            
+
+
                         </tr>
                         <tr>
                             <td>Managing Director / CEO</td>
                     <td>{{Auth::user()->director}} </td>
 
-  
+
                         </tr>
                         <tr>
                             <td>Company Profile</td>
-                    <td><a href="https://myisoonline.com/public/{{Auth::user()->company_profile}}" target="blank">View Company Profile</a> </td>
-                            
+                    <td><a href="{{ asset(Auth::user()->company_profile) }}" target="blank">View Company Profile</a> </td>
+
                         </tr>
                         <tr>
                             <td>Company Address</td>
                     <td>{{Auth::user()->company_address}} </td>
-                            
+
                         </tr>
                         <tr>
                             <td>Servicing Process Owner</td>
@@ -166,7 +166,7 @@
 				</div>
 			</div>
         </div>
-        <div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">	
+        <div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div class="modal-dialog modal-lg" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
@@ -177,7 +177,7 @@
                     <form class="kt-form kt-form--label-right" method="POST" action="{{route('UpdateUserInfo')}}" enctype="multipart/form-data">
                         @csrf
                     <div class="modal-body">
-                        
+
                             <div class="kt-portlet__body">
                                 <input type="hidden" name="id" id="editvalue" value="">
                                 <div class="form-group row">
@@ -197,12 +197,12 @@
                                         <input type="text" required  id="name" name="email" class="form-control" placeholder="Enter email" readonly>
                                         <!--<span class="form-text text-muted">Please enter your Email Address</span>-->
                                     </div>
-                                   
+
                                 </div>
-                                    
-                               
-                                
-                                
+
+
+
+
                         <div class="form-group row">
                              <div class="col-lg-4">
                                 <label for="password">Password:</label>
@@ -211,7 +211,7 @@
                                     <!-- model start from here -->
                                     <!-- Button trigger modal -->
 <a href="#" class="text-black pass_model_btn" data-toggle="modal" data-target="#passwordModel">
-Request for Change password 
+Request for Change password
                         </a>
 
 <!-- Modal -->
@@ -246,7 +246,7 @@ Request for Change password
                                 <label for="phone">Company Address:</label>
                                 <textarea id="company_address" name="company_address"  required class="form-control" placeholder="Enter Company Address" readonly></textarea>
                             </div>
-                        </div> 
+                        </div>
                         <div class="form-group row">
                              <div class="col-lg-4">
                                     <label for="state">Company Phone:</label>
@@ -254,7 +254,7 @@ Request for Change password
     						</div>
     								<input type="hidden" name="phonecode" id="phonecode">
     							<input type="hidden" name="phoneflag" id="phoneflag">
-    						
+
                             </div>
                             	<div class="col-lg-4">
 								<label for="country">Country:</label>
@@ -266,7 +266,7 @@ Request for Change password
                                     <input type="text" id="director"  required name="director" class="form-control" placeholder="Enter a Name">
                                 </div>
                             </div>
-                        </div>    
+                        </div>
                         <div class="form-group row">
                         	<div class="col-lg-4">
 								<label for="person_iso">Person Responsible for ISO:</label>
@@ -276,11 +276,11 @@ Request for Change password
 							<div class="col-lg-4">
 								<label for="contact_iso" style="text-align:left !important">Contact number of the Person Responsible for ISO:</label>
 								<div class="kt-input-icon kt-input-icon--right" id='edit_iso'>
-									
+
 							</div>
 								<input type="hidden" name="isophonecode" id="isophonecode">
 									<input type="hidden" name="isophoneflag" id="isophoneflag">
-								
+
 							</div>
 							<div class="col-lg-4">
 								<label style="text-align:left !important;" for="email_iso">Email Address of the Person Responsible for ISO.:</label>
@@ -312,7 +312,7 @@ Request for Change password
                                         </div>
                                     </div>
                                 </div>
-                                
+
                                 <div class="form-group row">
                                     <div class="col-lg-6">
                                         <label for="address1">Competency Process Owner:</label>
@@ -329,7 +329,7 @@ Request for Change password
                                             </div>
                                         </div>
                                     </div>
-                                    
+
                                 </div>
                                 <div class="form-group row">
 								<div class="col-lg-12">
@@ -338,9 +338,9 @@ Request for Change password
 									<textarea id="scope" row="6" style="height:200px;"  required name="scope" class="form-control"></textarea>
 								</div>
 							</div></div>
-							
+
 							 <div class="form-group row">
-        
+
                                     <div class="col-lg-8">
                                         <label for="user_image">Company Description</label>
                                         <div class="kt-input-icon kt-input-icon--right">
@@ -356,7 +356,7 @@ Request for Change password
 
 								<div class="kt-input-icon kt-input-icon--right">
 
-							
+
 
 									<div id="image-preview">
 
@@ -374,19 +374,19 @@ Request for Change password
 
 								</div>
 
-								
+
 
 							</div>
 							</div>
 						<div class="form-group row">
-							
+
 							<div class="col-lg-4">
 								<label for="iso9001_certificate">ISO9001 Certificate:</label>
 								<!--<input type="file" id="iso9001_certificate" accept=".pdf" name="iso9001_certificate" >-->
 								<span id="view_9001"> </span>&nbsp;
 								<!--<a href="#" data-handle="iso9001" class="delete-certificate">Delete</a>-->
 								  <!--<button type="button" class="new-file-upload" onclick="document.getElementById('iso9001_certificate').click()">Attach File</button>-->
-  
+
 							</div>
 							<div class="col-lg-4">
 								<label for="iso9001_expirydate">Expiry date:</label>
@@ -395,12 +395,12 @@ Request for Change password
 							<div class="col-lg-4">
 								<label for="iso9001_description">Description:</label>
 								<textarea id="iso9001_description" readonly name="iso9001_description" class="form-control" placeholder="Description for ISO9001 Certificate" ></textarea>
-							</div>					
+							</div>
 
 						</div>
-						
+
 						<div class="form-group row">
-							
+
 							<div class="col-lg-4">
 								<label for="iso14001_certificate">ISO14001 Certificate:</label>
 								<!--<input type="file" id="iso14001_certificate" accept=".pdf" name="iso14001_certificate" >-->
@@ -415,12 +415,12 @@ Request for Change password
 							<div class="col-lg-4">
 								<label for="iso14001_description">Description:</label>
 								<textarea id="iso14001_description" readonly name="iso14001_description" class="form-control" placeholder="Description for ISO14001 Certificate" ></textarea>
-							</div>					
+							</div>
 
 						</div>
-						
+
 						<div class="form-group row">
-							
+
 							<div class="col-lg-4">
 								<label for="iso45001_certificate">ISO45001 Certificate:</label>
 								<!--<input type="file" id="iso45001_certificate" accept=".pdf" name="iso45001_certificate" >-->
@@ -435,33 +435,33 @@ Request for Change password
 							<div class="col-lg-4">
 								<label for="iso45001_description">Description:</label>
 								<textarea id="iso45001_description" readonly name="iso45001_description" class="form-control" placeholder="Description for ISO45001 Certificate" ></textarea>
-							</div>					
+							</div>
 
 						</div>
-                                
-                                
-                                
-                        
-                                
-        
-                                    
-                                   
-                                    
-                                
-                               
-                                </div> 
+
+
+
+
+
+
+
+
+
+
+
+                                </div>
                             </div>
-                            
-                        
-        
-                    
-                     
+
+
+
+
+
                     <div class="modal-footer">
                         <button type="reset" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
                         <button type="submit" class="btn btn-danger">Update</button>
                     </div>
-                    
-                    
+
+
                 </form>
                 </div>
             </div>
@@ -479,7 +479,7 @@ Request for Change password
 		$("#userid").val(userid);
 		$("#deleteUser").modal('show');
 	}
-	
+
 </script>
 @section('myscript')
 <script src="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/intlTelInput.min.js"
@@ -492,22 +492,22 @@ Request for Change password
         integrity="sha512-BNZ1x39RMH+UYylOW419beaGO0wqdSkO7pi1rYDYco9OL3uvXaC/GTqA5O4CVK2j4K9ZkoDNSSHVkEQKkgwdiw=="
         crossorigin="anonymous"></script>
         <script>
-        
-        
+
+
         $('.delete-certificate').on('click',function(){
-    
+
     let _this = $(this),
     user_id = $('#editvalue').val();
-    
-     _this.closest('.form-group.row').find('.form-control').val(''); 
-     _this.closest('.form-group.row').find('a').remove(); 
-    
+
+     _this.closest('.form-group.row').find('.form-control').val('');
+     _this.closest('.form-group.row').find('a').remove();
+
             $.ajaxSetup({
             headers: {
                 'X-CSRF-TOKEN': "{{csrf_token()}}"
             }
         });
-        
+
             let AjaxUrl = "{{ url('/remove_iso')}}";
             $.ajax({
                 url: AjaxUrl,
@@ -519,7 +519,7 @@ Request for Change password
                 console.log(response);
             });
  });
- 
+
  function editDetails(data){
 		console.log(data);
 		$("#editvalue").val(data.id);
@@ -553,8 +553,8 @@ Request for Change password
 		 let logo_src = "https://myisoonline.com/public/"+data.profile_image;
 		 $("#output").attr("src", logo_src);
 		 $("textarea[name='Company_overview']").val(data.Company_overview);
-		 
-		 
+
+
 		 if(data.iso9001_certificate!=null){
 		     $('#iso9001_certificate').addClass('has_file');
     $("#view_9001").append( "<a target='_blank' href='https://myisoonline.com/public/"+data.iso9001_certificate+"'>View</a>" );
@@ -570,17 +570,17 @@ if(data.iso45001_certificate!=null){
 
 		 $("input[name='iso9001_expirydate']").val(data.iso9001_expirydate);
 		  $("textarea[name='iso9001_description']").val(data.iso9001_description);
-		  
+
 		 $("input[name='iso14001_expirydate']").val(data.iso14001_expirydate);
 		  $("textarea[name='iso14001_description']").val(data.iso14001_description);
 
 		 $("input[name='iso45001_expirydate']").val(data.iso45001_expirydate);
 		  $("textarea[name='iso45001_description']").val(data.iso45001_description);
-		  
-		  
+
+
 		    var contact_iso = document.getElementById("contact_iso");
 
-        
+
         // var input = document.querySelector("#contact_iso");
        window.intlTelInput(contact_iso, {
         separateDialCode: true,
@@ -605,8 +605,8 @@ if(data.iso45001_certificate!=null){
             return "e.g. " + selectedCountryPlaceholder;
         },
     });
-    
-		  
+
+
 		 $("#editModal").modal('show');
 	}
 
@@ -616,12 +616,12 @@ if(data.iso45001_certificate!=null){
         $('.pass_model').fadeOut();
         $('.pass_model_btn').click();
     })
-        
-        
-      
-    
+
+
+
+
     $("form").submit(function() {
-        
+
            var i=1;
            var j=1;
            $('.iti__selected-dial-code').each(function(){
@@ -629,7 +629,7 @@ if(data.iso45001_certificate!=null){
               {
                 var code=$(this).text();
                 $("#phonecode").val(code);
-                
+
               }else{
                   var code=$(this).text();
                  $("#isophonecode").val(code);
@@ -653,7 +653,7 @@ if(data.iso45001_certificate!=null){
               }
               j++;
           });
-  
+
      });
 
 
