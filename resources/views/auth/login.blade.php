@@ -4,12 +4,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-  
+
 	<title>MyISOOnline.com</title>
     <meta name="description" content="We provide ISO 9001, ISO 45001, and ISO 14001 certification services. Improve your business quality, environmental responsibility, and health & safety standards with our expert support." />
     <meta name="author" content="MYISOONLINE"/>
     <!-- Main Css -->
-   
+
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.7/dist/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
@@ -26,7 +26,7 @@
     }
   }
 </style>	<link rel="shortcut icon" href="https://myisoonline.com/assets/media/logos/fav.png" />
-	
+
 	</head>
 
 <body>
@@ -38,7 +38,7 @@
                      <img class=" mx-auto" src="{{asset("/assets/media/logos/MyISOOnline-Logo.png")}}" alt="images"  style="width: 450px">
                 </a>
 
-              
+
             </div>
 			@if($errors->any())
 				<div class="alert" style="background: red !important;color:#fff !important;">
@@ -52,21 +52,21 @@
                             <img src="{{asset("assets/img/google.png")}}" alt="" class="max-w-5 h-5 text-dark ">English
                         </a>
                         <a href="javascirpt:;" lang="ar" dir="rtl"   class="w-full inline-flex items-center justify-center px-6 gap-4 py-2.5 font-medium backdrop-blur-2xl border border-gray-300 bg-white text-dark rounded-md transition-all duration-500 group"><img src="{{asset("assets/img/facebook.png")}}" alt="" class="max-w-5 h-5 text-dark">العربية</a>
-                    </div>   
+                    </div>
                     <div class="flex md:justify-between justify-center items-center mb-8 md:gap-9 gap-2">
                         <a href="javascirpt:;" lang="fr"    class="w-full inline-flex items-center justify-center px-6 gap-4 py-2.5 font-medium backdrop-blur-2xl border border-gray-300 bg-white text-dark rounded-md transition-all duration-500 group">
                             <img src="{{asset("assets/img/france.png")}}" alt="" class="max-w-5 h-5 text-dark ">French
                         </a>
-                        <a href="javascirpt:;" lang="pt"    class="w-full inline-flex items-center justify-center px-6 gap-4 py-2.5 font-medium backdrop-blur-2xl border border-gray-300 bg-white text-dark rounded-md transition-all duration-500 group"><img src="{{asset("assets/img/portugal-flag.png")}}" alt="" class="max-w-5 h-5 text-dark">portuguese</a>
-                    </div>   
+                        <a href="javascirpt:;" lang="pt"    class="w-full inline-flex items-center justify-center px-6 gap-4 py-2.5 font-medium backdrop-blur-2xl border border-gray-300 bg-white text-dark rounded-md transition-all duration-500 group"><img src="{{asset("assets/img/portugal-flag.png")}}" alt="" class="max-w-5 h-5 text-dark">Portuguese</a>
+                    </div>
 
                     <div class="mb-4">
-                        
+
                         <input id="email-addon" class="block w-full rounded-md py-2.5 px-4 text-dark text-base font-medium border-gray-300 focus:gray-300 focus:border-primary focus:outline-0 focus:ring-0 placeholder:text-light placeholder:text-base" type="email" name="email" placeholder="Enter your email">
                     </div>
 
                     <div class="mb-4">
-                       
+
                         <div class="flex">
                             <input type="password" id="password-addon" class="form-password text-dark text-base font-medium block w-full rounded-s-md py-2.5 px-4 border border-gray-300 focus:gray-300 focus:border-primary focus:outline-0 focus:ring-0 placeholder:text-light placeholder:text-base" placeholder="Enter your password" name="password">
                             <button type="button" data-hs-toggle-password='{"target": "#password-addon"}' class="inline-flex items-center justify-center py-2.5 px-4 border rounded-e-md -ms-px border-gray-300">
@@ -94,7 +94,7 @@
                         <button type="submit" class="w-full inline-flex items-center justify-center px-6 py-2.5 bg-primary font-bold text-base text-white rounded-md transition-all duration-500 btn-brand"  type="submit"  id="SignIN" disabled>Log In</button>
                     </div>
 
-                   
+
                 </form>
         </div>
         <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -218,8 +218,8 @@
 													Office 1003, C34 Building,<br>
 													Ar Razqi St, Al Danah,<br>
 													Abu Dhabi, United Arab Emirates, 22207<br>
-													Email: ceo@jmegrp.com 
-												
+													Email: ceo@jmegrp.com
+
 												</p>
 													<!-- <div class="ml-2">
 															<input class="form-check-input agreeInput" type="checkbox" value="" id="TermConditions">
@@ -234,7 +234,7 @@
 											</div>
 										</div>
 									</div>
-        
+
     </section>
     <script>
     $('#firstCheckbox').on("change",function(){
@@ -244,10 +244,10 @@
 			}else{
 				document.querySelector('#SignIN').setAttribute('disabled', '');
 			}
-		});    
+		});
     </script>
     <!-- =========== Main Section End =========== -->
-    
+
     <!-- Preline Js -->
     <script src="{{asset("js/en/js/preline.js")}}" ></script>
 
