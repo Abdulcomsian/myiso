@@ -7,7 +7,7 @@
     <!-- begin:: Aside -->
     <div class="kt-aside__brand kt-grid__item " id="kt_aside_brand">
         <div class="kt-aside__brand-logo">
-            <a href="#">
+            <a href="{{ url('admin') }}">
                 <!-- <img alt="Logo" src="{{ asset('/assets/media/logos/logo-light.png') }}" /> -->
                 <img src="../assets/media/logos/MyISOOnline-Logo.png" class="img-fluid">
             </a>
@@ -51,7 +51,7 @@
                                     <rect id="Rectangle-7" fill="#000000" x="4" y="4" width="7" height="7" rx="1.5" />
                                     <path d="M5.5,13 L9.5,13 C10.3284271,13 11,13.6715729 11,14.5 L11,18.5 C11,19.3284271 10.3284271,20 9.5,20 L5.5,20 C4.67157288,20 4,19.3284271 4,18.5 L4,14.5 C4,13.6715729 4.67157288,13 5.5,13 Z M14.5,4 L18.5,4 C19.3284271,4 20,4.67157288 20,5.5 L20,9.5 C20,10.3284271 19.3284271,11 18.5,11 L14.5,11 C13.6715729,11 13,10.3284271 13,9.5 L13,5.5 C13,4.67157288 13.6715729,4 14.5,4 Z M14.5,13 L18.5,13 C19.3284271,13 20,13.6715729 20,14.5 L20,18.5 C20,19.3284271 19.3284271,20 18.5,20 L14.5,20 C13.6715729,20 13,19.3284271 13,18.5 L13,14.5 C13,13.6715729 13.6715729,13 14.5,13 Z" id="Combined-Shape" fill="#000000" opacity="0.3" />
                                 </g>
-                            </svg> 
+                            </svg>
                         </span>
                         <span class="kt-menu__link-text">Dashboard</span>
                         <i class="kt-menu__ver-arrow la la-angle-right"></i>
@@ -121,7 +121,7 @@
                                     <span class="kt-menu__link-text">Sent</span>
                                 </a>
                             </li>
-                            
+
                             {{-- <li class="kt-menu__item " aria-haspopup="true">
                                 <a href="{{ url('/send_notifications') }}" class="kt-menu__link ">
                                     <i class="kt-menu__link-bullet kt-menu__link-bullet--dot">
@@ -130,7 +130,7 @@
                                     <span class="kt-menu__link-text">Sent</span>
                                 </a>
                             </li> --}}
-                            
+
                         </ul>
                     </div>
                 </li>
@@ -172,12 +172,12 @@
                                     <span class="kt-menu__link-text">Sent</span>
                                 </a>
                             </li>
-                            
+
                         </ul>
                     </div>
                 </li>
-                
-                
+
+
                 <!--new--->
                 <li class="kt-menu__item   kt-menu__item--submenu" aria-haspopup="true" data-ktmenu-submenu-toggle="hover">
                     <a href="javascript:;" class="kt-menu__link kt-menu__toggle">
@@ -206,7 +206,7 @@
                                     <span class="kt-menu__link-text">Videos</span>
                                 </a>
                             </li>
-                        
+
                             <li class="kt-menu__item " aria-haspopup="true">
                                 <a href="{{ url('/upload') }}" class="kt-menu__link ">
                                     <i class="kt-menu__link-bullet kt-menu__link-bullet--dot">
@@ -227,9 +227,9 @@
                         </ul>
                     </div>
                 </li>
-                
+
                 <!-------->
-                
+
                 <!-- Organizational Structure Upload -->
                  {{-----<li class="kt-menu__item {{ Request::is('user*') ? 'kt-menu__item--open' : '' }}  kt-menu__item--submenu" aria-haspopup="true" data-ktmenu-submenu-toggle="hover">
                 <a href="{{ url('/organization-structure') }}" class="kt-menu__link kt-menu__toggle">
@@ -241,7 +241,7 @@
                </li>---}}
                 <!-- Organizational Structure Upload -->
 
-            </ul>											
+            </ul>
         </div>
     </div>
 
