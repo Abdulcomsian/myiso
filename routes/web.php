@@ -372,6 +372,9 @@ Route::group(['middleware' => ['auth']], function ()
     Route::post('/send_msg_to_admin', 'UserMsgController@send_msg_to_admin');
     Route::get('/faq', 'UserInfoController@the_faqs');
     Route::get('/explainer_videos', 'UserInfoController@explainer_videos');
+    Route::get('/schedule-training', function () {
+        return view('dashboard.schedule_training');
+    })->name('schedule.training');
     
     Route::get('/quick_links', 'UserInfoController@quick_links');
     Route::post('/remove_iso', 'UserInfoController@remove_iso');

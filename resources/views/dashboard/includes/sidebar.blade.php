@@ -564,6 +564,14 @@
 									<span class="kt-menu__link-text">Downloads</span>
 								</a>
 							</li>
+							<li class="kt-menu__item " aria-haspopup="true">
+								<a href="{{url('schedule-training')}}" class="kt-menu__link ">
+									<i class="kt-menu__link-bullet kt-menu__link-bullet--dot">
+										<span></span>
+									</i>
+									<span class="kt-menu__link-text" style="color: #fd397a; font-weight: 600;">Schedule Training</span>
+								</a>
+							</li>
 							{{-- <li class="kt-menu__item " aria-haspopup="true">
 								<a href="{{url('viewDownload')}}" class="kt-menu__link ">
 									<i class="kt-menu__link-bullet kt-menu__link-bullet--dot">
