@@ -17,7 +17,7 @@
 	<section id="schedule_training_section" class="mt-3">
 		<div class="container">
 			<div class="calendly-inline-widget"
-				 data-url="https://calendly.com/jamie-isoonline/30min?name={{ urlencode(Auth::check() ? Auth::user()->name : '') }}&email={{ urlencode(Auth::check() ? Auth::user()->email : '') }}"></div>
+				 data-url="https://calendly.com/isoonline/30min?name={{ urlencode(Auth::check() ? Auth::user()->name : '') }}&email={{ urlencode(Auth::check() ? Auth::user()->email : '') }}"></div>
 			<script type="text/javascript" src="https://assets.calendly.com/assets/external/widget.js" async></script>
 		</div>
 	</section>
