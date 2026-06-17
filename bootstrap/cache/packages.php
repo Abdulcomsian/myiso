@@ -33,31 +33,6 @@
       0 => 'Barryvdh\\DomPDF\\ServiceProvider',
     ),
   ),
-  'facade/ignition' => 
-  array (
-    'aliases' => 
-    array (
-      'Flare' => 'Facade\\Ignition\\Facades\\Flare',
-    ),
-    'providers' => 
-    array (
-      0 => 'Facade\\Ignition\\IgnitionServiceProvider',
-    ),
-  ),
-  'fideloper/proxy' => 
-  array (
-    'providers' => 
-    array (
-      0 => 'Fideloper\\Proxy\\TrustedProxyServiceProvider',
-    ),
-  ),
-  'fruitcake/laravel-cors' => 
-  array (
-    'providers' => 
-    array (
-      0 => 'Fruitcake\\Cors\\CorsServiceProvider',
-    ),
-  ),
   'jenssegers/agent' => 
   array (
     'aliases' => 
@@ -97,6 +72,13 @@
       0 => 'NunoMaduro\\Collision\\Adapters\\Laravel\\CollisionServiceProvider',
     ),
   ),
+  'nunomaduro/termwind' => 
+  array (
+    'providers' => 
+    array (
+      0 => 'Termwind\\Laravel\\TermwindServiceProvider',
+    ),
+  ),
   'realrashid/sweet-alert' => 
   array (
     'aliases' => 
@@ -119,15 +101,15 @@
       0 => 'Laratrust\\LaratrustServiceProvider',
     ),
   ),
-  'vinkla/pusher' => 
+  'spatie/laravel-ignition' => 
   array (
-    'providers' => 
-    array (
-      0 => 'Pusher\\Laravel\\PusherServiceProvider',
-    ),
     'aliases' => 
     array (
-      'Pusher' => 'Pusher\\Laravel\\Facades\\Pusher',
+      'Flare' => 'Spatie\\LaravelIgnition\\Facades\\Flare',
+    ),
+    'providers' => 
+    array (
+      0 => 'Spatie\\LaravelIgnition\\IgnitionServiceProvider',
     ),
   ),
   'yajra/laravel-datatables-oracle' => 
@@ -139,17 +121,6 @@
     'providers' => 
     array (
       0 => 'Yajra\\DataTables\\DataTablesServiceProvider',
-    ),
-  ),
-  'yoeunes/toastr' => 
-  array (
-    'aliases' => 
-    array (
-      'Toastr' => 'Yoeunes\\Toastr\\Facades\\Toastr',
-    ),
-    'providers' => 
-    array (
-      0 => 'Yoeunes\\Toastr\\ToastrServiceProvider',
     ),
   ),
 );
