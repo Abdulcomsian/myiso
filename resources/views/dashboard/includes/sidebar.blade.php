@@ -585,7 +585,6 @@
 					</div>
 				</li>
 
-		{{--
 		<li class="kt-menu__item   kt-menu__item--submenu" aria-haspopup="true" data-ktmenu-submenu-toggle="hover">
 					<a href="javascript:;" class="kt-menu__link kt-menu__toggle">
 						<span class="kt-menu__link-icon">
@@ -601,7 +600,7 @@
 
 
 							<li class="kt-menu__item " aria-haspopup="true">
-								<a href="https://myisoonline.com/public/lms/courses/iso-90012015-qms-quality-management-system/" class="kt-menu__link " target="_blank">
+								<a href="https://myisoonline.com/lms/courses/iso-90012015-qms-quality-management-system/" class="kt-menu__link " target="_blank">
 									<i class="kt-menu__link-bullet kt-menu__link-bullet--dot">
 										<span></span>
 									</i>
@@ -610,7 +609,7 @@
 							</li>
 
 							<li class="kt-menu__item " aria-haspopup="true">
-								<a href="https://myisoonline.com/public/lms/courses/iso-450012018-occupational-health-safety-management-system-internal-auditor-course/" class="kt-menu__link" target="_blank">
+								<a href="https://myisoonline.com/lms/courses/iso-450012018-occupational-health-safety-management-system-internal-auditor-course/" class="kt-menu__link" target="_blank">
 									<i class="kt-menu__link-bullet kt-menu__link-bullet--dot">
 										<span></span>
 									</i>
@@ -619,7 +618,7 @@
 							</li>
 
 							<li class="kt-menu__item " aria-haspopup="true">
-								<a href="https://myisoonline.com/public/lms/courses/iso-140012015-environmental-management-system-internal-auditor-course/" class="kt-menu__link " target="_blank">
+								<a href="https://myisoonline.com/lms/courses/iso-140012015-environmental-management-system-internal-auditor-course/" class="kt-menu__link " target="_blank">
 									<i class="kt-menu__link-bullet kt-menu__link-bullet--dot">
 										<span></span>
 									</i>
@@ -647,189 +646,127 @@
 						<ul class="kt-menu__subnav">
 							<br>
 
-
-
-
-
-
-
-
-
+							<li class="kt-menu__item   kt-menu__item--submenu" aria-haspopup="true" data-ktmenu-submenu-toggle="hover">
+								<a href="javascript:;" class="kt-menu__link kt-menu__toggle">
+									<span class="kt-menu__link-icon">
+										<i class="fab fa-wpforms"></i>
+									</span>
+									<span class="kt-menu__link-text">ISO 9001:2015</span>
+									<i class="kt-menu__ver-arrow la la-angle-right"></i>
+								</a>
+								<div class="kt-menu__submenu ">
+									<span class="kt-menu__arrow"></span>
+									<ul class="kt-menu__subnav">
+										<br>
+										<li class="kt-menu__item " aria-haspopup="true" style="margin-top:15px;">
+											<a href="https://myisoonline.com/lms/courses/maintaining-equipment-and-tool/" class="kt-menu__link" target="_blank">
+												<i class="kt-menu__link-bullet kt-menu__link-bullet--dot">
+													<span></span>
+												</i>
+												<span class="kt-menu__link-text"> Maintaining Equipment and Tools</span>
+											</a>
+										</li>
+										<li class="kt-menu__item " aria-haspopup="true" style="margin-top:30px; margin-bottom: 30px">
+											<a href="https://myisoonline.com/lms/courses/material-reuse-sustainable-practices-in-construction-and-office-environments/" class="kt-menu__link" target="_blank">
+												<i class="kt-menu__link-bullet kt-menu__link-bullet--dot">
+													<span></span>
+												</i>
+												<span class="kt-menu__link-text"> Material Reuse: Sustainable Practices in Construction and Office Environments</span>
+											</a>
+										</li>
+									</ul>
+								</div>
+							</li>
 
 							<li class="kt-menu__item   kt-menu__item--submenu" aria-haspopup="true" data-ktmenu-submenu-toggle="hover">
-					<a href="javascript:;" class="kt-menu__link kt-menu__toggle">
-						<span class="kt-menu__link-icon">
-							<i class="fab fa-wpforms"></i>
-						</span>
-						<span class="kt-menu__link-text">ISO 9001:2015</span>
-						<i class="kt-menu__ver-arrow la la-angle-right"></i>
-					</a>
-					<div class="kt-menu__submenu ">
-						<span class="kt-menu__arrow"></span>
-						<ul class="kt-menu__subnav">
-							<br>
-
-
-
-
-								<li class="kt-menu__item " aria-haspopup="true" style="margin-top:15px;">
-								<a href="https://myisoonline.com/public/lms/courses/maintaining-equipment-and-tool/" class="kt-menu__link" target="_blank">
-									<i class="kt-menu__link-bullet kt-menu__link-bullet--dot">
-										<span></span>
-									</i>
-									<span class="kt-menu__link-text"> Maintaining Equipment and Tools</span>
+								<a href="javascript:;" class="kt-menu__link kt-menu__toggle">
+									<span class="kt-menu__link-icon">
+										<i class="fab fa-wpforms"></i>
+									</span>
+									<span class="kt-menu__link-text">ISO 45001:2018</span>
+									<i class="kt-menu__ver-arrow la la-angle-right"></i>
 								</a>
+								<div class="kt-menu__submenu ">
+									<span class="kt-menu__arrow"></span>
+									<ul class="kt-menu__subnav">
+										<br>
+										<li class="kt-menu__item " aria-haspopup="true" style="margin-top:30px;">
+											<a href="https://myisoonline.com/lms/courses/workplace-safety-avoiding-slips-trips-and-simple-accidents/" class="kt-menu__link" target="_blank">
+												<i class="kt-menu__link-bullet kt-menu__link-bullet--dot">
+													<span></span>
+												</i>
+												<span class="kt-menu__link-text"> Workplace Safety: Avoiding Slips, Trips, and Simple Accidents</span>
+											</a>
+										</li>
+										<li class="kt-menu__item " aria-haspopup="true" style="margin-top:30px;">
+											<a href="https://myisoonline.com/lms/courses/safety-walk-around-course/" class="kt-menu__link" target="_blank">
+												<i class="kt-menu__link-bullet kt-menu__link-bullet--dot">
+													<span></span>
+												</i>
+												<span class="kt-menu__link-text"> Safety Walk Around Course</span>
+											</a>
+										</li>
+										<li class="kt-menu__item " aria-haspopup="true" style="margin-top:30px;">
+											<a href="https://myisoonline.com/lms/courses/lifting-carrying-and-working-the-right-way/" class="kt-menu__link" target="_blank">
+												<i class="kt-menu__link-bullet kt-menu__link-bullet--dot">
+													<span></span>
+												</i>
+												<span class="kt-menu__link-text"> Lifting, Carrying, and Working the Right Way</span>
+											</a>
+										</li>
+										<li class="kt-menu__item " aria-haspopup="true" style="margin-top:30px; margin-bottom:30px;">
+											<a href="https://myisoonline.com/lms/courses/fire-safety-best-practices-in-the-workplace/" class="kt-menu__link" target="_blank">
+												<i class="kt-menu__link-bullet kt-menu__link-bullet--dot">
+													<span></span>
+												</i>
+												<span class="kt-menu__link-text"> Fire Safety Best Practices in the Workplace</span>
+											</a>
+										</li>
+									</ul>
+								</div>
 							</li>
-
-
-								<li class="kt-menu__item " aria-haspopup="true" style="margin-top:30px; margin-bottom: 30px">
-								<a href="https://myisoonline.com/public/lms/courses/material-reuse-sustainable-practices-in-construction-and-office-environments/" class="kt-menu__link" target="_blank">
-									<i class="kt-menu__link-bullet kt-menu__link-bullet--dot">
-										<span></span>
-									</i>
-									<span class="kt-menu__link-text"> Material Reuse: Sustainable Practices in Construction and Office Environments</span>
-								</a>
-							</li>
-
-
-
-						</ul>
-					</div>
-				</li>
-
-
-
-
-
-
-
 
 							<li class="kt-menu__item   kt-menu__item--submenu" aria-haspopup="true" data-ktmenu-submenu-toggle="hover">
-					<a href="javascript:;" class="kt-menu__link kt-menu__toggle">
-						<span class="kt-menu__link-icon">
-							<i class="fab fa-wpforms"></i>
-						</span>
-						<span class="kt-menu__link-text">ISO 45001:2018</span>
-						<i class="kt-menu__ver-arrow la la-angle-right"></i>
-					</a>
-					<div class="kt-menu__submenu ">
-						<span class="kt-menu__arrow"></span>
-						<ul class="kt-menu__subnav">
-							<br>
-
-
-
-
-								<li class="kt-menu__item " aria-haspopup="true" style="margin-top:30px;">
-								<a href="https://myisoonline.com/public/lms/courses/workplace-safety-avoiding-slips-trips-and-simple-accidents/" class="kt-menu__link" target="_blank">
-									<i class="kt-menu__link-bullet kt-menu__link-bullet--dot">
-										<span></span>
-									</i>
-									<span class="kt-menu__link-text"> Workplace Safety: Avoiding Slips, Trips, and Simple Accidents</span>
+								<a href="javascript:;" class="kt-menu__link kt-menu__toggle">
+									<span class="kt-menu__link-icon">
+										<i class="fab fa-wpforms"></i>
+									</span>
+									<span class="kt-menu__link-text">ISO 14001:2015</span>
+									<i class="kt-menu__ver-arrow la la-angle-right"></i>
 								</a>
-							</li>
-
-							<li class="kt-menu__item " aria-haspopup="true" style="margin-top:30px;">
-								<a href="https://myisoonline.com/public/lms/courses/safety-walk-around-course/" class="kt-menu__link" target="_blank">
-									<i class="kt-menu__link-bullet kt-menu__link-bullet--dot">
-										<span></span>
-									</i>
-									<span class="kt-menu__link-text"> Safety Walk Around Course</span>
-								</a>
-							</li>
-
-							<li class="kt-menu__item " aria-haspopup="true" style="margin-top:30px;">
-								<a href="https://myisoonline.com/public/lms/courses/lifting-carrying-and-working-the-right-way/" class="kt-menu__link" target="_blank">
-									<i class="kt-menu__link-bullet kt-menu__link-bullet--dot">
-										<span></span>
-									</i>
-									<span class="kt-menu__link-text"> Lifting, Carrying, and Working the Right Way</span>
-								</a>
-							</li>
-
-
-
-								<li class="kt-menu__item " aria-haspopup="true" style="margin-top:30px; margin-bottom:30px;">
-								<a href="https://myisoonline.com/public/lms/courses/fire-safety-best-practices-in-the-workplace/" class="kt-menu__link" target="_blank">
-									<i class="kt-menu__link-bullet kt-menu__link-bullet--dot">
-										<span></span>
-									</i>
-									<span class="kt-menu__link-text"> Fire Safety Best Practices in the Workplace</span>
-								</a>
-							</li>
-
-
-
-						</ul>
-					</div>
-				</li>
-
-
-
-
-
-
-
-
-
-							<li class="kt-menu__item   kt-menu__item--submenu" aria-haspopup="true" data-ktmenu-submenu-toggle="hover">
-					<a href="javascript:;" class="kt-menu__link kt-menu__toggle">
-						<span class="kt-menu__link-icon">
-							<i class="fab fa-wpforms"></i>
-						</span>
-						<span class="kt-menu__link-text">ISO 14001:2015</span>
-						<i class="kt-menu__ver-arrow la la-angle-right"></i>
-					</a>
-					<div class="kt-menu__submenu ">
-						<span class="kt-menu__arrow"></span>
-						<ul class="kt-menu__subnav">
-							<br>
-
-
-
-
-								<li class="kt-menu__item " aria-haspopup="true" style="margin-top:30px;">
-								<a href="https://myisoonline.com/public/lms/courses/practical-waste-reduction-in-construction/" class="kt-menu__link" target="_blank">
-									<i class="kt-menu__link-bullet kt-menu__link-bullet--dot">
-										<span></span>
-									</i>
-									<span class="kt-menu__link-text"> Practical Waste Reduction in Construction</span>
-								</a>
-							</li>
-
-							<li class="kt-menu__item " aria-haspopup="true" style="margin-top:30px;">
-								<a href="https://myisoonline.com/public/lms/courses/waste-reduction-and-recycling-in-the-office/" class="kt-menu__link" target="_blank">
-									<i class="kt-menu__link-bullet kt-menu__link-bullet--dot">
-										<span></span>
-									</i>
-									<span class="kt-menu__link-text">
+								<div class="kt-menu__submenu ">
+									<span class="kt-menu__arrow"></span>
+									<ul class="kt-menu__subnav">
+										<br>
+										<li class="kt-menu__item " aria-haspopup="true" style="margin-top:30px;">
+											<a href="https://myisoonline.com/lms/courses/practical-waste-reduction-in-construction/" class="kt-menu__link" target="_blank">
+												<i class="kt-menu__link-bullet kt-menu__link-bullet--dot">
+													<span></span>
+												</i>
+												<span class="kt-menu__link-text"> Practical Waste Reduction in Construction</span>
+											</a>
+										</li>
+										<li class="kt-menu__item " aria-haspopup="true" style="margin-top:30px;">
+											<a href="https://myisoonline.com/lms/courses/waste-reduction-and-recycling-in-the-office/" class="kt-menu__link" target="_blank">
+												<i class="kt-menu__link-bullet kt-menu__link-bullet--dot">
+													<span></span>
+												</i>
+												<span class="kt-menu__link-text">
 Waste Reduction and Recycling in the Office</span>
-								</a>
-							</li>
-
-							<li class="kt-menu__item " aria-haspopup="true" style="margin-top:30px;">
-								<a href="https://myisoonline.com/public/lms/courses/environmental-awareness-in-construction-2/" class="kt-menu__link" target="_blank">
-									<i class="kt-menu__link-bullet kt-menu__link-bullet--dot">
-										<span></span>
-									</i>
-									<span class="kt-menu__link-text">
+											</a>
+										</li>
+										<li class="kt-menu__item " aria-haspopup="true" style="margin-top:30px;">
+											<a href="https://myisoonline.com/lms/courses/environmental-awareness-in-construction-2/" class="kt-menu__link" target="_blank">
+												<i class="kt-menu__link-bullet kt-menu__link-bullet--dot">
+													<span></span>
+												</i>
+												<span class="kt-menu__link-text">
 Environmental Awareness in Construction</span>
-								</a>
+											</a>
+										</li>
+									</ul>
+								</div>
 							</li>
-
-						</ul>
-					</div>
-				</li>
-							--}}
-
-
-
-
-
-
-
-
-
 
 						</ul>
 					</div>

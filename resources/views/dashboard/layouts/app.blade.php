@@ -33,7 +33,6 @@
 				<div class="kt-grid__item kt-grid__item--fluid kt-grid kt-grid--hor kt-wrapper" id="kt_wrapper">
 
                     @include('dashboard.includes.primary-header')
-                    @toastr_css
 					<!-- <div class="kt-grid__item kt-grid__item--fluid kt-grid kt-grid--hor"> -->
 
 
@@ -44,8 +43,6 @@
 					<!-- </div> -->
 
                     @include('dashboard.includes.footer')
-                    @toastr_js
-                    @toastr_render
 				</div>
 			</div>
 		</div>

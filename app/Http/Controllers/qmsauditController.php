@@ -8,7 +8,6 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Schema;
-use Yoeunes\Toastr\Facades\Toastr;
 use DB;
 use PDF;
 use Illuminate\Support\Facades\Response;

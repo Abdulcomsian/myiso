@@ -71,7 +71,6 @@
 		<script src="../assets/vendors/general/jquery-validation/dist/jquery.validate.js" type="text/javascript"></script>
 		<script src="../assets/vendors/general/jquery-validation/dist/additional-methods.js" type="text/javascript"></script>
 		<script src="../assets/vendors/custom/components/vendors/jquery-validation/init.js" type="text/javascript"></script>
-		<script src="../assets/vendors/general/toastr/build/toastr.min.js" type="text/javascript"></script>
 		<script src="../assets/vendors/general/raphael/raphael.js" type="text/javascript"></script>
 		<script src="../assets/vendors/general/morris.js/morris.js" type="text/javascript"></script>
 		<script src="../assets/vendors/general/chart.js/dist/Chart.bundle.js" type="text/javascript"></script>
