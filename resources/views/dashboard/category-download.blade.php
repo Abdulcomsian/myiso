@@ -13,10 +13,10 @@
  <div style="display: flex; gap:20px;justify-content:space-between;">
     <div style="display: flex; flex-direction: column;">
         @if ($download->download_file)
-        <a href="{{ asset('uploads/downloads/' . $download->download_file) }}" target="_blank"><img src="assets/img/a4-btn.png"  style="width: 80%"></a><br>
+        <a href="{{ asset('uploads/downloads/' . $download->download_file) }}" class="btn-fetch-data" data-id="{{ $download->id }}" target="_blank"><img src="assets/img/a4-btn.png"  style="width: 80%"></a><br>
         @endif
         @if ($download->download_file2)
-        <a href="{{ asset('uploads/downloads/' . $download->download_file2) }}" target="_blank"><img src="assets/img/a5-btn.png"  style="width: 80%"></a><br>
+        <a href="{{ asset('uploads/downloads/' . $download->download_file2) }}" class="btn-fetch-data" data-id="{{ $download->id }}" target="_blank"><img src="assets/img/a5-btn.png"  style="width: 80%"></a><br>
         @endif
     </div>
    

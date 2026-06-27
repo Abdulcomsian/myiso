@@ -12,6 +12,25 @@
             border-radius: 4px;
             border: 1px solid #0d47b3;
         }
+        #image-preview { position: relative; }
+        #image-preview img#output,
+        #image-preview img#view_output {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            background: #fff;
+            z-index: 1;
+        }
+        #image-preview img#output:not([src]),
+        #image-preview img#output[src=""],
+        #image-preview img#view_output:not([src]),
+        #image-preview img#view_output[src=""] {
+            display: none;
+        }
+        #image-preview label[for="image-upload"] { z-index: 6; }
 
         .has_file {
             font-size: 0px !important;
@@ -911,11 +930,7 @@
                                         <input type="file" id="company_profile" name="company_profile"
                                                class="form-control" placeholder="Company Profile">
 
-                                        <span class="form-text text-muted" id="downloadlink">
-
-									 <a href="uploads/user/5f86bde211a21.pdf">Profile</a>
-
-									</span>
+                                        <span class="form-text text-muted" id="downloadlink"></span>
 
 
                                     </div>
@@ -1722,7 +1737,9 @@
 
                 $("input[name='sales_process']").val(data.sales_process);
                 if (data.company_profile != null) {
-                    $('#downloadlink').html('<a target="_blank" href="public/' + data.company_profile + '">View Profile</a>');
+                    $('#downloadlink').html('<a target="_blank" href="{{ asset('/') }}' + data.company_profile + '">View Profile</a>');
+                } else {
+                    $('#downloadlink').html('');
                 }
                 //  $("input[name='company_profile']").val(data.company_profile);
 
@@ -1754,27 +1771,30 @@
                 $("input[name='iso45001_expirydate']").val(data.iso45001_expirydate);
                 $("textarea[name='iso45001_description']").val(data.iso45001_description);
 
-                let logo_src = "https://myisoonline.com/public/" + data.profile_image;
-                $("#output").attr("src", logo_src);
+                if (data.profile_image) {
+                    $("#output").attr("src", "{{ asset('/') }}" + data.profile_image).show();
+                } else {
+                    $("#output").removeAttr("src").hide();
+                }
 
 
                 if (data.iso9001_certificate != null) {
                     // $('#iso9001_certificate').addClass('has_file');
                     $(".iso9001").show();
-                    $("#view_9001").append("<a target='_blank' href='https://myisoonline.com/public/" + data.iso9001_certificate + "'>View</a>");
+                    $("#view_9001").append("<a target='_blank' href='{{ asset('/') }}" + data.iso9001_certificate + "'>View</a>");
                 } else {
                     $(".iso9001").hide();
                 }
                 if (data.iso14001_certificate != null) {
                     // $('#iso14001_certificate').addClass('has_file');
-                    $("#view_4001").append("<a target='_blank' href='https://myisoonline.com/public/" + data.iso14001_certificate + "'>View</a>");
+                    $("#view_4001").append("<a target='_blank' href='{{ asset('/') }}" + data.iso14001_certificate + "'>View</a>");
                     $(".iso4001").show();
                 } else {
                     $(".iso4001").hide();
                 }
                 if (data.iso45001_certificate != null) {
                     // $('#iso45001_certificate').addClass('has_file');
-                    $("#view_45001").append("<a target='_blank' href='https://myisoonline.com/public/" + data.iso45001_certificate + "'>View</a>");
+                    $("#view_45001").append("<a target='_blank' href='{{ asset('/') }}" + data.iso45001_certificate + "'>View</a>");
                     $(".iso45001").show();
 
                 } else
@@ -1908,7 +1928,7 @@
                 $("input[name='sales_process']").val(data.sales_process);
 
                 if (data.company_profile != null) {
-                    $('#view_company_profile').show().attr('href', 'public/' + data.company_profile);
+                    $('#view_company_profile').show().attr('href', '{{ asset('/') }}' + data.company_profile);
                 } else {
                     $('#view_company_profile').hide();
                 }
@@ -1939,23 +1959,26 @@
                 $("input[name='iso45001_expirydate']").val(data.iso45001_expirydate);
                 $("textarea[name='iso45001_description']").val(data.iso45001_description);
 
-                let logo_src = "https://myisoonline.com/public/" + data.profile_image;
-                $("#view_output").attr("src", logo_src);
+                if (data.profile_image) {
+                    $("#view_output").attr("src", "{{ asset('/') }}" + data.profile_image).show();
+                } else {
+                    $("#view_output").removeAttr("src").hide();
+                }
 
 
 
                 if (data.iso9001_certificate != null) {
-                    $("#v_9001").append("<a target='_blank' href='https://myisoonline.com/public/" + data.iso9001_certificate + "'>View</a>");
+                    $("#v_9001").append("<a target='_blank' href='{{ asset('/') }}" + data.iso9001_certificate + "'>View</a>");
                 } else {
                     $('#v_9001').append('Not Found');
                 }
                 if (data.iso14001_certificate != null) {
-                    $("#v_4001").append("<a target='_blank' href='https://myisoonline.com/public/" + data.iso14001_certificate + "'>View</a>");
+                    $("#v_4001").append("<a target='_blank' href='{{ asset('/') }}" + data.iso14001_certificate + "'>View</a>");
                 } else {
                     $('#v_4001').append('Not Found');
                 }
                 if (data.iso45001_certificate != null) {
-                    $("#v_45001").append("<a target='_blank' href='https://myisoonline.com/public/" + data.iso45001_certificate + "'>View</a>");
+                    $("#v_45001").append("<a target='_blank' href='{{ asset('/') }}" + data.iso45001_certificate + "'>View</a>");
                 } else {
                     $('#v_45001').append('Not Found');
                 }

@@ -208,18 +208,15 @@ class UserInfoController extends Controller
         // Fetch data based on $id or perform any actions
         // For example, you can fetch a user or product based on this ID
         $downloadData =  DB::table('downloads')->find($id);
-        // dd($downloadData->name);
-        $downloadexist =  DB::table('users_downloads')->where('download_id',$id)->where('user_id',$userid)->first();
-        
-        //dd($downloadexist);
-        if(empty($downloadexist)){
-        $insert = DB::table('users_downloads')->insert(
-            array(
-                'user_id' => $userid,
-                'download_id' => $id
-            )
-        );
+
+        if ($downloadData) {
+            DB::table('users_downloads')->insert([
+                'user_id'     => $userid,
+                'download_id' => $id,
+                'dated'       => now(),
+            ]);
         }
+
         if ($downloadData) {
             return response()->json(['status' => 'success', 'data' => $downloadData]);
         } else {
