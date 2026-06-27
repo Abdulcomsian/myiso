@@ -564,14 +564,7 @@
 									<span class="kt-menu__link-text">Downloads</span>
 								</a>
 							</li>
-							<li class="kt-menu__item " aria-haspopup="true">
-								<a href="{{url('schedule-training')}}" class="kt-menu__link ">
-									<i class="kt-menu__link-bullet kt-menu__link-bullet--dot">
-										<span></span>
-									</i>
-									<span class="kt-menu__link-text">Schedule Training</span>
-								</a>
-							</li>
+
 							{{-- <li class="kt-menu__item " aria-haspopup="true">
 								<a href="{{url('viewDownload')}}" class="kt-menu__link ">
 									<i class="kt-menu__link-bullet kt-menu__link-bullet--dot">
@@ -772,6 +765,14 @@ Environmental Awareness in Construction</span>
 					</div>
 				</li>
 
+                <li class="kt-menu__item {{ Request::is('schedule-training') ? 'kt-menu__item--active' : '' }}" aria-haspopup="true">
+                    <a href="{{url('schedule-training')}}" class="kt-menu__link ">
+                        <span class="kt-menu__link-icon">
+                            <i class="fa fa-calendar" aria-hidden="true"></i>
+                        </span>
+                        <span class="kt-menu__link-text">Schedule Training</span>
+                    </a>
+                </li>
 
 
 
