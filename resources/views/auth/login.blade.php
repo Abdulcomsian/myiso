@@ -25,6 +25,22 @@
       display: block;
     }
   }
+  @media (max-width: 640px) {
+    .login-terms-row {
+      flex-direction: column;
+      align-items: flex-start;
+      justify-content: flex-start;
+    }
+    .login-terms-row > div,
+    .login-terms-row > a {
+      width: 100%;
+      text-align: left;
+    }
+    .login-terms-row .modal_btn {
+      position: static !important;
+      left: auto !important;
+    }
+  }
 </style>	<link rel="shortcut icon" href="https://myisoonline.com/assets/media/logos/fav.png" />
 
 	</head>
@@ -76,7 +92,7 @@
                         </div>
                     </div>
 
-                    <div class="flex justify-between items-center flex-wrap gap-x-1 gap-y-2 mb-6 mt-3">
+                    <div class="flex justify-between items-center flex-wrap gap-x-1 gap-y-2 mb-6 mt-3 login-terms-row">
                         <div class="inline-flex items-center">
                             <input type="checkbox" id="firstCheckbox" class="h-4 w-4 text-base rounded border-gray-300 text-dark focus:ring focus:ring-default-950/30 focus:ring-offset-0">
                             {{-- <label class="text-base ms-2 text-light font-medium align-middle select-none" id="firstCheckbox" for="checkbox-signin">Remember me</label> --}}
