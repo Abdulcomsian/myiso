@@ -63,7 +63,7 @@ class LoginNotificationSchedule extends Command
 
         foreach ($users as $u) {
             try {
-                $totalDays = Carbon::parse($u->last_login)->diffInDays(now());
+                $totalDays = (int) Carbon::parse($u->last_login)->diffInDays(now());
 
                 foreach ($thresholds as $days => $notificationClass) {
                     if ($totalDays < $days) {
