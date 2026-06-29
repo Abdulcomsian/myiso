@@ -46,115 +46,66 @@ class LoginNotificationSchedule extends Command
     public function handle()
     {
         $userIdToExclude = 1011;
+        $toEmailAddress  = "info@isoonline.com";
 
-        // Get users inactive for at least 90 days
+        // Highest threshold first so a user past 300 days gets the 10-month email,
+        // not a duplicate 3-month one.
+        $thresholds = [
+            300 => TenMonthNotification::class,
+            180 => SixMonthNotification::class,
+            90  => ThreeMonthNotification::class,
+        ];
+
         $users = User::whereNotNull('last_login')
             ->where('last_login', '<=', Carbon::now()->subDays(90))
             ->where('id', '!=', $userIdToExclude)
             ->get();
 
         foreach ($users as $u) {
-
             try {
+                $totalDays = Carbon::parse($u->last_login)->diffInDays(now());
 
-                $lastLogin = Carbon::parse($u->last_login);
+                foreach ($thresholds as $days => $notificationClass) {
+                    if ($totalDays < $days) {
+                        continue;
+                    }
 
-                // Calculate total inactive days
-                $totalDays = $lastLogin->diffInDays(now());
+                    // Dedup within the current inactivity period only — if the user
+                    // logs in again and goes inactive a second time, they will
+                    // receive each threshold's email again for the new period.
+                    $alreadySent = DB::table('send_notification')
+                        ->where('send_to', $u->id)
+                        ->where('total_days', $days)
+                        ->where('created_at', '>', $u->last_login)
+                        ->exists();
 
-                $toEmailAddress = "info@isoonline.com";
-
-                $clientName = $u->name;
-                $clientEmail = $u->email;
-
-                $notificationSent = false;
-
-                /*
-                |--------------------------------------------------------------------------
-                | Send Notifications
-                |--------------------------------------------------------------------------
-                | Using ranges instead of exact equality avoids timezone/cron issues.
-                */
-
-                // 90 Days Notification
-                if ($totalDays >= 90 && $totalDays < 91) {
+                    if ($alreadySent) {
+                        echo "Already sent {$days}-day notification for User ID: {$u->id}<br>";
+                        break;
+                    }
 
                     Notification::route('mail', $toEmailAddress)
-                        ->notify(new ThreeMonthNotification(
-                            $clientName,
-                            $totalDays,
-                            $clientEmail
-                        ));
+                        ->notify(new $notificationClass($u->name, $totalDays, $u->email));
 
-                    $notificationSent = true;
-
-                }
-
-                // 180 Days Notification
-                elseif ($totalDays >= 180 && $totalDays < 181) {
-
-                    Notification::route('mail', $toEmailAddress)
-                        ->notify(new SixMonthNotification(
-                            $clientName,
-                            $totalDays,
-                            $clientEmail
-                        ));
-
-                    $notificationSent = true;
-
-                }
-
-                // 300 Days Notification
-                elseif ($totalDays >= 300 && $totalDays < 301) {
-
-                    Notification::route('mail', $toEmailAddress)
-                        ->notify(new TenMonthNotification(
-                            $clientName,
-                            $totalDays,
-                            $clientEmail
-                        ));
-
-                    $notificationSent = true;
-
-                }
-
-                /*
-                |--------------------------------------------------------------------------
-                | Save Notification Record
-                |--------------------------------------------------------------------------
-                */
-
-                if ($notificationSent) {
-
-                    $randomBytes = random_bytes(4);
-                    $randomInt = unpack('L', $randomBytes)[1];
+                    $randomInt = unpack('L', random_bytes(4))[1];
 
                     DB::table('send_notification')->insert([
-                        'title' => 'You haven`t signed in for the last ' . $totalDays . ' Days',
-                        'send_by' => 1011,
-                        'send_to' => $u->id,
-                        'unique_id' => intval(microtime(true) + $randomInt),
-                        'total_days' => $totalDays,
+                        'title'      => 'You haven`t signed in for the last ' . $totalDays . ' Days',
+                        'send_by'    => 1011,
+                        'send_to'    => $u->id,
+                        'unique_id'  => intval(microtime(true) + $randomInt),
+                        'total_days' => $days,
                         'created_at' => now(),
                         'updated_at' => now(),
                     ]);
 
-                    echo "Email Sent Successfully for User ID: " . $u->id . " | Days: " . $totalDays . "<br>";
-
-                } else {
-
-                    echo "No notification needed for User ID: " . $u->id . " | Days: " . $totalDays . "<br>";
-
+                    echo "Email Sent for User ID: {$u->id} | Threshold: {$days} | Inactive: {$totalDays} days<br>";
+                    break;
                 }
-
             } catch (\Exception $e) {
-
                 Log::error('Login Notification Error: ' . $e->getMessage());
-
-                echo "Error for User ID: " . $u->id . " => " . $e->getMessage() . "<br>";
-
+                echo "Error for User ID: {$u->id} => {$e->getMessage()}<br>";
             }
-
         }
 
         return 0;
