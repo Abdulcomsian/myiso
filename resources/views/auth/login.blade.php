@@ -56,6 +56,11 @@
 
 
             </div>
+			@if(session('error'))
+				<div class="alert" style="background: red !important;color:#fff !important;">
+					{{ session('error') }}
+				</div>
+			@endif
 			@if($errors->any())
 				<div class="alert" style="background: red !important;color:#fff !important;">
 					{{ implode('', $errors->all(':message')) }}
