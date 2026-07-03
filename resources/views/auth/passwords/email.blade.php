@@ -8,16 +8,16 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Forget Password - MyISOOonline</title>
 <meta name="description" content="We provide ISO 9001, ISO 45001, and ISO 14001 certification services. Improve your business quality, environmental responsibility, and health & safety standards with our expert support." />
-<meta name="author" content="MYISOARABIA"/>
+<meta name="author" content="MyISOOnline"/>
 <!-- Main Css -->
 
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script> 
-<script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.7/dist/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script> 
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.7/dist/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
 <link href="{{asset("assets/style.css")}}" rel="stylesheet" type="text/css">
 
-	
+
 <style>
   .mobile-br {
     display: none;
@@ -28,7 +28,7 @@
       display: block;
     }
   }
-</style>	
+</style>
 	</head>
 
 <body style="background-color:#ffffff">
@@ -68,10 +68,10 @@
             </div></div>
         <div class="kt-login__actions">
             <button id="kt_login_forgot_submit" class="w-full inline-flex items-center justify-center px-6 py-2.5 bg-primary font-bold text-base text-white rounded-md transition-all duration-500 btn-brand" type="submit">Request New Password</button>&nbsp;&nbsp;
-             <button 
-            id="kt_login_forgot_cancel" 
-            class="w-full inline-flex items-center justify-center px-6 py-2.5 bg-primary font-bold text-base text-white rounded-md transition-all duration-500 btn-brand" 
-            type="button" 
+             <button
+            id="kt_login_forgot_cancel"
+            class="w-full inline-flex items-center justify-center px-6 py-2.5 bg-primary font-bold text-base text-white rounded-md transition-all duration-500 btn-brand"
+            type="button"
             onclick="window.location.href='{{ route('home') }}'"
         >
             Cancel Request
@@ -80,11 +80,11 @@
     </form>
 </div>
   </div>
- 
- 
- 
- 
- 
+
+
+
+
+
 </section>
 <script>
     $('#firstCheckbox').on("change",function(){
@@ -94,17 +94,17 @@
 			}else{
 				document.querySelector('#SignIN').setAttribute('disabled', '');
 			}
-		});    
-    </script> 
-<!-- =========== Main Section End =========== --> 
+		});
+    </script>
+<!-- =========== Main Section End =========== -->
 
-<!-- Preline Js --> 
-<script src="{{asset("js/en/js/preline.js")}}" ></script> 
+<!-- Preline Js -->
+<script src="{{asset("js/en/js/preline.js")}}" ></script>
 
-<!-- Lucide Js --> 
-<script src="{{asset("js/en/js/lucide.min.js")}}" ></script> 
+<!-- Lucide Js -->
+<script src="{{asset("js/en/js/lucide.min.js")}}" ></script>
 
-<!-- Main App Js --> 
+<!-- Main App Js -->
 <script src="{{asset("js/en/js/app.js")}}" ></script>
 </body>
 </html>
