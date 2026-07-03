@@ -12,7 +12,7 @@
 		</div>
 	</div> --}}
 	<section id="procedure_section" class="mt-3">
-		
+
 
 	  <!-- Category Dropdown -->
 <div class="row">
@@ -34,7 +34,7 @@
 <!-- Default Downloads -->
 <div id="default-downloads" style="width: 100%;">
     @foreach($all_downloads as $download)
-  
+
         <div style="display: flex; margin-left: 2em; margin-right: 2em; background:#f0f4fd; gap:80px; margin-bottom:20px; padding:30px 20px; align-items:center; border-radius:12px; ">
             <div style="display:flex; align-items:center; gap:40px">
                 @if ($download->thumb_nail)
@@ -44,17 +44,17 @@
                 @endif
 				<div style="color:#084f95; font-size: 18px; font-weight:600; text-align:left;width:170px;">{{ $download->name }}</div>
             </div>
-           
+
          <div style="display: flex; gap:20px;justify-content:space-between;">
             <div style="display: flex; flex-direction: column;">
                 @if ($download->download_file)
-                <a href="{{ asset('uploads/downloads/' . $download->download_file) }}" class="btn-fetch-data" data-id="{{ $download->id }}" target="_blank"><img src="assets/img/a4-btn.png"  style="width: 80%"></a><br>
+                <a href="{{ asset('uploads/downloads/' . $download->download_file) }}" class="btn-fetch-data" data-id="{{ $download->id }}" target="_blank"><img src="{{ asset('assets/img/a4-btn.png') }}"  style="width: 80%"></a><br>
                 @endif
                 @if ($download->download_file2)
-                <a href="{{ asset('uploads/downloads/' . $download->download_file2) }}" class="btn-fetch-data" data-id="{{ $download->id }}" target="_blank"><img src="assets/img/a5-btn.png"  style="width: 80%"></a><br>
+                <a href="{{ asset('uploads/downloads/' . $download->download_file2) }}" class="btn-fetch-data" data-id="{{ $download->id }}" target="_blank"><img src="{{ asset('assets/img/a5-btn.png') }}"  style="width: 80%"></a><br>
                 @endif
             </div>
-           
+
          </div>
         </div>
     @endforeach
@@ -72,7 +72,7 @@
 			var hrefValue = $(this).attr('href');  // Get the href attribute value
 			// Get the data-id from the clicked button
 			var dataId = $(this).data('id');
-			
+
 			$.ajax({
 				url: "{{ route('user.get-data') }}",
 				type: 'POST',
@@ -104,16 +104,16 @@
 		$(document).ready(function() {
 			$('#category-select').change(function() {
 				let category = $(this).val();
-	
+
 				// Make an AJAX request to filter downloads
 				$.ajax({
 					url: "{{ route('downloads.userfilter') }}", // Define this route in web.php
 					type: "GET",
 					data: { category: category },
 					success: function(response) {
-						// Hide the default downloads   
+						// Hide the default downloads
 						$('#default-downloads').hide();
-	
+
 						// Display the filtered downloads
 						$('#filtered-downloads').html(response).show();
 					},
