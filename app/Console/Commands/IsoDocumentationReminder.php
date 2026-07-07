@@ -20,7 +20,7 @@ class IsoDocumentationReminder extends Command
     {
         $userIdToExclude = 1011;
 
-        $users = User::where('id', '!=', $userIdToExclude)->where('email' , 'user@isoonline.com')->get();
+        $users = User::where('id', '!=', $userIdToExclude)->get();
 
         foreach ($users as $u) {
             try {
