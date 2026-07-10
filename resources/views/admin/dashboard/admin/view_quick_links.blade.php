@@ -1,10 +1,21 @@
 @extends('admin.dashboard.layouts.app')
 @section('content')
 <!-- begin:: Content -->
-<div class="kt-content  kt-grid__item kt-grid__item--fluid" id="kt_content">
+<div class="kt-content  kt-grid__item kt-grid__item--fluid" id="kt_content" style="padding:26px;">
+
+    <div class="am-page-header">
+        <div>
+            <h2>Quick Links</h2>
+            <p>Manage the quick access links and categories shown to clients.</p>
+        </div>
+        <div style="display:flex;gap:8px;">
+            <a href="#" data-toggle="collapse" data-target="#new_faq_cate" class="am-btn am-btn-outline"><i class="fa fa-folder-plus"></i> New Category</a>
+            <a href="#" data-toggle="collapse" data-target="#new_faq" class="am-btn am-btn-primary"><i class="fa fa-plus"></i> New Link</a>
+        </div>
+    </div>
 
     <div class="kt-portlet kt-portlet--mobile">
-        <div class="kt-portlet__head kt-portlet__head--lg">
+        <div class="kt-portlet__head kt-portlet__head--lg" style="display:none;">
             <div class="kt-portlet__head-label">
                 <span class="kt-portlet__head-icon">
                     <i class="kt-font-brand flaticon2-line-chart"></i>

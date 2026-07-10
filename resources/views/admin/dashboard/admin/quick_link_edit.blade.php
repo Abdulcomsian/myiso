@@ -1,10 +1,20 @@
 @extends('admin.dashboard.layouts.app')
 @section('content')
 <!-- begin:: Content -->
-<div class="kt-content  kt-grid__item kt-grid__item--fluid" id="kt_content">
+<div class="kt-content  kt-grid__item kt-grid__item--fluid" id="kt_content" style="padding:26px;">
+
+    <div class="am-page-header">
+        <div>
+            <h2>Edit Quick Link</h2>
+            <p>Update the details of this quick link.</p>
+        </div>
+        <div>
+            <a href="{{ url('/upload') }}" class="am-btn am-btn-outline"><i class="fa fa-arrow-left"></i> Back</a>
+        </div>
+    </div>
 
     <div class="kt-portlet kt-portlet--mobile">
-        <div class="kt-portlet__head kt-portlet__head--lg">
+        <div class="kt-portlet__head kt-portlet__head--lg" style="display:none;">
             <div class="kt-portlet__head-label">
                 <span class="kt-portlet__head-icon">
                     <i class="kt-font-brand flaticon2-line-chart"></i>
@@ -13,7 +23,6 @@
                     Edit Quck link
                 </h3>
             </div>
-
         </div>
 	@if ($message = Session::get('msg'))
 		<div class="row">

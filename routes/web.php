@@ -135,6 +135,10 @@ Route::group(['middleware' => ['auth','admin']], function ()
 {
     Route::get('/admin', 'AdminController@index');
     Route::get('/view_user', 'AddUsersController@index');
+    Route::get('/view_user_modern', function () {
+        $users = \App\AddUsers::orderBy('id', 'desc')->get();
+        return view('admin.dashboard.admin.view_user_modern', compact('users'));
+    });
     Route::post('/add_user', 'AddUsersController@store')->name('add_user');
     Route::post('/deleteuserd', 'AddUsersController@destroy')->name('deleteuserd');
     Route::post('/updateuserinfo', 'AddUsersController@update')->name('updateuserinfo');

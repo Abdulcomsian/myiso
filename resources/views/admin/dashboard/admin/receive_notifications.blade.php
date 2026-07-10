@@ -4,22 +4,26 @@
 <style>tr.New>td {    color: #000 !important;    font-weight: 800;    cursor: pointer;}tr.New>button {    color: #FFF !important;    font-weight: 800;    cursor: pointer;}
 </style>
 <!-- begin:: Content -->
-<div class="kt-content  kt-grid__item kt-grid__item--fluid" id="kt_content">
-	@if ($message = Session::get('success'))
-	<div class="alert alert-light alert-elevate" role="alert">
-		<!-- <div class="alert-icon"><i class="flaticon-warning kt-font-brand"></i></div> -->
-		<!-- <div class="alert-text">
-			DataTables has the ability to read data from virtually any JSON data source that can be obtained by Ajax. This can be done, in its most simple form, by setting the ajax option to the address of the JSON data source.
-			See official documentation <a class="kt-link kt-font-bold" href="https://datatables.net/examples/data_sources/ajax.html" target="_blank">here</a>.
-		</div> -->
+<div class="kt-content  kt-grid__item kt-grid__item--fluid" id="kt_content" style="padding:26px;">
 
-	        <!-- <div class="alert alert-success"> -->
-	            <p>{{ $message }}</p>
-	        <!-- </div> -->
+	<div class="am-page-header">
+		<div>
+			<h2>Inbox</h2>
+			<p>Messages received from clients across the platform.</p>
+		</div>
+		<div>
+			<a href="{{ url('/send_message') }}" class="am-btn am-btn-primary"><i class="fa fa-paper-plane"></i> New Message</a>
+		</div>
+	</div>
+
+	@if ($message = Session::get('success'))
+	<div class="am-card" style="padding:14px 20px;margin-bottom:16px;color:#1a8a5c;background:rgba(38,194,129,0.08);">
+		<i class="fa fa-check-circle"></i> {{ $message }}
 	</div>
 	@endif
+
 	<div class="kt-portlet kt-portlet--mobile">
-		<div class="kt-portlet__head kt-portlet__head--lg">
+		<div class="kt-portlet__head kt-portlet__head--lg" style="display:none;">
 			<div class="kt-portlet__head-label">
 				<span class="kt-portlet__head-icon">
 					<i class="kt-font-brand flaticon2-line-chart"></i>

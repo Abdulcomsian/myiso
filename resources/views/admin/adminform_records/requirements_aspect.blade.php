@@ -1,302 +1,353 @@
 @extends('admin.dashboard.layouts.app')
 
 @section('content')
-<style>
-    input[type="date"]::-webkit-datetime-edit, input[type="date"]::-webkit-inner-spin-button, input[type="date"]::-webkit-clear-button {
-  color: #fff;
-  position: relative;
-}
+@php $urlparam = request()->route()->parameters; @endphp
 
-input[type="date"]::-webkit-datetime-edit-year-field{
-  position: absolute !important;
-  border-left:1px solid #8c8c8c;
-  padding: 2px;
-  color:#000;
-  left: 56px;
-}
+<div class="kt-content kt-grid__item kt-grid__item--fluid" id="kt_content" style="padding:26px;">
 
-input[type="date"]::-webkit-datetime-edit-month-field{
-  position: absolute !important;
-  border-left:1px solid #8c8c8c;
-  padding: 2px;
-  color:#000;
-  left: 26px;
-}
+    {{-- Page header --}}
+    <div class="am-page-header">
+        <div>
+            <h2>Requirements Due</h2>
+            <p>A compliance diary — track items that need periodic action (reviews, audits, calibrations).</p>
+        </div>
+        <div>
+            <a href="{{ url('/edit_user/'.$urlparam['userid']) }}" class="am-btn am-btn-outline">
+                <i class="fa fa-arrow-left"></i> Back to Forms
+            </a>
+        </div>
+    </div>
 
+    {{-- Flash messages --}}
+    @if ($message = Session::get('msg'))
+        <div class="am-card" style="padding:14px 20px;margin-bottom:16px;color:#1a8a5c;background:rgba(38,194,129,0.08);">
+            <i class="fa fa-check-circle"></i> {{ $message }}
+        </div>
+    @endif
 
-input[type="date"]::-webkit-datetime-edit-day-field{
-  position: absolute !important;
-  color:#000;
-  padding: 2px;
-  left: 4px;
-  
-}
-</style>
-<!-- begin:: Content -->
-<div class="kt-content  kt-grid__item kt-grid__item--fluid" id="kt_content">
-
-	<!--Begin::Dashboard 1-->
-
-
-	<!--Begin::Section-->
-	<div class="row">
-		<div class="col-xl-12 col-lg-12">
-			<h2>Requirements Due</h2>
-		</div>
-	</div>
-	<section id="procedure_section">
-	<p>This section can be considered as a diary shown on your MyISOOnline control panel. Simply add items that need to be recalled on a regular basis, such as when management reviews are due, or calibration audits are required.</p>
-					<p>To add a requirement, click on the “Add a Requirement” then enter the information you would like to be reminded of and set the reminder date using the calendar.</p>
-                    <div class="procedure_div">
-                    	<div class="row">
-                    		<div class="col-lg-12 text-right">
-                    			<a onclick="requirementFrom()" class="addBtn">ADD A REQUIRMENT</a>
-                    		</div>
-                    	</div>
-                    	<div class="requirments_from_div">
-                    		<form action="{{route('addRequirementadmin')}}" method="POST">
-                    		    @csrf
-                    			<div class="form-group">
-									<label>Requirement:</label>
-									<input type="text" class="form-control" name="requirement" aria-describedby="emailHelp" placeholder="Enter Requirement:" required>
-								</div>
-								<div class="row">
-									<div class="col-lg-6">
-										<div class="form-group">
-											<label>Requirement Completion Date of the Activity (dd/mm/yyyy):</label>
-											<input type="date" max="2999-12-31" name="req_date" class="form-control" aria-describedby="emailHelp" placeholder="dd/mm/yyyy" value="yyyy/mm/dd" required>
-										</div>
-									</div>
-									<div class="col-lg-6">
-										<div class="form-group">
-											<label>Periodicity (Months):</label>
-											<input type="number" min="1" max="12" name="period" class="form-control validate_number" aria-describedby="emailHelp" placeholder="Enter Months:" required>
-										</div>
-									</div>
-								</div>
-								
-            @php 
-            $urlparam = request()->route()->parameters;
-            @endphp  
-
-<input type="hidden" name="user_id" value="{{ $urlparam['userid'] }}">
-
-								<button type="submit" class="submitBtn">SUBMIT</button>
-								<button type="reset" class="submitBtn" style="
-    margin-right: 20px;
-" onclick="requirementFrom()">Cancel</button>
-                    		</form>
-                    	</div>
-                    </div>
-		<div class="row">
-			<div class="col-lg-12">
-                    <div class="procedure_div">
-						{{-- <div class="kt-portlet__head-toolbar"> --}}
-							{{-- <div class="kt-portlet__head-wrapper"> --}}
-								<a href="/edit_user/{{ $urlparam['userid'] }}" class="btn btn-clean btn-icon-sm back_icon" style="float: right;">
-									<i class="la la-long-arrow-left"></i>
-									Back
-								</a>
-						
-					
-                    	<div class="requirments_table_div">
-                    		<div class="kt-portlet__body table-responsive">
-								
-                                <!--begin: Datatable -->
-
-								<table class="common_table table table-striped- table-bordered table-hover table-checkable table-responsive" id="kt_table_agent">
-									<thead>
-										<tr>
-											<th>No.</th>
-											<th>Requirements.</th>
-											<th>Date Completed</th>
-											<th>Periodicity
-												(Months)</th>
-											<th>Due Date</th>
-											<th>Action</th>
-										</tr>
-									</thead>
-									<tbody>
-										<?php $counter=0; ?>
-                                        @foreach ($getReq as $data)
-                                        <?php $counter++; ?>
-										<tr>
-											<td> {{ $counter}}</td>
-											<td>{{ $data->requirment_title}}</td>
-											<td>{{ date("d/m/Y",strtotime($data->completion_date)) }}</td>
-											<td>{{ $data->periods}}</td>
-												@php 
-											$d = strtotime("+$data->periods months",strtotime($data->completion_date)); 
-										$d_id = $data->id;
-											@endphp
-											<td>{{ date("d/m/Y",$d)}}</td>
-                                        <td>
-											<button  class="btn btn-sm btn-clean btn-icon btn-icon-md" title="Edit" 
-                                            onclick="getEid({{json_encode($data)}});">								<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="18px" height="18px" viewBox="0 0 24 24" version="1.1">										<g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">											<rect x="0" y="0" width="24" height="24"></rect>											<path d="M12.2674799,18.2323597 L12.0084872,5.45852451 C12.0004303,5.06114792 12.1504154,4.6768183 12.4255037,4.38993949 L15.0030167,1.70195304 L17.5910752,4.40093695 C17.8599071,4.6812911 18.0095067,5.05499603 18.0083938,5.44341307 L17.9718262,18.2062508 C17.9694575,19.0329966 17.2985816,19.701953 16.4718324,19.701953 L13.7671717,19.701953 C12.9505952,19.701953 12.2840328,19.0487684 12.2674799,18.2323597 Z" fill="#5d78ff" fill-rule="nonzero" transform="translate(14.701953, 10.701953) rotate(-135.000000) translate(-14.701953, -10.701953) "></path>											<path d="M12.9,2 C13.4522847,2 13.9,2.44771525 13.9,3 C13.9,3.55228475 13.4522847,4 12.9,4 L6,4 C4.8954305,4 4,4.8954305 4,6 L4,18 C4,19.1045695 4.8954305,20 6,20 L18,20 C19.1045695,20 20,19.1045695 20,18 L20,13 C20,12.4477153 20.4477153,12 21,12 C21.5522847,12 22,12.4477153 22,13 L22,18 C22,20.209139 20.209139,22 18,22 L6,22 C3.790861,22 2,20.209139 2,18 L2,6 C2,3.790861 3.790861,2 6,2 L12.9,2 Z" fill="#5d78ff" fill-rule="nonzero" opacity="0.3"></path>										</g>									</svg>
-                                            </button>
-										<!--<button class="btn btn-sm btn-clean btn-icon btn-icon-md" title="Delete"  onclick="deleteModal({{json_encode($data)}});" ><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="18px" height="18px" viewBox="0 0 24 24" version="1.1">										<g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">											<rect x="0" y="0" width="24" height="24"></rect>											<path d="M6,8 L6,20.5 C6,21.3284271 6.67157288,22 7.5,22 L16.5,22 C17.3284271,22 18,21.3284271 18,20.5 L18,8 L6,8 Z" fill="#5d78ff" fill-rule="nonzero"></path>											<path d="M14,4.5 L14,4 C14,3.44771525 13.5522847,3 13,3 L11,3 C10.4477153,3 10,3.44771525 10,4 L10,4.5 L5.5,4.5 C5.22385763,4.5 5,4.72385763 5,5 L5,5.5 C5,5.77614237 5.22385763,6 5.5,6 L18.5,6 C18.7761424,6 19,5.77614237 19,5.5 L19,5 C19,4.72385763 18.7761424,4.5 18.5,4.5 L14,4.5 Z" fill="#5d78ff" opacity="0.3"></path>										</g>									</svg>-->
-          <!--                              </button>-->
-                                        
-<button data-toggle="modal" data-target="#confirm-{{$d_id}}" id="remove_{{$d_id}}" title="Delete" class="btn btn-sm btn-clean btn-icon btn-icon-md">
- <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="18px" height="18px" viewBox="0 0 24 24" version="1.1">										<g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">											<rect x="0" y="0" width="24" height="24"></rect>											<path d="M6,8 L6,20.5 C6,21.3284271 6.67157288,22 7.5,22 L16.5,22 C17.3284271,22 18,21.3284271 18,20.5 L18,8 L6,8 Z" fill="#5d78ff" fill-rule="nonzero"></path>											<path d="M14,4.5 L14,4 C14,3.44771525 13.5522847,3 13,3 L11,3 C10.4477153,3 10,3.44771525 10,4 L10,4.5 L5.5,4.5 C5.22385763,4.5 5,4.72385763 5,5 L5,5.5 C5,5.77614237 5.22385763,6 5.5,6 L18.5,6 C18.7761424,6 19,5.77614237 19,5.5 L19,5 C19,4.72385763 18.7761424,4.5 18.5,4.5 L14,4.5 Z" fill="#5d78ff" opacity="0.3"></path>										</g>									</svg>
-</button>
-                  <!-- Delete Modal -->
-
-                  <div class="modal fade modal-mini modal-primary" id="confirm-{{$d_id}}" tabindex="-1" role="dialog" aria-labelledby="confirm" aria-hidden="true">
-                    <div class="modal-dialog">
-                      <div class="modal-content">
-                        <form action="{{route('deleteRequirementadmin')}}" method="post">
-                          <div class="modal-header justify-content-center"> @csrf 
-                            <div class="modal-profile"><h5>Deleting an entry</h5></div>
-                          </div>
-                          <div class="modal-body text-center">
-                            <p>Are you sure you want to delete this entry?</p>
-                          </div>
-                          <div class="modal-footer">
-                              <input type="hidden" name="id" value="{{$d_id}}">
-				<button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
-				<button type="submit" class="btn btn-danger">Yes</button>
-                          </div>
-                        </form>
-                      </div>
-                    </div>
-                  </div>
-
-                   <button class="btn btn-sm btn-clean btn-icon btn-icon-md"
-													title="View Customer Details" value="" o data-toggle="modal" data-target="#modal{{$data->id}}"><i
-														class="fa fa-eye"></i>
-											   </button>
-											   <div class="modal fade" id="modal{{$data->id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-					<div class="modal-dialog" role="document">
-						<div class="modal-content">
-							<div class="modal-header">
-								<h5 class="modal-title" id="exampleModalLabel">Amend a
-									Requirement.</h5>
-								<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-								</button>
-				            </div>
-							
-							<div class="modal-body">
-								
-									
-				                    <div class="form-group">
-										<label>Requirement:</label>
-										<input type="text" class="form-control"  name="requirment_title"  placeholder="Enter Requirement:" value="{{$data->requirment_title}}" readonly>
-									</div>
-									<div class="form-group">
-										<label>Requirement Completion Date of the Activity (DD/MM/YYYY):</label>
-										<input type="date" class="form-control"  name="completion_date" required placeholder="Enter Requirement:" value="{{$data->completion_date}}" readonly>
-									</div>
-									<div class="form-group">
-										<label>Periodicity (Months):</label>
-										<input type="number" class="form-control periodicity" onkeyup="myFunction()" min="1" max="12"  name="periods" required placeholder="Enter Months:" value="{{$data->periods}}" readonly>
-									</div>
-
-							</div>
-							<div class="modal-footer">
-								<button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-				            </div>
-				        </form>
-						</div>
-					</div>
-				</div>
-                                    </td>
-                                        </tr>
-                                        @endforeach
-									</tbody>
-								</table>
-								<!--end: Datatable -->
-                    	</div>
-                    </div>
-			</div>
-		</div>
-	</section>
-
-	<!--End::Section-->
-</div>
-<div class="modal fade" id="deleteRequirment" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-	<div class="modal-dialog" role="document">
-		<div class="modal-content">
-			<div class="modal-header">
-				<h5 class="modal-title" id="exampleModalLabel">Deleting an
-					entry.</h5>
-				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-				</button>
-			</div>
-			<div class="modal-body">
-				<p>Are you sure you want to delete this entry?</p>
-			</div>
-			<div class="modal-footer">
-            <form action="{{route('deleteRequirementadmin')}}" method="POST">
-                    @csrf
-                    <input type="hidden" name="id" value="" id="re_id">
-
-				<button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
-				<button type="submit" class="btn btn-danger">Yes</button>
-				</form>
-			</div>
-		</div>
-	</div>
-</div>
-<div class="modal fade" id="editRequirment" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-	<div class="modal-dialog" role="document">
-		<div class="modal-content">
-			<div class="modal-header">
-				<h5 class="modal-title" id="exampleModalLabel">Amend a
-					Requirement.</h5>
-				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-				</button>
+    {{-- Info card --}}
+    <div class="am-card" style="padding:16px 20px;margin-bottom:16px;background:rgba(46,59,154,0.04);border:1px solid rgba(46,59,154,0.12);">
+        <div style="display:flex;gap:12px;align-items:flex-start;">
+            <span style="width:36px;height:36px;flex-shrink:0;border-radius:10px;background:var(--am-primary-tint);color:var(--am-primary);display:inline-flex;align-items:center;justify-content:center;font-size:15px;">
+                <i class="fa fa-info-circle"></i>
+            </span>
+            <div style="font-size:13px;color:var(--am-text);line-height:1.55;">
+                Add items that need to be recalled on a regular basis, such as when management reviews are due, or calibration audits are required.
+                Click <strong>Add a Requirement</strong>, enter the information you'd like to be reminded of, and set the reminder date using the calendar.
             </div>
-			<form action="{{route('updaterequiremntadmin')}}" method="POST">
-			<div class="modal-body">
-				@csrf
-					<input type="hidden" name="requirment_id" value="" id="id_feild" >
-					
-                    <div class="form-group">
-						<label>Requirement:</label>
-						<input type="text" class="form-control" value="" name="requirment_title" required placeholder="Enter Requirement:">
-					</div>
-					<div class="form-group">
-						<label>Requirement Completion Date of the Activity (DD/MM/YYYY):</label>
-						<input type="date" class="form-control" value="" name="completion_date" required placeholder="Enter Requirement:">
-					</div>
-					<div class="form-group">
-						<label>Periodicity (Months):</label>
-						<input type="number" class="form-control periodicity" onkeyup="myFunction()" min="1" max="12" value="" name="periods" required placeholder="Enter Months:">
-					</div>
+        </div>
+    </div>
 
-			</div>
-			<div class="modal-footer">
-				<button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-				<button type="submit" class="btn btn-danger">Update</button>
+    {{-- Toolbar + Add form --}}
+    <div class="am-card" style="margin-bottom:16px;">
+        <div class="am-card__toolbar">
+            <div class="am-search" style="flex:1;max-width:340px;">
+                <i class="fa fa-search"></i>
+                <input type="text" id="amReqSearch" placeholder="Search requirements…" autocomplete="off">
+            </div>
+            <button type="button" class="am-btn am-btn-primary" id="toggleReqForm">
+                <i class="fa fa-plus"></i> Add a Requirement
+            </button>
+        </div>
 
+        <div class="am-inline-form" id="newReqForm" style="margin:16px 20px;">
+            <form action="{{ route('addRequirementadmin') }}" method="POST">
+                @csrf
+                <input type="hidden" name="user_id" value="{{ $urlparam['userid'] }}">
+                <div class="form-row">
+                    <div style="grid-column:1/-1;">
+                        <label>Requirement</label>
+                        <input type="text" name="requirement" placeholder="Enter requirement" required>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div>
+                        <label>Completion Date</label>
+                        <input type="date" max="2999-12-31" name="req_date" required>
+                    </div>
+                    <div>
+                        <label>Periodicity (Months, 1–12)</label>
+                        <input type="number" min="1" max="12" name="period" placeholder="e.g. 3" required>
+                    </div>
+                </div>
+                <div class="form-actions">
+                    <button type="button" class="am-btn am-btn-outline am-btn-sm" id="cancelReqForm">Cancel</button>
+                    <button type="submit" class="am-btn am-btn-primary am-btn-sm"><i class="fa fa-check"></i> Save</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    {{-- Table card --}}
+    <div class="am-card">
+        <div class="am-table-wrap">
+            <table class="am-table" id="amReqTable">
+                <thead>
+                    <tr>
+                        <th style="width:60px;">#</th>
+                        <th>Requirement</th>
+                        <th>Date Completed</th>
+                        <th>Periodicity</th>
+                        <th>Due Date</th>
+                        <th style="text-align:right;">Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @forelse ($getReq as $index => $data)
+                        @php
+                            $due = strtotime("+$data->periods months", strtotime($data->completion_date));
+                            $daysToDue = intval(($due - time()) / 86400);
+                        @endphp
+                        <tr data-search="{{ strtolower($data->requirment_title) }}">
+                            <td><span class="am-cell-sub">#{{ $index + 1 }}</span></td>
+                            <td>
+                                <span class="am-cell-primary">{{ $data->requirment_title }}</span>
+                            </td>
+                            <td>
+                                <span class="am-chip info">{{ date('d M Y', strtotime($data->completion_date)) }}</span>
+                            </td>
+                            <td>
+                                <span class="am-cell-sub">Every</span>
+                                <span class="am-cell-primary">{{ $data->periods }} months</span>
+                            </td>
+                            <td>
+                                @if ($daysToDue < 0)
+                                    <span class="am-chip danger">Overdue</span>
+                                @elseif ($daysToDue < 30)
+                                    <span class="am-chip warning">{{ date('d M Y', $due) }}</span>
+                                @else
+                                    <span class="am-chip success">{{ date('d M Y', $due) }}</span>
+                                @endif
+                            </td>
+                            <td style="text-align:right;white-space:nowrap;">
+                                <div class="am-actions">
+                                    <button type="button" class="am-icon-btn" title="View"
+                                            onclick='amReqView(@json($data))'><i class="fa fa-eye"></i></button>
+                                    <button type="button" class="am-icon-btn" title="Edit"
+                                            onclick='amReqEdit(@json($data))'><i class="fa fa-pen"></i></button>
+                                    <button type="button" class="am-icon-btn danger am-confirm-delete"
+                                            title="Delete"
+                                            data-action="{{ route('deleteRequirementadmin') }}"
+                                            data-id="{{ $data->id }}"
+                                            data-label="{{ $data->requirment_title }}"
+                                            data-type="Requirement">
+                                        <i class="fa fa-trash"></i>
+                                    </button>
+                                </div>
+                            </td>
+                        </tr>
+                    @empty
+                        <tr>
+                            <td colspan="6">
+                                <div class="am-empty">
+                                    <i class="fa fa-list-check"></i>
+                                    <p class="text-center">No requirements added yet.</p>
+                                </div>
+                            </td>
+                        </tr>
+                    @endforelse
+                </tbody>
+            </table>
+        </div>
+
+        <div class="am-pagination" id="amReqPagination">
+            <div class="am-pagination__info" id="amReqPaginationInfo">
+                Showing {{ count($getReq) }}
+            </div>
+            <div class="am-pagination__nav" id="amReqPaginationNav"></div>
+        </div>
+    </div>
+
+</div>
+
+{{-- View Modal --}}
+<div class="am-modal" id="amReqView" role="dialog" aria-modal="true">
+    <div class="am-modal__box" style="max-width:520px;">
+        <div class="am-modal__header">
+            <span class="am-modal__icon" style="background:var(--am-primary-tint);color:var(--am-primary);"><i class="fa fa-eye"></i></span>
+            <h4 class="am-modal__title">Requirement Details</h4>
+        </div>
+        <div class="am-modal__body">
+            <div style="margin-bottom:14px;">
+                <p style="font-size:11.5px;text-transform:uppercase;letter-spacing:0.4px;color:var(--am-text-muted);margin:0 0 4px 0;font-weight:600;">Requirement</p>
+                <p style="font-size:14px;color:var(--am-text);margin:0;font-weight:600;" id="vReqTitle">—</p>
+            </div>
+            <div style="margin-bottom:14px;">
+                <p style="font-size:11.5px;text-transform:uppercase;letter-spacing:0.4px;color:var(--am-text-muted);margin:0 0 4px 0;font-weight:600;">Completion Date</p>
+                <p style="font-size:13.5px;color:var(--am-text);margin:0;" id="vReqDate">—</p>
+            </div>
+            <div>
+                <p style="font-size:11.5px;text-transform:uppercase;letter-spacing:0.4px;color:var(--am-text-muted);margin:0 0 4px 0;font-weight:600;">Periodicity</p>
+                <p style="font-size:13.5px;color:var(--am-text);margin:0;" id="vReqPeriod">—</p>
+            </div>
+        </div>
+        <div class="am-modal__footer">
+            <button type="button" class="am-btn am-btn-outline am-modal-close">Close</button>
+        </div>
+    </div>
+</div>
+
+{{-- Edit Modal --}}
+<div class="am-modal" id="amReqEdit" role="dialog" aria-modal="true">
+    <div class="am-modal__box am-form" style="max-width:560px;">
+        <div class="am-modal__header">
+            <span class="am-modal__icon" style="background:var(--am-primary-tint);color:var(--am-primary);"><i class="fa fa-pen"></i></span>
+            <h4 class="am-modal__title">Edit Requirement</h4>
+        </div>
+        <form action="{{ route('updaterequiremntadmin') }}" method="POST" style="display:contents;">
+            @csrf
+            <div class="am-modal__body">
+                <input type="hidden" name="requirment_id" id="eReqId">
+                <div style="margin-bottom:16px;">
+                    <label>Requirement</label>
+                    <input type="text" class="form-control" name="requirment_title" id="eReqTitle" required>
+                </div>
+                <div style="margin-bottom:16px;">
+                    <label>Completion Date</label>
+                    <input type="date" class="form-control" name="completion_date" id="eReqDate" required>
+                </div>
+                <div>
+                    <label>Periodicity (Months, 1–12)</label>
+                    <input type="number" class="form-control" min="1" max="12" name="periods" id="eReqPeriod" required>
+                </div>
+            </div>
+            <div class="am-modal__footer">
+                <button type="button" class="am-btn am-btn-outline am-modal-close">Cancel</button>
+                <button type="submit" class="am-btn am-btn-primary"><i class="fa fa-check"></i> Update</button>
             </div>
         </form>
-		</div>
-	</div>
+    </div>
 </div>
-@endsection
+
+{{-- Delete Confirmation Modal --}}
+<div class="am-modal" id="amConfirmDelete" role="dialog" aria-modal="true">
+    <div class="am-modal__box">
+        <div class="am-modal__header">
+            <span class="am-modal__icon"><i class="fa fa-exclamation-triangle"></i></span>
+            <h4 class="am-modal__title">Delete <span id="amConfirmType">Requirement</span>?</h4>
+        </div>
+        <div class="am-modal__body">
+            You are about to permanently delete <strong id="amConfirmLabel">this item</strong>. This action cannot be undone.
+        </div>
+        <div class="am-modal__footer">
+            <button type="button" class="am-btn am-btn-outline am-modal-close">Cancel</button>
+            <form id="amConfirmForm" method="POST" style="display:inline;">
+                @csrf
+                <input type="hidden" name="id" id="amConfirmId">
+                <button type="submit" class="am-btn" style="background:var(--am-danger);color:#fff;">
+                    <i class="fa fa-trash"></i> Yes, delete
+                </button>
+            </form>
+        </div>
+    </div>
+</div>
+
 <script>
-    function myFunction(){
-        var value=$(".periodicity").val();
-        if(value<=0)
-           { 
-              $(".periodicity").val();
-           }else if(value>12){
-               $(".periodicity").val(12);
-           } 
-    }
-   function getEid(data){
+    // ---- Modern modal helpers ----
+    function openAmModal(id) { var m = document.getElementById(id); m && m.classList.add('open'); }
+    document.addEventListener('click', function(e) {
+        var close = e.target.closest('.am-modal-close');
+        if (close) { var m = close.closest('.am-modal'); if (m) m.classList.remove('open'); return; }
+        if (e.target.classList && e.target.classList.contains('am-modal')) e.target.classList.remove('open');
+    });
+    document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape') document.querySelectorAll('.am-modal.open').forEach(function(m){ m.classList.remove('open'); });
+    });
 
-        $("#id_feild").val(data.id);
-		$("input[name='periods']").val(data.periods);
-		$("input[name='requirment_title']").val(data.requirment_title);
-		$("input[name='completion_date']").val(data.completion_date);
-        $("#editRequirment").modal('show');
-    }
-    function deleteModal(data){
-        $("#re_id").val(data.id);
-        $("#deleteRequirment").modal('show');
+    // ---- Add form toggle ----
+    (function() {
+        var btn = document.getElementById('toggleReqForm');
+        var cancel = document.getElementById('cancelReqForm');
+        var form = document.getElementById('newReqForm');
+        btn && btn.addEventListener('click', function() { form.classList.toggle('open'); });
+        cancel && cancel.addEventListener('click', function() { form.classList.remove('open'); });
+    })();
 
+    // ---- View / Edit fillers ----
+    function amReqView(data) {
+        document.getElementById('vReqTitle').textContent = data.requirment_title || '—';
+        document.getElementById('vReqDate').textContent = data.completion_date ? new Date(data.completion_date).toLocaleDateString('en-GB', { day: '2-digit', month: 'short', year: 'numeric' }) : '—';
+        document.getElementById('vReqPeriod').textContent = 'Every ' + data.periods + ' months';
+        openAmModal('amReqView');
     }
+    function amReqEdit(data) {
+        document.getElementById('eReqId').value    = data.id || '';
+        document.getElementById('eReqTitle').value = data.requirment_title || '';
+        document.getElementById('eReqDate').value  = data.completion_date || '';
+        document.getElementById('eReqPeriod').value = data.periods || '';
+        openAmModal('amReqEdit');
+    }
+
+    // ---- Delete confirm ----
+    document.addEventListener('click', function(e) {
+        var btn = e.target.closest('.am-confirm-delete');
+        if (!btn) return;
+        e.preventDefault();
+        document.getElementById('amConfirmForm').setAttribute('action', btn.getAttribute('data-action') || '');
+        document.getElementById('amConfirmId').value = btn.getAttribute('data-id') || '';
+        document.getElementById('amConfirmType').textContent = btn.getAttribute('data-type') || 'Item';
+        document.getElementById('amConfirmLabel').textContent = btn.getAttribute('data-label') || 'this item';
+        openAmModal('amConfirmDelete');
+    });
+
+    // ---- Client-side search + pagination ----
+    (function() {
+        var input = document.getElementById('amReqSearch');
+        var rows = Array.prototype.slice.call(document.querySelectorAll('#amReqTable tbody tr[data-search]'));
+        var info = document.getElementById('amReqPaginationInfo');
+        var nav  = document.getElementById('amReqPaginationNav');
+        var perPage = 10;
+        var currentPage = 1;
+        var filtered = rows.slice();
+
+        function debounce(fn, wait) { var t; return function(){ var ctx=this,args=arguments; clearTimeout(t); t=setTimeout(function(){ fn.apply(ctx,args); }, wait); }; }
+
+        function render() {
+            var total = filtered.length;
+            var totalPages = Math.max(1, Math.ceil(total / perPage));
+            if (currentPage > totalPages) currentPage = totalPages;
+            var start = (currentPage - 1) * perPage;
+            var end = start + perPage;
+
+            rows.forEach(function(r){ r.style.display = 'none'; });
+            filtered.slice(start, end).forEach(function(r){ r.style.display = ''; });
+
+            var from = total === 0 ? 0 : start + 1;
+            var to = Math.min(end, total);
+            info.innerHTML = 'Showing <strong>' + from + '–' + to + '</strong> of <strong>' + total + '</strong>';
+
+            nav.innerHTML = '';
+            var prev = document.createElement('button'); prev.textContent = '‹'; prev.disabled = currentPage <= 1;
+            prev.addEventListener('click', function(){ currentPage--; render(); });
+            nav.appendChild(prev);
+
+            var startPage = Math.max(1, currentPage - 2);
+            var endPage = Math.min(totalPages, startPage + 4);
+            startPage = Math.max(1, endPage - 4);
+            for (var p = startPage; p <= endPage; p++) {
+                (function(page){
+                    var b = document.createElement('button'); b.textContent = page;
+                    if (page === currentPage) b.classList.add('active');
+                    b.addEventListener('click', function(){ currentPage = page; render(); });
+                    nav.appendChild(b);
+                })(p);
+            }
+
+            var next = document.createElement('button'); next.textContent = '›'; next.disabled = currentPage >= totalPages;
+            next.addEventListener('click', function(){ currentPage++; render(); });
+            nav.appendChild(next);
+        }
+
+        input && input.addEventListener('input', debounce(function() {
+            var q = this.value.trim().toLowerCase();
+            filtered = q === '' ? rows.slice() : rows.filter(function(r){
+                return (r.getAttribute('data-search') || '').indexOf(q) !== -1;
+            });
+            currentPage = 1;
+            render();
+        }, 250));
+
+        render();
+    })();
 </script>
+@endsection

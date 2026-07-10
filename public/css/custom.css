@@ -376,10 +376,29 @@ div#kt_table_agent_paginate .pagination {
 .submitBtn {
   float: right;
   border: none;
-  background: #646c9a;
+  background: #2E3B9A;
   color: #fff;
   padding: 8px 47px;
-  border-radius: 5px;
+  border-radius: 8px;
+  font-weight: 600;
+  transition: background 0.15s ease, transform 0.15s ease, box-shadow 0.15s ease;
+}
+.submitBtn:hover {
+  background: #232C7A;
+  color: #fff;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(46, 59, 154, 0.28);
+}
+button[type="reset"].submitBtn {
+  background: #fff;
+  color: #4a5568;
+  border: 1px solid #d0d5dd;
+}
+button[type="reset"].submitBtn:hover {
+  background: #f7f9fc;
+  color: #2E3B9A;
+  border-color: #2E3B9A;
+  box-shadow: none;
 }
 #editProcessAudit .modal-dialog {
   max-width: 800px;

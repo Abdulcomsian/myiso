@@ -1,450 +1,331 @@
 @extends('admin.dashboard.layouts.app')
 
 @section('content')
-<!-- begin:: Content -->
-<div class="kt-content  kt-grid__item kt-grid__item--fluid" id="kt_content">
+@php $urlparam = request()->route()->parameters; @endphp
 
-	<!--Begin::Dashboard 1-->
+<div class="kt-content kt-grid__item kt-grid__item--fluid" id="kt_content" style="padding:26px;">
 
+    {{-- Page header --}}
+    <div class="am-page-header">
+        <div>
+            <h2>Maintenance Records</h2>
+            <p>Track periodic maintenance activities on equipment, tools, and facilities.</p>
+        </div>
+        <div>
+            <a href="{{ url('/edit_user/'.$urlparam['userid']) }}" class="am-btn am-btn-outline">
+                <i class="fa fa-arrow-left"></i> Back to Forms
+            </a>
+        </div>
+    </div>
 
-	<!--Begin::Section-->
-	<div class="row">
-		<div class="col-xl-12 col-lg-12">
-			<h2>Maintenance Records</h2>
-		</div>
-	</div>
-	<section id="procedure_section">
+    @if ($message = Session::get('msg'))
+        <div class="am-card" style="padding:14px 20px;margin-bottom:16px;color:#1a8a5c;background:rgba(38,194,129,0.08);">
+            <i class="fa fa-check-circle"></i> {{ $message }}
+        </div>
+    @endif
 
-		<div class="row">
-			<div class="col-lg-12">
-            <p>Carrying out frequent maintenance checks and repairs are necessary to maintain production and service. Maintenance Reviews within the working environment including equipment should be carried out monthly, quarterly, semiannually, or annually depending on the size and nature of the business.</p>
+    {{-- Info card --}}
+    <div class="am-card" style="padding:16px 20px;margin-bottom:16px;background:rgba(46,59,154,0.04);border:1px solid rgba(46,59,154,0.12);">
+        <div style="display:flex;gap:12px;align-items:flex-start;">
+            <span style="width:36px;height:36px;flex-shrink:0;border-radius:10px;background:var(--am-primary-tint);color:var(--am-primary);display:inline-flex;align-items:center;justify-content:center;font-size:15px;">
+                <i class="fa fa-info-circle"></i>
+            </span>
+            <div style="font-size:13px;color:var(--am-text);line-height:1.55;">
+                Carrying out frequent maintenance checks and repairs is necessary to maintain production and service.
+                Maintenance reviews should be carried out monthly, quarterly, semiannually, or annually depending on the size and nature of the business.
+            </div>
+        </div>
+    </div>
 
-<p>To add a record, click on the “Add Maintenance Record” button. To amend a record, click on the edit icon of the entry that needs to be modified or deleted.</p>
-                    <div class="procedure_div">
-                    	<div class="row">
-                    		<div class="col-lg-12 text-right">
-                    				<a onclick="maintanceRecordForm()" class="addBtn">Add Maintenance records</a>
-                    		</div>
-                    	</div>
-                    <div class="maintance_record_from_div">
-                        <form action="{{route('maintain_rec')}} " method="POST" enctype="multipart/form-data">
-                                @csrf
-                    			<div class="row">
-       
-       <!--<input type="hidden" class="form-control" name="mgtreviewId" value="241">-->
-                                       @csrf
-                                            @php 
-            $urlparam = request()->route()->parameters;
-            @endphp
-    
+    {{-- Toolbar --}}
+    <div class="am-card" style="margin-bottom:16px;">
+        <div class="am-card__toolbar">
+            <div class="am-search" style="flex:1;max-width:340px;">
+                <i class="fa fa-search"></i>
+                <input type="text" id="amMrSearch" placeholder="Search maintenance records…" autocomplete="off">
+            </div>
+            <button type="button" class="am-btn am-btn-primary" id="toggleMrForm">
+                <i class="fa fa-plus"></i> Add Maintenance Record
+            </button>
+        </div>
 
-<input type="hidden" name="user_id" value="{{ $urlparam['userid'] }}">
-                    				<div class="col-lg-12">
-                    					<div class="form-group">
-											<label>Maintenance Record Date (DD/MM/YYYY):</label><br>
-											<input type="date" max="2999-12-31" class="form-control" name="mrdate" required>
-										</div>
-                    				</div>
-                    			</div>
+        <div class="am-inline-form" id="newMrForm" style="margin:16px 20px;">
+            <form action="{{ route('maintain_rec') }}" method="POST" enctype="multipart/form-data">
+                @csrf
+                <input type="hidden" name="user_id" value="{{ $urlparam['userid'] }}">
+                <div class="form-row">
+                    <div>
+                        <label>Maintenance Date</label>
+                        <input type="date" max="2999-12-31" name="mrdate" required>
+                    </div>
+                    <div>
+                        <label>Item</label>
+                        <input type="text" placeholder="e.g. Compressor unit" name="mritem" required>
+                    </div>
+                    <div>
+                        <label>Activity</label>
+                        <input type="text" placeholder="e.g. Filter replacement" name="mractivity" required>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div>
+                        <label>Location</label>
+                        <input type="text" placeholder="e.g. Workshop A" name="mlocation" required>
+                    </div>
+                    <div>
+                        <label>Observations</label>
+                        <input type="text" placeholder="Findings" name="mrobservation" required>
+                    </div>
+                    <div>
+                        <label>Actions Taken</label>
+                        <input type="text" placeholder="What was done" name="mractions" required>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div>
+                        <label>Performed By</label>
+                        <input type="text" placeholder="Full name" name="mractivityperofrmby" required>
+                    </div>
+                    <div>
+                        <label>Attach Evidence (jpeg, mp3, mp4, xls, doc)</label>
+                        <input name="attach_evidence" type="file">
+                    </div>
+                    <div>
+                        <label>Any other issues?</label>
+                        <input type="text" placeholder="Optional notes" name="any_issues">
+                    </div>
+                </div>
+                <div class="form-actions">
+                    <button type="button" class="am-btn am-btn-outline am-btn-sm" id="cancelMrForm">Cancel</button>
+                    <button type="submit" class="am-btn am-btn-primary am-btn-sm"><i class="fa fa-check"></i> Save Record</button>
+                </div>
+            </form>
+        </div>
+    </div>
 
-								<div class="row">
-									<div class="col-lg-6">
-										<div class="form-group">
-											<label>Maintenance Record Item:</label>
-											<input type="text" class="form-control" placeholder="Enter Object name:" name="mritem" required>
-										</div>
-									</div>
-									<div class="col-lg-6">
-										<div class="form-group">
-											<label>Maintenance Record Activity:</label>
-											<input type="text" class="form-control" placeholder="Enter Activity:" name="mractivity" required>
-										</div>
-									</div>
-								</div>
-								<div class="row">
-									<div class="col-lg-6">
-										<div class="form-group">
-											<label>Maintenance Location:</label>
-											<input type="text" class="form-control"  placeholder="Enter Location" name="mlocation" required>
-										</div>
-									</div>
-									<div class="col-lg-6">
-										<div class="form-group">
-											<label>Maintenance Record Observations:</label>
-											<input type="text" class="form-control" placeholder="Enter Observation"  name="mrobservation" required>
-										</div>
-									</div>
-								</div>
-								<div class="row">
-									<div class="col-lg-6">
-										<div class="form-group">
-											<label>Maintenance Record Actions:</label>
-											<input type="text" class="form-control" placeholder="Enter Action Taken" name="mractions" required>
-										</div>
-									</div>
-									<div class="col-lg-6">
-										<div class="form-group">
-											<label>Maintenance Record Activity Performed By:</label>
-											<input type="text" class="form-control" placeholder="Enter Name of person carrying out maintenance" name="mractivityperofrmby" required>
-										</div>
-									</div>
-								</div>
-                                <div class="row">
-                                    <div class="col-lg-6">
-                                        <div class="form-group">
-                                            <label>Attach Evidence: <span class="text-danger" style="color:#000 !important;">(jpeg, mp3, mp4, .xls, doc)</span></label>
-                                            <input name="attach_evidence" type="file" class="form-control"
-                                                   accept="all">
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-6">
-                                        <div class="form-group">
-                                            <label>Any other issues or points to note?</label>
-                                            <textarea name="any_issues" class="form-control" placeholder="Enter Any other issues:"></textarea>
-                                        </div>
-                                    </div>
+    {{-- Table card --}}
+    <div class="am-card">
+        <div class="am-table-wrap">
+            <table class="am-table" id="amMrTable">
+                <thead>
+                    <tr>
+                        <th style="width:60px;">#</th>
+                        <th>Date</th>
+                        <th>Item</th>
+                        <th>Activity</th>
+                        <th>Location</th>
+                        <th>Performed By</th>
+                        <th style="text-align:right;">Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @forelse ($mainrecord as $index => $data)
+                        <tr data-search="{{ strtolower($data->mritem . ' ' . $data->mractivity . ' ' . $data->mlocation . ' ' . $data->mractivityperofrmby) }}">
+                            <td><span class="am-cell-sub">#{{ $index + 1 }}</span></td>
+                            <td>
+                                <span class="am-chip info">{{ date('d M Y', strtotime($data->mrdate)) }}</span>
+                            </td>
+                            <td>
+                                <span class="am-cell-primary">{{ $data->mritem }}</span>
+                            </td>
+                            <td>{{ $data->mractivity }}</td>
+                            <td>{{ $data->mlocation }}</td>
+                            <td>{{ $data->mractivityperofrmby }}</td>
+                            <td style="text-align:right;white-space:nowrap;">
+                                <div class="am-actions">
+                                    <button type="button" class="am-icon-btn" title="View"
+                                            onclick='amMrView(@json($data))'><i class="fa fa-eye"></i></button>
+                                    <button type="button" class="am-icon-btn" title="Edit"
+                                            onclick='amMrEdit(@json($data))'><i class="fa fa-pen"></i></button>
+                                    <button type="button" class="am-icon-btn danger am-confirm-delete"
+                                            title="Delete"
+                                            data-action="{{ route('deletemaintanceRecAdmin') }}"
+                                            data-id="{{ $data->id }}"
+                                            data-label="Record on {{ date('d M Y', strtotime($data->mrdate)) }}"
+                                            data-type="Maintenance Record">
+                                        <i class="fa fa-trash"></i>
+                                    </button>
                                 </div>
-								<button type="submit" class="submitBtn">SUBMIT</button>
-								<button type="reset" onclick="maintanceRecordForm()" class="submitBtn" style="margin-right: 10px;">Cancel</button>
-                    		</form>
-                    	</div>
-                    </div>
-                    <div class="procedure_div">
-                    	<div class="requirments_table_div">
-                            <div class="d-flex justify-content-between mb-2">
-                                <h4>Total Records Listed</h4>
-                                <a href="/edit_user/{{ $urlparam['userid'] }}" class="btn btn-clean btn-icon-sm back_icon" style="float: right;">
-                                    <i class="la la-long-arrow-left"></i>
-                                    Back
-                                </a>
-                            </div>
-                            <!--<button>Add an Entry</button>-->
-                    		<div class="kt-portlet__body table-responsive">
-								<!--begin: Datatable -->
-								<table class="common_table table table-striped- table-bordered table-hover table-checkable table-responsive" id="kt_table_agent">
-									<thead>
-										<tr>
-											<th>Maintenance Record ID</th>
-											<th>Maintenance Record Date</th>
-											<th>Item</th>
-											<th>Activity</th>
-											<th>Location</th>
-											<th>Observations</th>
-											<th>Actions</th>
-                                            <th>Performed By</th>
-                                            <th>Maintenance Record Actions</th>
-										</tr>
-                                    </thead>
-                                    <tbody>
-                                        @php
-                                            $i=1;
-                                        @endphp
-                                        @foreach ($mainrecord as $data)
-                                            <tr>
-                                                <td>{{$i++}}</td>
-                                                <td> {{date('d/m/Y', strtotime($data->mrdate))}}</td>
-                                                <td>{{$data->mritem}}</td>
-                                                <td>{{$data->mractivity}}</td>
-                                                <td>{{$data->mlocation}}</td>
-                                                <td>{{$data->mrobservation}}</td>
-                                                <td>{{$data->mractions}}</td>
-                                                <td>{{$data->mractivityperofrmby}}</td>
-                                                <td>
-                                                    <button onclick="viewMR({{json_encode($data)}});" class="btn btn-sm btn-clean btn-icon btn-icon-md" title="view"><i class="fa fa-eye"></i>
-													</button>
-                                                    <button onclick="getEid({{json_encode($data)}});"  class="btn btn-sm btn-clean btn-icon btn-icon-md" title="edit"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="18px" height="18px" viewBox="0 0 24 24" version="1.1">										<g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">											<rect x="0" y="0" width="24" height="24"></rect>											<path d="M12.2674799,18.2323597 L12.0084872,5.45852451 C12.0004303,5.06114792 12.1504154,4.6768183 12.4255037,4.38993949 L15.0030167,1.70195304 L17.5910752,4.40093695 C17.8599071,4.6812911 18.0095067,5.05499603 18.0083938,5.44341307 L17.9718262,18.2062508 C17.9694575,19.0329966 17.2985816,19.701953 16.4718324,19.701953 L13.7671717,19.701953 C12.9505952,19.701953 12.2840328,19.0487684 12.2674799,18.2323597 Z" fill="#5d78ff" fill-rule="nonzero" transform="translate(14.701953, 10.701953) rotate(-135.000000) translate(-14.701953, -10.701953) "></path>											<path d="M12.9,2 C13.4522847,2 13.9,2.44771525 13.9,3 C13.9,3.55228475 13.4522847,4 12.9,4 L6,4 C4.8954305,4 4,4.8954305 4,6 L4,18 C4,19.1045695 4.8954305,20 6,20 L18,20 C19.1045695,20 20,19.1045695 20,18 L20,13 C20,12.4477153 20.4477153,12 21,12 C21.5522847,12 22,12.4477153 22,13 L22,18 C22,20.209139 20.209139,22 18,22 L6,22 C3.790861,22 2,20.209139 2,18 L2,6 C2,3.790861 3.790861,2 6,2 L12.9,2 Z" fill="#5d78ff" fill-rule="nonzero" opacity="0.3"></path>										</g>									</svg>
-													</button>
-													<button onclick="deleteModal({{json_encode($data)}});" class="btn btn-sm btn-clean btn-icon btn-icon-md" title="Delete"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="18px" height="18px" viewBox="0 0 24 24" version="1.1">										<g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">											<rect x="0" y="0" width="24" height="24"></rect>											<path d="M6,8 L6,20.5 C6,21.3284271 6.67157288,22 7.5,22 L16.5,22 C17.3284271,22 18,21.3284271 18,20.5 L18,8 L6,8 Z" fill="#5d78ff" fill-rule="nonzero"></path>											<path d="M14,4.5 L14,4 C14,3.44771525 13.5522847,3 13,3 L11,3 C10.4477153,3 10,3.44771525 10,4 L10,4.5 L5.5,4.5 C5.22385763,4.5 5,4.72385763 5,5 L5,5.5 C5,5.77614237 5.22385763,6 5.5,6 L18.5,6 C18.7761424,6 19,5.77614237 19,5.5 L19,5 C19,4.72385763 18.7761424,4.5 18.5,4.5 L14,4.5 Z" fill="#5d78ff" opacity="0.3"></path>										</g>									</svg>
-													</button>
-													
-                                                </td>
-                                            </tr>
-                                        @endforeach
-                                    </tbody>
-								</table>
-								<!--end: Datatable -->
-                    		</div>
-						</div>
-					</div>
-
-
-	</section>
-
-	<!--End::Section-->
+                            </td>
+                        </tr>
+                    @empty
+                        <tr>
+                            <td colspan="7">
+                                <div class="am-empty">
+                                    <i class="fa fa-wrench"></i>
+                                    <p>No maintenance records added yet.</p>
+                                </div>
+                            </td>
+                        </tr>
+                    @endforelse
+                </tbody>
+            </table>
+        </div>
+        <div class="am-pagination" id="amMrPagination"></div>
+    </div>
 </div>
-<div class="modal fade" id="deleteSupplier" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-	<div class="modal-dialog" role="document">
-		<div class="modal-content">
-			<div class="modal-header">
-				<h5 class="modal-title" id="exampleModalLabel">Deleting an entry.</h5>
-				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-				</button>
-			</div>
-			<div class="modal-body">
-				<p>Are you sure you want to delete this entry?</p>
-			</div>
-			<div class="modal-footer">
-			
-					<form action="{{route('deletemaintanceRecAdmin')}}" method="POST">
-						@csrf
-						<input type="hidden" name="id" id="re_id" value="">
-						<button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
-						<button type="submit" class="btn btn-danger">Yes</button>
-						</form>
-			</div>
-		</div>
-	</div>
-</div>
-<div class="modal fade" id="editepmloyee" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-	<div class="modal-dialog modal-lg" role="document">
-		<div class="modal-content">
-			<div class="modal-header">
-				<h5 class="modal-title" id="exampleModalLabel">Edit Maintenance Record Details</h5>
-				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-				</button>
+
+{{-- View modal --}}
+<div class="am-modal" id="amMrViewModal" role="dialog" aria-modal="true">
+    <div class="am-modal__box" style="max-width:720px;">
+        <div class="am-modal__header">
+            <span class="am-modal__icon" style="background:var(--am-primary-tint);color:var(--am-primary);"><i class="fa fa-eye"></i></span>
+            <h4 class="am-modal__title">Maintenance Record</h4>
+        </div>
+        <div class="am-modal__body">
+            <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:14px;font-size:13px;">
+                <div><div style="font-size:11px;text-transform:uppercase;letter-spacing:0.4px;color:var(--am-text-muted);font-weight:600;margin-bottom:4px;">Date</div><div id="v-mrdate"></div></div>
+                <div><div style="font-size:11px;text-transform:uppercase;letter-spacing:0.4px;color:var(--am-text-muted);font-weight:600;margin-bottom:4px;">Item</div><div id="v-mritem"></div></div>
+                <div><div style="font-size:11px;text-transform:uppercase;letter-spacing:0.4px;color:var(--am-text-muted);font-weight:600;margin-bottom:4px;">Activity</div><div id="v-mractivity"></div></div>
+                <div><div style="font-size:11px;text-transform:uppercase;letter-spacing:0.4px;color:var(--am-text-muted);font-weight:600;margin-bottom:4px;">Location</div><div id="v-mlocation"></div></div>
+                <div><div style="font-size:11px;text-transform:uppercase;letter-spacing:0.4px;color:var(--am-text-muted);font-weight:600;margin-bottom:4px;">Observations</div><div id="v-mrobservation"></div></div>
+                <div><div style="font-size:11px;text-transform:uppercase;letter-spacing:0.4px;color:var(--am-text-muted);font-weight:600;margin-bottom:4px;">Actions Taken</div><div id="v-mractions"></div></div>
+                <div><div style="font-size:11px;text-transform:uppercase;letter-spacing:0.4px;color:var(--am-text-muted);font-weight:600;margin-bottom:4px;">Performed By</div><div id="v-mrperformed"></div></div>
+                <div><div style="font-size:11px;text-transform:uppercase;letter-spacing:0.4px;color:var(--am-text-muted);font-weight:600;margin-bottom:4px;">Evidence</div><div id="v-mrevidence"></div></div>
+                <div style="grid-column:1/-1;"><div style="font-size:11px;text-transform:uppercase;letter-spacing:0.4px;color:var(--am-text-muted);font-weight:600;margin-bottom:4px;">Other Notes</div><div id="v-mrissues"></div></div>
             </div>
-		<form action="{{route('editmentainance')}} " method="POST" enctype="multipart/form-data">
+        </div>
+        <div class="am-modal__footer">
+            <button type="button" class="am-btn am-btn-outline am-modal-close">Close</button>
+        </div>
+    </div>
+</div>
+
+{{-- Edit modal --}}
+<div class="am-modal" id="amMrEditModal" role="dialog" aria-modal="true">
+    <div class="am-modal__box am-form" style="max-width:820px;">
+        <div class="am-modal__header">
+            <span class="am-modal__icon" style="background:var(--am-primary-tint);color:var(--am-primary);"><i class="fa fa-pen"></i></span>
+            <h4 class="am-modal__title">Edit Maintenance Record</h4>
+        </div>
+        <form action="{{ route('editmentainance') }}" method="POST" enctype="multipart/form-data" style="display:contents;">
             @csrf
-			<div class="modal-body">
-                <input type="hidden" name="id" value="" id="editproject">
-                            @php 
-            $urlparam = request()->route()->parameters;
-            @endphp
-    
-
-<input type="hidden" name="user_id" value="{{ $urlparam['userid'] }}">
-                    <div class="row">
-                        {{-- <div class="col-lg-6">
-                            <div class="form-group">
-                                <label>Maintenance ID Number (See table below. For amendments only):</label><br>
-                                <input type="number" class="form-control" name="mid">
-                            </div>
-                        </div> --}}
-                        <div class="col-lg-12">
-                            <div class="form-group">
-                                <label>Maintenance Record Date (DD/MM/YYYY):</label><br>
-                                <input type="date" class="form-control" name="mrdate">
-                            </div>
-                        </div>
+            <input type="hidden" name="user_id" value="{{ $urlparam['userid'] }}">
+            <input type="hidden" name="id" id="e-mr-id">
+            <div class="am-modal__body" style="padding:20px;">
+                <div class="form-group row">
+                    <div class="col-lg-12">
+                        <label>Maintenance Date</label>
+                        <input type="date" class="form-control" name="mrdate" id="e-mrdate">
                     </div>
-
-                    <div class="row">
-                        <div class="col-lg-6">
-                            <div class="form-group">
-                                <label>Maintenance Record Item:</label>
-                                <input type="text" class="form-control" name="mritem" placeholder="Enter Management Review Meeting:">
-                            </div>
-                        </div>
-                        <div class="col-lg-6">
-                            <div class="form-group">
-                                <label>Maintenance Record Activity:</label>
-                                <input type="text" class="form-control" name="mractivity" placeholder="Enter Review Previous Meeting:">
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-lg-6">
-                            <div class="form-group">
-                                <label>Maintenance Location:</label>
-                                <input type="text" class="form-control" name="mlocation">
-                            </div>
-                        </div>
-                        <div class="col-lg-6">
-                            <div class="form-group">
-                                <label>Maintenance Record Observations:</label>
-                                <input type="text" class="form-control" name="mrobservation">
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-lg-6">
-                            <div class="form-group">
-                                <label>Maintenance Record Actions:</label>
-                                <input type="text" class="form-control" name="mractions">
-                            </div>
-                        </div>
-                        <div class="col-lg-6">
-                            <div class="form-group">
-                                <label>Maintenance Record Activity Performed By:</label>
-                                <input type="text" class="form-control" name="mractivityperofrmby">
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-lg-6">
-                            <div class="form-group">
-                                <label>Attach Evidence: <span class="text-danger" style="color:#000 !important;">(jpeg, mp3, mp4, .xls, doc)</span></label>
-                                <input name="attach_evidence" type="file" class="form-control"
-                                       accept="all">
-                            </div>
-                        </div>
-                        <div class="col-lg-6">
-                            <div class="form-group">
-                                <label>Any other issues or points to note?</label>
-                                <textarea name="any_issues" class="form-control" placeholder="Enter Any other issues:"></textarea>
-                            </div>
-                        </div>
-                    </div>
-			</div>
-			<div class="modal-footer">
-				<button type="button" class="btn btn-secondary" data-dismiss="modal">Cancle</button>
-				<button type="submit" class="btn btn-danger">Update</button>
+                </div>
+                <div class="form-group row">
+                    <div class="col-lg-6"><label>Item</label><input type="text" class="form-control" name="mritem" id="e-mritem"></div>
+                    <div class="col-lg-6"><label>Activity</label><input type="text" class="form-control" name="mractivity" id="e-mractivity"></div>
+                </div>
+                <div class="form-group row">
+                    <div class="col-lg-6"><label>Location</label><input type="text" class="form-control" name="mlocation" id="e-mlocation"></div>
+                    <div class="col-lg-6"><label>Observations</label><input type="text" class="form-control" name="mrobservation" id="e-mrobservation"></div>
+                </div>
+                <div class="form-group row">
+                    <div class="col-lg-6"><label>Actions Taken</label><input type="text" class="form-control" name="mractions" id="e-mractions"></div>
+                    <div class="col-lg-6"><label>Performed By</label><input type="text" class="form-control" name="mractivityperofrmby" id="e-mrperformed"></div>
+                </div>
+                <div class="form-group row">
+                    <div class="col-lg-6"><label>Attach Evidence</label><input name="attach_evidence" type="file" class="form-control"></div>
+                    <div class="col-lg-6"><label>Any Other Issues</label><textarea class="form-control" name="any_issues" id="e-mrissues"></textarea></div>
+                </div>
+            </div>
+            <div class="am-modal__footer">
+                <button type="button" class="am-btn am-btn-outline am-modal-close">Cancel</button>
+                <button type="submit" class="am-btn am-btn-primary"><i class="fa fa-check"></i> Update</button>
             </div>
         </form>
-		</div>
-	</div>
+    </div>
 </div>
-<!--VIEW--->
-<div class="modal fade" id="viewMR" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-	<div class="modal-dialog modal-lg" role="document">
-		<div class="modal-content">
-			<div class="modal-header">
-				<h5 class="modal-title" id="exampleModalLabel">View Maintenance Record Details</h5>
-				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-				</button>
-            </div>
-		<form >
-            @csrf
-			<div class="modal-body">
-                <input type="hidden" name="id" value="" id="editproject">
-                    <div class="row">
-                        {{-- <div class="col-lg-6">
-                            <div class="form-group">
-                                <label>Maintenance ID Number (See table below. For amendments only):</label><br>
-                                <input type="number" class="form-control" name="mid">
-                            </div>
-                        </div> --}}
-                        <div class="col-lg-12">
-                            <div class="form-group">
-                                <label>Maintenance Record Date:</label><br>
-                                <input type="date" class="form-control" name="mrdate" disabled>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="row">
-                        <div class="col-lg-6">
-                            <div class="form-group">
-                                <label>Maintenance Record Item:</label>
-                                <input type="text" class="form-control" name="mritem" placeholder="Enter Management Review Meeting:" disabled>
-                            </div>
-                        </div>
-                        <div class="col-lg-6">
-                            <div class="form-group">
-                                <label>Maintenance Record Activity:</label>
-                                <input type="text" class="form-control" name="mractivity" placeholder="Enter Review Previous Meeting:" disabled>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-lg-6">
-                            <div class="form-group">
-                                <label>Maintenance Location:</label>
-                                <input type="text" class="form-control" name="mlocation" disabled>
-                            </div>
-                        </div>
-                        <div class="col-lg-6">
-                            <div class="form-group">
-                                <label>Maintenance Record Observations:</label>
-                                <input type="text" class="form-control" name="mrobservation" disabled>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-lg-6">
-                            <div class="form-group">
-                                <label>Maintenance Record Actions:</label>
-                                <input type="text" class="form-control" name="mractions" disabled>
-                            </div>
-                        </div>
-                        <div class="col-lg-6">
-                            <div class="form-group">
-                                <label>Maintenance Record Activity Performed By:</label>
-                                <input type="text" class="form-control" name="mractivityperofrmby" disabled>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-lg-6">
-                            <div class="form-group">
-                                <label>Attach Evidence <span class="text-danger" style="color:#000 !important;">(jpeg, mp3, mp4, .xls, doc)</span>:</label>
-                                <div class="evidence_attachemnt_div"></div>
-                            </div>
-                        </div>
-                        <div class="col-lg-6">
-                            <div class="form-group">
-                                <label>Any other issues or points to note?</label>
-                                <textarea name="any_issues" class="form-control" placeholder="Enter Any other issues:"></textarea>
-                            </div>
-                        </div>
-                    </div>
-			</div>
-			<div class="modal-footer">
-				<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-            </div>
-        </form>
-		</div>
-	</div>
-</div>
-
-
-
-@endsection
 
 <script>
+(function() {
+    // Toggle form
+    var toggle = document.getElementById('toggleMrForm');
+    var form = document.getElementById('newMrForm');
+    var cancel = document.getElementById('cancelMrForm');
+    toggle && toggle.addEventListener('click', function(){ form.classList.toggle('open'); });
+    cancel && cancel.addEventListener('click', function(){ form.classList.remove('open'); });
 
-		function maintanceRecordForm(){
-				if($(".maintance_record_from_div").css("display")==="block"){
-					$(".maintance_record_from_div").css("display","none");
-				}
-				else{
-					$(".maintance_record_from_div").css("display","block");
-				}
-			}
-			
-    function getEid(data){
-        console.log(data);
-         $("#editproject").val(data.id);
-         $("input[name='mlocation']").val(data.mlocation);
-         $("input[name='mractions']").val(data.mractions);
-         $("input[name='mractivity']").val(data.mractivity);
-         $("input[name='mractivityperofrmby']").val(data.mractivityperofrmby);
-         $("input[name='mrdate']").val(data.mrdate);
-         $("input[name='mritem']").val(data.mritem);
-         $("input[name='mrobservation']").val(data.mrobservation);
-         $("input[name='mid']").val(data.mid);
-        $("textarea[name='any_issues']").val(data.any_issues);
-        $("#editepmloyee").modal('show');
+    // Search + pagination
+    function debounce(fn, wait){ var t; return function(){ var ctx=this,args=arguments; clearTimeout(t); t=setTimeout(function(){ fn.apply(ctx,args); }, wait); }; }
+    var perPage = 10;
+    var input = document.getElementById('amMrSearch');
+    var tbody = document.querySelector('#amMrTable tbody');
+    if (!tbody) return;
+    var rows = Array.prototype.slice.call(tbody.querySelectorAll('tr[data-search]'));
+    var pager = document.getElementById('amMrPagination');
+    var filtered = rows.slice();
+    var page = 1;
 
-     }
-    function viewMR(data){
-        console.log(data);
-         $("#editproject").val(data.id);
-         $("input[name='mlocation']").val(data.mlocation);
-         $("input[name='mractions']").val(data.mractions);
-         $("input[name='mractivity']").val(data.mractivity);
-         $("input[name='mractivityperofrmby']").val(data.mractivityperofrmby);
-         $("input[name='mrdate']").val(data.mrdate);
-         $("input[name='mritem']").val(data.mritem);
-         $("input[name='mrobservation']").val(data.mrobservation);
-         $("input[name='mid']").val(data.mid);
-        $("textarea[name='any_issues']").val(data.any_issues);
-        if (data.attach_evidence) {
-            $('.evidence_attachemnt_div').empty().append(`<span class="text-dark">Click to view evidence <a target="_blank" href="${data.attach_evidence}">Here</a></span>`);
-        } else {
-            $('.evidence_attachemnt_div').empty().append('No data found');
+    function render() {
+        var total = filtered.length;
+        var totalPages = Math.max(1, Math.ceil(total / perPage));
+        if (page > totalPages) page = totalPages;
+        rows.forEach(function(r){ r.style.display='none'; });
+        filtered.slice((page-1)*perPage, page*perPage).forEach(function(r){ r.style.display=''; });
+
+        if (total === 0 && rows.length > 0) {
+            // no matches from search
         }
-        $("#viewMR").modal('show');
 
-     }
-     
-     
-     
-	 function deleteModal(data){
-         $("#re_id").val(data.id);
-         $("#deleteSupplier").modal('show');
+        var from = total === 0 ? 0 : (page-1)*perPage + 1;
+        var to = Math.min(page*perPage, total);
+        var html = '<div class="am-pagination__info">Showing <strong>'+from+'–'+to+'</strong> of <strong>'+total+'</strong></div>';
+        html += '<div class="am-pagination__nav">';
+        html += '<button data-p="'+(page-1)+'" '+(page<=1?'disabled':'')+'>‹</button>';
+        var start = Math.max(1, page - 2);
+        var end = Math.min(totalPages, start + 4);
+        start = Math.max(1, end - 4);
+        for (var p=start; p<=end; p++){
+            html += '<button data-p="'+p+'" '+(p===page?'class="active"':'')+'>'+p+'</button>';
+        }
+        html += '<button data-p="'+(page+1)+'" '+(page>=totalPages?'disabled':'')+'>›</button>';
+        html += '</div>';
+        pager.innerHTML = html;
+    }
 
-     }
+    input && input.addEventListener('input', debounce(function(){
+        var q = this.value.trim().toLowerCase();
+        filtered = q === '' ? rows.slice() : rows.filter(function(r){ return r.getAttribute('data-search').indexOf(q) !== -1; });
+        page = 1; render();
+    }, 250));
 
+    pager && pager.addEventListener('click', function(e){
+        var b = e.target.closest('button[data-p]');
+        if (!b || b.disabled) return;
+        var p = parseInt(b.getAttribute('data-p'), 10);
+        if (!isNaN(p) && p >= 1) { page = p; render(); }
+    });
 
+    render();
+})();
+
+function amMrView(d) {
+    document.getElementById('v-mrdate').textContent = d.mrdate ? new Date(d.mrdate).toLocaleDateString() : '—';
+    document.getElementById('v-mritem').textContent = d.mritem || '—';
+    document.getElementById('v-mractivity').textContent = d.mractivity || '—';
+    document.getElementById('v-mlocation').textContent = d.mlocation || '—';
+    document.getElementById('v-mrobservation').textContent = d.mrobservation || '—';
+    document.getElementById('v-mractions').textContent = d.mractions || '—';
+    document.getElementById('v-mrperformed').textContent = d.mractivityperofrmby || '—';
+    document.getElementById('v-mrissues').textContent = d.any_issues || '—';
+    var evidence = document.getElementById('v-mrevidence');
+    if (d.attach_evidence) {
+        evidence.innerHTML = '<a target="_blank" href="' + d.attach_evidence + '" style="color:var(--am-primary);"><i class="fa fa-external-link-alt"></i> View evidence</a>';
+    } else {
+        evidence.textContent = '—';
+    }
+    document.getElementById('amMrViewModal').classList.add('open');
+}
+
+function amMrEdit(d) {
+    document.getElementById('e-mr-id').value = d.id || '';
+    document.getElementById('e-mrdate').value = d.mrdate || '';
+    document.getElementById('e-mritem').value = d.mritem || '';
+    document.getElementById('e-mractivity').value = d.mractivity || '';
+    document.getElementById('e-mlocation').value = d.mlocation || '';
+    document.getElementById('e-mrobservation').value = d.mrobservation || '';
+    document.getElementById('e-mractions').value = d.mractions || '';
+    document.getElementById('e-mrperformed').value = d.mractivityperofrmby || '';
+    document.getElementById('e-mrissues').value = d.any_issues || '';
+    document.getElementById('amMrEditModal').classList.add('open');
+}
 </script>
+@endsection

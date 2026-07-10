@@ -16,9 +16,17 @@ class AdminController extends Controller
      */
     public function index()
     {
-        // return view('admind.dashboard.index');
-        return view('admin.dashboard.index');
-    
+        $stats = [
+            'total_users'          => DB::table('users')->count(),
+            'users_this_month'     => DB::table('users')
+                ->whereYear('created_at', now()->year)
+                ->whereMonth('created_at', now()->month)
+                ->count(),
+            'total_downloads'      => DB::table('downloads')->count(),
+            'total_notifications'  => DB::table('send_notification')->count(),
+        ];
+
+        return view('admin.dashboard.index', compact('stats'));
     }
 
     /**

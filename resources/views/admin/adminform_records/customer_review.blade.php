@@ -1,486 +1,264 @@
 @extends('admin.dashboard.layouts.app')
 
 @section('content')
-<!-- begin:: Content -->
-<div class="kt-content  kt-grid__item kt-grid__item--fluid" id="kt_content">
+@php $urlparam = request()->route()->parameters; @endphp
 
-	<!--Begin::Dashboard 1-->
+<div class="kt-content kt-grid__item kt-grid__item--fluid" id="kt_content" style="padding:26px;">
 
+    <div class="am-page-header">
+        <div>
+            <h2>Customer Review</h2>
+            <p>Score customers on quality, price, delivery and overall performance.</p>
+        </div>
+        <div>
+            <a href="{{ url('/edit_user/'.$urlparam['userid']) }}" class="am-btn am-btn-outline">
+                <i class="fa fa-arrow-left"></i> Back to Forms
+            </a>
+        </div>
+    </div>
 
-	<!--Begin::Section-->
-	<div class="row">
-		<div class="col-xl-12 col-lg-12">
-			<h2>Customer Review</h2>
-		</div>
-	</div>
-	<section id="procedure_section">
+    @if ($message = Session::get('msg'))
+        <div class="am-card" style="padding:14px 20px;margin-bottom:16px;color:#1a8a5c;background:rgba(38,194,129,0.08);">
+            <i class="fa fa-check-circle"></i> {{ $message }}
+        </div>
+    @endif
 
-		<div class="row">
-			<div class="col-lg-12">
-				<p>Customer reviews are a tool to monitor and grade your performance levels provided by your customers, this performance indicator can target all areas of contact with the customer. For example: "quality of service or product" "delivery time accuracy" "politeness of our staff" or similar and relivant</p>
-                <p>To add a record, click on the “Add Customer Evaluation” button. To amend a record, click on the edit icon of the entry that needs to be modified.</p>
-                    <div class="procedure_div">
-                    	<div class="row">
-                    		<div class="col-lg-12 text-right">
-                    			<a onclick="customerReview()" class="addBtn">ADD CUSTOMER EVALUATION</a>
-                    		</div>
-                    	</div>
-                    	<div class="customer_review_from_div">
-                            <form method="POST" action="{{route('customer_rview')}} ">
-                                
-                                                            @csrf
-            @php 
-            $urlparam = request()->route()->parameters;
-            @endphp
-                            <input type="hidden" name="user_id" value="{{ $urlparam['userid'] }}">
-                    			<div class="row">
-                    				{{-- <div class="col-lg-6">
-                    					<div class="form-group">
-											<label>Customer Review ID Number (See table below. For amendments only):</label><br>
-											<input type="number" class="form-control" name="revnumber" placeholder="Enter ID:">
-										</div>
-                    				</div> --}}
-                    				<div class="col-lg-6">
-										<div class="form-group">
-											<label>Customer ID Number:</label><br>
-											<!-- <input type="number" class="form-control" name="cus_id" placeholder="Enter Customer ID:"> -->
-											<select class="form-control" name="cus_id" required="required">
-												<option value="" selected disabled>Select Customer Id</option>
-												@foreach($all_customers as $customer)
-												<option value="{{$customer->idNumber}}">{{$customer->idNumber}}</option>
-												@endforeach
-											</select>
-										</div>
-									</div>
-	
-									<div class="col-lg-6">
-										<div class="form-group">
-											<label>Product / Activity / Area being reviewed</label><br>
-											<!-- <input type="number" class="form-control" name="cus_id" placeholder="Enter Customer ID:"> -->
-											<input class="form-control" type="text" name="product_activity_area" placeholder="Enter Product / Activity / Area being reviewed">
-										</div>
-									</div>
-                    			</div>
+    <div class="am-card" style="padding:16px 20px;margin-bottom:16px;background:rgba(46,59,154,0.04);border:1px solid rgba(46,59,154,0.12);">
+        <div style="display:flex;gap:12px;align-items:flex-start;">
+            <span style="width:36px;height:36px;flex-shrink:0;border-radius:10px;background:var(--am-primary-tint);color:var(--am-primary);display:inline-flex;align-items:center;justify-content:center;font-size:15px;"><i class="fa fa-info-circle"></i></span>
+            <div style="font-size:13px;color:var(--am-text);line-height:1.55;">
+                Customer reviews monitor and grade your performance across all customer touchpoints — quality of service, delivery time accuracy, staff politeness, and more.
+            </div>
+        </div>
+    </div>
 
-								<div class="row">
-									<div class="col-lg-6">
-										<div class="form-group">
-											<label>Quality Score (0-10):</label>
-											<input type="number" min="0" max="10" id="qualityScore"  placeholder="Enter Quality Score" class="form-control" name="qualityScore" required="required">
-										</div>
-									</div>
-									<div class="col-lg-6">
-										<div class="form-group">
-											<label>Price Score (0-10):</label>
-											<input type="number" class="form-control" min="0" max="10" name="priceScore" placeholder="If Applicable" required="required">
-										</div>
-									</div>
-								</div>
-								<div class="row">
-									<div class="col-lg-6">
-										<div class="form-group">
-											<label>Delivery Score (0-10):</label>
-											<input type="number"min="0" max="10" class="form-control" name="DScore" required="required" placeholder="Enter Delivery Score">
-										</div>
-									</div>
-									<div class="col-lg-6">
-										<div class="form-group">
-											<label>Overall Score (0-10):</label>
-											<input type="number" class="form-control" min="0" max="10" name="OveralScore" required="required" placeholder="Enter Overall Score">
-										</div>
-									</div>
-								</div>
-								<div class="row">
-									<div class="col-lg-6">
-										<div class="form-group">
-											<label>Assessment Date (MM/DD/YYYY):</label>
-											<input type="date" class="form-control" max="2999-12-31" name="AssesmentDate" required="required">
-										</div>
-									</div>
-									<div class="col-lg-6">
-										<div class="form-group">
-											<label>Any Other Issues or points to note?</label>
-											<input type="text" class="form-control" placeholder="Any other issues or point to note?" name="other_issue" required="required">
-										</div>
-									</div>
-								</div>
-	
-								<div class="row">
-									<div class="col-lg-12">
-										<div class="form-group">
-											<label>Attach Evidence:</label>
-											<input type="file" class="form-control" name="attach_evidence" required="required">
-										</div>
-									</div>
-								</div>
-								<button  class="submitBtn" type="submit">SUBMIT</button>
-								<button  class="btn btn-secondary submitBtn" type="reset" onclick="customerReview()" style="margin-right: 6px;">Cancel</button>
-                    		</form>
-                    	</div>
+    <div class="am-card" style="margin-bottom:16px;">
+        <div class="am-card__toolbar">
+            <div class="am-search" style="flex:1;max-width:340px;">
+                <i class="fa fa-search"></i>
+                <input type="text" id="amCrSearch" placeholder="Search reviews…" autocomplete="off">
+            </div>
+            <button type="button" class="am-btn am-btn-primary" id="toggleCrForm">
+                <i class="fa fa-plus"></i> Add Customer Evaluation
+            </button>
+        </div>
+
+        <div class="am-inline-form" id="newCrForm" style="margin:16px 20px;">
+            <form method="POST" action="{{ route('customer_rview') }}" enctype="multipart/form-data">
+                @csrf
+                <input type="hidden" name="user_id" value="{{ $urlparam['userid'] }}">
+                <div class="form-row">
+                    <div>
+                        <label>Customer ID Number</label>
+                        <select name="cus_id" required>
+                            <option value="" selected disabled>Select customer…</option>
+                            @foreach($all_customers as $customer)
+                                <option value="{{ $customer->idNumber }}">{{ $customer->idNumber }} — {{ $customer->name }}</option>
+                            @endforeach
+                        </select>
                     </div>
-                    
-                    <div class="procedure_div">
-                    	<div class="requirments_table_div">
-							<div class="d-flex justify-content-between mb-2">
-								<h4>Customer Review Details</h4>
-								<a href="/edit_user/{{ $urlparam['userid'] }}" class="btn btn-clean btn-icon-sm back_icon" style="float: right;">
-									<i class="la la-long-arrow-left"></i>
-									Back
-								</a>
-							</div>
-                    		<div class="kt-portlet__body table-responsive">
-								<!--begin: Datatable -->
-								<table class="common_table table table-striped- table-bordered table-hover table-checkable table-responsive">
-									<thead>
-										<tr>
-											<th>Customer Review ID</th>
-											<th>Customer ID Number</th>
-											<th>Customer Name</th>
-											<th>Quality</th>
-											<th>Price</th>
-											<th>Delivery</th>
-											<th>Overall</th>
-											<th>Review Date</th>
-											<th>Other Issues</th>
-											<th>Attached Evidence</th>
-											<th>Product / Activity / Area being reviewed</th>
-											<th>Action</th>
-										</tr>
-									</thead>
-									<tbody>
-                                        @foreach ($customer_review as $data)
-										<tr>
-											<td>{{$loop->index+1}} </td>
-                                            <td>{{$data->cus_id}} </td>
-                                             @php 
-                                             $customersName=\App\customers::where('user_id',$request)->where('idNumber',$data->cus_id)->first();
-                                            @endphp
-                                            <td>@if(isset($customersName->name)){{$customersName->name}} @endif </td>
-                                            <td>{{$data->qualityScore}} </td>
-                                            <td>{{$data->priceScore}} </td>
-											<td>{{$data->DScore}} </td>
-											<td>{{$data->OveralScore}} </td>
-                                            <td>{{date('d/m/Y', strtotime($data->AssesmentDate))}} </td>
-											<td>{{$data->other_issues}}</td>
-                                        	<td>
-												@isset($data->attach_evidence)
-												<a href="{{asset('customer_review_evidence/' . $data->attach_evidence)}}" target="_blank">View File</a>
-												@endisset
-											</td>
-											<td>
-												{{$data->product_activity_area}}
-											</td>         
-                                            <td>
-                                                <button  class="btn btn-sm btn-clean btn-icon btn-icon-md" title="info" value="" onclick="getEid({{$data}});">
-                                                   <span class="svg-icon svg-icon-md">									<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="18px" height="18px" viewBox="0 0 24 24" version="1.1">										<g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">											<rect x="0" y="0" width="24" height="24"></rect>											<path d="M12.2674799,18.2323597 L12.0084872,5.45852451 C12.0004303,5.06114792 12.1504154,4.6768183 12.4255037,4.38993949 L15.0030167,1.70195304 L17.5910752,4.40093695 C17.8599071,4.6812911 18.0095067,5.05499603 18.0083938,5.44341307 L17.9718262,18.2062508 C17.9694575,19.0329966 17.2985816,19.701953 16.4718324,19.701953 L13.7671717,19.701953 C12.9505952,19.701953 12.2840328,19.0487684 12.2674799,18.2323597 Z" fill="#5d78ff" fill-rule="nonzero" transform="translate(14.701953, 10.701953) rotate(-135.000000) translate(-14.701953, -10.701953) "></path>											<path d="M12.9,2 C13.4522847,2 13.9,2.44771525 13.9,3 C13.9,3.55228475 13.4522847,4 12.9,4 L6,4 C4.8954305,4 4,4.8954305 4,6 L4,18 C4,19.1045695 4.8954305,20 6,20 L18,20 C19.1045695,20 20,19.1045695 20,18 L20,13 C20,12.4477153 20.4477153,12 21,12 C21.5522847,12 22,12.4477153 22,13 L22,18 C22,20.209139 20.209139,22 18,22 L6,22 C3.790861,22 2,20.209139 2,18 L2,6 C2,3.790861 3.790861,2 6,2 L12.9,2 Z" fill="#5d78ff" fill-rule="nonzero" opacity="0.3"></path>										</g>									</svg>	                            </span>
-												</button>
-												<button  class="btn btn-sm btn-clean btn-icon btn-icon-md" title="delete" value="" onclick="deletedata({{$data}});"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="18px" height="18px" viewBox="0 0 24 24" version="1.1">										<g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">											<rect x="0" y="0" width="24" height="24"></rect>											<path d="M6,8 L6,20.5 C6,21.3284271 6.67157288,22 7.5,22 L16.5,22 C17.3284271,22 18,21.3284271 18,20.5 L18,8 L6,8 Z" fill="#5d78ff" fill-rule="nonzero"></path>											<path d="M14,4.5 L14,4 C14,3.44771525 13.5522847,3 13,3 L11,3 C10.4477153,3 10,3.44771525 10,4 L10,4.5 L5.5,4.5 C5.22385763,4.5 5,4.72385763 5,5 L5,5.5 C5,5.77614237 5.22385763,6 5.5,6 L18.5,6 C18.7761424,6 19,5.77614237 19,5.5 L19,5 C19,4.72385763 18.7761424,4.5 18.5,4.5 L14,4.5 Z" fill="#5d78ff" opacity="0.3"></path>										</g>									</svg>
-                                                </button>
-                                                <button class="btn btn-sm btn-clean btn-icon btn-icon-md"
-													title="View Customer Details" value="" o data-toggle="modal" data-target="#modal{{$data->id}}"><i
-														class="fa fa-eye"></i>
-											   </button>
+                    <div><label>Product / Activity / Area</label><input type="text" name="product_activity_area" placeholder="Being reviewed" required></div>
+                    <div><label>Assessment Date</label><input type="date" max="2999-12-31" name="AssesmentDate" required></div>
+                </div>
+                <div class="form-row">
+                    <div><label>Quality Score (0-10)</label><input type="number" min="0" max="10" name="qualityScore" placeholder="0-10" required></div>
+                    <div><label>Price Score (0-10)</label><input type="number" min="0" max="10" name="priceScore" placeholder="0-10" required></div>
+                    <div><label>Delivery Score (0-10)</label><input type="number" min="0" max="10" name="DScore" placeholder="0-10" required></div>
+                    <div><label>Overall Score (0-10)</label><input type="number" min="0" max="10" name="OveralScore" placeholder="0-10" required></div>
+                </div>
+                <div class="form-row">
+                    <div style="grid-column:span 2;"><label>Any Other Issues</label><input type="text" name="other_issue" placeholder="Notes" required></div>
+                    <div style="grid-column:span 2;"><label>Attach Evidence</label><input type="file" name="attach_evidence" required></div>
+                </div>
+                <div class="form-actions">
+                    <button type="button" class="am-btn am-btn-outline am-btn-sm" id="cancelCrForm">Cancel</button>
+                    <button type="submit" class="am-btn am-btn-primary am-btn-sm"><i class="fa fa-check"></i> Save Review</button>
+                </div>
+            </form>
+        </div>
+    </div>
 
-											   {{-- <button class="btn btn-sm btn-clean btn-icon btn-icon-md" onclick="getView({{$data}});" title="View Customer Details" value="" o data-toggle="modal" data-target="#model3"><i class="fa fa-eye"></i> --}}
-											   {{-- </button> --}}
-
-                                                <!-- view mdoal -->
-                                                <div class="modal fade" id="modal{{$data->id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-												<div class="modal-dialog modal-lg" role="document">
-													<div class="modal-content">
-														<div class="modal-header">
-															<h5 class="modal-title" id="exampleModalLabel">View Customer Evaluation Details</h5>
-															<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-															</button>
-														</div>
-														<div class="modal-body">
-											                
-											                    <div class="row">
-											                        
-											                        <div class="col-lg-6">
-																		<div class="form-group">
-																			<label>Customer ID Number:</label><br>
-																			<input type="number" class="form-control" required name="cus_id" placeholder="Enter Customer ID:" readonly>
-																		</div>
-																	</div>
-	
-																	<div class="col-lg-6">
-																		<div class="form-group">
-																			<label>Product / Activity / Area being reviewed</label><br>
-																			<input class="form-control" type="text" name="product_activity_area_id" placeholder="Enter Product / Activity / Area being reviewed" value="" readonly>
-																		</div>
-																	</div>
-											                    </div>
-
-											                    <div class="row">
-											                        <div class="col-lg-6">
-											                            <div class="form-group">
-											                                <label>Quality Score (0-10):</label>
-											                                <input type="number" min="0" max="10" class="form-control" name="qualityScore" value="{{$data->qualityScore}}" readonly>
-											                            </div>
-											                        </div>
-											                        <div class="col-lg-6">
-											                            <div class="form-group">
-											                                <label>Price Score (0-10):</label>
-											                                <input type="number" min="0" max="10" class="form-control" name="priceScore" value="{{$data->priceScore}}" readonly>
-											                            </div>
-											                        </div>
-											                    </div>
-											                    <div class="row">
-											                        <div class="col-lg-6">
-											                            <div class="form-group">
-											                                <label>Delivery Score (0-10):</label>
-											                                <input type="number" class="form-control"min="0" max="10"name="DScore"  value="{{$data->DScore}}" readonly>
-											                            </div>
-											                        </div>
-											                        <div class="col-lg-6">
-											                            <div class="form-group">
-											                                <label>Overall Score (0-10):</label>
-											                                <input type="number" class="form-control" min="0" max="10"  name="OveralScore" value="{{$data->OveralScore}}" readonly>
-											                            </div>
-											                        </div>
-											                    </div>
-																<div class="row">
-																	<div class="col-lg-6">
-																		<div class="form-group">
-																			<label>Assessment Date (MM/DD/YYYY):</label>
-																			<input type="date" max="2999-12-31"  required class="form-control" name="AssesmentDate" required="required">
-																		</div>
-																	</div>
-																	<div class="col-lg-6">
-																		<div class="form-group">
-																			<label>Any Other Issues or points to note?</label>
-																			<input type="text" required class="form-control" placeholder="Any Other Issues or points to note?" name="other_issue" required="required">
-																		</div>
-																	</div>
-																</div>
-																<div class="row">                       
-																	<div class="col-lg-12">
-																		<div class="form-group">
-																			<label>Attach Evidence:</label>
-																			<input type="hidden" id="assetUrl" value="{{ asset('customer_review_evidence/') }}">
-																			<a href="" name="attach_evidence">View Attached Evidence</a>
-																			{{-- <input type="file" class="form-control" name="attach_evidence" required="required"> --}}
-																		</div>
-																	</div>
-																</div>
-																
-																<button  class="btn btn-secondary submitBtn" type="reset" data-dismiss="modal" aria-label="Close" style="margin-right: 6px;">Cancel</button>
-											              
-													</div>
-												</div>
-											</div>
-</div>
-                                            </td>
-
-                                        </tr>
-                                        @endforeach
-									</tbody>
-								</table>
-								<!--end: Datatable -->
-                    	</div>
-					</div>
-					</div>
-					<div class="procedure_div m-t-20">
-                    	{{-- <div class="requirments_table_div">
-                    		<h4>Total Customers Listed</h4>
-                    		<div class="kt-portlet__body table-responsive">
-								<!--begin: Datatable -->
-								<table class="common_table table table-striped- table-bordered table-hover table-checkable table-responsive" id="kt_table_agent">
-									<thead>
-										<tr>
-											<th>Customer ID</th>
-											<th>Name</th>
-											<th>Address</th>
-											<th>Tel</th>
-											<th>Email</th>
-											<th>Contact</th>
-										</tr>
-									</thead>
-									<tbody>
-										<tr>
-											<td>58</td>
-											<td>Block Computing</td>
-											<td>Al Quasais, Unit 5, Dubai</td>
-											<td>0971 56 491 5517</td>
-											<td>B.Cmp@gmail.com</td>
-											<td>Mr Ahmed</td>
-										</tr>
-									</tbody>
-								</table>
-								<!--end: Datatable -->
-                    	</div>
-					</div> --}}
-	</section>
-
+    <div class="am-card">
+        <div class="am-table-wrap">
+            <table class="am-table" id="amCrTable">
+                <thead>
+                    <tr>
+                        <th style="width:60px;">#</th>
+                        <th>Customer</th>
+                        <th>Product / Area</th>
+                        <th>Quality</th>
+                        <th>Price</th>
+                        <th>Delivery</th>
+                        <th>Overall</th>
+                        <th>Review Date</th>
+                        <th>Evidence</th>
+                        <th style="text-align:right;">Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @forelse ($customer_review as $data)
+                        @php
+                            $customersName = \App\customers::where('user_id', $request)->where('idNumber', $data->cus_id)->first();
+                            $customerLabel = $customersName ? $customersName->name : 'Customer #'.$data->cus_id;
+                            $overall = (int) $data->OveralScore;
+                            $chipCls = $overall >= 8 ? 'success' : ($overall >= 5 ? 'warning' : 'danger');
+                        @endphp
+                        <tr data-search="{{ strtolower($customerLabel . ' ' . $data->product_activity_area . ' ' . $data->other_issues) }}">
+                            <td><span class="am-cell-sub">#{{ $loop->index + 1 }}</span></td>
+                            <td>
+                                <div class="am-user-cell">
+                                    <span class="am-avatar">{{ strtoupper(substr($customerLabel, 0, 1)) }}</span>
+                                    <div>
+                                        <span class="am-cell-primary">{{ $customerLabel }}</span>
+                                        <span class="am-cell-sub">ID: {{ $data->cus_id }}</span>
+                                    </div>
+                                </div>
+                            </td>
+                            <td>{{ $data->product_activity_area }}</td>
+                            <td>{{ $data->qualityScore }}</td>
+                            <td>{{ $data->priceScore }}</td>
+                            <td>{{ $data->DScore }}</td>
+                            <td><span class="am-chip {{ $chipCls }}">{{ $data->OveralScore }}/10</span></td>
+                            <td>{{ date('d M Y', strtotime($data->AssesmentDate)) }}</td>
+                            <td>
+                                @isset($data->attach_evidence)
+                                    <a href="{{ asset('customer_review_evidence/'.$data->attach_evidence) }}" target="_blank" style="color:var(--am-primary);"><i class="fa fa-paperclip"></i> View</a>
+                                @endisset
+                            </td>
+                            <td style="text-align:right;white-space:nowrap;">
+                                <div class="am-actions">
+                                    <button type="button" class="am-icon-btn" title="View" onclick='amCrView(@json($data), @json($customerLabel))'><i class="fa fa-eye"></i></button>
+                                    <button type="button" class="am-icon-btn" title="Edit" onclick='amCrEdit(@json($data))'><i class="fa fa-pen"></i></button>
+                                    <button type="button" class="am-icon-btn danger am-confirm-delete"
+                                            title="Delete"
+                                            data-action="{{ route('deleteCustomerRivewAdmin') }}"
+                                            data-id="{{ $data->id }}"
+                                            data-label="Review for {{ $customerLabel }}"
+                                            data-type="Customer Review">
+                                        <i class="fa fa-trash"></i>
+                                    </button>
+                                </div>
+                            </td>
+                        </tr>
+                    @empty
+                        <tr><td colspan="10"><div class="am-empty"><i class="fa fa-star"></i><p>No customer reviews added yet.</p></div></td></tr>
+                    @endforelse
+                </tbody>
+            </table>
+        </div>
+        <div class="am-pagination" id="amCrPagination"></div>
+    </div>
 </div>
 
-
-<div class="modal fade" id="editcustomer_rev" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-	<div class="modal-dialog modal-lg" role="document">
-		<div class="modal-content">
-			<div class="modal-header">
-				<h5 class="modal-title" id="exampleModalLabel">Edit Customer Evaluation Details</h5>
-				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-				</button>
-			</div>
-			<div class="modal-body">
-                <form method="POST" action="{{route('editCustomerReview')}} ">
-                    @csrf
-                    <input type="hidden" name="id" id="editid">
-                               @php 
-            $urlparam = request()->route()->parameters;
-            @endphp
-                            <input type="hidden" name="user_id" value="{{ $urlparam['userid'] }}">
-                    <div class="row">
-                        {{-- <div class="col-lg-6">
-                            <div class="form-group">
-                                <label>Customer Review ID Number (See table below. For amendments only):</label><br>
-                                <input type="number" class="form-control" name="revnumber" placeholder="Enter ID:">
-                            </div>
-                        </div> --}}
-						<div class="col-lg-6">
-                            <div class="form-group">
-                                <label>Customer ID Number:</label><br>
-                                {{-- <input type="number" class="form-control" required name="cus_id" placeholder="Enter Customer ID:" readonly> --}}
-                                <select class="form-control" name="cus_id" required="required">
-                                    <option value="" selected disabled>Select Customer Id</option>
-                                    @foreach($all_customers as $customer)
-                                    <option value="{{$customer->idNumber}}">{{$customer->idNumber}}</option>
-                                    @endforeach
-                                </select>  
-                            </div>
-                        </div>
-                        
-                        <div class="col-lg-6">
-                            <div class="form-group">
-                                <label>Product / Activity / Area being reviewed</label><br>
-                                <!-- <input type="number" class="form-control" name="cus_id" placeholder="Enter Customer ID:"> -->
-                                <input class="form-control" type="text" name="product_activity_area_edit" placeholder="Enter Product / Activity / Area being reviewed">
-                            </div>
-                        </div>
+{{-- Edit modal --}}
+<div class="am-modal" id="editcustomer_rev" role="dialog" aria-modal="true">
+    <div class="am-modal__box am-form" style="max-width:900px;">
+        <div class="am-modal__header">
+            <span class="am-modal__icon" style="background:var(--am-primary-tint);color:var(--am-primary);"><i class="fa fa-pen"></i></span>
+            <h4 class="am-modal__title">Edit Customer Evaluation</h4>
+        </div>
+        <form method="POST" action="{{ route('editCustomerReview') }}" enctype="multipart/form-data" style="display:contents;">
+            @csrf
+            <input type="hidden" name="id" id="editid">
+            <input type="hidden" name="user_id" value="{{ $urlparam['userid'] }}">
+            <div class="am-modal__body" style="padding:20px;">
+                <div class="form-group row">
+                    <div class="col-lg-6"><label>Customer ID</label>
+                        <select class="form-control" name="cus_id" required>
+                            <option value="" selected disabled>Select customer…</option>
+                            @foreach($all_customers as $customer)
+                                <option value="{{ $customer->idNumber }}">{{ $customer->idNumber }} — {{ $customer->name }}</option>
+                            @endforeach
+                        </select>
                     </div>
-
-                    <div class="row">
-                        <div class="col-lg-6">
-                            <div class="form-group">
-                                <label>Quality Score (0-10):</label>
-                                <input type="number" min="0" max="10" class="form-control" name="qualityScore" required="required">
-                            </div>
-                        </div>
-                        <div class="col-lg-6">
-                            <div class="form-group">
-                                <label>Price Score (0-10):</label>
-                                <input type="number" min="0" max="10" class="form-control" name="priceScore" required="required">
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-lg-6">
-                            <div class="form-group">
-                                <label>Delivery Score (0-10):</label>
-                                <input type="number" class="form-control"min="0" max="10"name="DScore" required="required">
-                            </div>
-                        </div>
-                        <div class="col-lg-6">
-                            <div class="form-group">
-                                <label>Overall Score (0-10):</label>
-                                <input type="number" class="form-control" min="0" max="10"  name="OveralScore" required="required">
-                            </div>
-                        </div>
-                    </div>
-					<div class="row">
-                        <div class="col-lg-6">
-                            <div class="form-group">
-                                <label>Assessment Date (MM/DD/YYYY):</label>
-                                <input type="date" max="2999-12-31" required class="form-control" name="AssesmentDate" required="required">
-                            </div>
-                        </div>
-                        <div class="col-lg-6">
-                            <div class="form-group">
-                                <label>Any Other Issues or points to note?</label>
-                                <input type="text" required class="form-control" placeholder="Any Other Issues or points to note?" name="other_issue" required="required">
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-lg-12">
-                            <div class="form-group">
-                                <label>Attach Evidence:</label>
-                                <input type="file" class="form-control" name="attach_evidence" required="required">
-                            </div>
-                        </div>
-                    </div>
-                    <button  class="submitBtn"  type="submit">Update</button>
-					
-					<button  class="btn btn-secondary submitBtn" type="reset" data-dismiss="modal" aria-label="Close" style="margin-right: 6px;">Cancel</button>
-                </form>
-		</div>
-	</div>
-</div>
-</div>
-<div class="modal fade" id="deleteRequirment" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-	<div class="modal-dialog" role="document">
-		<div class="modal-content">
-			<div class="modal-header">
-				<h5 class="modal-title" id="exampleModalLabel">Deleting Customer Review Details</h5>
-				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-				</button>
-			</div>
-			<div class="modal-body">
-				<p>Are you sure you want to delete this entry?</p>
-			</div>
-			<div class="modal-footer">
-			<form action="{{route('deleteCustomerRivewAdmin')}}" method="POST">
-				@csrf
-			<input type="hidden" id="re_id" value="" name="id">
-				<button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
-				<button type="submit" class="btn btn-danger">Yes</button>
-				</form>
-			</div>
-		</div>
-	</div>
+                    <div class="col-lg-6"><label>Product / Activity / Area</label><input class="form-control" type="text" name="product_activity_area_edit"></div>
+                </div>
+                <div class="form-group row">
+                    <div class="col-lg-3"><label>Quality (0-10)</label><input type="number" min="0" max="10" class="form-control" name="qualityScore" required></div>
+                    <div class="col-lg-3"><label>Price (0-10)</label><input type="number" min="0" max="10" class="form-control" name="priceScore" required></div>
+                    <div class="col-lg-3"><label>Delivery (0-10)</label><input type="number" min="0" max="10" class="form-control" name="DScore" required></div>
+                    <div class="col-lg-3"><label>Overall (0-10)</label><input type="number" min="0" max="10" class="form-control" name="OveralScore" required></div>
+                </div>
+                <div class="form-group row">
+                    <div class="col-lg-6"><label>Assessment Date</label><input type="date" max="2999-12-31" class="form-control" name="AssesmentDate" required></div>
+                    <div class="col-lg-6"><label>Any Other Issues</label><input type="text" class="form-control" name="other_issue" required></div>
+                </div>
+                <div class="form-group row">
+                    <div class="col-lg-12"><label>Attach Evidence</label><input type="file" class="form-control" name="attach_evidence"></div>
+                </div>
+            </div>
+            <div class="am-modal__footer">
+                <button type="button" class="am-btn am-btn-outline am-modal-close">Cancel</button>
+                <button type="submit" class="am-btn am-btn-primary"><i class="fa fa-check"></i> Update</button>
+            </div>
+        </form>
+    </div>
 </div>
 
-@endsection
+{{-- View modal --}}
+<div class="am-modal" id="viewCustomerRev" role="dialog" aria-modal="true">
+    <div class="am-modal__box" style="max-width:720px;">
+        <div class="am-modal__header">
+            <span class="am-modal__icon" style="background:var(--am-primary-tint);color:var(--am-primary);"><i class="fa fa-eye"></i></span>
+            <h4 class="am-modal__title">Review Details</h4>
+        </div>
+        <div class="am-modal__body">
+            <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:14px;font-size:13px;">
+                <div><div style="font-size:11px;text-transform:uppercase;letter-spacing:0.4px;color:var(--am-text-muted);font-weight:600;margin-bottom:4px;">Customer</div><div id="v-cr-cust"></div></div>
+                <div><div style="font-size:11px;text-transform:uppercase;letter-spacing:0.4px;color:var(--am-text-muted);font-weight:600;margin-bottom:4px;">Product / Area</div><div id="v-cr-prod"></div></div>
+                <div><div style="font-size:11px;text-transform:uppercase;letter-spacing:0.4px;color:var(--am-text-muted);font-weight:600;margin-bottom:4px;">Quality</div><div id="v-cr-q"></div></div>
+                <div><div style="font-size:11px;text-transform:uppercase;letter-spacing:0.4px;color:var(--am-text-muted);font-weight:600;margin-bottom:4px;">Price</div><div id="v-cr-p"></div></div>
+                <div><div style="font-size:11px;text-transform:uppercase;letter-spacing:0.4px;color:var(--am-text-muted);font-weight:600;margin-bottom:4px;">Delivery</div><div id="v-cr-d"></div></div>
+                <div><div style="font-size:11px;text-transform:uppercase;letter-spacing:0.4px;color:var(--am-text-muted);font-weight:600;margin-bottom:4px;">Overall</div><div id="v-cr-o"></div></div>
+                <div><div style="font-size:11px;text-transform:uppercase;letter-spacing:0.4px;color:var(--am-text-muted);font-weight:600;margin-bottom:4px;">Assessment Date</div><div id="v-cr-date"></div></div>
+                <div><div style="font-size:11px;text-transform:uppercase;letter-spacing:0.4px;color:var(--am-text-muted);font-weight:600;margin-bottom:4px;">Evidence</div><div id="v-cr-ev"></div></div>
+                <div style="grid-column:1/-1;"><div style="font-size:11px;text-transform:uppercase;letter-spacing:0.4px;color:var(--am-text-muted);font-weight:600;margin-bottom:4px;">Other Issues</div><div id="v-cr-oi"></div></div>
+            </div>
+        </div>
+        <div class="am-modal__footer"><button type="button" class="am-btn am-btn-outline am-modal-close">Close</button></div>
+    </div>
+</div>
+
 <script>
-
-	 function getEid(data) {
-        console.log(data);
-
-        $("#editid").val(data.id);
-        $("input[name='AssesmentDate']").val(data.AssesmentDate);
-        $("input[name='DScore']").val(data.DScore);
-        $("input[name='OveralScore']").val(data.OveralScore);
-        $("select[name='cus_id']").val(data.cus_id);
-        $("input[name='priceScore']").val(data.priceScore);
-        $("input[name='qualityScore']").val(data.qualityScore);
-		$("input[name='product_activity_area_edit']").val(data.product_activity_area);
-        $("input[name='revnumber']").val(data.revnumber);
-        $("input[name='qualityScore']").val(data.qualityScore);
-		$("input[name='other_issue']").val(data.other_issues);
-        $("#editcustomer_rev").modal('show');
-    }
-
-	function getView(data){
-		console.log(data);
-        $("input[name='AssesmentDate']").val(data.AssesmentDate);
-        $("input[name='DScore']").val(data.DScore);
-        $("input[name='OveralScore']").val(data.OveralScore);
-        $("input[name='cus_id']").val(data.cus_id);
-        $("input[name='priceScore']").val(data.priceScore);
-        $("input[name='qualityScore']").val(data.qualityScore);
-		$("input[name='product_activity_area_id']").val(data.product_activity_area);
-        $("input[name='revnumber']").val(data.revnumber);
-        $("input[name='qualityScore']").val(data.qualityScore);
-        $("input[name='other_issue']").val(data.other_issues);
-		var assetUrl = $("#assetUrl").val();
-    	$("a[name='attach_evidence']").attr("href", assetUrl + "/" + data.attach_evidence);
-        // $("#model3").modal('show');
-	}
-	 function deletedata(data){
-		$("#re_id").val(data.id);
-         $("#deleteRequirment").modal('show');
-
-	 }
+(function(){
+    var t=document.getElementById('toggleCrForm'),f=document.getElementById('newCrForm'),c=document.getElementById('cancelCrForm');
+    t&&t.addEventListener('click',function(){f.classList.toggle('open');});
+    c&&c.addEventListener('click',function(){f.classList.remove('open');});
+    function debounce(fn,w){var t;return function(){var c=this,a=arguments;clearTimeout(t);t=setTimeout(function(){fn.apply(c,a);},w);};}
+    var per=10,i=document.getElementById('amCrSearch'),tb=document.querySelector('#amCrTable tbody');
+    if(!tb)return;
+    var rows=Array.prototype.slice.call(tb.querySelectorAll('tr[data-search]')),p=document.getElementById('amCrPagination'),F=rows.slice(),pg=1;
+    function r(){var T=F.length,TP=Math.max(1,Math.ceil(T/per));if(pg>TP)pg=TP;rows.forEach(function(x){x.style.display='none';});F.slice((pg-1)*per,pg*per).forEach(function(x){x.style.display='';});var fr=T===0?0:(pg-1)*per+1,to=Math.min(pg*per,T);var h='<div class="am-pagination__info">Showing <strong>'+fr+'–'+to+'</strong> of <strong>'+T+'</strong></div><div class="am-pagination__nav">';h+='<button data-p="'+(pg-1)+'" '+(pg<=1?'disabled':'')+'>‹</button>';var s=Math.max(1,pg-2),e=Math.min(TP,s+4);s=Math.max(1,e-4);for(var q=s;q<=e;q++)h+='<button data-p="'+q+'" '+(q===pg?'class="active"':'')+'>'+q+'</button>';h+='<button data-p="'+(pg+1)+'" '+(pg>=TP?'disabled':'')+'>›</button></div>';p.innerHTML=h;}
+    i&&i.addEventListener('input',debounce(function(){var q=this.value.trim().toLowerCase();F=q===''?rows.slice():rows.filter(function(x){return x.getAttribute('data-search').indexOf(q)!==-1;});pg=1;r();},250));
+    p&&p.addEventListener('click',function(e){var b=e.target.closest('button[data-p]');if(!b||b.disabled)return;var q=parseInt(b.getAttribute('data-p'),10);if(!isNaN(q)&&q>=1){pg=q;r();}});
+    r();
+})();
+function amCrView(d, label) {
+    document.getElementById('v-cr-cust').textContent = label + ' (ID ' + d.cus_id + ')';
+    document.getElementById('v-cr-prod').textContent = d.product_activity_area || '—';
+    document.getElementById('v-cr-q').textContent = d.qualityScore + '/10';
+    document.getElementById('v-cr-p').textContent = d.priceScore + '/10';
+    document.getElementById('v-cr-d').textContent = d.DScore + '/10';
+    document.getElementById('v-cr-o').textContent = d.OveralScore + '/10';
+    document.getElementById('v-cr-date').textContent = d.AssesmentDate ? new Date(d.AssesmentDate).toLocaleDateString() : '—';
+    document.getElementById('v-cr-oi').textContent = d.other_issues || '—';
+    var ev = document.getElementById('v-cr-ev');
+    if (d.attach_evidence) {
+        ev.innerHTML = '<a href="{{ asset("customer_review_evidence") }}/' + d.attach_evidence + '" target="_blank" style="color:var(--am-primary);"><i class="fa fa-external-link-alt"></i> View file</a>';
+    } else { ev.textContent = '—'; }
+    document.getElementById('viewCustomerRev').classList.add('open');
+}
+function amCrEdit(d) {
+    $("#editid").val(d.id);
+    $("#editcustomer_rev input[name='AssesmentDate']").val(d.AssesmentDate);
+    $("#editcustomer_rev input[name='DScore']").val(d.DScore);
+    $("#editcustomer_rev input[name='OveralScore']").val(d.OveralScore);
+    $("#editcustomer_rev select[name='cus_id']").val(d.cus_id);
+    $("#editcustomer_rev input[name='priceScore']").val(d.priceScore);
+    $("#editcustomer_rev input[name='qualityScore']").val(d.qualityScore);
+    $("#editcustomer_rev input[name='product_activity_area_edit']").val(d.product_activity_area);
+    $("#editcustomer_rev input[name='other_issue']").val(d.other_issues);
+    document.getElementById('editcustomer_rev').classList.add('open');
+}
 </script>
+@endsection

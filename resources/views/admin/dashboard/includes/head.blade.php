@@ -184,6 +184,9 @@ License: You must have a valid license purchased only from themeforest(the above
 			});
 		  </script>
 		<link href="{{ asset('css/custom.css') }}" rel="stylesheet" type="text/css" />
+		<link href="{{ asset('css/admin-modern.css') }}" rel="stylesheet" type="text/css" />
+		<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet" />
+		<link href="{{ asset('css/admin-modern-layout.css') }}" rel="stylesheet" type="text/css" />
 		@yield('styles')
 	</head>
 

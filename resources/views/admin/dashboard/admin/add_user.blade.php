@@ -13,50 +13,81 @@
             font-size: 12px;
             background: #FFF;
             border-radius: 4px;
-            border: 1px solid #0d47b3;
+            border: 1px solid #2E3B9A;
         }
+
+        /* Modern add-user form styling */
+        .am-form .form-group.row { margin-bottom: 22px; }
+        .am-form label {
+            display: block;
+            font-size: 12px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.4px;
+            color: #6c757d;
+            margin-bottom: 6px;
+            text-align: left !important;
+        }
+        .am-form .form-group.row > [class*="col-"] { text-align: left; }
+        .am-form .form-control {
+            border: 1px solid #e2e6ee;
+            border-radius: 8px;
+            background: #f9fafc;
+            padding: 10px 14px;
+            font-size: 13.5px;
+            color: #212529;
+            transition: border-color 0.15s, background 0.15s, box-shadow 0.15s;
+        }
+        .am-form .form-control:focus {
+            outline: none;
+            background: #fff;
+            border-color: #5560C4;
+            box-shadow: 0 0 0 3px rgba(46, 59, 154, 0.10);
+        }
+        .am-form textarea.form-control { min-height: 80px; }
+        .am-form input[type="file"].form-control { padding: 8px 12px; background: #fff; }
+        .am-section-title {
+            font-size: 12px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.8px;
+            color: #2E3B9A;
+            margin: 8px 0 18px;
+            padding-bottom: 8px;
+            border-bottom: 1px solid #eef1f5;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .am-section-title:not(:first-of-type) { margin-top: 30px; }
     </style>
-    <div class="kt-content  kt-grid__item kt-grid__item--fluid" id="kt_content">
-        <div class="row">
-            <div class="col-lg-12">
+    <div class="kt-content  kt-grid__item kt-grid__item--fluid" id="kt_content" style="padding:26px;">
 
-                @if ($message = Session::get('Success') ? Session::get('Success') : Session::get('Error') )
-                    @php
-                        $class = Session::get('Success') ? 'success' :'danger'
-                    @endphp
-                    <div class="row">
-                        <div class="col-md-12 pl-4 ml-4 mt-4">
-                            <div class="alert alert-{{$class}} alert-dismissible">{{ $message }} &nbsp; <a href="#"
-                                                                                                           class="close"
-                                                                                                           data-dismiss="alert"
-                                                                                                           aria-label="close">&times;</a>
-                            </div>
-                        </div>
-                    </div>
-            @endif
+        {{-- Modern page header --}}
+        <div class="am-page-header">
+            <div>
+                <h2>Add New User</h2>
+                <p>Register a new client account with company profile and certifications.</p>
+            </div>
+            <div>
+                <a href="{{ url('/view_user') }}" class="am-btn am-btn-outline">
+                    <i class="fa fa-arrow-left"></i> Back to Users
+                </a>
+            </div>
+        </div>
 
-            <!--begin::Portlet-->
-                <div class="kt-portlet">
-                    <div class="kt-portlet__head kt-portlet__head--lg">
-                        <div class="kt-portlet__head-label">
-						<span class="kt-portlet__head-icon">
-							<i class="kt-font-brand flaticon2-line-chart"></i>
-						</span>
-                            <h3 class="kt-portlet__head-title">
-                                Add New User
-                            </h3>
-                        </div>
-                        <div class="kt-portlet__head-toolbar">
-                            <div class="kt-portlet__head-wrapper">
-                                <a href="{{url('admin')}}" class="btn btn-clean btn-icon-sm">
-                                    <i class="la la-long-arrow-left"></i>
-                                    Back
-                                </a>
-                                &nbsp;
+        @if ($message = Session::get('Success') ? Session::get('Success') : Session::get('Error') )
+            @php $class = Session::get('Success') ? 'success' :'danger' @endphp
+            <div class="am-card" style="padding:14px 20px;margin-bottom:16px;color:{{ $class === 'success' ? '#1a8a5c' : '#b83432' }};background:{{ $class === 'success' ? 'rgba(38,194,129,0.08)' : 'rgba(235,77,75,0.08)' }};">
+                <i class="fa fa-{{ $class === 'success' ? 'check-circle' : 'exclamation-circle' }}"></i> {{ $message }}
+            </div>
+        @endif
 
-                            </div>
-                        </div>
-                    </div>
+        {{-- Form card --}}
+        <div class="am-card am-form">
+            <div class="row" style="margin:0;"><div class="col-lg-12" style="padding:0;">
+                <div class="kt-portlet" style="background:transparent;box-shadow:none;border:none;margin:0;">
+                    <div class="kt-portlet__head kt-portlet__head--lg" style="display:none;"></div>
                     @php
                         $usertypes = \App\UserType::get();
                     @endphp
@@ -64,26 +95,15 @@
                     <form class="kt-form kt-form--label-right" method="POST" action="{{route('add_user')}}" id="add_user"
                           enctype="multipart/form-data">
                         @csrf
-                        <div class="kt-portlet__body">
-                           
-                            <div class="form-group row" style="margin-bottom:50px; ">
-                                <div class="col-lg-12" align="right" style="margin-bottom:-50px; padding-right: 52px;">
-                                    <input type="hidden" id="user_type" name="user_type"  value="0">
-                                <!-- <select name="user_type" id="user_type">-->
-                                <!--<option value="0">Select User Type</option>    -->
-                                <!--@foreach ($usertypes as $usertype)-->
-                                <!--<option value="{{$usertype->id}}">{{$usertype->name}}</option> -->
-                                <!--@endforeach-->
-                                       
-                                <!--</select>    -->
-                                
-                                 </div>
-                            </div>
-                            
+                        <div class="kt-portlet__body" style="padding:26px;">
+                            <input type="hidden" id="user_type" name="user_type" value="0">
+
+                            <h4 class="am-section-title"><i class="fa fa-key"></i> Account Access</h4>
+
                             <div class="form-group row">
 
                                 <div class="col-lg-3">
-                                    <label for="address2">Company ID:</label>
+                                    <label for="address2">Company ID</label>
                                     <div class="kt-input-icon kt-input-icon--right">
                                         <input type="text" id="order_number" name="order_number" class="form-control"
                                                placeholder="Enter Company ID Number" required>
@@ -116,10 +136,13 @@
                                     </div>
                                 </div>
                             </div>
+
+                            <h4 class="am-section-title"><i class="fa fa-building"></i> Company Details</h4>
+
                             <div class="form-group row">
 
                                 <div class="col-lg-4">
-                                    <label for="company_name">Company Name:</label>
+                                    <label for="company_name">Company Name</label>
                                     <input type="text" id="company_name" name="company_name" class="form-control"
                                            placeholder="Enter Company Name" required>
                                 </div>
@@ -154,9 +177,12 @@
 
                                 </div>
                             </div>
+
+                            <h4 class="am-section-title"><i class="fa fa-user-shield"></i> ISO Contact Person</h4>
+
                             <div class="form-group row">
                                 <div class="col-lg-4">
-                                    <label for="person_iso">Person responsible for ISO:</label>
+                                    <label for="person_iso">Person responsible for ISO</label>
                                     <input type="text" id="person_iso" name="person_iso" class="form-control"
                                            placeholder="Iso Person Name" required>
                                     <!--<span class="form-text text-muted">Please enter the ISO contact person's name</span>-->
@@ -187,9 +213,12 @@
 
 
                             </div>
+
+                            <h4 class="am-section-title"><i class="fa fa-users-cog"></i> Process Owners</h4>
+
                             <div class="form-group row">
                                 <div class="col-lg-4">
-                                    <label for="sales_process">Sales Process Owner:</label>
+                                    <label for="sales_process">Sales Process Owner</label>
                                     <div class="kt-input-icon kt-input-icon--right">
                                         <input type="text" id="sales_process" name="sales_process" class="form-control"
                                                placeholder="Enter a Name." required>
@@ -263,11 +292,12 @@
                     </div>
                              --}}
 
+                            <h4 class="am-section-title"><i class="fa fa-image"></i> Company Description &amp; Logo</h4>
 
                             <div class="form-group row">
 
                                 <div class="col-lg-9">
-                                    <label for="user_image">Company Description:</label>
+                                    <label for="user_image">Company Description</label>
                                     <div class="kt-input-icon kt-input-icon--right">
 
                                         <textarea id="Company_overview" name="Company_overview" class="form-control"
@@ -298,10 +328,12 @@
 
                             </div>
 
+                            <h4 class="am-section-title"><i class="fa fa-certificate"></i> ISO Certifications</h4>
+
                             <div class="form-group row">
 
                                 <div class="col-lg-3">
-                                    <label for="iso9001_certificate">ISO9001 Certificate:</label>
+                                    <label for="iso9001_certificate">ISO9001 Certificate</label>
                                     <input type="file" id="iso9001_certificate" accept=".pdf"
                                            name="iso9001_certificate">
                                     <!--<button type="button" class="new-file-upload" onclick="document.getElementById('iso9001_certificate').click()">Attach File</button>-->
@@ -383,40 +415,24 @@
                                               placeholder="Audit Comment"></textarea>
                                 </div>
                             </div>
-                             <div class="form-group row">
+                            <h4 class="am-section-title"><i class="fa fa-file-signature"></i> Additional Documents</h4>
+
+                            <div class="form-group row">
                                 <div class="col-lg-3">
-                                    <label for="iso45001_certificate"> QA Certification Agreement</label>
+                                    <label for="iso45001_certificate">QA Certification Agreement</label>
                                     <input type="file" id="qa_certification" accept=".pdf"
                                            name="qa_certification">
                                 </div>
-                                
                             </div>
                             
                            
-                            <div class="kt-portlet__foot">
-
-                                <button type="submit" id="submit" class="submitBtn" style="margin-right: -28px;">
-                                    SUBMIT
+                            <div class="kt-portlet__foot" style="background:transparent;border-top:1px solid var(--am-border);padding:18px 22px;display:flex;justify-content:flex-end;gap:10px;">
+                                <button type="reset" class="am-btn am-btn-outline" onclick="window.location.href='{{url('/view_user')}}'">
+                                    <i class="fa fa-times"></i> Cancel
                                 </button>
-                                <button type="reset" class="submitBtn"
-                                        onclick="window.location.href='{{url('/admin')}}'" style="margin-right:10px">
-                                    Cancel
+                                <button type="submit" id="submit" class="am-btn am-btn-primary">
+                                    <i class="fa fa-check"></i> Submit
                                 </button>
-
-                                {{---	<div class="kt-form__actions">
-                                        <div class="col-lg-4">
-                                            <a href="{{url('/admin')}}" type="reset" value="Reset" class="btn btn-primary" style="margin-right:-535px;background-color: transparent;border-radius: 16px;color: #534e4e;color: #ffffff;background-color: #5867dd;">Cancel</a>
-                                        </div>
-                                        <div class="row">
-                                            <div class="col-lg-8">
-                                                <button type="submit" class="btn btn-primary" style="margin-right: -308px;
-                                                margin-top: -39px;
-                                                border-radius: 17px;" >Submit</button>
-
-                                            </div>
-
-                                        </div>
-                                    </div>--}}
                             </div>
 
                     </form>
@@ -426,10 +442,9 @@
 
                 <!--end::Portlet-->
 
-
-            </div>
-        </div>
-    </div>
+            </div></div>{{-- /.row --}}
+        </div>{{-- /.am-card --}}
+    </div>{{-- /.kt-content --}}
 
     <!-- end:: Content -->
 

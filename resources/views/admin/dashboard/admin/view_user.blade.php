@@ -56,36 +56,69 @@
 
     <!-- begin:: Content -->
 
-    <div class="kt-content  kt-grid__item kt-grid__item--fluid view_user_content" id="kt_content">
+    <div class="kt-content  kt-grid__item kt-grid__item--fluid view_user_content" id="kt_content" style="padding:26px;">
+
+        {{-- Modern page header --}}
+        <div class="am-page-header">
+            <div>
+                <h2>All Users</h2>
+                <p>Browse, edit and manage every client account.</p>
+            </div>
+            <div>
+                <a href="{{ url('/add_user') }}" class="am-btn am-btn-primary">
+                    <i class="fa fa-plus"></i> New User
+                </a>
+            </div>
+        </div>
+
+        {{-- Stat cards --}}
+        <div class="am-stats">
+            <div class="am-stat">
+                <span class="am-stat__icon blue"><i class="fa fa-users"></i></span>
+                <div>
+                    <p class="am-stat__label">Total Users</p>
+                    <div class="am-stat__value">{{ number_format($totalUsers ?? 0) }}</div>
+                </div>
+            </div>
+            <div class="am-stat">
+                <span class="am-stat__icon green"><i class="fa fa-check-circle"></i></span>
+                <div>
+                    <p class="am-stat__label">Active Recently</p>
+                    <div class="am-stat__value">{{ number_format($activeRecent ?? 0) }}</div>
+                </div>
+            </div>
+            <div class="am-stat">
+                <span class="am-stat__icon orange"><i class="fa fa-user-plus"></i></span>
+                <div>
+                    <p class="am-stat__label">New This Month</p>
+                    <div class="am-stat__value">{{ number_format($newThisMonth ?? 0) }}</div>
+                </div>
+            </div>
+            <div class="am-stat">
+                <span class="am-stat__icon cyan"><i class="fa fa-globe"></i></span>
+                <div>
+                    <p class="am-stat__label">Countries</p>
+                    <div class="am-stat__value">{{ number_format($countries ?? 0) }}</div>
+                </div>
+            </div>
+        </div>
 
         @if ($message = Session::get('success'))
-
-            <div class="alert alert-light alert-elevate" role="alert">
-
-                <!-- <div class="alert-icon"><i class="flaticon-warning kt-font-brand"></i></div> -->
-
-                <!-- <div class="alert-text">
-
-                    DataTables has the ability to read data from virtually any JSON data source that can be obtained by Ajax. This can be done, in its most simple form, by setting the ajax option to the address of the JSON data source.
-
-                    See official documentation <a class="kt-link kt-font-bold" href="https://datatables.net/examples/data_sources/ajax.html" target="_blank">here</a>.
-
-                </div> -->
-
-
-                <!-- <div class="alert alert-success"> -->
-
-                <p>{{ $message }}</p>
-
-                <!-- </div> -->
-
+            <div class="am-card" style="padding:14px 20px;margin-bottom:16px;color:#1a8a5c;background:rgba(38,194,129,0.08);">
+                <i class="fa fa-check-circle"></i> {{ $message }}
             </div>
-
         @endif
 
-        <div class="kt-portlet kt-portlet--mobile">
+        <div class="am-card">
+            <div class="am-card__toolbar">
+                <form method="GET" action="{{ url('/view_user') }}" class="am-search" id="amUsersSearchForm" style="margin:0;">
+                    <i class="fa fa-search"></i>
+                    <input type="text" name="q" id="amUsersSearch" value="{{ $search ?? '' }}" placeholder="Search users by name, email, company, country…" autocomplete="off">
+                </form>
+            </div>
+        <div class="kt-portlet kt-portlet--mobile" style="background:transparent;box-shadow:none;border:none;margin:0;">
 
-            <div class="kt-portlet__head kt-portlet__head--lg">
+            <div class="kt-portlet__head kt-portlet__head--lg" style="display:none;">
 
                 <div class="kt-portlet__head-label">
 
@@ -221,129 +254,100 @@
 
             </div>
 
-            <div class="kt-portlet__body">
-                <style>th {
-                        text-align: center;
-                    }</style>
-                <div class="table-responsive">
-
-                    <!--begin: Datatable -->
-
-                    <table class="table table-striped- table-bordered table-hover table-sm table-checkable"
-                           id="kt_table_agent2">
-
+            <div class="kt-portlet__body" style="padding:0;">
+                <div id="amUsersContainer" style="position:relative;">
+                    @include('admin.dashboard.admin.partials.users_table')
+                </div>
+            </div>
+            @php if(false): @endphp
+                <div class="am-table-wrap">
+                    <table class="am-table" id="amUsersTable-legacy">
                         <thead>
-
                         <tr>
-
-                            <!--<th>#</th>-->
-
-                            <th>Company ID</th>
-                            <th>Company Name</th>
-                            <!----<th>Order Number</th>--->
-                            <!----<th>Name</th>--->
-
+                            <th>Company</th>
+                            <th>Contact</th>
                             <th>Country</th>
-                            <th>Email Address</th>
-
-
-                            <th>User Name</th>
-
-                            <!--- <th>Phone</th>
-
-                            <th>Address</th>--->
-                            <th>Logo</th>
-                            <th>Activation Date</th>
+                            <th>Activation</th>
                             <th>Last Login</th>
-                             <th>Expiry Date</th>
-                            <!--<th>Expiry date</th>-->
-                            <th>Actions</th>
-
+                            <th>Expiry</th>
+                            <th style="text-align:right;">Actions</th>
                         </tr>
-
                         </thead>
-
                         <tbody>
-                        @php
-                            $count = 1;
-                        @endphp
-                        @foreach ($users as $item)
+                        @foreach ($users as $item) */ @endphp
 
 
+                            @php
+                                $iso9001 = $item->iso9001_expirydate;
+                                $iso14001 = $item->iso14001_expirydate;
+                                $iso45001 = $item->iso45001_expirydate;
+                                $x = strtotime($iso9001);
+                                $y = strtotime($iso14001);
+                                $z = strtotime($iso45001);
+                                if ($x == 0 && $y == 0 && $z == 0) {
+                                    $minValueRaw = strtotime('+3 years');
+                                } else if ($x >= 0 && $y <= 0 && $z <= 0) {
+                                    $minValueRaw = $x;
+                                } else if ($x <= 0 && $y >= 0 && $z <= 0) {
+                                    $minValueRaw = $y;
+                                } else if ($x <= 0 && $y <= 0 && $z >= 0) {
+                                    $minValueRaw = $z;
+                                } else if ($x >= 0 && $y >= 0 && $z <= 0) {
+                                    $minValueRaw = min($x, $y);
+                                } else if ($x >= 0 && $y <= 0 && $z >= 0) {
+                                    $minValueRaw = min($x, $z);
+                                } else if ($x <= 0 && $y >= 0 && $z >= 0) {
+                                    $minValueRaw = min($y, $z);
+                                } else {
+                                    $minValueRaw = min($x, min($y, $z));
+                                }
+                                $minValue = date('d/m/Y', $minValueRaw);
+                                $daysToExpiry = intval(($minValueRaw - time()) / 86400);
+                            @endphp
                             <tr>
-
-                            <!--<td>{{---$item->id---}}{{$count}}</td>-->
-                                <td>{{ $item->order_number }}</td>
-                                <td>{{$item->company_name}}</td>
-                                <!--- <td>{ order_number}}</td> --->
-                                <!--- <td>{ ->name}}</td>--->
-                                <td>{{$item->country}}</td>
-                                <td>{{$item->email}}</td>
-                                <td>{{$item->name}}</td>
-
-
-
-                                <!----- <td>{ ->phonecode.' '. ->phone}</td> ----->
-
-                                <td><?php
-                                    if (isset($item->profile_image)) {
-                                        $logo = "<img src='". asset($item->profile_image) ."' width='60px'>";
-                                    } echo ($item->profile_image != "") ? $logo : ""  ?></td>
-
                                 <td>
-                                    @if($item->created_at !=NULL)
-                                        <!-- {{ date('d/m/Y H:i:sA', strtotime($item->created_at)) }} -->
-                                        {{ date('d/m/Y', strtotime($item->created_at)) }}
+                                    <div class="am-user-cell">
+                                        <span class="am-avatar">
+                                            @if(!empty($item->profile_image))
+                                                <img src="{{ asset($item->profile_image) }}" alt="">
+                                            @else
+                                                {{ strtoupper(substr($item->company_name ?? $item->name ?? 'U', 0, 1)) }}
+                                            @endif
+                                        </span>
+                                        <div>
+                                            <span class="am-cell-primary">{{ $item->company_name ?? '—' }}</span>
+                                            <span class="am-cell-sub">ID: {{ $item->order_number ?? $item->id }}</span>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td>
+                                    <span class="am-cell-primary">{{ $item->name ?? '—' }}</span>
+                                    <span class="am-cell-sub">{{ $item->email ?? '' }}</span>
+                                </td>
+                                <td>{{ $item->country ?? '—' }}</td>
+                                <td>
+                                    @if($item->created_at)
+                                        <span class="am-chip info">{{ date('d M Y', strtotime($item->created_at)) }}</span>
+                                    @else
+                                        <span class="am-cell-sub">—</span>
                                     @endif
                                 </td>
-
-                                 @php
-                                    $iso9001 = $item->iso9001_expirydate;
-                                    $iso14001 = $item->iso14001_expirydate;
-                                    $iso45001 =$item->iso45001_expirydate;
-
-                                    $x = strtotime($iso9001);
-                                    $y = strtotime($iso14001);
-                                    $z = strtotime($iso45001);
-
-
-                                      if($x == 0 &&  $y == 0  && $z == 0)
-                                      {
-
-                                        $minValue = date('d/m/Y', strtotime('+3 years'));
-
-                                    }else if($x >= 0 && $y <= 0  && $z <= 0)
-                                    {
-                                        $minValue=$x;
-                                        $minValue = date('d/m/Y', $minValue);
-                                    }else if($x <= 0 && $y >= 0  && $z <= 0)
-                                    {
-
-                                        $minValue=$y;
-                                        $minValue = date('d/m/Y', $minValue);
-                                    }else if($x <= 0 && $y <= 0  && $z >= 0)
-                                    {
-
-                                        $minValue=$z;
-                                        $minValue = date('d/m/Y', $minValue);
-                                    }else if($x >= 0 && $y >= 0  && $z <=0)
-                                    {
-                                        $minValue=min($x,$y);
-                                        $minValue = date('d/m/Y', $minValue);
-                                    }else if($x >= 0 && $y <= 0  && $z >= 0){
-                                        $minValue=min($x,$z);
-                                        $minValue = date('d/m/Y', $minValue);
-                                    }else if($x <= 0 && $y >= 0  && $z >= 0){
-                                        $minValue=min($y,$z);
-                                        $minValue = date('d/m/Y', $minValue);
-                                    }else{
-
-                                        $minValue=min($x,min($y,$z));
-                                        $minValue = date('d/m/Y', $minValue);
-
-                                    }
-
-                                    @endphp
+                                <td>
+                                    @if(!empty($item->last_login))
+                                        <span class="am-cell-primary">{{ date('d M Y', strtotime($item->last_login)) }}</span>
+                                    @else
+                                        <span class="am-cell-sub">-</span>
+                                    @endif
+                                </td>
+                                <td>
+                                    @if($daysToExpiry < 0)
+                                        <span class="am-chip danger">Expired</span>
+                                    @elseif($daysToExpiry < 30)
+                                        <span class="am-chip warning">{{ $minValue }}</span>
+                                    @else
+                                        <span class="am-chip success">{{ $minValue }}</span>
+                                    @endif
+                                </td>
 
                                   <!--  if($iso9001==null &&  $iso14001==null  && $iso45001==null){-->
 
@@ -384,73 +388,16 @@
                                 <td>{{ $minValue }} </td>
 
 
-                                <!--<td> ->expiry_date </td>-->
-                                <td>
-                                    {{-- eye view option hide in Action column in admin --}}
-                                    <button class="btn btn-sm btn-clean btn-icon btn-icon-md" title="Download History" value=""
-                                    onclick="get_downloads({{$item->id}});">
-                                    <i class="fa fa-download"></i>
-                                </button>
-                                  <button class="btn btn-sm btn-clean btn-icon btn-icon-md" title="Notes History" value=""
-                                    onclick="get_notes({{$item->order_number}});">
-                                   <i class="fas fa-info-circle"></i>
-                                  </button>
-                                <button class="btn btn-sm btn-clean btn-icon btn-icon-md" title="Login History" value=""
-                                    onclick="get_history({{$item->id}});">
-                                    <i class="fas fa-sign-in-alt"></i>
-                                </button>
-
-                                {{-- Button used to show the Email sending Details who haven`t logged In for 3, 6, 10 Months  --}}
-                                <button class="btn btn-sm btn-clean btn-icon btn-icon-md" title="Activity Reminder Details" onclick="userEmailDetail({{$item->id}})">
-                                    <i class="fa fa-envelope" aria-hidden="true"></i>
-                                </button>
-                        <button class="btn btn-sm btn-clean btn-icon btn-icon-md" title="Edit Customer"
-                                            onclick="editDetails({{$item}});">
-
-                                        <span class="svg-icon svg-icon-md">									<svg
-                                                    xmlns="http://www.w3.org/2000/svg"
-                                                    width="18px" height="18px"
-                                                    viewBox="0 0 24 24" version="1.1">										<g
-                                                        stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">											<rect
-                                                            x="0" y="0" width="24" height="24"></rect>											<path
-                                                            d="M12.2674799,18.2323597 L12.0084872,5.45852451 C12.0004303,5.06114792 12.1504154,4.6768183 12.4255037,4.38993949 L15.0030167,1.70195304 L17.5910752,4.40093695 C17.8599071,4.6812911 18.0095067,5.05499603 18.0083938,5.44341307 L17.9718262,18.2062508 C17.9694575,19.0329966 17.2985816,19.701953 16.4718324,19.701953 L13.7671717,19.701953 C12.9505952,19.701953 12.2840328,19.0487684 12.2674799,18.2323597 Z"
-                                                            fill="#5d78ff" fill-rule="nonzero"
-                                                            transform="translate(14.701953, 10.701953) rotate(-135.000000) translate(-14.701953, -10.701953) "></path>											<path
-                                                            d="M12.9,2 C13.4522847,2 13.9,2.44771525 13.9,3 C13.9,3.55228475 13.4522847,4 12.9,4 L6,4 C4.8954305,4 4,4.8954305 4,6 L4,18 C4,19.1045695 4.8954305,20 6,20 L18,20 C19.1045695,20 20,19.1045695 20,18 L20,13 C20,12.4477153 20.4477153,12 21,12 C21.5522847,12 22,12.4477153 22,13 L22,18 C22,20.209139 20.209139,22 18,22 L6,22 C3.790861,22 2,20.209139 2,18 L2,6 C2,3.790861 3.790861,2 6,2 L12.9,2 Z"
-                                                            fill="#5d78ff" fill-rule="nonzero" opacity="0.3"></path>										</g>									</svg>	                            </span>
-
-                                    </button>
-
-
-                                    <button class="btn btn-sm btn-clean btn-icon btn-icon-md"
-                                            onclick="deleteUser({{$item->id}})" title="Delete Customer">
-
-                                        <span class="svg-icon svg-icon-md">									<svg
-                                                    xmlns="http://www.w3.org/2000/svg"
-                                                    width="18px" height="18px"
-                                                    viewBox="0 0 24 24" version="1.1">										<g
-                                                        stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">											<rect
-                                                            x="0" y="0" width="24" height="24"></rect>											<path
-                                                            d="M6,8 L6,20.5 C6,21.3284271 6.67157288,22 7.5,22 L16.5,22 C17.3284271,22 18,21.3284271 18,20.5 L18,8 L6,8 Z"
-                                                            fill="#5d78ff" fill-rule="nonzero"></path>											<path
-                                                            d="M14,4.5 L14,4 C14,3.44771525 13.5522847,3 13,3 L11,3 C10.4477153,3 10,3.44771525 10,4 L10,4.5 L5.5,4.5 C5.22385763,4.5 5,4.72385763 5,5 L5,5.5 C5,5.77614237 5.22385763,6 5.5,6 L18.5,6 C18.7761424,6 19,5.77614237 19,5.5 L19,5 C19,4.72385763 18.7761424,4.5 18.5,4.5 L14,4.5 Z"
-                                                            fill="#5d78ff" opacity="0.3"></path>										</g>									</svg>								</span>
-
-                                    </button>
-
-                                    <a href="/edit_user/{{$item->id}}" class="btn btn-sm btn-clean btn-icon btn-icon-md"
-                                       title="View Customer Forms">
-
-								             <span class="svg-icon svg-icon-primary w17">
-                                                                <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="17px" height="24px" viewBox="0 0 24 24" version="1.1">
-                                                                    <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-                                                                        <polygon points="0 0 24 0 24 24 0 24"></polygon>
-                                                                        <path d="M4.85714286,1 L11.7364114,1 C12.0910962,1 12.4343066,1.12568431 12.7051108,1.35473959 L17.4686994,5.3839416 C17.8056532,5.66894833 18,6.08787823 18,6.52920201 L18,19.0833333 C18,20.8738751 17.9795521,21 16.1428571,21 L4.85714286,21 C3.02044787,21 3,20.8738751 3,19.0833333 L3,2.91666667 C3,1.12612489 3.02044787,1 4.85714286,1 Z M8,12 C7.44771525,12 7,12.4477153 7,13 C7,13.5522847 7.44771525,14 8,14 L15,14 C15.5522847,14 16,13.5522847 16,13 C16,12.4477153 15.5522847,12 15,12 L8,12 Z M8,16 C7.44771525,16 7,16.4477153 7,17 C7,17.5522847 7.44771525,18 8,18 L11,18 C11.5522847,18 12,17.5522847 12,17 C12,16.4477153 11.5522847,16 11,16 L8,16 Z" fill="#000000" fill-rule="nonzero" opacity="0.3"></path>
-                                                                        <path d="M6.85714286,3 L14.7364114,3 C15.0910962,3 15.4343066,3.12568431 15.7051108,3.35473959 L20.4686994,7.3839416 C20.8056532,7.66894833 21,8.08787823 21,8.52920201 L21,21.0833333 C21,22.8738751 20.9795521,23 19.1428571,23 L6.85714286,23 C5.02044787,23 5,22.8738751 5,21.0833333 L5,4.91666667 C5,3.12612489 5.02044787,3 6.85714286,3 Z M8,12 C7.44771525,12 7,12.4477153 7,13 C7,13.5522847 7.44771525,14 8,14 L15,14 C15.5522847,14 16,13.5522847 16,13 C16,12.4477153 15.5522847,12 15,12 L8,12 Z M8,16 C7.44771525,16 7,16.4477153 7,17 C7,17.5522847 7.44771525,18 8,18 L11,18 C11.5522847,18 12,17.5522847 12,17 C12,16.4477153 11.5522847,16 11,16 L8,16 Z" fill="#5d78ff" fill-rule="nonzero"></path>
-                                                                    </g>
-                                                                </svg>
-                                            </span>
-                                    </a>
+                                <td style="text-align:right;white-space:nowrap;">
+                                    <div class="am-actions">
+                                        <button class="am-icon-btn" title="Download History" onclick="get_downloads({{$item->id}})"><i class="fa fa-download"></i></button>
+                                        <button class="am-icon-btn" title="Notes History" onclick="get_notes({{$item->order_number}})"><i class="fas fa-info-circle"></i></button>
+                                        <button class="am-icon-btn" title="Login History" onclick="get_history({{$item->id}})"><i class="fas fa-sign-in-alt"></i></button>
+                                        <button class="am-icon-btn" title="Activity Reminder" onclick="userEmailDetail({{$item->id}})"><i class="fa fa-envelope"></i></button>
+                                        <button class="am-icon-btn" title="Edit" onclick="editDetails({{$item}})"><i class="fa fa-pen"></i></button>
+                                        <a href="/edit_user/{{$item->id}}" class="am-icon-btn" title="View Forms"><i class="fa fa-file-alt"></i></a>
+                                        <button class="am-icon-btn danger" title="Delete" onclick="deleteUser({{$item->id}})"><i class="fa fa-trash"></i></button>
+                                    </div>
                                 </td>
                             </tr>
                             @php
@@ -467,10 +414,42 @@
 
             </div>
 
+            <div class="am-pagination">
+                <div class="am-pagination__info">
+                    Showing <strong>{{ $users->firstItem() ?? 0 }}–{{ $users->lastItem() ?? 0 }}</strong> of <strong>{{ number_format($users->total()) }}</strong>
+                </div>
+                <div class="am-pagination__nav">
+                    @if ($users->onFirstPage())
+                        <button disabled>‹</button>
+                    @else
+                        <button onclick="window.location='{{ $users->previousPageUrl() }}'">‹</button>
+                    @endif
+
+                    @php
+                        $current = $users->currentPage();
+                        $last = $users->lastPage();
+                        $start = max(1, $current - 2);
+                        $end = min($last, $start + 4);
+                        $start = max(1, $end - 4);
+                    @endphp
+                    @for ($p = $start; $p <= $end; $p++)
+                        <button onclick="window.location='{{ $users->url($p) }}'" class="{{ $p == $current ? 'active' : '' }}">{{ $p }}</button>
+                    @endfor
+
+                    @if ($users->hasMorePages())
+                        <button onclick="window.location='{{ $users->nextPageUrl() }}'">›</button>
+                    @else
+                        <button disabled>›</button>
+                    @endif
+                </div>
+            </div>
+
         </div>
+        </div>{{-- /.am-card --}}
 
     </div>
 
+    @php endif; @endphp
 
     {{-- <!-- Modal for Login History -->
     <div class="modal fade" id="viewUser" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -494,114 +473,93 @@
     </div> --}}
 
 
-      {{-- working code --}}
+      {{-- Modern modals --}}
 
-       <!-- Modal for Download History -->
-     <div class="modal fade" id="viewUserDownloads" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog" role="document" >
-            <div class="modal-content" style="width: 725px;">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Download History</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <div id="downloadHistoryTable"></div>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                </div>
+    <!-- Download History -->
+    <div class="am-modal" id="viewUserDownloads" role="dialog" aria-modal="true">
+        <div class="am-modal__box" style="max-width:820px;">
+            <div class="am-modal__header">
+                <span class="am-modal__icon" style="background:var(--am-primary-tint);color:var(--am-primary);"><i class="fa fa-download"></i></span>
+                <h4 class="am-modal__title">Download History</h4>
+            </div>
+            <div class="am-modal__body">
+                <div id="downloadHistoryTable"></div>
+            </div>
+            <div class="am-modal__footer">
+                <button type="button" class="am-btn am-btn-outline am-modal-close">Close</button>
             </div>
         </div>
     </div>
-     <!-- Modal for Login History -->
-     <div class="modal fade" id="viewUser" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Login History</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    {{-- <h1>Last Login History <span id="userName"></span></h1> --}}
-                    <div id="loginHistoryTable"></div>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                </div>
+
+    <!-- Login History -->
+    <div class="am-modal" id="viewUser" role="dialog" aria-modal="true">
+        <div class="am-modal__box" style="max-width:820px;">
+            <div class="am-modal__header">
+                <span class="am-modal__icon" style="background:var(--am-primary-tint);color:var(--am-primary);"><i class="fa fa-sign-in-alt"></i></span>
+                <h4 class="am-modal__title">Login History</h4>
+            </div>
+            <div class="am-modal__body">
+                <div id="loginHistoryTable"></div>
+            </div>
+            <div class="am-modal__footer">
+                <button type="button" class="am-btn am-btn-outline am-modal-close">Close</button>
             </div>
         </div>
     </div>
-  <!-- Modal for Admin Note -->
-     <div class="modal fade" id="userNote" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-lg" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">User Notes</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-     <form class="kt-form kt-form--label-right" id="addusernotform" method="POST" action="{{ route('addusernote') }}"  enctype="multipart/form-data">
-    @csrf
-    <input type="hidden" name="editcompanyid" id="editcompanyid" value="">
-    <input type="hidden" name="_method" id="_method" value="POST"> <!-- will update dynamically -->
-    <input type="hidden" id="note_id" name="note_id" value="">
-    <div class="form-group row">
-        <div class="col-lg-12">
-            <label for="add_note">Add Note</label>
-          <textarea id="add_note" name="note" rows="4" class="form-control" placeholder="Description Audit Comment"></textarea>
-        </div>
-    </div>
-<div class="form-group row">
-    <div class="col-lg-12">
-        <label for="note_file">Note Image (optional)</label>
-        <input type="file" name="note_file" id="note_file" class="form-control-file" accept=".jpg,.jpeg,.png,.gif,.pdf,.doc,.docx,.xls,.xlsx">
-        <div id="drop-area" style="border: 2px dashed #ccc; padding: 20px; text-align:center; margin-top:10px;">
-            Drag & Drop Image Here
-        </div>
-    </div>
-</div>
 
-    <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-        <button type="submit" class="btn btn-danger">Save</button>
-    </div>
-</form>
+    <!-- User Notes -->
+    <div class="am-modal" id="userNote" role="dialog" aria-modal="true">
+        <div class="am-modal__box" style="max-width:820px;">
+            <div class="am-modal__header">
+                <span class="am-modal__icon" style="background:var(--am-primary-tint);color:var(--am-primary);"><i class="fa fa-sticky-note"></i></span>
+                <h4 class="am-modal__title">User Notes</h4>
+            </div>
+            <div class="am-modal__body">
+                <form class="am-form" id="addusernotform" method="POST" action="{{ route('addusernote') }}" enctype="multipart/form-data">
+                    @csrf
+                    <input type="hidden" name="editcompanyid" id="editcompanyid" value="">
+                    <input type="hidden" name="_method" id="_method" value="POST">
+                    <input type="hidden" id="note_id" name="note_id" value="">
+                    <div class="form-group">
+                        <label for="add_note" style="display:block;font-size:12px;font-weight:600;text-transform:uppercase;letter-spacing:0.4px;color:var(--am-text-muted);margin-bottom:6px;">Add Note</label>
+                        <textarea id="add_note" name="note" rows="4" class="form-control" placeholder="Description / Audit Comment" style="width:100%;padding:10px 14px;border:1px solid #e2e6ee;border-radius:8px;background:#f9fafc;font-size:13.5px;"></textarea>
+                    </div>
+                    <div class="form-group" style="margin-top:14px;">
+                        <label for="note_file" style="display:block;font-size:12px;font-weight:600;text-transform:uppercase;letter-spacing:0.4px;color:var(--am-text-muted);margin-bottom:6px;">Note Image (optional)</label>
+                        <input type="file" name="note_file" id="note_file" class="form-control-file" accept=".jpg,.jpeg,.png,.gif,.pdf,.doc,.docx,.xls,.xlsx">
+                        <div id="drop-area" style="border:2px dashed #cbd5e1;padding:16px;text-align:center;margin-top:10px;border-radius:8px;color:var(--am-text-muted);font-size:12.5px;">
+                            <i class="fa fa-cloud-upload-alt" style="font-size:18px;margin-right:6px;"></i> Drag &amp; drop a file here
+                        </div>
+                    </div>
+                    <div style="display:flex;justify-content:flex-end;gap:8px;margin-top:16px;">
+                        <button type="button" class="am-btn am-btn-outline am-modal-close">Cancel</button>
+                        <button type="submit" class="am-btn am-btn-primary"><i class="fa fa-check"></i> Save Note</button>
+                    </div>
+                </form>
 
-                    {{-- <h1>Last Login History <span id="userName"></span></h1> --}}
+                <div style="margin-top:24px;">
+                    <h5 style="font-size:13px;text-transform:uppercase;letter-spacing:0.4px;color:var(--am-text-muted);margin:0 0 12px 0;font-weight:600;">History</h5>
                     <div id="notesHistoryTable"></div>
                 </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                </div>
+            </div>
+            <div class="am-modal__footer">
+                <button type="button" class="am-btn am-btn-outline am-modal-close">Close</button>
             </div>
         </div>
     </div>
 
-
-
-    {{-- Modal for showing the email details of the clients who haven`t login  --}}
-    <div class="modal fade" id="user-email-details" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Activity Reminder</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body" id="modalBody">
-
-                    <div id="userDetailEmailTable"></div>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                </div>
+    <!-- Activity Reminder Emails -->
+    <div class="am-modal" id="user-email-details" role="dialog" aria-modal="true">
+        <div class="am-modal__box" style="max-width:720px;">
+            <div class="am-modal__header">
+                <span class="am-modal__icon" style="background:var(--am-primary-tint);color:var(--am-primary);"><i class="fa fa-envelope"></i></span>
+                <h4 class="am-modal__title">Activity Reminders</h4>
+            </div>
+            <div class="am-modal__body" id="modalBody">
+                <div id="userDetailEmailTable"></div>
+            </div>
+            <div class="am-modal__footer">
+                <button type="button" class="am-btn am-btn-outline am-modal-close">Close</button>
             </div>
         </div>
     </div>
@@ -656,78 +614,42 @@
 
 
 
-    <div class="modal fade" id="deleteUser" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-         aria-hidden="true">
-
-        <div class="modal-dialog" role="document">
-
-            <div class="modal-content">
-
-                <div class="modal-header">
-
-                    <h5 class="modal-title" id="exampleModalLabel">Deleting User</h5>
-
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-
-                    </button>
-
-                </div>
-
-                <div class="modal-body">
-
-                    <p>Are you sure you want to delete this entry?</p>
-
-                </div>
-
-                <div class="modal-footer">
-
-                    <form action="{{route('deleteuserd')}}" method="POST">
-
-                        @csrf
-
-                        <input type="hidden" name="id" id="userid" value="">
-
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-
-                        <button type="submit" class="btn btn-danger">Yes</button>
-
-                    </form>
-
-                </div>
-
+    <!-- Delete User -->
+    <div class="am-modal" id="deleteUser" role="dialog" aria-modal="true">
+        <div class="am-modal__box">
+            <div class="am-modal__header">
+                <span class="am-modal__icon"><i class="fa fa-exclamation-triangle"></i></span>
+                <h4 class="am-modal__title">Delete User?</h4>
             </div>
-
+            <div class="am-modal__body">
+                You are about to permanently delete <strong>this user</strong>. All their data will be lost. This action cannot be undone.
+            </div>
+            <div class="am-modal__footer">
+                <button type="button" class="am-btn am-btn-outline am-modal-close">Cancel</button>
+                <form action="{{ route('deleteuserd') }}" method="POST" style="display:inline;">
+                    @csrf
+                    <input type="hidden" name="id" id="userid" value="">
+                    <button type="submit" class="am-btn" style="background:var(--am-danger);color:#fff;">
+                        <i class="fa fa-trash"></i> Yes, delete
+                    </button>
+                </form>
+            </div>
         </div>
-
     </div>
 
 
-    <div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-         aria-hidden="true">
+    <!-- Edit User Details -->
+    <div class="am-modal" id="editModal" role="dialog" aria-modal="true">
+        <div class="am-modal__box am-form" style="max-width:1100px;">
+            <div class="am-modal__header">
+                <span class="am-modal__icon" style="background:var(--am-primary-tint);color:var(--am-primary);"><i class="fa fa-user-edit"></i></span>
+                <h4 class="am-modal__title">Edit User Details</h4>
+            </div>
 
-        <div class="modal-dialog modal-lg" role="document">
-
-            <div class="modal-content">
-
-                <div class="modal-header">
-
-                    <h5 class="modal-title" id="exampleModalLabel">Edit User Details</h5>
-
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-
-                    </button>
-
-                </div>
-
-                <form class="kt-form kt-form--label-right" id="addform" method="POST"
-                      action="{{route('updateuserinfo')}}" enctype="multipart/form-data">
-
-                    @csrf
-
-                    <div class="modal-body">
-
-
-                        <div class="kt-portlet__body">
+            <form id="addform" method="POST" action="{{route('updateuserinfo')}}" enctype="multipart/form-data" style="display:contents;">
+                @csrf
+                <div class="am-modal__body" style="padding:26px;">
+                    <div class="kt-portlet__body" style="padding:0;">
 
                             <input type="hidden" name="id" id="editvalue" value="">
 
@@ -1137,19 +1059,18 @@
 
                     </div>
 
-                    <div class="modal-footer">
-
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-
-                        <button type="submit" class="btn btn-danger">Update</button>
-
-                    </div>
-
-                </form>
-
-            </div>
+                <div class="am-modal__footer">
+                    <button type="button" class="am-btn am-btn-outline am-modal-close">
+                        <i class="fa fa-times"></i> Cancel
+                    </button>
+                    <button type="submit" class="am-btn am-btn-primary">
+                        <i class="fa fa-check"></i> Update User
+                    </button>
+                </div>
+            </form>
 
         </div>
+    </div>
 
     </div>
 
@@ -1577,11 +1498,111 @@
 
         <script>
 
+            // ------ Modern modal helpers ------
+            function openAmModal(id) { document.getElementById(id) && document.getElementById(id).classList.add('open'); }
+            function closeAmModal(id) { document.getElementById(id) && document.getElementById(id).classList.remove('open'); }
+            // Delegated close (Cancel/Close buttons + click backdrop + Escape)
+            document.addEventListener('click', function(e) {
+                var closeBtn = e.target.closest('.am-modal-close');
+                if (closeBtn) {
+                    var m = closeBtn.closest('.am-modal');
+                    if (m) m.classList.remove('open');
+                    return;
+                }
+                var modal = e.target.classList && e.target.classList.contains('am-modal') ? e.target : null;
+                if (modal) modal.classList.remove('open');
+            });
+            document.addEventListener('keydown', function(e) {
+                if (e.key === 'Escape') document.querySelectorAll('.am-modal.open').forEach(function(m){ m.classList.remove('open'); });
+            });
+
+            // ------ Client-side searchable + paginated table for AJAX-injected content ------
+            function enhanceModalTable(containerId, opts) {
+                opts = opts || {};
+                var perPage = opts.perPage || 10;
+                var container = document.getElementById(containerId);
+                if (!container) return;
+                var table = container.querySelector('table');
+                if (!table) return;
+
+                var tbody = table.querySelector('tbody');
+                if (!tbody) return;
+                var allRows = Array.prototype.slice.call(tbody.querySelectorAll('tr'));
+                if (allRows.length === 0) return;
+
+                // Toolbar
+                var toolbar = document.createElement('div');
+                toolbar.className = 'am-mtable-toolbar';
+                toolbar.innerHTML = '<div class="am-mtable-search"><i class="fa fa-search"></i><input type="text" placeholder="Search…"></div>' +
+                                    '<div style="font-size:12px;color:var(--am-text-muted);"><strong>' + allRows.length + '</strong> total</div>';
+                container.insertBefore(toolbar, table);
+
+                // Pagination footer
+                var pager = document.createElement('div');
+                pager.className = 'am-mtable-pagination';
+                pager.innerHTML = '<div class="am-mtable-pagination__info"></div><div class="am-mtable-pagination__nav"></div>';
+                container.appendChild(pager);
+
+                var input = toolbar.querySelector('input');
+                var info  = pager.querySelector('.am-mtable-pagination__info');
+                var nav   = pager.querySelector('.am-mtable-pagination__nav');
+                var currentPage = 1;
+                var filtered = allRows.slice();
+
+                function debounce(fn, wait) { var t; return function(){ var ctx=this, args=arguments; clearTimeout(t); t=setTimeout(function(){ fn.apply(ctx,args); }, wait); }; }
+
+                function render() {
+                    var total = filtered.length;
+                    var totalPages = Math.max(1, Math.ceil(total / perPage));
+                    if (currentPage > totalPages) currentPage = totalPages;
+                    var start = (currentPage - 1) * perPage;
+                    var end = start + perPage;
+
+                    allRows.forEach(function(r){ r.style.display = 'none'; });
+                    filtered.slice(start, end).forEach(function(r){ r.style.display = ''; });
+
+                    var from = total === 0 ? 0 : start + 1;
+                    var to   = Math.min(end, total);
+                    info.innerHTML = 'Showing <strong>' + from + '–' + to + '</strong> of <strong>' + total + '</strong>';
+
+                    nav.innerHTML = '';
+                    var prev = document.createElement('button'); prev.textContent = '‹'; prev.disabled = currentPage <= 1;
+                    prev.addEventListener('click', function(){ currentPage--; render(); });
+                    nav.appendChild(prev);
+
+                    var maxBtns = 5;
+                    var startPage = Math.max(1, currentPage - Math.floor(maxBtns/2));
+                    var endPage = Math.min(totalPages, startPage + maxBtns - 1);
+                    startPage = Math.max(1, endPage - maxBtns + 1);
+                    for (var p = startPage; p <= endPage; p++) {
+                        (function(page){
+                            var b = document.createElement('button'); b.textContent = page;
+                            if (page === currentPage) b.classList.add('active');
+                            b.addEventListener('click', function(){ currentPage = page; render(); });
+                            nav.appendChild(b);
+                        })(p);
+                    }
+
+                    var next = document.createElement('button'); next.textContent = '›'; next.disabled = currentPage >= totalPages;
+                    next.addEventListener('click', function(){ currentPage++; render(); });
+                    nav.appendChild(next);
+                }
+
+                input.addEventListener('input', debounce(function() {
+                    var q = this.value.trim().toLowerCase();
+                    filtered = q === '' ? allRows.slice() : allRows.filter(function(r){ return r.textContent.toLowerCase().indexOf(q) !== -1; });
+                    currentPage = 1;
+                    render();
+                }, 250));
+
+                render();
+            }
+
             function deleteUser(id)
             {
                 var userid = id;
                 $("#userid").val(userid);
-                $("#deleteUser").modal('show');
+                openAmModal('deleteUser');
             }
 
             var intel_phone = '';
@@ -1609,100 +1630,60 @@
 
 
 
-        // working code
-        function get_downloads(id)
-        {
+        function get_downloads(id) {
             $.ajax({
                 type: "post",
                 url: "{{ url('/userdownloadhistory') }}",
                 headers: { 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') },
-                data: {
-                    user_id: id,
-                    _token: $('meta[name="csrf-token"]').attr('content')
-                },
-                success: function (response)
-                {
-                    // $('#userName').text(id);
+                data: { user_id: id, _token: $('meta[name="csrf-token"]').attr('content') },
+                success: function (response) {
                     $('#downloadHistoryTable').html(response);
-
-                    $('#downloadHistoryTable table').DataTable({
-                        paging: true,
-                        pageLength: 10,
-                    });
-
-                    $('#viewUserDownloads').modal('show');
+                    enhanceModalTable('downloadHistoryTable');
+                    openAmModal('viewUserDownloads');
                 },
             });
         }
-        function get_history(id)
-        {
+        function get_history(id) {
             $.ajax({
                 type: "post",
                 url: "{{ url('/userloginhistory') }}",
                 headers: { 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') },
-                data: {
-                    user_id: id,
-                    _token: $('meta[name="csrf-token"]').attr('content')
-                },
-                success: function (response)
-                {
-                    // $('#userName').text(id);
+                data: { user_id: id, _token: $('meta[name="csrf-token"]').attr('content') },
+                success: function (response) {
                     $('#loginHistoryTable').html(response);
-
-                    $('#loginHistoryTable table').DataTable({
-                        paging: true,
-                        pageLength: 10,
-                    });
-
-                    $('#viewUser').modal('show');
+                    enhanceModalTable('loginHistoryTable');
+                    openAmModal('viewUser');
                 },
             });
         }
-        function get_notes(id)
-        {
+        function get_notes(id) {
             document.getElementById("editcompanyid").value = id;
-                    $.ajax({
-                        type: "post",
-                        url: "{{ url('/usernoteshistory') }}",
-                        headers: { 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') },
-                        data: {
-                            user_id: id,
-                            _token: $('meta[name="csrf-token"]').attr('content')
-                        },
-                        success: function (response)
-                        {
-                            // $('#userName').text(id);
-                            $('#notesHistoryTable').html(response);
-
-                            // $('#notesHistoryTable table').DataTable({
-                            //     paging: false,
-                            //     // pageLength: 10,
-                            //     lengthChange: false, // Hides "Show entries"
-                            //     searching: false      // Hides search box
-                            // });
-
-                            $('#userNote').modal('show');
-
-                        },
-                    });
+            $.ajax({
+                type: "post",
+                url: "{{ url('/usernoteshistory') }}",
+                headers: { 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') },
+                data: { user_id: id, _token: $('meta[name="csrf-token"]').attr('content') },
+                success: function (response) {
+                    $('#notesHistoryTable').html(response);
+                    enhanceModalTable('notesHistoryTable');
+                    openAmModal('userNote');
+                },
+            });
         }
 
-            function userEmailDetail(id){
-                $.ajax({
-                    type: "post",
-                    url: "{{route('user.email.details')}}",
-                    headers: { 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') },
-                    data:{
-                        user_id: id,
-                        _token: $('meta[name="csrf-token"]').attr('content')
-                    },
-                    success:function(response){
-                        // console.log(response);
-                        $('#userDetailEmailTable').html(response.list);
-                        $("#user-email-details").modal('show');
-                    }
-                })
-            }
+        function userEmailDetail(id) {
+            $.ajax({
+                type: "post",
+                url: "{{route('user.email.details')}}",
+                headers: { 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') },
+                data: { user_id: id, _token: $('meta[name="csrf-token"]').attr('content') },
+                success: function (response) {
+                    $('#userDetailEmailTable').html(response.list);
+                    enhanceModalTable('userDetailEmailTable');
+                    openAmModal('user-email-details');
+                }
+            });
+        }
 
             function editDetails(data)
             {
@@ -1871,7 +1852,7 @@
                     });
                 }
 
-                $("#editModal").modal('show');
+                openAmModal('editModal');
 
             }
 
@@ -2276,6 +2257,74 @@ $('#drop-area').on('drop', function(e) {
 });
 
 
+// AJAX-based search + pagination (no page refresh).
+(function() {
+    var input     = document.getElementById('amUsersSearch');
+    var form      = document.getElementById('amUsersSearchForm');
+    var container = document.getElementById('amUsersContainer');
+    if (!container) return;
+
+    var baseUrl   = form ? form.getAttribute('action') : window.location.pathname;
+    var currentPage = 1;
+
+    function debounce(fn, wait) {
+        var t;
+        return function() {
+            var ctx = this, args = arguments;
+            clearTimeout(t);
+            t = setTimeout(function(){ fn.apply(ctx, args); }, wait);
+        };
+    }
+
+    function showLoading() {
+        container.style.opacity = '0.5';
+        container.style.pointerEvents = 'none';
+    }
+    function hideLoading() {
+        container.style.opacity = '';
+        container.style.pointerEvents = '';
+    }
+
+    function fetchPage(page) {
+        var q = input ? input.value.trim() : '';
+        var url = baseUrl + '?q=' + encodeURIComponent(q) + '&page=' + page;
+        showLoading();
+        fetch(url, { headers: { 'X-Requested-With': 'XMLHttpRequest' } })
+            .then(function(r){ return r.text(); })
+            .then(function(html) {
+                container.innerHTML = html;
+                currentPage = page;
+                var newUrl = baseUrl + (q ? '?q=' + encodeURIComponent(q) : '') + (page > 1 ? (q ? '&' : '?') + 'page=' + page : '');
+                window.history.replaceState({}, '', newUrl);
+                hideLoading();
+            })
+            .catch(function() { hideLoading(); });
+    }
+
+    // Debounced search
+    if (input) {
+        input.addEventListener('input', debounce(function() {
+            currentPage = 1;
+            fetchPage(1);
+        }, 350));
+    }
+    if (form) {
+        form.addEventListener('submit', function(e) {
+            e.preventDefault();
+            currentPage = 1;
+            fetchPage(1);
+        });
+    }
+
+    // Delegated click handler for pagination buttons (they re-render on each fetch, so delegation is required)
+    container.addEventListener('click', function(e) {
+        var btn = e.target.closest('.am-page-link');
+        if (!btn || btn.disabled) return;
+        e.preventDefault();
+        var p = parseInt(btn.getAttribute('data-page'), 10);
+        if (!isNaN(p) && p > 0) fetchPage(p);
+    });
+})();
 </script>
 
 

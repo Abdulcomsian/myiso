@@ -1,446 +1,243 @@
 @extends('admin.dashboard.layouts.app')
 
 @section('content')
+@php $urlparam = request()->route()->parameters; @endphp
 
-<!-- begin:: Content -->
-<div class="kt-content  kt-grid__item kt-grid__item--fluid" id="kt_content">
+<div class="kt-content kt-grid__item kt-grid__item--fluid" id="kt_content" style="padding:26px;">
 
-	<!--Begin::Dashboard 1-->
+    <div class="am-page-header">
+        <div>
+            <h2>Accident Risk Assessments</h2>
+            <p>Identify potential accident scenarios, their likelihood, severity, and mitigation.</p>
+        </div>
+        <div>
+            <a href="{{ url('/edit_user/'.$urlparam['userid']) }}" class="am-btn am-btn-outline">
+                <i class="fa fa-arrow-left"></i> Back to Forms
+            </a>
+        </div>
+    </div>
 
+    @if ($message = Session::get('msg'))
+        <div class="am-card" style="padding:14px 20px;margin-bottom:16px;color:#1a8a5c;background:rgba(38,194,129,0.08);">
+            <i class="fa fa-check-circle"></i> {{ $message }}
+        </div>
+    @endif
 
-	<!--Begin::Section-->
-	<div class="row">
-		<div class="col-xl-12 col-lg-12">
-			<h2>Accident Risk Assessments</h2>
-		</div>
-	</div>
-	<section id="procedure_section">
-
-		<div class="row">
-			<div class="col-lg-12">
-				<h5>Scope:</h5>
-				<p>This procedure details possible scenarios of potential accidents and compares this with risk and consequence of such an accident occurring. It will also provide details as to what measures have been taken to reduce the risk of such accidents occurring.</p>
-                    <div class="procedure_div">
-                    	<div class="row">
-                    		<div class="col-lg-12 text-right">
-                    			<a onclick="accidentRiskForm()" class="addBtn">Add Accident Risk Assessment</a>
-                    		</div>
-                    	</div>
-                    	<div class="accident_risk_from_div">
-                            <form method="POST" action="{{route('accident_risk')}} " class="addForm" enctype="multipart/form-data">>
-                                @csrf
-                                
-                                                    @csrf
-                 
-            @php 
-            $urlparam = request()->route()->parameters;
-            @endphp
-    
-
-<input type="hidden" name="user_id" value="{{ $urlparam['userid'] }}">
-                    			<div class="row">
-                    				<div class="col-lg-6">
-                    					<div class="form-group">
-											<label>Scenario - Describe the activity:</label><br>
-											<input type="text" class="form-control" placeholder="Enter Activity" required name="activityscenario">
-										</div>
-                    				</div>
-                    				<div class="col-lg-6">
-                    					<div class="form-group">
-											<label>Risk likelihood of scenario occuring - Enter a number between 1-6 (6 being most likely):</label><br>
-											<input type="number" class="form-control"  placeholder="Enter likelihood"  min="1" max="6" required name="risklikehood" onkeypress='return event.charCode >= 48 && event.charCode <= 57'>
-										</div>
-                                    </div>
-
-                    			</div>
-
-								<div class="row">
-									<div class="col-lg-6">
-										<div class="form-group">
-											<label>Risk severity - Enter a number between 1-6 (6 being most severe):</label>
-											<input type="number" min="1" max="6" required class="form-control" name="riskseverity" placeholder="Enter severity Level:" onkeypress='return event.charCode >= 48 && event.charCode <= 57'>
-										</div>
-									</div>
-									<div class="col-lg-6">
-										<div class="form-group">
-											<label>If an environmental accident, what gets out and how much:</label>
-											<input type="text" class="form-control" placeholder="Enter Potential Outcome:" required name="envaccident" placeholder="">
-										</div>
-									</div>
-								</div>
-								<div class="row">
-									<div class="col-lg-6">
-										<div class="form-group">
-											<label>If an environmental accident, where does it end up?</label>
-											<input type="text" class="form-control" placeholder="Enter Location" required name="envaccidental">
-										</div>
-									</div>
-									<div class="col-lg-6">
-										<div class="form-group">
-											<label>What are the consequences?:</label>
-											<input type="text" class="form-control" placeholder="Enter Potential Consequences" required name="consequences">
-										</div>
-									</div>
-								</div>
-								<div class="row">
-									<div class="col-lg-6">
-										<div class="form-group">
-											<label>What can prevent or reduce the risk?:</label>
-											<input type="text" placeholder="Enter Preventive Solution" class="form-control" required  name="reducerisk">
-									</div>
-									</div>
-									<div class="col-lg-6">
-										<div class="form-group">
-											<label>Revised Risk likelihood of scenario occuring following prevention step - A number between 1-6 (6 being most likely):</label>
-											<input type="number" class="form-control" required min="1" max="6" name="revisedrisk" placeholder="Enter new reduced risk level"  onkeypress='return event.charCode >= 48 && event.charCode <= 57'>
-										</div>
-									</div>
-									<div class="col-lg-6">
-										<div class="form-group">
-											<label>Revised Risk severity following prevention step - A number between 1-6 (6 being most severe):</label>
-											<input type="number" class="form-control" required min="1" max="6"  name="reviseRiskSever" placeholder="Enter new reduced severity level" onkeypress='return event.charCode >= 48 && event.charCode <= 57'>
-										</div>
-									</div>
-                                    <div class="col-lg-6">
-                                        <div class="form-group">
-                                            <label>Attach Evidence: <span class="text-danger" style="color:#000 !important;">(jpeg, mp3, mp4, .xls, doc)</span></label>
-                                            <input name="attach_evidence" type="file" class="form-control"
-                                                   accept="all">
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-6">
-                                        <div class="form-group">
-                                            <label>Any other issues or points to note?</label>
-                                            <textarea name="any_issues" class="form-control" placeholder="Enter Any other issues:"></textarea>
-                                        </div>
-                                    </div>
-								</div>
-								<button type="submit" class="submitBtn">SUBMIT</button>
-									<button type="reset" onclick="accidentRiskForm()" class="btn btn-secondary submitBtn " style="margin-right:7px;">Cancel</button>
-                    		</form>
-                    	</div>
-                    </div>
-                    <div class="procedure_div">
-                    	<div class="requirments_table_div">
-                            <div class="d-flex justify-content-between mb-2">
-                                <h4>Total Accident Risk Assessments Listed</h4>
-                                <a href="/edit_user/{{ $urlparam['userid'] }}" class="btn btn-clean btn-icon-sm back_icon" style="float: right;">
-                                    <i class="la la-long-arrow-left"></i>
-                                    Back
-                                </a>
-                            </div>
-                    		<div class="kt-portlet__body table-responsive">
-								<!--begin: Datatable -->
-								<table class="common_table table table-striped- table-bordered table-hover table-checkable table-responsive" id="kt_table_agent">
-									<thead>
-										<tr>
-											<th>Scenario</th>
-											<!--<th>Detail View</th>-->
-											<th>Action</th>
-										</tr>
-                                    </thead>
-                                    <tbody>
-                                        @foreach ($riskassesment as $data)
-                                        <tr>
-                                            <td> {{$data->activityscenario}}</td>
-                                            <td> <button
-                                                 onclick="getDetails({{json_encode($data)}})" class="btn btn-sm btn-clean btn-icon btn-icon-md" title="View" value=""><i class="fa fa-eye"></i>
-                                            </button>
-                                            
-                                            <button onclick="Editinfo({{json_encode($data)}})" class="btn btn-sm btn-clean btn-icon btn-icon-md" title="Edit" value=""><span class="svg-icon svg-icon-md">									<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="18px" height="18px" viewBox="0 0 24 24" version="1.1">										<g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">											<rect x="0" y="0" width="24" height="24"></rect>											<path d="M12.2674799,18.2323597 L12.0084872,5.45852451 C12.0004303,5.06114792 12.1504154,4.6768183 12.4255037,4.38993949 L15.0030167,1.70195304 L17.5910752,4.40093695 C17.8599071,4.6812911 18.0095067,5.05499603 18.0083938,5.44341307 L17.9718262,18.2062508 C17.9694575,19.0329966 17.2985816,19.701953 16.4718324,19.701953 L13.7671717,19.701953 C12.9505952,19.701953 12.2840328,19.0487684 12.2674799,18.2323597 Z" fill="#5d78ff" fill-rule="nonzero" transform="translate(14.701953, 10.701953) rotate(-135.000000) translate(-14.701953, -10.701953) "></path>											<path d="M12.9,2 C13.4522847,2 13.9,2.44771525 13.9,3 C13.9,3.55228475 13.4522847,4 12.9,4 L6,4 C4.8954305,4 4,4.8954305 4,6 L4,18 C4,19.1045695 4.8954305,20 6,20 L18,20 C19.1045695,20 20,19.1045695 20,18 L20,13 C20,12.4477153 20.4477153,12 21,12 C21.5522847,12 22,12.4477153 22,13 L22,18 C22,20.209139 20.209139,22 18,22 L6,22 C3.790861,22 2,20.209139 2,18 L2,6 C2,3.790861 3.790861,2 6,2 L12.9,2 Z" fill="#5d78ff" fill-rule="nonzero" opacity="0.3"></path>										</g>									</svg>	                            </span>
-                                        </button>
-                                        <button class="btn btn-sm btn-clean btn-icon btn-icon-md" title="Delete" onclick="deleteModal({{$data}});"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="18px" height="18px" viewBox="0 0 24 24" version="1.1">										<g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">											<rect x="0" y="0" width="24" height="24"></rect>											<path d="M6,8 L6,20.5 C6,21.3284271 6.67157288,22 7.5,22 L16.5,22 C17.3284271,22 18,21.3284271 18,20.5 L18,8 L6,8 Z" fill="#5d78ff" fill-rule="nonzero"></path>											<path d="M14,4.5 L14,4 C14,3.44771525 13.5522847,3 13,3 L11,3 C10.4477153,3 10,3.44771525 10,4 L10,4.5 L5.5,4.5 C5.22385763,4.5 5,4.72385763 5,5 L5,5.5 C5,5.77614237 5.22385763,6 5.5,6 L18.5,6 C18.7761424,6 19,5.77614237 19,5.5 L19,5 C19,4.72385763 18.7761424,4.5 18.5,4.5 L14,4.5 Z" fill="#5d78ff" opacity="0.3"></path>										</g>									</svg>
-											</button>
-                                            </td>
-                                            <!--<td> </td>-->
-
-
-                                        </tr>
-
-                                        @endforeach
-                                    </tbody>
-								</table>
-								<!--end: Datatable -->
-                    		</div>
-						</div>
-					</div>
-
-
-	</section>
-
-	<!--End::Section-->
-</div>
-<div class="modal fade" id="deleteRequirment" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-	<div class="modal-dialog" role="document">
-		<div class="modal-content">
-			<div class="modal-header">
-				<h5 class="modal-title" id="exampleModalLabel">Deleting Accident Risk</h5>
-				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-				</button>
-			</div>
-			<div class="modal-body">
-				<p>Are you sure you want to delete this entry?</p>
-			</div>
-			<div class="modal-footer">
-            <form action="{{route('deleteRisk')}}" method="POST">
-				@csrf
-				<input type="hidden" name="id" value="" id="idform">
-				<button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
-				<button type="submit" class="btn btn-danger">Yes</button>
-				</form>
-			</div>
-		</div>
-	</div>
-</div>
-<div class="modal fade" id="editInfo" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-	<div class="modal-dialog modal-lg" role="document">
-		<div class="modal-content">
-			<div class="modal-header">
-				<h5 class="modal-title" id="exampleModalLabel">View Accident Risk Assessments</h5>
-				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-				</button>
-			</div>
-			<div class="modal-body">
-                <form >
-
-                    <div class="row">
-                        <div class="col-lg-6">
-                            <div class="form-group">
-                                <label>Scenario - Describe the activity:</label><br>
-                                <input type="text" class="form-control" required name="activityscenario">
-                            </div>
-                        </div>
-                        <div class="col-lg-6">
-                            <div class="form-group">
-                                <label>Risk likelihood of scenario occuring - Enter a number between 1-6 (6 being most likely):</label><br>
-                                <input type="number" class="form-control" min="1" max="6" required name="risklikehood" onkeypress='return event.charCode >= 48 && event.charCode <= 57'>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="row">
-                        <div class="col-lg-6">
-                            <div class="form-group">
-                                <label>Risk severity - Enter a number between 1-6 (6 being most severe):</label>
-                                <input type="number" class="form-control" required name="riskseverity" min="1" max="6" placeholder="Enter Management Review Meeting:" onkeypress='return event.charCode >= 48 && event.charCode <= 57'>
-                            </div>
-                        </div>
-                        <div class="col-lg-6">
-                            <div class="form-group">
-                                <label>If an environmental accident, what gets out and how much:</label>
-                                <input type="text" class="form-control" required name="envaccident" placeholder="Enter Review Previous Meeting:">
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-lg-6">
-                            <div class="form-group">
-                                <label>If an environmental accident, where does it end up?</label>
-                                <input type="text" class="form-control"  required name="envaccidental">
-                            </div>
-                        </div>
-                        <div class="col-lg-6">
-                            <div class="form-group">
-                                <label>What are the consequences?:</label>
-                                <input type="text" class="form-control" required name="consequences">
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-lg-6">
-                            <div class="form-group">
-                                <label>What can prevent or reduce the risk?:</label>
-                                <input type="text" class="form-control" required name="reducerisk">
-                        </div>
-                        </div>
-                        <div class="col-lg-6">
-                            <div class="form-group">
-                                <label>Revised Risk likelihood of scenario occuring following prevention step - A number between 1-6 (6 being most likely):</label>
-                                <input type="number" class="form-control" min="1" max="6" required name="revisedrisk" onkeypress='return event.charCode >= 48 && event.charCode <= 57'>
-                            </div>
-                        </div>
-                        <div class="col-lg-6">
-                            <div class="form-group">
-                                <label>Revised Risk severity following prevention step - A number between 1-6 (6 being most severe):</label>
-                                <input type="number" class="form-control" min="1" required  max="6" name="reviseRiskSever" onkeypress='return event.charCode >= 48 && event.charCode <= 57'>
-                            </div>
-                        </div>
-                        <div class="col-lg-6">
-                            <div class="form-group">
-                                <label>Attach Evidence <span class="text-danger" style="color:#000 !important;">(jpeg, mp3, mp4, .xls, doc)</span>:</label>
-                                <div class="evidence_attachemnt_div"></div>
-                            </div>
-                        </div>
-                        <div class="col-lg-6">
-                            <div class="form-group">
-                                <label>Any other issues or points to note?</label>
-                                <textarea name="any_issues" class="form-control" placeholder="Enter Any other issues:"></textarea>
-                            </div>
-                        </div>
-                    </div>
-					<button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
-                </form>
-		</div>
-	</div>
-</div>
-</div>
-<div class="modal fade" id="editmodalData" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-	<div class="modal-dialog modal-lg" role="document">
-		<div class="modal-content">
-			<div class="modal-header">
-				<h5 class="modal-title" id="exampleModalLabel">Edit Accident Risk Assessments</h5>
-				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-				</button>
+    <div class="am-card" style="padding:16px 20px;margin-bottom:16px;background:rgba(46,59,154,0.04);border:1px solid rgba(46,59,154,0.12);">
+        <div style="display:flex;gap:12px;align-items:flex-start;">
+            <span style="width:36px;height:36px;flex-shrink:0;border-radius:10px;background:var(--am-primary-tint);color:var(--am-primary);display:inline-flex;align-items:center;justify-content:center;font-size:15px;"><i class="fa fa-info-circle"></i></span>
+            <div style="font-size:13px;color:var(--am-text);line-height:1.55;">
+                Detail possible scenarios of potential accidents, compare risk and consequence, and document measures taken to reduce their risk.
             </div>
-            <form  action="{{route('accidentedit')}}" method="POST" enctype="multipart/form-data">
+        </div>
+    </div>
+
+    <div class="am-card" style="margin-bottom:16px;">
+        <div class="am-card__toolbar">
+            <div class="am-search" style="flex:1;max-width:340px;">
+                <i class="fa fa-search"></i>
+                <input type="text" id="amArSearch" placeholder="Search assessments…" autocomplete="off">
+            </div>
+            <button type="button" class="am-btn am-btn-primary" id="toggleArForm">
+                <i class="fa fa-plus"></i> Add Assessment
+            </button>
+        </div>
+
+        <div class="am-inline-form" id="newArForm" style="margin:16px 20px;">
+            <form method="POST" action="{{ route('accident_risk') }}" enctype="multipart/form-data">
                 @csrf
-                
-                                    @csrf
-                 
-            @php 
-            $urlparam = request()->route()->parameters;
-            @endphp
-    
-
-<input type="hidden" name="user_id" value="{{ $urlparam['userid'] }}">
-			<div class="modal-body">
-                <input type="hidden" id="editrisk" name="id" value="">
-
-                    <div class="row">
-                        <div class="col-lg-6">
-                            <div class="form-group">
-                                <label>Scenario - Describe the activity:</label><br>
-                                <input type="text" class="form-control" required  name="activityscenario">
-                            </div>
-                        </div>
-                        <div class="col-lg-6">
-                            <div class="form-group">
-                                <label>Risk likelihood of scenario occuring - Enter a number between 1-6 (6 being most likely):</label><br>
-                                <input type="number" class="form-control validate_number" min="1" max="6" required name="risklikehood" onkeypress='return event.charCode >= 48 && event.charCode <= 57'>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="row">
-                        <div class="col-lg-6">
-                            <div class="form-group">
-                                <label>Risk severity - Enter a number between 1-6 (6 being most severe):</label>
-                                <input type="number" class="form-control validate_number" required  min="1" max="6" name="riskseverity" placeholder="Enter Management Review Meeting:" onkeypress='return event.charCode >= 48 && event.charCode <= 57'>
-                            </div>
-                        </div>
-                        <div class="col-lg-6">
-                            <div class="form-group">
-                                <label>If an environmental accident, what gets out and how much:</label>
-                                <input type="text" class="form-control" required  name="envaccident" placeholder="Enter Review Previous Meeting:">
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-lg-6">
-                            <div class="form-group">
-                                <label>If an environmental accident, where does it end up?</label>
-                                <input type="text" class="form-control" required  name="envaccidental">
-                            </div>
-                        </div>
-                        <div class="col-lg-6">
-                            <div class="form-group">
-                                <label>What are the consequences?:</label>
-                                <input type="text" class="form-control" required name="consequences">
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-lg-6">
-                            <div class="form-group">
-                                <label>What can prevent or reduce the risk?:</label>
-                                <input type="text" class="form-control" required  name="reducerisk">
-                        </div>
-                        </div>
-                        <div class="col-lg-6">
-                            <div class="form-group">
-                                <label>Revised Risk likelihood of scenario occuring following prevention step - A number between 1-6 (6 being most likely):</label>
-                                <input type="number" class="form-control validate_number" min="1" required max="6" required name="revisedrisk" onkeypress='return event.charCode >= 48 && event.charCode <= 57'>
-                            </div>
-                        </div>
-                        <div class="col-lg-6">
-                            <div class="form-group">
-                                <label>Revised Risk severity following prevention step - A number between 1-6 (6 being most severe):</label>
-                                <input type="number" class="form-control validate_number" min="1" required max="6" name="reviseRiskSever" onkeypress='return event.charCode >= 48 && event.charCode <= 57'>
-                            </div>
-                        </div>
-                        <div class="col-lg-6">
-                            <div class="form-group">
-                                <label>Attach Evidence: <span class="text-danger" style="color:#000 !important;">(jpeg, mp3, mp4, .xls, doc)</span></label>
-                                <input name="attach_evidence" type="file" class="form-control"
-                                       accept="all">
-                            </div>
-                        </div>
-                        <div class="col-lg-6">
-                            <div class="form-group">
-                                <label>Any other issues or points to note?</label>
-                                <textarea name="any_issues" class="form-control" placeholder="Enter Any other issues:"></textarea>
-                            </div>
-                        </div>
-                    </div>
-
+                <input type="hidden" name="user_id" value="{{ $urlparam['userid'] }}">
+                <div class="form-row">
+                    <div style="grid-column:1/-1;"><label>Scenario — Describe the activity</label><input type="text" name="activityscenario" placeholder="e.g. Employee using ladder" required></div>
+                </div>
+                <div class="form-row">
+                    <div><label>Risk Likelihood (1-6, 6 = most likely)</label><input type="number" min="1" max="6" name="risklikehood" required></div>
+                    <div><label>Risk Severity (1-6, 6 = most severe)</label><input type="number" min="1" max="6" name="riskseverity" required></div>
+                </div>
+                <div class="form-row">
+                    <div><label>Env. Accident — What Gets Out &amp; How Much</label><input type="text" name="envaccident" required></div>
+                    <div><label>Env. Accident — Where Does It End Up</label><input type="text" name="envaccidental" required></div>
+                </div>
+                <div class="form-row">
+                    <div><label>Consequences</label><input type="text" name="consequences" required></div>
+                    <div><label>Prevention / Risk Reduction</label><input type="text" name="reducerisk" required></div>
+                </div>
+                <div class="form-row">
+                    <div><label>Revised Risk Likelihood (1-6)</label><input type="number" min="1" max="6" name="revisedrisk" required></div>
+                    <div><label>Revised Risk Severity (1-6)</label><input type="number" min="1" max="6" name="reviseRiskSever" required></div>
+                </div>
+                <div class="form-row">
+                    <div><label>Attach Evidence (jpeg, mp3, mp4, xls, doc)</label><input name="attach_evidence" type="file"></div>
+                    <div><label>Any Other Issues</label><textarea name="any_issues" placeholder="Notes" rows="2"></textarea></div>
+                </div>
+                <div class="form-actions">
+                    <button type="button" class="am-btn am-btn-outline am-btn-sm" id="cancelArForm">Cancel</button>
+                    <button type="submit" class="am-btn am-btn-primary am-btn-sm"><i class="fa fa-check"></i> Save Assessment</button>
+                </div>
+            </form>
         </div>
-        <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancle</button>
-            <button type="submit" class="btn btn-danger">Update</button>
-        </div>
-    </form>
-	</div>
-</div>
-</div>
-{{-- editmodalData --}}
-@endsection
+    </div>
 
+    <div class="am-card">
+        <div class="am-table-wrap">
+            <table class="am-table" id="amArTable">
+                <thead>
+                    <tr>
+                        <th style="width:60px;">#</th>
+                        <th>Scenario</th>
+                        <th>Initial Risk</th>
+                        <th>Revised Risk</th>
+                        <th>Prevention</th>
+                        <th style="text-align:right;">Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @forelse ($riskassesment as $index => $data)
+                        @php
+                            $initial = ((int)$data->risklikehood) * ((int)$data->riskseverity);
+                            $revised = ((int)$data->revisedrisk) * ((int)$data->reviseRiskSever);
+                            $initClass = $initial >= 24 ? 'danger' : ($initial >= 12 ? 'warning' : 'success');
+                            $revClass  = $revised >= 24 ? 'danger' : ($revised >= 12 ? 'warning' : 'success');
+                        @endphp
+                        <tr data-search="{{ strtolower($data->activityscenario . ' ' . $data->reducerisk . ' ' . $data->consequences) }}">
+                            <td><span class="am-cell-sub">#{{ $index + 1 }}</span></td>
+                            <td>
+                                <span class="am-cell-primary">{{ Str::limit($data->activityscenario, 60) }}</span>
+                                <span class="am-cell-sub">{{ Str::limit($data->consequences, 60) }}</span>
+                            </td>
+                            <td><span class="am-chip {{ $initClass }}">{{ $data->risklikehood }} × {{ $data->riskseverity }} = {{ $initial }}</span></td>
+                            <td><span class="am-chip {{ $revClass }}">{{ $data->revisedrisk }} × {{ $data->reviseRiskSever }} = {{ $revised }}</span></td>
+                            <td>{{ Str::limit($data->reducerisk, 50) }}</td>
+                            <td style="text-align:right;white-space:nowrap;">
+                                <div class="am-actions">
+                                    <button type="button" class="am-icon-btn" title="View" onclick='amArView(@json($data))'><i class="fa fa-eye"></i></button>
+                                    <button type="button" class="am-icon-btn" title="Edit" onclick='amArEdit(@json($data))'><i class="fa fa-pen"></i></button>
+                                    <button type="button" class="am-icon-btn danger am-confirm-delete"
+                                            title="Delete"
+                                            data-action="{{ route('deleteRisk') }}"
+                                            data-id="{{ $data->id }}"
+                                            data-label="{{ Str::limit($data->activityscenario, 40) }}"
+                                            data-type="Accident Risk Assessment">
+                                        <i class="fa fa-trash"></i>
+                                    </button>
+                                </div>
+                            </td>
+                        </tr>
+                    @empty
+                        <tr><td colspan="6"><div class="am-empty"><i class="fa fa-first-aid"></i><p>No accident risk assessments recorded yet.</p></div></td></tr>
+                    @endforelse
+                </tbody>
+            </table>
+        </div>
+        <div class="am-pagination" id="amArPagination"></div>
+    </div>
+</div>
+
+{{-- View modal --}}
+<div class="am-modal" id="editInfo" role="dialog" aria-modal="true">
+    <div class="am-modal__box" style="max-width:820px;">
+        <div class="am-modal__header">
+            <span class="am-modal__icon" style="background:var(--am-primary-tint);color:var(--am-primary);"><i class="fa fa-eye"></i></span>
+            <h4 class="am-modal__title">Accident Risk Details</h4>
+        </div>
+        <div class="am-modal__body">
+            <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:14px;font-size:13px;">
+                <div style="grid-column:1/-1;"><div style="font-size:11px;text-transform:uppercase;letter-spacing:0.4px;color:var(--am-text-muted);font-weight:600;margin-bottom:4px;">Scenario</div><div id="v-ar-scenario">—</div></div>
+                <div><div style="font-size:11px;text-transform:uppercase;letter-spacing:0.4px;color:var(--am-text-muted);font-weight:600;margin-bottom:4px;">Risk Likelihood</div><div id="v-ar-likel">—</div></div>
+                <div><div style="font-size:11px;text-transform:uppercase;letter-spacing:0.4px;color:var(--am-text-muted);font-weight:600;margin-bottom:4px;">Risk Severity</div><div id="v-ar-sev">—</div></div>
+                <div><div style="font-size:11px;text-transform:uppercase;letter-spacing:0.4px;color:var(--am-text-muted);font-weight:600;margin-bottom:4px;">Env. Accident (what/how much)</div><div id="v-ar-env">—</div></div>
+                <div><div style="font-size:11px;text-transform:uppercase;letter-spacing:0.4px;color:var(--am-text-muted);font-weight:600;margin-bottom:4px;">Env. Accident (where)</div><div id="v-ar-envwhere">—</div></div>
+                <div><div style="font-size:11px;text-transform:uppercase;letter-spacing:0.4px;color:var(--am-text-muted);font-weight:600;margin-bottom:4px;">Consequences</div><div id="v-ar-cons">—</div></div>
+                <div><div style="font-size:11px;text-transform:uppercase;letter-spacing:0.4px;color:var(--am-text-muted);font-weight:600;margin-bottom:4px;">Prevention</div><div id="v-ar-prev">—</div></div>
+                <div><div style="font-size:11px;text-transform:uppercase;letter-spacing:0.4px;color:var(--am-text-muted);font-weight:600;margin-bottom:4px;">Revised Likelihood</div><div id="v-ar-revlik">—</div></div>
+                <div><div style="font-size:11px;text-transform:uppercase;letter-spacing:0.4px;color:var(--am-text-muted);font-weight:600;margin-bottom:4px;">Revised Severity</div><div id="v-ar-revsev">—</div></div>
+                <div><div style="font-size:11px;text-transform:uppercase;letter-spacing:0.4px;color:var(--am-text-muted);font-weight:600;margin-bottom:4px;">Evidence</div><div id="v-ar-ev">—</div></div>
+                <div style="grid-column:1/-1;"><div style="font-size:11px;text-transform:uppercase;letter-spacing:0.4px;color:var(--am-text-muted);font-weight:600;margin-bottom:4px;">Any Other Issues</div><div id="v-ar-issues">—</div></div>
+            </div>
+        </div>
+        <div class="am-modal__footer"><button type="button" class="am-btn am-btn-outline am-modal-close">Close</button></div>
+    </div>
+</div>
+
+{{-- Edit modal --}}
+<div class="am-modal" id="editmodalData" role="dialog" aria-modal="true">
+    <div class="am-modal__box am-form" style="max-width:900px;">
+        <div class="am-modal__header">
+            <span class="am-modal__icon" style="background:var(--am-primary-tint);color:var(--am-primary);"><i class="fa fa-pen"></i></span>
+            <h4 class="am-modal__title">Edit Accident Risk Assessment</h4>
+        </div>
+        <form action="{{ route('accidentedit') }}" method="POST" enctype="multipart/form-data" style="display:contents;">
+            @csrf
+            <input type="hidden" name="user_id" value="{{ $urlparam['userid'] }}">
+            <input type="hidden" id="editrisk" name="id">
+            <div class="am-modal__body" style="padding:20px;">
+                <div class="form-group row">
+                    <div class="col-lg-12"><label>Scenario</label><input type="text" class="form-control" name="activityscenario" required></div>
+                </div>
+                <div class="form-group row">
+                    <div class="col-lg-6"><label>Risk Likelihood (1-6)</label><input type="number" class="form-control" min="1" max="6" name="risklikehood" required></div>
+                    <div class="col-lg-6"><label>Risk Severity (1-6)</label><input type="number" class="form-control" min="1" max="6" name="riskseverity" required></div>
+                </div>
+                <div class="form-group row">
+                    <div class="col-lg-6"><label>Env. Accident (what/how much)</label><input type="text" class="form-control" name="envaccident" required></div>
+                    <div class="col-lg-6"><label>Env. Accident (where)</label><input type="text" class="form-control" name="envaccidental" required></div>
+                </div>
+                <div class="form-group row">
+                    <div class="col-lg-6"><label>Consequences</label><input type="text" class="form-control" name="consequences" required></div>
+                    <div class="col-lg-6"><label>Prevention</label><input type="text" class="form-control" name="reducerisk" required></div>
+                </div>
+                <div class="form-group row">
+                    <div class="col-lg-6"><label>Revised Likelihood</label><input type="number" class="form-control" min="1" max="6" name="revisedrisk" required></div>
+                    <div class="col-lg-6"><label>Revised Severity</label><input type="number" class="form-control" min="1" max="6" name="reviseRiskSever" required></div>
+                </div>
+                <div class="form-group row">
+                    <div class="col-lg-6"><label>Attach Evidence</label><input name="attach_evidence" type="file" class="form-control"></div>
+                    <div class="col-lg-6"><label>Any Other Issues</label><textarea class="form-control" name="any_issues"></textarea></div>
+                </div>
+            </div>
+            <div class="am-modal__footer">
+                <button type="button" class="am-btn am-btn-outline am-modal-close">Cancel</button>
+                <button type="submit" class="am-btn am-btn-primary"><i class="fa fa-check"></i> Update</button>
+            </div>
+        </form>
+    </div>
+</div>
 <script>
-
-
-    function getDetails(data){
-        console.log(data);
-         $("#id_feild").val(data.id);
-         $("input[name='riskseverity']").val(data.riskseverity);
-         $("input[name='risklikehood']").val(data.risklikehood);
-         $("input[name='revisedrisk']").val(data.revisedrisk);
-         $("input[name='reviseRiskSever']").val(data.reviseRiskSever);
-         $("input[name='reducerisk']").val(data.reducerisk);
-         $("input[name='envaccidental']").val(data.envaccidental);
-         $("input[name='envaccident']").val(data.envaccident);
-         $("input[name='consequences']").val(data.consequences);
-         $("input[name='activityscenario']").val(data.activityscenario);
-         $("textarea[name='any_issues']").val(data.any_issues);
-        if (data.attach_evidence) {
-            $('.evidence_attachemnt_div').empty().append(`<span class="text-dark">Click to view evidence <a target="_blank" href="${data.attach_evidence}">Here</a></span>`);
-        } else {
-            $('.evidence_attachemnt_div').empty().append('No data found');
-        }
-         $("#editInfo").modal('show');
-        resetForm();
-
-    }
-     function Editinfo(data){
-        $("#editrisk").val(data.id);
-         $("input[name='riskseverity']").val(data.riskseverity);
-         $("input[name='risklikehood']").val(data.risklikehood);
-         $("input[name='revisedrisk']").val(data.revisedrisk);
-         $("input[name='reviseRiskSever']").val(data.reviseRiskSever);
-         $("input[name='reducerisk']").val(data.reducerisk);
-         $("input[name='envaccidental']").val(data.envaccidental);
-         $("input[name='envaccident']").val(data.envaccident);
-         $("input[name='consequences']").val(data.consequences);
-         $("input[name='activityscenario']").val(data.activityscenario);
-         $("textarea[name='any_issues']").val(data.any_issues);
-         $("#editmodalData").modal('show');
-         resetForm();
-     }
-     function deleteModal(data){
-         console.log(data);
-         $("#idform").val(data.id);
-         $("#deleteRequirment").modal('show');
-
-     }
-
-
- </script>
+(function(){
+    var t=document.getElementById('toggleArForm'),f=document.getElementById('newArForm'),c=document.getElementById('cancelArForm');
+    t&&t.addEventListener('click',function(){f.classList.toggle('open');});
+    c&&c.addEventListener('click',function(){f.classList.remove('open');});
+    function debounce(fn,w){var t;return function(){var c=this,a=arguments;clearTimeout(t);t=setTimeout(function(){fn.apply(c,a);},w);};}
+    var per=10,i=document.getElementById('amArSearch'),tb=document.querySelector('#amArTable tbody');
+    if(!tb)return;
+    var rows=Array.prototype.slice.call(tb.querySelectorAll('tr[data-search]')),p=document.getElementById('amArPagination'),F=rows.slice(),pg=1;
+    function r(){var T=F.length,TP=Math.max(1,Math.ceil(T/per));if(pg>TP)pg=TP;rows.forEach(function(x){x.style.display='none';});F.slice((pg-1)*per,pg*per).forEach(function(x){x.style.display='';});var fr=T===0?0:(pg-1)*per+1,to=Math.min(pg*per,T);var h='<div class="am-pagination__info">Showing <strong>'+fr+'–'+to+'</strong> of <strong>'+T+'</strong></div><div class="am-pagination__nav">';h+='<button data-p="'+(pg-1)+'" '+(pg<=1?'disabled':'')+'>‹</button>';var s=Math.max(1,pg-2),e=Math.min(TP,s+4);s=Math.max(1,e-4);for(var q=s;q<=e;q++)h+='<button data-p="'+q+'" '+(q===pg?'class="active"':'')+'>'+q+'</button>';h+='<button data-p="'+(pg+1)+'" '+(pg>=TP?'disabled':'')+'>›</button></div>';p.innerHTML=h;}
+    i&&i.addEventListener('input',debounce(function(){var q=this.value.trim().toLowerCase();F=q===''?rows.slice():rows.filter(function(x){return x.getAttribute('data-search').indexOf(q)!==-1;});pg=1;r();},250));
+    p&&p.addEventListener('click',function(e){var b=e.target.closest('button[data-p]');if(!b||b.disabled)return;var q=parseInt(b.getAttribute('data-p'),10);if(!isNaN(q)&&q>=1){pg=q;r();}});
+    r();
+})();
+function amArView(d){
+    document.getElementById('v-ar-scenario').textContent = d.activityscenario||'—';
+    document.getElementById('v-ar-likel').textContent = d.risklikehood||'—';
+    document.getElementById('v-ar-sev').textContent = d.riskseverity||'—';
+    document.getElementById('v-ar-env').textContent = d.envaccident||'—';
+    document.getElementById('v-ar-envwhere').textContent = d.envaccidental||'—';
+    document.getElementById('v-ar-cons').textContent = d.consequences||'—';
+    document.getElementById('v-ar-prev').textContent = d.reducerisk||'—';
+    document.getElementById('v-ar-revlik').textContent = d.revisedrisk||'—';
+    document.getElementById('v-ar-revsev').textContent = d.reviseRiskSever||'—';
+    document.getElementById('v-ar-issues').textContent = d.any_issues||'—';
+    var ev = document.getElementById('v-ar-ev');
+    if (d.attach_evidence) { ev.innerHTML = '<a href="'+d.attach_evidence+'" target="_blank" style="color:var(--am-primary);"><i class="fa fa-external-link-alt"></i> View</a>'; } else ev.textContent='—';
+    document.getElementById('editInfo').classList.add('open');
+}
+function amArEdit(d){
+    $("#editrisk").val(d.id);
+    ['activityscenario','risklikehood','riskseverity','envaccident','envaccidental','consequences','reducerisk','revisedrisk','reviseRiskSever'].forEach(function(k){
+        $("#editmodalData input[name='"+k+"']").val(d[k]||'');
+    });
+    $("#editmodalData textarea[name='any_issues']").val(d.any_issues||'');
+    document.getElementById('editmodalData').classList.add('open');
+}
+</script>
+@endsection

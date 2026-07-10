@@ -11,23 +11,29 @@
 @section('content')
 <!-- begin:: Content -->
 
-<div class="kt-content  kt-grid__item kt-grid__item--fluid" id="kt_content">
+<div class="kt-content  kt-grid__item kt-grid__item--fluid" id="kt_content" style="padding:26px;">
+
+	<div class="am-page-header">
+		<div>
+			<h2>Organization Structure</h2>
+			<p>Upload images that represent your organization's structure.</p>
+		</div>
+		<div>
+			<a href="{{ url('/admin') }}" class="am-btn am-btn-outline"><i class="fa fa-arrow-left"></i> Back</a>
+		</div>
+	</div>
+
+	@if(session()->get('message'))
+	<div class="am-card" style="padding:14px 20px;margin-bottom:16px;color:#1a8a5c;background:rgba(38,194,129,0.08);">
+		<i class="fa fa-check-circle"></i> {{ session()->get('message') }}
+	</div>
+	@endif
+
 	<div class="row">
 		<div class="col-lg-12">
-
-
-	    @if(session()->get('message'))
-		<div class="row">
-            <div class="col-md-12">
-	            <div class="alert alert-success alert-dismissible">{{ session()->get('message') }} &nbsp; <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a></div>
-	        </div>
-    	</div>
-    	@endif
-
-
 			<!--begin::Portlet-->
 			<div class="kt-portlet">
-				<div class="kt-portlet__head kt-portlet__head--lg">
+				<div class="kt-portlet__head kt-portlet__head--lg" style="display:none;">
 					<div class="kt-portlet__head-label">
 						<span class="kt-portlet__head-icon">
 							<i class="kt-font-brand flaticon2-line-chart"></i>
@@ -43,7 +49,6 @@
 								Back
 							</a>
 							&nbsp;
-							
 						</div>
 					</div>
 				</div>

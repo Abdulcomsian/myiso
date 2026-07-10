@@ -1,737 +1,246 @@
 @extends('admin.dashboard.layouts.app')
 
 @section('content')
-<!-- begin:: Content -->
-<script>if (document.title != "Admin") {
-    document.title = "Admin";
-}</script>
-<div class="kt-content  kt-grid__item kt-grid__item--fluid" id="kt_content">
+@php $urlparam = request()->route()->parameters; @endphp
 
-	<!--Begin::Dashboard 1-->
+<div class="kt-content kt-grid__item kt-grid__item--fluid" id="kt_content" style="padding:26px;">
 
+    <div class="am-page-header">
+        <div>
+            <h2>Work Instructions</h2>
+            <p>Step-by-step processes used to conduct activities in the workplace.</p>
+        </div>
+        <div>
+            <a href="{{ url('/edit_user/'.$urlparam['userid']) }}" class="am-btn am-btn-outline">
+                <i class="fa fa-arrow-left"></i> Back to Forms
+            </a>
+        </div>
+    </div>
 
-	<!--Begin::Section-->
-	<div class="row">
-		<div class="col-xl-12 col-lg-12">
-			<h2>Work Instructions</h2>
-		</div>
-	</div>
-	<section id="procedure_section">
+    @if ($message = Session::get('msg'))
+        <div class="am-card" style="padding:14px 20px;margin-bottom:16px;color:#1a8a5c;background:rgba(38,194,129,0.08);">
+            <i class="fa fa-check-circle"></i> {{ $message }}
+        </div>
+    @endif
 
-		<div class="row">
-			<div class="col-lg-12">
-                <p>Work Instructions are also referred to as Processes.These are used as a step-by-step guide of how to conduct an activity in the workplace.This section should be used to create activities that are later selected to perform internal audits from your process audits. If you use documents that are external to this system, that is fine as long as they are referenced here. Do this by recording the work instruction detail and put a brief summary in the scope section.</p>
-
-                    <div class="procedure_div">
-                    	<div class="row">
-                    		<div class="col-lg-12 text-right">
-                    			<a onclick="workInstructionFrom()" class="addBtn">ADD WORK INSTRUCTION</a>
-                    		</div>
-                    	</div>
-                    	<div class="work_instruction_from_div">
-                            <form action="{{route('workinstructions')}} " method="POST">
-                                @csrf
-                                                                @csrf
-                                            @php 
-            $urlparam = request()->route()->parameters;
-            @endphp
-    
-
-<input type="hidden" name="user_id" value="{{ $urlparam['userid'] }}">
-                    			<div class="row">
-                    				<div class="col-lg-6">
-                    					<div class="form-group">
-											<label>Work Instruction / Process Title:</label><br>
-											<input type="text" class="form-control" name="workinstruction" placeholder="Add Work Instruction / Process" required="required">
-										</div>
-                    				</div>
-                    				<div class="col-lg-6">
-                    					<div class="form-group">
-											<label>Work Instruction Reference:</label><br>
-											<input type="text" class="form-control" name="instructionref" required="required">
-										</div>
-                    				</div>
-                    			</div>
-
-								<div class="row">
-									<div class="col-lg-6">
-										<div class="form-group">
-										    
-											<label>Employee ID Number of Work Instruction Creater. This is taken from the Employee table:</label>
-											 <select class="form-control" name="empId" required="required">
-											     <option value="">Select Employee</option>
-											      @foreach($employess as $emp)
-											      <option value="{{$emp->empNumber}}">{{$emp->empNumber}}</option>
-											      @endforeach
-											 </select>
-											<!--<input type="number" class="form-control" name="empId" required="required">-->
-										</div>
-									</div>
-									<div class="col-lg-6">
-										<div class="form-group">
-											<label>Issue Date (MM/DD/YYYY):</label>
-											<input type="date" max="2999-12-31" class="form-control" name="issueDate" required="required">
-										</div>
-									</div>
-								</div>
-								<div class="row">
-									<div class="col-lg-6">
-										<div class="form-group">
-											<label>Revision Status:</label>
-											<input type="text" class="form-control" name="revisionstatus" required="required">
-										</div>
-									</div>
-									<div class="col-lg-6">
-										<div class="form-group">
-											<label>Scope:</label>
-											<input type="text" class="form-control" name="scop" required="required">
-										</div>
-									</div>
-								</div>
-								<div class="row">
-									<div class="col-lg-6">
-										<div class="form-group">
-											<label>Point 1:</label>
-											<input type="text" class="form-control" name="point1">
-										</div>
-									</div>
-									<div class="col-lg-6">
-										<div class="form-group">
-											<label>Point 2:</label>
-											<input type="text" class="form-control" name="point2">
-										</div>
-									</div>
-								</div>
-								<div class="row">
-									<div class="col-lg-6">
-										<div class="form-group">
-											<label>Point 3:</label>
-											<input type="text" class="form-control" name="point3">
-										</div>
-									</div>
-									<div class="col-lg-6">
-										<div class="form-group">
-											<label>Point 4:</label>
-											<input type="text" class="form-control" name="point4">
-										</div>
-									</div>
-								</div>
-								<div class="row">
-									<div class="col-lg-6">
-										<div class="form-group">
-											<label>Point 5:</label>
-											<input type="text" class="form-control" name="point5">
-										</div>
-									</div>
-									<div class="col-lg-6">
-										<div class="form-group">
-											<label>Point 6:</label>
-											<input type="text" class="form-control" name="point6">
-										</div>
-									</div>
-								</div>
-								<div class="row">
-									<div class="col-lg-6">
-										<div class="form-group">
-											<label>Point 7:</label>
-											<input type="text" class="form-control" name="point7">
-										</div>
-									</div>
-									<div class="col-lg-6">
-										<div class="form-group">
-											<label>Point 8:</label>
-											<input type="text" class="form-control" name="point8">
-										</div>
-									</div>
-								</div>
-								<div class="row">
-									<div class="col-lg-6">
-										<div class="form-group">
-											<label>Point 9:</label>
-											<input type="text" class="form-control" name="point9">
-										</div>
-									</div>
-									<div class="col-lg-6">
-										<div class="form-group">
-											<label>Point 10:</label>
-											<input type="text" class="form-control" name="point10">
-										</div>
-									</div>
-								</div>
-								<div class="row">
-									<div class="col-lg-6">
-										<div class="form-group">
-											<label>Point 11:</label>
-											<input type="text" class="form-control" name="point11">
-										</div>
-									</div>
-									<div class="col-lg-6">
-										<div class="form-group">
-											<label>Point 12:</label>
-											<input type="text" class="form-control" name="point12">
-										</div>
-									</div>
-								</div>
-					                    <div class="row">
-					
-                        <div class="col-lg-12">
-                            <div class="form-group">
-                                <label>Compiled By:</label>
-                                <input type="text" class="form-control" name="CompiledBy" required>
-                            </div>
-                        </div>
-
-                    </div>
-
-
-								<button type="submit" class="submitBtn">SUBMIT</button>
-								<button type="reset" class="submitBtn" onclick="closeform();" style="margin-right:10px">Cancel</button>
-                    		</form>
-                    	</div>
-                    </div>
-                    <div class="procedure_div">
-                    	<div class="requirments_table_div">
-							<div class="d-flex justify-content-between mb-2">
-								<h4>Total Work Instructions Listed</h4>
-								<a href="/edit_user/{{ $urlparam['userid'] }}" class="btn btn-clean btn-icon-sm back_icon" style="float: right;">
-									<i class="la la-long-arrow-left"></i>
-									Back
-								</a>
-							</div>
-                    		<div class="kt-portlet__body table-responsive">
-								<!--begin: Datatable -->
-								<table class="common_table table table-striped- table-bordered table-hover table-checkable table-responsive" id="kt_table_agent">
-									<thead>
-										<tr>
-											<th>WI ID</th>
-											<th>WI Name</th>
-											<th>WI Ref</th>
-											<th>WI Scope</th>
-											<th>Compiled By</th>
-											<th>Issue Date</th>
-											<th>Revision</th>
-											<th>Actions</th>
-										</tr>
-                                    </thead>
-                                    <tbody>
-                                        @foreach ($work as $data)
-                                        <tr>
-                                            <td>{{$loop->index+1}}</td>
-                                            <td>{{$data->workinstruction}}</td>
-                                            <td>{{$data->instructionref}}</td>
-                                            <td>{{$data->scop}}</td>
-                                           
-                                            <td>{{isset($data->CompiledBy) ? $data->CompiledBy :''}}</td>
-                                            <td>{{date('d/m/Y', strtotime($data->issueDate))}}</td>
-                                            <td>{{$data->revisionstatus}}</td>
-                                            <td>
-                                                <button  class="btn btn-sm btn-clean btn-icon btn-icon-md" title="View" onclick="getEid({{$data}});"><i class="fa fa-eye"></i>
-											    </button>
-                                                <button  class="btn btn-sm btn-clean btn-icon btn-icon-md" title="Edit"  onclick="editDetails({{$data}});"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="18px" height="18px" viewBox="0 0 24 24" version="1.1">										<g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">											<rect x="0" y="0" width="24" height="24"></rect>											<path d="M12.2674799,18.2323597 L12.0084872,5.45852451 C12.0004303,5.06114792 12.1504154,4.6768183 12.4255037,4.38993949 L15.0030167,1.70195304 L17.5910752,4.40093695 C17.8599071,4.6812911 18.0095067,5.05499603 18.0083938,5.44341307 L17.9718262,18.2062508 C17.9694575,19.0329966 17.2985816,19.701953 16.4718324,19.701953 L13.7671717,19.701953 C12.9505952,19.701953 12.2840328,19.0487684 12.2674799,18.2323597 Z" fill="#5d78ff" fill-rule="nonzero" transform="translate(14.701953, 10.701953) rotate(-135.000000) translate(-14.701953, -10.701953) "></path>											<path d="M12.9,2 C13.4522847,2 13.9,2.44771525 13.9,3 C13.9,3.55228475 13.4522847,4 12.9,4 L6,4 C4.8954305,4 4,4.8954305 4,6 L4,18 C4,19.1045695 4.8954305,20 6,20 L18,20 C19.1045695,20 20,19.1045695 20,18 L20,13 C20,12.4477153 20.4477153,12 21,12 C21.5522847,12 22,12.4477153 22,13 L22,18 C22,20.209139 20.209139,22 18,22 L6,22 C3.790861,22 2,20.209139 2,18 L2,6 C2,3.790861 3.790861,2 6,2 L12.9,2 Z" fill="#5d78ff" fill-rule="nonzero" opacity="0.3"></path>										</g>									</svg>
-                                                </button>
-                                                <button class="btn btn-sm btn-clean btn-icon btn-icon-md" data-toggle="modal" data-target="#deleteworkinst{{$data->id}}">
-                                                    <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="18px" height="18px" viewBox="0 0 24 24" version="1.1">										<g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">											<rect x="0" y="0" width="24" height="24"></rect>											<path d="M6,8 L6,20.5 C6,21.3284271 6.67157288,22 7.5,22 L16.5,22 C17.3284271,22 18,21.3284271 18,20.5 L18,8 L6,8 Z" fill="#5d78ff" fill-rule="nonzero"></path>											<path d="M14,4.5 L14,4 C14,3.44771525 13.5522847,3 13,3 L11,3 C10.4477153,3 10,3.44771525 10,4 L10,4.5 L5.5,4.5 C5.22385763,4.5 5,4.72385763 5,5 L5,5.5 C5,5.77614237 5.22385763,6 5.5,6 L18.5,6 C18.7761424,6 19,5.77614237 19,5.5 L19,5 C19,4.72385763 18.7761424,4.5 18.5,4.5 L14,4.5 Z" fill="#5d78ff" opacity="0.3"></path>										</g>									</svg>
-                                                 </button>
-                                                 <div class="modal fade" id="deleteworkinst{{$data->id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                                	<div class="modal-dialog" role="document">
-                                                		<div class="modal-content">
-                                                			<div class="modal-header">
-                                                				<h5 class="modal-title" id="exampleModalLabel">Deleting Work Instruction</h5>
-                                                				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                				</button>
-                                                			</div>
-                                                			<div class="modal-body">
-                                                				<p>Are you sure you want to delete this entry?</p>
-                                                			</div>
-                                                			<div class="modal-footer">
-                                                            <form action="{{route('deleteWork')}}" method="POST">
-                                                				@csrf
-                                                				<input type="hidden" value="{{$data->id}}"  name="id">
-                                                				<button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
-                                                				<button type="submit" class="btn btn-danger">Yes</button>
-                                                				</form>
-                                                			</div>
-                                                		</div>
-                                                	</div>
-                                                </div>
-                                            </td>
-                                        </tr>
-                                        @endforeach
-
-                                    </tbody>
-								</table>
-								<!--end: Datatable -->
-                    		</div>
-						</div>
-					</div>
-					<div class="procedure_div">
-                    	<div class="requirments_table_div">
-                    		<h4>Total Employees Listed</h4>
-                    		
-                    		
-                    		<div class="kt-portlet__body table-responsive">
-								<!--begin: Datatable -->
-								<table class="common_table table table-striped- table-bordered table-hover table-checkable table-responsive" id="kt_table_agent">
-									<thead>
-										<tr>
-											<th>Employee ID Number</th>
-											<th>Surname</th>
-											<th>Firstname</th>
-											<!--<th>Employee Number</th>-->
-											<th>Start Date</th>
-                                            <th>Job Details</th>
-                                            
-										</tr>
-									</thead>
-									<tbody>
-									   
-                                        @foreach ($employess as $item)
-										<tr>
-											<td> {{$item->empNumber}}</td>
-											<td> {{$item->surname}}</td>
-											<td> {{$item->first_name}}</td>
-											<!--<td> {$item->empNumber}</td>-->
-											
-											<td> {{date('d/m/Y', strtotime($item->startDate))}}</td>
-                                            <td> {{$item->jobdetails}}</td>
-                            
-
-                                        </tr>
-                                        @endforeach
-									</tbody>
-								</table>
-								<!--end: Datatable -->
-                    	</div>
-					</div>
-					</div>
-
-	</section>
-
-	<!--End::Section-->
-</div>
-<div class="modal fade" id="deleteSupplier" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-	<div class="modal-dialog" role="document">
-		<div class="modal-content">
-			<div class="modal-header">
-				<h5 class="modal-title" id="exampleModalLabel">Deleting Work Instruction</h5>
-				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-				</button>
-			</div>
-			<div class="modal-body">
-				<p>Are you sure you want to delete this entry?</p>
-			</div>
-			<div class="modal-footer">
-            <form action="{{route('deleteWork')}}" method="POST">
-				@csrf
-				<input type="hidden" value="" id="re_id" name="id">
-				<button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
-				<button type="submit" class="btn btn-danger">Yes</button>
-				</form>
-			</div>
-		</div>
-	</div>
-</div>
-<div class="modal fade" id="workinstructionsDetails" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-	<div class="modal-dialog modal-lg" role="document">
-		<div class="modal-content">
-			<div class="modal-header">
-				<h5 class="modal-title" id="exampleModalLabel">View Work Instructions</h5>
-				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-				</button>
-			</div>
-			<div class="modal-body">
-                <form>
-                   
-                    <div class="row">
-                        <div class="col-lg-6">
-                    					<div class="form-group">
-											<label>Work Instruction / Process Title:</label><br>
-											<input type="text" class="form-control" name="workinstruction" placeholder="Add Work Instruction / Process" required="required">
-										</div>
-                    				</div>
-                        <div class="col-lg-6">
-                            <div class="form-group">
-                                <label>Work Instruction Reference:</label><br>
-                                <input type="text" readyonly disabled class="form-control" name="instructionref">
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="row">
-                        <div class="col-lg-6">
-                            <div class="form-group">
-                                <label>Employee ID Number of Work Instruction Creater. This is taken from the Employee table:</label>
-                                <!--<input type="number" readonly disabled class="form-control" name="empId">-->
-                                 <select class="form-control" name="empId" required="required">
-								     <option value="">Select Employee</option>
-								      @foreach($employess as $emp)
-								      <option value="{{$emp->id}}">{{$emp->empNumber}}</option>
-								      @endforeach
-								 </select>
-                            </div>
-                        </div>
-                        <div class="col-lg-6">
-                            <div class="form-group">
-                                <label>Issue Date (MM/DD/YYYY):</label>
-                                <input type="date" readonly disabled class="form-control" name="issueDate">
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-lg-6">
-                            <div class="form-group">
-                                <label>Revision Status:</label>
-                                <input type="text" readyonly disabled class="form-control" name="revisionstatus">
-                            </div>
-                        </div>
-                        <div class="col-lg-6">
-                            <div class="form-group">
-                                <label>Scope:</label>
-                                <input type="text" readyonly disabled class="form-control" name="scop">
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-lg-6">
-                            <div class="form-group">
-                                <label>Point 1:</label>
-                                <input type="text" readyonly disabled class="form-control" name="point1">
-                            </div>
-                        </div>
-                        <div class="col-lg-6">
-                            <div class="form-group">
-                                <label>Point 2:</label>
-                                <input type="text" readyonly disabled class="form-control" name="point2">
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-lg-6">
-                            <div class="form-group">
-                                <label>Point 3:</label>
-                                <input type="text" readyonly disabled class="form-control" name="point3">
-                            </div>
-                        </div>
-                        <div class="col-lg-6">
-                            <div class="form-group">
-                                <label>Point 4:</label>
-                                <input type="text" readyonly disabled class="form-control" name="point4">
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-lg-6">
-                            <div class="form-group">
-                                <label>Point 5:</label>
-                                <input type="text" readyonly disabled class="form-control" name="point5">
-                            </div>
-                        </div>
-                        <div class="col-lg-6">
-                            <div class="form-group">
-                                <label>Point 6:</label>
-                                <input type="text" readyonly disabled class="form-control" name="point6">
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-lg-6">
-                            <div class="form-group">
-                                <label>Point 7:</label>
-                                <input type="text" readyonly disabled class="form-control" name="point7">
-                            </div>
-                        </div>
-                        <div class="col-lg-6">
-                            <div class="form-group">
-                                <label>Point 8:</label>
-                                <input type="text" readyonly disabled class="form-control" name="point8">
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-lg-6">
-                            <div class="form-group">
-                                <label>Point 9:</label>
-                                <input type="text" readyonly disabled class="form-control" name="point9">
-                            </div>
-                        </div>
-                        <div class="col-lg-6">
-                            <div class="form-group">
-                                <label>Point 10:</label>
-                                <input type="text" readyonly disabled class="form-control" name="point10">
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-lg-6">
-                            <div class="form-group">
-                                <label>Point 11:</label>
-                                <input type="text" readyonly disabled class="form-control" name="point11">
-                            </div>
-                        </div>
-                        <div class="col-lg-6">
-                            <div class="form-group">
-                                <label>Point 12:</label>
-                                <input type="text" readyonly disabled class="form-control" name="point12">
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-					
-                        <div class="col-lg-12">
-                            <div class="form-group">
-                                <label>Compiled By:</label>
-                                <input type="text" readyonly disabled class="form-control" name="CompiledBy">
-                            </div>
-                        </div>
-
-                    </div>
-
-                </form>
-			</div>
-			<div class="modal-footer">
-				<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-
-			</div>
-		</div>
-	</div>
-</div>
-{{-- work insturctions edit --}}
-
-<div class="modal fade" id="editworkinstuction" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-	<div class="modal-dialog modal-lg" role="document">
-		<div class="modal-content">
-			<div class="modal-header">
-				<h5 class="modal-title" id="exampleModalLabel">Edit Work Instructions</h5>
-				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-				</button>
+    <div class="am-card" style="padding:16px 20px;margin-bottom:16px;background:rgba(46,59,154,0.04);border:1px solid rgba(46,59,154,0.12);">
+        <div style="display:flex;gap:12px;align-items:flex-start;">
+            <span style="width:36px;height:36px;flex-shrink:0;border-radius:10px;background:var(--am-primary-tint);color:var(--am-primary);display:inline-flex;align-items:center;justify-content:center;font-size:15px;"><i class="fa fa-info-circle"></i></span>
+            <div style="font-size:13px;color:var(--am-text);line-height:1.55;">
+                Work instructions (also called processes) are step-by-step guides. Use this section to define activities that internal audits will later verify. External documents are fine as long as they're referenced here.
             </div>
-            <form action="{{route('editworkinstructions')}} " method="POST">
+        </div>
+    </div>
+
+    <div class="am-card" style="margin-bottom:16px;">
+        <div class="am-card__toolbar">
+            <div class="am-search" style="flex:1;max-width:340px;">
+                <i class="fa fa-search"></i>
+                <input type="text" id="amWiSearch" placeholder="Search work instructions…" autocomplete="off">
+            </div>
+            <button type="button" class="am-btn am-btn-primary" id="toggleWiForm">
+                <i class="fa fa-plus"></i> Add Work Instruction
+            </button>
+        </div>
+
+        <div class="am-inline-form" id="newWiForm" style="margin:16px 20px;">
+            <form action="{{ route('workinstructions') }}" method="POST">
                 @csrf
-                                            @php 
-            $urlparam = request()->route()->parameters;
-            @endphp
-    
+                <input type="hidden" name="user_id" value="{{ $urlparam['userid'] }}">
+                <div class="form-row">
+                    <div><label>Work Instruction Title</label><input type="text" name="workinstruction" placeholder="Process title" required></div>
+                    <div><label>Reference</label><input type="text" name="instructionref" required></div>
+                </div>
+                <div class="form-row">
+                    <div>
+                        <label>Creator Employee ID</label>
+                        <select name="empId" required>
+                            <option value="">Select Employee</option>
+                            @foreach($employess as $emp)
+                                <option value="{{ $emp->empNumber }}">{{ $emp->empNumber }}</option>
+                            @endforeach
+                        </select>
+                    </div>
+                    <div><label>Issue Date</label><input type="date" max="2999-12-31" name="issueDate" required></div>
+                    <div><label>Revision Status</label><input type="text" name="revisionstatus" required></div>
+                </div>
+                <div class="form-row">
+                    <div style="grid-column:1/-1;"><label>Scope</label><input type="text" name="scop" required></div>
+                </div>
+                <div class="form-row">
+                    @for ($i = 1; $i <= 12; $i++)
+                        <div><label>Point {{ $i }}</label><input type="text" name="point{{ $i }}"></div>
+                    @endfor
+                </div>
+                <div class="form-row">
+                    <div style="grid-column:1/-1;"><label>Compiled By</label><input type="text" name="CompiledBy" required></div>
+                </div>
+                <div class="form-actions">
+                    <button type="button" class="am-btn am-btn-outline am-btn-sm" id="cancelWiForm">Cancel</button>
+                    <button type="submit" class="am-btn am-btn-primary am-btn-sm"><i class="fa fa-check"></i> Save Instruction</button>
+                </div>
+            </form>
+        </div>
+    </div>
 
-<input type="hidden" name="user_id" value="{{ $urlparam['userid'] }}">
-<input type="hidden" name="id" id="editit" value="">
-			<div class="modal-body">
+    <div class="am-card">
+        <div class="am-table-wrap">
+            <table class="am-table" id="amWiTable">
+                <thead>
+                    <tr>
+                        <th style="width:60px;">#</th>
+                        <th>Title</th>
+                        <th>Reference</th>
+                        <th>Scope</th>
+                        <th>Compiled By</th>
+                        <th>Issue Date</th>
+                        <th>Revision</th>
+                        <th style="text-align:right;">Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @forelse ($work as $index => $data)
+                        <tr data-search="{{ strtolower($data->workinstruction . ' ' . $data->instructionref . ' ' . $data->scop . ' ' . ($data->CompiledBy ?? '')) }}">
+                            <td><span class="am-cell-sub">#{{ $index + 1 }}</span></td>
+                            <td><span class="am-cell-primary">{{ $data->workinstruction }}</span></td>
+                            <td>{{ $data->instructionref }}</td>
+                            <td>{{ Str::limit($data->scop, 60) }}</td>
+                            <td>{{ $data->CompiledBy ?? '—' }}</td>
+                            <td><span class="am-chip info">{{ date('d M Y', strtotime($data->issueDate)) }}</span></td>
+                            <td>{{ $data->revisionstatus }}</td>
+                            <td style="text-align:right;white-space:nowrap;">
+                                <div class="am-actions">
+                                    <button type="button" class="am-icon-btn" title="View" onclick='amWiView(@json($data))'><i class="fa fa-eye"></i></button>
+                                    <button type="button" class="am-icon-btn" title="Edit" onclick='amWiEdit(@json($data))'><i class="fa fa-pen"></i></button>
+                                    <button type="button" class="am-icon-btn danger am-confirm-delete"
+                                            title="Delete"
+                                            data-action="{{ route('deleteWork') }}"
+                                            data-id="{{ $data->id }}"
+                                            data-label="{{ $data->workinstruction }}"
+                                            data-type="Work Instruction">
+                                        <i class="fa fa-trash"></i>
+                                    </button>
+                                </div>
+                            </td>
+                        </tr>
+                    @empty
+                        <tr><td colspan="8"><div class="am-empty"><i class="fa fa-file-alt"></i><p>No work instructions added yet.</p></div></td></tr>
+                    @endforelse
+                </tbody>
+            </table>
+        </div>
+        <div class="am-pagination" id="amWiPagination"></div>
+    </div>
+</div>
 
-                    <div class="row">
-                        
-                        <div class="col-lg-6">
-                    					<div class="form-group">
-											<label>Work Instruction / Process Title:</label><br>
-											<input type="text" class="form-control" name="workinstruction" placeholder="Add Work Instruction / Process" required="required">
-										</div>
-                    				</div>
-                        <div class="col-lg-6">
-                            <div class="form-group">
-                                <label>Work Instruction Reference:</label><br>
-                                <input type="text"  class="form-control" name="instructionref">
-                            </div>
-                        </div>
-                    </div>
+{{-- View modal --}}
+<div class="am-modal" id="viewWiModal" role="dialog" aria-modal="true">
+    <div class="am-modal__box" style="max-width:820px;">
+        <div class="am-modal__header">
+            <span class="am-modal__icon" style="background:var(--am-primary-tint);color:var(--am-primary);"><i class="fa fa-eye"></i></span>
+            <h4 class="am-modal__title">Work Instruction Details</h4>
+        </div>
+        <div class="am-modal__body">
+            <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:14px;font-size:13px;">
+                <div><div style="font-size:11px;text-transform:uppercase;letter-spacing:0.4px;color:var(--am-text-muted);font-weight:600;margin-bottom:4px;">Title</div><div id="vwi-title">—</div></div>
+                <div><div style="font-size:11px;text-transform:uppercase;letter-spacing:0.4px;color:var(--am-text-muted);font-weight:600;margin-bottom:4px;">Reference</div><div id="vwi-ref">—</div></div>
+                <div><div style="font-size:11px;text-transform:uppercase;letter-spacing:0.4px;color:var(--am-text-muted);font-weight:600;margin-bottom:4px;">Employee ID</div><div id="vwi-emp">—</div></div>
+                <div><div style="font-size:11px;text-transform:uppercase;letter-spacing:0.4px;color:var(--am-text-muted);font-weight:600;margin-bottom:4px;">Issue Date</div><div id="vwi-date">—</div></div>
+                <div><div style="font-size:11px;text-transform:uppercase;letter-spacing:0.4px;color:var(--am-text-muted);font-weight:600;margin-bottom:4px;">Revision Status</div><div id="vwi-rev">—</div></div>
+                <div><div style="font-size:11px;text-transform:uppercase;letter-spacing:0.4px;color:var(--am-text-muted);font-weight:600;margin-bottom:4px;">Compiled By</div><div id="vwi-comp">—</div></div>
+                <div style="grid-column:1/-1;"><div style="font-size:11px;text-transform:uppercase;letter-spacing:0.4px;color:var(--am-text-muted);font-weight:600;margin-bottom:4px;">Scope</div><div id="vwi-scope">—</div></div>
+                <div style="grid-column:1/-1;"><div style="font-size:11px;text-transform:uppercase;letter-spacing:0.4px;color:var(--am-text-muted);font-weight:600;margin-bottom:8px;">Steps</div><ol id="vwi-points" style="padding-left:18px;margin:0;font-size:13px;line-height:1.6;"></ol></div>
+            </div>
+        </div>
+        <div class="am-modal__footer"><button type="button" class="am-btn am-btn-outline am-modal-close">Close</button></div>
+    </div>
+</div>
 
-                    <div class="row">
-					
-                        <div class="col-lg-6">
-                   								<div class="form-group">
-										    
-											<label>Employee ID Number of Work Instruction Creater. This is taken from the Employee table:</label>
-											 <select class="form-control" name="empId" required="required">
-								     <option value="">Select Employee</option>
-								      @foreach($employess as $emp)
-								      <option value="{{$emp->id}}">{{$emp->empNumber}}</option>
-								      @endforeach
-								 </select>
-											<!--<input type="number" class="form-control" name="empId" required="required">-->
-										</div>
-                        </div>
-                        <div class="col-lg-6">
-                            <div class="form-group">
-                                <label>Issue Date (MM/DD/YYYY):</label>
-                                <input type="date"  max="2999-12-31" class="form-control" name="issueDate">
-                            </div>
-                        </div>
+{{-- Edit modal --}}
+<div class="am-modal" id="editWiModal" role="dialog" aria-modal="true">
+    <div class="am-modal__box am-form" style="max-width:900px;">
+        <div class="am-modal__header">
+            <span class="am-modal__icon" style="background:var(--am-primary-tint);color:var(--am-primary);"><i class="fa fa-pen"></i></span>
+            <h4 class="am-modal__title">Edit Work Instruction</h4>
+        </div>
+        <form action="{{ route('editworkinstructions') }}" method="POST" style="display:contents;">
+            @csrf
+            <input type="hidden" name="user_id" value="{{ $urlparam['userid'] }}">
+            <input type="hidden" name="id" id="ewi-id">
+            <div class="am-modal__body" style="padding:20px;">
+                <div class="form-group row">
+                    <div class="col-lg-6"><label>Title</label><input type="text" class="form-control" name="workinstruction" required></div>
+                    <div class="col-lg-6"><label>Reference</label><input type="text" class="form-control" name="instructionref" required></div>
+                </div>
+                <div class="form-group row">
+                    <div class="col-lg-4">
+                        <label>Creator Employee ID</label>
+                        <select class="form-control" name="empId" required>
+                            <option value="">Select</option>
+                            @foreach($employess as $emp)
+                                <option value="{{ $emp->empNumber }}">{{ $emp->empNumber }}</option>
+                            @endforeach
+                        </select>
                     </div>
-                    <div class="row">
-                        <div class="col-lg-6">
-                            <div class="form-group">
-                                <label>Revision Status:</label>
-                                <input type="text"  class="form-control" name="revisionstatus">
-                            </div>
-                        </div>
-                        <div class="col-lg-6">
-                            <div class="form-group">
-                                <label>Scope:</label>
-                                <input type="text"  class="form-control" name="scop">
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-lg-6">
-                            <div class="form-group">
-                                <label>Point 1:</label>
-                                <input type="text"  class="form-control" name="point1">
-                            </div>
-                        </div>
-                        <div class="col-lg-6">
-                            <div class="form-group">
-                                <label>Point 2:</label>
-                                <input type="text"  class="form-control" name="point2">
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-lg-6">
-                            <div class="form-group">
-                                <label>Point 3:</label>
-                                <input type="text"  class="form-control" name="point3">
-                            </div>
-                        </div>
-                        <div class="col-lg-6">
-                            <div class="form-group">
-                                <label>Point 4:</label>
-                                <input type="text"  class="form-control" name="point4">
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-lg-6">
-                            <div class="form-group">
-                                <label>Point 5:</label>
-                                <input type="text"  class="form-control" name="point5">
-                            </div>
-                        </div>
-                        <div class="col-lg-6">
-                            <div class="form-group">
-                                <label>Point 6:</label>
-                                <input type="text"  class="form-control" name="point6">
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-lg-6">
-                            <div class="form-group">
-                                <label>Point 7:</label>
-                                <input type="text"  class="form-control" name="point7">
-                            </div>
-                        </div>
-                        <div class="col-lg-6">
-                            <div class="form-group">
-                                <label>Point 8:</label>
-                                <input type="text"  class="form-control" name="point8">
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-lg-6">
-                            <div class="form-group">
-                                <label>Point 9:</label>
-                                <input type="text"  class="form-control" name="point9">
-                            </div>
-                        </div>
-                        <div class="col-lg-6">
-                            <div class="form-group">
-                                <label>Point 10:</label>
-                                <input type="text"  class="form-control" name="point10">
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-lg-6">
-                            <div class="form-group">
-                                <label>Point 11:</label>
-                                <input type="text"  class="form-control" name="point11">
-                            </div>
-                        </div>
-                        <div class="col-lg-6">
-                            <div class="form-group">
-                                <label>Point 12:</label>
-                                <input type="text"  class="form-control" name="point12">
-                            </div>
-                        </div>
-                    </div>
-
-<div class="row">
-					
-                        <div class="col-lg-12">
-                            <div class="form-group">
-                                <label>Compiled By:</label>
-                                <input type="text" class="form-control" name="CompiledBy" required>
-                            </div>
-                        </div>
-
-                    </div>
-			</div>
-			<div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancle</button>
-				<button type="submit" class="btn btn-primary" >Update</button>
-
-
+                    <div class="col-lg-4"><label>Issue Date</label><input type="date" class="form-control" name="issueDate" required></div>
+                    <div class="col-lg-4"><label>Revision Status</label><input type="text" class="form-control" name="revisionstatus" required></div>
+                </div>
+                <div class="form-group row">
+                    <div class="col-lg-12"><label>Scope</label><input type="text" class="form-control" name="scop" required></div>
+                </div>
+                <div class="form-group row">
+                    @for ($i = 1; $i <= 12; $i++)
+                        <div class="col-lg-4"><label>Point {{ $i }}</label><input type="text" class="form-control" name="point{{ $i }}"></div>
+                    @endfor
+                </div>
+                <div class="form-group row">
+                    <div class="col-lg-12"><label>Compiled By</label><input type="text" class="form-control" name="CompiledBy" required></div>
+                </div>
+            </div>
+            <div class="am-modal__footer">
+                <button type="button" class="am-btn am-btn-outline am-modal-close">Cancel</button>
+                <button type="submit" class="am-btn am-btn-primary"><i class="fa fa-check"></i> Update</button>
             </div>
         </form>
-		</div>
-	</div>
+    </div>
 </div>
-@endsection
 
 <script>
-    function getEid(data){
-        // console.log(data);
-
-         $("#editit").val(data.work_id);
-        $("select[name='empId']").val(data.empId);
-         $("input[name='instructionref']").val(data.instructionref);
-         $("input[name='issueDate']").val(data.issueDate);
-         $("input[name='point1']").val(data.point1);
-         $("input[name='point2']").val(data.point2);
-         $("input[name='point3']").val(data.point3);
-         $("input[name='point4']").val(data.point4);
-         $("input[name='point5']").val(data.point5);
-         $("input[name='point6']").val(data.point6);
-         $("input[name='point7']").val(data.point7);
-         $("input[name='point8']").val(data.point8);
-         $("input[name='point9']").val(data.point9);
-         $("input[name='point10']").val(data.point10);
-         $("input[name='point11']").val(data.point11);
-         $("input[name='point12']").val(data.point12);
-         $("input[name='revisionstatus']").val(data.revisionstatus);
-         $("input[name='scop']").val(data.scop);
-         $("input[name='workinstruction']").val(data.workinstruction);
-         $("input[name='CompiledBy']").val(data.CompiledBy);
-         $("#workinstructionsDetails").modal('show');
-     }
-     function deleteModal(data){
-         $("#re_id").val(data.id);
-         $("#deleteSupplier").modal('show');
-
-     }
-     function closeform()
-     {
-         $(".work_instruction_from_div").hide();
-     }
-     function editDetails(data){
-        $("#editit").val(data.id);
-         $("select[name='empId']").val(data.empId);
-         $("input[name='instructionref']").val(data.instructionref);
-         $("input[name='issueDate']").val(data.issueDate);
-         $("input[name='point1']").val(data.point1);
-         $("input[name='point2']").val(data.point2);
-         $("input[name='point3']").val(data.point3);
-         $("input[name='point4']").val(data.point4);
-         $("input[name='point5']").val(data.point5);
-         $("input[name='point6']").val(data.point6);
-         $("input[name='point7']").val(data.point7);
-         $("input[name='point8']").val(data.point8);
-         $("input[name='point9']").val(data.point9);
-         $("input[name='point10']").val(data.point10);
-         $("input[name='point11']").val(data.point11);
-         $("input[name='point12']").val(data.point12);
-         $("input[name='revisionstatus']").val(data.revisionstatus);
-         $("input[name='scop']").val(data.scop);
-         $("input[name='workinstruction']").val(data.workinstruction);
-		 $("input[name='CompiledBy']").val(data.CompiledBy);
-         $("#editworkinstuction").modal('show');
-     }
- </script>
+(function(){
+    var t=document.getElementById('toggleWiForm'),f=document.getElementById('newWiForm'),c=document.getElementById('cancelWiForm');
+    t&&t.addEventListener('click',function(){f.classList.toggle('open');});
+    c&&c.addEventListener('click',function(){f.classList.remove('open');});
+    function debounce(fn,w){var t;return function(){var c=this,a=arguments;clearTimeout(t);t=setTimeout(function(){fn.apply(c,a);},w);};}
+    var per=10,i=document.getElementById('amWiSearch'),tb=document.querySelector('#amWiTable tbody');
+    if(!tb)return;
+    var rows=Array.prototype.slice.call(tb.querySelectorAll('tr[data-search]')),p=document.getElementById('amWiPagination'),F=rows.slice(),pg=1;
+    function r(){var T=F.length,TP=Math.max(1,Math.ceil(T/per));if(pg>TP)pg=TP;rows.forEach(function(x){x.style.display='none';});F.slice((pg-1)*per,pg*per).forEach(function(x){x.style.display='';});var fr=T===0?0:(pg-1)*per+1,to=Math.min(pg*per,T);var h='<div class="am-pagination__info">Showing <strong>'+fr+'–'+to+'</strong> of <strong>'+T+'</strong></div><div class="am-pagination__nav">';h+='<button data-p="'+(pg-1)+'" '+(pg<=1?'disabled':'')+'>‹</button>';var s=Math.max(1,pg-2),e=Math.min(TP,s+4);s=Math.max(1,e-4);for(var q=s;q<=e;q++)h+='<button data-p="'+q+'" '+(q===pg?'class="active"':'')+'>'+q+'</button>';h+='<button data-p="'+(pg+1)+'" '+(pg>=TP?'disabled':'')+'>›</button></div>';p.innerHTML=h;}
+    i&&i.addEventListener('input',debounce(function(){var q=this.value.trim().toLowerCase();F=q===''?rows.slice():rows.filter(function(x){return x.getAttribute('data-search').indexOf(q)!==-1;});pg=1;r();},250));
+    p&&p.addEventListener('click',function(e){var b=e.target.closest('button[data-p]');if(!b||b.disabled)return;var q=parseInt(b.getAttribute('data-p'),10);if(!isNaN(q)&&q>=1){pg=q;r();}});
+    r();
+})();
+function amWiView(d){
+    document.getElementById('vwi-title').textContent = d.workinstruction||'—';
+    document.getElementById('vwi-ref').textContent = d.instructionref||'—';
+    document.getElementById('vwi-emp').textContent = d.empId||'—';
+    document.getElementById('vwi-date').textContent = d.issueDate ? new Date(d.issueDate).toLocaleDateString() : '—';
+    document.getElementById('vwi-rev').textContent = d.revisionstatus||'—';
+    document.getElementById('vwi-comp').textContent = d.CompiledBy||'—';
+    document.getElementById('vwi-scope').textContent = d.scop||'—';
+    var pointsEl = document.getElementById('vwi-points');
+    pointsEl.innerHTML = '';
+    for (var i=1; i<=12; i++) {
+        var pt = d['point'+i];
+        if (pt) { var li=document.createElement('li'); li.textContent = pt; pointsEl.appendChild(li); }
+    }
+    document.getElementById('viewWiModal').classList.add('open');
+}
+function amWiEdit(d){
+    $("#ewi-id").val(d.id);
+    ['workinstruction','instructionref','issueDate','revisionstatus','scop','CompiledBy'].forEach(function(k){ $("#editWiModal input[name='"+k+"']").val(d[k]||''); });
+    $("#editWiModal select[name='empId']").val(d.empId||'');
+    for (var i=1; i<=12; i++) { $("#editWiModal input[name='point"+i+"']").val(d['point'+i]||''); }
+    document.getElementById('editWiModal').classList.add('open');
+}
+</script>
+@endsection

@@ -49,30 +49,36 @@ class AddUsersController extends Controller
 
      public function index(Request $request)
      {
-         // Get the 'showusers' query parameter from the URL
+         $query = AddUsers::where('role_type', 'user');
+
          $showUsers = $request->query('showusers');
-         // Check if the 'showusers' parameter is present and not null
-         if (!is_null($showUsers)) {
-             // Example logic based on the value of 'showusers'
-             if ($showUsers == '1') {
-                 // Fetch SCAISO Users
-                 $users = AddUsers::where('role_type', 'user')->where('user_type', '1')->orderBy('id', 'desc')->get();
-             }
-             elseif ($showUsers == '2') {
-                // Fetch SCAISO Users
-                $users = AddUsers::where('role_type', 'user')->where('user_type', '2')->orderBy('id', 'desc')->get();
-            } else {
-                 // Fetch All Users
-                 $users = AddUsers::where('role_type', 'user')->orderBy('id', 'desc')->get();
-             }
-             // Return the filtered data to the view
-             return view('admin.dashboard.admin.view_user', compact('users'));
-         } else {
-             // Default case, fetch 'user' role type
-             $users = AddUsers::where('role_type', 'user')->orderBy('id', 'desc')->get();
-             // Return the default data to the view
-             return view('admin.dashboard.admin.view_user', compact('users'));
+         if (!is_null($showUsers) && in_array($showUsers, ['1', '2'])) {
+             $query->where('user_type', $showUsers);
          }
+
+         $search = trim($request->query('q', ''));
+         if ($search !== '') {
+             $query->where(function ($q) use ($search) {
+                 $q->where('name', 'like', "%{$search}%")
+                   ->orWhere('email', 'like', "%{$search}%")
+                   ->orWhere('company_name', 'like', "%{$search}%")
+                   ->orWhere('country', 'like', "%{$search}%")
+                   ->orWhere('order_number', 'like', "%{$search}%");
+             });
+         }
+
+         $totalUsers   = (clone $query)->count();
+         $activeRecent = (clone $query)->where('last_login', '>=', now()->subDays(30))->count();
+         $newThisMonth = (clone $query)->where('created_at', '>=', now()->startOfMonth())->count();
+         $countries    = (clone $query)->whereNotNull('country')->distinct('country')->count('country');
+
+         $users = $query->orderBy('id', 'desc')->paginate(20)->withQueryString();
+
+         if ($request->ajax()) {
+             return view('admin.dashboard.admin.partials.users_table', compact('users'));
+         }
+
+         return view('admin.dashboard.admin.view_user', compact('users', 'search', 'totalUsers', 'activeRecent', 'newThisMonth', 'countries'));
      }
 
 
@@ -786,31 +792,52 @@ public function store(Request $request)
     }
 
 // function used to show sent notification on Admin Panel
-    public function sentNotification(){
+    public function sentNotification(Request $request){
         $user_id = Auth::user()->id;
-        $users = SendNotifications::join('users','users.id','=','send_notification.send_to')
-        ->select('send_notification.*', 'users.id', 'users.name', 'users.company_name')
-        ->where('send_notification.send_by', $user_id)
-        ->whereRaw('send_notification.updated_at = (SELECT MAX(updated_at) FROM send_notification WHERE send_notification.send_to = users.id)')
-        ->orderby('send_notification.updated_at', 'desc')
-        ->groupBy('users.id')
-        ->get();
-        return view('admin.dashboard.admin.sentNotification',compact('users'));
+        $search  = trim($request->query('q', ''));
+
+        $query = SendNotifications::join('users','users.id','=','send_notification.send_to')
+            ->select(
+                'send_notification.id as notif_id',
+                'send_notification.send_by',
+                'send_notification.send_to',
+                'send_notification.status',
+                'send_notification.updated_at',
+                'users.id as user_id',
+                'users.name',
+                'users.company_name'
+            )
+            ->where('send_notification.send_by', $user_id)
+            ->whereRaw('send_notification.updated_at = (SELECT MAX(updated_at) FROM send_notification WHERE send_notification.send_to = users.id)')
+            ->orderby('send_notification.updated_at', 'desc')
+            ->groupBy('users.id');
+
+        if ($search !== '') {
+            $query->where(function ($q) use ($search) {
+                $q->where('users.name', 'like', "%{$search}%")
+                  ->orWhere('users.company_name', 'like', "%{$search}%");
+            });
+        }
+
+        $users = $query->paginate(15)->withQueryString();
+        $totalConvos = SendNotifications::where('send_by', $user_id)->distinct('send_to')->count('send_to');
+
+        if ($request->ajax()) {
+            return view('admin.dashboard.admin.partials.sent_list', compact('users'));
+        }
+
+        return view('admin.dashboard.admin.sentNotification', compact('users', 'search', 'totalConvos'));
     }
 
     public function addreq(Request $request){
-        //   dd($request->all());
-        $addreq= new requirement;
-        $addreq->user_id=$request->user_id;
-        $addreq->requirment_title=$request->requirement;
-        $addreq->completion_date=$request->req_date;
-        $addreq->periods=$request->period;
-        $createdAt = Carbon::parse($request->req_date)->addMonth($request->period);
-         $addreq->due_date=$createdAt;
-
-
-         $addreq->save();
-        return redirect()->back();
+        $addreq = new requirement;
+        $addreq->user_id          = $request->user_id;
+        $addreq->requirment_title = $request->requirement;
+        $addreq->completion_date  = $request->req_date;
+        $addreq->periods          = (int) $request->period;
+        $addreq->due_date         = Carbon::parse($request->req_date)->addMonths((int) $request->period);
+        $addreq->save();
+        return redirect()->back()->with('msg', 'Requirement added successfully.');
     }
 
     public function sendNotifications(Request $request){
@@ -1355,16 +1382,40 @@ public function deleteUsernote($id)
 
     // function used to show messages in New Inbox
     public function receivedNotifications(Request $request){
-        $userid=Auth::user()->id;
-        $message_info = SendNotifications::join('users', 'users.id','=','send_notification.send_by')
-        ->select('send_notification.*', 'users.id', 'users.name', 'users.company_name')
-        ->where('send_notification.send_to', $userid)
-        ->whereRaw('send_notification.updated_at = (SELECT MAX(updated_at) FROM send_notification WHERE send_notification.send_by = users.id)')
-        ->orderBy('send_notification.updated_at', 'desc')
-        ->groupBy('users.id')
-        ->get();
-        // dd($message_info);
-        return view('admin.dashboard.admin.receive_notification_inbox', compact('message_info'));
+        $userid = Auth::user()->id;
+        $search = trim($request->query('q', ''));
+
+        $query = SendNotifications::join('users', 'users.id','=','send_notification.send_by')
+            ->select(
+                'send_notification.id as notif_id',
+                'send_notification.send_by',
+                'send_notification.send_to',
+                'send_notification.status',
+                'send_notification.updated_at',
+                'users.id as user_id',
+                'users.name',
+                'users.company_name'
+            )
+            ->where('send_notification.send_to', $userid)
+            ->whereRaw('send_notification.updated_at = (SELECT MAX(updated_at) FROM send_notification WHERE send_notification.send_by = users.id)')
+            ->orderBy('send_notification.updated_at', 'desc')
+            ->groupBy('users.id');
+
+        if ($search !== '') {
+            $query->where(function ($q) use ($search) {
+                $q->where('users.name', 'like', "%{$search}%")
+                  ->orWhere('users.company_name', 'like', "%{$search}%");
+            });
+        }
+
+        $message_info = $query->paginate(15)->withQueryString();
+        $totalConvos  = SendNotifications::where('send_to', $userid)->distinct('send_by')->count('send_by');
+
+        if ($request->ajax()) {
+            return view('admin.dashboard.admin.partials.inbox_list', compact('message_info'));
+        }
+
+        return view('admin.dashboard.admin.receive_notification_inbox', compact('message_info', 'search', 'totalConvos'));
     }
 
     // this function is used for previous message inbox -  now its just a backup
@@ -1890,10 +1941,40 @@ public function deleteUsernote($id)
 
     }
 
-    public function all_faqs(){
-		$all_faqs  = DB::table('faqs')->get();
-		$all_cate  = DB::table('faqs_categories')->get();
-        return view('admin.dashboard.admin.view_faqs', compact('all_faqs'), compact('all_cate'));
+    public function all_faqs(Request $request){
+        $tab = $request->query('tab', 'faqs') === 'categories' ? 'categories' : 'faqs';
+        $faqSearch  = trim($request->query('fq', ''));
+        $catSearch  = trim($request->query('cq', ''));
+
+        $faqQuery = DB::table('faqs');
+        if ($faqSearch !== '') {
+            $faqQuery->where(function($q) use ($faqSearch) {
+                $q->where('question', 'like', "%{$faqSearch}%")
+                  ->orWhere('answer', 'like', "%{$faqSearch}%")
+                  ->orWhere('category', 'like', "%{$faqSearch}%");
+            });
+        }
+        $all_faqs = $faqQuery->orderBy('id', 'desc')->paginate(10, ['*'], 'fpage')->withQueryString();
+
+        $catQuery = DB::table('faqs_categories');
+        if ($catSearch !== '') {
+            $catQuery->where('name', 'like', "%{$catSearch}%");
+        }
+        $all_cate = $catQuery->orderBy('id', 'desc')->paginate(10, ['*'], 'cpage')->withQueryString();
+
+        $categoriesForSelect = DB::table('faqs_categories')->orderBy('name')->get();
+        $categoryMap = $categoriesForSelect->pluck('name', 'id')->toArray();
+        $totalFaqs = DB::table('faqs')->count();
+        $totalCats = DB::table('faqs_categories')->count();
+
+        if ($request->ajax()) {
+            if ($tab === 'categories') {
+                return view('admin.dashboard.admin.partials.categories_table', ['all_cate' => $all_cate]);
+            }
+            return view('admin.dashboard.admin.partials.faqs_table', ['all_faqs' => $all_faqs, 'categoryMap' => $categoryMap]);
+        }
+
+        return view('admin.dashboard.admin.view_faqs', compact('all_faqs', 'all_cate', 'categoriesForSelect', 'categoryMap', 'totalFaqs', 'totalCats', 'tab', 'faqSearch', 'catSearch'));
     }
 
     public function add_faq(Request $request){
@@ -2032,9 +2113,20 @@ public function deleteUsernote($id)
     return redirect()->back();
     }
 
-    public function all_videos(){
-        $all_videos  = DB::table('videos')->get();
-		return view('admin.dashboard.admin.view_videos', compact('all_videos'));
+    public function all_videos(Request $request){
+        $search = trim($request->query('q', ''));
+        $query = DB::table('videos');
+        if ($search !== '') {
+            $query->where('title', 'like', "%{$search}%");
+        }
+        $all_videos = $query->orderBy('id', 'desc')->paginate(10)->withQueryString();
+        $totalVideos = DB::table('videos')->count();
+
+        if ($request->ajax()) {
+            return view('admin.dashboard.admin.partials.videos_table', ['all_videos' => $all_videos]);
+        }
+
+        return view('admin.dashboard.admin.view_videos', compact('all_videos', 'totalVideos', 'search'));
     }
 
 
@@ -2110,9 +2202,30 @@ public function deleteUsernote($id)
         }
     }
 
-    public function manage_uploads(){
-        $all_downloads  = DB::table('downloads')->where('category', 'Emergency Signs')->get();
-		return view('admin.dashboard.admin.view_downloads', compact('all_downloads'));
+    public function manage_uploads(Request $request){
+        $categories = ['Emergency Signs', 'Prohibition Signs', 'Environmental signs', 'Mandatory Signs', 'Warning Signs'];
+        $category = $request->query('cat', 'Emergency Signs');
+        if (!in_array($category, $categories)) { $category = 'Emergency Signs'; }
+        $search = trim($request->query('q', ''));
+
+        $query = DB::table('downloads')->where('category', $category);
+        if ($search !== '') {
+            $query->where('name', 'like', "%{$search}%");
+        }
+
+        $all_downloads = $query->orderBy('id', 'desc')->paginate(12)->withQueryString();
+        $totalDownloads = DB::table('downloads')->count();
+        $categoryCounts = DB::table('downloads')
+            ->select('category', DB::raw('COUNT(*) as total'))
+            ->groupBy('category')
+            ->pluck('total', 'category')
+            ->toArray();
+
+        if ($request->ajax()) {
+            return view('admin.dashboard.admin.partials.downloads_grid', ['all_downloads' => $all_downloads]);
+        }
+
+        return view('admin.dashboard.admin.view_downloads', compact('all_downloads', 'totalDownloads', 'categories', 'category', 'search', 'categoryCounts'));
     }
 
 
