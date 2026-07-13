@@ -17,7 +17,7 @@ class AdminMiddleware
   
     public function handle($request, Closure $next) {
       if (!Auth::check()) {
-          Log::warning('AdminMiddleware: no auth', [
+          Log::error('AdminMiddleware: no auth', [
               'url'         => $request->fullUrl(),
               'referer'     => $request->headers->get('referer'),
               'ip'          => $request->ip(),
@@ -30,7 +30,7 @@ class AdminMiddleware
       if (Auth::user()->role_type === 'admin') {
          return $next($request);
       }
-      Log::warning('AdminMiddleware: not admin role', [
+      Log::error('AdminMiddleware: not admin role', [
           'url'       => $request->fullUrl(),
           'user_id'   => Auth::id(),
           'role_type' => Auth::user()->role_type,

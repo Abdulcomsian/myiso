@@ -16,7 +16,7 @@ class Authenticate extends Middleware
      */
     protected function redirectTo($request)
     {
-        Log::warning('Authenticate middleware: unauthenticated', [
+        Log::error('Authenticate middleware: unauthenticated', [
             'url'         => $request->fullUrl(),
             'method'      => $request->method(),
             'referer'     => $request->headers->get('referer'),
