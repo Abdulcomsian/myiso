@@ -26,8 +26,6 @@ License: You must have a valid license purchased only from themeforest(the above
 		<!-- Add this to your HTML to include DataTables CSS and JavaScript -->
 		<link href="https://cdn.datatables.net/1.10.25/css/jquery.dataTables.min.css" rel="stylesheet">
 		<script src="https://cdn.datatables.net/1.10.25/js/jquery.dataTables.min.js"></script>
-		<script src="script-defining-renderLoginHistory.js"></script>
-        <script src="script-calling-renderLoginHistory.js"></script>
 		<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
 
