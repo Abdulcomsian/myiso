@@ -1228,6 +1228,81 @@ body.am-body {
     box-shadow: 0 0 0 3px rgba(46, 59, 154, 0.10);
 }
 
+/* Global admin-side form input styling (covers pages that don't use .am-form / .form-control) */
+.am-main input[type="text"],
+.am-main input[type="email"],
+.am-main input[type="password"],
+.am-main input[type="number"],
+.am-main input[type="tel"],
+.am-main input[type="url"],
+.am-main input[type="search"],
+.am-main input[type="date"],
+.am-main input[type="datetime-local"],
+.am-main input[type="time"],
+.am-main input[type="month"],
+.am-main input[type="week"],
+.am-main input[type="file"],
+.am-main select,
+.am-main textarea,
+.am-main .form-control {
+    width: 100%;
+    padding: 10px 12px;
+    border: 1.5px solid #b0bacb !important;
+    border-radius: var(--am-radius-sm) !important;
+    font-size: 13.5px;
+    background: #fff !important;
+    color: var(--am-text);
+    font-family: inherit;
+    box-sizing: border-box;
+    transition: border-color 0.15s, box-shadow 0.15s;
+}
+/* Preserve left padding for inputs with icons/flags on the left */
+.am-main .am-search input,
+.am-main .am-search input[type="text"],
+.am-main .am-search input[type="search"] {
+    padding-left: 38px;
+}
+/* intl-tel-input: let the plugin set padding-left inline (varies by dial-code width) */
+.am-main .iti input[type="tel"],
+.am-main .iti input[type="text"],
+.am-main .iti input.form-control {
+    padding-left: 52px;
+}
+.am-main input[type="text"]:focus,
+.am-main input[type="email"]:focus,
+.am-main input[type="password"]:focus,
+.am-main input[type="number"]:focus,
+.am-main input[type="tel"]:focus,
+.am-main input[type="url"]:focus,
+.am-main input[type="search"]:focus,
+.am-main input[type="date"]:focus,
+.am-main input[type="datetime-local"]:focus,
+.am-main input[type="time"]:focus,
+.am-main input[type="month"]:focus,
+.am-main input[type="week"]:focus,
+.am-main input[type="file"]:focus,
+.am-main select:focus,
+.am-main textarea:focus,
+.am-main .form-control:focus {
+    outline: none;
+    border-color: var(--am-primary-soft) !important;
+    box-shadow: 0 0 0 3px rgba(46, 59, 154, 0.10) !important;
+}
+.am-main textarea { min-height: 90px; resize: vertical; }
+.am-main input[type="file"] { padding: 8px 12px; background: #fafbfd; }
+
+/* Keep intl-tel-input phone field working within global input rule */
+.am-main .iti { width: 100%; display: block; position: relative; }
+.am-main .iti__flag-container { z-index: 2; }
+.am-main .iti__selected-flag {
+    background: transparent;
+}
+.am-main .iti__selected-flag:hover,
+.am-main .iti__selected-flag:focus { background: rgba(46, 59, 154, 0.04); }
+
+/* Bootstrap col wrapper labels still uppercase */
+.am-main label { color: var(--am-text); }
+
 /* Hide old Metronic aside/header if any partial still renders */
 .kt-aside,
 .kt-header,
