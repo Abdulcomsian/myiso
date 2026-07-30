@@ -137,6 +137,14 @@ body.am-body {
 }
 .am-nav-group__children .am-nav-link:hover { color: var(--am-primary); background: transparent; }
 .am-nav-group__children .am-nav-link.active { background: transparent; color: var(--am-primary); font-weight: 600; }
+.am-nav-sub-label {
+    font-size: 10.5px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.6px;
+    color: var(--am-text-soft);
+    padding: 10px 12px 3px;
+}
 
 /* ============================
    Top header
@@ -328,12 +336,12 @@ body.am-body {
     text-decoration: none;
     transition: all 0.15s ease;
 }
-.am-btn-primary { background: var(--am-primary); color: #fff; }
-.am-btn-primary:hover { background: #232C7A; color: #fff; text-decoration: none; transform: translateY(-1px); box-shadow: 0 4px 12px rgba(46, 59, 154, 0.32); }
-.am-btn-outline { background: #fff; color: var(--am-primary); border: 1px solid var(--am-border); }
-.am-btn-outline:hover { background: var(--am-primary-tint); color: var(--am-primary); text-decoration: none; }
-.am-btn-danger { background: var(--am-danger); color: #fff; }
-.am-btn-danger:hover { background: #d63f3d; color: #fff; text-decoration: none; }
+.am-btn-primary { background: var(--am-primary) !important; color: #fff !important; }
+.am-btn-primary:hover { background: #232C7A !important; color: #fff !important; text-decoration: none; transform: translateY(-1px); box-shadow: 0 4px 12px rgba(46, 59, 154, 0.32); }
+.am-btn-outline { background: #fff !important; color: var(--am-primary) !important; border: 1px solid var(--am-border) !important; }
+.am-btn-outline:hover { background: var(--am-primary-tint) !important; color: var(--am-primary) !important; text-decoration: none; }
+.am-btn-danger { background: var(--am-danger) !important; color: #fff !important; }
+.am-btn-danger:hover { background: #d63f3d !important; color: #fff !important; text-decoration: none; }
 .am-btn-sm { padding: 6px 12px; font-size: 12.5px; }
 
 /* Stat cards */
@@ -1303,11 +1311,57 @@ body.am-body {
 /* Bootstrap col wrapper labels still uppercase */
 .am-main label { color: var(--am-text); }
 
-/* Hide old Metronic aside/header if any partial still renders */
+/* ============================
+   Bootstrap Modal — global style fix
+   Metronic's style.bundle applies the brand blue to .modal-header
+   but leaves text/button colours at Bootstrap defaults (dark).
+   These rules ensure white text + a clean, single close button.
+   ============================ */
+.modal-content {
+    border: none;
+    border-radius: var(--am-radius);
+    box-shadow: 0 20px 60px rgba(15, 23, 42, 0.22);
+    overflow: hidden;
+}
+.modal-header {
+    background: var(--am-primary) !important;
+    color: #fff !important;
+    border-bottom: none;
+    padding: 16px 20px;
+}
+.modal-header .modal-title,
+.modal-header h5,
+.modal-header h4,
+.modal-header h3 {
+    color: #fff !important;
+    font-weight: 600;
+    font-size: 15px;
+}
+/* Remove any Metronic pseudo-element that creates a duplicate close mark */
+.modal-header .close::before,
+.modal-header .close::after { content: none !important; }
+.modal-header .close {
+    color: #fff !important;
+    opacity: 0.85;
+    text-shadow: none;
+    font-size: 22px;
+    line-height: 1;
+    padding: 0;
+    margin: 0;
+}
+.modal-header .close:hover { opacity: 1; color: #fff !important; }
+.modal-footer { border-top: 1px solid var(--am-border); padding: 14px 20px; }
+.modal-body { padding: 20px; }
+
+/* Hide old Metronic layout chrome that the user-side foot.blade.php may still init */
 .kt-aside,
 .kt-header,
 .kt-header-mobile,
-.kt-footer { display: none !important; }
+.kt-footer,
+.kt-sticky-toolbar,
+.kt-demo-panel,
+.kt-quick-panel,
+.kt-scrolltop { display: none !important; }
 
 /* ============================
    Responsive

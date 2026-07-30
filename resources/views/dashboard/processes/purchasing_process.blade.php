@@ -1,85 +1,76 @@
 @extends('dashboard.layouts.app')
 
 @section('content')
-<!-- begin:: Content -->
-<div class="kt-content  kt-grid__item kt-grid__item--fluid" id="kt_content">
+<div class="am-content">
 
-	<!--Begin::Dashboard 1-->
-@if(session()->has('message'))
+    @if(session()->has('message'))
+    <div class="alert alert-success alert-dismissible">
+        <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+        {{ session()->get('message') }}
+    </div>
+    @endif
+    @if($errors->has('sales_process_photo'))
+    <div class="alert alert-danger alert-dismissible">
+        {{ $errors->first('sales_process_photo') }}
+        <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+    </div>
+    @endif
 
-    
-      <div class="alert alert-success alert-dismissible">
-<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-   {{ session()->get('message') }}
-  </div>
-  
-@endif
+    <div class="am-page-header">
+        <div>
+            <h2>QP2 – Purchasing Process</h2>
+            <p>Process flow chart for purchasing</p>
+        </div>
+        <div class="am-page-header__actions" style="display:flex;gap:10px;align-items:center;">
+            @if($img_exist == "Yes")
+            <form action="{{ url('purchprocess') }}" method="post" style="display:inline;">
+                @csrf
+                <input type="hidden" name="user_id" value="{{ Auth::id() }}">
+                <button type="submit" class="am-btn am-btn-outline am-btn-sm">
+                    <i class="fa fa-trash"></i> Remove Image
+                </button>
+            </form>
+            @endif
+            <button class="am-btn am-btn-primary am-btn-sm" onclick="workInstructionFrom()">
+                <i class="fa fa-upload"></i> Upload Process Image
+            </button>
+        </div>
+    </div>
 
-		@if($errors->has('sales_process_photo'))
-    <div class="alert alert-danger alert-dismissible">{{ $errors->first('sales_process_photo') }}   <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>  </div>
-@endif
-
-	<!--Begin::Section-->
-	<div class="row">
-		<div class="col-xl-12 col-lg-12">
-			<h2>Purchasing Process</h2>
-		</div>
-	</div>
-		<div class="procedure_div">
-                    	<div class="row">
-                    			<div class="col-lg-9 col-xl-10 text-right">
-                    		    	@if($img_exist=="Yes")
-			<form action="{{url('purchprocess')}}" method="post">
-                            @csrf
-  <input type="hidden" name="user_id" value="<?php echo Auth::id(); ?>"/>
-                         
-
-								
-								<button type="submit" class="submitBtn">Remove</button>
-                    		</form>
-                    		@endif
-                    		</div>
-                    		<div class="col-lg-3 col-xl-2 text-right">
-                    			<a style="position: relative;top: 9px;" onclick="workInstructionFrom()" class="addBtn">ADD ALTERNATIVE PROCESS</a>
-                    		</div>
-                    	</div>
-                    	<div class="work_instruction_from_div">
-    <form enctype='multipart/form-data' action="{{url('uploadimg')}}" method="post">
-                            @csrf
-  <input type="hidden" name="user_id" value="<?php echo Auth::id(); ?>"/>
-                            <div class="row">
-                    				<div class="col-lg-6 d-flex align-items-center">
-                    					<div class="form-group">
-											<label>Upload Photo:</label><br>
-		<input type="file" class="form-control" name="purch_process_photo">
-
-										</div>
-										<button type="submit" class="submitBtn ml-2">SUBMIT</button>
-                    				</div>
-                    				
-                    			</div>
-
-								
-                    		</form>
-                    	</div>
+    {{-- Upload Form --}}
+    <div class="am-card work_instruction_from_div" style="display:none; margin-bottom:20px;">
+        <div class="am-card__body am-form">
+            <form enctype="multipart/form-data" action="{{ url('uploadimg') }}" method="post">
+                @csrf
+                <input type="hidden" name="user_id" value="{{ Auth::id() }}">
+                <div class="form-row">
+                    <div class="form-col">
+                        <label>Upload Photo</label>
+                        <input type="file" class="form-control" name="purch_process_photo">
                     </div>
-	<section id="procedure_section">
-		
-		<div class="row">
-			<div class="col-lg-12">
-				<div class="procedure_div">
+                </div>
+                <div style="margin-top:14px;">
+                    <button type="submit" class="am-btn am-btn-primary"><i class="fa fa-check"></i> Submit</button>
+                    <button type="button" class="am-btn am-btn-outline" onclick="workInstructionFrom()">Cancel</button>
+                </div>
+            </form>
+        </div>
+    </div>
 
-				@if($img) <img src="{{ $img }}" class="img-fluid"> @endif
-					<p class="m-t-20">This process is to be used when purchasing goods or services from an external supplier.</p>
-					<p>Input: The requirement to purchase</p>
-					<p>Output: Reception and implementation of supplied goods or services.</p>
-					<p>Process owner is: <span class="authName">{{Auth::user()->purchasing_process}}</span></p>
-				</div>
-			</div>
-		</div>
-	</section>
+    {{-- Process Display --}}
+    <div class="am-card">
+        <div class="am-card__body" style="padding:32px; line-height:1.8;">
+            @if($img)
+            <div style="margin-bottom:20px;">
+                <img src="{{ $img }}" class="img-fluid" style="max-width:100%; border-radius:8px;">
+            </div>
+            @endif
+            <p>This process is to be used when purchasing goods or services from an external supplier.</p>
+            <p><strong>Input:</strong> The requirement to purchase.</p>
+            <p><strong>Output:</strong> Reception and implementation of supplied goods or services.</p>
+            <p><strong>Process owner:</strong> {{ Auth::user()->purchasing_process }}</p>
+        </div>
+    </div>
 
-	<!--End::Section-->
 </div>
 @endsection
-<!-- end:: Content -->

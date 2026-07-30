@@ -1,326 +1,247 @@
 @extends('dashboard.layouts.app')
 
 @section('content')
-    <!-- begin:: Content -->
-    <style>#procedure_section .procedure_div ul li::before{display:none !important;}</style>
-    <div class="kt-content  kt-grid__item kt-grid__item--fluid" id="kt_content">
+<style>#procedure_section .procedure_div ul li::before{display:none !important;}</style>
+<div class="am-content">
 
-        <!--Begin::Dashboard 1-->
+    @if(session('message'))<div class="alert alert-success">{{ session('message') }}</div>@endif
+    @if(Session::has('Error'))<div class="alert alert-danger">{{ Session::get('Error') }}</div>@endif
 
-
-        <!--Begin::Section-->
-        <div class="row">
-            <div class="col-xl-12 col-lg-12">
-                <h2>Customers</h2>
-            </div>
+    <div class="am-page-header">
+        <div>
+            <h2>Customers</h2>
+            <p>Customers should be listed so that internal audits can be carried out on their delivery / service quality assessments, but also used to assist with customer satisfaction surveys.</p>
         </div>
-        <section id="procedure_section">
+        <div class="am-page-header__actions">
+            <button class="am-btn am-btn-primary" onclick="customerForm()"><i class="fa fa-plus"></i> Add Customer</button>
+        </div>
+    </div>
 
-            <div class="row">
-                <div class="col-lg-12">
-                <p>Customers should be listed so that internal audits can be carried out on their delivery / service quality assessments, but also used to assist with customer satisfaction surveys. </p>
-					<p>To add a record, click on the “Add Customer” button. To amend a record, click on the edit icon of the entry that needs to be modified.</p>
-                    @if(Session::has('Error'))<h5 class="text-danger">  {{ Session::get('Error') }} </h5>@endif
-                    <div class="procedure_div">
-                        <div class="row">
-                            <div class="col-lg-12 text-right">
-                                <a onclick="customerForm()" class="addBtn">ADD CUSTOMER</a>
-                            </div>
-                        </div>
-                        <div class="customer_from_div">
-                            <form action="{{route('customerform')}} " id="addcust" method="POST">
-                                @csrf
-                                <div class="row">
-                                    <div class="col-lg-12">
-                                        <h3> Add Customer:</h3>
-                                    </div>
-                                    <!--	<div class="form-group">-->
-                                    <!--		<label>Add Customer Details</label>-->
-                                    <!--		<input type="text" class="form-control" name="address" placeholder="Enter Add Customer Details.">-->
-                                    <!--	</div>-->
-                                    <!--</div>-->
-                                    <div class="col-lg-6">
-                                        <div class="form-group">
-                                            <label>Customer ID
-                                                Number:</label>
-                                            <input type="number" min="1" max="100000" required class="form-control validate_number" name="idNumber" id="idNumber" placeholder="Enter Customer ID Number.">
-                                            <span id="numbererror" class="text-danger"></span>
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-6">
-                                        <div class="form-group">
-                                            <label>Customer Name:</label><br>
-                                            <input type="text" class="form-control" required name="name" id="name" placeholder="Enter Customer Name:">
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                <!--          				{{-- <div class="col-lg-6">-->
-          <!--          					<div class="form-group">-->
-										<!--	<label>ID Number:</label><br>-->
-										<!--	<input type="number" class="form-control" name="idNumber" placeholder="Enter ID:">-->
-										<!--</div>-->
-          <!--          				</div> --}}-->
+    <p>To add a record, click on the "Add Customer" button. To amend a record, click on the edit icon of the entry that needs to be modified.</p>
 
-                                </div>
-
-                                <div class="row">
-                                    <div class="col-lg-6">
-                                        <div class="form-group">
-                                            <label>Business Address:</label>
-                                            <input type="text" class="form-control" required name="address" placeholder="Enter customer’s full business address">
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-6">
-                                        <div class="form-group">
-                                            <label>Customer Telephone:</label>
-                                            <input type="text" class="form-control" required name="create_phone_number" id="phoneNumber" pattern="\d*" placeholder="Enter customer phone number starting with the country code.">
-                                            <input type="hidden" name="create_phone_number_country_code" id="phonecode">
-                                            <input type="hidden" name="create_phone_number_flag" id="phoneflag">
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-lg-6">
-                                        <div class="form-group">
-                                            <label>Customer Email Address:</label>
-                                            <input type="email" class="form-control" required name="Email" placeholder="Enter Customer Email:">
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-6">
-                                        <div class="form-group">
-                                            <label>Customer Contact Name:</label>
-                                            <input type="text" class="form-control" required name="contactName" placeholder="Enter customer contact person’s name.">
-                                        </div>
-                                    </div>
-                                </div>
-                                <button type="submit" class="submitBtn">SUBMIT</button>
-                                <button  onclick="customerForm()" type="reset" class="submitBtn"style="margin-right: 8px;">Cancel</button>
-                            </form>
-                        </div>
+    {{-- Add Customer Form --}}
+    <div class="am-card customer_from_div" style="display:none;">
+        <div class="am-card__body am-form">
+            <form action="{{route('customerform')}}" id="addcust" method="POST">
+                @csrf
+                <h3 style="margin-bottom:1rem;">Add Customer</h3>
+                <div class="form-row">
+                    <div class="form-col">
+                        <label>Customer ID Number:</label>
+                        <input type="number" min="1" max="100000" required class="form-control validate_number" name="idNumber" id="idNumber" placeholder="Enter Customer ID Number.">
+                        <span id="numbererror" class="text-danger"></span>
                     </div>
-                    <div class="procedure_div">
-                        <div class="requirments_table_div">
-                            <h4>Total Customers Listed</h4>
-                            <div class="kt-portlet__body table-responsive">
-                                <!--begin: Datatable -->
-                                <table class="common_table table table-striped- table-bordered table-hover table-checkable table-responsive" id="">
-                                    <thead>
-                                    <tr>
-                                        <th>Customer ID</th>
-                                        <th>Customer Name</th>
-                                        <th>Business Address</th>
-                                        <th>Customer Phone Number</th>
-                                        <th>Email Address</th>
-                                        <th>Contact
-                                            Person</th>
-                                        <th>Action</th>
-                                    </tr>
-                                    </thead>
-                                    <tbody>
-                                    @php
-                                        $i=1;
-                                    @endphp
-                                    @foreach ($customers as $item)
-
-                                        <tr>
-                                            <td>{{$item->idNumber}}</td>
-                                            <td>{{$item->name}}</td>
-                                            <td>{{$item->address}}</td>
-                                            <td>{{$item->phonecode}} {{$item->phoneNumber}}</td>
-                                            <td>{{$item->Email}}</td>
-                                            <td>{{$item->contactName}}</td>
-                                            <td>
-                                                <button  class="btn btn-sm btn-clean btn-icon btn-icon-md" title="View" value="" onclick="viewEid({{$item}});"><i class="fa fa-eye"></i>
-                                                </button>
-                                                <button  data-toggle="modal" onclick="getEid({{$item}});" class="btn btn-sm btn-clean btn-icon btn-icon-md" title="edit" value=""><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="18px" height="18px" viewBox="0 0 24 24" version="1.1">										<g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">											<rect x="0" y="0" width="24" height="24"></rect>											<path d="M12.2674799,18.2323597 L12.0084872,5.45852451 C12.0004303,5.06114792 12.1504154,4.6768183 12.4255037,4.38993949 L15.0030167,1.70195304 L17.5910752,4.40093695 C17.8599071,4.6812911 18.0095067,5.05499603 18.0083938,5.44341307 L17.9718262,18.2062508 C17.9694575,19.0329966 17.2985816,19.701953 16.4718324,19.701953 L13.7671717,19.701953 C12.9505952,19.701953 12.2840328,19.0487684 12.2674799,18.2323597 Z" fill="#5d78ff" fill-rule="nonzero" transform="translate(14.701953, 10.701953) rotate(-135.000000) translate(-14.701953, -10.701953) "></path>											<path d="M12.9,2 C13.4522847,2 13.9,2.44771525 13.9,3 C13.9,3.55228475 13.4522847,4 12.9,4 L6,4 C4.8954305,4 4,4.8954305 4,6 L4,18 C4,19.1045695 4.8954305,20 6,20 L18,20 C19.1045695,20 20,19.1045695 20,18 L20,13 C20,12.4477153 20.4477153,12 21,12 C21.5522847,12 22,12.4477153 22,13 L22,18 C22,20.209139 20.209139,22 18,22 L6,22 C3.790861,22 2,20.209139 2,18 L2,6 C2,3.790861 3.790861,2 6,2 L12.9,2 Z" fill="#5d78ff" fill-rule="nonzero" opacity="0.3"></path>										</g>									</svg>
-                                                </button>
-                                                <button  class="btn btn-sm btn-clean btn-icon btn-icon-md" title="delete" value="" onclick="deletethisitem({{$item}});"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="18px" height="18px" viewBox="0 0 24 24" version="1.1">										<g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">											<rect x="0" y="0" width="24" height="24"></rect>											<path d="M6,8 L6,20.5 C6,21.3284271 6.67157288,22 7.5,22 L16.5,22 C17.3284271,22 18,21.3284271 18,20.5 L18,8 L6,8 Z" fill="#5d78ff" fill-rule="nonzero"></path>											<path d="M14,4.5 L14,4 C14,3.44771525 13.5522847,3 13,3 L11,3 C10.4477153,3 10,3.44771525 10,4 L10,4.5 L5.5,4.5 C5.22385763,4.5 5,4.72385763 5,5 L5,5.5 C5,5.77614237 5.22385763,6 5.5,6 L18.5,6 C18.7761424,6 19,5.77614237 19,5.5 L19,5 C19,4.72385763 18.7761424,4.5 18.5,4.5 L14,4.5 Z" fill="#5d78ff" opacity="0.3"></path>										</g>									</svg>
-                                                </button>
-
-                                            </td>
-                                        </tr>
-                                    @endforeach
-                                    </tbody>
-                                </table>
-                                <!--end: Datatable -->
-                            </div>
-
-                        </div>
-
+                    <div class="form-col">
+                        <label>Customer Name:</label>
+                        <input type="text" class="form-control" required name="name" id="name" placeholder="Enter Customer Name:">
                     </div>
                 </div>
-        </section>
-
-        <!--End::Section-->
+                <div class="form-row">
+                    <div class="form-col">
+                        <label>Business Address:</label>
+                        <input type="text" class="form-control" required name="address" placeholder="Enter customer's full business address">
+                    </div>
+                    <div class="form-col">
+                        <label>Customer Telephone:</label>
+                        <input type="text" class="form-control" required name="create_phone_number" id="phoneNumber" pattern="\d*" placeholder="Enter customer phone number starting with the country code.">
+                        <input type="hidden" name="create_phone_number_country_code" id="phonecode">
+                        <input type="hidden" name="create_phone_number_flag" id="phoneflag">
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-col">
+                        <label>Customer Email Address:</label>
+                        <input type="email" class="form-control" required name="Email" placeholder="Enter Customer Email:">
+                    </div>
+                    <div class="form-col">
+                        <label>Customer Contact Name:</label>
+                        <input type="text" class="form-control" required name="contactName" placeholder="Enter customer contact person's name.">
+                    </div>
+                </div>
+                <div style="margin-top:1rem;">
+                    <button type="submit" class="am-btn am-btn-primary">SUBMIT</button>
+                    <button onclick="customerForm()" type="reset" class="am-btn am-btn-secondary" style="margin-left:8px;">Cancel</button>
+                </div>
+            </form>
+        </div>
     </div>
 
-    <div class="modal fade" id="EditCustomer" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-lg" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Edit Customer Details</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <form action="{{route('editCustomers')}} " id="editcust" method="POST">
-                        @csrf
-
-                        <input type="hidden" name="id" id="id_feild" value="">
-                        <div class="row">
-                            <div class="col-lg-6">
-                                <div class="form-group">
-                                    <label>Customer ID Number:</label><br>
-                                    <input type="number" class="form-control validate_number" name="idNumber" id="editidNumber" placeholder="Enter ID:" required>
-                                    <span id="editnumbererror" class="text-dagner"></span>
-                                </div>
-                            </div>
-                            <div class="col-lg-6">
-                                <div class="form-group">
-                                    <label>Customer Name:</label><br>
-                                    <input type="text" class="form-control" name="name"  placeholder="Enter Customer Name:" required>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="row">
-                            <div class="col-lg-6">
-                                <div class="form-group">
-                                    <label>Business Address:</label>
-                                    <input type="text" class="form-control" name="address"required placeholder="Enter customer’s full business address." required>
-                                </div>
-                            </div>
-                            <div class="col-lg-6">
-                                <div class="form-group">
-                                    <label>Customer Telephone:</label>
-                                    <div id='edit_phone'>
-                                    </div>
-                                    <input type="hidden" name="edit_phone_code" id="editphonecode">
-                                    <input type="hidden" name="edit_phone_flag" id="editphoneflag">
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-lg-6">
-                                <div class="form-group">
-                                    <label>Customer Email Address:</label>
-                                    <input type="email" class="form-control" name="Email" placeholder="Enter Customer Email:" required>
-                                </div>
-                            </div>
-                            <div class="col-lg-6">
-                                <div class="form-group">
-                                    <label>Customer Contact Name:</label>
-                                    <input type="text" class="form-control" name="contactName" placeholder="Enter Customer Contact Number:" required>
-                                </div>
-                            </div>
-                        </div>
-                        <button type="submit" class="submitBtn">Update</button>
-                        <button type="button" class="submitBtn btn-secondary"  data-dismiss="modal" aria-label="Close" style="margin-right:20px;">Cancel</button>
-                    </form>
-                </div>
+    {{-- Customers Table --}}
+    <div class="am-card">
+        <div class="am-card__body">
+            <h4 style="margin-bottom:1rem;">Total Customers Listed</h4>
+            <div class="am-table-wrap">
+                <table class="am-table common_table" id="">
+                    <thead>
+                        <tr>
+                            <th>Customer ID</th>
+                            <th>Customer Name</th>
+                            <th>Business Address</th>
+                            <th>Customer Phone Number</th>
+                            <th>Email Address</th>
+                            <th>Contact Person</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    @php $i=1; @endphp
+                    @forelse ($customers as $item)
+                        <tr>
+                            <td>{{$item->idNumber}}</td>
+                            <td>{{$item->name}}</td>
+                            <td>{{$item->address}}</td>
+                            <td>{{$item->phonecode}} {{$item->phoneNumber}}</td>
+                            <td>{{$item->Email}}</td>
+                            <td>{{$item->contactName}}</td>
+                            <td>
+                                <button class="am-btn am-btn-sm am-btn-info" title="View" onclick="viewEid({{$item}});"><i class="fa fa-eye"></i></button>
+                                <button class="am-btn am-btn-sm am-btn-warning" title="Edit" onclick="getEid({{$item}});"><i class="fa fa-edit"></i></button>
+                                <button class="am-btn am-btn-sm am-btn-danger" title="Delete" onclick="deletethisitem({{$item}});"><i class="fa fa-trash"></i></button>
+                            </td>
+                        </tr>
+                    @empty
+                        <tr><td colspan="7"><div class="am-empty"><i class="fa fa-database"></i><p>No records found.</p></div></td></tr>
+                    @endforelse
+                    </tbody>
+                </table>
             </div>
         </div>
     </div>
 
+</div>
 
-    <div class="modal fade" id="ViewCustomer" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-lg" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">View Customer Details</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <form action="{{route('editCustomers')}} " method="POST">
-                        @csrf
-
-                        <input type="hidden" name="id" id="id_feild" value="">
-                        <div class="row">
-                            <div class="col-lg-6">
-                                <div class="form-group">
-                                    <label>Customer ID Number:</label><br>
-                                    <input type="number" readonly class="form-control" name="idNumber" placeholder="Enter ID:">
-
-                                </div>
-                            </div>
-                            <div class="col-lg-6">
-                                <div class="form-group">
-                                    <label>Customer Name:</label><br>
-                                    <input type="text" readonly class="form-control" name="name"  placeholder="Enter Customer Name:">
-                                </div>
-                            </div>
+{{-- Edit Customer Modal --}}
+<div class="modal fade" id="EditCustomer" tabindex="-1" role="dialog" aria-labelledby="editCustomerLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header" style="background:var(--am-primary);color:#fff;">
+                <h5 class="modal-title" id="editCustomerLabel">Edit Customer Details</h5>
+                <button type="button" class="close" style="color:#fff;" data-dismiss="modal" aria-label="Close">&times;</button>
+            </div>
+            <div class="modal-body">
+                <form action="{{route('editCustomers')}}" id="editcust" method="POST">
+                    @csrf
+                    <input type="hidden" name="id" id="id_feild" value="">
+                    <div class="form-row">
+                        <div class="form-col">
+                            <label>Customer ID Number:</label>
+                            <input type="number" class="form-control validate_number" name="idNumber" id="editidNumber" placeholder="Enter ID:" required>
+                            <span id="editnumbererror" class="text-danger"></span>
                         </div>
-
-                        <div class="row">
-                            <div class="col-lg-6">
-                                <div class="form-group">
-                                    <label>Business Address:</label>
-                                    <input type="text" readonly  class="form-control" name="address" placeholder="Enter customer’s full business address.">
-                                </div>
-                            </div>
-                            <div class="col-lg-6">
-                                <div class="form-group">
-                                    <label>Customer Telephone:</label>
-
-                                    <div id='view_phone'>
-
-                                    </div>
-
-                                </div>
-                            </div>
+                        <div class="form-col">
+                            <label>Customer Name:</label>
+                            <input type="text" class="form-control" name="name" placeholder="Enter Customer Name:" required>
                         </div>
-                        <div class="row">
-                            <div class="col-lg-6">
-                                <div class="form-group">
-                                    <label>Customer Email Address:</label>
-                                    <input type="email" readonly  class="form-control" name="Email" placeholder="Enter Customer Email:">
-                                </div>
-                            </div>
-                            <div class="col-lg-6">
-                                <div class="form-group">
-                                    <label>Customer Contact Name:</label>
-                                    <input type="text" readonly class="form-control" name="contactName" placeholder="Enter Customer Contact Number:">
-                                </div>
-                            </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-col">
+                            <label>Business Address:</label>
+                            <input type="text" class="form-control" name="address" required placeholder="Enter customer's full business address.">
                         </div>
-                        <button type="button" class="btn btn-secondary"  data-dismiss="modal" aria-label="Close" style="margin-right:20px;">Close</button>
-                    </form>
-                </div>
+                        <div class="form-col">
+                            <label>Customer Telephone:</label>
+                            <div id='edit_phone'></div>
+                            <input type="hidden" name="edit_phone_code" id="editphonecode">
+                            <input type="hidden" name="edit_phone_flag" id="editphoneflag">
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-col">
+                            <label>Customer Email Address:</label>
+                            <input type="email" class="form-control" name="Email" placeholder="Enter Customer Email:" required>
+                        </div>
+                        <div class="form-col">
+                            <label>Customer Contact Name:</label>
+                            <input type="text" class="form-control" name="contactName" placeholder="Enter Customer Contact Number:" required>
+                        </div>
+                    </div>
+                    <div style="margin-top:1rem;">
+                        <button type="submit" class="am-btn am-btn-primary">Update</button>
+                        <button type="button" class="am-btn am-btn-secondary" data-dismiss="modal" aria-label="Close" style="margin-left:8px;">Cancel</button>
+                    </div>
+                </form>
             </div>
         </div>
     </div>
+</div>
 
-
-    <div class="modal fade" id="deleteRequirment" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Deleting an entry.</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <p>Are you sure you want to delete this entry?</p>
-                </div>
-                <div class="modal-footer">
-                    <form action="{{route('deletecustomeradmin')}}" method="POST">
-                        @csrf
-                        <input type="hidden" id="re_id" value="" name="id">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
-                        <button type="submit" class="btn btn-danger">Yes</button>
-                    </form>
-                </div>
+{{-- View Customer Modal --}}
+<div class="modal fade" id="ViewCustomer" tabindex="-1" role="dialog" aria-labelledby="viewCustomerLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header" style="background:var(--am-primary);color:#fff;">
+                <h5 class="modal-title" id="viewCustomerLabel">View Customer Details</h5>
+                <button type="button" class="close" style="color:#fff;" data-dismiss="modal" aria-label="Close">&times;</button>
+            </div>
+            <div class="modal-body">
+                <form action="{{route('editCustomers')}}" method="POST">
+                    @csrf
+                    <input type="hidden" name="id" id="id_feild" value="">
+                    <div class="form-row">
+                        <div class="form-col">
+                            <label>Customer ID Number:</label>
+                            <input type="number" readonly class="form-control" name="idNumber" placeholder="Enter ID:">
+                        </div>
+                        <div class="form-col">
+                            <label>Customer Name:</label>
+                            <input type="text" readonly class="form-control" name="name" placeholder="Enter Customer Name:">
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-col">
+                            <label>Business Address:</label>
+                            <input type="text" readonly class="form-control" name="address" placeholder="Enter customer's full business address.">
+                        </div>
+                        <div class="form-col">
+                            <label>Customer Telephone:</label>
+                            <div id='view_phone'></div>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-col">
+                            <label>Customer Email Address:</label>
+                            <input type="email" readonly class="form-control" name="Email" placeholder="Enter Customer Email:">
+                        </div>
+                        <div class="form-col">
+                            <label>Customer Contact Name:</label>
+                            <input type="text" readonly class="form-control" name="contactName" placeholder="Enter Customer Contact Number:">
+                        </div>
+                    </div>
+                    <div style="margin-top:1rem;">
+                        <button type="button" class="am-btn am-btn-secondary" data-dismiss="modal" aria-label="Close">Close</button>
+                    </div>
+                </form>
             </div>
         </div>
     </div>
+</div>
+
+{{-- Delete Customer Modal --}}
+<div class="modal fade" id="deleteRequirment" tabindex="-1" role="dialog" aria-labelledby="deleteCustomerLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header" style="background:var(--am-primary);color:#fff;">
+                <h5 class="modal-title" id="deleteCustomerLabel">Deleting an entry.</h5>
+                <button type="button" class="close" style="color:#fff;" data-dismiss="modal" aria-label="Close">&times;</button>
+            </div>
+            <div class="modal-body">
+                <p>Are you sure you want to delete this entry?</p>
+            </div>
+            <div class="modal-footer">
+                <form action="{{route('deletecustomeradmin')}}" method="POST">
+                    @csrf
+                    <input type="hidden" id="re_id" value="" name="id">
+                    <button type="button" class="am-btn am-btn-secondary" data-dismiss="modal">No</button>
+                    <button type="submit" class="am-btn am-btn-danger">Yes</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
 
 @endsection
 
-
 @section('myscript')
-
     <script src="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/intlTelInput.min.js"
             integrity="sha512-DNeDhsl+FWnx5B1EQzsayHMyP6Xl/Mg+vcnFPXGNjUZrW28hQaa1+A4qL9M+AiOMmkAhKAWYHh1a+t6qxthzUw=="
             crossorigin="anonymous"></script>
@@ -332,13 +253,9 @@
             crossorigin="anonymous"></script>
     <script>
 
-
-
-
         function deletethisitem(data){
             $("#re_id").val(data.id);
             $("#deleteRequirment").modal('show');
-
         }
 
         var input = document.querySelector("#phoneNumber");
@@ -353,10 +270,7 @@
             },
         });
 
-
-
         $("#addcust").submit(function() {
-
             var i=1;
             var j=1;
             $('.iti__selected-dial-code').each(function(){
@@ -366,9 +280,7 @@
                     $("#phonecode").val(code);
                     console.log(code);
                     $("#phonecode").val(code);
-
                 }
-
                 i++;
             });
 
@@ -381,52 +293,25 @@
                     $("#phoneflag").val(result);
                     console.log(result);
                 }
-                //   else
-                //   {
-                //       var str=$(this).attr('aria-activedescendant');
-                //       var n = str.lastIndexOf('-');
-                //       var result = str.substring(n + 1);
-                //       $("#phoneflag").val(result);
-                //   }
                 j++;
             });
-
         });
-        $("#editcust").submit(function() {
 
+        $("#editcust").submit(function() {
             var i=1;
             var j=1;
             $('.iti__selected-dial-code').each(function(){
-                //   if(i==2)
-                //   {
                 var code=$(this).text();
                 console.log(code);
-
                 $("#editphonecode").val(code);
-
-                //   }
-
-                //   i++;
             });
             $(".iti__selected-flag").each(function(){
-                //   if(j==2)
-                //   {
                 var str=$(this).attr('aria-activedescendant');
                 var n = str.lastIndexOf('-');
                 var result = str.substring(n + 1);
                 $("#editphoneflag").val(result);
-                //   }
-                //   else
-                //   {
-                //       var str=$(this).attr('aria-activedescendant');
-                //       var n = str.lastIndexOf('-');
-                //       var result = str.substring(n + 1);
-                //       $("#phoneflag").val(result);
-                //   }
                 j++;
             });
-
-
         });
 
         $("#idNumber").blur(function(){
@@ -473,7 +358,6 @@
     </script>
 @endsection
 
-
 <script>
     function getEid(data){
         console.log(data);
@@ -516,7 +400,6 @@
                 },
             });
         }
-
 
         $("#EditCustomer").modal('show');
         $('#addcust').resetForm();
@@ -563,14 +446,11 @@
 
         }
 
-
-
         $("#ViewCustomer").modal('show');
         $('#addcust').resetForm();
     }
     function checkcustomer()
     {
-
         ajax_url='<?php echo route('checkcustomer')?>';
         cusid=$("#idNumber").val();
         //console.log(cusid);
@@ -589,4 +469,3 @@
         });
     }
 </script>
-

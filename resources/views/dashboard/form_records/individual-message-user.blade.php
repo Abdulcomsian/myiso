@@ -2,183 +2,180 @@
 
 @section('content')
 <style>
-	tr.New>td {
-		color: #000 !important;
-		font-weight: 800;
-		cursor: pointer;
-	}
-
-	tr.New>button {
-		color: #FFF !important;
-		font-weight: 800;
-		cursor: pointer;
-	}
-	.height-900{
-		height: 900px;
-	}
-
-	.height-500{
-		height: 500px;
-	}
-
-	.height-400{
-		height: 400px;
-	}
+    .height-900 { height: 900px; }
+    .height-500 { height: 500px; }
+    .height-400 { height: 400px; }
+    .message-accordion .accordion-item {
+        border: 1px solid #e2e6ea;
+        border-radius: 6px;
+        margin-bottom: 8px;
+        overflow: hidden;
+    }
+    .message-accordion .accordion-header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 12px 16px;
+        background: #f8f9fa;
+        cursor: pointer;
+    }
+    .message-accordion .accordion-header .btn-link {
+        background: none;
+        border: none;
+        font-size: 15px;
+        font-weight: 600;
+        color: #2e3b9a;
+        padding: 0;
+        text-align: left;
+    }
+    .message-accordion .accordion-meta {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        font-size: 13px;
+        color: #888;
+    }
+    .message-accordion .accordion-body {
+        padding: 16px;
+        background: #fff;
+    }
 </style>
-<!-- begin:: Content -->
-<div class="kt-content  kt-grid__item kt-grid__item--fluid" id="kt_content">
-	@if ($message = Session::get('success'))
-	<div class="alert alert-light alert-elevate" role="alert">
-		<!-- <div class="alert-icon"><i class="flaticon-warning kt-font-brand"></i></div> -->
-		<!-- <div class="alert-text">
-       DataTables has the ability to read data from virtually any JSON data source that can be obtained by Ajax. This can be done, in its most simple form, by setting the ajax option to the address of the JSON data source.
-       See official documentation <a class="kt-link kt-font-bold" href="https://datatables.net/examples/data_sources/ajax.html" target="_blank">here</a>.
-      </div> -->
 
-		<!-- <div class="alert alert-success"> -->
-		<p>{{ $message }}</p>
-		<!-- </div> -->
-	</div>
-	@endif
+<div class="am-content">
 
-	<div class="kt-portlet kt-portlet--mobile">
-		<div class="kt-portlet__head kt-portlet__head--lg">
-			<div class="kt-portlet__head-label">
-				<span class="kt-portlet__head-icon">
-					<i class="kt-font-brand flaticon2-line-chart"></i>
-				</span>
-				<h3 class="kt-portlet__head-title">
-					Subject - {{ $message_information[0]->title }}
-				</h3>
-			</div>
+    @if ($message = Session::get('success'))
+    <div class="alert alert-success">{{ $message }}</div>
+    @endif
 
-		</div>
-		<div class="kt-portlet__body">
-			{{-- @foreach ($message_information as $item)
-			<h1>{{ $item->title }}</h1>
-			@endforeach --}}
+    <div class="am-page-header">
+        <div>
+            <h2>Message Thread</h2>
+            <p>Subject &mdash; {{ $message_information[0]->title }}</p>
+        </div>
+        <div class="am-page-header__actions">
+            <a href="javascript:history.back()" class="am-btn am-btn-outline"><i class="fa fa-arrow-left"></i> Back</a>
+        </div>
+    </div>
 
-			@foreach ($message_information as $key=>$item)
-			<div class="accordion" id="accordionExample">
-				@if($item->total_days >= 90 && $item->total_days < 180)
-				<iframe src="{{ url('/three-month-email') }}" class="w-100 height-900"></iframe>
-				@elseif($item->total_days >= 180 && $item->total_days < 300)
-				<iframe src="{{ url('/six-month-email') }}" class="w-100 height-500"></iframe>
-				@elseif($item->total_days >= 300)
-				<iframe src="{{ url('/ten-month-email') }}" class="w-100 height-400"></iframe>
-				@else
-				@if (Auth::user()->id == $item->send_by)
-				<div class="card">
-					<div class="card-header" id="heading{{ $item->id }}">
-						<h2 class="mb-0">
-							<button class="btn btn-link" type="button" data-toggle="collapse"
-								data-target="#collapse{{ $item->id }}" aria-expanded="{{ $key === 0 ? 'true' : 'false' }}"
-								aria-controls="collapse{{ $item->id }}">
-								From - Me
-							</button>
-							<div class="float-right" style="display: flex; font-size: 14px; color: #888; padding-top: 12px; padding-right: 10px;">
-								@if ($item->attachement)
-									<a href="{{ asset($item->attachement) }}" download><i class="fa fa-download"> Attachment</i></a>
-								@endif
-								<p class="mx-2">
-								{{ date("d/m/Y H:i:sA", strtotime($item->created_at) ) }}
-							    </p>
-							</div>
+    <div class="am-card">
+        <div class="am-card__body">
+            <div class="message-accordion accordion" id="accordionExample">
+                @foreach ($message_information as $key => $item)
+                    @if($item->total_days >= 90 && $item->total_days < 180)
+                        <iframe src="{{ url('/three-month-email') }}" class="w-100 height-900"></iframe>
+                    @elseif($item->total_days >= 180 && $item->total_days < 300)
+                        <iframe src="{{ url('/six-month-email') }}" class="w-100 height-500"></iframe>
+                    @elseif($item->total_days >= 300)
+                        <iframe src="{{ url('/ten-month-email') }}" class="w-100 height-400"></iframe>
+                    @else
+                        @if (Auth::user()->id == $item->send_by)
+                        <div class="accordion-item card">
+                            <div class="card-header accordion-header" id="heading{{ $item->id }}">
+                                <h2 class="mb-0">
+                                    <button class="btn btn-link" type="button" data-toggle="collapse"
+                                        data-target="#collapse{{ $item->id }}"
+                                        aria-expanded="{{ $key === 0 ? 'true' : 'false' }}"
+                                        aria-controls="collapse{{ $item->id }}">
+                                        From &mdash; Me
+                                    </button>
+                                </h2>
+                                <div class="accordion-meta">
+                                    @if ($item->attachement)
+                                        <a href="{{ asset($item->attachement) }}" download><i class="fa fa-download"></i> Attachment</a>
+                                    @endif
+                                    <span>{{ date("d/m/Y H:i:sA", strtotime($item->created_at)) }}</span>
+                                </div>
+                            </div>
+                            <div id="collapse{{ $item->id }}"
+                                class="collapse {{ $key === 0 ? 'show' : '' }}"
+                                aria-labelledby="heading{{ $item->id }}"
+                                data-parent="#accordionExample">
+                                <div class="accordion-body card-body">
+                                    {!! $item->message !!}
+                                </div>
+                            </div>
+                        </div>
+                        @else
+                        <div class="accordion-item card">
+                            <div class="card-header accordion-header" id="heading{{ $item->id }}">
+                                <h2 class="mb-0">
+                                    <button class="btn btn-link" type="button" data-toggle="collapse"
+                                        data-target="#collapse{{ $item->id }}"
+                                        aria-expanded="{{ $key === 0 ? 'true' : 'false' }}"
+                                        aria-controls="collapse{{ $item->id }}">
+                                        From &mdash; {{ $item->name }}
+                                    </button>
+                                </h2>
+                                <div class="accordion-meta">
+                                    @if ($item->attachement)
+                                        <a href="{{ asset($item->attachement) }}" download><i class="fa fa-download"></i> Attachment</a>
+                                    @endif
+                                    <span>{{ date("d/m/Y H:i:sA", strtotime($item->created_at)) }}</span>
+                                </div>
+                            </div>
+                            <div id="collapse{{ $item->id }}"
+                                class="collapse {{ $key === 0 ? 'show' : '' }}"
+                                aria-labelledby="heading{{ $item->id }}"
+                                data-parent="#accordionExample">
+                                <div class="accordion-body card-body">
+                                    {!! $item->message !!}
+                                </div>
+                            </div>
+                        </div>
+                        @endif
+                    @endif
+                @endforeach
+            </div>
+        </div>
+    </div>
 
-						</h2>
-					</div>
+    <div class="am-card" style="margin-top:16px;">
+        <div class="am-card__body">
+            <button class="am-btn am-btn-outline" type="button" onclick="replyBox()" id="replyButton">
+                <i class="fa fa-reply"></i> Reply
+            </button>
 
-					<div id="collapse{{ $item->id }}" class="collapse {{ $key === 0 ? 'show' : '' }}" aria-labelledby="heading{{ $item->id }}"
-						data-parent="#accordionExample">
-						<div class="card-body">
-							{!! $item->message !!}
-						</div>
-					</div>
-				</div>
-				@else
-				<div class="card">
-					<div class="card-header" id="heading{{ $item->id }}">
-						<h2 class="mb-0">
-							<button class="btn btn-link" type="button" data-toggle="collapse"
-								data-target="#collapse{{ $item->id }}" aria-expanded="{{ $key === 0 ? 'true' : 'false' }}"
-								aria-controls="collapse{{ $item->id }}">
-								From - {{ $item->name }}
-							</button>
+            @foreach ($message_information as $item)
+            <form action="{{ route('storeReplyMessageUser') }}" method="post" enctype="multipart/form-data">
+                @csrf
+                <div id="replyContainer" style="display: none; margin-top: 16px;">
+                    <input type="hidden" name="messageId" value="{{ $item->unique_id }}">
+                    <input type="hidden" name="title" value="{{ $item->title }}">
+                    <input type="hidden" name="receiver" value="{{ $item->send_to }}">
+                    <input type="hidden" name="sender" value="{{ $item->send_by }}">
+                    <input type="hidden" name="parentId" value="{{ $parent_message_id }}">
 
-							<div class="float-right" style="display: flex; font-size: 14px; color: #888; padding-top: 12px; padding-right: 10px;">
-								@if ($item->attachement)
-									<a href="{{ asset($item->attachement) }}" download><i class="fa fa-download"> Attachment</i></a>
-								@endif
-								<p class="mx-2">
-								{{ date("d/m/Y H:i:sA", strtotime($item->created_at) ) }}
-							    </p>
-							</div>
-						</h2>
-					</div>
+                    <div class="am-form">
+                        <div class="form-row">
+                            <div class="form-col" style="flex:1 1 100%;">
+                                <label>Reply</label>
+                                <textarea class="form-control" name="replyMessage" rows="4" id="replyTextarea"
+                                    placeholder="Write your reply here"></textarea>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-col" style="flex:1 1 100%;">
+                                <label for="attachment">Add Attachment (If Any)</label>
+                                <input type="file" name="attachment" class="form-control" id="attachment">
+                            </div>
+                        </div>
+                        <div class="form-row" style="margin-top:12px; gap:8px;">
+                            <button type="submit" class="am-btn am-btn-primary" id="sendReplyButton">
+                                <i class="fa fa-paper-plane"></i> Send
+                            </button>
+                            <button type="button" class="am-btn am-btn-outline" id="cancelReplyButton">Cancel</button>
+                        </div>
+                    </div>
+                </div>
+            </form>
+            @endforeach
+        </div>
+    </div>
 
-					<div id="collapse{{ $item->id }}" class="collapse {{ $key === 0 ? 'show' : '' }}" aria-labelledby="heading{{ $item->id }}"
-						data-parent="#accordionExample">
-						<div class="card-body">
-							{!! $item->message !!}
-						</div>
-					</div>
-				</div>
-				@endif
-				@endif
-
-			</div>
-			@endforeach
-
-
-
-			<h2 class="mb-0 mt-2">
-				<button class="btn btn-primary" type="button" onclick="replyBox()" id="replyButton">Reply</button>
-			</h2>
-			@foreach ($message_information as $item)
-			<form action="{{ route('storeReplyMessageUser') }}" method="post" enctype="multipart/form-data">
-				@csrf
-				<div id="replyContainer" style="display: none; margin-top: 5px;">
-					<input type="hidden" name="messageId" value="{{ $item->unique_id }}">
-					<input type="hidden" name="title" value="{{ $item->title }}">
-					<input type="hidden" name="receiver" value="{{ $item->send_to }}">
-					<input type="hidden" name="sender" value="{{ $item->send_by }}">
-					<input type="hidden" name="parentId" value="{{ $parent_message_id }}">
-					<textarea class="form-control" name="replyMessage" rows="4" id="replyTextarea"
-					placeholder="Write your reply here"></textarea>
-					<label class="form-label mt-2" for="attachment">Add Attachment (If Any)</label>
-					<div class="kt-input-icon kt-input-icon--right">
-						<input type="file" name="attachment" class="form-control" id="attachment">
-					</div>
-					<button type="submit" class="btn btn-primary mt-2" id="sendReplyButton">Send</button>
-					<button type="button" class="btn btn-primary mt-2" id="cancelReplyButton">Cancel</button>
-				</div>
-			</form>
-			@endforeach
-		</div>
-	</div>
 </div>
+
 <script>
-
-    // const accordionItems = document.querySelectorAll('.card');
-
-    // accordionItems.forEach((item) => {
-    //     const button = item.querySelector('button');
-
-    //     button.addEventListener('click', () => {
-    //         const collapse = item.querySelector('.collapse');
-    //         const expanded = button.getAttribute('aria-expanded') === 'true';
-
-    //         if (expanded) {
-    //             collapse.classList.remove('show');
-    //             button.setAttribute('aria-expanded', 'false');
-    //         } else {
-    //             collapse.classList.add('show');
-    //             button.setAttribute('aria-expanded', 'true');
-    //         }
-    //     });
-    // });
-
-	function deleteUser(id) {
+    function deleteUser(id) {
         var userid = id;
         $("#userid").val(userid);
         $("#deleteUser").modal('show');
@@ -206,20 +203,19 @@
 
     // function used show or hide the reply box
     function replyBox() {
-		const replyBox = document.getElementById('replyButton');
+        const replyBox = document.getElementById('replyButton');
         const replyContainer = document.getElementById('replyContainer');
         if (replyContainer.style.display === 'block') {
-			replyContainer.style.display = 'none';
-			replyBox.style.display = 'block';
+            replyContainer.style.display = 'none';
+            replyBox.style.display = 'block';
         } else {
-			replyContainer.style.display = 'block';
-			replyBox.style.display = 'none';
+            replyContainer.style.display = 'block';
+            replyBox.style.display = 'none';
         }
-		document.getElementById('cancelReplyButton').addEventListener('click', function(){
-			replyContainer.style.display = 'none';
-			replyBox.style.display = 'block';
-		});
-
+        document.getElementById('cancelReplyButton').addEventListener('click', function () {
+            replyContainer.style.display = 'none';
+            replyBox.style.display = 'block';
+        });
     }
 
     //  am trying to click on the whole row but its not working as expected

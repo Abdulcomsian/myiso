@@ -2,33 +2,25 @@
 
 @section('content')
 <style>
-    .list_div .list_number {
-    /*width: auto;*/
-    max-width: 6.8%;
-}
-.authName{font-weight:500 !important;}
+    .list_div .list_number { max-width: 6.8%; }
+    .authName { font-weight: 500 !important; }
+    #procedure_section h4 { color: var(--am-primary); margin-top: 1.5rem; margin-bottom: 0.5rem; font-size: 1rem; font-weight: 600; }
+    #procedure_section h4:first-child { margin-top: 0; }
 </style>
-<!-- begin:: Content -->
-<div class="kt-content  kt-grid__item kt-grid__item--fluid" id="kt_content">
-
-	<!--Begin::Dashboard 1-->
-
-
-	<!--Begin::Section-->
-	<div class="row">
-		<div class="col-xl-12 col-lg-12">
-			<h2>Quality Manual</h2>
-		</div>
-	</div>
+<div class="am-content">
+    <div class="am-page-header">
+        <div>
+            <h2>Quality Manual</h2>
+            <p>ISO 9001:2015 Quality Management System</p>
+        </div>
+    </div>
+    <div class="am-card"><div class="am-card__body" style="padding:32px 40px;line-height:1.9;">
 	<section id="procedure_section">
 		<?php
 			$companyName=Auth::user()->company_name;
 			
 		?>
-		<div class="row">
-			<div class="col-lg-12">
-				<div class="procedure_div">
-					<h4>1. Scope</h4>
+				<h4>1. Scope</h4>
 					<p>This Quality Manual defines the Quality Management System (QMS) applicable to the activities performed by <span class="authName">{{Auth::user()->company_name}}</span>, in accordance with the requirements of ISO 9001:2015.</p>
 					<h4 class="m-t-20">2. Normative References</h4>
 					<div class="list_div">
@@ -1628,11 +1620,7 @@
 							<p style="">Reference is given to section 10.1</p>
 						</div>
 					</div>
-				</div>
-			</div>
-		</div>
 	</section>
-
-	<!--End::Section-->
-</div>@endsection
-<!-- end:: Content -->
+    </div></div>
+</div>
+@endsection
