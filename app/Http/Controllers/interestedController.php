@@ -16,11 +16,22 @@ class interestedController extends Controller
      */
     public function index(Request $request)
     {
-       
-        $userid=Auth::user()->id;
-       
-        $interested=Interested::where('user_id',$userid)->orderBy('id','DESC')->get();
-        return view('dashboard.form_records.interested_parties',compact('interested'));
+        $userid = Auth::user()->id;
+        $search = trim($request->query('q', ''));
+        $query = Interested::where('user_id', $userid)->orderBy('id', 'DESC');
+        if ($search !== '') {
+            $query->where(function($q) use ($search) {
+                $q->where('interested_party', 'like', "%{$search}%")
+                  ->orWhere('needs', 'like', "%{$search}%");
+            });
+        }
+        $interested = $query->paginate(10)->withQueryString();
+
+        if ($request->ajax()) {
+            return view('dashboard.form_records.partials.interested_parties_table', compact('interested'));
+        }
+
+        return view('dashboard.form_records.interested_parties', compact('interested', 'search'));
     }
 
     /**

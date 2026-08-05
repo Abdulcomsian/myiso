@@ -38,10 +38,10 @@
 
     <div class="am-card" style="margin-bottom:16px;">
         <div class="am-card__toolbar">
-            <div class="am-search" style="flex:1;max-width:340px;">
+            <form method="GET" action="{{ url('/supplierCheck/' . $urlparam['userid']) }}" class="am-search" id="amSupSearchForm" style="flex:1;max-width:340px;margin:0;">
                 <i class="fa fa-search"></i>
-                <input type="text" id="amSupSearch" placeholder="Search suppliers…" autocomplete="off">
-            </div>
+                <input type="text" name="q" id="amSupSearch" value="{{ $search ?? '' }}" placeholder="Search suppliers…" autocomplete="off">
+            </form>
             <button type="button" class="am-btn am-btn-primary" id="toggleSupForm">
                 <i class="fa fa-plus"></i> Add Supplier
             </button>
@@ -77,8 +77,38 @@
     </div>
 
     <div class="am-card">
+        <div id="amSupContainer">
+            @include('admin.adminform_records.partials.supplier_table')
+        </div>
+    </div>
+</div>
+
+{{-- Delete Confirmation Modal --}}
+<div class="am-modal" id="amConfirmDelete" role="dialog" aria-modal="true">
+    <div class="am-modal__box">
+        <div class="am-modal__header">
+            <span class="am-modal__icon"><i class="fa fa-exclamation-triangle"></i></span>
+            <h4 class="am-modal__title">Delete <span id="amConfirmType">Item</span>?</h4>
+        </div>
+        <div class="am-modal__body">
+            You are about to permanently delete <strong id="amConfirmLabel">this item</strong>. This action cannot be undone.
+        </div>
+        <div class="am-modal__footer">
+            <button type="button" class="am-btn am-btn-outline am-modal-close">Cancel</button>
+            <form id="amConfirmForm" method="POST" style="display:inline;">
+                @csrf
+                <input type="hidden" name="id" id="amConfirmId">
+                <button type="submit" class="am-btn" style="background:var(--am-danger);color:#fff;">
+                    <i class="fa fa-trash"></i> Yes, delete
+                </button>
+            </form>
+        </div>
+    </div>
+</div>
+
+<div style="display:none;">
         <div class="am-table-wrap">
-            <table class="am-table" id="amSupTable">
+            <table class="am-table" id="amSupTable_OLD">
                 <thead>
                     <tr>
                         <th style="width:60px;">#</th>
@@ -125,13 +155,11 @@
                             </td>
                         </tr>
                     @empty
-                        <tr><td colspan="8"><div class="am-empty"><i class="fa fa-truck"></i><p>No suppliers added yet.</p></div></td></tr>
+                        <tr><td colspan="8"></td></tr>
                     @endforelse
                 </tbody>
             </table>
         </div>
-        <div class="am-pagination" id="amSupPagination"></div>
-    </div>
 </div>
 
 {{-- Edit modal --}}
@@ -212,18 +240,56 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/intlTelInput.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/utils.js"></script>
 <script>
+    document.addEventListener('click', function(e) {
+        var close = e.target.closest('.am-modal-close');
+        if (close) { var m = close.closest('.am-modal'); if (m) m.classList.remove('open'); return; }
+        if (e.target.classList && e.target.classList.contains('am-modal')) e.target.classList.remove('open');
+    });
+    document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape') document.querySelectorAll('.am-modal.open').forEach(function(m){ m.classList.remove('open'); });
+    });
     (function(){
         var t=document.getElementById('toggleSupForm'),f=document.getElementById('newSupForm'),c=document.getElementById('cancelSupForm');
         t&&t.addEventListener('click',function(){f.classList.toggle('open');});
         c&&c.addEventListener('click',function(){f.classList.remove('open');});
-        function debounce(fn,w){var t;return function(){var c=this,a=arguments;clearTimeout(t);t=setTimeout(function(){fn.apply(c,a);},w);};}
-        var per=10,i=document.getElementById('amSupSearch'),tb=document.querySelector('#amSupTable tbody');
-        if(!tb)return;
-        var rows=Array.prototype.slice.call(tb.querySelectorAll('tr[data-search]')),p=document.getElementById('amSupPagination'),F=rows.slice(),pg=1;
-        function r(){var T=F.length,TP=Math.max(1,Math.ceil(T/per));if(pg>TP)pg=TP;rows.forEach(function(x){x.style.display='none';});F.slice((pg-1)*per,pg*per).forEach(function(x){x.style.display='';});var fr=T===0?0:(pg-1)*per+1,to=Math.min(pg*per,T);var h='<div class="am-pagination__info">Showing <strong>'+fr+'–'+to+'</strong> of <strong>'+T+'</strong></div><div class="am-pagination__nav">';h+='<button data-p="'+(pg-1)+'" '+(pg<=1?'disabled':'')+'>‹</button>';var s=Math.max(1,pg-2),e=Math.min(TP,s+4);s=Math.max(1,e-4);for(var q=s;q<=e;q++)h+='<button data-p="'+q+'" '+(q===pg?'class="active"':'')+'>'+q+'</button>';h+='<button data-p="'+(pg+1)+'" '+(pg>=TP?'disabled':'')+'>›</button></div>';p.innerHTML=h;}
-        i&&i.addEventListener('input',debounce(function(){var q=this.value.trim().toLowerCase();F=q===''?rows.slice():rows.filter(function(x){return x.getAttribute('data-search').indexOf(q)!==-1;});pg=1;r();},250));
-        p&&p.addEventListener('click',function(e){var b=e.target.closest('button[data-p]');if(!b||b.disabled)return;var q=parseInt(b.getAttribute('data-p'),10);if(!isNaN(q)&&q>=1){pg=q;r();}});
-        r();
+    })();
+    document.addEventListener('click', function(e) {
+        var btn = e.target.closest('.am-confirm-delete');
+        if (!btn) return;
+        e.preventDefault();
+        document.getElementById('amConfirmForm').setAttribute('action', btn.getAttribute('data-action') || '');
+        document.getElementById('amConfirmId').value = btn.getAttribute('data-id') || '';
+        document.getElementById('amConfirmType').textContent = btn.getAttribute('data-type') || 'Item';
+        document.getElementById('amConfirmLabel').textContent = btn.getAttribute('data-label') || 'this item';
+        document.getElementById('amConfirmDelete').classList.add('open');
+    });
+    (function() {
+        var input = document.getElementById('amSupSearch');
+        var form = document.getElementById('amSupSearchForm');
+        var container = document.getElementById('amSupContainer');
+        if (!container) return;
+        var baseUrl = '{{ url('/supplierCheck/' . $urlparam['userid']) }}';
+        function debounce(fn, wait) { var t; return function() { var ctx = this, args = arguments; clearTimeout(t); t = setTimeout(function() { fn.apply(ctx, args); }, wait); }; }
+        function showLoading() { container.style.opacity = '0.5'; container.style.pointerEvents = 'none'; }
+        function hideLoading() { container.style.opacity = ''; container.style.pointerEvents = ''; }
+        function fetchPage(page) {
+            var q = input ? input.value.trim() : '';
+            var url = baseUrl + '?q=' + encodeURIComponent(q) + '&page=' + page;
+            showLoading();
+            fetch(url, { headers: { 'X-Requested-With': 'XMLHttpRequest' } })
+                .then(function(r) { return r.text(); })
+                .then(function(html) { container.innerHTML = html; hideLoading(); })
+                .catch(function() { hideLoading(); });
+        }
+        input && input.addEventListener('input', debounce(function() { fetchPage(1); }, 350));
+        form && form.addEventListener('submit', function(e) { e.preventDefault(); fetchPage(1); });
+        container.addEventListener('click', function(e) {
+            var btn = e.target.closest('.am-page-link');
+            if (!btn || btn.disabled) return;
+            e.preventDefault();
+            var p = parseInt(btn.getAttribute('data-page'), 10);
+            if (!isNaN(p) && p > 0) fetchPage(p);
+        });
     })();
 
     var addPhone = window.intlTelInput(document.querySelector("#supplierphn"), {

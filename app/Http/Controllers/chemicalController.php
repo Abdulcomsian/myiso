@@ -21,11 +21,21 @@ class chemicalController extends Controller
      */
     public function index(Request $request)
     {
-       
         $userid=Auth::user()->id;
-        $chemical=Chemical::where('user_id',$userid)->orderBy('id','DESC')->get();
-        
-        return view('dashboard.form_records.chemical_control',compact('chemical'));
+        $search = trim($request->query('q', ''));
+        $query = Chemical::where('user_id',$userid);
+        if ($search !== '') {
+            $query->where(function($q) use ($search){
+                $q->where('chemical_name','like',"%{$search}%")
+                  ->orWhere('chemical_desc','like',"%{$search}%")
+                  ->orWhere('location_used','like',"%{$search}%");
+            });
+        }
+        $chemical = $query->orderBy('id','DESC')->paginate(10)->withQueryString();
+        if ($request->ajax()) {
+            return view('dashboard.form_records.partials.chemical_table', compact('chemical'));
+        }
+        return view('dashboard.form_records.chemical_control',compact('chemical','search'));
     }
 
     /**

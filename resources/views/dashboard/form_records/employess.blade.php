@@ -3,772 +3,596 @@
 @section('content')
 <div class="am-content">
 
-    @if(session('message'))<div class="alert alert-success">{{ session('message') }}</div>@endif
-    @if(Session::has('Error'))<div class="alert alert-danger">{{ Session::get('Error') }}</div>@endif
-
     <div class="am-page-header">
         <div>
             <h2>Employees</h2>
-            <p>Adding Employees will accurately store all relevant information of working staff, including training &amp; skills.</p>
-        </div>
-        <div class="am-page-header__actions">
-            <button class="am-btn am-btn-primary" onclick="employeeForm()"><i class="fa fa-plus"></i> Add Employee</button>
-            <button class="am-btn am-btn-primary" onclick="employeeSkillForm()" style="margin-left:6px;"><i class="fa fa-plus"></i> Add Process Skill</button>
-            <button class="am-btn am-btn-primary" onclick="employeeRecordForm()" style="margin-left:6px;"><i class="fa fa-plus"></i> Add Training Record</button>
+            <p>Manage employee records, process skills, and training history.</p>
         </div>
     </div>
 
-    <p>To add a record, click on the "Add Employee" button. To amend a record, click on the edit icon of the entry that needs to be modified or deleted.</p>
-
-    {{-- Add Employee Form --}}
-    <div class="am-card employee_from_div" style="display:none;">
-        <div class="am-card__body am-form">
-            <form method="POST" action="{{ route('employee') }}" enctype="multipart/form-data" class="addForm">
-                @csrf
-                <h3 style="margin-bottom:1rem;">Add Employee</h3>
-                <div class="form-row">
-                    <div class="form-col">
-                        <label>Surname:</label>
-                        <input type="text" class="form-control" name="surname" required placeholder="Enter Surname" data-type="add">
-                    </div>
-                    <div class="form-col">
-                        <label>First Name:</label>
-                        <input type="text" class="form-control" name="first_name" required placeholder="Enter First Name">
-                    </div>
-                </div>
-                <div class="form-row">
-                    <div class="form-col">
-                        <label>Email:</label>
-                        <input type="email" class="form-control" name="email" required placeholder="Enter Email">
-                    </div>
-                    <div class="form-col add-emp-number-div">
-                        <label>Employee ID Number:</label>
-                        <input name="empNumber" type="text" class="form-control" required placeholder="Enter Employee ID Number" data-type="add">
-                    </div>
-                </div>
-                <div class="form-row">
-                    <div class="form-col">
-                        <label>Start Date (DD/MM/YYYY):</label>
-                        <input name="startDate" max="2999-12-31" required type="date" class="form-control">
-                        <label style="margin-top:1rem;">Upload Employee CV:</label>
-                        <input name="employee_cv" type="file" class="form-control" accept="image/*,.doc, .docx,.txt,.pdf">
-                    </div>
-                    <div class="form-col">
-                        <label>Job Description:</label>
-                        <textarea name="jobdetails" cols="20" rows="5" class="form-control" placeholder="Enter Job Description:"></textarea>
-                    </div>
-                </div>
-                <div style="margin-top:1rem;">
-                    <button type="reset" onclick="emp1()" class="am-btn am-btn-secondary" style="margin-right:7px;">Cancel</button>
-                    <button class="am-btn am-btn-primary">SUBMIT</button>
-                </div>
-            </form>
+    @if(session('message'))
+        <div class="am-card" style="padding:14px 20px;margin-bottom:16px;color:#1a8a5c;background:rgba(38,194,129,0.08);">
+            <i class="fa fa-check-circle"></i> {{ session('message') }}
         </div>
-    </div>
-
-    {{-- Add Employee Skill Form --}}
-    <div class="am-card employee_skill_from_div skill" style="display:none;">
-        <div class="am-card__body am-form">
-            <form action="{{ route('empSkills')}}" method="POST">
-                @csrf
-                <h3 style="margin-bottom:1rem;">Add Process Skill for Employee</h3>
-                <div class="form-row">
-                    <div class="form-col">
-                        <label>Employee ID Number:</label>
-                        <select name="empid" required class="form-control">
-                            <option value="" selected="selected" disabled="disabled">Select One</option>
-                            @if(isset($userinfo) && $userinfo!= "")
-                            @foreach($userinfo as $item)
-                            <option value="{{$item->id}}" title="{{ $item->first_name }}">{{$item->empNumber.' ('.$item->first_name.')'}}</option>
-                            @endforeach
-                            @endif
-                        </select>
-                    </div>
-                    <div class="form-col">
-                        <label>Skill:</label>
-                        <input type="text" name="empskill" class="form-control" required placeholder="Enter a Skill">
-                    </div>
-                </div>
-                <div style="margin-top:1rem;">
-                    <button type="reset" onclick="emp2()" class="am-btn am-btn-secondary" style="margin-right:7px;">Cancel</button>
-                    <button type="submit" class="am-btn am-btn-primary">SUBMIT</button>
-                </div>
-            </form>
+    @endif
+    @if(Session::has('Error'))
+        <div class="am-card" style="padding:14px 20px;margin-bottom:16px;color:#b83432;background:rgba(235,77,75,0.08);">
+            <i class="fa fa-exclamation-circle"></i> {{ Session::get('Error') }}
         </div>
-    </div>
+    @endif
 
-    {{-- Add Employee Training Record Form --}}
-    <div class="am-card employee_record_from_div record" style="display:none;">
-        <div class="am-card__body am-form">
-            <form action=" {{route('empTraining')}} " method="POST" enctype="multipart/form-data">
-                @csrf
-                <h3 style="margin-bottom:1rem;">Add Training Record for Employee</h3>
-                <div class="form-row">
-                    <div class="form-col">
-                        <label>Employee ID Number:</label>
-                        <select name="empid" required class="form-control">
-                            <option value="" selected="selected" disabled="disabled">Select One</option>
-                            @if(isset($userinfo) && $userinfo!= "")
-                            @foreach($userinfo as $item)
-                            <option value="{{$item->id}}" title="{{ $item->first_name }}">{{$item->empNumber.' ('.$item->first_name.')'}}</option>
-                            @endforeach
-                            @endif
-                        </select>
-                    </div>
-                    <div class="form-col">
-                        <label>Training Date (MM/DD/YYY):</label>
-                        <input type="date" max="2999-12-31" required class="form-control" name="traningdate">
-                    </div>
-                </div>
-                <div class="form-row">
-                    <div class="form-col">
-                        <label>Training Details:</label>
-                        <input type="text" class="form-control" required name="traningdetails">
-                    </div>
-                    <div class="form-col">
-                        <label>Upload Training Certificate (PDF, jpeg, png):</label>
-                        <input name="attach_file" type="file" class="form-control" accept="image/*,.pdf,.jpeg,.png">
-                    </div>
-                </div>
-                <div style="margin-top:1rem;">
-                    <button type="reset" onclick="emp3()" class="am-btn am-btn-secondary" style="margin-right:7px;">Cancel</button>
-                    <button type="submit" class="am-btn am-btn-primary">SUBMIT</button>
-                </div>
-            </form>
-        </div>
-    </div>
-
-    {{-- Employees Table --}}
-    <div class="am-card">
-        <div class="am-card__body">
-            <h4 style="margin-bottom:1rem;">Total Employees Listed</h4>
-            <div class="am-table-wrap">
-                <table class="am-table common_table" id="kt_table_agent2">
-                    <thead>
-                        <tr>
-                            <th>Employee ID Number</th>
-                            <th>Surname</th>
-                            <th>Firstname</th>
-                            <th>Email</th>
-                            <th>Start Date</th>
-                            <th>Job Description</th>
-                            <th>CV</th>
-                            <th>Action</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @php $n = 1; @endphp
-                        @forelse ($userinfo as $item)
-                        <tr>
-                            <td>{{$item->empNumber}}</td>
-                            <td>{{$item->surname}}</td>
-                            <td>{{$item->first_name}}</td>
-                            <td>{{$item->email}}</td>
-                            <td>{{date('d/m/Y', strtotime($item->startDate))}}</td>
-                            <td>{{$item->jobdetails}}</td>
-                            <td>
-                                @if(!empty($item->cv))
-                                    <?php
-                                        $path_info = explode('.', $item->cv);
-                                        if($path_info[1]=="pdf"){
-                                    ?>
-                                        <a target="_blank" style="color: blue;cursor: pointer;" data-toggle="modal" data-target="#cv{{$item->id}}">View CV</a>
-                                    <?php
-                                        }else{
-                                    ?>
-                                        <a target="_blank" download href="{{ asset($item->cv) }}">View CV</a>
-                                    <?php } ?>
-
-                                    {{-- CV Modal --}}
-                                    <div class="modal fade" id="cv{{$item->id}}" tabindex="-1" role="dialog" aria-labelledby="viewcvLabel{{$item->id}}" aria-hidden="true">
-                                        <div class="modal-dialog modal-dialog-centered" role="document">
-                                            <div class="modal-content">
-                                                <div class="modal-header" style="background:var(--am-primary);color:#fff;">
-                                                    <h5 class="modal-title" id="viewcvLabel{{$item->id}}">View CV</h5>
-                                                    <button type="button" class="close" style="color:#fff;" data-dismiss="modal" aria-label="Close">&times;</button>
-                                                </div>
-                                                <div class="modal-body">
-                                                    <object data="{{ asset($item->cv) }}" type="application/pdf">
-                                                        <embed src="{{ asset($item->cv) }}" type="application/pdf" />
-                                                    </object>
-                                                </div>
-                                                <div class="modal-footer">
-                                                    <a href="{{ asset($item->cv) }}" download>
-                                                        <h5 class="modal-title" style="float:right;text-align:Right;">Download CV</h5>
-                                                    </a>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                @else
-                                    No data found
-                                @endif
-                            </td>
-                            <td>
-                                <button onclick="getEid({{json_encode($item)}});" class="am-btn am-btn-sm am-btn-warning" title="Edit"><i class="fa fa-edit"></i></button>
-                                <button class="am-btn am-btn-sm am-btn-danger" onclick="deleteempl({{$item->id}})" title="Delete Employee"><i class="fa fa-trash"></i></button>
-                                <button class="am-btn am-btn-sm am-btn-info" title="View" data-toggle="modal" data-target="#employ{{$item->id}}"><i class="fa fa-eye"></i></button>
-
-                                {{-- View Employee Modal --}}
-                                <div class="modal fade" id="employ{{$item->id}}" tabindex="-1" role="dialog" aria-labelledby="model1Label{{$item->id}}" aria-hidden="true">
-                                    <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
-                                        <div class="modal-content">
-                                            <div class="modal-header" style="background:var(--am-primary);color:#fff;">
-                                                <h5 class="modal-title" id="model1Label{{$item->id}}">Total Employees Listed</h5>
-                                                <button type="button" class="close" style="color:#fff;" data-dismiss="modal" aria-label="Close">&times;</button>
-                                            </div>
-                                            <div class="modal-body">
-                                                <div class="form-row">
-                                                    <div class="form-col" style="flex:1 1 100%;">
-                                                        <label>Surname:</label>
-                                                        <input type="text" class="form-control" name="surname" placeholder="Enter Surname" value="{{$item->surname}}" readonly>
-                                                    </div>
-                                                </div>
-                                                <div class="form-row">
-                                                    <div class="form-col">
-                                                        <label>First Name:</label>
-                                                        <input type="text" class="form-control" name="first_name" placeholder="Enter First Name" value="{{$item->first_name}}" readonly>
-                                                    </div>
-                                                    <div class="form-col edit-emp-number-div">
-                                                        <label>Employee ID:</label>
-                                                        <input type="text" name="empNumber" required class="form-control" data-type="edit" value="{{$item->empNumber}}" readonly>
-                                                    </div>
-                                                </div>
-                                                <div class="form-row">
-                                                    <div class="form-col">
-                                                        <label>Start Date (YYYY/MM/DD):</label>
-                                                        <input name="startDate" max="2999-12-31" type="date" class="form-control" value="{{$item->startDate}}" readonly>
-                                                    </div>
-                                                    <div class="form-col">
-                                                        <label>Job Description:</label>
-                                                        <textarea name="jobdetails" cols="20" rows="5" class="form-control" placeholder="Enter Job Description:">{{$item->jobdetails}}</textarea>
-                                                    </div>
-                                                </div>
-                                                <div class="modal-footer" style="padding:1rem 0 0;">
-                                                    <button type="button" class="am-btn am-btn-secondary" data-dismiss="modal">Close</button>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </td>
-                        </tr>
-                        @php $n++; @endphp
-                        @empty
-                        <tr><td colspan="8"><div class="am-empty"><i class="fa fa-database"></i><p>No records found.</p></div></td></tr>
-                        @endforelse
-                    </tbody>
-                </table>
+    <div class="am-card" style="padding:16px 20px;margin-bottom:16px;background:rgba(46,59,154,0.04);border:1px solid rgba(46,59,154,0.12);">
+        <div style="display:flex;gap:12px;align-items:flex-start;">
+            <span style="width:36px;height:36px;flex-shrink:0;border-radius:10px;background:var(--am-primary-tint);color:var(--am-primary);display:inline-flex;align-items:center;justify-content:center;font-size:15px;"><i class="fa fa-info-circle"></i></span>
+            <div style="font-size:13px;color:var(--am-text);line-height:1.55;">
+                Adding Employees will accurately store all relevant information of working staff, including training records and process skills.
             </div>
         </div>
     </div>
 
-    {{-- Employee Skills Table --}}
-    <div class="am-card" style="margin-top:1.5rem;">
-        <div class="am-card__body">
-            <h4 style="margin-bottom:1rem;">Total Employee Skills Listed</h4>
+    {{-- Tabs --}}
+    <div class="am-tabs">
+        <button type="button" class="am-tab active" data-tab="emp">
+            <i class="fa fa-id-badge"></i> Employees
+            <span class="am-tab-count">{{ method_exists($userinfo,'total') ? $userinfo->total() : count($userinfo) }}</span>
+        </button>
+        <button type="button" class="am-tab" data-tab="skl">
+            <i class="fa fa-tools"></i> Skills
+            <span class="am-tab-count">{{ count($employess) }}</span>
+        </button>
+        <button type="button" class="am-tab" data-tab="trn">
+            <i class="fa fa-graduation-cap"></i> Training
+            <span class="am-tab-count">{{ count($emptraining) }}</span>
+        </button>
+    </div>
+
+    {{-- ===== Employees Tab ===== --}}
+    <div class="am-tab-panel active" data-panel="emp">
+        <div class="am-card" style="margin-bottom:16px;">
+            <div class="am-card__toolbar">
+                <form method="GET" action="{{ url('/employess') }}" class="am-search" id="amEmpSearchForm" style="flex:1;max-width:340px;margin:0;">
+                    <i class="fa fa-search"></i>
+                    <input type="text" name="q" id="amEmpSearch" value="{{ $search ?? '' }}" placeholder="Search employees…" autocomplete="off">
+                </form>
+                <button type="button" class="am-btn am-btn-primary" id="toggleEmpForm">
+                    <i class="fa fa-plus"></i> Add Employee
+                </button>
+            </div>
+
+            <div class="am-inline-form" id="newEmpForm" style="margin:16px 20px;">
+                <form method="POST" action="{{ route('employee') }}" enctype="multipart/form-data" class="addForm">
+                    @csrf
+                    <div class="form-row">
+                        <div><label>Surname</label><input type="text" name="surname" required></div>
+                        <div><label>First Name</label><input type="text" name="first_name" required></div>
+                        <div><label>Email</label><input type="email" name="email" required></div>
+                    </div>
+                    <div class="form-row">
+                        <div class="add-emp-number-div"><label>Employee ID Number</label><input name="empNumber" type="text" required data-type="add"></div>
+                        <div><label>Start Date</label><input name="startDate" max="2999-12-31" type="date" required></div>
+                        <div><label>Upload CV</label><input name="employee_cv" type="file" accept="image/*,.doc,.docx,.txt,.pdf"></div>
+                    </div>
+                    <div class="form-row">
+                        <div style="grid-column:1/-1;"><label>Job Description</label><textarea name="jobdetails" rows="3" placeholder="Job description"></textarea></div>
+                    </div>
+                    <div class="form-actions">
+                        <button type="button" class="am-btn am-btn-outline am-btn-sm" id="cancelEmpForm">Cancel</button>
+                        <button type="submit" class="am-btn am-btn-primary am-btn-sm"><i class="fa fa-check"></i> Save Employee</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <div class="am-card">
+            <div id="amEmpContainer">
+                @include('dashboard.form_records.partials.employees_table')
+            </div>
+        </div>
+    </div>
+
+    {{-- ===== Skills Tab ===== --}}
+    <div class="am-tab-panel" data-panel="skl">
+        <div class="am-card" style="margin-bottom:16px;">
+            <div class="am-card__toolbar">
+                <div class="am-search" style="flex:1;max-width:340px;">
+                    <i class="fa fa-search"></i>
+                    <input type="text" id="amSklSearch" placeholder="Search skills…" autocomplete="off">
+                </div>
+                <button type="button" class="am-btn am-btn-primary" id="toggleSklForm">
+                    <i class="fa fa-plus"></i> Add Process Skill
+                </button>
+            </div>
+
+            <div class="am-inline-form" id="newSklForm" style="margin:16px 20px;">
+                <form action="{{ route('empSkills') }}" method="POST">
+                    @csrf
+                    <div class="form-row">
+                        <div>
+                            <label>Employee</label>
+                            <select name="empid" required>
+                                <option value="" disabled selected>Select employee</option>
+                                @foreach($userinfo as $item)
+                                    <option value="{{ $item->id }}">{{ $item->empNumber }} ({{ $item->first_name }})</option>
+                                @endforeach
+                            </select>
+                        </div>
+                        <div style="grid-column:span 2;"><label>Skill</label><input type="text" required name="empskill" placeholder="Skill name"></div>
+                    </div>
+                    <div class="form-actions">
+                        <button type="button" class="am-btn am-btn-outline am-btn-sm" id="cancelSklForm">Cancel</button>
+                        <button type="submit" class="am-btn am-btn-primary am-btn-sm"><i class="fa fa-check"></i> Save Skill</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <div class="am-card">
             <div class="am-table-wrap">
-                <table class="am-table common_table" id="kt_table_agent">
+                <table class="am-table" id="amSklTable">
                     <thead>
                         <tr>
-                            <th>Employee ID Number</th>
-                            <th>Surname</th>
-                            <th>Firstname</th>
+                            <th style="width:60px;">#</th>
+                            <th>Employee</th>
                             <th>Skill</th>
-                            <th>Actions</th>
+                            <th style="text-align:right;">Actions</th>
                         </tr>
                     </thead>
                     <tbody>
                         @forelse ($employess as $item)
-                        <tr>
-                            <td>{{$item->empNumber}}</td>
-                            <td>{{$item->surname}}</td>
-                            <td>{{$item->first_name}}</td>
-                            <td>{{$item->empskill}}</td>
-                            <td>
-                                <button onclick="getEidskill({{json_encode($item)}});" class="am-btn am-btn-sm am-btn-warning" title="Edit"><i class="fa fa-edit"></i></button>
-                                <button class="am-btn am-btn-sm am-btn-danger" onclick="deleteemplskill({{$item->skill_id}})" title="Delete Employee"><i class="fa fa-trash"></i></button>
-                                <button class="am-btn am-btn-sm am-btn-info" title="View" data-toggle="modal" data-target="#skill{{$item->skill_id}}"><i class="fa fa-eye"></i></button>
-
-                                {{-- View Skill Modal --}}
-                                <div class="modal fade" id="skill{{$item->skill_id}}" tabindex="-1" role="dialog" aria-labelledby="model2Label{{$item->skill_id}}" aria-hidden="true">
-                                    <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
-                                        <div class="modal-content">
-                                            <div class="modal-header" style="background:var(--am-primary);color:#fff;">
-                                                <h5 class="modal-title" id="model2Label{{$item->skill_id}}">Total Employee Skills Listed</h5>
-                                                <button type="button" class="close" style="color:#fff;" data-dismiss="modal" aria-label="Close">&times;</button>
-                                            </div>
-                                            <div class="modal-body">
-                                                <div class="form-row">
-                                                    <div class="form-col">
-                                                        <label>Employee ID Number:</label>
-                                                        <input type="text" class="form-control" name="surname" placeholder="Enter Surname" value="{{$item->empNumber}}" readonly>
-                                                    </div>
-                                                    <div class="form-col">
-                                                        <label>Skill:</label>
-                                                        <input type="text" class="form-control" name="first_name" placeholder="Enter First Name" value="{{$item->empskill}}" readonly>
-                                                    </div>
-                                                </div>
-                                                <div class="modal-footer" style="padding:1rem 0 0;">
-                                                    <button type="button" class="am-btn am-btn-secondary" data-dismiss="modal">Close</button>
-                                                </div>
-                                            </div>
-                                        </div>
+                            <tr data-search="{{ strtolower($item->empNumber . ' ' . $item->surname . ' ' . $item->first_name . ' ' . $item->empskill) }}">
+                                <td><span class="am-cell-sub">#{{ $item->empNumber }}</span></td>
+                                <td>
+                                    <span class="am-cell-primary">{{ $item->first_name }} {{ $item->surname }}</span>
+                                    <span class="am-cell-sub">EMP: {{ $item->empNumber }}</span>
+                                </td>
+                                <td><span class="am-chip info">{{ $item->empskill }}</span></td>
+                                <td style="text-align:right;white-space:nowrap;">
+                                    <div class="am-actions">
+                                        <button type="button" class="am-icon-btn" title="Edit" onclick='amSklEdit(@json($item))'><i class="fa fa-pen"></i></button>
+                                        <button type="button" class="am-icon-btn danger am-confirm-delete"
+                                                title="Delete"
+                                                data-action="{{ route('employess-delete') }}"
+                                                data-id="{{ $item->skill_id }}"
+                                                data-extra="type=employeeskill"
+                                                data-label="{{ $item->empskill }}"
+                                                data-type="Employee Skill">
+                                            <i class="fa fa-trash"></i>
+                                        </button>
                                     </div>
-                                </div>
-                            </td>
-                        </tr>
+                                </td>
+                            </tr>
                         @empty
-                        <tr><td colspan="5"><div class="am-empty"><i class="fa fa-database"></i><p>No records found.</p></div></td></tr>
+                            <tr><td colspan="4"><div class="am-empty"><i class="fa fa-tools"></i><p>No skills recorded yet.</p></div></td></tr>
                         @endforelse
                     </tbody>
                 </table>
             </div>
+            <div class="am-pagination" id="amSklPagination"></div>
         </div>
     </div>
 
-    {{-- Training Record Table --}}
-    <div class="am-card" style="margin-top:1.5rem;">
-        <div class="am-card__body">
-            <h4 style="margin-bottom:1rem;">Training Record Summary</h4>
+    {{-- ===== Training Tab ===== --}}
+    <div class="am-tab-panel" data-panel="trn">
+        <div class="am-card" style="margin-bottom:16px;">
+            <div class="am-card__toolbar">
+                <div class="am-search" style="flex:1;max-width:340px;">
+                    <i class="fa fa-search"></i>
+                    <input type="text" id="amTrnSearch" placeholder="Search training…" autocomplete="off">
+                </div>
+                <button type="button" class="am-btn am-btn-primary" id="toggleTrnForm">
+                    <i class="fa fa-plus"></i> Add Training Record
+                </button>
+            </div>
+
+            <div class="am-inline-form" id="newTrnForm" style="margin:16px 20px;">
+                <form action="{{ route('empTraining') }}" method="POST" enctype="multipart/form-data">
+                    @csrf
+                    <div class="form-row">
+                        <div>
+                            <label>Employee</label>
+                            <select name="empid" required>
+                                <option value="" disabled selected>Select employee</option>
+                                @foreach($userinfo as $item)
+                                    <option value="{{ $item->id }}">{{ $item->empNumber }} ({{ $item->first_name }})</option>
+                                @endforeach
+                            </select>
+                        </div>
+                        <div><label>Training Date</label><input type="date" required max="2999-12-31" name="traningdate"></div>
+                    </div>
+                    <div class="form-row">
+                        <div><label>Training Details</label><input type="text" required name="traningdetails" placeholder="Training details"></div>
+                        <div><label>Upload Certificate (PDF, jpeg, png)</label><input name="attach_file" type="file" accept="image/*,.pdf,.jpeg,.png"></div>
+                    </div>
+                    <div class="form-actions">
+                        <button type="button" class="am-btn am-btn-outline am-btn-sm" id="cancelTrnForm">Cancel</button>
+                        <button type="submit" class="am-btn am-btn-primary am-btn-sm"><i class="fa fa-check"></i> Save Training</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <div class="am-card">
             <div class="am-table-wrap">
-                <table class="am-table common_table" id="kt_table_agent">
+                <table class="am-table" id="amTrnTable">
                     <thead>
                         <tr>
-                            <th>Employee ID Number</th>
-                            <th>Surname</th>
-                            <th>First Name</th>
+                            <th style="width:60px;">#</th>
+                            <th>Employee</th>
                             <th>Start Date</th>
                             <th>Training Date</th>
-                            <th>Training Details</th>
-                            <th>Actions</th>
+                            <th>Details</th>
+                            <th>Certificate</th>
+                            <th style="text-align:right;">Actions</th>
                         </tr>
                     </thead>
                     <tbody>
                         @forelse ($emptraining as $item)
-                        <tr>
-                            <td>{{$item->empNumber}}</td>
-                            <td>{{$item->surname}}</td>
-                            <td>{{$item->first_name}}</td>
-                            <td>{{date('d/m/Y', strtotime($item->startDate))}}</td>
-                            <td>{{date('d/m/Y', strtotime($item->traningdate))}}</td>
-                            <td>{{$item->traningdetails}}</td>
-                            <td>
-                                <button onclick="getEidtraining({{json_encode($item)}});" class="am-btn am-btn-sm am-btn-warning" title="Edit"><i class="fa fa-edit"></i></button>
-                                <button class="am-btn am-btn-sm am-btn-danger" onclick="deleteempltraining({{$item->traning_id}})" title="Delete Employee"><i class="fa fa-trash"></i></button>
-                                <button class="am-btn am-btn-sm am-btn-info" title="View" data-toggle="modal" data-target="#training{{$item->traning_id}}"><i class="fa fa-eye"></i></button>
-
-                                {{-- View Training Modal --}}
-                                <div class="modal fade" id="training{{$item->traning_id}}" tabindex="-1" role="dialog" aria-labelledby="model3Label{{$item->traning_id}}" aria-hidden="true">
-                                    <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
-                                        <div class="modal-content">
-                                            <div class="modal-header" style="background:var(--am-primary);color:#fff;">
-                                                <h5 class="modal-title" id="model3Label{{$item->traning_id}}">Training Record Summary</h5>
-                                                <button type="button" class="close" style="color:#fff;" data-dismiss="modal" aria-label="Close">&times;</button>
-                                            </div>
-                                            <div class="modal-body">
-                                                <div class="form-row">
-                                                    <div class="form-col">
-                                                        <label>Employee ID:</label>
-                                                        <input type="text" class="form-control" name="surname" placeholder="Enter Employee ID" value="{{$item->empNumber}}" readonly>
-                                                    </div>
-                                                    <div class="form-col">
-                                                        <label>Training Date (DD/MM/YYYY):</label>
-                                                        <input type="text" class="form-control" name="first_name" placeholder="Enter First Name" value="{{$item->traningdate}}" readonly>
-                                                    </div>
-                                                </div>
-                                                <div class="form-row">
-                                                    <div class="form-col edit-emp-number-div" style="flex:1 1 100%;">
-                                                        <label>Training Details</label>
-                                                        <input type="text" name="empNumber" required class="form-control" data-type="edit" value="{{$item->traningdetails}}" readonly>
-                                                    </div>
-                                                </div>
-                                                @if ($item->attach_cert)
-                                                <div class="form-row">
-                                                    <div class="form-col edit-emp-number-div" style="flex:1 1 100%;">
-                                                        <label>Training Certificate</label><br>
-                                                        <a href="{{$item->attach_cert}}" target="_blank">Click to View</a>
-                                                    </div>
-                                                </div>
-                                                @endif
-                                                <div class="modal-footer" style="padding:1rem 0 0;">
-                                                    <button type="button" class="am-btn am-btn-secondary" data-dismiss="modal">Close</button>
-                                                </div>
-                                            </div>
-                                        </div>
+                            <tr data-search="{{ strtolower($item->empNumber . ' ' . $item->surname . ' ' . $item->first_name . ' ' . $item->traningdetails) }}">
+                                <td><span class="am-cell-sub">#{{ $item->empNumber }}</span></td>
+                                <td>
+                                    <span class="am-cell-primary">{{ $item->first_name }} {{ $item->surname }}</span>
+                                    <span class="am-cell-sub">EMP: {{ $item->empNumber }}</span>
+                                </td>
+                                <td>{{ date('d M Y', strtotime($item->startDate)) }}</td>
+                                <td><span class="am-chip info">{{ date('d M Y', strtotime($item->traningdate)) }}</span></td>
+                                <td>{{ $item->traningdetails }}</td>
+                                <td>
+                                    @if (!empty($item->attach_cert))
+                                        <a href="{{ $item->attach_cert }}" target="_blank" style="color:var(--am-primary);"><i class="fa fa-file"></i> View</a>
+                                    @else
+                                        <span class="am-cell-sub">—</span>
+                                    @endif
+                                </td>
+                                <td style="text-align:right;white-space:nowrap;">
+                                    <div class="am-actions">
+                                        <button type="button" class="am-icon-btn" title="Edit" onclick='amTrnEdit(@json($item))'><i class="fa fa-pen"></i></button>
+                                        <button type="button" class="am-icon-btn danger am-confirm-delete"
+                                                title="Delete"
+                                                data-action="{{ route('employess-delete') }}"
+                                                data-id="{{ $item->traning_id }}"
+                                                data-extra="type=employeetraining"
+                                                data-label="{{ $item->traningdetails }}"
+                                                data-type="Training Record">
+                                            <i class="fa fa-trash"></i>
+                                        </button>
                                     </div>
-                                </div>
-                            </td>
-                        </tr>
+                                </td>
+                            </tr>
                         @empty
+                            <tr><td colspan="7"><div class="am-empty"><i class="fa fa-graduation-cap"></i><p>No training records yet.</p></div></td></tr>
                         @endforelse
-
-                        {{-- WordPress LMS Training Records --}}
+                        {{-- WordPress LMS training records --}}
                         @foreach ($wp_users as $wpuser)
-                        @foreach($wpuser as $user)
-                        @php
-                            $uid= '"user_id";i:'.$user->ID.';';
-                            $options = App\CertificateOption::where('option_name', 'LIKE', "%user_cert_%")->Where('option_value', 'LIKE', "%".$uid."%")->get();
-                            $finshedcourses = App\CertificateUserItems::Where('user_id', $user->ID)->where('status','finished')->get();
-
-                            if(count($finshedcourses)>0)
-                            {
-                                foreach ($finshedcourses as $key => $finshedcourse) {
-                                    $courses = App\CertificateCourse::where('ID',$finshedcourse->item_id)->get();
-                                    foreach ($courses as $key => $course) {
-                                        $usercourses[]= $course->post_title;
-                                        $postDate[]=$course->post_date;
+                            @foreach($wpuser as $user)
+                                @php
+                                    $uid = '"user_id";i:'.$user->ID.';';
+                                    $options = App\CertificateOption::where('option_name', 'LIKE', "%user_cert_%")->Where('option_value', 'LIKE', "%".$uid."%")->get();
+                                    $usercourses = [];
+                                    $startdate = null;
+                                    $endate = null;
+                                    if (class_exists(App\CertificateUserItems::class)) {
+                                        $finshedcourses = App\CertificateUserItems::Where('user_id', $user->ID)->where('status','finished')->get();
+                                        if(count($finshedcourses)>0) {
+                                            foreach ($finshedcourses as $finshedcourse) {
+                                                $courses = App\CertificateCourse::where('ID',$finshedcourse->item_id)->get();
+                                                foreach ($courses as $course) {
+                                                    $usercourses[] = $course->post_title;
+                                                }
+                                                $startdate = $finshedcourse->start_time;
+                                                $endate = $finshedcourse->end_time;
+                                            }
+                                            $laravel_employee_detail = App\Employee::where('email', $user->user_email)->first();
+                                        }
                                     }
-                                    $startdate=$finshedcourse->start_time;
-                                    $endate=$finshedcourse->end_time;
-                                }
-                                $laravel_employee_detail = App\Employee::where('email', $user->user_email)->first();
-                        @endphp
-                        @if(!empty($usercourses) && count($usercourses) > 0)
-                        @foreach($usercourses as $key => $usercourse)
-                        <tr>
-                            <td>{{$laravel_employee_detail->empNumber}}</td>
-                            <td>{{$laravel_employee_detail->surname}}</td>
-                            <td>{{$laravel_employee_detail->first_name}}</td>
-                            <td>{{$startdate}}</td>
-                            <td>{{$endate}}</td>
-                            <td><li>{{ $usercourse}}</li></td>
-                            <td></td>
-                        </tr>
-                        @endforeach
-                        @endif
-                        @php } @endphp
-                        @endforeach
+                                @endphp
+                                @if(!empty($usercourses))
+                                    @foreach($usercourses as $usercourse)
+                                        @if(isset($laravel_employee_detail) && $laravel_employee_detail)
+                                            <tr>
+                                                <td><span class="am-cell-sub">#{{ $laravel_employee_detail->empNumber }}</span></td>
+                                                <td>{{ $laravel_employee_detail->first_name }} {{ $laravel_employee_detail->surname }}</td>
+                                                <td>{{ $startdate }}</td>
+                                                <td><span class="am-chip success">LMS</span> {{ $endate }}</td>
+                                                <td>{{ $usercourse }}</td>
+                                                <td>—</td>
+                                                <td></td>
+                                            </tr>
+                                        @endif
+                                    @endforeach
+                                @endif
+                            @endforeach
                         @endforeach
                     </tbody>
                 </table>
             </div>
-        </div>
-    </div>
-
-</div>
-
-{{-- Delete Employee Modal --}}
-<div class="modal fade" id="deleteSupplier" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered" role="document">
-        <div class="modal-content">
-            <div class="modal-header" style="background:var(--am-primary);color:#fff;">
-                <h5 class="modal-title" id="modallabel">Deleting Employee</h5>
-                <button type="button" class="close" style="color:#fff;" data-dismiss="modal" aria-label="Close">&times;</button>
-            </div>
-            <div class="modal-body">
-                <p>Are you sure you want to delete this entry?</p>
-            </div>
-            <div class="modal-footer">
-                <form action="{{route('employess-delete')}}" method="POST">
-                @csrf
-                <input type="hidden" value="" name="id" id="res_id"/>
-                <input type="hidden" name="type" value="" id="type"/>
-                <button type="button" class="am-btn am-btn-secondary" data-dismiss="modal">No</button>
-                <button type="submit" class="am-btn am-btn-danger">Yes</button>
-                </form>
-            </div>
+            <div class="am-pagination" id="amTrnPagination"></div>
         </div>
     </div>
 </div>
 
-{{-- Edit Employee Modal --}}
-<div class="modal fade" id="editepmloyee" tabindex="-1" role="dialog" aria-labelledby="editEmpLabel" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
-        <div class="modal-content">
-            <div class="modal-header" style="background:var(--am-primary);color:#fff;">
-                <h5 class="modal-title" id="editEmpLabel">Edit Employee</h5>
-                <button type="button" class="close" style="color:#fff;" data-dismiss="modal" aria-label="Close">&times;</button>
+{{-- View Employee modal --}}
+<div class="am-modal" id="viewEmpModal" role="dialog" aria-modal="true">
+    <div class="am-modal__box" style="max-width:720px;">
+        <div class="am-modal__header">
+            <span class="am-modal__icon" style="background:var(--am-primary-tint);color:var(--am-primary);"><i class="fa fa-eye"></i></span>
+            <h4 class="am-modal__title">Employee Details</h4>
+        </div>
+        <div class="am-modal__body">
+            <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:14px;font-size:13px;">
+                <div><div style="font-size:11px;text-transform:uppercase;letter-spacing:0.4px;color:var(--am-text-muted);font-weight:600;margin-bottom:4px;">Surname</div><div id="vemp-surname">—</div></div>
+                <div><div style="font-size:11px;text-transform:uppercase;letter-spacing:0.4px;color:var(--am-text-muted);font-weight:600;margin-bottom:4px;">First Name</div><div id="vemp-first">—</div></div>
+                <div><div style="font-size:11px;text-transform:uppercase;letter-spacing:0.4px;color:var(--am-text-muted);font-weight:600;margin-bottom:4px;">Employee ID</div><div id="vemp-num">—</div></div>
+                <div><div style="font-size:11px;text-transform:uppercase;letter-spacing:0.4px;color:var(--am-text-muted);font-weight:600;margin-bottom:4px;">Email</div><div id="vemp-email">—</div></div>
+                <div><div style="font-size:11px;text-transform:uppercase;letter-spacing:0.4px;color:var(--am-text-muted);font-weight:600;margin-bottom:4px;">Start Date</div><div id="vemp-start">—</div></div>
+                <div style="grid-column:1/-1;"><div style="font-size:11px;text-transform:uppercase;letter-spacing:0.4px;color:var(--am-text-muted);font-weight:600;margin-bottom:4px;">Job Description</div><div id="vemp-job">—</div></div>
             </div>
-            <form method="POST" action=" {{ route('editemployee') }} " enctype="multipart/form-data">
+        </div>
+        <div class="am-modal__footer"><button type="button" class="am-btn am-btn-outline am-modal-close">Close</button></div>
+    </div>
+</div>
+
+{{-- Edit Employee modal --}}
+<div class="am-modal" id="editepmloyee" role="dialog" aria-modal="true">
+    <div class="am-modal__box am-form" style="max-width:820px;">
+        <div class="am-modal__header">
+            <span class="am-modal__icon" style="background:var(--am-primary-tint);color:var(--am-primary);"><i class="fa fa-pen"></i></span>
+            <h4 class="am-modal__title">Edit Employee</h4>
+        </div>
+        <form method="POST" action="{{ route('editemployee') }}" enctype="multipart/form-data" style="display:contents;">
+            @csrf
+            <input type="hidden" name="id" id="editproject">
+            <div class="am-modal__body" style="padding:20px;">
+                <div class="form-group row">
+                    <div class="col-lg-6"><label>Surname</label><input type="text" class="form-control" name="surname"></div>
+                    <div class="col-lg-6"><label>First Name</label><input type="text" class="form-control" name="first_name"></div>
+                </div>
+                <div class="form-group row">
+                    <div class="col-lg-6 edit-emp-number-div"><label>Employee ID</label><input type="text" class="form-control" name="empNumber" data-type="edit" required></div>
+                    <div class="col-lg-6"><label>Start Date</label><input name="startDate" max="2999-12-31" type="date" class="form-control"></div>
+                </div>
+                <div class="form-group row">
+                    <div class="col-lg-12"><label>Job Description</label><textarea class="form-control" name="jobdetails" id="jobdetails2" rows="4"></textarea></div>
+                </div>
+                <div class="form-group row">
+                    <div class="col-lg-12"><label>Upload CV</label><input name="employee_cv" type="file" class="form-control" accept="image/*,.doc,.docx,.txt,.pdf"></div>
+                </div>
+            </div>
+            <div class="am-modal__footer">
+                <button type="button" class="am-btn am-btn-outline am-modal-close">Cancel</button>
+                <button type="submit" class="am-btn am-btn-primary"><i class="fa fa-check"></i> Update</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+{{-- Edit Skill modal --}}
+<div class="am-modal" id="editepmloyeeskills" role="dialog" aria-modal="true">
+    <div class="am-modal__box am-form" style="max-width:600px;">
+        <div class="am-modal__header">
+            <span class="am-modal__icon" style="background:var(--am-primary-tint);color:var(--am-primary);"><i class="fa fa-pen"></i></span>
+            <h4 class="am-modal__title">Edit Skill</h4>
+        </div>
+        <form method="POST" action="{{ route('update-employes-skill') }}" style="display:contents;">
+            @csrf
+            <div class="am-modal__body" style="padding:20px;">
+                <div class="form-group row">
+                    <div class="col-lg-6"><label>Employee ID</label><input readonly name="editempid" type="number" class="form-control">
+                        <input type="hidden" name="employskillid" value=""></div>
+                    <div class="col-lg-6"><label>Skill</label><input type="text" name="editempskill" class="form-control"></div>
+                </div>
+            </div>
+            <div class="am-modal__footer">
+                <button type="button" class="am-btn am-btn-outline am-modal-close">Cancel</button>
+                <button type="submit" class="am-btn am-btn-primary"><i class="fa fa-check"></i> Update</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+{{-- Edit Training modal --}}
+<div class="am-modal" id="editepmloyeetraining" role="dialog" aria-modal="true">
+    <div class="am-modal__box am-form" style="max-width:720px;">
+        <div class="am-modal__header">
+            <span class="am-modal__icon" style="background:var(--am-primary-tint);color:var(--am-primary);"><i class="fa fa-pen"></i></span>
+            <h4 class="am-modal__title">Edit Training</h4>
+        </div>
+        <form method="POST" action="{{ route('update-employes-training') }}" style="display:contents;">
+            @csrf
+            <div class="am-modal__body" style="padding:20px;">
+                <div class="form-group row">
+                    <div class="col-lg-6"><label>Employee ID</label>
+                        <input type="hidden" name="edittrainid">
+                        <input type="number" readonly class="form-control" name="editempidt">
+                    </div>
+                    <div class="col-lg-6"><label>Training Date</label><input type="date" max="2999-12-31" class="form-control" name="edittraningdate"></div>
+                </div>
+                <div class="form-group row">
+                    <div class="col-lg-12"><label>Training Details</label><input type="text" class="form-control" name="edittraningdetails"></div>
+                </div>
+            </div>
+            <div class="am-modal__footer">
+                <button type="button" class="am-btn am-btn-outline am-modal-close">Cancel</button>
+                <button type="submit" class="am-btn am-btn-primary"><i class="fa fa-check"></i> Update</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+{{-- CV modal --}}
+<div class="am-modal" id="cvModal" role="dialog" aria-modal="true">
+    <div class="am-modal__box" style="max-width:900px;">
+        <div class="am-modal__header">
+            <span class="am-modal__icon" style="background:var(--am-primary-tint);color:var(--am-primary);"><i class="fa fa-file-pdf"></i></span>
+            <h4 class="am-modal__title">View CV</h4>
+        </div>
+        <div class="am-modal__body" style="padding:0;">
+            <iframe id="cvIframe" style="width:100%;height:600px;border:none;"></iframe>
+        </div>
+        <div class="am-modal__footer">
+            <a id="downloadLink" href="#" download class="am-btn am-btn-outline"><i class="fa fa-download"></i> Download</a>
+            <button type="button" class="am-btn am-btn-primary am-modal-close">Close</button>
+        </div>
+    </div>
+</div>
+
+{{-- Delete Confirmation Modal --}}
+<div class="am-modal" id="amConfirmDelete" role="dialog" aria-modal="true">
+    <div class="am-modal__box">
+        <div class="am-modal__header">
+            <span class="am-modal__icon"><i class="fa fa-exclamation-triangle"></i></span>
+            <h4 class="am-modal__title">Delete <span id="amConfirmType">Item</span>?</h4>
+        </div>
+        <div class="am-modal__body">
+            You are about to permanently delete <strong id="amConfirmLabel">this item</strong>. This action cannot be undone.
+        </div>
+        <div class="am-modal__footer">
+            <button type="button" class="am-btn am-btn-outline am-modal-close">Cancel</button>
+            <form id="amConfirmForm" method="POST" style="display:inline;">
                 @csrf
-                <div class="modal-body">
-                    <input type="hidden" name="id" id="editproject" value="">
-                    <div class="form-row">
-                        <div class="form-col" style="flex:1 1 100%;">
-                            <label>Surname:</label>
-                            <input type="text" class="form-control" name="surname" placeholder="Enter Surname">
-                        </div>
-                    </div>
-                    <div class="form-row">
-                        <div class="form-col">
-                            <label>First Name:</label>
-                            <input type="text" class="form-control" name="first_name" placeholder="Enter First Name">
-                        </div>
-                        <div class="form-col edit-emp-number-div">
-                            <label>Employee ID:</label>
-                            <input type="text" name="empNumber" required class="form-control" data-type="edit">
-                        </div>
-                    </div>
-                    <div class="form-row">
-                        <div class="form-col">
-                            <label>Start Date (YYYY/MM/DD):</label>
-                            <input name="startDate" max="2999-12-31" type="date" class="form-control">
-                        </div>
-                        <div class="form-col">
-                            <label>Job Description:</label>
-                            <textarea name="jobdetails" id="jobdetails2" cols="20" rows="5" class="form-control" placeholder="Enter Job Description:"></textarea>
-                        </div>
-                    </div>
-                    <div class="form-row">
-                        <div class="form-col">
-                            <label>Upload Employee CV:</label>
-                            <input name="employee_cv" type="file" class="form-control" accept="image/*,.doc, .docx,.txt,.pdf">
-                        </div>
-                    </div>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="am-btn am-btn-secondary" data-dismiss="modal">Cancel</button>
-                    <button type="submit" class="am-btn am-btn-primary">Update</button>
-                </div>
+                <input type="hidden" name="id" id="amConfirmId">
+                <input type="hidden" name="type" id="amConfirmTypeField">
+                <button type="submit" class="am-btn" style="background:var(--am-danger);color:#fff;">
+                    <i class="fa fa-trash"></i> Yes, delete
+                </button>
             </form>
         </div>
     </div>
 </div>
 
-{{-- Edit Employee Skills Modal --}}
-<div class="modal fade" id="editepmloyeeskills" tabindex="-1" role="dialog" aria-labelledby="editEmpSkillLabel" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
-        <div class="modal-content">
-            <div class="modal-header" style="background:var(--am-primary);color:#fff;">
-                <h5 class="modal-title" id="editEmpSkillLabel">Edit Employee Skill</h5>
-                <button type="button" class="close" style="color:#fff;" data-dismiss="modal" aria-label="Close">&times;</button>
-            </div>
-            <form method="POST" action="{{route('update-employes-skill')}}">
-                @csrf
-                <div class="modal-body">
-                    <div class="form-row">
-                        <div class="form-col">
-                            <label>Employee ID Number:</label>
-                            <input name="editempid" readonly type="number" class="form-control">
-                            <input type="hidden" required placeholder="Enter Employee ID Number" name="employskillid" value=""/>
-                        </div>
-                        <div class="form-col">
-                            <label>Skill:</label>
-                            <input type="text" name="editempskill" required class="form-control" placeholder="Enter Skills Name:">
-                        </div>
-                    </div>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="am-btn am-btn-secondary" data-dismiss="modal">Cancel</button>
-                    <button type="submit" class="am-btn am-btn-primary">Update</button>
-                </div>
-            </form>
-        </div>
-    </div>
-</div>
-
-{{-- Edit Employee Training Modal --}}
-<div class="modal fade" id="editepmloyeetraining" tabindex="-1" role="dialog" aria-labelledby="editEmpTrainLabel" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
-        <div class="modal-content">
-            <div class="modal-header" style="background:var(--am-primary);color:#fff;">
-                <h5 class="modal-title" id="editEmpTrainLabel">Edit Employee Training</h5>
-                <button type="button" class="close" style="color:#fff;" data-dismiss="modal" aria-label="Close">&times;</button>
-            </div>
-            <form method="POST" action="{{route('update-employes-training')}}">
-                @csrf
-                <div class="modal-body">
-                    <div class="form-row">
-                        <div class="form-col">
-                            <label>Employee ID:</label>
-                            <input type="hidden" name="edittrainid"/>
-                            <input type="number" readonly class="form-control" name="editempidt">
-                        </div>
-                        <div class="form-col">
-                            <label>Training Date (YYYY/MM/DD):</label>
-                            <input type="date" max="2999-12-31" class="form-control" name="edittraningdate">
-                        </div>
-                    </div>
-                    <div class="form-row">
-                        <div class="form-col" style="flex:1 1 100%;">
-                            <label>Training Details:</label>
-                            <input type="text" class="form-control" name="edittraningdetails">
-                        </div>
-                    </div>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="am-btn am-btn-secondary" data-dismiss="modal">Cancel</button>
-                    <button type="submit" class="am-btn am-btn-primary">Update</button>
-                </div>
-            </form>
-        </div>
-    </div>
-</div>
-
-@endsection
-
-@section('myscript')
 <script>
-    //User for checking emp number for current logged in user , if exist or not by assad yaqoob
-    let userId = "{{\Illuminate\Support\Facades\Auth::id()}}";
-    let type = '';
-    let ajaxCall = null;
-    $('input[name="empNumber"]').blur(function(){
-        let empNumber = $(this).val();
-        type = $(this).data('type');
-        let empId = type == 'edit' ? $('#editproject').val() : '';
-
-        let data = {
-            empNumber : empNumber,
-            type : type,
-            userId	: userId,
-            _token : "{{csrf_token()}}",
-            empId : empId
-        }
-        console.log(data);
-        if(ajaxCall != null){
-            ajaxCall.abort();
-        }
-        ajaxCall = $.ajax({
-            method:'get',
-            url:'{{url("/check-emp-number")}}',
-            data:data,
-            success:function(response)
-            {
-                $("#emp_err_msg").remove();
-                if(response.status == 0){
-                    let cls = `.${type}-emp-number-div`;
-                    $(cls).append(`<p id="emp_err_msg" class="text-danger">${response.message}</p>`)
-                    $('input[name="empNumber"]').val('');
-                }
-            }
-        })
+// Tabs
+document.querySelectorAll('.am-tab').forEach(function(btn){
+    btn.addEventListener('click', function(){
+        document.querySelectorAll('.am-tab').forEach(function(b){ b.classList.remove('active'); });
+        document.querySelectorAll('.am-tab-panel').forEach(function(p){ p.classList.remove('active'); });
+        btn.classList.add('active');
+        document.querySelector('[data-panel="'+btn.getAttribute('data-tab')+'"]').classList.add('active');
     });
+});
 
-    function delay(callback, ms) {
-        var timer = 0;
-        return function() {
-            var context = this, args = arguments;
-            clearTimeout(timer);
-            timer = setTimeout(function () {
-                callback.apply(context, args);
-            }, ms || 0);
-        };
+// Toggle forms
+[['toggleEmpForm','newEmpForm','cancelEmpForm'],['toggleSklForm','newSklForm','cancelSklForm'],['toggleTrnForm','newTrnForm','cancelTrnForm']].forEach(function(ids){
+    var t=document.getElementById(ids[0]),f=document.getElementById(ids[1]),c=document.getElementById(ids[2]);
+    t&&t.addEventListener('click',function(){f.classList.toggle('open');});
+    c&&c.addEventListener('click',function(){f.classList.remove('open');});
+});
+
+// Modal close handlers
+document.addEventListener('click', function(e) {
+    var close = e.target.closest('.am-modal-close');
+    if (close) { var m = close.closest('.am-modal'); if (m) m.classList.remove('open'); return; }
+    if (e.target.classList && e.target.classList.contains('am-modal')) e.target.classList.remove('open');
+});
+document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape') document.querySelectorAll('.am-modal.open').forEach(function(m){ m.classList.remove('open'); });
+});
+
+// Delete confirm
+document.addEventListener('click', function(e) {
+    var btn = e.target.closest('.am-confirm-delete');
+    if (!btn) return;
+    e.preventDefault();
+    var form = document.getElementById('amConfirmForm');
+    form.setAttribute('action', btn.getAttribute('data-action') || '');
+    document.getElementById('amConfirmId').value = btn.getAttribute('data-id') || '';
+    document.getElementById('amConfirmType').textContent = btn.getAttribute('data-type') || 'Item';
+    document.getElementById('amConfirmLabel').textContent = btn.getAttribute('data-label') || 'this item';
+    var extra = btn.getAttribute('data-extra') || '';
+    var typeField = document.getElementById('amConfirmTypeField');
+    typeField.value = '';
+    if (extra) {
+        extra.split('&').forEach(function(kv){
+            var p = kv.split('=');
+            if (p.length === 2 && p[0] === 'type') typeField.value = p[1];
+        });
     }
+    document.getElementById('amConfirmDelete').classList.add('open');
+});
 
-    function employeeCV(){
-        $(".employee_cv_from_div").css("display","block")
+// Client-side search + pagination for Skills / Training tabs (no server route)
+function debounce(fn,w){var t;return function(){var c=this,a=arguments;clearTimeout(t);t=setTimeout(function(){fn.apply(c,a);},w);};}
+function setupClientTable(searchId, tableId, pagId){
+    var per=10, input=document.getElementById(searchId), tb=document.querySelector('#'+tableId+' tbody'), p=document.getElementById(pagId);
+    if(!tb) return;
+    var rows=Array.prototype.slice.call(tb.querySelectorAll('tr[data-search]')),F=rows.slice(),pg=1;
+    function r(){var T=F.length,TP=Math.max(1,Math.ceil(T/per));if(pg>TP)pg=TP;rows.forEach(function(x){x.style.display='none';});F.slice((pg-1)*per,pg*per).forEach(function(x){x.style.display='';});var fr=T===0?0:(pg-1)*per+1,to=Math.min(pg*per,T);var h='<div class="am-pagination__info">Showing <strong>'+fr+'–'+to+'</strong> of <strong>'+T+'</strong></div><div class="am-pagination__nav">';h+='<button data-p="'+(pg-1)+'" '+(pg<=1?'disabled':'')+'>‹</button>';var s=Math.max(1,pg-2),e=Math.min(TP,s+4);s=Math.max(1,e-4);for(var q=s;q<=e;q++)h+='<button data-p="'+q+'" '+(q===pg?'class="active"':'')+'>'+q+'</button>';h+='<button data-p="'+(pg+1)+'" '+(pg>=TP?'disabled':'')+'>›</button></div>';p.innerHTML=h;}
+    input&&input.addEventListener('input',debounce(function(){var q=this.value.trim().toLowerCase();F=q===''?rows.slice():rows.filter(function(x){return x.getAttribute('data-search').indexOf(q)!==-1;});pg=1;r();},250));
+    p&&p.addEventListener('click',function(e){var b=e.target.closest('button[data-p]');if(!b||b.disabled)return;var q=parseInt(b.getAttribute('data-p'),10);if(!isNaN(q)&&q>=1){pg=q;r();}});
+    r();
+}
+setupClientTable('amSklSearch','amSklTable','amSklPagination');
+setupClientTable('amTrnSearch','amTrnTable','amTrnPagination');
+
+// Server-side AJAX for Employees tab
+(function() {
+    var input     = document.getElementById('amEmpSearch');
+    var form      = document.getElementById('amEmpSearchForm');
+    var container = document.getElementById('amEmpContainer');
+    if (!container) return;
+    var baseUrl = '{{ url('/employess') }}';
+    function showLoading() { container.style.opacity = '0.5'; container.style.pointerEvents = 'none'; }
+    function hideLoading() { container.style.opacity = ''; container.style.pointerEvents = ''; }
+    function fetchPage(page) {
+        var q = input ? input.value.trim() : '';
+        var url = baseUrl + '?q=' + encodeURIComponent(q) + '&page=' + page;
+        showLoading();
+        fetch(url, { headers: { 'X-Requested-With': 'XMLHttpRequest' } })
+            .then(function(r){ return r.text(); })
+            .then(function(html) { container.innerHTML = html; hideLoading(); })
+            .catch(function() { hideLoading(); });
     }
-     function editEmployee(data){
-        alert("data");
-     }
+    input && input.addEventListener('input', debounce(function() { fetchPage(1); }, 350));
+    form  && form.addEventListener('submit', function(e) { e.preventDefault(); fetchPage(1); });
+    container.addEventListener('click', function(e) {
+        var btn = e.target.closest('.am-page-link');
+        if (!btn || btn.disabled) return;
+        e.preventDefault();
+        var p = parseInt(btn.getAttribute('data-page'), 10);
+        if (!isNaN(p) && p > 0) fetchPage(p);
+    });
+})();
 
-     function deleteempl(id)
-     {
-         $("#modallabel").html("Deleting Employee");
-         $("#res_id").val(id);
-         $("#type").val('employee');
-         $("#deleteSupplier").modal('show');
-     }
+// View handlers
+function amEmpView(d) {
+    document.getElementById('vemp-surname').textContent = d.surname || '—';
+    document.getElementById('vemp-first').textContent = d.first_name || '—';
+    document.getElementById('vemp-num').textContent = d.empNumber || '—';
+    document.getElementById('vemp-email').textContent = d.email || '—';
+    document.getElementById('vemp-start').textContent = d.startDate ? new Date(d.startDate).toLocaleDateString() : '—';
+    document.getElementById('vemp-job').textContent = d.jobdetails || '—';
+    document.getElementById('viewEmpModal').classList.add('open');
+}
+function amEmpEdit(d) {
+    document.getElementById('editproject').value = d.id || '';
+    var m = document.getElementById('editepmloyee');
+    ['empNumber','first_name','startDate','surname'].forEach(function(k){
+        var el = m.querySelector("input[name='"+k+"']");
+        if (el) el.value = d[k] || '';
+    });
+    document.getElementById('jobdetails2').value = d.jobdetails || '';
+    m.classList.add('open');
+}
+function amSklEdit(d) {
+    var m = document.getElementById('editepmloyeeskills');
+    m.querySelector("input[name='editempid']").value = d.empNumber || '';
+    m.querySelector("input[name='editempskill']").value = d.empskill || '';
+    m.querySelector("input[name='employskillid']").value = d.skill_id || '';
+    m.classList.add('open');
+}
+function amTrnEdit(d) {
+    var m = document.getElementById('editepmloyeetraining');
+    m.querySelector("input[name='editempidt']").value = d.empNumber || '';
+    m.querySelector("input[name='edittraningdate']").value = d.traningdate || '';
+    m.querySelector("input[name='edittraningdetails']").value = d.traningdetails || '';
+    m.querySelector("input[name='edittrainid']").value = d.traning_id || '';
+    m.classList.add('open');
+}
 
-     function deleteemplskill(id)
-     {
-         $("#modallabel").html("Deleting Employee Skill");
-         $("#res_id").val(id);
-         $("#type").val('employeeskill');
-         $("#deleteSupplier").modal('show');
-     }
-     function deleteempltraining(id)
-     {
-         $("#modallabel").html("Deleting Employee Training");
-         $("#res_id").val(id);
-         $("#type").val('employeetraining');
-         $("#deleteSupplier").modal('show');
-     }
+// CV viewer
+function viewCV(cvUrl){
+    document.getElementById('cvIframe').src = cvUrl;
+    document.getElementById('downloadLink').href = cvUrl;
+    document.getElementById('cvModal').classList.add('open');
+}
 </script>
-<script>
-    function getEid(data){
-        console.log(data);
-         $("#editproject").val(data.id);
-         $("input[name='empNumber']").val(data.empNumber);
-         $("input[name='first_name']").val(data.first_name);
-         $("#jobdetails2").val(data.jobdetails);
-         $("input[name='startDate']").val(data.startDate);
-         $("input[name='surname']").val(data.surname);
-         $("input[name='systemid']").val(data.systemid);
-         $("input[name='equipment']").val(data.equipment);
-         $("input[name='certificatenumber']").val(data.certificatenumber);
-         $("input[name='calibrationid']").val(data.calibrationid);
-         $("input[name='calibratedDate']").val(data.calibratedDate);
-         $("input[name='acceptance']").val(data.acceptance);
-         $("#editepmloyee").modal('show');
-     }
-
-     function getEidskill(data)
-     {
-         console.log(data);
-         $("input[name='editempid']").val(parseInt(data.empNumber));
-         $("input[name='editempskill']").val(data.empskill);
-         $("input[name='employskillid']").val(data.skill_id);
-         $("#editepmloyeeskills").modal('show');
-     }
-
-     function getEidtraining(data)
-     {
-         $("input[name='editempidt']").val(data.empNumber);
-         $("input[name='edittraningdate']").val(data.traningdate);
-         $("input[name='edittraningdetails']").val(data.traningdetails);
-         $("input[name='edittrainid']").val(data.traning_id);
-         $("#editepmloyeetraining").modal('show');
-     }
-
- function emp1(){
-                if($(".employee_from_div").css("display")==="block"){
-                    $(".employee_from_div").css("display","none");
-                }
-                else{
-                    $(".employee_from_div").css("display","block");
-                }
-            }
-function emp2(){
-    alert(123);
-    if($(".employee_skill_from_div").css("display")==="block"){
-        $(".employee_skill_from_div").css("display","none");
-    }
-    else{
-        $(".employee_skill_from_div").css("display","block");
-    }
-}
-function emp3(){
-    if($(".employee_record_from_div").css("display")==="block"){
-        $(".employee_record_from_div").css("display","none");
-    }
-    else{
-        $(".employee_record_from_div").css("display","block");
-    }
-}
-</script>
-
-@include('admin.dashboard.includes.foot')
-        <script>
-$('#kt_table_agent2').DataTable(
-    {
-  "ordering": false
-}
-    );
-</script>
-<style>
-    div#kt_table_agent2_filter {
-    float: right;
-}
-.skill{
-    display:none;
-}
-.record{
-    display:none;
-}
-[type="search"] {
-    padding-top: 5px;
-    padding-bottom: 5px;
-    border-radius: 5px;
-}
-label {
-    color: black !important;
-    display: flex;
-    align-items: center;
-    gap: 10px;
-}
-</style>
-
 @endsection

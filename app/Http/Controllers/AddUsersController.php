@@ -608,22 +608,40 @@ public function store(Request $request)
         return view('admin.dashboard.admin.edit_user',compact('userid'));
 
     }
-    public function requirementcheck($request)
+    public function requirementcheck(Request $request, $userid)
     {
-        $getReq=requirement::where('user_id',$request)->orderBy('id','DESC')->get();
+        $search = trim($request->query('q', ''));
+        $query  = requirement::where('user_id', $userid)->orderBy('id', 'DESC');
+        if ($search !== '') {
+            $query->where('requirment_title', 'like', "%{$search}%");
+        }
+        $getReq = $query->paginate(10)->withQueryString();
 
+        if ($request->ajax()) {
+            return view('admin.adminform_records.partials.requirements_table', compact('getReq'));
+        }
 
-        return view('admin.adminform_records.requirements_aspect',compact('getReq'));
-
+        return view('admin.adminform_records.requirements_aspect', compact('getReq', 'search'));
     }
 
-    public function ProcessCheck($request)
+    public function ProcessCheck(Request $request, $userid)
     {
-        $userid=Auth::user()->id;
-        $getprocess=Audit::where('user_id',$request)->orderBy('id','DESC')->get();
+        $search = trim($request->query('q', ''));
+        $query = Audit::where('user_id', $userid)->orderBy('id', 'DESC');
+        if ($search !== '') {
+            $query->where(function($q) use ($search) {
+                $q->where('processAudit', 'like', "%{$search}%")
+                  ->orWhere('auditor', 'like', "%{$search}%");
+            });
+        }
+        $getprocess = $query->paginate(10)->withQueryString();
         $workInstructionsData = Workinstructions::where('user_id', $userid)->get();
-        return view('admin.adminform_records.process_audit',compact('getprocess', 'workInstructionsData'));
 
+        if ($request->ajax()) {
+            return view('admin.adminform_records.partials.process_audit_table', compact('getprocess'));
+        }
+
+        return view('admin.adminform_records.process_audit', compact('getprocess', 'workInstructionsData', 'search'));
     }
     /*Delete notifications*/
     public function deleteNotifications(Request $request)
@@ -885,63 +903,143 @@ public function store(Request $request)
         }
     }
 
-    public function AuditsCheck($request){
-        $auditreport=Qmsaudit::where('user_id',$request)->orderBy('id','DESC')->get();
-        return view('admin.adminform_records.qms_audit',compact('auditreport'));
+    public function AuditsCheck(Request $request, $userid){
+        $search = trim($request->query('q', ''));
+        $query = Qmsaudit::where('user_id',$userid)->orderBy('id','DESC');
+        if ($search !== '') {
+            $query->where(function($q) use ($search){
+                $q->where('auditrName','like',"%{$search}%")
+                  ->orWhere('audit_comments_actions','like',"%{$search}%")
+                  ->orWhere('any_issues','like',"%{$search}%");
+            });
+        }
+        $auditreport = $query->paginate(10)->withQueryString();
+        if ($request->ajax()) {
+            return view('admin.adminform_records.partials.qms_audit_table', compact('auditreport'));
+        }
+        return view('admin.adminform_records.qms_audit',compact('auditreport','search'));
     }
 
     public function nonConformCheck(Request $request, $id)
     {
-        // $noneConform=Nonconform::where('user_id',$request)->get();
-        // return view('admin.adminform_records.non_conformities',compact('noneConform'));
-        // dd($id);
-
+        $search = trim($request->query('q', ''));
         $noneConform=Nonconform::where('user_id',$id)->get();
         $customers = DB::table('tbl_suppliers')->where('user_id',$id)->get();
         $employees= DB::table('tbl_employees')->where('user_id',$id)->get();
 
-        // dd($customers);
-
-        // $customers_nonconform = DB::table('tbl_noconformance')->join('tbl_customer','tbl_noconformance.customerID','tbl_customer.idNumber')
-        // ->select('tbl_noconformance.id as noid','tbl_noconformance.*','tbl_customer.*')
-        // ->where('tbl_noconformance.user_id',$id)->where('tbl_customer.user_id',$id)->orderBy('tbl_noconformance.id','DESC')->get();
-
-        $customers_nonconform = DB::table('tbl_noconformance')->join('tbl_suppliers','tbl_noconformance.customerID','tbl_suppliers.idnumber')
+        $q = DB::table('tbl_noconformance')->join('tbl_suppliers','tbl_noconformance.customerID','tbl_suppliers.idnumber')
         ->select('tbl_noconformance.id as noid','tbl_noconformance.*','tbl_suppliers.*')
-        ->where('tbl_noconformance.user_id',$id)->where('tbl_suppliers.user_id',$id)->orderBy('tbl_noconformance.id','DESC')->get();
+        ->where('tbl_noconformance.user_id',$id)->where('tbl_suppliers.user_id',$id);
+        if ($search !== '') {
+            $q->where(function($w) use ($search){
+                $w->where('tbl_noconformance.description','like',"%{$search}%")
+                  ->orWhere('tbl_noconformance.supplier_data','like',"%{$search}%")
+                  ->orWhere('tbl_noconformance.employee_name','like',"%{$search}%")
+                  ->orWhere('tbl_noconformance.non_confirm_status','like',"%{$search}%");
+            });
+        }
+        $customers_nonconform = $q->orderBy('tbl_noconformance.id','DESC')->paginate(10)->withQueryString();
 
-        // dd($customers_nonconform);
-        return view('admin.adminform_records.non_conformities',compact('noneConform','customers','customers_nonconform','employees'));
-
-    }
-
-    public function customerCheck($request){
-        $customer=customers::where('user_id',$request)->orderBy('id','DESC')->get();
-        return view('admin.adminform_records.customer',compact('customer'));
-
-    }
-
-    public function customerReviewad($request){
-        $all_customers=customers::where('user_id',$request)->get();
-        $customer_review=customer_review::where('user_id',$request)->orderBy('id','DESC')->get();
-
-        return view('admin.adminform_records.customer_review',compact('customer_review','request','all_customers'));
-
-    }
-    public function supplierCheck($request){
-        $supplier=Supplier::where('user_id',$request)->orderBy('id','DESC')->get();
-        return view('admin.adminform_records.supplier',compact('supplier'));
-
-    }
-    public function calibrationcheck($request){
-        $caliber=calibration::where('user_id',$request)->orderBy('id','DESC')->get();
-        return view('admin.adminform_records.calibration_record',compact('caliber'));
+        if ($request->ajax()) {
+            return view('admin.adminform_records.partials.non_conformities_table', compact('customers_nonconform'));
+        }
+        return view('admin.adminform_records.non_conformities',compact('noneConform','customers','customers_nonconform','employees','search'));
 
     }
 
-    public function EmployeCheck($request)
+    public function customerCheck(Request $request, $userid){
+        $search = trim($request->query('q', ''));
+        $query = customers::where('user_id',$userid)->orderBy('id','DESC');
+        if ($search !== '') {
+            $query->where(function($q) use ($search){
+                $q->where('name','like',"%{$search}%")
+                  ->orWhere('Email','like',"%{$search}%")
+                  ->orWhere('idNumber','like',"%{$search}%")
+                  ->orWhere('contactName','like',"%{$search}%");
+            });
+        }
+        $customer = $query->paginate(10)->withQueryString();
+        if ($request->ajax()) {
+            return view('admin.adminform_records.partials.customer_table', compact('customer'));
+        }
+        return view('admin.adminform_records.customer',compact('customer','search'));
+
+    }
+
+    public function customerReviewad(Request $request, $userid){
+        $search = trim($request->query('q', ''));
+        $all_customers=customers::where('user_id',$userid)->get();
+        $query = customer_review::where('user_id',$userid)->orderBy('id','DESC');
+        if ($search !== '') {
+            $query->where(function($q) use ($search){
+                $q->where('product_activity_area','like',"%{$search}%")
+                  ->orWhere('other_issues','like',"%{$search}%")
+                  ->orWhere('cus_id','like',"%{$search}%");
+            });
+        }
+        $customer_review = $query->paginate(10)->withQueryString();
+        $request_id = $userid;
+        if ($request->ajax()) {
+            return view('admin.adminform_records.partials.customer_review_table', ['customer_review'=>$customer_review,'request'=>$request_id]);
+        }
+        return view('admin.adminform_records.customer_review',['customer_review'=>$customer_review,'request'=>$request_id,'all_customers'=>$all_customers,'search'=>$search]);
+
+    }
+    public function supplierCheck(Request $request, $userid){
+        $search = trim($request->query('q', ''));
+        $query = Supplier::where('user_id',$userid)->orderBy('id','DESC');
+        if ($search !== '') {
+            $query->where(function($q) use ($search){
+                $q->where('suppliername','like',"%{$search}%")
+                  ->orWhere('supplieremail','like',"%{$search}%")
+                  ->orWhere('suppliercountry','like',"%{$search}%")
+                  ->orWhere('supplierservc','like',"%{$search}%");
+            });
+        }
+        $supplier = $query->paginate(10)->withQueryString();
+        if ($request->ajax()) {
+            return view('admin.adminform_records.partials.supplier_table', compact('supplier'));
+        }
+        return view('admin.adminform_records.supplier',compact('supplier','search'));
+
+    }
+    public function calibrationcheck(Request $request, $userid){
+        $search = trim($request->query('q', ''));
+        $query = calibration::where('user_id',$userid)->orderBy('id','DESC');
+        if ($search !== '') {
+            $query->where(function($q) use ($search){
+                $q->where('equipment','like',"%{$search}%")
+                  ->orWhere('serialNum','like',"%{$search}%")
+                  ->orWhere('certificatenumber','like',"%{$search}%");
+            });
+        }
+        $caliber = $query->paginate(10)->withQueryString();
+        if ($request->ajax()) {
+            return view('admin.adminform_records.partials.calibration_table', compact('caliber'));
+        }
+        return view('admin.adminform_records.calibration_record',compact('caliber','search'));
+
+    }
+
+    public function EmployeCheck(Request $request, $userid)
     {
-        $userinfo=Employee::with('user')->where('user_id',$request)->orderBy('id','DESC')->get();
+        $search = trim($request->query('q', ''));
+        $empQuery = Employee::with('user')->where('user_id',$userid);
+        if ($search !== '') {
+            $empQuery->where(function($q) use ($search){
+                $q->where('empNumber','like',"%{$search}%")
+                  ->orWhere('surname','like',"%{$search}%")
+                  ->orWhere('first_name','like',"%{$search}%")
+                  ->orWhere('email','like',"%{$search}%");
+            });
+        }
+        $userinfoPaginated = $empQuery->orderBy('id','DESC')->paginate(10)->withQueryString();
+        if ($request->ajax()) {
+            $userinfo = $userinfoPaginated;
+            return view('admin.adminform_records.partials.employees_table', compact('userinfo'));
+        }
+        $request = $userid;
+        $userinfo = $userinfoPaginated;
        // $employess=Employee::join('tbl_employees_skills','tbl_employees_skills.empid','=','tbl_employees.id')->where('tbl_employees.user_id',$request)->get();
         // dd($employess);
         $employess = DB::table('tbl_employees_skills')
@@ -970,35 +1068,92 @@ public function store(Request $request)
             foreach($users as $user){
             $wp_users[] = Certificate::where('user_email', $user->email)->get();
             }
-      return view('admin.adminform_records.employess',compact('userinfo','employess','emptraining', 'wp_users'));
+      return view('admin.adminform_records.employess',compact('userinfo','employess','emptraining', 'wp_users','search'));
 
     }
 
-    public function managementCheck($request)
+    public function managementCheck(Request $request, $userid)
     {
-        $mgtrev=Mgtreview::where('user_id',$request)->orderBy('id','DESC')->get();
-        return view('admin.adminform_records.managment_reviews',compact('mgtrev'));
+        $search = trim($request->query('q', ''));
+        $query = Mgtreview::where('user_id',$userid);
+        if ($search !== '') {
+            $query->where(function($q) use ($search){
+                $q->where('meetingatt','like',"%{$search}%")
+                  ->orWhere('newquality','like',"%{$search}%")
+                  ->orWhere('reviewdate','like',"%{$search}%");
+            });
+        }
+        $mgtrev = $query->orderBy('id','DESC')->paginate(10)->withQueryString();
+        if ($request->ajax()) {
+            return view('admin.adminform_records.partials.management_reviews_table', compact('mgtrev'));
+        }
+        return view('admin.adminform_records.managment_reviews',compact('mgtrev','search'));
     }
-    public function maintainRecCheck($request){
-
-        $mainrecord=Maintain_rec::where('user_id',$request)->orderBy('id','DESC')->get();
-        return view('admin.adminform_records.maintance_record',compact('mainrecord'));
-
+    public function maintainRecCheck(Request $request, $userid){
+        $search = trim($request->query('q', ''));
+        $query = Maintain_rec::where('user_id',$userid);
+        if ($search !== '') {
+            $query->where(function($q) use ($search){
+                $q->where('mritem','like',"%{$search}%")
+                  ->orWhere('mractivity','like',"%{$search}%")
+                  ->orWhere('mlocation','like',"%{$search}%")
+                  ->orWhere('mractivityperofrmby','like',"%{$search}%");
+            });
+        }
+        $mainrecord = $query->orderBy('id','DESC')->paginate(10)->withQueryString();
+        if ($request->ajax()) {
+            return view('admin.adminform_records.partials.maintenance_table', compact('mainrecord'));
+        }
+        return view('admin.adminform_records.maintance_record',compact('mainrecord','search'));
     }
-    public function AccidentCheck($request){
-        $riskassesment=AccidentRisk::where('user_id',$request)->orderBy('id','DESC')->get();
-        return view('admin.adminform_records.accident_risk_assesment',compact('riskassesment'));
-
+    public function AccidentCheck(Request $request, $userid){
+        $search = trim($request->query('q', ''));
+        $query = AccidentRisk::where('user_id',$userid);
+        if ($search !== '') {
+            $query->where(function($q) use ($search){
+                $q->where('activityscenario','like',"%{$search}%")
+                  ->orWhere('reducerisk','like',"%{$search}%")
+                  ->orWhere('consequences','like',"%{$search}%");
+            });
+        }
+        $riskassesment = $query->orderBy('id','DESC')->paginate(10)->withQueryString();
+        if ($request->ajax()) {
+            return view('admin.adminform_records.partials.accident_risk_table', compact('riskassesment'));
+        }
+        return view('admin.adminform_records.accident_risk_assesment',compact('riskassesment','search'));
     }
-    public function riskAssesmntCheck($request){
-       $assessment=Assessment::where('user_id',$request)->orderBy('id','DESC')->get();
-        return view('admin.adminform_records.risk_assessment',compact('assessment'));
+    public function riskAssesmntCheck(Request $request, $userid){
+        $search = trim($request->query('q', ''));
+        $query = Assessment::where('user_id',$userid);
+        if ($search !== '') {
+            $query->where(function($q) use ($search){
+                $q->where('jobNumber','like',"%{$search}%")
+                  ->orWhere('DecisionComment','like',"%{$search}%");
+            });
+        }
+        $assessment = $query->orderBy('id','DESC')->paginate(10)->withQueryString();
+        if ($request->ajax()) {
+            return view('admin.adminform_records.partials.risk_assessment_table', compact('assessment'));
+        }
+        return view('admin.adminform_records.risk_assessment',compact('assessment','search'));
     }
-    public function workinstructionCheck($request){
-        $work=Workinstructions::where('user_id',$request)->orderBy('id','DESC')->get();
-        $employess = Employee::where('user_id',$request)->get();
-        // $employess=Workinstructions::join('tbl_employees','tbl_employees.systemid','=','tbl_workinstruction.empId')->where('tbl_employees.user_id',$request)->get();
-        return view('admin.adminform_records.work_instruction',compact('work','employess'));
+    public function workinstructionCheck(Request $request, $userid){
+        $search = trim($request->query('q', ''));
+        $query = Workinstructions::where('user_id',$userid);
+        if ($search !== '') {
+            $query->where(function($q) use ($search){
+                $q->where('workinstruction','like',"%{$search}%")
+                  ->orWhere('instructionref','like',"%{$search}%")
+                  ->orWhere('scop','like',"%{$search}%")
+                  ->orWhere('CompiledBy','like',"%{$search}%");
+            });
+        }
+        $work = $query->orderBy('id','DESC')->paginate(10)->withQueryString();
+        $employess = Employee::where('user_id',$userid)->get();
+        if ($request->ajax()) {
+            return view('admin.adminform_records.partials.work_instruction_table', compact('work'));
+        }
+        return view('admin.adminform_records.work_instruction',compact('work','employess','search'));
     }
 
 
@@ -1177,18 +1332,24 @@ public function store(Request $request)
      * @return \Illuminate\Http\Response
      */
 
-         public function interested_parties($request){
-        //  dd($request);
+    public function interested_parties(Request $request, $id)
+    {
+        $search = trim($request->query('q', ''));
+        $query = DB::table('interested_parties')->where('user_id', $id)->orderBy('id', 'DESC');
+        if ($search !== '') {
+            $query->where(function($q) use ($search) {
+                $q->where('interested_party', 'like', "%{$search}%")
+                  ->orWhere('needs', 'like', "%{$search}%");
+            });
+        }
+        $interested = $query->paginate(10)->withQueryString();
 
+        if ($request->ajax()) {
+            return view('admin.adminform_records.partials.interested_parties_table', compact('interested'));
+        }
 
- $id = intval($request);
-
-        $interested=DB::table('interested_parties')->where('user_id',$id)->orderBy('id','DESC')->get();
-        // dd($interested);
-		//$auditreport=Qmsaudit::where('user_id',$request)->get();
-        //return view('admin.adminform_records.interested_parties',compact('auditreport'));
-        return view('admin.adminform_records.interested_parties',compact('interested','request'));
-	}
+        return view('admin.adminform_records.interested_parties', compact('interested', 'search'));
+    }
     public function destroy(Request $req)
     {
         $userid=$req->id;
@@ -1682,10 +1843,22 @@ public function deleteUsernote($id)
 
     }
      /*work for chemical control*/
-    public function chemicalcheck($request)
+    public function chemicalcheck(Request $request, $userid)
     {
-        $chemical=Chemical::where('user_id',$request)->orderBy('id','DESC')->get();
-        return view('admin.adminform_records.chemical_record',compact('chemical'));
+        $search = trim($request->query('q', ''));
+        $query = Chemical::where('user_id',$userid);
+        if ($search !== '') {
+            $query->where(function($q) use ($search){
+                $q->where('chemical_name','like',"%{$search}%")
+                  ->orWhere('chemical_desc','like',"%{$search}%")
+                  ->orWhere('location_used','like',"%{$search}%");
+            });
+        }
+        $chemical = $query->orderBy('id','DESC')->paginate(10)->withQueryString();
+        if ($request->ajax()) {
+            return view('admin.adminform_records.partials.chemical_table', compact('chemical'));
+        }
+        return view('admin.adminform_records.chemical_record',compact('chemical','search'));
     }
      public function deleteChemical2(Request $request)
     {

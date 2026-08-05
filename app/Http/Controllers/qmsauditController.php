@@ -27,8 +27,20 @@ class qmsauditController extends Controller
     public function index(Request $request)
     {
         $userid=Auth::user()->id;
-        $requirement=Qmsaudit::where('user_id',$userid)->orderBy('id','DESC')->get();
-        return view('dashboard.form_records.qms_audit',compact('requirement'));
+        $search  = trim($request->query('q', ''));
+        $query = Qmsaudit::where('user_id',$userid)->orderBy('id','DESC');
+        if ($search !== '') {
+            $query->where(function($q) use ($search){
+                $q->where('auditrName','like',"%{$search}%")
+                  ->orWhere('audit_comments_actions','like',"%{$search}%")
+                  ->orWhere('any_issues','like',"%{$search}%");
+            });
+        }
+        $requirement = $query->paginate(10)->withQueryString();
+        if ($request->ajax()) {
+            return view('dashboard.form_records.partials.qms_audit_table', compact('requirement'));
+        }
+        return view('dashboard.form_records.qms_audit',compact('requirement','search'));
     }
 
     /**

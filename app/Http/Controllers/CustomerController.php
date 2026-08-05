@@ -22,9 +22,21 @@ class CustomerController extends Controller
     public function index(Request $request)
     {
         $userid=Auth::user()->id;
-        $customers=customers::where('user_id',$userid)->orderBy('id','DESC')->get();
-            //   dd($customers);
-        return view('dashboard.form_records.customer',compact('customers'));
+        $search  = trim($request->query('q', ''));
+        $query   = customers::where('user_id',$userid)->orderBy('id','DESC');
+        if ($search !== '') {
+            $query->where(function($q) use ($search){
+                $q->where('name','like',"%{$search}%")
+                  ->orWhere('Email','like',"%{$search}%")
+                  ->orWhere('idNumber','like',"%{$search}%")
+                  ->orWhere('contactName','like',"%{$search}%");
+            });
+        }
+        $customers = $query->paginate(10)->withQueryString();
+        if ($request->ajax()) {
+            return view('dashboard.form_records.partials.customer_table', compact('customers'));
+        }
+        return view('dashboard.form_records.customer',compact('customers','search'));
     }
     //check if customer exist are not
     public function check_customer(Request $request)

@@ -23,11 +23,23 @@ class AccidentRiskController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
         $userid=Auth::user()->id;
-        $audit=AccidentRisk::where('user_id',$userid)->orderBy('id','DESC')->get();
-        return view('dashboard.form_records.accident_risk_assesment',compact('audit'));
+        $search = trim($request->query('q', ''));
+        $query = AccidentRisk::where('user_id',$userid);
+        if ($search !== '') {
+            $query->where(function($q) use ($search){
+                $q->where('activityscenario','like',"%{$search}%")
+                  ->orWhere('reducerisk','like',"%{$search}%")
+                  ->orWhere('consequences','like',"%{$search}%");
+            });
+        }
+        $audit = $query->orderBy('id','DESC')->paginate(10)->withQueryString();
+        if ($request->ajax()) {
+            return view('dashboard.form_records.partials.accident_risk_table', compact('audit'));
+        }
+        return view('dashboard.form_records.accident_risk_assesment',compact('audit','search'));
     }
 
     /**

@@ -1,471 +1,307 @@
 @extends('dashboard.layouts.app')
 
-@section('content')
-<style>#procedure_section .procedure_div ul li::before{display:none !important;}</style>
-<div class="am-content">
+@section('styles')
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/css/intlTelInput.min.css"/>
+@endsection
 
-    @if(session('message'))<div class="alert alert-success">{{ session('message') }}</div>@endif
-    @if(Session::has('Error'))<div class="alert alert-danger">{{ Session::get('Error') }}</div>@endif
+@section('content')
+<div class="am-content">
 
     <div class="am-page-header">
         <div>
             <h2>Customers</h2>
-            <p>Customers should be listed so that internal audits can be carried out on their delivery / service quality assessments, but also used to assist with customer satisfaction surveys.</p>
-        </div>
-        <div class="am-page-header__actions">
-            <button class="am-btn am-btn-primary" onclick="customerForm()"><i class="fa fa-plus"></i> Add Customer</button>
+            <p>List of customers for audits, service reviews, and satisfaction surveys.</p>
         </div>
     </div>
 
-    <p>To add a record, click on the "Add Customer" button. To amend a record, click on the edit icon of the entry that needs to be modified.</p>
+    @if(session('message'))
+        <div class="am-card" style="padding:14px 20px;margin-bottom:16px;color:#1a8a5c;background:rgba(38,194,129,0.08);">
+            <i class="fa fa-check-circle"></i> {{ session('message') }}
+        </div>
+    @endif
+    @if(Session::has('Error'))
+        <div class="am-card" style="padding:14px 20px;margin-bottom:16px;color:#b83432;background:rgba(235,77,75,0.08);">
+            <i class="fa fa-exclamation-circle"></i> {{ Session::get('Error') }}
+        </div>
+    @endif
+    @if(Session::has('Success'))
+        <div class="am-card" style="padding:14px 20px;margin-bottom:16px;color:#1a8a5c;background:rgba(38,194,129,0.08);">
+            <i class="fa fa-check-circle"></i> {{ Session::get('Success') }}
+        </div>
+    @endif
 
-    {{-- Add Customer Form --}}
-    <div class="am-card customer_from_div" style="display:none;">
-        <div class="am-card__body am-form">
-            <form action="{{route('customerform')}}" id="addcust" method="POST">
+    <div class="am-card" style="padding:16px 20px;margin-bottom:16px;background:rgba(46,59,154,0.04);border:1px solid rgba(46,59,154,0.12);">
+        <div style="display:flex;gap:12px;align-items:flex-start;">
+            <span style="width:36px;height:36px;flex-shrink:0;border-radius:10px;background:var(--am-primary-tint);color:var(--am-primary);display:inline-flex;align-items:center;justify-content:center;font-size:15px;"><i class="fa fa-info-circle"></i></span>
+            <div style="font-size:13px;color:var(--am-text);line-height:1.55;">
+                Customers should be listed so that internal audits can be carried out on delivery / service quality, and to assist with customer satisfaction surveys.
+            </div>
+        </div>
+    </div>
+
+    <div class="am-card" style="margin-bottom:16px;">
+        <div class="am-card__toolbar">
+            <form method="GET" action="{{ url('/customer') }}" class="am-search" id="amCustSearchForm" style="flex:1;max-width:340px;margin:0;">
+                <i class="fa fa-search"></i>
+                <input type="text" name="q" id="amCustSearch" value="{{ $search ?? '' }}" placeholder="Search customers…" autocomplete="off">
+            </form>
+            <button type="button" class="am-btn am-btn-primary" id="toggleCustForm">
+                <i class="fa fa-plus"></i> Add Customer
+            </button>
+        </div>
+
+        <div class="am-inline-form" id="newCustForm" style="margin:16px 20px;">
+            <form action="{{ route('customerform') }}" id="add_form" method="POST" name="add_form">
                 @csrf
-                <h3 style="margin-bottom:1rem;">Add Customer</h3>
                 <div class="form-row">
-                    <div class="form-col">
-                        <label>Customer ID Number:</label>
-                        <input type="number" min="1" max="100000" required class="form-control validate_number" name="idNumber" id="idNumber" placeholder="Enter Customer ID Number.">
-                        <span id="numbererror" class="text-danger"></span>
-                    </div>
-                    <div class="form-col">
-                        <label>Customer Name:</label>
-                        <input type="text" class="form-control" required name="name" id="name" placeholder="Enter Customer Name:">
+                    <div><label>Customer ID Number</label><input type="number" min="1" max="100000" required name="idNumber" id="idNumber" placeholder="Enter ID number"><span id="numbererror" style="color:var(--am-danger);font-size:11px;"></span></div>
+                    <div><label>Customer Name</label><input type="text" name="name" id="name" placeholder="Enter customer name" required></div>
+                </div>
+                <div class="form-row">
+                    <div><label>Business Address</label><input type="text" name="address" placeholder="Full business address" required></div>
+                    <div><label>Customer Telephone</label><input type="text" name="create_phone_number" id="create_phone_number" placeholder="Phone with country code" required>
+                        <input type="hidden" name="create_phone_number_country_code" id="create_phone_number_country_code">
+                        <input type="hidden" name="create_phone_number_flag" id="create_phone_number_flag">
                     </div>
                 </div>
                 <div class="form-row">
-                    <div class="form-col">
-                        <label>Business Address:</label>
-                        <input type="text" class="form-control" required name="address" placeholder="Enter customer's full business address">
-                    </div>
-                    <div class="form-col">
-                        <label>Customer Telephone:</label>
-                        <input type="text" class="form-control" required name="create_phone_number" id="phoneNumber" pattern="\d*" placeholder="Enter customer phone number starting with the country code.">
-                        <input type="hidden" name="create_phone_number_country_code" id="phonecode">
-                        <input type="hidden" name="create_phone_number_flag" id="phoneflag">
-                    </div>
+                    <div><label>Customer Email Address</label><input type="email" name="Email" placeholder="Customer email" required></div>
+                    <div><label>Customer Contact Name</label><input type="text" name="contactName" placeholder="Contact person's name" required></div>
                 </div>
-                <div class="form-row">
-                    <div class="form-col">
-                        <label>Customer Email Address:</label>
-                        <input type="email" class="form-control" required name="Email" placeholder="Enter Customer Email:">
-                    </div>
-                    <div class="form-col">
-                        <label>Customer Contact Name:</label>
-                        <input type="text" class="form-control" required name="contactName" placeholder="Enter customer contact person's name.">
-                    </div>
-                </div>
-                <div style="margin-top:1rem;">
-                    <button type="submit" class="am-btn am-btn-primary">SUBMIT</button>
-                    <button onclick="customerForm()" type="reset" class="am-btn am-btn-secondary" style="margin-left:8px;">Cancel</button>
+                <div class="form-actions">
+                    <button type="button" class="am-btn am-btn-outline am-btn-sm" id="cancelCustForm">Cancel</button>
+                    <button type="submit" class="am-btn am-btn-primary am-btn-sm" id="add_customer_submit_button"><i class="fa fa-check"></i> Save Customer</button>
                 </div>
             </form>
         </div>
     </div>
 
-    {{-- Customers Table --}}
     <div class="am-card">
-        <div class="am-card__body">
-            <h4 style="margin-bottom:1rem;">Total Customers Listed</h4>
-            <div class="am-table-wrap">
-                <table class="am-table common_table" id="">
-                    <thead>
-                        <tr>
-                            <th>Customer ID</th>
-                            <th>Customer Name</th>
-                            <th>Business Address</th>
-                            <th>Customer Phone Number</th>
-                            <th>Email Address</th>
-                            <th>Contact Person</th>
-                            <th>Action</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                    @php $i=1; @endphp
-                    @forelse ($customers as $item)
-                        <tr>
-                            <td>{{$item->idNumber}}</td>
-                            <td>{{$item->name}}</td>
-                            <td>{{$item->address}}</td>
-                            <td>{{$item->phonecode}} {{$item->phoneNumber}}</td>
-                            <td>{{$item->Email}}</td>
-                            <td>{{$item->contactName}}</td>
-                            <td>
-                                <button class="am-btn am-btn-sm am-btn-info" title="View" onclick="viewEid({{$item}});"><i class="fa fa-eye"></i></button>
-                                <button class="am-btn am-btn-sm am-btn-warning" title="Edit" onclick="getEid({{$item}});"><i class="fa fa-edit"></i></button>
-                                <button class="am-btn am-btn-sm am-btn-danger" title="Delete" onclick="deletethisitem({{$item}});"><i class="fa fa-trash"></i></button>
-                            </td>
-                        </tr>
-                    @empty
-                        <tr><td colspan="7"><div class="am-empty"><i class="fa fa-database"></i><p>No records found.</p></div></td></tr>
-                    @endforelse
-                    </tbody>
-                </table>
-            </div>
-        </div>
-    </div>
-
-</div>
-
-{{-- Edit Customer Modal --}}
-<div class="modal fade" id="EditCustomer" tabindex="-1" role="dialog" aria-labelledby="editCustomerLabel" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
-        <div class="modal-content">
-            <div class="modal-header" style="background:var(--am-primary);color:#fff;">
-                <h5 class="modal-title" id="editCustomerLabel">Edit Customer Details</h5>
-                <button type="button" class="close" style="color:#fff;" data-dismiss="modal" aria-label="Close">&times;</button>
-            </div>
-            <div class="modal-body">
-                <form action="{{route('editCustomers')}}" id="editcust" method="POST">
-                    @csrf
-                    <input type="hidden" name="id" id="id_feild" value="">
-                    <div class="form-row">
-                        <div class="form-col">
-                            <label>Customer ID Number:</label>
-                            <input type="number" class="form-control validate_number" name="idNumber" id="editidNumber" placeholder="Enter ID:" required>
-                            <span id="editnumbererror" class="text-danger"></span>
-                        </div>
-                        <div class="form-col">
-                            <label>Customer Name:</label>
-                            <input type="text" class="form-control" name="name" placeholder="Enter Customer Name:" required>
-                        </div>
-                    </div>
-                    <div class="form-row">
-                        <div class="form-col">
-                            <label>Business Address:</label>
-                            <input type="text" class="form-control" name="address" required placeholder="Enter customer's full business address.">
-                        </div>
-                        <div class="form-col">
-                            <label>Customer Telephone:</label>
-                            <div id='edit_phone'></div>
-                            <input type="hidden" name="edit_phone_code" id="editphonecode">
-                            <input type="hidden" name="edit_phone_flag" id="editphoneflag">
-                        </div>
-                    </div>
-                    <div class="form-row">
-                        <div class="form-col">
-                            <label>Customer Email Address:</label>
-                            <input type="email" class="form-control" name="Email" placeholder="Enter Customer Email:" required>
-                        </div>
-                        <div class="form-col">
-                            <label>Customer Contact Name:</label>
-                            <input type="text" class="form-control" name="contactName" placeholder="Enter Customer Contact Number:" required>
-                        </div>
-                    </div>
-                    <div style="margin-top:1rem;">
-                        <button type="submit" class="am-btn am-btn-primary">Update</button>
-                        <button type="button" class="am-btn am-btn-secondary" data-dismiss="modal" aria-label="Close" style="margin-left:8px;">Cancel</button>
-                    </div>
-                </form>
-            </div>
+        <div id="amCustContainer">
+            @include('dashboard.form_records.partials.customer_table')
         </div>
     </div>
 </div>
 
-{{-- View Customer Modal --}}
-<div class="modal fade" id="ViewCustomer" tabindex="-1" role="dialog" aria-labelledby="viewCustomerLabel" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
-        <div class="modal-content">
-            <div class="modal-header" style="background:var(--am-primary);color:#fff;">
-                <h5 class="modal-title" id="viewCustomerLabel">View Customer Details</h5>
-                <button type="button" class="close" style="color:#fff;" data-dismiss="modal" aria-label="Close">&times;</button>
+{{-- Edit Customer modal --}}
+<div class="am-modal" id="EditCustomer" role="dialog" aria-modal="true">
+    <div class="am-modal__box am-form" style="max-width:820px;">
+        <div class="am-modal__header">
+            <span class="am-modal__icon" style="background:var(--am-primary-tint);color:var(--am-primary);"><i class="fa fa-pen"></i></span>
+            <h4 class="am-modal__title">Edit Customer Details</h4>
+        </div>
+        <form action="{{ route('editCustomers') }}" id="edit_form" name="edit_form" method="POST" style="display:contents;">
+            @csrf
+            <input type="hidden" name="id" id="id_feild">
+            <div class="am-modal__body" style="padding:20px;">
+                <div class="form-group row">
+                    <div class="col-lg-6"><label>Customer ID Number</label><input type="number" class="form-control" name="idNumber" id="editidNumber" required><span id="editnumbererror" style="color:var(--am-danger);font-size:11px;"></span></div>
+                    <div class="col-lg-6"><label>Customer Name</label><input type="text" class="form-control" name="name" required></div>
+                </div>
+                <div class="form-group row">
+                    <div class="col-lg-6"><label>Business Address</label><input type="text" class="form-control" name="address" required></div>
+                    <div class="col-lg-6"><label>Customer Telephone</label><div id="edit_phone_div"></div>
+                        <input type="hidden" name="edit_phone_code" id="edit_phone_code">
+                        <input type="hidden" name="edit_phone_flag" id="edit_phone_flag">
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <div class="col-lg-6"><label>Customer Email Address</label><input type="email" class="form-control" name="Email" required></div>
+                    <div class="col-lg-6"><label>Customer Contact Name</label><input type="text" class="form-control" name="contactName" required></div>
+                </div>
             </div>
-            <div class="modal-body">
-                <form action="{{route('editCustomers')}}" method="POST">
-                    @csrf
-                    <input type="hidden" name="id" id="id_feild" value="">
-                    <div class="form-row">
-                        <div class="form-col">
-                            <label>Customer ID Number:</label>
-                            <input type="number" readonly class="form-control" name="idNumber" placeholder="Enter ID:">
-                        </div>
-                        <div class="form-col">
-                            <label>Customer Name:</label>
-                            <input type="text" readonly class="form-control" name="name" placeholder="Enter Customer Name:">
-                        </div>
-                    </div>
-                    <div class="form-row">
-                        <div class="form-col">
-                            <label>Business Address:</label>
-                            <input type="text" readonly class="form-control" name="address" placeholder="Enter customer's full business address.">
-                        </div>
-                        <div class="form-col">
-                            <label>Customer Telephone:</label>
-                            <div id='view_phone'></div>
-                        </div>
-                    </div>
-                    <div class="form-row">
-                        <div class="form-col">
-                            <label>Customer Email Address:</label>
-                            <input type="email" readonly class="form-control" name="Email" placeholder="Enter Customer Email:">
-                        </div>
-                        <div class="form-col">
-                            <label>Customer Contact Name:</label>
-                            <input type="text" readonly class="form-control" name="contactName" placeholder="Enter Customer Contact Number:">
-                        </div>
-                    </div>
-                    <div style="margin-top:1rem;">
-                        <button type="button" class="am-btn am-btn-secondary" data-dismiss="modal" aria-label="Close">Close</button>
-                    </div>
-                </form>
+            <div class="am-modal__footer">
+                <button type="button" class="am-btn am-btn-outline am-modal-close">Cancel</button>
+                <button type="submit" class="am-btn am-btn-primary" id="update_customer_button"><i class="fa fa-check"></i> Update</button>
             </div>
+        </form>
+    </div>
+</div>
+
+{{-- View Customer modal --}}
+<div class="am-modal" id="ViewCustomer" role="dialog" aria-modal="true">
+    <div class="am-modal__box am-form" style="max-width:820px;">
+        <div class="am-modal__header">
+            <span class="am-modal__icon" style="background:var(--am-primary-tint);color:var(--am-primary);"><i class="fa fa-eye"></i></span>
+            <h4 class="am-modal__title">View Customer Details</h4>
+        </div>
+        <div class="am-modal__body" style="padding:20px;">
+            <div class="form-group row">
+                <div class="col-lg-6"><label>Customer ID Number</label><input type="number" readonly class="form-control" name="v_idNumber"></div>
+                <div class="col-lg-6"><label>Customer Name</label><input type="text" readonly class="form-control" name="v_name"></div>
+            </div>
+            <div class="form-group row">
+                <div class="col-lg-6"><label>Business Address</label><input type="text" readonly class="form-control" name="v_address"></div>
+                <div class="col-lg-6"><label>Customer Telephone</label><div id="view_phone_div"></div></div>
+            </div>
+            <div class="form-group row">
+                <div class="col-lg-6"><label>Customer Email Address</label><input type="email" readonly class="form-control" name="v_Email"></div>
+                <div class="col-lg-6"><label>Customer Contact Name</label><input type="text" readonly class="form-control" name="v_contactName"></div>
+            </div>
+        </div>
+        <div class="am-modal__footer"><button type="button" class="am-btn am-btn-outline am-modal-close">Close</button></div>
+    </div>
+</div>
+
+{{-- Delete Confirmation Modal --}}
+<div class="am-modal" id="amConfirmDelete" role="dialog" aria-modal="true">
+    <div class="am-modal__box">
+        <div class="am-modal__header">
+            <span class="am-modal__icon"><i class="fa fa-exclamation-triangle"></i></span>
+            <h4 class="am-modal__title">Delete <span id="amConfirmType">Item</span>?</h4>
+        </div>
+        <div class="am-modal__body">
+            You are about to permanently delete <strong id="amConfirmLabel">this item</strong>. This action cannot be undone.
+        </div>
+        <div class="am-modal__footer">
+            <button type="button" class="am-btn am-btn-outline am-modal-close">Cancel</button>
+            <form id="amConfirmForm" method="POST" style="display:inline;">
+                @csrf
+                <input type="hidden" name="id" id="amConfirmId">
+                <button type="submit" class="am-btn" style="background:var(--am-danger);color:#fff;">
+                    <i class="fa fa-trash"></i> Yes, delete
+                </button>
+            </form>
         </div>
     </div>
 </div>
 
-{{-- Delete Customer Modal --}}
-<div class="modal fade" id="deleteRequirment" tabindex="-1" role="dialog" aria-labelledby="deleteCustomerLabel" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered" role="document">
-        <div class="modal-content">
-            <div class="modal-header" style="background:var(--am-primary);color:#fff;">
-                <h5 class="modal-title" id="deleteCustomerLabel">Deleting an entry.</h5>
-                <button type="button" class="close" style="color:#fff;" data-dismiss="modal" aria-label="Close">&times;</button>
-            </div>
-            <div class="modal-body">
-                <p>Are you sure you want to delete this entry?</p>
-            </div>
-            <div class="modal-footer">
-                <form action="{{route('deletecustomeradmin')}}" method="POST">
-                    @csrf
-                    <input type="hidden" id="re_id" value="" name="id">
-                    <button type="button" class="am-btn am-btn-secondary" data-dismiss="modal">No</button>
-                    <button type="submit" class="am-btn am-btn-danger">Yes</button>
-                </form>
-            </div>
-        </div>
-    </div>
-</div>
-
-@endsection
-
-@section('myscript')
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/intlTelInput.min.js"
-            integrity="sha512-DNeDhsl+FWnx5B1EQzsayHMyP6Xl/Mg+vcnFPXGNjUZrW28hQaa1+A4qL9M+AiOMmkAhKAWYHh1a+t6qxthzUw=="
-            crossorigin="anonymous"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/css/intlTelInput.min.css"
-          integrity="sha512-yye/u0ehQsrVrfSd6biT17t39Rg9kNc+vENcCXZuMz2a+LWFGvXUnYuWUW6pbfYj1jcBb/C39UZw2ciQvwDDvg=="
-          crossorigin="anonymous" />
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/utils.js"
-            integrity="sha512-BNZ1x39RMH+UYylOW419beaGO0wqdSkO7pi1rYDYco9OL3uvXaC/GTqA5O4CVK2j4K9ZkoDNSSHVkEQKkgwdiw=="
-            crossorigin="anonymous"></script>
-    <script>
-
-        function deletethisitem(data){
-            $("#re_id").val(data.id);
-            $("#deleteRequirment").modal('show');
-        }
-
-        var input = document.querySelector("#phoneNumber");
-        window.intlTelInput(input, {
-            separateDialCode: true,
-            // initialCountry: '{{Auth::user()->phoneflag}}',
-            customPlaceholder: function (
-                selectedCountryPlaceholder,
-                selectedCountryData
-            ) {
-                return "e.g. " + selectedCountryPlaceholder;
-            },
-        });
-
-        $("#addcust").submit(function() {
-            var i=1;
-            var j=1;
-            $('.iti__selected-dial-code').each(function(){
-                if(i==1)
-                {
-                    var code=$(this).text();
-                    $("#phonecode").val(code);
-                    console.log(code);
-                    $("#phonecode").val(code);
-                }
-                i++;
-            });
-
-            $(".iti__selected-flag").each(function(){
-                if(j==1)
-                {
-                    var str=$(this).attr('aria-activedescendant');
-                    var n = str.lastIndexOf('-');
-                    var result = str.substring(n + 1);
-                    $("#phoneflag").val(result);
-                    console.log(result);
-                }
-                j++;
-            });
-        });
-
-        $("#editcust").submit(function() {
-            var i=1;
-            var j=1;
-            $('.iti__selected-dial-code').each(function(){
-                var code=$(this).text();
-                console.log(code);
-                $("#editphonecode").val(code);
-            });
-            $(".iti__selected-flag").each(function(){
-                var str=$(this).attr('aria-activedescendant');
-                var n = str.lastIndexOf('-');
-                var result = str.substring(n + 1);
-                $("#editphoneflag").val(result);
-                j++;
-            });
-        });
-
-        $("#idNumber").blur(function(){
-            number=$("#idNumber").val();
-            $.ajax({
-                method:'get',
-                url:'{{url("/check-customer-number")}}',
-                data:{number:number},
-                success:function(res)
-                {
-                    if(res=="exist")
-                    {
-                        $("#idNumber").val("");
-                        $("#numbererror").html("Number is Already taken.");
-                    }
-                    else
-                    {
-                        $("#numbererror").html("");
-                    }
-                }
-            })
-        })
-
-        $("#editidNumber").blur(function(){
-            number=$("#editidNumber").val();
-            $.ajax({
-                method:'get',
-                url:'{{url("/check-customer-number")}}',
-                data:{number:number},
-                success:function(res)
-                {
-                    if(res=="exist")
-                    {
-                        $("#editidNumber").val("");
-                        $("#editnumbererror").html("Number is Already taken x");
-                    }
-                    else
-                    {
-                        $("#editnumbererror").html("");
-                    }
-                }
-            })
-        })
-    </script>
-@endsection
-
+<script src="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/intlTelInput.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/utils.js"></script>
 <script>
-    function getEid(data){
-        console.log(data);
+    document.addEventListener('click', function(e) {
+        var close = e.target.closest('.am-modal-close');
+        if (close) { var m = close.closest('.am-modal'); if (m) m.classList.remove('open'); return; }
+        if (e.target.classList && e.target.classList.contains('am-modal')) e.target.classList.remove('open');
+    });
+    document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape') document.querySelectorAll('.am-modal.open').forEach(function(m){ m.classList.remove('open'); });
+    });
+    (function() {
+        var t = document.getElementById('toggleCustForm');
+        var f = document.getElementById('newCustForm');
+        var c = document.getElementById('cancelCustForm');
+        t && t.addEventListener('click', function() { f.classList.toggle('open'); });
+        c && c.addEventListener('click', function() { f.classList.remove('open'); });
+    })();
+    document.addEventListener('click', function(e) {
+        var btn = e.target.closest('.am-confirm-delete');
+        if (!btn) return;
+        e.preventDefault();
+        document.getElementById('amConfirmForm').setAttribute('action', btn.getAttribute('data-action') || '');
+        document.getElementById('amConfirmId').value = btn.getAttribute('data-id') || '';
+        document.getElementById('amConfirmType').textContent = btn.getAttribute('data-type') || 'Item';
+        document.getElementById('amConfirmLabel').textContent = btn.getAttribute('data-label') || 'this item';
+        document.getElementById('amConfirmDelete').classList.add('open');
+    });
+    (function() {
+        var input = document.getElementById('amCustSearch');
+        var form = document.getElementById('amCustSearchForm');
+        var container = document.getElementById('amCustContainer');
+        if (!container) return;
+        var baseUrl = '{{ url('/customer') }}';
+        function debounce(fn, wait) { var t; return function() { var ctx = this, args = arguments; clearTimeout(t); t = setTimeout(function() { fn.apply(ctx, args); }, wait); }; }
+        function showLoading() { container.style.opacity = '0.5'; container.style.pointerEvents = 'none'; }
+        function hideLoading() { container.style.opacity = ''; container.style.pointerEvents = ''; }
+        function fetchPage(page) {
+            var q = input ? input.value.trim() : '';
+            var url = baseUrl + '?q=' + encodeURIComponent(q) + '&page=' + page;
+            showLoading();
+            fetch(url, { headers: { 'X-Requested-With': 'XMLHttpRequest' } })
+                .then(function(r) { return r.text(); })
+                .then(function(html) { container.innerHTML = html; hideLoading(); })
+                .catch(function() { hideLoading(); });
+        }
+        input && input.addEventListener('input', debounce(function() { fetchPage(1); }, 350));
+        form && form.addEventListener('submit', function(e) { e.preventDefault(); fetchPage(1); });
+        container.addEventListener('click', function(e) {
+            var btn = e.target.closest('.am-page-link');
+            if (!btn || btn.disabled) return;
+            e.preventDefault();
+            var p = parseInt(btn.getAttribute('data-page'), 10);
+            if (!isNaN(p) && p > 0) fetchPage(p);
+        });
+    })();
+
+    // Phone intl-tel-input for add form
+    var create_phone_number = window.intlTelInput(document.querySelector("#create_phone_number"), {
+        separateDialCode: true,
+        customPlaceholder: function (p) { return "e.g. " + p; },
+    });
+
+    var edit_phone_number = '';
+
+    function getEid(data) {
         $("#id_feild").val(data.id);
-        $("input[name='Email']").val(data.Email);
-        $("input[name='address']").val(data.address);
-        $("input[name='contactName']").val(data.contactName);
-        $("input[name='idNumber']").val(data.idNumber);
-
-        $("input[name='name']").val(data.name);
-        //  var phone = data.phonecode + data.phoneNumber
-
-        $('#edit_phone').empty().append(`<input type="text" class="form-control" id="editphone" name="edit_phone_number" placeholder="Enter Customer Phone Number" required>`);
-
+        $("#EditCustomer input[name='Email']").val(data.Email);
+        $("#EditCustomer input[name='address']").val(data.address);
+        $("#EditCustomer input[name='contactName']").val(data.contactName);
+        $("#EditCustomer input[name='idNumber']").val(data.idNumber);
+        $("#EditCustomer input[name='name']").val(data.name);
+        $("#edit_phone_div").empty().append('<input type="text" class="form-control" required name="edit_phone_number" id="edit_phone_number" placeholder="Phone with country code">');
         $("input[name='edit_phone_number']").val(data.phoneNumber);
-        code = data.phonecode;
-        //  code = code.replace(/["']/g, '');
-        console.log(code);
-        var input = document.querySelector("#editphone");
-        if(data.phoneflag == "preferred" || data.phoneflag == null){
-             window.intlTelInput(input, {
-                separateDialCode: true,
-                initialCountry: 'us',
-                customPlaceholder: function (
-                    selectedCountryPlaceholder,
-                    selectedCountryData
-                ) {
-                    return "e.g. " + selectedCountryPlaceholder;
-                },
-            });
-        }else{
-            window.intlTelInput(input, {
-                separateDialCode: true,
-                initialCountry: data.phoneflag,
-                customPlaceholder: function (
-                    selectedCountryPlaceholder,
-                    selectedCountryData
-                ) {
-                    return "e.g. " + selectedCountryPlaceholder;
-                },
-            });
-        }
-
-        $("#EditCustomer").modal('show');
-        $('#addcust').resetForm();
+        var phoneflag = (data.phoneflag == 'preferred' || data.phoneflag == null) ? 'us' : data.phoneflag;
+        edit_phone_number = window.intlTelInput(document.querySelector("#edit_phone_number"), {
+            separateDialCode: true, initialCountry: phoneflag,
+            customPlaceholder: function (p) { return "e.g. " + p; },
+        });
+        document.getElementById('EditCustomer').classList.add('open');
     }
 
-    function viewEid(data){
-        console.log(data);
-        $("#id_feild").val(data.id);
-        $("input[name='Email']").val(data.Email);
-        $("input[name='address']").val(data.address);
-        $("input[name='contactName']").val(data.contactName);
-        $("input[name='idNumber']").val(data.idNumber);
-
-        $("input[name='name']").val(data.name);
-        //  var phone = data.phonecode + data.phoneNumber
-        $('#view_phone').empty().append(`<input type="text" class="form-control" id="viewPhoneNumber" name="viewPhoneNumber" placeholder="Enter Customer Phone Number" required>`);
-        $("input[name='viewPhoneNumber']").val(data.phoneNumber);
-        code = data.phonecode;
-        // code = code.replace(/["']/g, '');
-        console.log(code);
-        var input = document.querySelector("#viewPhoneNumber");
-         if(data.phoneflag == "preferred" || data.phoneflag == null){
-           window.intlTelInput(input, {
-            separateDialCode: true,
-            initialCountry: 'us',
-            customPlaceholder: function (
-                selectedCountryPlaceholder,
-                selectedCountryData
-            ) {
-                return "e.g. " + selectedCountryPlaceholder;
-            },
+    function viewEid(data) {
+        $("#ViewCustomer input[name='v_Email']").val(data.Email);
+        $("#ViewCustomer input[name='v_address']").val(data.address);
+        $("#ViewCustomer input[name='v_contactName']").val(data.contactName);
+        $("#ViewCustomer input[name='v_idNumber']").val(data.idNumber);
+        $("#ViewCustomer input[name='v_name']").val(data.name);
+        $("#view_phone_div").empty().append('<input type="text" class="form-control" name="view_phone_number" id="view_phone_number" placeholder="Phone">');
+        $("input[name='view_phone_number']").val(data.phoneNumber);
+        var phoneflag = (data.phoneflag == 'preferred' || data.phoneflag == null) ? 'us' : data.phoneflag;
+        window.intlTelInput(document.querySelector("#view_phone_number"), {
+            separateDialCode: true, initialCountry: phoneflag,
+            customPlaceholder: function (p) { return "e.g. " + p; },
         });
-        }else{
-           window.intlTelInput(input, {
-            separateDialCode: true,
-            initialCountry: data.phoneflag,
-            customPlaceholder: function (
-                selectedCountryPlaceholder,
-                selectedCountryData
-            ) {
-                return "e.g. " + selectedCountryPlaceholder;
-            },
-        });
-
-        }
-
-        $("#ViewCustomer").modal('show');
-        $('#addcust').resetForm();
+        document.getElementById('ViewCustomer').classList.add('open');
     }
-    function checkcustomer()
-    {
-        ajax_url='<?php echo route('checkcustomer')?>';
-        cusid=$("#idNumber").val();
-        //console.log(cusid);
+
+    $("#add_customer_submit_button").click(function (e) {
+        e.preventDefault();
+        var d = create_phone_number.getSelectedCountryData();
+        $('#create_phone_number_country_code').val(d.dialCode);
+        $('#create_phone_number_flag').val(d.iso2);
+        $("form[name='add_form']").submit();
+    });
+
+    $("#update_customer_button").click(function (e) {
+        e.preventDefault();
+        var d = edit_phone_number.getSelectedCountryData();
+        $('#edit_phone_code').val(d.dialCode);
+        $('#edit_phone_flag').val(d.iso2);
+        $("form[name='edit_form']").submit();
+    });
+
+    $("#idNumber").blur(function () {
+        var number = $("#idNumber").val();
         $.ajax({
-            type: "GET",
-            url: ajax_url,
-            data: {cusid:cusid},
-            success: function(data){
-                if(data)
-                {
-                    $("#name").val(data);
-                }else{
-                    $("#name").val('');
-                }
+            method: 'get', url: '{{url("/check-customer-number")}}',
+            data: { number: number },
+            success: function (res) {
+                if (res == "exist") { $("#idNumber").val(""); $("#numbererror").html("Number is already taken"); }
+                else { $("#numbererror").html(""); }
             }
         });
-    }
+    });
+
+    $("#editidNumber").blur(function () {
+        var number = $("#editidNumber").val();
+        $.ajax({
+            method: 'get', url: '{{url("/check-customer-number")}}',
+            data: { number: number },
+            success: function (res) {
+                if (res == "exist") { $("#editidNumber").val(""); $("#editnumbererror").html("Number is already taken"); }
+                else { $("#editnumbererror").html(""); }
+            }
+        });
+    });
 </script>
+@endsection

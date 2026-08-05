@@ -23,10 +23,23 @@ class auditController extends Controller
 
     public function index(Request $request)
     {
-        $userid=Auth::user()->id;
-        $audit=Audit::where('user_id',$userid)->orderBy('id','DESC')->get();
+        $userid = Auth::user()->id;
+        $search = trim($request->query('q', ''));
+        $query = Audit::where('user_id', $userid)->orderBy('id', 'DESC');
+        if ($search !== '') {
+            $query->where(function($q) use ($search) {
+                $q->where('processAudit', 'like', "%{$search}%")
+                  ->orWhere('auditor', 'like', "%{$search}%");
+            });
+        }
+        $audit = $query->paginate(10)->withQueryString();
         $workInstructionsData = Workinstructions::where('user_id', $userid)->get();
-        return view('dashboard.form_records.process_audit',compact('audit', 'workInstructionsData'));
+
+        if ($request->ajax()) {
+            return view('dashboard.form_records.partials.process_audit_table', compact('audit'));
+        }
+
+        return view('dashboard.form_records.process_audit', compact('audit', 'workInstructionsData', 'search'));
     }
 
     /**

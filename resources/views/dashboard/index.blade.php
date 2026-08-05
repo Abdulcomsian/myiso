@@ -50,7 +50,7 @@
     </div>
 
     {{-- Requirements Due --}}
-    <div class="am-card">
+    <div class="am-card mb-3">
         <div class="am-card__body">
             <h6 class="dash-section-title">Requirements Due</h6>
             @php
@@ -101,7 +101,7 @@
     </div>
 
     {{-- Calibration Due --}}
-    <div class="am-card">
+    <div class="am-card mb-3">
         <div class="am-card__body">
             <h6 class="dash-section-title">Calibration Due</h6>
             @php
@@ -153,7 +153,7 @@
     </div>
 
     {{-- ISO Certificates --}}
-    <div class="am-card">
+    <div class="am-card mb-3">
         <div class="am-card__body">
             <h6 class="dash-section-title">ISO Certificates</h6>
             @php
@@ -220,7 +220,7 @@
     </div>
 
     {{-- Audit Report & Related Documents --}}
-    <div class="am-card">
+    <div class="am-card mb-3">
         <div class="am-card__body">
             <h6 class="dash-section-title">Audit Report</h6>
             <div style="margin-bottom:.75rem;">

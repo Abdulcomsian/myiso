@@ -32,7 +32,22 @@ class EmployeeController extends Controller
     public function index(Request $request)
     {
         $userid=Auth::user()->id;
-        $userinfo=Employee::where('user_id',$userid)->orderBy('id','DESC')->get();
+        $search = trim($request->query('q', ''));
+        $empQuery = Employee::where('user_id',$userid);
+        if ($search !== '') {
+            $empQuery->where(function($q) use ($search){
+                $q->where('empNumber','like',"%{$search}%")
+                  ->orWhere('surname','like',"%{$search}%")
+                  ->orWhere('first_name','like',"%{$search}%")
+                  ->orWhere('email','like',"%{$search}%");
+            });
+        }
+        $userinfoPaginated = $empQuery->orderBy('id','DESC')->paginate(10)->withQueryString();
+        if ($request->ajax()) {
+            $userinfo = $userinfoPaginated;
+            return view('dashboard.form_records.partials.employees_table', compact('userinfo'));
+        }
+        $userinfo = $userinfoPaginated;
         // $employess=Employee::join('tbl_employees_skills','tbl_employees_skills.empid','=','tbl_employees.id')->where('tbl_employees.user_id',$userid)->get();
         // $e = EmpSkills::with('employee')->get();
         $employess = DB::table('tbl_employees_skills')
@@ -65,7 +80,7 @@ class EmployeeController extends Controller
             //     }
             // }
 
-        return view('dashboard.form_records.employess',compact('userinfo','employess','emptraining', 'wp_users'));
+        return view('dashboard.form_records.employess',compact('userinfo','employess','emptraining', 'wp_users','search'));
 
         //return view('dashboard.form_records.employess',compact('userinfo','employess','emptraining'));
 

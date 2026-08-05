@@ -3,158 +3,245 @@
 @section('content')
 <div class="am-content">
 
+    {{-- Page header --}}
     <div class="am-page-header">
         <div>
             <h2>Requirements Due</h2>
-            <p>Track recurring requirements and get reminded when they are due.</p>
+            <p>A compliance diary — track items that need periodic action (reviews, audits, calibrations).</p>
         </div>
-        <div class="am-page-header__actions">
-            <button class="am-btn am-btn-primary" onclick="requirementFrom()">
+    </div>
+
+    {{-- Flash messages --}}
+    @if(session('message'))
+        <div class="am-card" style="padding:14px 20px;margin-bottom:16px;color:#1a8a5c;background:rgba(38,194,129,0.08);">
+            <i class="fa fa-check-circle"></i> {{ session('message') }}
+        </div>
+    @endif
+
+    {{-- Info card --}}
+    <div class="am-card" style="padding:16px 20px;margin-bottom:16px;background:rgba(46,59,154,0.04);border:1px solid rgba(46,59,154,0.12);">
+        <div style="display:flex;gap:12px;align-items:flex-start;">
+            <span style="width:36px;height:36px;flex-shrink:0;border-radius:10px;background:var(--am-primary-tint);color:var(--am-primary);display:inline-flex;align-items:center;justify-content:center;font-size:15px;">
+                <i class="fa fa-info-circle"></i>
+            </span>
+            <div style="font-size:13px;color:var(--am-text);line-height:1.55;">
+                Add items that need to be recalled on a regular basis, such as when management reviews are due, or calibration audits are required.
+                Click <strong>Add a Requirement</strong>, enter the information you'd like to be reminded of, and set the reminder date using the calendar.
+            </div>
+        </div>
+    </div>
+
+    {{-- Toolbar + Add form --}}
+    <div class="am-card" style="margin-bottom:16px;">
+        <div class="am-card__toolbar">
+            <form method="GET" action="{{ url('/requirements_aspect') }}" class="am-search" id="amReqSearchForm" style="flex:1;max-width:340px;margin:0;">
+                <i class="fa fa-search"></i>
+                <input type="text" name="q" id="amReqSearch" value="{{ $search ?? '' }}" placeholder="Search requirements…" autocomplete="off">
+            </form>
+            <button type="button" class="am-btn am-btn-primary" id="toggleReqForm">
                 <i class="fa fa-plus"></i> Add a Requirement
             </button>
         </div>
-    </div>
 
-    @if(session('message'))
-    <div class="alert alert-success alert-dismissible">{{ session('message') }}</div>
-    @endif
-
-    <p>This section can be considered as a diary shown on your MyISOOnline control panel. Simply add items that need to be recalled on a regular basis, such as when management reviews are due, or calibration audits are required.</p>
-    <p>To add a requirement, click on the "Add a Requirement" then enter the information you would like to be reminded of and set the reminder date using the calendar.</p>
-
-    {{-- Add Form --}}
-    <div class="am-card requirments_from_div" style="display:none;">
-        <div class="am-card__body am-form">
-            <h6 class="dash-section-title">Add a Requirement</h6>
+        <div class="am-inline-form" id="newReqForm" style="margin:16px 20px;">
             <form action="{{ route('requiemntform') }}" method="POST">
                 @csrf
                 <div class="form-row">
-                    <div class="form-col" style="flex:1 1 100%;">
-                        <label>Requirement:</label>
-                        <input type="text" name="requirement" class="form-control" placeholder="Enter Requirement:" required>
+                    <div style="grid-column:1/-1;">
+                        <label>Requirement</label>
+                        <input type="text" name="requirement" placeholder="Enter requirement" required>
                     </div>
                 </div>
                 <div class="form-row">
-                    <div class="form-col">
-                        <label>Requirement Completion Date of the Activity (DD/MM/YYYY):</label>
-                        <input type="date" max="2999-12-31" name="completiondate" class="form-control" required>
+                    <div>
+                        <label>Completion Date</label>
+                        <input type="date" max="2999-12-31" name="completiondate" required>
                     </div>
-                    <div class="form-col">
-                        <label>Periodicity (Months):</label>
-                        <input type="number" name="month" id="month" oninput="this.value = Math.abs(this.value)" min="1" max="12" class="form-control" placeholder="Enter Months:" required>
+                    <div>
+                        <label>Periodicity (Months, 1–12)</label>
+                        <input type="number" min="1" max="12" name="month" placeholder="e.g. 3" required>
                     </div>
                 </div>
-                <div style="display:flex; gap:8px; margin-top:12px;">
-                    <button type="submit" class="am-btn am-btn-primary">SUBMIT</button>
-                    <button type="reset" onclick="requirementFrom()" class="am-btn am-btn-outline">Cancel</button>
+                <div class="form-actions">
+                    <button type="button" class="am-btn am-btn-outline am-btn-sm" id="cancelReqForm">Cancel</button>
+                    <button type="submit" class="am-btn am-btn-primary am-btn-sm"><i class="fa fa-check"></i> Save</button>
                 </div>
             </form>
         </div>
     </div>
 
-    {{-- Table --}}
+    {{-- Table card --}}
     <div class="am-card">
-        <div class="am-table-wrap">
-            <table class="am-table">
-                <thead>
-                    <tr>
-                        <th>No.</th>
-                        <th>Requirements</th>
-                        <th>Date Completed</th>
-                        <th>Periodicity (Months)</th>
-                        <th>Due Date</th>
-                        <th>Action</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @php $counter = 0; @endphp
-                    @forelse ($requirement as $data)
-                        @php $counter++; @endphp
-                        @php $d = strtotime("+$data->periods months", strtotime($data->completion_date)); @endphp
-                        <tr>
-                            <td>{{ $counter }}</td>
-                            <td>{{ $data->requirment_title }}</td>
-                            <td>{{ date("d/m/Y", strtotime($data->completion_date)) }}</td>
-                            <td>{{ $data->periods }}</td>
-                            <td>{{ date("d/m/Y", $d) }}</td>
-                            <td>
-                                <button class="am-btn am-btn-outline am-btn-sm" title="Edit"
-                                    onclick="getEid({{ json_encode($data) }});">
-                                    <i class="fa fa-pencil"></i>
-                                </button>
-                                <button class="am-btn am-btn-danger am-btn-sm am-confirm-delete"
-                                    data-action="{{ url('deleteRequirement/' . $data->id) }}"
-                                    data-type="Requirement"
-                                    data-label="{{ $data->requirment_title }}">
-                                    <i class="fa fa-trash"></i>
-                                </button>
-                            </td>
-                        </tr>
-                    @empty
-                        <tr>
-                            <td colspan="6">
-                                <div class="am-empty">
-                                    <i class="fa fa-database"></i>
-                                    <p>No records found.</p>
-                                </div>
-                            </td>
-                        </tr>
-                    @endforelse
-                </tbody>
-            </table>
+        <div id="amReqContainer">
+            @include('dashboard.form_records.partials.requirements_table')
         </div>
     </div>
 
+</div>
+
+{{-- View Modal --}}
+<div class="am-modal" id="amReqView" role="dialog" aria-modal="true">
+    <div class="am-modal__box" style="max-width:520px;">
+        <div class="am-modal__header">
+            <span class="am-modal__icon" style="background:var(--am-primary-tint);color:var(--am-primary);"><i class="fa fa-eye"></i></span>
+            <h4 class="am-modal__title">Requirement Details</h4>
+        </div>
+        <div class="am-modal__body">
+            <div style="margin-bottom:14px;">
+                <p style="font-size:11.5px;text-transform:uppercase;letter-spacing:0.4px;color:var(--am-text-muted);margin:0 0 4px 0;font-weight:600;">Requirement</p>
+                <p style="font-size:14px;color:var(--am-text);margin:0;font-weight:600;" id="vReqTitle">—</p>
+            </div>
+            <div style="margin-bottom:14px;">
+                <p style="font-size:11.5px;text-transform:uppercase;letter-spacing:0.4px;color:var(--am-text-muted);margin:0 0 4px 0;font-weight:600;">Completion Date</p>
+                <p style="font-size:13.5px;color:var(--am-text);margin:0;" id="vReqDate">—</p>
+            </div>
+            <div>
+                <p style="font-size:11.5px;text-transform:uppercase;letter-spacing:0.4px;color:var(--am-text-muted);margin:0 0 4px 0;font-weight:600;">Periodicity</p>
+                <p style="font-size:13.5px;color:var(--am-text);margin:0;" id="vReqPeriod">—</p>
+            </div>
+        </div>
+        <div class="am-modal__footer">
+            <button type="button" class="am-btn am-btn-outline am-modal-close">Close</button>
+        </div>
+    </div>
 </div>
 
 {{-- Edit Modal --}}
-<div class="modal fade" id="editRequirment" tabindex="-1" role="dialog" aria-labelledby="editRequirmentLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="editRequirmentLabel">Amend a Requirement</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
+<div class="am-modal" id="amReqEdit" role="dialog" aria-modal="true">
+    <div class="am-modal__box am-form" style="max-width:560px;">
+        <div class="am-modal__header">
+            <span class="am-modal__icon" style="background:var(--am-primary-tint);color:var(--am-primary);"><i class="fa fa-pen"></i></span>
+            <h4 class="am-modal__title">Edit Requirement</h4>
+        </div>
+        <form action="{{ route('updaterequiremnt') }}" method="POST" style="display:contents;">
+            @csrf
+            <div class="am-modal__body">
+                <input type="hidden" name="requirment_id" id="eReqId">
+                <div style="margin-bottom:16px;">
+                    <label>Requirement</label>
+                    <input type="text" class="form-control" name="requirment_title" id="eReqTitle" required>
+                </div>
+                <div style="margin-bottom:16px;">
+                    <label>Completion Date</label>
+                    <input type="date" class="form-control" name="completion_date" id="eReqDate" required>
+                </div>
+                <div>
+                    <label>Periodicity (Months, 1–12)</label>
+                    <input type="number" class="form-control" min="1" max="12" name="periods" id="eReqPeriod" required>
+                </div>
             </div>
-            <form action="{{ route('updaterequiremnt') }}" method="POST">
+            <div class="am-modal__footer">
+                <button type="button" class="am-btn am-btn-outline am-modal-close">Cancel</button>
+                <button type="submit" class="am-btn am-btn-primary"><i class="fa fa-check"></i> Update</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+{{-- Delete Confirmation Modal --}}
+<div class="am-modal" id="amConfirmDelete" role="dialog" aria-modal="true">
+    <div class="am-modal__box">
+        <div class="am-modal__header">
+            <span class="am-modal__icon"><i class="fa fa-exclamation-triangle"></i></span>
+            <h4 class="am-modal__title">Delete <span id="amConfirmType">Requirement</span>?</h4>
+        </div>
+        <div class="am-modal__body">
+            You are about to permanently delete <strong id="amConfirmLabel">this item</strong>. This action cannot be undone.
+        </div>
+        <div class="am-modal__footer">
+            <button type="button" class="am-btn am-btn-outline am-modal-close">Cancel</button>
+            <form id="amConfirmForm" method="POST" style="display:inline;">
                 @csrf
-                <div class="modal-body">
-                    <input type="hidden" name="requirment_id" value="" id="id_feild">
-                    <div class="form-group">
-                        <label>Requirement:</label>
-                        <input type="text" class="form-control" value="" name="requirment_title" placeholder="Enter Requirement:" required>
-                    </div>
-                    <div class="form-group">
-                        <label>Requirement Completion Date of the Activity (DD/MM/YYYY):</label>
-                        <input type="date" max="2999-12-31" class="form-control" value="" name="completion_date" required>
-                    </div>
-                    <div class="form-group">
-                        <label>Periodicity (Months):</label>
-                        <input type="number" class="form-control" oninput="this.value = Math.abs(this.value)" min="1" max="12" value="" name="periods" placeholder="Enter Months:" required>
-                    </div>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="am-btn am-btn-outline" data-dismiss="modal">Cancel</button>
-                    <button type="submit" class="am-btn am-btn-primary">Update</button>
-                </div>
+                <input type="hidden" name="id" id="amConfirmId">
+                <button type="submit" class="am-btn" style="background:var(--am-danger);color:#fff;">
+                    <i class="fa fa-trash"></i> Yes, delete
+                </button>
             </form>
         </div>
     </div>
 </div>
-@endsection
 
 <script>
-    function getEid(data) {
-        $("#id_feild").val(data.id);
-        $("input[name='periods']").val(data.periods);
-        $("input[name='requirment_title']").val(data.requirment_title);
-        $("input[name='completion_date']").val(data.completion_date);
-        $("#editRequirment").modal('show');
+    // ---- Modern modal helpers ----
+    function openAmModal(id) { var m = document.getElementById(id); m && m.classList.add('open'); }
+    document.addEventListener('click', function(e) {
+        var close = e.target.closest('.am-modal-close');
+        if (close) { var m = close.closest('.am-modal'); if (m) m.classList.remove('open'); return; }
+        if (e.target.classList && e.target.classList.contains('am-modal')) e.target.classList.remove('open');
+    });
+    document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape') document.querySelectorAll('.am-modal.open').forEach(function(m){ m.classList.remove('open'); });
+    });
+
+    // ---- Add form toggle ----
+    (function() {
+        var btn    = document.getElementById('toggleReqForm');
+        var cancel = document.getElementById('cancelReqForm');
+        var form   = document.getElementById('newReqForm');
+        btn    && btn.addEventListener('click', function() { form.classList.toggle('open'); });
+        cancel && cancel.addEventListener('click', function() { form.classList.remove('open'); });
+    })();
+
+    // ---- View / Edit fillers ----
+    function amReqView(data) {
+        document.getElementById('vReqTitle').textContent  = data.requirment_title || '—';
+        document.getElementById('vReqDate').textContent   = data.completion_date ? new Date(data.completion_date).toLocaleDateString('en-GB', { day: '2-digit', month: 'short', year: 'numeric' }) : '—';
+        document.getElementById('vReqPeriod').textContent = 'Every ' + data.periods + ' months';
+        openAmModal('amReqView');
+    }
+    function amReqEdit(data) {
+        document.getElementById('eReqId').value     = data.id || '';
+        document.getElementById('eReqTitle').value  = data.requirment_title || '';
+        document.getElementById('eReqDate').value   = data.completion_date || '';
+        document.getElementById('eReqPeriod').value = data.periods || '';
+        openAmModal('amReqEdit');
     }
 
-    function deleteModal(data) {
-        $("#re_id").val(data.id);
-        $("#deleteRequirment").modal('show');
-    }
+    // ---- Delete confirm ----
+    document.addEventListener('click', function(e) {
+        var btn = e.target.closest('.am-confirm-delete');
+        if (!btn) return;
+        e.preventDefault();
+        document.getElementById('amConfirmForm').setAttribute('action', btn.getAttribute('data-action') || '');
+        document.getElementById('amConfirmId').value = btn.getAttribute('data-id') || '';
+        document.getElementById('amConfirmType').textContent  = btn.getAttribute('data-type') || 'Item';
+        document.getElementById('amConfirmLabel').textContent = btn.getAttribute('data-label') || 'this item';
+        openAmModal('amConfirmDelete');
+    });
+
+    // ---- Server-side search + pagination (AJAX) ----
+    (function() {
+        var input     = document.getElementById('amReqSearch');
+        var form      = document.getElementById('amReqSearchForm');
+        var container = document.getElementById('amReqContainer');
+        if (!container) return;
+        var baseUrl = '{{ url('/requirements_aspect') }}';
+
+        function debounce(fn, wait) { var t; return function(){ var ctx=this,args=arguments; clearTimeout(t); t=setTimeout(function(){ fn.apply(ctx,args); }, wait); }; }
+        function showLoading() { container.style.opacity='0.5'; container.style.pointerEvents='none'; }
+        function hideLoading() { container.style.opacity=''; container.style.pointerEvents=''; }
+
+        function fetchPage(page) {
+            var q = input ? input.value.trim() : '';
+            var url = baseUrl + '?q=' + encodeURIComponent(q) + '&page=' + page;
+            showLoading();
+            fetch(url, { headers: { 'X-Requested-With': 'XMLHttpRequest' } })
+                .then(function(r){ return r.text(); })
+                .then(function(html) { container.innerHTML = html; hideLoading(); })
+                .catch(function() { hideLoading(); });
+        }
+
+        input && input.addEventListener('input', debounce(function() { fetchPage(1); }, 350));
+        form  && form.addEventListener('submit', function(e) { e.preventDefault(); fetchPage(1); });
+
+        container.addEventListener('click', function(e) {
+            var btn = e.target.closest('.am-page-link');
+            if (!btn || btn.disabled) return;
+            e.preventDefault();
+            var p = parseInt(btn.getAttribute('data-page'), 10);
+            if (!isNaN(p) && p > 0) fetchPage(p);
+        });
+    })();
 </script>
+
+@endsection

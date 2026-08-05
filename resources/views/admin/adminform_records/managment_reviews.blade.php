@@ -34,10 +34,10 @@
 
     <div class="am-card" style="margin-bottom:16px;">
         <div class="am-card__toolbar">
-            <div class="am-search" style="flex:1;max-width:340px;">
+            <form method="GET" action="{{ url('/managementCheck/' . $urlparam['userid']) }}" class="am-search" id="amMgtSearchForm" style="flex:1;max-width:340px;margin:0;">
                 <i class="fa fa-search"></i>
-                <input type="text" id="amMgtSearch" placeholder="Search reviews…" autocomplete="off">
-            </div>
+                <input type="text" name="q" id="amMgtSearch" value="{{ $search ?? '' }}" placeholder="Search reviews…" autocomplete="off">
+            </form>
             <button type="button" class="am-btn am-btn-primary" id="toggleMgtForm">
                 <i class="fa fa-plus"></i> Add Management Review
             </button>
@@ -88,46 +88,32 @@
     </div>
 
     <div class="am-card">
-        <div class="am-table-wrap">
-            <table class="am-table" id="amMgtTable">
-                <thead>
-                    <tr>
-                        <th style="width:60px;">#</th>
-                        <th>Review Date</th>
-                        <th>Attendees</th>
-                        <th>Planned Objectives</th>
-                        <th style="text-align:right;">Actions</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @forelse ($mgtrev as $index => $item)
-                        <tr data-search="{{ strtolower($item->meetingatt . ' ' . $item->newquality) }}">
-                            <td><span class="am-cell-sub">#{{ $index + 1 }}</span></td>
-                            <td><span class="am-chip info">{{ date('d M Y', strtotime($item->reviewdate)) }}</span></td>
-                            <td>{{ Str::limit($item->meetingatt, 80) }}</td>
-                            <td>{{ Str::limit($item->newquality, 80) }}</td>
-                            <td style="text-align:right;white-space:nowrap;">
-                                <div class="am-actions">
-                                    <button type="button" class="am-icon-btn" title="View" onclick='amMgtView(@json($item))'><i class="fa fa-eye"></i></button>
-                                    <button type="button" class="am-icon-btn" title="Edit" onclick='amMgtEdit(@json($item))'><i class="fa fa-pen"></i></button>
-                                    <button type="button" class="am-icon-btn danger am-confirm-delete"
-                                            title="Delete"
-                                            data-action="{{ route('deletemgtreviewadmin') }}"
-                                            data-id="{{ $item->id }}"
-                                            data-label="Review from {{ date('d M Y', strtotime($item->reviewdate)) }}"
-                                            data-type="Management Review">
-                                        <i class="fa fa-trash"></i>
-                                    </button>
-                                </div>
-                            </td>
-                        </tr>
-                    @empty
-                        <tr><td colspan="5"><div class="am-empty"><i class="fa fa-chart-line"></i><p>No management reviews recorded yet.</p></div></td></tr>
-                    @endforelse
-                </tbody>
-            </table>
+        <div id="amMgtContainer">
+            @include('admin.adminform_records.partials.management_reviews_table')
         </div>
-        <div class="am-pagination" id="amMgtPagination"></div>
+    </div>
+</div>
+
+{{-- Delete Confirmation Modal --}}
+<div class="am-modal" id="amConfirmDelete" role="dialog" aria-modal="true">
+    <div class="am-modal__box">
+        <div class="am-modal__header">
+            <span class="am-modal__icon"><i class="fa fa-exclamation-triangle"></i></span>
+            <h4 class="am-modal__title">Delete <span id="amConfirmType">Item</span>?</h4>
+        </div>
+        <div class="am-modal__body">
+            You are about to permanently delete <strong id="amConfirmLabel">this item</strong>. This action cannot be undone.
+        </div>
+        <div class="am-modal__footer">
+            <button type="button" class="am-btn am-btn-outline am-modal-close">Cancel</button>
+            <form id="amConfirmForm" method="POST" style="display:inline;">
+                @csrf
+                <input type="hidden" name="id" id="amConfirmId">
+                <button type="submit" class="am-btn" style="background:var(--am-danger);color:#fff;">
+                    <i class="fa fa-trash"></i> Yes, delete
+                </button>
+            </form>
+        </div>
     </div>
 </div>
 
@@ -223,18 +209,56 @@
 </div>
 
 <script>
+document.addEventListener('click', function(e) {
+    var close = e.target.closest('.am-modal-close');
+    if (close) { var m = close.closest('.am-modal'); if (m) m.classList.remove('open'); return; }
+    if (e.target.classList && e.target.classList.contains('am-modal')) e.target.classList.remove('open');
+});
+document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape') document.querySelectorAll('.am-modal.open').forEach(function(m){ m.classList.remove('open'); });
+});
 (function(){
     var t=document.getElementById('toggleMgtForm'),f=document.getElementById('newMgtForm'),c=document.getElementById('cancelMgtForm');
     t&&t.addEventListener('click',function(){f.classList.toggle('open');});
     c&&c.addEventListener('click',function(){f.classList.remove('open');});
-    function debounce(fn,w){var t;return function(){var c=this,a=arguments;clearTimeout(t);t=setTimeout(function(){fn.apply(c,a);},w);};}
-    var per=10,i=document.getElementById('amMgtSearch'),tb=document.querySelector('#amMgtTable tbody');
-    if(!tb)return;
-    var rows=Array.prototype.slice.call(tb.querySelectorAll('tr[data-search]')),p=document.getElementById('amMgtPagination'),F=rows.slice(),pg=1;
-    function r(){var T=F.length,TP=Math.max(1,Math.ceil(T/per));if(pg>TP)pg=TP;rows.forEach(function(x){x.style.display='none';});F.slice((pg-1)*per,pg*per).forEach(function(x){x.style.display='';});var fr=T===0?0:(pg-1)*per+1,to=Math.min(pg*per,T);var h='<div class="am-pagination__info">Showing <strong>'+fr+'–'+to+'</strong> of <strong>'+T+'</strong></div><div class="am-pagination__nav">';h+='<button data-p="'+(pg-1)+'" '+(pg<=1?'disabled':'')+'>‹</button>';var s=Math.max(1,pg-2),e=Math.min(TP,s+4);s=Math.max(1,e-4);for(var q=s;q<=e;q++)h+='<button data-p="'+q+'" '+(q===pg?'class="active"':'')+'>'+q+'</button>';h+='<button data-p="'+(pg+1)+'" '+(pg>=TP?'disabled':'')+'>›</button></div>';p.innerHTML=h;}
-    i&&i.addEventListener('input',debounce(function(){var q=this.value.trim().toLowerCase();F=q===''?rows.slice():rows.filter(function(x){return x.getAttribute('data-search').indexOf(q)!==-1;});pg=1;r();},250));
-    p&&p.addEventListener('click',function(e){var b=e.target.closest('button[data-p]');if(!b||b.disabled)return;var q=parseInt(b.getAttribute('data-p'),10);if(!isNaN(q)&&q>=1){pg=q;r();}});
-    r();
+})();
+document.addEventListener('click', function(e) {
+    var btn = e.target.closest('.am-confirm-delete');
+    if (!btn) return;
+    e.preventDefault();
+    document.getElementById('amConfirmForm').setAttribute('action', btn.getAttribute('data-action') || '');
+    document.getElementById('amConfirmId').value = btn.getAttribute('data-id') || '';
+    document.getElementById('amConfirmType').textContent = btn.getAttribute('data-type') || 'Item';
+    document.getElementById('amConfirmLabel').textContent = btn.getAttribute('data-label') || 'this item';
+    document.getElementById('amConfirmDelete').classList.add('open');
+});
+(function() {
+    var input     = document.getElementById('amMgtSearch');
+    var form      = document.getElementById('amMgtSearchForm');
+    var container = document.getElementById('amMgtContainer');
+    if (!container) return;
+    var baseUrl = '{{ url('/managementCheck/' . $urlparam['userid']) }}';
+    function debounce(fn, wait) { var t; return function() { var ctx = this, args = arguments; clearTimeout(t); t = setTimeout(function() { fn.apply(ctx, args); }, wait); }; }
+    function showLoading() { container.style.opacity = '0.5'; container.style.pointerEvents = 'none'; }
+    function hideLoading() { container.style.opacity = ''; container.style.pointerEvents = ''; }
+    function fetchPage(page) {
+        var q = input ? input.value.trim() : '';
+        var url = baseUrl + '?q=' + encodeURIComponent(q) + '&page=' + page;
+        showLoading();
+        fetch(url, { headers: { 'X-Requested-With': 'XMLHttpRequest' } })
+            .then(function(r){ return r.text(); })
+            .then(function(html) { container.innerHTML = html; hideLoading(); })
+            .catch(function() { hideLoading(); });
+    }
+    input && input.addEventListener('input', debounce(function() { fetchPage(1); }, 350));
+    form  && form.addEventListener('submit', function(e) { e.preventDefault(); fetchPage(1); });
+    container.addEventListener('click', function(e) {
+        var btn = e.target.closest('.am-page-link');
+        if (!btn || btn.disabled) return;
+        e.preventDefault();
+        var p = parseInt(btn.getAttribute('data-page'), 10);
+        if (!isNaN(p) && p > 0) fetchPage(p);
+    });
 })();
 function amMgtView(d){
     var m={'1reviewdate':d.reviewdate?new Date(d.reviewdate).toLocaleDateString():'—','1meetingatt':d.meetingatt,'1prevmeeting':d.prevmeeting,'1recommendedchange':d.recommendedchange,'1sammarisecustomr':d.sammarisecustomr,'1prevobjectv':d.prevobjectv,'1conformity':d.conformity,'1nonconformities':d.nonconformities,'1monitoringres':d.monitoringres,'1auditres':d.auditres,'1externalprovider':d.externalprovider,'1adequacy':d.adequacy,'1effectiveness':d.effectiveness,'1newquality':d.newquality};

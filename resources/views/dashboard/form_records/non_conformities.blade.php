@@ -6,88 +6,73 @@
     <div class="am-page-header">
         <div>
             <h2>Non-Conformities</h2>
-            <p>Manage and track minor and major non-conformity records.</p>
-        </div>
-        <div class="am-page-header__actions">
-            <button class="am-btn am-btn-primary" onclick="nonConformities()">
-                <i class="fa fa-plus"></i> Add a Non-Conformity
-            </button>
+            <p>Track situations where products, services, or processes fail to meet specifications.</p>
         </div>
     </div>
 
     @if(session('message'))
-    <div class="alert alert-success alert-dismissible">{{ session('message') }}</div>
+        <div class="am-card" style="padding:14px 20px;margin-bottom:16px;color:#1a8a5c;background:rgba(38,194,129,0.08);">
+            <i class="fa fa-check-circle"></i> {{ session('message') }}
+        </div>
     @endif
 
-    <p>A Non-Conformance occurs when something does not meet the specifications or requirements in some way - in a services, product, process, goods from a supplier, or staff. There are two types of Non-Conformities, Minor &amp; Major. An example of a Minor Non-Conformity could be an invoicing mistake. An example of a Major Non-Conformity could be employees stealing company property.</p>
-    <p>To create a non-Conformity, click on the "Add Non-Conformity" button and follow the steps outlining the situation in detail.</p>
+    <div class="am-card" style="padding:16px 20px;margin-bottom:16px;background:rgba(46,59,154,0.04);border:1px solid rgba(46,59,154,0.12);">
+        <div style="display:flex;gap:12px;align-items:flex-start;">
+            <span style="width:36px;height:36px;flex-shrink:0;border-radius:10px;background:var(--am-primary-tint);color:var(--am-primary);display:inline-flex;align-items:center;justify-content:center;font-size:15px;"><i class="fa fa-info-circle"></i></span>
+            <div style="font-size:13px;color:var(--am-text);line-height:1.55;">
+                A non-conformance occurs when something doesn't meet specifications — in services, products, processes, supplier goods, or staff behavior. Minor (e.g. invoicing mistake) vs Major (e.g. employee misconduct).
+            </div>
+        </div>
+    </div>
 
-    {{-- Add Form --}}
-    <div class="am-card non_conformities_from_div" style="display:none;">
-        <div class="am-card__body am-form">
-            <h6 class="dash-section-title">Non-Conformity Details</h6>
-            <form action=" {{ route('nonConfromForm') }} " method="POST">
+    <div class="am-card" style="margin-bottom:16px;">
+        <div class="am-card__toolbar">
+            <form method="GET" action="{{ url('/non_confromities') }}" class="am-search" id="amNcSearchForm" style="flex:1;max-width:340px;margin:0;">
+                <i class="fa fa-search"></i>
+                <input type="text" name="q" id="amNcSearch" value="{{ $search ?? '' }}" placeholder="Search NCRs…" autocomplete="off">
+            </form>
+            <button type="button" class="am-btn am-btn-primary" id="toggleNcForm">
+                <i class="fa fa-plus"></i> Add Non-Conformity
+            </button>
+        </div>
+
+        <div class="am-inline-form" id="newNcForm" style="margin:16px 20px;">
+            <form action="{{ route('nonConfromForm') }}" method="POST">
                 @csrf
-                <input type="hidden" name="user_id2" id="user_id2" value="{{ $userid }}" />
-
                 <div class="form-row">
-                    <div class="form-col">
-                        <label>Minor or Major Non-Conformity:</label>
-                        <select name="minor_major" class="form-control">
-                            <option value="">Select Option</option>
+                    <div>
+                        <label>Type</label>
+                        <select name="minor_major" required>
+                            <option value="">Select</option>
                             <option value="Minor">Minor</option>
                             <option value="Major">Major</option>
                         </select>
                     </div>
-                    <div class="form-col">
-                        <label>Supplier Name:</label>
-                        <input type="text" class="form-control supplier_name" name="supplier_data"
-                            placeholder="Enter Supplier Name (if applicable)">
+                    <div><label>Supplier Name</label><input type="text" class="supplier_name" name="supplier_data" placeholder="Supplier name"></div>
+                    <div>
+                        <label>Supplier ID</label>
+                        <select onchange="get_customer(this)" required name="customerID" id="customer_id">
+                            <option value="" disabled selected>Select supplier ID</option>
+                            @foreach($customers as $customer)
+                                <option value="{{ $customer->idnumber }}">{{ $customer->idnumber }}</option>
+                            @endforeach
+                        </select>
                     </div>
                 </div>
-
                 <div class="form-row">
-                    <div class="form-col">
-                        <label>Supplier ID Number:</label>
-                        @if($no_customer==1)
-                            <select onchange="get_customer(this)" class="form-control" required name="customerID" id="customer_id">
-                                <option value="">Enter Supplier ID Number (If Applicable)</option>
-                            </select>
-                        @else
-                            <select onchange="get_customer(this)" class="form-control" name="customerID" id="customer_id">
-                                <option value="">Enter Supplier ID Number:</option>
-                                @foreach($customers as $customer)
-                                    <option value="{{ $customer->idnumber }}">{{ $customer->idnumber }}</option>
-                                @endforeach
-                            </select>
-                        @endif
+                    <div><label>Employee Who Reported NCR</label><input type="text" class="Employee_name" name="employee_name" placeholder="Employee name"></div>
+                    <div>
+                        <label>Employee ID</label>
+                        <select onchange="get_employee(this)" required name="employee_id" id="employee_id">
+                            <option value="" disabled selected>Select employee ID</option>
+                            @foreach($employees as $employee)
+                                <option value="{{ $employee->empNumber }}">{{ $employee->empNumber }}</option>
+                            @endforeach
+                        </select>
                     </div>
-                    <div class="form-col">
-                        <label>Employee who reported NCR:</label>
-                        <input type="text" class="form-control employee_name" name="employee_name"
-                            placeholder="Enter Employee Name">
-                    </div>
-                </div>
-
-                <div class="form-row">
-                    <div class="form-col">
-                        <label>Employee ID Number:</label>
-                        @if($no_customer==1)
-                            <select onchange="get_employee(this)" class="form-control" required name="employee_id" id="employee_id">
-                                <option value="">Enter Employee ID Number:</option>
-                            </select>
-                        @else
-                            <select onchange="get_employee(this)" class="form-control" name="employee_id" id="employee_id">
-                                <option value="">Enter Employee ID Number:</option>
-                                @foreach($employees as $employee)
-                                    <option value="{{ $employee->empNumber }}">{{ $employee->empNumber }}</option>
-                                @endforeach
-                            </select>
-                        @endif
-                    </div>
-                    <div class="form-col">
-                        <label>Root Cause Category:</label>
-                        <select name="root_cause_category" class="form-control" required>
+                    <div>
+                        <label>Root Cause Category</label>
+                        <select name="root_cause_category">
                             <option value="Other">Other</option>
                             <option value="Planning">Planning</option>
                             <option value="Production">Production</option>
@@ -98,673 +83,293 @@
                         </select>
                     </div>
                 </div>
-
-                <h6 class="dash-section-title" style="margin-top:16px;">Description &amp; Cause</h6>
                 <div class="form-row">
-                    <div class="form-col">
-                        <label>NCR Description:</label>
-                        <input type="text" required class="form-control" name="description"
-                            placeholder="Enter Fault Description">
-                    </div>
-                    <div class="form-col">
-                        <label>Root Cause:</label>
-                        <input type="text" required class="form-control" name="rootCause"
-                            placeholder="Enter Root Cause">
-                    </div>
+                    <div><label>NCR Description</label><input type="text" name="description" placeholder="Fault description"></div>
+                    <div><label>Root Cause</label><input type="text" name="rootCause" placeholder="Root cause"></div>
                 </div>
-
-                <h6 class="dash-section-title" style="margin-top:16px;">Corrective Actions</h6>
                 <div class="form-row">
-                    <div class="form-col">
-                        <label>Immediate Corrective Action:</label>
-                        <input type="text" required class="form-control" name="immediateCorp"
-                            placeholder="Enter Immediate Corrective Action">
-                    </div>
-                    <div class="form-col">
-                        <label>Action to Prevent Recurrence:</label>
-                        <input type="text" required class="form-control" name="actionPrevent"
-                            placeholder="Enter action/s to prevent recurrence.">
-                    </div>
+                    <div><label>Immediate Corrective Action</label><input type="text" name="immediateCorp"></div>
+                    <div><label>Action to Prevent Recurrence</label><input type="text" name="actionPrevent"></div>
                 </div>
-
                 <div class="form-row">
-                    <div class="form-col">
-                        <label>Effectiveness of Action to Prevent Recurrence:</label>
-                        <input type="text" required class="form-control" name="ActionRecurnce"
-                            placeholder="Enter details of the effectiveness of action/s to prevent recurrence">
-                    </div>
-                    <div class="form-col">
-                        <label>Effectiveness Review Date (MM/DD/YYYY):</label>
-                        <input type="date" required max="2999-12-31" class="form-control" name="effectiveDate">
-                    </div>
+                    <div><label>Effectiveness of Action</label><input type="text" name="ActionRecurnce"></div>
+                    <div><label>Effectiveness Review Date</label><input type="date" name="effectiveDate"></div>
                 </div>
-
-                <h6 class="dash-section-title" style="margin-top:16px;">Review &amp; Dates</h6>
                 <div class="form-row">
-                    <div class="form-col">
-                        <label>Review performed by:</label>
-                        <input type="text" required class="form-control" name="reviewdBy"
-                            placeholder="Review performed by">
-                    </div>
-                    <div class="form-col">
-                        <label>Date when NC was processed (MM/DD/YYYY):</label>
-                        <input type="date" required max="2999-12-31" class="form-control" name="dateNcP">
-                    </div>
+                    <div><label>Review Performed By</label><input type="text" name="reviewdBy"></div>
+                    <div><label>Date NC Processed</label><input type="date" name="dateNcP"></div>
+                    <div><label>Date NC Received</label><input type="date" name="dateNcR"></div>
                 </div>
-
                 <div class="form-row">
-                    <div class="form-col">
-                        <label>Date when NC was received (MM/DD/YYYY):</label>
-                        <input type="date" required max="2999-12-31" class="form-control" name="dateNcR">
-                    </div>
-                    <div class="form-col">
-                        <label>Supplier Response Expected Time (Days):</label>
-                        <input type="text" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*?)\..*/g, '$1');"
-                            required class="form-control validate_number" name="CRE"
-                            placeholder="Enter number of days">
-                    </div>
-                </div>
-
-                <div class="form-row">
-                    <div class="form-col">
-                        <label>Product Impact (Yes or No):</label>
-                        <select name="PI" class="form-control" required>
-                            <option value="">Product Impact</option>
+                    <div><label>Customer Response Time (Days)</label><input type="number" min="0" name="CRE"></div>
+                    <div>
+                        <label>Product Impact</label>
+                        <select name="PI">
+                            <option value=""></option>
                             <option value="Yes">Yes</option>
                             <option value="No">No</option>
                         </select>
                     </div>
-                    <div class="form-col">
-                        <label>NCR closed (Yes or No):</label>
-                        <select name="NCR_closed" class="form-control">
+                    <div>
+                        <label>NCR Closed</label>
+                        <select name="NCR_closed">
                             <option value=""></option>
                             <option value="Yes">Yes</option>
                             <option value="No">No</option>
                         </select>
                     </div>
                 </div>
-
-                <div style="display:flex; gap:8px; margin-top:16px;">
-                    <button type="submit" class="am-btn am-btn-primary">SUBMIT</button>
-                    <button type="reset" onclick="nonConformities()" class="am-btn am-btn-outline">Cancel</button>
+                <div class="form-actions">
+                    <button type="button" class="am-btn am-btn-outline am-btn-sm" id="cancelNcForm">Cancel</button>
+                    <button type="submit" class="am-btn am-btn-primary am-btn-sm"><i class="fa fa-check"></i> Save NCR</button>
                 </div>
             </form>
         </div>
     </div>
 
-    {{-- Table --}}
     <div class="am-card">
-        <h6 class="dash-section-title" style="padding:16px 16px 0;">Total Non-Conformities Listed</h6>
-        <div class="am-table-wrap">
-            <table class="am-table">
-                <thead>
-                    <tr>
-                        <th>NCR ID</th>
-                        <th>Minor / Major</th>
-                        <th>Supplier Name</th>
-                        <th>Supplier ID</th>
-                        <th>Employee Reported</th>
-                        <th>Employee ID</th>
-                        <th>NCR Description</th>
-                        <th>Category</th>
-                        <th>Date Processed</th>
-                        <th>Action</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @php $i = 1; @endphp
-                    @forelse($customers_nonconform as $data)
-                        <tr>
-                            <td>{{ $i++ }}</td>
-                            <td>
-                                <span class="am-chip {{ $data->non_confirm_status == 'Major' ? 'danger' : 'info' }}">
-                                    {{ $data->non_confirm_status }}
-                                </span>
-                            </td>
-                            <td>{{ $data->supplier_data }}</td>
-                            <td>{{ $data->customerID }}</td>
-                            <td>{{ $data->employee_name }}</td>
-                            <td>{{ $data->employee_id }}</td>
-                            <td>{{ $data->description }}</td>
-                            <td>{{ $data->root_cause_category }}</td>
-                            <td>{{ $data->dateNcR }}</td>
-                            <td>
-                                <button class="am-btn am-btn-outline am-btn-sm" title="View"
-                                    onclick="getEid({{ json_encode($data) }});">
-                                    <i class="fa fa-eye"></i>
-                                </button>
-                                <button class="am-btn am-btn-outline am-btn-sm" title="Edit"
-                                    onclick="EditData({{ json_encode($data) }});">
-                                    <i class="fa fa-pencil"></i>
-                                </button>
-                                <button class="am-btn am-btn-danger am-btn-sm" title="Delete"
-                                    onclick="deleteModal({{ json_encode($data) }});">
-                                    <i class="fa fa-trash"></i>
-                                </button>
-                            </td>
-                        </tr>
-                    @empty
-                        <tr>
-                            <td colspan="10">
-                                <div class="am-empty">
-                                    <i class="fa fa-database"></i>
-                                    <p>No records found.</p>
-                                </div>
-                            </td>
-                        </tr>
-                    @endforelse
-                </tbody>
-            </table>
+        <div id="amNcContainer">
+            @include('dashboard.form_records.partials.non_conformities_table')
         </div>
     </div>
-
 </div>
 
-{{-- View Modal --}}
-<div class="modal fade" id="nonconfirmDetail" tabindex="-1" role="dialog" aria-labelledby="nonconfirmDetailLabel" aria-hidden="true">
-    <div class="modal-dialog modal-lg" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="nonconfirmDetailLabel">View Non-Conformity</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
+{{-- View modal --}}
+<div class="am-modal" id="viewNcModal" role="dialog" aria-modal="true">
+    <div class="am-modal__box" style="max-width:900px;">
+        <div class="am-modal__header">
+            <span class="am-modal__icon" style="background:var(--am-primary-tint);color:var(--am-primary);"><i class="fa fa-eye"></i></span>
+            <h4 class="am-modal__title">Non-Conformity Details</h4>
+        </div>
+        <div class="am-modal__body">
+            @php $vf = [
+                'non_confirm_status' => 'Type', 'supplier_data' => 'Supplier Name', 'customerID' => 'Supplier ID',
+                'employee_name' => 'Reported By', 'employee_id' => 'Employee ID', 'root_cause_category' => 'Root Cause Category',
+                'description' => 'Description', 'rootCause' => 'Root Cause',
+                'immediateCorp' => 'Immediate Corrective Action', 'actionPrevent' => 'Prevent Recurrence',
+                'ActionRecurnce' => 'Effectiveness of Action', 'effectiveDate' => 'Effectiveness Review Date',
+                'reviewdBy' => 'Reviewed By', 'dateNcP' => 'Date NC Processed', 'dateNcR' => 'Date NC Received',
+                'CRE' => 'Customer Response Time', 'PI' => 'Product Impact', 'NCR_closed' => 'NCR Closed',
+            ]; @endphp
+            <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:14px;font-size:13px;">
+                @foreach($vf as $k => $lb)
+                    <div><div style="font-size:11px;text-transform:uppercase;letter-spacing:0.4px;color:var(--am-text-muted);font-weight:600;margin-bottom:4px;">{{ $lb }}</div><div id="vnc-{{ $k }}">—</div></div>
+                @endforeach
+            </div>
+        </div>
+        <div class="am-modal__footer"><button type="button" class="am-btn am-btn-outline am-modal-close">Close</button></div>
+    </div>
+</div>
+
+{{-- Edit modal --}}
+<div class="am-modal" id="editNcModal" role="dialog" aria-modal="true">
+    <div class="am-modal__box am-form" style="max-width:1000px;">
+        <div class="am-modal__header">
+            <span class="am-modal__icon" style="background:var(--am-primary-tint);color:var(--am-primary);"><i class="fa fa-pen"></i></span>
+            <h4 class="am-modal__title">Edit Non-Conformity</h4>
+        </div>
+        <form action="{{ route('editnonConfirm') }}" method="POST" style="display:contents;">
+            @csrf
+            <input type="hidden" name="id" id="enc-id">
+            <div class="am-modal__body" style="padding:20px;">
+                <div class="form-group row">
+                    <div class="col-lg-4"><label>Type</label>
+                        <select class="form-control" name="minor_major">
+                            <option value="">Select</option>
+                            <option value="Minor">Minor</option>
+                            <option value="Major">Major</option>
+                        </select>
+                    </div>
+                    <div class="col-lg-4"><label>Supplier Name</label><input type="text" class="form-control" name="supplier_data"></div>
+                    <div class="col-lg-4"><label>Supplier ID</label>
+                        <select class="form-control" name="customerID">
+                            <option value="">Select</option>
+                            @foreach($customers as $customer)
+                                <option value="{{ $customer->idnumber }}">{{ $customer->idnumber }}</option>
+                            @endforeach
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <div class="col-lg-4"><label>Employee Name</label><input type="text" class="form-control" name="employee_name"></div>
+                    <div class="col-lg-4"><label>Employee ID</label>
+                        <select class="form-control" name="employee_id">
+                            <option value="">Select</option>
+                            @foreach($employees as $employee)
+                                <option value="{{ $employee->empNumber }}">{{ $employee->empNumber }}</option>
+                            @endforeach
+                        </select>
+                    </div>
+                    <div class="col-lg-4"><label>Root Cause Category</label>
+                        <select class="form-control" name="root_cause_category">
+                            <option value="Other">Other</option><option value="Planning">Planning</option><option value="Production">Production</option><option value="Non-liable">Non-liable</option><option value="Training">Training</option><option value="Management">Management</option><option value="Human Factor">Human Factor</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <div class="col-lg-6"><label>Description</label><input type="text" class="form-control" name="description"></div>
+                    <div class="col-lg-6"><label>Root Cause</label><input type="text" class="form-control" name="rootCause"></div>
+                </div>
+                <div class="form-group row">
+                    <div class="col-lg-6"><label>Immediate Corrective Action</label><input type="text" class="form-control" name="immediateCorp"></div>
+                    <div class="col-lg-6"><label>Prevent Recurrence</label><input type="text" class="form-control" name="actionPrevent"></div>
+                </div>
+                <div class="form-group row">
+                    <div class="col-lg-6"><label>Effectiveness of Action</label><input type="text" class="form-control" name="ActionRecurnce"></div>
+                    <div class="col-lg-6"><label>Effectiveness Review Date</label><input type="date" class="form-control" name="effectiveDate"></div>
+                </div>
+                <div class="form-group row">
+                    <div class="col-lg-4"><label>Reviewed By</label><input type="text" class="form-control" name="reviewdBy"></div>
+                    <div class="col-lg-4"><label>Date NC Processed</label><input type="date" class="form-control" name="dateNcP"></div>
+                    <div class="col-lg-4"><label>Date NC Received</label><input type="date" class="form-control" name="dateNcR"></div>
+                </div>
+                <div class="form-group row">
+                    <div class="col-lg-4"><label>Customer Response Time</label><input type="number" min="0" class="form-control" name="CRE"></div>
+                    <div class="col-lg-4"><label>Product Impact</label>
+                        <select class="form-control" name="PI"><option value=""></option><option value="Yes">Yes</option><option value="No">No</option></select>
+                    </div>
+                    <div class="col-lg-4"><label>NCR Closed</label>
+                        <select class="form-control" name="NCR_closed"><option value=""></option><option value="Yes">Yes</option><option value="No">No</option></select>
+                    </div>
+                </div>
+            </div>
+            <div class="am-modal__footer">
+                <button type="button" class="am-btn am-btn-outline am-modal-close">Cancel</button>
+                <button type="submit" class="am-btn am-btn-primary"><i class="fa fa-check"></i> Update</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+{{-- Delete Confirmation Modal --}}
+<div class="am-modal" id="amConfirmDelete" role="dialog" aria-modal="true">
+    <div class="am-modal__box">
+        <div class="am-modal__header">
+            <span class="am-modal__icon"><i class="fa fa-exclamation-triangle"></i></span>
+            <h4 class="am-modal__title">Delete <span id="amConfirmType">Item</span>?</h4>
+        </div>
+        <div class="am-modal__body">
+            You are about to permanently delete <strong id="amConfirmLabel">this item</strong>. This action cannot be undone.
+        </div>
+        <div class="am-modal__footer">
+            <button type="button" class="am-btn am-btn-outline am-modal-close">Cancel</button>
+            <form id="amConfirmForm" method="POST" style="display:inline;">
+                @csrf
+                <input type="hidden" name="id" id="amConfirmId">
+                <button type="submit" class="am-btn" style="background:var(--am-danger);color:#fff;">
+                    <i class="fa fa-trash"></i> Yes, delete
                 </button>
-            </div>
-            <div class="modal-body">
-                <form>
-                    @csrf
-                    <input type="hidden" name="id" value="" id="id_feild">
-                    <div class="row">
-                        <div class="col-lg-6">
-                            <div class="form-group">
-                                <label>Minor or Major Non-Conformity:</label>
-                                <input type="text" class="form-control" name="minor_major" disabled>
-                            </div>
-                        </div>
-                        <div class="col-lg-6">
-                            <div class="form-group">
-                                <label>Supplier Name:</label>
-                                <input type="text" class="form-control" name="supplier_data" disabled>
-                            </div>
-                        </div>
-                        <div class="col-lg-6">
-                            <div class="form-group">
-                                <label>Supplier ID Number:</label>
-                                @if($no_customer==1)
-                                    <select readonly disabled class="form-control" name="customerID">
-                                        <option value="">Enter Supplier ID Number:</option>
-                                    </select>
-                                @else
-                                    <select readonly disabled class="form-control" name="customerID">
-                                        <option value="">Enter Supplier ID Number:</option>
-                                        @foreach($customers as $customer)
-                                            <option value="{{ $customer->idnumber }}">{{ $customer->idnumber }}</option>
-                                        @endforeach
-                                    </select>
-                                @endif
-                            </div>
-                        </div>
-                        <div class="col-lg-6">
-                            <div class="form-group">
-                                <label>Employee who reported NCR:</label>
-                                <input type="text" readonly disabled class="form-control employee_name_edit_display" name="employee_name" id="employee_name">
-                            </div>
-                        </div>
-                        <div class="col-lg-6">
-                            <div class="form-group">
-                                <label>Employee ID Number:</label>
-                                <select readonly disabled class="form-control" name="employee_id" id="employee_id">
-                                    <option value="">Enter Employee ID Number:</option>
-                                    @foreach($employees as $employee)
-                                        <option value="{{ $employee->empNumber }}">{{ $employee->empNumber }}</option>
-                                    @endforeach
-                                </select>
-                            </div>
-                        </div>
-                        <div class="col-lg-6">
-                            <div class="form-group">
-                                <label>Root Cause Category:</label>
-                                <input type="text" name="root_cause_category" readonly disabled class="form-control">
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-lg-6">
-                            <div class="form-group">
-                                <label>NCR Description:</label>
-                                <input type="text" readonly disabled class="form-control" name="description">
-                            </div>
-                        </div>
-                        <div class="col-lg-6">
-                            <div class="form-group">
-                                <label>Root Cause:</label>
-                                <input type="text" readonly disabled class="form-control" name="rootCause">
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-lg-6">
-                            <div class="form-group">
-                                <label>Action to Prevent Recurrence:</label>
-                                <input type="text" readonly disabled class="form-control" name="actionPrevent">
-                            </div>
-                        </div>
-                        <div class="col-lg-6">
-                            <div class="form-group">
-                                <label>Effectiveness of Action to Prevent Recurrence:</label>
-                                <input type="text" readonly disabled class="form-control" name="ActionRecurnce">
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-lg-6">
-                            <div class="form-group">
-                                <label>Immediate Corrective Action:</label>
-                                <input type="text" readonly disabled class="form-control" name="immediateCorp">
-                            </div>
-                        </div>
-                        <div class="col-lg-6">
-                            <div class="form-group">
-                                <label>Effectiveness Review Date (MM/DD/YYYY):</label>
-                                <input type="date" max="2999-12-31" class="form-control" name="effectiveDate">
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-lg-6">
-                            <div class="form-group">
-                                <label>Review Performed By:</label>
-                                <input type="text" class="form-control" name="reviewdBy">
-                            </div>
-                        </div>
-                        <div class="col-lg-6">
-                            <div class="form-group">
-                                <label>Date when NC was processed (MM/DD/YYYY):</label>
-                                <input type="date" class="form-control" name="dateNcP">
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-lg-6">
-                            <div class="form-group">
-                                <label>Date NC Received (MM/DD/YYYY):</label>
-                                <input type="date" class="form-control" name="dateNcR">
-                            </div>
-                        </div>
-                        <div class="col-lg-6">
-                            <div class="form-group">
-                                <label>Supplier Response Expected Time (Days):</label>
-                                <input type="number" readonly disabled class="form-control validate_number" name="CRE">
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-lg-6">
-                            <div class="form-group">
-                                <label>Product Impact (Yes or No):</label>
-                                <select name="PI" class="form-control" readonly disabled>
-                                    <option value="">Product Impact</option>
-                                    <option value="Yes">Yes</option>
-                                    <option value="No">No</option>
-                                </select>
-                            </div>
-                        </div>
-                        <div class="col-lg-6">
-                            <div class="form-group">
-                                <label>NCR closed (Yes or No):</label>
-                                <select name="NCR_closed" class="form-control">
-                                    <option value=""></option>
-                                    <option value="Yes">Yes</option>
-                                    <option value="No">No</option>
-                                </select>
-                            </div>
-                        </div>
-                    </div>
-                </form>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="am-btn am-btn-outline" data-dismiss="modal">Close</button>
-            </div>
+            </form>
         </div>
     </div>
 </div>
-
-{{-- Edit Modal --}}
-<div class="modal fade" id="editConfirm" tabindex="-1" role="dialog" aria-labelledby="editConfirmLabel" aria-hidden="true">
-    <div class="modal-dialog modal-lg" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="editConfirmLabel">Edit Non-Conformity Details</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                <form action="{{ route('editnonConfirm') }}" method="POST">
-                    @csrf
-                    <input type="hidden" name="id" value="" id="editid">
-                    <div class="row">
-                        <div class="col-lg-6">
-                            <div class="form-group">
-                                <label>Minor or Major Non-Conformity:</label>
-                                <select class="form-control" name="minor_major">
-                                    <option value="">Select Option</option>
-                                    <option value="Minor">Minor</option>
-                                    <option value="Major">Major</option>
-                                </select>
-                            </div>
-                        </div>
-                        <div class="col-lg-6">
-                            <div class="form-group">
-                                <label>Supplier Name:</label>
-                                <input type="text" class="form-control" name="supplier_data" id="supplier_name" placeholder="Enter Supplier Name">
-                            </div>
-                        </div>
-                        <div class="col-lg-6">
-                            <div class="form-group">
-                                <label>Supplier ID Number:</label>
-                                @if($no_customer==1)
-                                    <select readonly disabled class="form-control" required name="customerID">
-                                        <option value="">Enter Supplier ID Number:</option>
-                                    </select>
-                                @else
-                                    <select readonly class="form-control" name="customerID">
-                                        <option value="">Enter Supplier ID Number:</option>
-                                        @foreach($customers as $customer)
-                                            <option value="{{ $customer->idnumber }}">{{ $customer->idnumber }}</option>
-                                        @endforeach
-                                    </select>
-                                @endif
-                            </div>
-                        </div>
-                        <div class="col-lg-6">
-                            <div class="form-group">
-                                <label>Employee who reported NCR:</label>
-                                <input type="text" class="form-control employee_name_edit_display employee_name" name="employee_name" id="employee_name" placeholder="Enter Employee Name">
-                            </div>
-                        </div>
-                        <div class="col-lg-6">
-                            <div class="form-group">
-                                <label>Employee ID Number:</label>
-                                @if($no_customer==1)
-                                    <select onchange="get_employee(this)" class="form-control" required name="employee_id" id="employee_id">
-                                        <option value="">Enter Employee ID Number:</option>
-                                    </select>
-                                @else
-                                    <select onchange="get_employee(this)" class="form-control" name="employee_id" id="employee_id">
-                                        <option value="">Enter Employee ID Number:</option>
-                                        @foreach($employees as $employee)
-                                            <option value="{{ $employee->empNumber }}">{{ $employee->empNumber }}</option>
-                                        @endforeach
-                                    </select>
-                                @endif
-                            </div>
-                        </div>
-                        <div class="col-lg-6">
-                            <div class="form-group">
-                                <label>Root Cause Category:</label>
-                                <select name="root_cause_category" class="form-control" required>
-                                    <option value="Other">Other</option>
-                                    <option value="Planning">Planning</option>
-                                    <option value="Production">Production</option>
-                                    <option value="Non-liable">Non-liable</option>
-                                    <option value="Training">Training</option>
-                                    <option value="Management">Management</option>
-                                    <option value="Human Factor">Human Factor</option>
-                                </select>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-lg-6">
-                            <div class="form-group">
-                                <label>NCR Description:</label>
-                                <input type="text" required class="form-control" name="description" placeholder="Enter Fault Description">
-                            </div>
-                        </div>
-                        <div class="col-lg-6">
-                            <div class="form-group">
-                                <label>Root Cause:</label>
-                                <input type="text" required class="form-control" name="rootCause" placeholder="Enter Root Cause">
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-lg-6">
-                            <div class="form-group">
-                                <label>Immediate Corrective Action:</label>
-                                <input type="text" required class="form-control" name="immediateCorp" placeholder="Enter Immediate Corrective Action">
-                            </div>
-                        </div>
-                        <div class="col-lg-6">
-                            <div class="form-group">
-                                <label>Action to Prevent Recurrence:</label>
-                                <input type="text" required class="form-control" name="actionPrevent" placeholder="Enter effectiveness of action/s to prevent recurrence.">
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-lg-6">
-                            <div class="form-group">
-                                <label>Effectiveness of Action to Prevent Recurrence:</label>
-                                <input type="text" required class="form-control" name="ActionRecurnce" placeholder="Enter details of the effectiveness of action/s to prevent recurrence">
-                            </div>
-                        </div>
-                        <div class="col-lg-6">
-                            <div class="form-group">
-                                <label>Effectiveness Review Date (MM/DD/YYYY):</label>
-                                <input type="date" required max="2999-12-31" class="form-control" name="effectiveDate">
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-lg-6">
-                            <div class="form-group">
-                                <label>Review Performed By:</label>
-                                <input type="text" class="form-control" name="reviewdBy" placeholder="Review performed by" required>
-                            </div>
-                        </div>
-                        <div class="col-lg-6">
-                            <div class="form-group">
-                                <label>Date when NC was processed (MM/DD/YYYY):</label>
-                                <input type="date" required max="2999-12-31" class="form-control" name="dateNcP">
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-lg-6">
-                            <div class="form-group">
-                                <label>Date NC Received (MM/DD/YYYY):</label>
-                                <input type="date" required max="2999-12-31" class="form-control" name="dateNcR">
-                            </div>
-                        </div>
-                        <div class="col-lg-6">
-                            <div class="form-group">
-                                <label>Supplier Response Expected Time (Days):</label>
-                                <input type="number" required min="1" max="9999" class="form-control validate_number" name="CRE" placeholder="Enter number of days">
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-lg-6">
-                            <div class="form-group">
-                                <label>Product Impact (Yes or No):</label>
-                                <select name="PI" class="form-control">
-                                    <option value=""></option>
-                                    <option value="Yes">Yes</option>
-                                    <option value="No">No</option>
-                                </select>
-                            </div>
-                        </div>
-                        <div class="col-lg-6">
-                            <div class="form-group">
-                                <label>NCR closed (Yes or No):</label>
-                                <select name="NCR_closed" class="form-control">
-                                    <option value=""></option>
-                                    <option value="Yes">Yes</option>
-                                    <option value="No">No</option>
-                                </select>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="modal-footer" style="padding:12px 0 0;">
-                        <button type="reset" class="am-btn am-btn-outline" data-dismiss="modal">Cancel</button>
-                        <button type="submit" class="am-btn am-btn-primary">Update</button>
-                    </div>
-                </form>
-            </div>
-        </div>
-    </div>
-</div>
-
-{{-- Delete Modal --}}
-<div class="modal fade" id="deleteRequirment" tabindex="-1" role="dialog" aria-labelledby="deleteRequirmentLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="deleteRequirmentLabel">Deleting an entry</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                <p>Are you sure you want to delete this entry?</p>
-            </div>
-            <div class="modal-footer">
-                <form action="{{ route('deletenonconfimity') }}" method="POST">
-                    @csrf
-                    <input type="hidden" id="re_id" value="" name="id">
-                    <button type="button" class="am-btn am-btn-outline" data-dismiss="modal">No</button>
-                    <button type="submit" class="am-btn am-btn-danger">Yes, Delete</button>
-                </form>
-            </div>
-        </div>
-    </div>
-</div>
-
-@endsection
 
 <script>
-    function get_customer(obj) {
-        $this = $(obj);
-        $id = $this.val();
-        $user_id = document.getElementById('user_id2').value;
-        jQuery.ajax({
-            url: "{{ url('/get_customer_name_by_id') }}",
-            type: "POST",
-            data: {
-                "_token": "{{ csrf_token() }}",
-                id: $id,
-                user_id: $user_id,
-            },
-        }).done(function (response) {
-            response2 = JSON.parse(response);
-            $this.closest(".form-row").find(".supplier_name").val(response2.name);
-        });
+document.addEventListener('click', function(e) {
+    var close = e.target.closest('.am-modal-close');
+    if (close) { var m = close.closest('.am-modal'); if (m) m.classList.remove('open'); return; }
+    if (e.target.classList && e.target.classList.contains('am-modal')) e.target.classList.remove('open');
+});
+document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape') document.querySelectorAll('.am-modal.open').forEach(function(m){ m.classList.remove('open'); });
+});
+(function() {
+    var t = document.getElementById('toggleNcForm');
+    var f = document.getElementById('newNcForm');
+    var c = document.getElementById('cancelNcForm');
+    t && t.addEventListener('click', function() { f.classList.toggle('open'); });
+    c && c.addEventListener('click', function() { f.classList.remove('open'); });
+})();
+document.addEventListener('click', function(e) {
+    var btn = e.target.closest('.am-confirm-delete');
+    if (!btn) return;
+    e.preventDefault();
+    document.getElementById('amConfirmForm').setAttribute('action', btn.getAttribute('data-action') || '');
+    document.getElementById('amConfirmId').value = btn.getAttribute('data-id') || '';
+    document.getElementById('amConfirmType').textContent = btn.getAttribute('data-type') || 'Item';
+    document.getElementById('amConfirmLabel').textContent = btn.getAttribute('data-label') || 'this item';
+    document.getElementById('amConfirmDelete').classList.add('open');
+});
+(function() {
+    var input = document.getElementById('amNcSearch');
+    var form = document.getElementById('amNcSearchForm');
+    var container = document.getElementById('amNcContainer');
+    if (!container) return;
+    var baseUrl = '{{ url('/non_confromities') }}';
+    function debounce(fn, wait) { var t; return function() { var ctx = this, args = arguments; clearTimeout(t); t = setTimeout(function() { fn.apply(ctx, args); }, wait); }; }
+    function showLoading() { container.style.opacity = '0.5'; container.style.pointerEvents = 'none'; }
+    function hideLoading() { container.style.opacity = ''; container.style.pointerEvents = ''; }
+    function fetchPage(page) {
+        var q = input ? input.value.trim() : '';
+        var url = baseUrl + '?q=' + encodeURIComponent(q) + '&page=' + page;
+        showLoading();
+        fetch(url, { headers: { 'X-Requested-With': 'XMLHttpRequest' } })
+            .then(function(r) { return r.text(); })
+            .then(function(html) { container.innerHTML = html; hideLoading(); })
+            .catch(function() { hideLoading(); });
     }
+    input && input.addEventListener('input', debounce(function() { fetchPage(1); }, 350));
+    form && form.addEventListener('submit', function(e) { e.preventDefault(); fetchPage(1); });
+    container.addEventListener('click', function(e) {
+        var btn = e.target.closest('.am-page-link');
+        if (!btn || btn.disabled) return;
+        e.preventDefault();
+        var p = parseInt(btn.getAttribute('data-page'), 10);
+        if (!isNaN(p) && p > 0) fetchPage(p);
+    });
+})();
 
-    function get_employee(obj) {
-        $this = $(obj);
-        $id = $this.val();
-        $user_id = document.getElementById('user_id2').value;
-        jQuery.ajax({
-            url: "{{ url('/get_employee_name_by_id') }}",
-            type: "POST",
-            data: {
-                "_token": "{{ csrf_token() }}",
-                id: $id,
-                user_id: $user_id,
-            },
-        }).done(function (response) {
-            response2 = JSON.parse(response);
-            $this.closest(".form-row").find(".employee_name").val(response2.surname);
-        });
-    }
+function get_customer(obj) {
+    var id = obj.value;
+    fetch('{{ url('/get_customer_name_by_id') }}?id=' + encodeURIComponent(id) + '&user_id={{ Auth::user()->id }}', {
+        headers: { 'X-Requested-With': 'XMLHttpRequest' }
+    })
+    .then(function(r){ return r.json(); })
+    .then(function(res){
+        if (res.Status) {
+            var input = document.querySelector('.supplier_name');
+            if (input) input.value = res.name || '';
+        }
+    })
+    .catch(function(){});
+}
+function get_employee(obj) {
+    var id = obj.value;
+    fetch('{{ url('/get_employee_name_by_id') }}?id=' + encodeURIComponent(id) + '&user_id={{ Auth::user()->id }}', {
+        headers: { 'X-Requested-With': 'XMLHttpRequest' }
+    })
+    .then(function(r){ return r.json(); })
+    .then(function(res){
+        if (res.Status) {
+            var input = document.querySelector('.Employee_name');
+            if (input) input.value = res.surname || '';
+        }
+    })
+    .catch(function(){});
+}
 
-    function get_customer_name_by_id(the_id, the_class) {
-        jQuery.ajax({
-            url: "{{ url('/get_customer_name_by_id') }}",
-            type: "POST",
-            data: {
-                "_token": "{{ csrf_token() }}",
-                id: the_id,
-            },
-        }).done(function (response) {
-            response2 = JSON.parse(response);
-            $(the_class).val(response2.name);
-        });
-    }
-
-    function get_employee_name_by_id(the_id, the_class) {
-        jQuery.ajax({
-            url: "{{ url('/get_employee_name_by_id') }}",
-            type: "POST",
-            data: {
-                "_token": "{{ csrf_token() }}",
-                id: the_id,
-                user_id: $user_id,
-            },
-        }).done(function (response) {
-            response2 = JSON.parse(response);
-            $(the_class).val(response2.surname);
-        });
-    }
-
-    function getEid(data) {
-        console.log(data);
-        $("#id_feild").val(data.id);
-        $("input[name='ActionRecurnce']").val(data.ActionRecurnce);
-        $("input[name='CRE']").val(data.CRE);
-        $("select[name='customerID']").val(data.customerID);
-        $("input[name='CustomerName']").val(data.name);
-        get_customer_name_by_id(data.customerID, '.customer_name_edit_display');
-        $("input[name='dateNcP']").val(data.dateNcP);
-        $("input[name='dateNcR']").val(data.dateNcR);
-        $("input[name='description']").val(data.description);
-        $("input[name='effectiveDate']").val(data.effectiveDate);
-        $("input[name='immediateCorp']").val(data.immediateCorp);
-        $("input[name='reviewdBy']").val(data.reviewdBy);
-        $("input[name='rootCause']").val(data.rootCause);
-        $("input[name='actionPrevent']").val(data.actionPrevent);
-        $("input[name='minor_major']").val(data.non_confirm_status);
-        $("select[name='PI']").val(data.PI);
-        $("select[name='NCR_closed']").val(data.NCR_closed);
-        $("input[name='root_cause_category']").val(data.root_cause_category);
-        $("input[name='supplier_data']").val(data.supplier_data);
-        $("select[name='employee_id']").val(data.employee_id);
-        $("input[name='employee_name']").val(data.employee_name);
-        $("#nonconfirmDetail").modal('show');
-    }
-
-    function EditData(data) {
-        console.log(data);
-        $("#editid").val(data.noid);
-        $("input[name='ActionRecurnce']").val(data.ActionRecurnce);
-        $("input[name='CRE']").val(data.CRE);
-        $("select[name='customerID']").val(data.customerID);
-        $("input[name='CustomerName']").val(data.name);
-        get_customer_name_by_id(data.customerID, '.customer_name_edit_display');
-        $("input[name='dateNcP']").val(data.dateNcP);
-        $("input[name='dateNcR']").val(data.dateNcR);
-        $("input[name='description']").val(data.description);
-        $("input[name='effectiveDate']").val(data.effectiveDate);
-        $("input[name='immediateCorp']").val(data.immediateCorp);
-        $("input[name='reviewdBy']").val(data.reviewdBy);
-        $("input[name='rootCause']").val(data.rootCause);
-        $("input[name='actionPrevent']").val(data.actionPrevent);
-        $("select[name='root_cause_category']").val(data.root_cause_category);
-        $("select[name='minor_major']").val(data.non_confirm_status);
-        $("select[name='NCR_closed']").val(data.NCR_closed);
-        $("select[name='PI']").val(data.PI);
-        $("input[name='supplier_data']").val(data.supplier_data);
-        $("input[name='employee_id']").val(data.employee_id);
-        $("input[name='employee_name']").val(data.employee_name);
-        $("select[name='employee_id']").val(data.employee_id);
-        $("#editConfirm").modal('show');
-    }
-
-    function deleteModal(data) {
-        $("#re_id").val(data.noid);
-        $("#deleteRequirment").modal('show');
-    }
+function amNcView(d){
+    ['non_confirm_status','supplier_data','customerID','employee_name','employee_id','root_cause_category','description','rootCause','immediateCorp','actionPrevent','ActionRecurnce','effectiveDate','reviewdBy','dateNcP','dateNcR','CRE','PI','NCR_closed'].forEach(function(k){
+        var el = document.getElementById('vnc-'+k);
+        if (el) el.textContent = d[k] || '—';
+    });
+    document.getElementById('viewNcModal').classList.add('open');
+}
+function amNcEdit(d){
+    document.getElementById('enc-id').value = d.noid || '';
+    var m = document.getElementById('editNcModal');
+    ['supplier_data','employee_name','description','rootCause','immediateCorp','actionPrevent','ActionRecurnce','effectiveDate','reviewdBy','dateNcP','dateNcR','CRE'].forEach(function(k){
+        var el = m.querySelector("input[name='"+k+"']");
+        if (el) el.value = d[k] || '';
+    });
+    var setSel = function(name, val){ var el = m.querySelector("select[name='"+name+"']"); if (el) el.value = val || ''; };
+    setSel('minor_major', d.non_confirm_status);
+    setSel('customerID', d.customerID);
+    setSel('employee_id', d.employee_id);
+    setSel('root_cause_category', d.root_cause_category);
+    setSel('PI', d.PI);
+    setSel('NCR_closed', d.NCR_closed);
+    m.classList.add('open');
+}
 </script>
+@endsection

@@ -40,10 +40,10 @@
     {{-- Toolbar --}}
     <div class="am-card" style="margin-bottom:16px;">
         <div class="am-card__toolbar">
-            <div class="am-search" style="flex:1;max-width:340px;">
+            <form method="GET" action="{{ url('/maintainRecCheck/' . $urlparam['userid']) }}" class="am-search" id="amMrSearchForm" style="flex:1;max-width:340px;margin:0;">
                 <i class="fa fa-search"></i>
-                <input type="text" id="amMrSearch" placeholder="Search maintenance records…" autocomplete="off">
-            </div>
+                <input type="text" name="q" id="amMrSearch" value="{{ $search ?? '' }}" placeholder="Search maintenance records…" autocomplete="off">
+            </form>
             <button type="button" class="am-btn am-btn-primary" id="toggleMrForm">
                 <i class="fa fa-plus"></i> Add Maintenance Record
             </button>
@@ -105,63 +105,32 @@
 
     {{-- Table card --}}
     <div class="am-card">
-        <div class="am-table-wrap">
-            <table class="am-table" id="amMrTable">
-                <thead>
-                    <tr>
-                        <th style="width:60px;">#</th>
-                        <th>Date</th>
-                        <th>Item</th>
-                        <th>Activity</th>
-                        <th>Location</th>
-                        <th>Performed By</th>
-                        <th style="text-align:right;">Actions</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @forelse ($mainrecord as $index => $data)
-                        <tr data-search="{{ strtolower($data->mritem . ' ' . $data->mractivity . ' ' . $data->mlocation . ' ' . $data->mractivityperofrmby) }}">
-                            <td><span class="am-cell-sub">#{{ $index + 1 }}</span></td>
-                            <td>
-                                <span class="am-chip info">{{ date('d M Y', strtotime($data->mrdate)) }}</span>
-                            </td>
-                            <td>
-                                <span class="am-cell-primary">{{ $data->mritem }}</span>
-                            </td>
-                            <td>{{ $data->mractivity }}</td>
-                            <td>{{ $data->mlocation }}</td>
-                            <td>{{ $data->mractivityperofrmby }}</td>
-                            <td style="text-align:right;white-space:nowrap;">
-                                <div class="am-actions">
-                                    <button type="button" class="am-icon-btn" title="View"
-                                            onclick='amMrView(@json($data))'><i class="fa fa-eye"></i></button>
-                                    <button type="button" class="am-icon-btn" title="Edit"
-                                            onclick='amMrEdit(@json($data))'><i class="fa fa-pen"></i></button>
-                                    <button type="button" class="am-icon-btn danger am-confirm-delete"
-                                            title="Delete"
-                                            data-action="{{ route('deletemaintanceRecAdmin') }}"
-                                            data-id="{{ $data->id }}"
-                                            data-label="Record on {{ date('d M Y', strtotime($data->mrdate)) }}"
-                                            data-type="Maintenance Record">
-                                        <i class="fa fa-trash"></i>
-                                    </button>
-                                </div>
-                            </td>
-                        </tr>
-                    @empty
-                        <tr>
-                            <td colspan="7">
-                                <div class="am-empty">
-                                    <i class="fa fa-wrench"></i>
-                                    <p>No maintenance records added yet.</p>
-                                </div>
-                            </td>
-                        </tr>
-                    @endforelse
-                </tbody>
-            </table>
+        <div id="amMrContainer">
+            @include('admin.adminform_records.partials.maintenance_table')
         </div>
-        <div class="am-pagination" id="amMrPagination"></div>
+    </div>
+</div>
+
+{{-- Delete Confirmation Modal --}}
+<div class="am-modal" id="amConfirmDelete" role="dialog" aria-modal="true">
+    <div class="am-modal__box">
+        <div class="am-modal__header">
+            <span class="am-modal__icon"><i class="fa fa-exclamation-triangle"></i></span>
+            <h4 class="am-modal__title">Delete <span id="amConfirmType">Item</span>?</h4>
+        </div>
+        <div class="am-modal__body">
+            You are about to permanently delete <strong id="amConfirmLabel">this item</strong>. This action cannot be undone.
+        </div>
+        <div class="am-modal__footer">
+            <button type="button" class="am-btn am-btn-outline am-modal-close">Cancel</button>
+            <form id="amConfirmForm" method="POST" style="display:inline;">
+                @csrf
+                <input type="hidden" name="id" id="amConfirmId">
+                <button type="submit" class="am-btn" style="background:var(--am-danger);color:#fff;">
+                    <i class="fa fa-trash"></i> Yes, delete
+                </button>
+            </form>
+        </div>
     </div>
 </div>
 
@@ -235,66 +204,58 @@
 </div>
 
 <script>
+document.addEventListener('click', function(e) {
+    var close = e.target.closest('.am-modal-close');
+    if (close) { var m = close.closest('.am-modal'); if (m) m.classList.remove('open'); return; }
+    if (e.target.classList && e.target.classList.contains('am-modal')) e.target.classList.remove('open');
+});
+document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape') document.querySelectorAll('.am-modal.open').forEach(function(m){ m.classList.remove('open'); });
+});
 (function() {
-    // Toggle form
     var toggle = document.getElementById('toggleMrForm');
     var form = document.getElementById('newMrForm');
     var cancel = document.getElementById('cancelMrForm');
     toggle && toggle.addEventListener('click', function(){ form.classList.toggle('open'); });
     cancel && cancel.addEventListener('click', function(){ form.classList.remove('open'); });
-
-    // Search + pagination
-    function debounce(fn, wait){ var t; return function(){ var ctx=this,args=arguments; clearTimeout(t); t=setTimeout(function(){ fn.apply(ctx,args); }, wait); }; }
-    var perPage = 10;
-    var input = document.getElementById('amMrSearch');
-    var tbody = document.querySelector('#amMrTable tbody');
-    if (!tbody) return;
-    var rows = Array.prototype.slice.call(tbody.querySelectorAll('tr[data-search]'));
-    var pager = document.getElementById('amMrPagination');
-    var filtered = rows.slice();
-    var page = 1;
-
-    function render() {
-        var total = filtered.length;
-        var totalPages = Math.max(1, Math.ceil(total / perPage));
-        if (page > totalPages) page = totalPages;
-        rows.forEach(function(r){ r.style.display='none'; });
-        filtered.slice((page-1)*perPage, page*perPage).forEach(function(r){ r.style.display=''; });
-
-        if (total === 0 && rows.length > 0) {
-            // no matches from search
-        }
-
-        var from = total === 0 ? 0 : (page-1)*perPage + 1;
-        var to = Math.min(page*perPage, total);
-        var html = '<div class="am-pagination__info">Showing <strong>'+from+'–'+to+'</strong> of <strong>'+total+'</strong></div>';
-        html += '<div class="am-pagination__nav">';
-        html += '<button data-p="'+(page-1)+'" '+(page<=1?'disabled':'')+'>‹</button>';
-        var start = Math.max(1, page - 2);
-        var end = Math.min(totalPages, start + 4);
-        start = Math.max(1, end - 4);
-        for (var p=start; p<=end; p++){
-            html += '<button data-p="'+p+'" '+(p===page?'class="active"':'')+'>'+p+'</button>';
-        }
-        html += '<button data-p="'+(page+1)+'" '+(page>=totalPages?'disabled':'')+'>›</button>';
-        html += '</div>';
-        pager.innerHTML = html;
+})();
+document.addEventListener('click', function(e) {
+    var btn = e.target.closest('.am-confirm-delete');
+    if (!btn) return;
+    e.preventDefault();
+    document.getElementById('amConfirmForm').setAttribute('action', btn.getAttribute('data-action') || '');
+    document.getElementById('amConfirmId').value = btn.getAttribute('data-id') || '';
+    document.getElementById('amConfirmType').textContent = btn.getAttribute('data-type') || 'Item';
+    document.getElementById('amConfirmLabel').textContent = btn.getAttribute('data-label') || 'this item';
+    document.getElementById('amConfirmDelete').classList.add('open');
+});
+(function() {
+    var input     = document.getElementById('amMrSearch');
+    var form      = document.getElementById('amMrSearchForm');
+    var container = document.getElementById('amMrContainer');
+    if (!container) return;
+    var baseUrl = '{{ url('/maintainRecCheck/' . $urlparam['userid']) }}';
+    function debounce(fn, wait) { var t; return function() { var ctx = this, args = arguments; clearTimeout(t); t = setTimeout(function() { fn.apply(ctx, args); }, wait); }; }
+    function showLoading() { container.style.opacity = '0.5'; container.style.pointerEvents = 'none'; }
+    function hideLoading() { container.style.opacity = ''; container.style.pointerEvents = ''; }
+    function fetchPage(page) {
+        var q = input ? input.value.trim() : '';
+        var url = baseUrl + '?q=' + encodeURIComponent(q) + '&page=' + page;
+        showLoading();
+        fetch(url, { headers: { 'X-Requested-With': 'XMLHttpRequest' } })
+            .then(function(r){ return r.text(); })
+            .then(function(html) { container.innerHTML = html; hideLoading(); })
+            .catch(function() { hideLoading(); });
     }
-
-    input && input.addEventListener('input', debounce(function(){
-        var q = this.value.trim().toLowerCase();
-        filtered = q === '' ? rows.slice() : rows.filter(function(r){ return r.getAttribute('data-search').indexOf(q) !== -1; });
-        page = 1; render();
-    }, 250));
-
-    pager && pager.addEventListener('click', function(e){
-        var b = e.target.closest('button[data-p]');
-        if (!b || b.disabled) return;
-        var p = parseInt(b.getAttribute('data-p'), 10);
-        if (!isNaN(p) && p >= 1) { page = p; render(); }
+    input && input.addEventListener('input', debounce(function() { fetchPage(1); }, 350));
+    form  && form.addEventListener('submit', function(e) { e.preventDefault(); fetchPage(1); });
+    container.addEventListener('click', function(e) {
+        var btn = e.target.closest('.am-page-link');
+        if (!btn || btn.disabled) return;
+        e.preventDefault();
+        var p = parseInt(btn.getAttribute('data-page'), 10);
+        if (!isNaN(p) && p > 0) fetchPage(p);
     });
-
-    render();
 })();
 
 function amMrView(d) {

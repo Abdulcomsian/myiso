@@ -20,12 +20,21 @@ class RequiremntController extends Controller
     {
         $this->middleware('auth');
     }
-    public function index()
+    public function index(Request $request)
     {
-        $userid=Auth::user()->id;
-        $requirement=requirement::where('user_id',$userid)->orderBy('id','DESC')->get();
-        return view('dashboard.form_records.requirements_aspect',compact('requirement'));
-      //  return view('dashboard.form_records.requirements_aspect',compact('requirement'));
+        $userid  = Auth::user()->id;
+        $search  = trim($request->query('q', ''));
+        $query   = requirement::where('user_id', $userid)->orderBy('id', 'DESC');
+        if ($search !== '') {
+            $query->where('requirment_title', 'like', "%{$search}%");
+        }
+        $requirement = $query->paginate(10)->withQueryString();
+
+        if ($request->ajax()) {
+            return view('dashboard.form_records.partials.requirements_table', compact('requirement'));
+        }
+
+        return view('dashboard.form_records.requirements_aspect', compact('requirement', 'search'));
     }
 
     /**

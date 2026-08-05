@@ -58,10 +58,10 @@
     <div class="am-tab-panel active" data-panel="emp">
         <div class="am-card" style="margin-bottom:16px;">
             <div class="am-card__toolbar">
-                <div class="am-search" style="flex:1;max-width:340px;">
+                <form method="GET" action="{{ url('/EmployeCheck/' . $urlparam['userid']) }}" class="am-search" id="amEmpSearchForm" style="flex:1;max-width:340px;margin:0;">
                     <i class="fa fa-search"></i>
-                    <input type="text" id="amEmpSearch" placeholder="Search employees…" autocomplete="off">
-                </div>
+                    <input type="text" name="q" id="amEmpSearch" value="{{ $search ?? '' }}" placeholder="Search employees…" autocomplete="off">
+                </form>
                 <button type="button" class="am-btn am-btn-primary" id="toggleEmpForm">
                     <i class="fa fa-plus"></i> Add Employee
                 </button>
@@ -94,70 +94,9 @@
         </div>
 
         <div class="am-card">
-            <div class="am-table-wrap">
-                <table class="am-table" id="amEmpTable">
-                    <thead>
-                        <tr>
-                            <th style="width:60px;">#</th>
-                            <th>Employee</th>
-                            <th>Email</th>
-                            <th>Job Details</th>
-                            <th>CV</th>
-                            <th>Start Date</th>
-                            <th style="text-align:right;">Actions</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @forelse ($userinfo as $index => $item)
-                            <tr data-search="{{ strtolower($item->empNumber . ' ' . $item->surname . ' ' . $item->first_name . ' ' . $item->email) }}">
-                                <td><span class="am-cell-sub">#{{ $item->empNumber }}</span></td>
-                                <td>
-                                    <div class="am-user-cell">
-                                        <span class="am-avatar">{{ strtoupper(substr($item->first_name ?? 'E', 0, 1)) }}</span>
-                                        <div>
-                                            <span class="am-cell-primary">{{ $item->first_name }} {{ $item->surname }}</span>
-                                            <span class="am-cell-sub">EMP: {{ $item->empNumber }}</span>
-                                        </div>
-                                    </div>
-                                </td>
-                                <td>{{ $item->email }}</td>
-                                <td>{{ Str::limit($item->jobdetails, 50) }}</td>
-                                <td>
-                                    @if (!empty($item->cv))
-                                        @php $extPath = pathinfo($item->cv); @endphp
-                                        @if (($extPath['extension'] ?? '') === 'pdf')
-                                            <a style="color:var(--am-primary);cursor:pointer;" onclick="viewCV('{{ asset($item->cv) }}')"><i class="fa fa-file-pdf"></i> View</a>
-                                        @else
-                                            <a target="_blank" href="{{ asset($item->cv) }}" style="color:var(--am-primary);"><i class="fa fa-file-alt"></i> View</a>
-                                        @endif
-                                    @else
-                                        <span class="am-cell-sub">—</span>
-                                    @endif
-                                </td>
-                                <td><span class="am-chip info">{{ date('d M Y', strtotime($item->startDate)) }}</span></td>
-                                <td style="text-align:right;white-space:nowrap;">
-                                    <div class="am-actions">
-                                        <button type="button" class="am-icon-btn" title="View" onclick='amEmpView(@json($item))'><i class="fa fa-eye"></i></button>
-                                        <button type="button" class="am-icon-btn" title="Edit" onclick='amEmpEdit(@json($item))'><i class="fa fa-pen"></i></button>
-                                        <button type="button" class="am-icon-btn danger am-confirm-delete"
-                                                title="Delete"
-                                                data-action="{{ route('deleteEmployeeadmin') }}"
-                                                data-id="{{ $item->id }}"
-                                                data-extra="type=employee"
-                                                data-label="{{ $item->first_name }} {{ $item->surname }}"
-                                                data-type="Employee">
-                                            <i class="fa fa-trash"></i>
-                                        </button>
-                                    </div>
-                                </td>
-                            </tr>
-                        @empty
-                            <tr><td colspan="7"><div class="am-empty"><i class="fa fa-id-badge"></i><p>No employees added yet.</p></div></td></tr>
-                        @endforelse
-                    </tbody>
-                </table>
+            <div id="amEmpContainer">
+                @include('admin.adminform_records.partials.employees_table')
             </div>
-            <div class="am-pagination" id="amEmpPagination"></div>
         </div>
     </div>
 
@@ -485,6 +424,29 @@
     </div>
 </div>
 
+{{-- Delete Confirmation Modal --}}
+<div class="am-modal" id="amConfirmDelete" role="dialog" aria-modal="true">
+    <div class="am-modal__box">
+        <div class="am-modal__header">
+            <span class="am-modal__icon"><i class="fa fa-exclamation-triangle"></i></span>
+            <h4 class="am-modal__title">Delete <span id="amConfirmType">Item</span>?</h4>
+        </div>
+        <div class="am-modal__body">
+            You are about to permanently delete <strong id="amConfirmLabel">this item</strong>. This action cannot be undone.
+        </div>
+        <div class="am-modal__footer">
+            <button type="button" class="am-btn am-btn-outline am-modal-close">Cancel</button>
+            <form id="amConfirmForm" method="POST" class="am-confirm-form-extra" style="display:inline;">
+                @csrf
+                <input type="hidden" name="id" id="amConfirmId">
+                <button type="submit" class="am-btn" style="background:var(--am-danger);color:#fff;">
+                    <i class="fa fa-trash"></i> Yes, delete
+                </button>
+            </form>
+        </div>
+    </div>
+</div>
+
 {{-- CV modal --}}
 <div class="am-modal" id="cvModal" role="dialog" aria-modal="true">
     <div class="am-modal__box" style="max-width:900px;">
@@ -531,9 +493,60 @@ function setupTable(searchId, tableId, pagId){
     p&&p.addEventListener('click',function(e){var b=e.target.closest('button[data-p]');if(!b||b.disabled)return;var q=parseInt(b.getAttribute('data-p'),10);if(!isNaN(q)&&q>=1){pg=q;r();}});
     r();
 }
-setupTable('amEmpSearch','amEmpTable','amEmpPagination');
 setupTable('amSklSearch','amSklTable','amSklPagination');
 setupTable('amTrnSearch','amTrnTable','amTrnPagination');
+
+// Modal close handlers
+document.addEventListener('click', function(e) {
+    var close = e.target.closest('.am-modal-close');
+    if (close) { var m = close.closest('.am-modal'); if (m) m.classList.remove('open'); return; }
+    if (e.target.classList && e.target.classList.contains('am-modal')) e.target.classList.remove('open');
+});
+document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape') document.querySelectorAll('.am-modal.open').forEach(function(m){ m.classList.remove('open'); });
+});
+// Delete confirm
+document.addEventListener('click', function(e) {
+    var btn = e.target.closest('.am-confirm-delete');
+    if (!btn) return;
+    e.preventDefault();
+    var form = document.getElementById('amConfirmForm');
+    form.setAttribute('action', btn.getAttribute('data-action') || '');
+    document.getElementById('amConfirmId').value = btn.getAttribute('data-id') || '';
+    document.getElementById('amConfirmType').textContent = btn.getAttribute('data-type') || 'Item';
+    document.getElementById('amConfirmLabel').textContent = btn.getAttribute('data-label') || 'this item';
+    form.setAttribute('data-extra', btn.getAttribute('data-extra') || '');
+    document.getElementById('amConfirmDelete').classList.add('open');
+});
+// Server-side AJAX for Employees tab
+(function() {
+    var input     = document.getElementById('amEmpSearch');
+    var form      = document.getElementById('amEmpSearchForm');
+    var container = document.getElementById('amEmpContainer');
+    if (!container) return;
+    var baseUrl = '{{ url('/EmployeCheck/' . $urlparam['userid']) }}';
+    function debounce(fn, wait) { var t; return function() { var ctx = this, args = arguments; clearTimeout(t); t = setTimeout(function() { fn.apply(ctx, args); }, wait); }; }
+    function showLoading() { container.style.opacity = '0.5'; container.style.pointerEvents = 'none'; }
+    function hideLoading() { container.style.opacity = ''; container.style.pointerEvents = ''; }
+    function fetchPage(page) {
+        var q = input ? input.value.trim() : '';
+        var url = baseUrl + '?q=' + encodeURIComponent(q) + '&page=' + page;
+        showLoading();
+        fetch(url, { headers: { 'X-Requested-With': 'XMLHttpRequest' } })
+            .then(function(r){ return r.text(); })
+            .then(function(html) { container.innerHTML = html; hideLoading(); })
+            .catch(function() { hideLoading(); });
+    }
+    input && input.addEventListener('input', debounce(function() { fetchPage(1); }, 350));
+    form  && form.addEventListener('submit', function(e) { e.preventDefault(); fetchPage(1); });
+    container.addEventListener('click', function(e) {
+        var btn = e.target.closest('.am-page-link');
+        if (!btn || btn.disabled) return;
+        e.preventDefault();
+        var p = parseInt(btn.getAttribute('data-page'), 10);
+        if (!isNaN(p) && p > 0) fetchPage(p);
+    });
+})();
 
 // View handlers
 function amEmpView(d){

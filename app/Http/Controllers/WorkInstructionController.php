@@ -20,15 +20,25 @@ class WorkInstructionController extends Controller
     {
         $this->middleware('auth');
     }
-    public function index()
+    public function index(Request $request)
     {
         $userid= Auth::user()->id;
-        $work=Workinstructions::where('user_id',$userid)->orderBy('id','DESC')->get();
-
-        //$employess=Workinstructions::join('tbl_employees','tbl_employees.id','=','tbl_workinstruction.empId')->where('tbl_employees.user_id',$userid)->get();
+        $search = trim($request->query('q', ''));
+        $query = Workinstructions::where('user_id',$userid);
+        if ($search !== '') {
+            $query->where(function($q) use ($search){
+                $q->where('workinstruction','like',"%{$search}%")
+                  ->orWhere('instructionref','like',"%{$search}%")
+                  ->orWhere('scop','like',"%{$search}%")
+                  ->orWhere('CompiledBy','like',"%{$search}%");
+            });
+        }
+        $work = $query->orderBy('id','DESC')->paginate(10)->withQueryString();
+        if ($request->ajax()) {
+            return view('dashboard.form_records.partials.work_instruction_table', compact('work'));
+        }
         $employess=Employee::where('user_id',$userid)->get();
-
-        return view('dashboard.form_records.work_instruction',compact('work','employess'));
+        return view('dashboard.form_records.work_instruction',compact('work','employess','search'));
     }
     public function doc_req()
     {

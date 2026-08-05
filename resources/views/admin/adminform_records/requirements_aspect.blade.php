@@ -41,10 +41,10 @@
     {{-- Toolbar + Add form --}}
     <div class="am-card" style="margin-bottom:16px;">
         <div class="am-card__toolbar">
-            <div class="am-search" style="flex:1;max-width:340px;">
+            <form method="GET" action="{{ url('/requiremntCheck/' . $urlparam['userid']) }}" class="am-search" id="amReqSearchForm" style="flex:1;max-width:340px;margin:0;">
                 <i class="fa fa-search"></i>
-                <input type="text" id="amReqSearch" placeholder="Search requirements…" autocomplete="off">
-            </div>
+                <input type="text" name="q" id="amReqSearch" value="{{ $search ?? '' }}" placeholder="Search requirements…" autocomplete="off">
+            </form>
             <button type="button" class="am-btn am-btn-primary" id="toggleReqForm">
                 <i class="fa fa-plus"></i> Add a Requirement
             </button>
@@ -80,81 +80,8 @@
 
     {{-- Table card --}}
     <div class="am-card">
-        <div class="am-table-wrap">
-            <table class="am-table" id="amReqTable">
-                <thead>
-                    <tr>
-                        <th style="width:60px;">#</th>
-                        <th>Requirement</th>
-                        <th>Date Completed</th>
-                        <th>Periodicity</th>
-                        <th>Due Date</th>
-                        <th style="text-align:right;">Actions</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @forelse ($getReq as $index => $data)
-                        @php
-                            $due = strtotime("+$data->periods months", strtotime($data->completion_date));
-                            $daysToDue = intval(($due - time()) / 86400);
-                        @endphp
-                        <tr data-search="{{ strtolower($data->requirment_title) }}">
-                            <td><span class="am-cell-sub">#{{ $index + 1 }}</span></td>
-                            <td>
-                                <span class="am-cell-primary">{{ $data->requirment_title }}</span>
-                            </td>
-                            <td>
-                                <span class="am-chip info">{{ date('d M Y', strtotime($data->completion_date)) }}</span>
-                            </td>
-                            <td>
-                                <span class="am-cell-sub">Every</span>
-                                <span class="am-cell-primary">{{ $data->periods }} months</span>
-                            </td>
-                            <td>
-                                @if ($daysToDue < 0)
-                                    <span class="am-chip danger">Overdue</span>
-                                @elseif ($daysToDue < 30)
-                                    <span class="am-chip warning">{{ date('d M Y', $due) }}</span>
-                                @else
-                                    <span class="am-chip success">{{ date('d M Y', $due) }}</span>
-                                @endif
-                            </td>
-                            <td style="text-align:right;white-space:nowrap;">
-                                <div class="am-actions">
-                                    <button type="button" class="am-icon-btn" title="View"
-                                            onclick='amReqView(@json($data))'><i class="fa fa-eye"></i></button>
-                                    <button type="button" class="am-icon-btn" title="Edit"
-                                            onclick='amReqEdit(@json($data))'><i class="fa fa-pen"></i></button>
-                                    <button type="button" class="am-icon-btn danger am-confirm-delete"
-                                            title="Delete"
-                                            data-action="{{ route('deleteRequirementadmin') }}"
-                                            data-id="{{ $data->id }}"
-                                            data-label="{{ $data->requirment_title }}"
-                                            data-type="Requirement">
-                                        <i class="fa fa-trash"></i>
-                                    </button>
-                                </div>
-                            </td>
-                        </tr>
-                    @empty
-                        <tr>
-                            <td colspan="6">
-                                <div class="am-empty">
-                                    <i class="fa fa-list-check"></i>
-                                    <p class="text-center">No requirements added yet.</p>
-                                </div>
-                            </td>
-                        </tr>
-                    @endforelse
-                </tbody>
-            </table>
-        </div>
-
-        <div class="am-pagination" id="amReqPagination">
-            <div class="am-pagination__info" id="amReqPaginationInfo">
-                Showing {{ count($getReq) }}
-            </div>
-            <div class="am-pagination__nav" id="amReqPaginationNav"></div>
+        <div id="amReqContainer">
+            @include('admin.adminform_records.partials.requirements_table')
         </div>
     </div>
 
@@ -290,64 +217,38 @@
         openAmModal('amConfirmDelete');
     });
 
-    // ---- Client-side search + pagination ----
+    // ---- Server-side search + pagination (AJAX) ----
     (function() {
-        var input = document.getElementById('amReqSearch');
-        var rows = Array.prototype.slice.call(document.querySelectorAll('#amReqTable tbody tr[data-search]'));
-        var info = document.getElementById('amReqPaginationInfo');
-        var nav  = document.getElementById('amReqPaginationNav');
-        var perPage = 10;
-        var currentPage = 1;
-        var filtered = rows.slice();
+        var input     = document.getElementById('amReqSearch');
+        var form      = document.getElementById('amReqSearchForm');
+        var container = document.getElementById('amReqContainer');
+        if (!container) return;
+        var baseUrl = '{{ url('/requiremntCheck/' . $urlparam['userid']) }}';
 
         function debounce(fn, wait) { var t; return function(){ var ctx=this,args=arguments; clearTimeout(t); t=setTimeout(function(){ fn.apply(ctx,args); }, wait); }; }
+        function showLoading() { container.style.opacity='0.5'; container.style.pointerEvents='none'; }
+        function hideLoading() { container.style.opacity=''; container.style.pointerEvents=''; }
 
-        function render() {
-            var total = filtered.length;
-            var totalPages = Math.max(1, Math.ceil(total / perPage));
-            if (currentPage > totalPages) currentPage = totalPages;
-            var start = (currentPage - 1) * perPage;
-            var end = start + perPage;
-
-            rows.forEach(function(r){ r.style.display = 'none'; });
-            filtered.slice(start, end).forEach(function(r){ r.style.display = ''; });
-
-            var from = total === 0 ? 0 : start + 1;
-            var to = Math.min(end, total);
-            info.innerHTML = 'Showing <strong>' + from + '–' + to + '</strong> of <strong>' + total + '</strong>';
-
-            nav.innerHTML = '';
-            var prev = document.createElement('button'); prev.textContent = '‹'; prev.disabled = currentPage <= 1;
-            prev.addEventListener('click', function(){ currentPage--; render(); });
-            nav.appendChild(prev);
-
-            var startPage = Math.max(1, currentPage - 2);
-            var endPage = Math.min(totalPages, startPage + 4);
-            startPage = Math.max(1, endPage - 4);
-            for (var p = startPage; p <= endPage; p++) {
-                (function(page){
-                    var b = document.createElement('button'); b.textContent = page;
-                    if (page === currentPage) b.classList.add('active');
-                    b.addEventListener('click', function(){ currentPage = page; render(); });
-                    nav.appendChild(b);
-                })(p);
-            }
-
-            var next = document.createElement('button'); next.textContent = '›'; next.disabled = currentPage >= totalPages;
-            next.addEventListener('click', function(){ currentPage++; render(); });
-            nav.appendChild(next);
+        function fetchPage(page) {
+            var q = input ? input.value.trim() : '';
+            var url = baseUrl + '?q=' + encodeURIComponent(q) + '&page=' + page;
+            showLoading();
+            fetch(url, { headers: { 'X-Requested-With': 'XMLHttpRequest' } })
+                .then(function(r){ return r.text(); })
+                .then(function(html) { container.innerHTML = html; hideLoading(); })
+                .catch(function() { hideLoading(); });
         }
 
-        input && input.addEventListener('input', debounce(function() {
-            var q = this.value.trim().toLowerCase();
-            filtered = q === '' ? rows.slice() : rows.filter(function(r){
-                return (r.getAttribute('data-search') || '').indexOf(q) !== -1;
-            });
-            currentPage = 1;
-            render();
-        }, 250));
+        input && input.addEventListener('input', debounce(function() { fetchPage(1); }, 350));
+        form  && form.addEventListener('submit', function(e) { e.preventDefault(); fetchPage(1); });
 
-        render();
+        container.addEventListener('click', function(e) {
+            var btn = e.target.closest('.am-page-link');
+            if (!btn || btn.disabled) return;
+            e.preventDefault();
+            var p = parseInt(btn.getAttribute('data-page'), 10);
+            if (!isNaN(p) && p > 0) fetchPage(p);
+        });
     })();
 </script>
 @endsection

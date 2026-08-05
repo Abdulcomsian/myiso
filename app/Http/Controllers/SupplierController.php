@@ -22,9 +22,21 @@ class SupplierController extends Controller
     public function index(Request $request)
     {
         $userid=Auth::user()->id;
-        $supplier=Supplier::where('user_id',$userid)->orderBy('id','DESC')->get();
-
-        return view('dashboard.form_records.supplier',compact('supplier'));
+        $search  = trim($request->query('q', ''));
+        $query   = Supplier::where('user_id',$userid)->orderBy('id','DESC');
+        if ($search !== '') {
+            $query->where(function($q) use ($search){
+                $q->where('suppliername','like',"%{$search}%")
+                  ->orWhere('supplieremail','like',"%{$search}%")
+                  ->orWhere('suppliercountry','like',"%{$search}%")
+                  ->orWhere('supplierservc','like',"%{$search}%");
+            });
+        }
+        $supplier = $query->paginate(10)->withQueryString();
+        if ($request->ajax()) {
+            return view('dashboard.form_records.partials.supplier_table', compact('supplier'));
+        }
+        return view('dashboard.form_records.supplier',compact('supplier','search'));
     }
 
     /**

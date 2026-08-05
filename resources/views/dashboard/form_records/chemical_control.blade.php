@@ -5,503 +5,269 @@
 
     <div class="am-page-header">
         <div>
-            <h2>COSHH - Chemical Control</h2>
-            <p>Control of Substances Hazardous to Health - maintain a current information log of hazardous substances</p>
-        </div>
-        <div class="am-page-header__actions">
-            <button class="am-btn am-btn-primary" onclick="processinterestedForm()">
-                <i class="fa fa-plus"></i> Add COSHH
-            </button>
+            <h2>Chemical Control (COSHH)</h2>
+            <p>Log hazardous substances used in your workplace to protect employees and comply with regulations.</p>
         </div>
     </div>
 
     @if(session('message'))
-    <div class="alert alert-success">{{ session('message') }}</div>
+        <div class="am-card" style="padding:14px 20px;margin-bottom:16px;color:#1a8a5c;background:rgba(38,194,129,0.08);">
+            <i class="fa fa-check-circle"></i> {{ session('message') }}
+        </div>
     @endif
 
-    <div class="am-card process_interested_from_div" style="display:none;">
-        <div class="am-card__body am-form">
-            <h6 class="dash-section-title">New COSHH Record</h6>
-            <p>Chemical Control or Control of Substances Hazardous to Health (COSHH) is a method that allows employers to control substances that are hazardous to health. Prevent or reduce workers exposure to hazardous substances by maintaining a current information log of these substances.</p>
-            <form action="{{route('chemicalform')}}" method="POST" enctype="multipart/form-data">
+    <div class="am-card" style="padding:16px 20px;margin-bottom:16px;background:rgba(46,59,154,0.04);border:1px solid rgba(46,59,154,0.12);">
+        <div style="display:flex;gap:12px;align-items:flex-start;">
+            <span style="width:36px;height:36px;flex-shrink:0;border-radius:10px;background:var(--am-primary-tint);color:var(--am-primary);display:inline-flex;align-items:center;justify-content:center;font-size:15px;"><i class="fa fa-info-circle"></i></span>
+            <div style="font-size:13px;color:var(--am-text);line-height:1.55;">
+                COSHH (Control of Substances Hazardous to Health) helps prevent or reduce workers' exposure to hazardous substances by maintaining a current information log.
+            </div>
+        </div>
+    </div>
+
+    <div class="am-card" style="margin-bottom:16px;">
+        <div class="am-card__toolbar">
+            <form method="GET" action="{{ url('/chemical_control') }}" class="am-search" id="amChSearchForm" style="flex:1;max-width:340px;margin:0;">
+                <i class="fa fa-search"></i>
+                <input type="text" name="q" id="amChSearch" value="{{ $search ?? '' }}" placeholder="Search chemicals…" autocomplete="off">
+            </form>
+            <button type="button" class="am-btn am-btn-primary" id="toggleChForm">
+                <i class="fa fa-plus"></i> Add COSHH
+            </button>
+        </div>
+
+        <div class="am-inline-form" id="newChForm" style="margin:16px 20px;">
+            <form action="{{ route('chemicalform') }}" method="POST" enctype="multipart/form-data">
                 @csrf
                 <div class="form-row">
-                    <div class="form-col">
-                        <label>Chemical Name:</label>
-                        <input type="text" name="chemicalname" class="form-control" required placeholder="Enter Chemical Name">
-                    </div>
+                    <div><label>Chemical Name</label><input type="text" name="chemicalname" required></div>
+                    <div><label>Chemical Type</label><input type="text" name="chemical_type" placeholder="Gas / liquid / solid" required></div>
+                    <div><label>Location Used</label><input type="text" name="location" placeholder="Area / department" required></div>
                 </div>
                 <div class="form-row">
-                    <div class="form-col">
-                        <label>Chemical Description (What are the main constituents):</label>
-                        <input type="text" name="chemical_desc" class="form-control" required placeholder="Enter Chemical Description">
-                    </div>
+                    <div style="grid-column:1/-1;"><label>Chemical Description (main constituents)</label><input type="text" name="chemical_desc" required></div>
                 </div>
                 <div class="form-row">
-                    <div class="form-col">
-                        <label>Chemical Type (Gas, liquid or solid):</label>
-                        <input type="text" name="chemical_type" class="form-control" required placeholder="Enter Chemical Type (Gas, liquid or solid)">
-                    </div>
+                    <div><label>Activity Hazard</label><input type="text" name="activity_hazard" required></div>
+                    <div><label>Identified Chemical Hazard</label><input type="text" name="identified_chazard" placeholder="Corrosive / Toxic / Oxidiser" required></div>
+                    <div><label>Identified Hazard</label><input type="text" name="identified_hazard" placeholder="Splashes / breathing vapour" required></div>
                 </div>
                 <div class="form-row">
-                    <div class="form-col">
-                        <label>Location Used (Consider area or department where the chemical is being used):</label>
-                        <input type="text" name="location" class="form-control" required placeholder="Enter Location Used">
-                    </div>
+                    <div><label>Target Organs</label><input type="text" name="target_organs" required></div>
+                    <div><label>Who is at Risk</label><input type="text" name="who_risk" required></div>
+                    <div><label>Protection Required</label><input type="text" name="protection_required" placeholder="Gloves / glasses / overalls" required></div>
                 </div>
                 <div class="form-row">
-                    <div class="form-col">
-                        <label>Activity Hazard (Consider chemical use, making additions, chemical discarding etc):</label>
-                        <input type="text" name="activity_hazard" class="form-control" required placeholder="Enter Activity Hazard">
-                    </div>
-                </div>
-                <div class="form-row">
-                    <div class="form-col">
-                        <label>Identified Chemical Hazard (Consider Corrosive; Very Toxic; Oxidiser etc):</label>
-                        <input type="text" name="identified_chazard" class="form-control" required placeholder="Enter Identified Chemical Hazard">
-                    </div>
-                </div>
-                <div class="form-row">
-                    <div class="form-col">
-                        <label>Identified Hazard (Consider Splashes and breathing fume vapour etc):</label>
-                        <input type="text" name="identified_hazard" class="form-control" required placeholder="Enter Identified Hazard">
-                    </div>
-                </div>
-                <div class="form-row">
-                    <div class="form-col">
-                        <label>Target Organs:</label>
-                        <input type="text" name="target_organs" class="form-control" required placeholder="Enter Target Organs">
-                    </div>
-                </div>
-                <div class="form-row">
-                    <div class="form-col">
-                        <label>Who is at Risk:</label>
-                        <input type="text" name="who_risk" class="form-control" required placeholder="Who is at Risk:">
-                    </div>
-                </div>
-                <div class="form-row">
-                    <div class="form-col">
-                        <label>Protection Required (Consider gloves, glasses, overalls or shoes etc):</label>
-                        <input type="text" name="protection_required" class="form-control" required placeholder="Enter Protection Required">
-                    </div>
-                </div>
-                <div class="form-row">
-                    <div class="form-col">
-                        <label>Is this chemical still used in production or legacy?</label>
-                        <div class="kt-radio-list">
-                            <label class="kt-radio"><input type="radio" required value="Yes" name="still_used"> Yes, still used <span></span></label>
-                            <label class="kt-radio"><input type="radio" required value="No" name="still_used"> No, legacy <span></span></label>
+                    <div>
+                        <label>Still Used in Production?</label>
+                        <div style="display:flex;gap:12px;font-size:13px;padding:6px 0;">
+                            <label style="display:inline-flex;gap:4px;align-items:center;"><input type="radio" required value="Yes" name="still_used"> Yes, still used</label>
+                            <label style="display:inline-flex;gap:4px;align-items:center;"><input type="radio" required value="No" name="still_used"> No, legacy</label>
                         </div>
                     </div>
+                    <div><label>Attach Evidence</label><input name="attach_evidence" type="file"></div>
+                    <div><label>Any Other Issues</label><textarea name="any_issues" placeholder="Notes" rows="2"></textarea></div>
                 </div>
-                <div class="form-row">
-                    <div class="form-col">
-                        <label>Attach Evidence: <span style="color:#666;">(jpeg, mp3, mp4, .xls, doc)</span></label>
-                        <input name="attach_evidence" type="file" class="form-control" accept="all">
-                    </div>
-                    <div class="form-col">
-                        <label>Any other issues or points to note?</label>
-                        <textarea name="any_issues" class="form-control" placeholder="Enter Any other issues:"></textarea>
-                    </div>
-                </div>
-                <div style="margin-top:1rem; text-align:right;">
-                    <button type="submit" class="am-btn am-btn-primary">Submit</button>
-                    <button type="reset" onclick="cosh()" class="am-btn am-btn-sm am-btn-danger" style="margin-left:8px;">Cancel</button>
+                <div class="form-actions">
+                    <button type="button" class="am-btn am-btn-outline am-btn-sm" id="cancelChForm">Cancel</button>
+                    <button type="submit" class="am-btn am-btn-primary am-btn-sm"><i class="fa fa-check"></i> Save COSHH Entry</button>
                 </div>
             </form>
         </div>
     </div>
 
     <div class="am-card">
-        <div class="am-card__body">
-            <h6 class="dash-section-title">COSHH Records</h6>
-            <div class="am-table-wrap">
-                <table class="am-table chemical_table" id="kt_table_agent">
-                    <thead>
-                        <tr>
-                            <th>S-No</th>
-                            <th>Chemical Name</th>
-                            <th>Chemical Description</th>
-                            <th>Location</th>
-                            <th>Activity</th>
-                            <th>Still used</th>
-                            <th>Action</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <?php $counter = 0; ?>
-                        @php $i=1; @endphp
-                        @forelse ($chemical as $data)
-                            <?php $counter++; ?>
-                            <tr>
-                                <td>{{ $i++}}</td>
-                                <td>{{ $data->chemical_name}}</td>
-                                <td>{{ $data->chemical_desc}}</td>
-                                <td>{{ $data->location_used}}</td>
-                                <td>{{$data->activity_hazard}}</td>
-                                <td>{{$data->still_used}}</td>
-                                <td>
-                                    <button class="am-btn am-btn-sm am-btn-primary" title="View" onclick="viewinterested({{$data}});">
-                                        <i class="fa fa-eye"></i>
-                                    </button>
-                                    <button class="am-btn am-btn-sm am-btn-primary" title="Edit" onclick="getEid({{$data}});">
-                                        <i class="fa fa-pencil"></i>
-                                    </button>
-                                    <button data-toggle="modal" data-target="#deleteChemechal_id{{$data->id}}" class="am-btn am-btn-sm am-btn-danger" title="Delete">
-                                        <i class="fa fa-trash"></i>
-                                    </button>
-                                </td>
-                            </tr>
-                            <!-- Delete modal per row -->
-                            <div class="modal fade" id="deleteChemechal_id{{$data->id}}" tabindex="-1" role="dialog" aria-hidden="true" style="display: none;">
-                                <div class="modal-dialog" role="document">
-                                    <div class="modal-content">
-                                        <div class="modal-header" style="background:var(--am-primary);color:#fff;">
-                                            <h5 class="modal-title">Deleting Chemical Record</h5>
-                                            <button type="button" class="close" style="color:#fff;" data-dismiss="modal">&times;</button>
-                                        </div>
-                                        <div class="modal-body">
-                                            <p>Are you sure you want to delete this entry?</p>
-                                        </div>
-                                        <div class="modal-footer">
-                                            <form action="{{url('/chemical_control_delete')}}" method="POST">
-                                                @csrf
-                                                <input type="hidden" name="id" value="{{$data->id}}">
-                                                <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
-                                                <button type="submit" class="btn btn-danger">Yes</button>
-                                            </form>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        @empty
-                        <tr>
-                            <td colspan="7">
-                                <div class="am-empty">
-                                    <i class="fa fa-database"></i>
-                                    <p>No records.</p>
-                                </div>
-                            </td>
-                        </tr>
-                        @endforelse
-                    </tbody>
-                </table>
-            </div>
+        <div id="amChContainer">
+            @include('dashboard.form_records.partials.chemical_table')
         </div>
     </div>
-
 </div>
 
-<!-- Edit Modal -->
-<div class="modal fade" id="editinterestedmodal" tabindex="-1" role="dialog" aria-hidden="true">
-    <div class="modal-dialog modal-lg" role="document">
-        <div class="modal-content">
-            <div class="modal-header" style="background:var(--am-primary);color:#fff;">
-                <h5 class="modal-title">Edit Chemical Control Details</h5>
-                <button type="button" class="close" style="color:#fff;" data-dismiss="modal">&times;</button>
+{{-- View modal --}}
+<div class="am-modal" id="viewChModal" role="dialog" aria-modal="true">
+    <div class="am-modal__box" style="max-width:820px;">
+        <div class="am-modal__header">
+            <span class="am-modal__icon" style="background:var(--am-primary-tint);color:var(--am-primary);"><i class="fa fa-eye"></i></span>
+            <h4 class="am-modal__title">Chemical Details</h4>
+        </div>
+        <div class="am-modal__body">
+            @php
+                $fields = [
+                    'chemical_name' => 'Chemical Name',
+                    'chemical_desc' => 'Description',
+                    'chemical_type' => 'Type',
+                    'location_used' => 'Location',
+                    'activity_hazard' => 'Activity Hazard',
+                    'identified_chazard' => 'Chemical Hazard',
+                    'identified_hazard' => 'Identified Hazard',
+                    'target_organs' => 'Target Organs',
+                    'who_risk' => 'Who is at Risk',
+                    'protection_required' => 'Protection Required',
+                    'still_used' => 'Status',
+                    'any_issues' => 'Notes',
+                ];
+            @endphp
+            <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:14px;font-size:13px;">
+                @foreach($fields as $k => $lb)
+                    <div><div style="font-size:11px;text-transform:uppercase;letter-spacing:0.4px;color:var(--am-text-muted);font-weight:600;margin-bottom:4px;">{{ $lb }}</div><div id="vch-{{ $k }}">—</div></div>
+                @endforeach
+                <div><div style="font-size:11px;text-transform:uppercase;letter-spacing:0.4px;color:var(--am-text-muted);font-weight:600;margin-bottom:4px;">Evidence</div><div id="vch-ev">—</div></div>
             </div>
-            <form action="{{route('chemicalUpdate')}}" method="POST" enctype="multipart/form-data">
+        </div>
+        <div class="am-modal__footer"><button type="button" class="am-btn am-btn-outline am-modal-close">Close</button></div>
+    </div>
+</div>
+
+{{-- Edit modal --}}
+<div class="am-modal" id="editChModal" role="dialog" aria-modal="true">
+    <div class="am-modal__box am-form" style="max-width:900px;">
+        <div class="am-modal__header">
+            <span class="am-modal__icon" style="background:var(--am-primary-tint);color:var(--am-primary);"><i class="fa fa-pen"></i></span>
+            <h4 class="am-modal__title">Edit Chemical Record</h4>
+        </div>
+        <form action="{{ route('chemicalUpdate') }}" method="POST" enctype="multipart/form-data" style="display:contents;">
+            @csrf
+            <input type="hidden" name="id" id="ech-id">
+            <div class="am-modal__body" style="padding:20px;">
+                <div class="form-group row">
+                    <div class="col-lg-6"><label>Chemical Name</label><input type="text" class="form-control" name="chemical_name" required></div>
+                    <div class="col-lg-6"><label>Chemical Type</label><input type="text" class="form-control" name="chemical_type" required></div>
+                </div>
+                <div class="form-group row">
+                    <div class="col-lg-12"><label>Description</label><input type="text" class="form-control" name="chemical_desc" required></div>
+                </div>
+                <div class="form-group row">
+                    <div class="col-lg-6"><label>Location</label><input type="text" class="form-control" name="location" required></div>
+                    <div class="col-lg-6"><label>Activity Hazard</label><input type="text" class="form-control" name="activity_hazard" required></div>
+                </div>
+                <div class="form-group row">
+                    <div class="col-lg-6"><label>Chemical Hazard</label><input type="text" class="form-control" name="identified_chazard" required></div>
+                    <div class="col-lg-6"><label>Identified Hazard</label><input type="text" class="form-control" name="identified_hazard" required></div>
+                </div>
+                <div class="form-group row">
+                    <div class="col-lg-6"><label>Target Organs</label><input type="text" class="form-control" name="target_hazard" required></div>
+                    <div class="col-lg-6"><label>Who is at Risk</label><input type="text" class="form-control" name="who_risk" required></div>
+                </div>
+                <div class="form-group row">
+                    <div class="col-lg-6"><label>Protection Required</label><input type="text" class="form-control" name="protection_required" required></div>
+                    <div class="col-lg-6">
+                        <label>Still Used?</label>
+                        <div style="display:flex;gap:12px;font-size:13px;padding:6px 0;">
+                            <label style="display:inline-flex;gap:4px;align-items:center;"><input type="radio" value="Yes" name="still_used"> Yes</label>
+                            <label style="display:inline-flex;gap:4px;align-items:center;"><input type="radio" value="No" name="still_used"> No</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <div class="col-lg-6"><label>Attach Evidence</label><input name="attach_evidence" type="file" class="form-control"></div>
+                    <div class="col-lg-6"><label>Any Other Issues</label><textarea class="form-control" name="any_issues"></textarea></div>
+                </div>
+            </div>
+            <div class="am-modal__footer">
+                <button type="button" class="am-btn am-btn-outline am-modal-close">Cancel</button>
+                <button type="submit" class="am-btn am-btn-primary"><i class="fa fa-check"></i> Update</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+{{-- Delete Confirmation Modal --}}
+<div class="am-modal" id="amConfirmDelete" role="dialog" aria-modal="true">
+    <div class="am-modal__box">
+        <div class="am-modal__header">
+            <span class="am-modal__icon"><i class="fa fa-exclamation-triangle"></i></span>
+            <h4 class="am-modal__title">Delete <span id="amConfirmType">Item</span>?</h4>
+        </div>
+        <div class="am-modal__body">
+            You are about to permanently delete <strong id="amConfirmLabel">this item</strong>. This action cannot be undone.
+        </div>
+        <div class="am-modal__footer">
+            <button type="button" class="am-btn am-btn-outline am-modal-close">Cancel</button>
+            <form id="amConfirmForm" method="POST" style="display:inline;">
                 @csrf
-                <div class="modal-body">
-                    <input type="hidden" value="" id="id_feild" name="id">
-                    <div class="row">
-                        <div class="col-lg-12">
-                            <div class="form-group">
-                                <label>Chemical Control:</label>
-                                <input type="text" name="chemical_name" required class="form-control" placeholder="Enter Chemical Name">
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-lg-12">
-                            <div class="form-group">
-                                <label>Chemical Description (What are the main constituents):</label>
-                                <input type="text" name="chemical_desc" required class="form-control" placeholder="Enter Chemical Description">
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-lg-12">
-                            <div class="form-group">
-                                <label>Chemical Type (Gas, liquid or solid):</label>
-                                <input type="text" name="chemical_type" required class="form-control" placeholder="Enter Chemical Type">
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-lg-12">
-                            <div class="form-group">
-                                <label>Location Used (Consider area or department where the chemical is being used):</label>
-                                <input type="text" name="location" required class="form-control" placeholder="Enter Location">
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-lg-12">
-                            <div class="form-group">
-                                <label>Activity Hazard (Consider chemical use, making additions, chemical discarding etc):</label>
-                                <input type="text" name="activity_hazard" required class="form-control" placeholder="Enter Activity Hazard">
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-lg-12">
-                            <div class="form-group">
-                                <label>Identified Chemical Hazard (Consider Corrosive; Very Toxic; Oxidiser etc):</label>
-                                <input type="text" name="identified_chazard" required class="form-control" placeholder="Enter Identified Chemical Hazard" id="identified_chazard">
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-lg-12">
-                            <div class="form-group">
-                                <label>Identified Hazard (Consider Splashes and breathing fume vapour etc):</label>
-                                <input type="text" name="identified_hazard" required class="form-control" placeholder="Enter Identified Hazard" id="identified_hazard">
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-lg-12">
-                            <div class="form-group">
-                                <label>Target Organ</label>
-                                <input type="text" name="target_hazard" required class="form-control" placeholder="Enter Identified Target Hazard">
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-lg-12">
-                            <div class="form-group">
-                                <label>Who is at Risk</label>
-                                <input type="text" name="who_risk" required class="form-control" placeholder="Enter Who is at Risk">
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-lg-12">
-                            <div class="form-group">
-                                <label>Protection Required (Consider gloves, glasses, overalls or shoes etc):</label>
-                                <input type="text" name="protection_required" required class="form-control" placeholder="Protection Required">
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-lg-12">
-                            <div class="form-group">
-                                <label>Is this chemical still used in production or legacy?</label>
-                                <div class="kt-radio-list">
-                                    <label class="kt-radio"><input type="radio" value="Yes" name="still_used"> Yes <span></span></label>
-                                    <label class="kt-radio"><input type="radio" value="No" name="still_used"> No <span></span></label>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-lg-12">
-                            <div class="form-group">
-                                <label>Attach Evidence: <span style="color:#666;">(jpeg, mp3, mp4, .xls, doc)</span></label>
-                                <input name="attach_evidence" type="file" class="form-control" accept="all">
-                            </div>
-                        </div>
-                        <div class="col-lg-12">
-                            <div class="form-group">
-                                <label>Any other issues or points to note?</label>
-                                <textarea name="any_issues" class="form-control" placeholder="Enter Any other issues:"></textarea>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-                    <button type="submit" class="btn btn-danger">Update</button>
-                </div>
+                <input type="hidden" name="id" id="amConfirmId">
+                <button type="submit" class="am-btn" style="background:var(--am-danger);color:#fff;">
+                    <i class="fa fa-trash"></i> Yes, delete
+                </button>
             </form>
         </div>
     </div>
 </div>
-
-<!-- View Modal -->
-<div class="modal fade" id="viewinterestedparty" tabindex="-1" role="dialog" aria-hidden="true">
-    <div class="modal-dialog modal-lg" role="document">
-        <div class="modal-content">
-            <div class="modal-header" style="background:var(--am-primary);color:#fff;">
-                <h5 class="modal-title">View Chemical Control Details</h5>
-                <button type="button" class="close" style="color:#fff;" data-dismiss="modal">&times;</button>
-            </div>
-            <form>
-                @csrf
-                <div class="modal-body">
-                    <input type="hidden" value="" id="id_feild" name="id">
-                    <div class="row">
-                        <div class="col-lg-12">
-                            <div class="form-group">
-                                <label>Chemical Control</label>
-                                <input type="text" name="chemical_name" required class="form-control" placeholder="Enter Chemical Name:" disabled>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-lg-12">
-                            <div class="form-group">
-                                <label>Chemical Description (What are the main constituents):</label>
-                                <input type="text" name="chemical_desc" required class="form-control" placeholder="Enter Chemical Description:" disabled>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-lg-12">
-                            <div class="form-group">
-                                <label>Chemical Type (Gas, liquid or solid):</label>
-                                <input type="text" name="chemical_type" required class="form-control" placeholder="Enter Chemical Type:" disabled>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-lg-12">
-                            <div class="form-group">
-                                <label>Location Used (Consider area or department where the chemical is being used):</label>
-                                <input type="text" name="location" required class="form-control" placeholder="Enter Location:" disabled>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-lg-12">
-                            <div class="form-group">
-                                <label>Activity Hazard (Consider chemical use, making additions, chemical discarding etc):</label>
-                                <input type="text" name="activity_hazard" required class="form-control" placeholder="Enter Activity Hazard:" disabled>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-lg-12">
-                            <div class="form-group">
-                                <label>Identified Chemical Hazard (Consider Corrosive; Very Toxic; Oxidiser etc):</label>
-                                <input type="text" name="identified_chazard" required class="form-control" placeholder="Enter Identified Chemical Hazard:" disabled>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-lg-12">
-                            <div class="form-group">
-                                <label>Identified Hazard (Consider Splashes and breathing fume vapour etc):</label>
-                                <input type="text" name="identified_hazard" required class="form-control" placeholder="Enter Identified Hazard:" disabled>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-lg-12">
-                            <div class="form-group">
-                                <label>Target Organ</label>
-                                <input type="text" name="target_hazard" required class="form-control" placeholder="Enter Identified Target Hazard:" disabled>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-lg-12">
-                            <div class="form-group">
-                                <label>Who is at Risk</label>
-                                <input type="text" name="who_risk" required class="form-control" placeholder="Enter Who is at Risk:" disabled>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-lg-12">
-                            <div class="form-group">
-                                <label>Protection Required (Consider gloves, glasses, overalls or shoes etc):</label>
-                                <input type="text" name="protection_required" required class="form-control" placeholder="Protection Required:" disabled>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-lg-12">
-                            <div class="form-group">
-                                <label>Is this chemical still used in production or legacy?</label>
-                                <div class="kt-radio-list">
-                                    <label class="kt-radio"><input type="radio" required value="Yes" name="still_used" disabled> Yes <span></span></label>
-                                    <label class="kt-radio"><input type="radio" required value="No" name="still_used" disabled> No <span></span></label>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-lg-12">
-                            <div class="form-group">
-                                <label>Attach Evidence <span style="color:#666;">(jpeg, mp3, mp4, .xls, doc)</span>:</label>
-                                <div class="evidence_attachemnt_div"></div>
-                            </div>
-                        </div>
-                        <div class="col-lg-12">
-                            <div class="form-group">
-                                <label>Any other issues or points to note?</label>
-                                <textarea name="any_issues" class="form-control" placeholder="Enter Any other issues:" disabled></textarea>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                </div>
-            </form>
-        </div>
-    </div>
-</div>
-@endsection
 
 <script>
-    function getEid(data) {
-        console.log(data);
-        $("#id_feild").val(data.id);
-        $("input[name='chemical_name']").val(data.chemical_name);
-        $("input[name='chemical_desc']").val(data.chemical_desc);
-        $("input[name='chemical_type']").val(data.chemical_type);
-        $("input[name='location']").val(data.location_used);
-        $("input[name='activity_hazard']").val(data.activity_hazard);
-        $("input[name='identified_chazard']").val(data.identified_chazard);
-        $("input[name='identified_hazard']").val(data.identified_hazard);
-        $("input[name='target_hazard']").val(data.target_hazard);
-        $("input[name='who_risk']").val(data.who_risk);
-        $("input[name='protection_required']").val(data.protection_required);
-        $("input[name='still_used'][value=" + data.still_used + "]").prop('checked', true);
-        $("textarea[name='any_issues']").val(data.any_issues);
-        $("#editinterestedmodal").modal('show');
+document.addEventListener('click', function(e) {
+    var close = e.target.closest('.am-modal-close');
+    if (close) { var m = close.closest('.am-modal'); if (m) m.classList.remove('open'); return; }
+    if (e.target.classList && e.target.classList.contains('am-modal')) e.target.classList.remove('open');
+});
+document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape') document.querySelectorAll('.am-modal.open').forEach(function(m){ m.classList.remove('open'); });
+});
+(function() {
+    var t = document.getElementById('toggleChForm');
+    var f = document.getElementById('newChForm');
+    var c = document.getElementById('cancelChForm');
+    t && t.addEventListener('click', function() { f.classList.toggle('open'); });
+    c && c.addEventListener('click', function() { f.classList.remove('open'); });
+})();
+document.addEventListener('click', function(e) {
+    var btn = e.target.closest('.am-confirm-delete');
+    if (!btn) return;
+    e.preventDefault();
+    document.getElementById('amConfirmForm').setAttribute('action', btn.getAttribute('data-action') || '');
+    document.getElementById('amConfirmId').value = btn.getAttribute('data-id') || '';
+    document.getElementById('amConfirmType').textContent = btn.getAttribute('data-type') || 'Item';
+    document.getElementById('amConfirmLabel').textContent = btn.getAttribute('data-label') || 'this item';
+    document.getElementById('amConfirmDelete').classList.add('open');
+});
+(function() {
+    var input     = document.getElementById('amChSearch');
+    var form      = document.getElementById('amChSearchForm');
+    var container = document.getElementById('amChContainer');
+    if (!container) return;
+    var baseUrl = '{{ url('/chemical_control') }}';
+    function debounce(fn, wait) { var t; return function() { var ctx = this, args = arguments; clearTimeout(t); t = setTimeout(function() { fn.apply(ctx, args); }, wait); }; }
+    function showLoading() { container.style.opacity = '0.5'; container.style.pointerEvents = 'none'; }
+    function hideLoading() { container.style.opacity = ''; container.style.pointerEvents = ''; }
+    function fetchPage(page) {
+        var q = input ? input.value.trim() : '';
+        var url = baseUrl + '?q=' + encodeURIComponent(q) + '&page=' + page;
+        showLoading();
+        fetch(url, { headers: { 'X-Requested-With': 'XMLHttpRequest' } })
+            .then(function(r){ return r.text(); })
+            .then(function(html) { container.innerHTML = html; hideLoading(); })
+            .catch(function() { hideLoading(); });
     }
-
-    function viewinterested(data) {
-        console.log(data);
-        $("#id_feild").val(data.id);
-        $("input[name='chemical_name']").val(data.chemical_name);
-        $("input[name='chemical_desc']").val(data.chemical_desc);
-        $("input[name='chemical_type']").val(data.chemical_type);
-        $("input[name='location']").val(data.location_used);
-        $("input[name='activity_hazard']").val(data.activity_hazard);
-        $("input[name='identified_chazard']").val(data.identified_chazard);
-        $("input[name='identified_hazard']").val(data.identified_hazard);
-        $("input[name='target_hazard']").val(data.target_hazard);
-        $("input[name='who_risk']").val(data.who_risk);
-        $("input[name='protection_required']").val(data.protection_required);
-        $("input[name='still_used'][value=" + data.still_used + "]").prop('checked', true);
-        $("textarea[name='any_issues']").val(data.any_issues);
-        if (data.attach_evidence) {
-            $('.evidence_attachemnt_div').empty().append(`<span class="text-dark">Click to view evidence <a target="_blank" href="${data.attach_evidence}">Here</a></span>`);
-        } else {
-            $('.evidence_attachemnt_div').empty().append('No data found');
-        }
-        $("#viewinterestedparty").modal('show');
-    }
-
-    function deleteModal(data) {
-        $("#re_id").val(data.id);
-        $("#deleteRequirment").modal('show');
-    }
-
-    function cosh() {
-        if ($(".process_interested_from_div").css("display") === "block") {
-            $(".process_interested_from_div").css("display", "none");
-        } else {
-            $(".process_interested_from_div").css("display", "block");
-        }
-    }
-
-    function processinterestedForm() {
-        cosh();
-    }
+    input && input.addEventListener('input', debounce(function() { fetchPage(1); }, 350));
+    form  && form.addEventListener('submit', function(e) { e.preventDefault(); fetchPage(1); });
+    container.addEventListener('click', function(e) {
+        var btn = e.target.closest('.am-page-link');
+        if (!btn || btn.disabled) return;
+        e.preventDefault();
+        var p = parseInt(btn.getAttribute('data-page'), 10);
+        if (!isNaN(p) && p > 0) fetchPage(p);
+    });
+})();
+function amChView(d) {
+    ['chemical_name','chemical_desc','chemical_type','location_used','activity_hazard','identified_chazard','identified_hazard','target_organs','who_risk','protection_required','still_used','any_issues'].forEach(function(k){
+        var el = document.getElementById('vch-'+k);
+        if (el) el.textContent = d[k] || '—';
+    });
+    var ev = document.getElementById('vch-ev');
+    if (d.attach_evidence) ev.innerHTML = '<a href="' + d.attach_evidence + '" target="_blank" style="color:var(--am-primary);"><i class="fa fa-external-link-alt"></i> View</a>';
+    else ev.textContent = '—';
+    document.getElementById('viewChModal').classList.add('open');
+}
+function amChEdit(d) {
+    document.getElementById('ech-id').value = d.id || '';
+    var m = document.getElementById('editChModal');
+    var map = {chemical_name:d.chemical_name, chemical_type:d.chemical_type, chemical_desc:d.chemical_desc, location:d.location_used, activity_hazard:d.activity_hazard, identified_chazard:d.identified_chazard, identified_hazard:d.identified_hazard, target_hazard:d.target_hazard || d.target_organs, who_risk:d.who_risk, protection_required:d.protection_required};
+    Object.keys(map).forEach(function(k){ var el = m.querySelector("input[name='"+k+"']"); if (el) el.value = map[k] || ''; });
+    var ta = m.querySelector("textarea[name='any_issues']"); if (ta) ta.value = d.any_issues || '';
+    m.querySelectorAll("input[name='still_used']").forEach(function(r){ r.checked = false; });
+    var stillEl = m.querySelector("input[name='still_used'][value='"+d.still_used+"']");
+    if (stillEl) stillEl.checked = true;
+    m.classList.add('open');
+}
 </script>
+@endsection

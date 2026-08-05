@@ -14,11 +14,22 @@ class AssessmentController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
         $userid=Auth::user()->id;
-        $assessment=Assessment::where('user_id',$userid)->orderBy('id','DESC')->get();
-        return view('dashboard.form_records.risk_assessment',compact('assessment'));
+        $search = trim($request->query('q', ''));
+        $query = Assessment::where('user_id',$userid);
+        if ($search !== '') {
+            $query->where(function($q) use ($search){
+                $q->where('jobNumber','like',"%{$search}%")
+                  ->orWhere('DecisionComment','like',"%{$search}%");
+            });
+        }
+        $assessment = $query->orderBy('id','DESC')->paginate(10)->withQueryString();
+        if ($request->ajax()) {
+            return view('dashboard.form_records.partials.risk_assessment_table', compact('assessment'));
+        }
+        return view('dashboard.form_records.risk_assessment',compact('assessment','search'));
     }
 
     /**

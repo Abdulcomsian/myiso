@@ -22,12 +22,23 @@ class MgtreviewController extends Controller
     {
         $this->middleware('auth');
     }
-    public function index()
+    public function index(Request $request)
     {
         $userid=Auth::user()->id;
-        $userData=Mgtreview::where('user_id',$userid)->orderBy('id','DESC')->get();
-        return  view('dashboard.form_records.managment_reviews',compact('userData'));
-
+        $search = trim($request->query('q', ''));
+        $query = Mgtreview::where('user_id',$userid);
+        if ($search !== '') {
+            $query->where(function($q) use ($search){
+                $q->where('meetingatt','like',"%{$search}%")
+                  ->orWhere('newquality','like',"%{$search}%")
+                  ->orWhere('reviewdate','like',"%{$search}%");
+            });
+        }
+        $userData = $query->orderBy('id','DESC')->paginate(10)->withQueryString();
+        if ($request->ajax()) {
+            return view('dashboard.form_records.partials.management_reviews_table', compact('userData'));
+        }
+        return  view('dashboard.form_records.managment_reviews',compact('userData','search'));
     }
 
     /**

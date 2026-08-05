@@ -22,9 +22,21 @@ class CustomerReviewController extends Controller
     public function index(Request $request)
     {
         $userid=Auth::user()->id;
+        $search  = trim($request->query('q', ''));
         $all_customers=customers::where('user_id',$userid)->get();
-        $customers=customer_review::where('user_id',$userid)->orderBy('id','DESC')->get();
-        return view('dashboard.form_records.customer_review',compact('customers','userid','all_customers'));
+        $query = customer_review::where('user_id',$userid)->orderBy('id','DESC');
+        if ($search !== '') {
+            $query->where(function($q) use ($search){
+                $q->where('product_activity_area','like',"%{$search}%")
+                  ->orWhere('other_issues','like',"%{$search}%")
+                  ->orWhere('cus_id','like',"%{$search}%");
+            });
+        }
+        $customers = $query->paginate(10)->withQueryString();
+        if ($request->ajax()) {
+            return view('dashboard.form_records.partials.customer_review_table', compact('customers','userid'));
+        }
+        return view('dashboard.form_records.customer_review',compact('customers','userid','all_customers','search'));
     }
 
     /**

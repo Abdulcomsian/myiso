@@ -23,11 +23,24 @@ class MaintainRecController extends Controller
     {
         $this->middleware('auth');
     }
-    public function index()
+    public function index(Request $request)
     {
         $userid=Auth::user()->id;
-        $userinfo=Maintain_rec::where('user_id',$userid)->orderBy('id','DESC')->get();
-        return view('dashboard.form_records.maintance_record',compact('userinfo'));
+        $search = trim($request->query('q', ''));
+        $query = Maintain_rec::where('user_id',$userid);
+        if ($search !== '') {
+            $query->where(function($q) use ($search){
+                $q->where('mritem','like',"%{$search}%")
+                  ->orWhere('mractivity','like',"%{$search}%")
+                  ->orWhere('mlocation','like',"%{$search}%")
+                  ->orWhere('mractivityperofrmby','like',"%{$search}%");
+            });
+        }
+        $userinfo = $query->orderBy('id','DESC')->paginate(10)->withQueryString();
+        if ($request->ajax()) {
+            return view('dashboard.form_records.partials.maintenance_table', compact('userinfo'));
+        }
+        return view('dashboard.form_records.maintance_record',compact('userinfo','search'));
     }
 
     /**

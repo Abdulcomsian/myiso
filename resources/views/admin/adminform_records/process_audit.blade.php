@@ -34,10 +34,10 @@
 
     <div class="am-card" style="margin-bottom:16px;">
         <div class="am-card__toolbar">
-            <div class="am-search" style="flex:1;max-width:340px;">
+            <form method="GET" action="{{ url('/ProcessCheck/'.$urlparam['userid']) }}" class="am-search" id="amPaSearchForm" style="flex:1;max-width:340px;margin:0;">
                 <i class="fa fa-search"></i>
-                <input type="text" id="amPaSearch" placeholder="Search audits…" autocomplete="off">
-            </div>
+                <input type="text" name="q" id="amPaSearch" value="{{ $search ?? '' }}" placeholder="Search audits…" autocomplete="off">
+            </form>
             <button type="button" class="am-btn am-btn-primary" id="togglePaForm">
                 <i class="fa fa-plus"></i> Add Process Audit
             </button>
@@ -126,57 +126,32 @@
     </div>
 
     <div class="am-card">
-        <div class="am-table-wrap">
-            <table class="am-table" id="amPaTable">
-                <thead>
-                    <tr>
-                        <th style="width:60px;">#</th>
-                        <th>Process</th>
-                        <th>Auditor</th>
-                        <th>Audit Date</th>
-                        <th>NCRs</th>
-                        <th>Observations</th>
-                        <th>Frequency</th>
-                        <th style="text-align:right;">Actions</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @forelse ($getprocess as $index => $data)
-                        @php
-                            $ncrClass = ((int)$data->nonConformities) > 0 ? 'warning' : 'success';
-                        @endphp
-                        <tr data-search="{{ strtolower($data->processAudit . ' ' . $data->auditor) }}">
-                            <td><span class="am-cell-sub">#{{ $index + 1 }}</span></td>
-                            <td>
-                                <span class="am-cell-primary">{{ Str::limit($data->processAudit, 40) }}</span>
-                            </td>
-                            <td>{{ $data->auditor }}</td>
-                            <td><span class="am-chip info">{{ date('d M Y', strtotime($data->auditDate)) }}</span></td>
-                            <td><span class="am-chip {{ $ncrClass }}">{{ $data->nonConformities }}</span></td>
-                            <td>{{ $data->Observations }}</td>
-                            <td>Every {{ $data->dateFrequency }} months</td>
-                            <td style="text-align:right;white-space:nowrap;">
-                                <div class="am-actions">
-                                    <button type="button" class="am-icon-btn" title="View" onclick='amPaView(@json($data))'><i class="fa fa-eye"></i></button>
-                                    <button type="button" class="am-icon-btn" title="Edit" onclick='amPaEdit(@json($data))'><i class="fa fa-pen"></i></button>
-                                    <button type="button" class="am-icon-btn danger am-confirm-delete"
-                                            title="Delete"
-                                            data-action="{{ route('deleteauditadmin') }}"
-                                            data-id="{{ $data->id }}"
-                                            data-label="Audit of {{ Str::limit($data->processAudit, 30) }}"
-                                            data-type="Process Audit">
-                                        <i class="fa fa-trash"></i>
-                                    </button>
-                                </div>
-                            </td>
-                        </tr>
-                    @empty
-                        <tr><td colspan="8"><div class="am-empty"><i class="fa fa-clipboard-list"></i><p>No process audits recorded yet.</p></div></td></tr>
-                    @endforelse
-                </tbody>
-            </table>
+        <div id="amPaContainer">
+            @include('admin.adminform_records.partials.process_audit_table')
         </div>
-        <div class="am-pagination" id="amPaPagination"></div>
+    </div>
+</div>
+
+{{-- Delete Confirmation Modal --}}
+<div class="am-modal" id="amConfirmDelete" role="dialog" aria-modal="true">
+    <div class="am-modal__box">
+        <div class="am-modal__header">
+            <span class="am-modal__icon"><i class="fa fa-exclamation-triangle"></i></span>
+            <h4 class="am-modal__title">Delete <span id="amConfirmType">Process Audit</span>?</h4>
+        </div>
+        <div class="am-modal__body">
+            You are about to permanently delete <strong id="amConfirmLabel">this item</strong>. This action cannot be undone.
+        </div>
+        <div class="am-modal__footer">
+            <button type="button" class="am-btn am-btn-outline am-modal-close">Cancel</button>
+            <form id="amConfirmForm" method="POST" style="display:inline;">
+                @csrf
+                <input type="hidden" name="id" id="amConfirmId">
+                <button type="submit" class="am-btn" style="background:var(--am-danger);color:#fff;">
+                    <i class="fa fa-trash"></i> Yes, delete
+                </button>
+            </form>
+        </div>
     </div>
 </div>
 
@@ -279,64 +254,119 @@
 </div>
 
 <script>
-(function(){
-    var t=document.getElementById('togglePaForm'),f=document.getElementById('newPaForm'),c=document.getElementById('cancelPaForm');
-    t&&t.addEventListener('click',function(){f.classList.toggle('open');});
-    c&&c.addEventListener('click',function(){f.classList.remove('open');});
-    function debounce(fn,w){var t;return function(){var c=this,a=arguments;clearTimeout(t);t=setTimeout(function(){fn.apply(c,a);},w);};}
-    var per=10,i=document.getElementById('amPaSearch'),tb=document.querySelector('#amPaTable tbody');
-    if(!tb)return;
-    var rows=Array.prototype.slice.call(tb.querySelectorAll('tr[data-search]')),p=document.getElementById('amPaPagination'),F=rows.slice(),pg=1;
-    function r(){var T=F.length,TP=Math.max(1,Math.ceil(T/per));if(pg>TP)pg=TP;rows.forEach(function(x){x.style.display='none';});F.slice((pg-1)*per,pg*per).forEach(function(x){x.style.display='';});var fr=T===0?0:(pg-1)*per+1,to=Math.min(pg*per,T);var h='<div class="am-pagination__info">Showing <strong>'+fr+'–'+to+'</strong> of <strong>'+T+'</strong></div><div class="am-pagination__nav">';h+='<button data-p="'+(pg-1)+'" '+(pg<=1?'disabled':'')+'>‹</button>';var s=Math.max(1,pg-2),e=Math.min(TP,s+4);s=Math.max(1,e-4);for(var q=s;q<=e;q++)h+='<button data-p="'+q+'" '+(q===pg?'class="active"':'')+'>'+q+'</button>';h+='<button data-p="'+(pg+1)+'" '+(pg>=TP?'disabled':'')+'>›</button></div>';p.innerHTML=h;}
-    i&&i.addEventListener('input',debounce(function(){var q=this.value.trim().toLowerCase();F=q===''?rows.slice():rows.filter(function(x){return x.getAttribute('data-search').indexOf(q)!==-1;});pg=1;r();},250));
-    p&&p.addEventListener('click',function(e){var b=e.target.closest('button[data-p]');if(!b||b.disabled)return;var q=parseInt(b.getAttribute('data-p'),10);if(!isNaN(q)&&q>=1){pg=q;r();}});
-    r();
-})();
-
-var paChecklistFields = [
-    ['qmsCorects', '1 — Included in system scope', 'evidence'],
-    ['needExpactations', '2 — Implemented as documented', 'evidance2'],
-    ['correction3', '3 — Personnel trained', 'evidence3'],
-    ['correction4', '4 — KPIs monitored', 'evidance4'],
-    ['correction5', '5 — Targets set at Management Review', 'evidence5'],
-    ['correction6', '6 — Records retained', null],
-    ['correction7', '7 — Reviewed for risk & opportunity', 'evidance7'],
-    ['correction9', '8 — Corrective actions closed out', 'evidance9'],
-    ['correction10', '9 — Customer satisfaction monitored', 'evidance10'],
-];
-
-function amPaView(d){
-    document.getElementById('vpa-proc').textContent = d.processAudit||'—';
-    document.getElementById('vpa-auditor').textContent = d.auditor||'—';
-    document.getElementById('vpa-date').textContent = d.auditDate ? new Date(d.auditDate).toLocaleDateString() : '—';
-    document.getElementById('vpa-nc').textContent = d.nonConformities||'0';
-    document.getElementById('vpa-obs').textContent = d.Observations||'0';
-    document.getElementById('vpa-ncr').textContent = d.nonConfReport||'—';
-    document.getElementById('vpa-freq').textContent = d.dateFrequency ? ('Every '+d.dateFrequency+' months') : '—';
-    document.getElementById('vpa-actions').textContent = d.AdutiActions||'—';
-    document.getElementById('vpa-issues').textContent = d.any_issues||'—';
-    var chk = document.getElementById('vpa-checklist');
-    chk.innerHTML = '';
-    paChecklistFields.forEach(function(f){
-        var li = document.createElement('li');
-        var ev = f[2] ? '<div style="font-size:12px;color:var(--am-text-muted);margin-top:2px;">Evidence: ' + (d[f[2]] || '—') + '</div>' : '';
-        li.innerHTML = '<strong>' + f[1] + ':</strong> ' + (d[f[0]] || '—') + ev;
-        chk.appendChild(li);
+    // ---- Modal helpers ----
+    document.addEventListener('click', function(e) {
+        var close = e.target.closest('.am-modal-close');
+        if (close) { var m = close.closest('.am-modal'); if (m) m.classList.remove('open'); return; }
+        if (e.target.classList && e.target.classList.contains('am-modal')) e.target.classList.remove('open');
     });
-    var ev = document.getElementById('vpa-ev');
-    if (d.attach_evidence) { ev.innerHTML = '<a href="'+d.attach_evidence+'" target="_blank" style="color:var(--am-primary);"><i class="fa fa-external-link-alt"></i> View</a>'; } else ev.textContent='—';
-    document.getElementById('viewPaModal').classList.add('open');
-}
-function amPaEdit(d){
-    $("#epa-id").val(d.id);
-    ['auditor','auditDate','nonConformities','Observations','nonConfReport','dateFrequency','AdutiActions','any_issues'].forEach(function(k){ $("#editPaModal input[name='"+k+"'], #editPaModal textarea[name='"+k+"']").val(d[k]||''); });
-    $("#editPaModal select[name='processAudit']").val(d.processAudit||'');
-    paChecklistFields.forEach(function(f){
-        $("#editPaModal input[name='"+f[0]+"']").prop('checked', false);
-        if (d[f[0]]) $("#editPaModal input[name='"+f[0]+"'][value='"+d[f[0]]+"']").prop('checked', true);
-        if (f[2]) $("#editPaModal input[name='"+f[2]+"']").val(d[f[2]]||'');
+    document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape') document.querySelectorAll('.am-modal.open').forEach(function(m){ m.classList.remove('open'); });
     });
-    document.getElementById('editPaModal').classList.add('open');
-}
+
+    // ---- Add form toggle ----
+    (function() {
+        var t = document.getElementById('togglePaForm');
+        var f = document.getElementById('newPaForm');
+        var c = document.getElementById('cancelPaForm');
+        t && t.addEventListener('click', function() { f.classList.toggle('open'); });
+        c && c.addEventListener('click', function() { f.classList.remove('open'); });
+    })();
+
+    // ---- Checklist fields ----
+    var paChecklistFields = [
+        ['qmsCorects', '1 — Included in system scope', 'evidence'],
+        ['needExpactations', '2 — Implemented as documented', 'evidance2'],
+        ['correction3', '3 — Personnel trained', 'evidence3'],
+        ['correction4', '4 — KPIs monitored', 'evidance4'],
+        ['correction5', '5 — Targets set at Management Review', 'evidence5'],
+        ['correction6', '6 — Records retained', null],
+        ['correction7', '7 — Reviewed for risk & opportunity', 'evidance7'],
+        ['correction9', '8 — Corrective actions closed out', 'evidance9'],
+        ['correction10', '9 — Customer satisfaction monitored', 'evidance10'],
+    ];
+
+    function amPaView(d) {
+        document.getElementById('vpa-proc').textContent = d.processAudit || '—';
+        document.getElementById('vpa-auditor').textContent = d.auditor || '—';
+        document.getElementById('vpa-date').textContent = d.auditDate ? new Date(d.auditDate).toLocaleDateString() : '—';
+        document.getElementById('vpa-nc').textContent = d.nonConformities || '0';
+        document.getElementById('vpa-obs').textContent = d.Observations || '0';
+        document.getElementById('vpa-ncr').textContent = d.nonConfReport || '—';
+        document.getElementById('vpa-freq').textContent = d.dateFrequency ? ('Every ' + d.dateFrequency + ' months') : '—';
+        document.getElementById('vpa-actions').textContent = d.AdutiActions || '—';
+        document.getElementById('vpa-issues').textContent = d.any_issues || '—';
+        var chk = document.getElementById('vpa-checklist');
+        chk.innerHTML = '';
+        paChecklistFields.forEach(function(f) {
+            var li = document.createElement('li');
+            var ev = f[2] ? '<div style="font-size:12px;color:var(--am-text-muted);margin-top:2px;">Evidence: ' + (d[f[2]] || '—') + '</div>' : '';
+            li.innerHTML = '<strong>' + f[1] + ':</strong> ' + (d[f[0]] || '—') + ev;
+            chk.appendChild(li);
+        });
+        var ev = document.getElementById('vpa-ev');
+        if (d.attach_evidence) { ev.innerHTML = '<a href="' + d.attach_evidence + '" target="_blank" style="color:var(--am-primary);"><i class="fa fa-external-link-alt"></i> View</a>'; } else ev.textContent = '—';
+        document.getElementById('viewPaModal').classList.add('open');
+    }
+
+    function amPaEdit(d) {
+        $("#epa-id").val(d.id);
+        ['auditor','auditDate','nonConformities','Observations','nonConfReport','dateFrequency','AdutiActions','any_issues'].forEach(function(k) {
+            $("#editPaModal input[name='"+k+"'], #editPaModal textarea[name='"+k+"']").val(d[k] || '');
+        });
+        $("#editPaModal select[name='processAudit']").val(d.processAudit || '');
+        paChecklistFields.forEach(function(f) {
+            $("#editPaModal input[name='"+f[0]+"']").prop('checked', false);
+            if (d[f[0]]) $("#editPaModal input[name='"+f[0]+"'][value='"+d[f[0]]+"']").prop('checked', true);
+            if (f[2]) $("#editPaModal input[name='"+f[2]+"']").val(d[f[2]] || '');
+        });
+        document.getElementById('editPaModal').classList.add('open');
+    }
+
+    // ---- Delete confirm ----
+    document.addEventListener('click', function(e) {
+        var btn = e.target.closest('.am-confirm-delete');
+        if (!btn) return;
+        e.preventDefault();
+        document.getElementById('amConfirmForm').setAttribute('action', btn.getAttribute('data-action') || '');
+        document.getElementById('amConfirmId').value = btn.getAttribute('data-id') || '';
+        document.getElementById('amConfirmType').textContent = btn.getAttribute('data-type') || 'Item';
+        document.getElementById('amConfirmLabel').textContent = btn.getAttribute('data-label') || 'this item';
+        document.getElementById('amConfirmDelete').classList.add('open');
+    });
+
+    // ---- Server-side search + pagination (AJAX) ----
+    (function() {
+        var input = document.getElementById('amPaSearch');
+        var form = document.getElementById('amPaSearchForm');
+        var container = document.getElementById('amPaContainer');
+        if (!container) return;
+        var baseUrl = '{{ url('/ProcessCheck/'.$urlparam['userid']) }}';
+
+        function debounce(fn, wait) { var t; return function() { var ctx = this, args = arguments; clearTimeout(t); t = setTimeout(function() { fn.apply(ctx, args); }, wait); }; }
+        function showLoading() { container.style.opacity = '0.5'; container.style.pointerEvents = 'none'; }
+        function hideLoading() { container.style.opacity = ''; container.style.pointerEvents = ''; }
+
+        function fetchPage(page) {
+            var q = input ? input.value.trim() : '';
+            var url = baseUrl + '?q=' + encodeURIComponent(q) + '&page=' + page;
+            showLoading();
+            fetch(url, { headers: { 'X-Requested-With': 'XMLHttpRequest' } })
+                .then(function(r) { return r.text(); })
+                .then(function(html) { container.innerHTML = html; hideLoading(); })
+                .catch(function() { hideLoading(); });
+        }
+
+        input && input.addEventListener('input', debounce(function() { fetchPage(1); }, 350));
+        form && form.addEventListener('submit', function(e) { e.preventDefault(); fetchPage(1); });
+
+        container.addEventListener('click', function(e) {
+            var btn = e.target.closest('.am-page-link');
+            if (!btn || btn.disabled) return;
+            e.preventDefault();
+            var p = parseInt(btn.getAttribute('data-page'), 10);
+            if (!isNaN(p) && p > 0) fetchPage(p);
+        });
+    })();
 </script>
 @endsection

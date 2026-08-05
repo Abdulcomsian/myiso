@@ -23,6 +23,7 @@ class nonConfromFormController extends Controller
     public function index(Request $request)
     {
         $userid=Auth::user()->id;
+        $search  = trim($request->query('q', ''));
         $nonconform=Nonconform::where('user_id',$userid)->get();
         $customers = DB::table('tbl_suppliers')->where('user_id',$userid)->get();
        
@@ -55,7 +56,7 @@ class nonConfromFormController extends Controller
         // dd($customers);
         
         /// new changes with left join
-        $customers_nonconform = DB::table('tbl_noconformance')
+        $ncQuery = DB::table('tbl_noconformance')
         ->leftJoin('tbl_suppliers', 'tbl_noconformance.customerID', '=', 'tbl_suppliers.idNumber')
         ->select(
             'tbl_noconformance.id as noid',
@@ -66,10 +67,17 @@ class nonConfromFormController extends Controller
         ->where(function ($query) use ($userid) {
             $query->where('tbl_suppliers.user_id', $userid)
                 ->orWhereNull('tbl_noconformance.customerID');
-        })
-        ->orderBy('tbl_noconformance.id', 'DESC')
-        ->get();
-        
+        });
+        if ($search !== '') {
+            $ncQuery->where(function($w) use ($search){
+                $w->where('tbl_noconformance.description','like',"%{$search}%")
+                  ->orWhere('tbl_noconformance.supplier_data','like',"%{$search}%")
+                  ->orWhere('tbl_noconformance.employee_name','like',"%{$search}%")
+                  ->orWhere('tbl_noconformance.non_confirm_status','like',"%{$search}%");
+            });
+        }
+        $customers_nonconform = $ncQuery->orderBy('tbl_noconformance.id', 'DESC')->paginate(10)->withQueryString();
+
          $employees= DB::table('tbl_employees')->where('user_id',$userid)->get();
 
         if(count($employees)==0)
@@ -79,7 +87,10 @@ class nonConfromFormController extends Controller
            $no_employees=0;
        }
         //end new code
-        return view('dashboard.form_records.non_conformities',compact('userid', 'nonconform','customers', 'customers_nonconform', 'no_customer','employees'));
+        if ($request->ajax()) {
+            return view('dashboard.form_records.partials.non_conformities_table', compact('customers_nonconform'));
+        }
+        return view('dashboard.form_records.non_conformities',compact('userid', 'nonconform','customers', 'customers_nonconform', 'no_customer','employees','search'));
     }
 
     /**
