@@ -163,12 +163,12 @@
             </div>
         </div>
 
-        <div class="am-nav-item">
+        {{-- <div class="am-nav-item">
             <a href="{{ url('schedule-training') }}" class="am-nav-link {{ Request::is('schedule-training') ? 'active' : '' }}">
                 <i class="fa fa-calendar"></i>
                 <span>Schedule Training</span>
             </a>
-        </div>
+        </div> --}}
 
     </nav>
 </aside>
