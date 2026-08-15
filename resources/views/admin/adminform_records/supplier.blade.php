@@ -1,10 +1,7 @@
 @extends('admin.dashboard.layouts.app')
 
-@section('styles')
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/css/intlTelInput.min.css"/>
-@endsection
-
 @section('content')
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/css/intlTelInput.min.css"/>
 @php $urlparam = request()->route()->parameters; @endphp
 
 <div class="kt-content kt-grid__item kt-grid__item--fluid" id="kt_content" style="padding:26px;">
