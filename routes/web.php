@@ -85,9 +85,9 @@ Route::group(['middleware' => ['auth','usermiddle']], function ()
 
     /*************** Manual and policies urls and routes start ***************/
     Route::get('/quality_manual', 'AddUsersController@quality_manual');
-    Route::get('/quality_policy', 'AddQualityController@quality_policy')->name('add_quality');
-    Route::get('/environment_policy', 'AddQualityController@environment_policy')->name('environment_policy');
-    Route::get('/health_policy', 'AddQualityController@health_policy')->name('health_policy');
+    Route::get('/quality_policy', 'AddQualityController@quality_policy')->name('quality_policy_view');
+    Route::get('/environment_policy', 'AddQualityController@environment_policy')->name('environment_policy_view');
+    Route::get('/health_policy', 'AddQualityController@health_policy')->name('health_policy_view');
 
     // Route::view('/quality_policy', 'dashboard.mannual_policy.quality_policy');
     // Route::view('/enviornment_policy', 'dashboard.mannual_policy.enviornment_policy');
