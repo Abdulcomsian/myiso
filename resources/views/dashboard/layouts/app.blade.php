@@ -97,6 +97,21 @@
             </div>
         </div>
 
+        <div class="am-nav-heading">Support</div>
+
+        <div class="am-nav-item am-nav-group {{ Request::is('faq') || Request::is('explainer_videos') || Request::is('userDownload') ? 'open' : '' }}">
+            <a href="javascript:;" class="am-nav-link am-nav-group__toggle">
+                <i class="fa fa-life-ring"></i>
+                <span>Support</span>
+                <i class="fa fa-chevron-right am-chevron"></i>
+            </a>
+            <div class="am-nav-group__children">
+                <a href="{{ url('faq') }}" class="am-nav-link {{ Request::is('faq') ? 'active' : '' }}">FAQ's</a>
+                <a href="{{ url('explainer_videos') }}" class="am-nav-link {{ Request::is('explainer_videos') ? 'active' : '' }}">Training Videos</a>
+                <a href="{{ url('userDownload') }}" class="am-nav-link {{ Request::is('userDownload') ? 'active' : '' }}">Downloads</a>
+            </div>
+        </div>
+
         <div class="am-nav-heading">Communication</div>
 
         <div id="admin_notifications" class="am-nav-item am-nav-group {{ Request::is('createMessage') || Request::is('inboxMessages*') || Request::is('sentMessages*') ? 'open' : '' }}">
@@ -110,21 +125,6 @@
                 <a href="{{ route('storeMessage') }}" class="am-nav-link">Create Message</a>
                 <a href="{{ route('inboxMessages') }}" class="am-nav-link">Inbox</a>
                 <a href="{{ route('sentMessages') }}" class="am-nav-link">Sent</a>
-            </div>
-        </div>
-
-        <div class="am-nav-heading">Support</div>
-
-        <div class="am-nav-item am-nav-group {{ Request::is('faq') || Request::is('explainer_videos') || Request::is('userDownload') ? 'open' : '' }}">
-            <a href="javascript:;" class="am-nav-link am-nav-group__toggle">
-                <i class="fa fa-life-ring"></i>
-                <span>Support</span>
-                <i class="fa fa-chevron-right am-chevron"></i>
-            </a>
-            <div class="am-nav-group__children">
-                <a href="{{ url('faq') }}" class="am-nav-link {{ Request::is('faq') ? 'active' : '' }}">FAQ's</a>
-                <a href="{{ url('explainer_videos') }}" class="am-nav-link {{ Request::is('explainer_videos') ? 'active' : '' }}">Training Videos</a>
-                <a href="{{ url('userDownload') }}" class="am-nav-link {{ Request::is('userDownload') ? 'active' : '' }}">Downloads</a>
             </div>
         </div>
 

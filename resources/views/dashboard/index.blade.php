@@ -10,12 +10,38 @@
         </div>
     </div>
 
+    @if (!empty($showInactivityAlert) && $showInactivityAlert)
+    {{-- Inactivity Warning Modal (only shows when previous last_login was 90+ days ago) --}}
+    <div id="inactivityAlertOverlay" style="position:fixed;inset:0;background:rgba(20,26,55,0.55);z-index:9999;display:flex;align-items:center;justify-content:center;padding:16px;">
+        <div style="background:#fff;border-radius:14px;max-width:520px;width:100%;padding:28px 26px;box-shadow:0 20px 50px rgba(0,0,0,0.35);position:relative;">
+            <div style="display:flex;gap:14px;align-items:flex-start;margin-bottom:14px;">
+                <span style="width:44px;height:44px;flex-shrink:0;border-radius:50%;background:#fff3cd;color:#b7791f;display:inline-flex;align-items:center;justify-content:center;font-size:20px;">
+                    <i class="fa fa-exclamation-triangle"></i>
+                </span>
+                <div>
+                    <h4 style="margin:0 0 4px 0;font-size:17px;font-weight:600;color:#141a37;">System Review Overdue</h4>
+                    <p style="margin:0;font-size:13px;color:#6b7391;">You haven't reviewed your documentation in a while</p>
+                </div>
+            </div>
+            <p style="font-size:14px;color:#141a37;line-height:1.6;margin:14px 0 20px 0;">
+                It's been 90 days since your documentation system was reviewed. An unmaintained system risks audit failure and certification suspension or revocation. Please review and update your records.
+            </p>
+            <div style="text-align:right;">
+                <button type="button" onclick="document.getElementById('inactivityAlertOverlay').style.display='none';"
+                    style="background:#7a97d9;color:#fff;border:none;padding:9px 20px;border-radius:6px;font-size:14px;cursor:pointer;font-weight:500;">
+                    OK, I'll review
+                </button>
+            </div>
+        </div>
+    </div>
+    @endif
+
     @if(session('message'))
     <div class="alert alert-success">{{ session('message') }}</div>
     @endif
 
     {{-- Quick Links --}}
-    <h6 class="dash-section-title">Quick Links</h6>
+    {{-- <h6 class="dash-section-title">Quick Links</h6> --}}
     <div style="display:flex; gap:1rem; flex-wrap:wrap; margin-bottom:1.5rem;">
         <a href="{{url('quality_manual')}}" style="flex:1; min-width:160px; text-decoration:none;">
             <div class="am-card" style="text-align:center; padding:1.25rem 1rem; cursor:pointer;">
@@ -52,7 +78,11 @@
     {{-- Requirements Due --}}
     <div class="am-card mb-3">
         <div class="am-card__body">
-            <h6 class="dash-section-title">Requirements Due</h6>
+            <div style="margin-bottom:1.25rem;">
+                <span style="display:inline-block;background:#c9d5f0;color:#3d5aa8;padding:6px 18px;border-radius:999px;font-size:14px;font-weight:600;letter-spacing:0.2px;">
+                    Requirements Due
+                </span>
+            </div>
             @php
                 $requirement=App\requirement::where('user_id',Auth::user()->id)->get();
             @endphp
@@ -103,7 +133,11 @@
     {{-- Calibration Due --}}
     <div class="am-card mb-3">
         <div class="am-card__body">
-            <h6 class="dash-section-title">Calibration Due</h6>
+            <div style="margin-bottom:1.25rem;">
+                <span style="display:inline-block;background:#c9d5f0;color:#3d5aa8;padding:6px 18px;border-radius:999px;font-size:14px;font-weight:600;letter-spacing:0.2px;">
+                    Calibration Due
+                </span>
+            </div>
             @php
                 $calibration=App\calibration::where('user_id',Auth::user()->id)->get();
             @endphp
@@ -155,7 +189,11 @@
     {{-- ISO Certificates --}}
     <div class="am-card mb-3">
         <div class="am-card__body">
-            <h6 class="dash-section-title">ISO Certificates</h6>
+            <div style="margin-bottom:1.25rem;">
+                <span style="display:inline-block;background:#c9d5f0;color:#3d5aa8;padding:6px 18px;border-radius:999px;font-size:14px;font-weight:600;letter-spacing:0.2px;">
+                    ISO Certificates
+                </span>
+            </div>
             @php
                 $hasCert = $user['iso9001_certificate'] || $user['iso14001_certificate'] || $user['iso45001_certificate'];
             @endphp
@@ -219,9 +257,14 @@
         </div>
     </div>
 
-    {{-- Audit Report & Related Documents --}}
+    {{-- Supporting Documents --}}
     <div class="am-card mb-3">
         <div class="am-card__body">
+            <div style="margin-bottom:1.25rem;">
+                <span style="display:inline-block;background:#c9d5f0;color:#3d5aa8;padding:6px 18px;border-radius:999px;font-size:14px;font-weight:600;letter-spacing:0.2px;">
+                    Supporting Documents
+                </span>
+            </div>
             <h6 class="dash-section-title">Audit Report</h6>
             <div style="margin-bottom:.75rem;">
                 @if(!empty($user['audit_report']))
@@ -282,46 +325,46 @@
 </div>
 
 {{-- Delete Calibration Modal --}}
-<div class="modal fade" id="calibrationModal" tabindex="-1" role="dialog" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header" style="background:var(--am-primary);color:#fff;">
-                <h5 class="modal-title">Deleting Calibration Due</h5>
-                <button type="button" class="close" style="color:#fff;" data-dismiss="modal">&times;</button>
-            </div>
-            <div class="modal-body">
-                <p>Do you really want to delete this entry?</p>
-            </div>
-            <div class="modal-footer">
-                <form action="{{route('deletecaliberinfo')}}" method="POST">
-                    @csrf
-                    <input type="hidden" name="id" id="req_id2" value=""/>
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
-                    <button type="submit" class="btn btn-danger">Yes</button>
-                </form>
-            </div>
+<div class="am-modal" id="calibrationModal" role="dialog" aria-modal="true">
+    <div class="am-modal__box">
+        <div class="am-modal__header">
+            <span class="am-modal__icon"><i class="fa fa-exclamation-triangle"></i></span>
+            <h4 class="am-modal__title">Delete Calibration Entry?</h4>
+        </div>
+        <div class="am-modal__body">
+            You are about to permanently delete this calibration record. This action cannot be undone.
+        </div>
+        <div class="am-modal__footer">
+            <button type="button" class="am-btn am-btn-outline am-modal-close">Cancel</button>
+            <form action="{{route('deletecaliberinfo')}}" method="POST" style="display:inline;">
+                @csrf
+                <input type="hidden" name="id" id="req_id2" value=""/>
+                <button type="submit" class="am-btn am-btn-lightblue">
+                    <i class="fa fa-trash"></i> Yes, delete
+                </button>
+            </form>
         </div>
     </div>
 </div>
 
 {{-- Delete Requirement Modal --}}
-<div class="modal" id="myModal" tabindex="-1" role="dialog">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header" style="background:var(--am-primary);color:#fff;">
-                <h5 class="modal-title">Deleting Requirements Due</h5>
-                <button type="button" class="close" style="color:#fff;" data-dismiss="modal">&times;</button>
-            </div>
-            <div class="modal-body">
-                <p>Are you sure you want to delete this entry?</p>
-                <form action="{{route('deleteRequirementadmin')}}" method="POST">
-                    @csrf
-                    <input type="hidden" name="id" id="req_id" value=""/>
-            </div>
-            <div class="modal-footer">
-                <button type="submit" class="btn btn-danger">Delete Requirement</button>
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-            </div>
+<div class="am-modal" id="myModal" role="dialog" aria-modal="true">
+    <div class="am-modal__box">
+        <div class="am-modal__header">
+            <span class="am-modal__icon"><i class="fa fa-exclamation-triangle"></i></span>
+            <h4 class="am-modal__title">Delete Requirement?</h4>
+        </div>
+        <div class="am-modal__body">
+            You are about to permanently delete this requirement. This action cannot be undone.
+        </div>
+        <div class="am-modal__footer">
+            <button type="button" class="am-btn am-btn-outline am-modal-close">Cancel</button>
+            <form action="{{route('deleteRequirementadmin')}}" method="POST" style="display:inline;">
+                @csrf
+                <input type="hidden" name="id" id="req_id" value=""/>
+                <button type="submit" class="am-btn am-btn-lightblue">
+                    <i class="fa fa-trash"></i> Yes, delete
+                </button>
             </form>
         </div>
     </div>
@@ -331,15 +374,30 @@
 
 @section('myscript')
 <script>
-    $(".delete_requirement").click(function () {
-        $id = $(this).attr('data-id');
-        $("#req_id").val($id);
-        $("#myModal").modal('show');
-    })
-    $(".calibrationModal").click(function () {
-        $id = $(this).attr('data-id');
-        $("#req_id2").val($id);
-        $("#calibrationModal").modal('show');
-    })
+    // Open modals
+    document.querySelectorAll('.delete_requirement').forEach(function(el){
+        el.addEventListener('click', function(e){
+            e.preventDefault();
+            document.getElementById('req_id').value = this.getAttribute('data-id');
+            document.getElementById('myModal').classList.add('open');
+        });
+    });
+    document.querySelectorAll('.calibrationModal').forEach(function(el){
+        el.addEventListener('click', function(e){
+            e.preventDefault();
+            document.getElementById('req_id2').value = this.getAttribute('data-id');
+            document.getElementById('calibrationModal').classList.add('open');
+        });
+    });
+
+    // Close modal on Cancel / overlay click / Escape
+    document.addEventListener('click', function(e) {
+        var close = e.target.closest('.am-modal-close');
+        if (close) { var m = close.closest('.am-modal'); if (m) m.classList.remove('open'); return; }
+        if (e.target.classList && e.target.classList.contains('am-modal')) e.target.classList.remove('open');
+    });
+    document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape') document.querySelectorAll('.am-modal.open').forEach(function(m){ m.classList.remove('open'); });
+    });
 </script>
 @endsection

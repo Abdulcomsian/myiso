@@ -28,13 +28,22 @@ class HomeController extends Controller
     public function index()
     {
         $id = \Auth::user()->id;
-        
-        $user =  User::find($id);
-        $date = date('Y-m-d H:i:s');
-        $user->last_login = $date;
+
+        $user = User::find($id);
+
+        // Compute days since the PREVIOUS last_login (before we overwrite it)
+        $showInactivityAlert = false;
+        if ($user->last_login) {
+            $daysInactive = \Carbon\Carbon::parse($user->last_login)->diffInDays(now());
+            if ($daysInactive >= 90) {
+                $showInactivityAlert = true;
+            }
+        }
+
+        $user->last_login = date('Y-m-d H:i:s');
         $user->save();
-    
-        return view('dashboard.index',compact('user'));
+
+        return view('dashboard.index', compact('user', 'showInactivityAlert'));
     }
     
     public function usertype(){

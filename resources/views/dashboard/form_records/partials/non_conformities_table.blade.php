@@ -4,7 +4,7 @@
             <tr>
                 <th style="width:60px;">#</th>
                 <th>Type</th>
-                <th>Supplier</th>
+                <th>Non-Conformity Category</th>
                 <th>Reported By</th>
                 <th>Description</th>
                 <th>Category</th>
@@ -40,14 +40,16 @@
                         <div class="am-actions">
                             <button type="button" class="am-icon-btn" title="View" onclick='amNcView(@json($data))'><i class="fa fa-eye"></i></button>
                             <button type="button" class="am-icon-btn" title="Edit" onclick='amNcEdit(@json($data))'><i class="fa fa-pen"></i></button>
-                            <button type="button" class="am-icon-btn danger am-confirm-delete"
-                                    title="Delete"
-                                    data-action="{{ route('deletenonconfimity') }}"
-                                    data-id="{{ $data->noid }}"
-                                    data-label="NCR #{{ $customers_nonconform->firstItem() + $index }}"
-                                    data-type="Non-Conformity">
-                                <i class="fa fa-trash"></i>
-                            </button>
+                            @if ($data->non_confirm_status !== 'Major')
+                                <button type="button" class="am-icon-btn danger am-confirm-delete"
+                                        title="Delete"
+                                        data-action="{{ route('deletenonconfimity') }}"
+                                        data-id="{{ $data->noid }}"
+                                        data-label="NCR #{{ $customers_nonconform->firstItem() + $index }}"
+                                        data-type="Non-Conformity">
+                                    <i class="fa fa-trash"></i>
+                                </button>
+                            @endif
                         </div>
                     </td>
                 </tr>

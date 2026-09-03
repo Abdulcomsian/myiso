@@ -81,7 +81,28 @@ td {
   color: #fff !important;
 }
 .authName {
-  font-weight: 500 !important;
+  font-weight: normal !important;
+  color: inherit !important;
+}
+.am-btn-lightblue {
+  background: #7a97d9 !important;
+  color: #fff !important;
+  border: 1px solid #7a97d9 !important;
+  box-shadow: 0 2px 6px rgba(122, 151, 217, 0.35);
+  transition: background 0.18s ease, box-shadow 0.18s ease, transform 0.18s ease;
+}
+.am-btn-lightblue:hover,
+.am-btn-lightblue:focus {
+  background: #6383cf !important;
+  border-color: #6383cf !important;
+  color: #fff !important;
+  box-shadow: 0 4px 14px rgba(122, 151, 217, 0.55);
+  transform: translateY(-1px);
+  text-decoration: none;
+}
+.am-btn-lightblue:active {
+  transform: translateY(0);
+  box-shadow: 0 2px 6px rgba(122, 151, 217, 0.35);
 }
 .svgIcon button svg {
   position: relative;

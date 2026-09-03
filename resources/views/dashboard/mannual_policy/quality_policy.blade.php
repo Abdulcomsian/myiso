@@ -9,7 +9,7 @@
             <p>Company quality commitment and objectives</p>
         </div>
         <div>
-            <a onclick="qualityshowpolicy()" class="am-btn am-btn-primary">ADD Quality Policy</a>
+            <a onclick="qualityshowpolicy()" class="am-btn am-btn-lightblue">ADD Quality Policy</a>
         </div>
     </div>
 
@@ -38,25 +38,27 @@
     {{-- Policy Content Card --}}
     <div class="am-card">
         <div class="am-card__body" style="padding:32px; line-height:1.8;">
-            <p>The Management of <b><span class="authName">{{ $companyName }}</span></b> are committed to providing products and services that consistently exceed our Customer's needs for Quality and Value and also to meet the expectations of interested parties.</p>
+            <p>The Management of {{ $companyName }} are committed to providing products and services that consistently exceed our Customer's needs for Quality and Value and also to meet the expectations of interested parties.</p>
             <p>Such products will be based around our pillars of competence, namely Customer Management, Revenue Management, and a commitment to comply with all applicable Regulation &amp; Conformity.</p>
             <p>Accordingly, the following policies have been established in order to ensure profitable business development, for the benefit of all stakeholders including interested parties:</p>
             <p>To implement and maintain a formal QMS, based upon the requirements of ISO 9001:2015.<br>
             To ensure that measureable objectives are defined, focused upon business needs, Customer satisfaction and continuous improvement, for all levels and functions.</p>
-            <p>To seek continual improvement in the products that we offer to Customers and the QMS employed, in order to ensure that our Customer's perceptions of <b><span class="authName">{{ $companyName }}</span></b> are further enhanced.</p>
+            <p>To seek continual improvement in the products that we offer to Customers and the QMS employed, in order to ensure that our Customer's perceptions of {{ $companyName }} are further enhanced.</p>
             <p>To develop and maintain mutually beneficial relationships with our suppliers, customers, neighbours and other interested parties.</p>
-            <p>To foster a spirit of Teamwork, recognising the part all employees have to play in the continuing success of <b><span class="authName">{{ $companyName }}</span></b>.</p>
+            <p>To foster a spirit of Teamwork, recognising the part all employees have to play in the continuing success of {{ $companyName }}.</p>
             <p>To ensure the maximum utilisation of our most important resource, our people, through ongoing training and career development.</p>
             <p>To continually understand and respond to the needs and expectations of our interested parties.</p>
-            <p>As the Managing Director, I accept ultimate responsibility for Quality. The Operational Management will, through example, and direction, ensure that this policy is understood, implemented and maintained throughout <b><span class="authName">{{ $companyName }}</span></b>.</p>
+            <p>As the Managing Director, I accept ultimate responsibility for Quality. The Operational Management will, through example, and direction, ensure that this policy is understood, implemented and maintained throughout {{ $companyName }}.</p>
 
-            <h6 class="dash-section-title mt-4">Additional Policies:</h6>
+            <h6 class="mt-4" style="color:#7a97d9;font-weight:normal;">Additional Policies:</h6>
             @if ($previousPolicy)
-                <pre style="font-size: 13px; color: #040404 !important; white-space: pre-wrap; font-family: inherit; font-weight: normal; overflow: hidden;">{{ $previousPolicy->message }}</pre>
+                <p style="white-space:pre-wrap;font-weight:normal !important;color:#7a97d9 !important;">{{ $previousPolicy->message }}</p>
             @endif
 
-            <p class="mt-3">Managing Director: <span class="authName">{{ Auth::user()->director }}</span></p>
-            <p>Date: {{ $date }}</p>
+            <p class="mt-3">Managing Director: {{ Auth::user()->director }}</p>
+            @if ($date)
+                <p>Date: {{ $date }}</p>
+            @endif
         </div>
     </div>
 

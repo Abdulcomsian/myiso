@@ -48,7 +48,19 @@
                             <option value="Major">Major</option>
                         </select>
                     </div>
-                    <div><label>Supplier Name</label><input type="text" class="supplier_name" name="supplier_data" placeholder="Supplier name"></div>
+                    <div>
+                        <label>Non-Conformity Category</label>
+                        <select name="supplier_data" required>
+                            <option value="">Select</option>
+                            <option value="Employee">Employee</option>
+                            <option value="Supplier">Supplier</option>
+                            <option value="Customer">Customer</option>
+                            <option value="Equipment">Equipment</option>
+                            <option value="Audit">Audit</option>
+                            <option value="Design">Design</option>
+                            <option value="Other">Other</option>
+                        </select>
+                    </div>
                     <div>
                         <label>Supplier ID</label>
                         <select onchange="get_customer(this)" required name="customerID" id="customer_id">
@@ -143,7 +155,7 @@
         </div>
         <div class="am-modal__body">
             @php $vf = [
-                'non_confirm_status' => 'Type', 'supplier_data' => 'Supplier Name', 'customerID' => 'Supplier ID',
+                'non_confirm_status' => 'Type', 'supplier_data' => 'Non-Conformity Category', 'customerID' => 'Supplier ID',
                 'employee_name' => 'Reported By', 'employee_id' => 'Employee ID', 'root_cause_category' => 'Root Cause Category',
                 'description' => 'Description', 'rootCause' => 'Root Cause',
                 'immediateCorp' => 'Immediate Corrective Action', 'actionPrevent' => 'Prevent Recurrence',
@@ -180,7 +192,19 @@
                             <option value="Major">Major</option>
                         </select>
                     </div>
-                    <div class="col-lg-4"><label>Supplier Name</label><input type="text" class="form-control" name="supplier_data"></div>
+                    <div class="col-lg-4">
+                        <label>Non-Conformity Category</label>
+                        <select class="form-control" name="supplier_data">
+                            <option value="">Select</option>
+                            <option value="Employee">Employee</option>
+                            <option value="Supplier">Supplier</option>
+                            <option value="Customer">Customer</option>
+                            <option value="Equipment">Equipment</option>
+                            <option value="Audit">Audit</option>
+                            <option value="Design">Design</option>
+                            <option value="Other">Other</option>
+                        </select>
+                    </div>
                     <div class="col-lg-4"><label>Supplier ID</label>
                         <select class="form-control" name="customerID">
                             <option value="">Select</option>
@@ -320,18 +344,8 @@ document.addEventListener('click', function(e) {
 })();
 
 function get_customer(obj) {
-    var id = obj.value;
-    fetch('{{ url('/get_customer_name_by_id') }}?id=' + encodeURIComponent(id) + '&user_id={{ Auth::user()->id }}', {
-        headers: { 'X-Requested-With': 'XMLHttpRequest' }
-    })
-    .then(function(r){ return r.json(); })
-    .then(function(res){
-        if (res.Status) {
-            var input = document.querySelector('.supplier_name');
-            if (input) input.value = res.name || '';
-        }
-    })
-    .catch(function(){});
+    // Supplier Name field removed - dropdown is now Non-Conformity Category
+    // Function kept as no-op in case of external references
 }
 function get_employee(obj) {
     var id = obj.value;
@@ -358,12 +372,13 @@ function amNcView(d){
 function amNcEdit(d){
     document.getElementById('enc-id').value = d.noid || '';
     var m = document.getElementById('editNcModal');
-    ['supplier_data','employee_name','description','rootCause','immediateCorp','actionPrevent','ActionRecurnce','effectiveDate','reviewdBy','dateNcP','dateNcR','CRE'].forEach(function(k){
+    ['employee_name','description','rootCause','immediateCorp','actionPrevent','ActionRecurnce','effectiveDate','reviewdBy','dateNcP','dateNcR','CRE'].forEach(function(k){
         var el = m.querySelector("input[name='"+k+"']");
         if (el) el.value = d[k] || '';
     });
     var setSel = function(name, val){ var el = m.querySelector("select[name='"+name+"']"); if (el) el.value = val || ''; };
     setSel('minor_major', d.non_confirm_status);
+    setSel('supplier_data', d.supplier_data);
     setSel('customerID', d.customerID);
     setSel('employee_id', d.employee_id);
     setSel('root_cause_category', d.root_cause_category);

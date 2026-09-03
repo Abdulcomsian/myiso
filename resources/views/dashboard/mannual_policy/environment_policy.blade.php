@@ -9,7 +9,7 @@
             <p>Company environmental commitment and objectives</p>
         </div>
         <div>
-            <a onclick="qualityshowpolicy()" class="am-btn am-btn-primary">Add Environmental Policy</a>
+            <a onclick="qualityshowpolicy()" class="am-btn am-btn-lightblue">Add Environmental Policy</a>
         </div>
     </div>
 
@@ -40,8 +40,8 @@
         <div class="am-card__body" style="padding:32px; line-height:1.8;">
             <p>Each country has its own regulations and laws relating to Environmental Legislation within the workplace. These must be complied with by both the employer and the company employees. It is the obligation of the company to ensure that they are aware and understand their responsibilities and regularly check for updates and changes.</p>
             <p>{{ $companyName }} will develop and maintain procedures to identify and support the reduction of negative environmental impacts, determine controls and then implement them. These controls will be reviewed and monitored on a regular basis. The company will take all reasonable steps to reduce environmental impacts within the workplace and to provide guidance on the measures that should be applied within the hierarchy of control.</p>
-            <p><b><span class="authName">{{ $companyName }}</span></b> is committed to continually monitoring and improving the environmental performance of the company. It will regularly measure its impact on the environment and set targets to ensure ongoing improvement.</p>
-            <p>It is the policy of <b><span class="authName">{{ $companyName }}</span></b> to:</p>
+            <p>{{ $companyName }} is committed to continually monitoring and improving the environmental performance of the company. It will regularly measure its impact on the environment and set targets to ensure ongoing improvement.</p>
+            <p>It is the policy of {{ $companyName }} to:</p>
             <ol>
                 <li>Strive to prevent pollution in its processes and at its facilities.</li>
                 <li>Comply with all current legislation regarding environmental issues.</li>
@@ -55,14 +55,16 @@
                 <li>Source a product range or supply services that will minimise the environmental impact of the company's distribution and production.</li>
             </ol>
 
-            <h6 class="dash-section-title mt-4">Additional Policies:</h6>
+            <h6 class="mt-4" style="color:#7a97d9;font-weight:normal;">Additional Policies:</h6>
             @if ($previousPolicy)
-                <pre style="font-size: 13px; color: #040404 !important; white-space: pre-wrap; font-family: inherit; font-weight: normal; overflow: hidden;">{{ $previousPolicy->message }}</pre>
+                <p style="white-space:pre-wrap;font-weight:normal !important;color:#7a97d9 !important;">{{ $previousPolicy->message }}</p>
             @endif
 
-            <p class="mt-3">On behalf of <b><span class="authName">{{ $companyName }}</span></b>:</p>
-            <p>Name: <span class="authName">{{ Auth::user()->director }}</span></p>
-            <p>Date: {{ $date }}</p>
+            <p class="mt-3">On behalf of {{ $companyName }}:</p>
+            <p>Name: {{ Auth::user()->director }}</p>
+            @if ($date)
+                <p>Date: {{ $date }}</p>
+            @endif
         </div>
     </div>
 
