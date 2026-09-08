@@ -2,7 +2,8 @@
   "permissions": {
     "allow": [
       "Bash(composer show *)",
-      "Bash(composer update *)"
+      "Bash(composer update *)",
+      "Bash(mysql -u root myisoonline_en -e ' *)"
     ]
   }
 }

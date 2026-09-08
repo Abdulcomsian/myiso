@@ -105,8 +105,8 @@
                 </div>
                 <div class="form-row">
                     <div><label>Review Performed By</label><input type="text" name="reviewdBy"></div>
+                    <div><label>Date NC Recorded</label><input type="date" name="dateNcR"></div>
                     <div><label>Date NC Processed</label><input type="date" name="dateNcP"></div>
-                    <div><label>Date NC Received</label><input type="date" name="dateNcR"></div>
                 </div>
                 <div class="form-row">
                     <div><label>Customer Response Time (Days)</label><input type="number" min="0" name="CRE"></div>
@@ -181,7 +181,7 @@
                 'description' => 'Description', 'rootCause' => 'Root Cause',
                 'immediateCorp' => 'Immediate Corrective Action', 'actionPrevent' => 'Prevent Recurrence',
                 'ActionRecurnce' => 'Effectiveness of Action', 'effectiveDate' => 'Effectiveness Review Date',
-                'reviewdBy' => 'Reviewed By', 'dateNcP' => 'Date NC Processed', 'dateNcR' => 'Date NC Received',
+                'reviewdBy' => 'Reviewed By', 'dateNcR' => 'Date NC Recorded', 'dateNcP' => 'Date NC Processed',
                 'CRE' => 'Customer Response Time', 'PI' => 'Product Impact', 'NCR_closed' => 'NCR Closed',
             ]; @endphp
             <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:14px;font-size:13px;">
@@ -254,8 +254,8 @@
                 </div>
                 <div class="form-group row">
                     <div class="col-lg-4"><label>Reviewed By</label><input type="text" class="form-control" name="reviewdBy"></div>
+                    <div class="col-lg-4"><label>Date NC Recorded</label><input type="date" class="form-control" name="dateNcR"></div>
                     <div class="col-lg-4"><label>Date NC Processed</label><input type="date" class="form-control" name="dateNcP"></div>
-                    <div class="col-lg-4"><label>Date NC Received</label><input type="date" class="form-control" name="dateNcR"></div>
                 </div>
                 <div class="form-group row">
                     <div class="col-lg-4"><label>Customer Response Time</label><input type="number" min="0" class="form-control" name="CRE"></div>
