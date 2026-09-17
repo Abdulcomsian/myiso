@@ -7,6 +7,7 @@ use App\Assessment;
 use App\Audit;
 use App\calibration;
 use App\customer_review;
+use App\supplier_review;
 use App\customers;
 use App\Employee;
 use App\EmployeeTraning;
@@ -985,6 +986,31 @@ public function store(Request $request)
         return view('admin.adminform_records.customer_review',['customer_review'=>$customer_review,'request'=>$request_id,'all_customers'=>$all_customers,'search'=>$search]);
 
     }
+
+    public function supplierReviewad(Request $request, $userid){
+        $search = trim($request->query('q', ''));
+        $all_suppliers = Supplier::where('user_id',$userid)->get();
+        $query = supplier_review::where('user_id',$userid)->orderBy('id','DESC');
+        if ($search !== '') {
+            $query->where(function($q) use ($search){
+                $q->where('product_activity_area','like',"%{$search}%")
+                  ->orWhere('other_issues','like',"%{$search}%")
+                  ->orWhere('sup_id','like',"%{$search}%");
+            });
+        }
+        $supplier_review = $query->paginate(10)->withQueryString();
+        $request_id = $userid;
+        if ($request->ajax()) {
+            return view('admin.adminform_records.partials.supplier_review_table', ['supplier_review'=>$supplier_review,'request'=>$request_id]);
+        }
+        return view('admin.adminform_records.supplier_review',['supplier_review'=>$supplier_review,'request'=>$request_id,'all_suppliers'=>$all_suppliers,'search'=>$search]);
+    }
+
+    public function deleteSupplierReviewAdmin(Request $req)
+    {
+        supplier_review::findOrFail($req->id)->delete();
+        return redirect()->back();
+    }
     public function supplierCheck(Request $request, $userid){
         $search = trim($request->query('q', ''));
         $query = Supplier::where('user_id',$userid)->orderBy('id','DESC');
@@ -1161,10 +1187,10 @@ public function store(Request $request)
     {
         // Retrieve policies specific to the user
         $qualityPolicy = CustomManual::where('user_id', $userid)->where('status', 1)->first();
-        $environmentalPolicy = CustomManual::where('user_id', $userid)->where('status', 2)->first();
+        $environmentalPolicies = CustomManual::where('user_id', $userid)->where('status', 2)->orderBy('created_at')->orderBy('id')->get();
         $healthSafetyPolicy = CustomManual::where('user_id', $userid)->where('status', 3)->first();
 
-        return view('admin.adminform_records.additionalpolicies', compact('qualityPolicy', 'environmentalPolicy', 'healthSafetyPolicy'));
+        return view('admin.adminform_records.additionalpolicies', compact('qualityPolicy', 'environmentalPolicies', 'healthSafetyPolicy'));
     }
 
 

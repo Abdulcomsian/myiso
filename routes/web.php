@@ -74,6 +74,10 @@ Route::group(['middleware' => ['auth','usermiddle']], function ()
     Route::get('/non_confromities','nonConfromFormController@index');
     Route::get('/customer','CustomerController@index');
     Route::get('/customer_review', 'CustomerReviewController@index');
+    Route::get('/supplier_review', 'SupplierReviewController@index');
+    Route::get('/environmental_impacts', 'EnvironmentalImpactController@index')->name('environmental_impacts');
+    Route::get('/hazards', 'HazardController@index')->name('hazards');
+    Route::get('/incidents', 'IncidentController@index')->name('incidents');
     Route::get('/supplier', 'SupplierController@index');
     Route::get('/calibration_record','CalibrationController@index');
     Route::post('/calibration_delete','CalibrationController@destroy');
@@ -185,6 +189,7 @@ Route::group(['middleware' => ['auth','admin']], function ()
     Route::view('/add_user', 'admin.dashboard.admin.add_user');
 
     Route::post('/deleteCustomerRivewAdmin', 'AddUsersController@deleteCustomerRivewAdmin')->name('deleteCustomerRivewAdmin');
+    Route::post('/deleteSupplierReviewAdmin', 'AddUsersController@deleteSupplierReviewAdmin')->name('deleteSupplierReviewAdmin');
     Route::post('/deleteSupplierAdmin', 'AddUsersController@deleteSupplierAdmin')->name('deleteSupplierAdmin');
     Route::post('/deleteEmployeeadmin', 'AddUsersController@deleteEmployeeadmin')->name('deleteEmployeeadmin');
     Route::post('/deleteEmployeeskill', 'AddUsersController@deleteEmployeeskill')->name('deleteEmployeeskill');
@@ -224,6 +229,10 @@ Route::group(['middleware' => ['auth','admin']], function ()
     Route::get('/nonConformCheck/{userid}', 'AddUsersController@nonConformCheck');
     Route::get('/customerCheck/{userid}', 'AddUsersController@customerCheck');
     Route::get('/customerReviewad/{userid}', 'AddUsersController@customerReviewad');
+    Route::get('/supplierReviewad/{userid}', 'AddUsersController@supplierReviewad');
+    Route::get('/environmentalImpactsad/{userid}', 'EnvironmentalImpactController@adminIndex')->name('environmental_impacts.admin');
+    Route::get('/hazardsad/{userid}', 'HazardController@adminIndex')->name('hazards.admin');
+    Route::get('/incidentsad/{userid}', 'IncidentController@adminIndex')->name('incidents.admin');
     Route::get('/supplierCheck/{userid}', 'AddUsersController@supplierCheck');
     Route::get('/calibrationcheck/{userid}', 'AddUsersController@calibrationcheck');
     Route::get('/chemicalcheck/{userid}', 'AddUsersController@chemicalcheck')->name("chemicalcheck");
@@ -296,6 +305,7 @@ Route::group(['middleware' => ['auth']], function ()
     Route::post('/nonConfromForm','nonConfromFormController@store')->name('nonConfromForm');
     Route::post('/customerform','CustomerController@store')->name('customerform');
     Route::post('/customer_rview','CustomerReviewController@store')->name('customer_rview');
+    Route::post('/supplier_review_store','SupplierReviewController@store')->name('supplier_review_store');
     Route::post('/supplier','SupplierController@store')->name('supplier');
     Route::post('/calibration','CalibrationController@store')->name('calibration');
     Route::post('/employee','EmployeeController@store')->name('employee')->middleware(['auth']);
@@ -323,6 +333,7 @@ Route::group(['middleware' => ['auth']], function ()
     Route::post('/editnonConfirm','nonConfromFormController@update')->name('editnonConfirm');
     Route::post('/editCustomers','CustomerController@update')->name('editCustomers');
     Route::post('/editCustomerReview','CustomerReviewController@update')->name('editCustomerReview');
+    Route::post('/editSupplierReview','SupplierReviewController@update')->name('editSupplierReview');
     Route::post('/calibrationedit','CalibrationController@update')->name('calibrationedit');
     Route::post('/editemployee','EmployeeController@update')->name('editemployee');
     Route::post('/editmentainance','MaintainRecController@update')->name('editmentainance');
@@ -339,6 +350,16 @@ Route::group(['middleware' => ['auth']], function ()
     Route::post('/mark-as-read-user', 'SendNotificationsController@markAsRead')->name('markread');
     Route::post('/deleteqmsAudit','qmsauditController@destroy')->name('deleteqmsAudit');
     Route::post('/delete_customer_review','CustomerReviewController@destroy')->name('delete_customer_review');
+    Route::post('/delete_supplier_review','SupplierReviewController@destroy')->name('delete_supplier_review');
+    Route::post('/environmental_impacts/store','EnvironmentalImpactController@store')->name('environmental_impacts.store');
+    Route::post('/environmental_impacts/update','EnvironmentalImpactController@update')->name('environmental_impacts.update');
+    Route::post('/environmental_impacts/delete','EnvironmentalImpactController@destroy')->name('environmental_impacts.destroy');
+    Route::post('/hazards/store','HazardController@store')->name('hazards.store');
+    Route::post('/hazards/update','HazardController@update')->name('hazards.update');
+    Route::post('/hazards/delete','HazardController@destroy')->name('hazards.destroy');
+    Route::post('/incidents/store','IncidentController@store')->name('incidents.store');
+    Route::post('/incidents/update','IncidentController@update')->name('incidents.update');
+    Route::post('/incidents/delete','IncidentController@destroy')->name('incidents.destroy');
     Route::post('/delete_maintain_rec','MaintainRecController@destroy')->name('delete_m_r');
 
     Route::get('/check-customer-number','CustomerController@check_customer_number')->name('check_customer_number');

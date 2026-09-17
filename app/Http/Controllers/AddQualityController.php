@@ -109,22 +109,12 @@ class AddQualityController extends Controller
                 'message.required' => 'This field is required',
             ]
         );
-        $userid = Auth::user()->id;
-        $message = $request->input('message');
-        $status = $request->input('status');
-
-        $existingPolicy = CustomManual::where('user_id', $userid)->where('status', 2)->first();
-
-        if ($existingPolicy) {
-            $existingPolicy->message = $message;
-            $existingPolicy->save();
-        } else {
-            $custommanual = new CustomManual();
-            $custommanual->message = $message;
-            $custommanual->status = $status;
-            $custommanual->user_id = $userid;
-            $custommanual->save();
-        }
+        // Every submit adds a new additional policy (shown below the previous ones)
+        $custommanual = new CustomManual();
+        $custommanual->message = $request->input('message');
+        $custommanual->status = 2;
+        $custommanual->user_id = Auth::user()->id;
+        $custommanual->save();
 
         return back();
     }
@@ -145,17 +135,14 @@ class AddQualityController extends Controller
         {
             $userid = Auth::user()->id;
             $companyName = Auth::user()->company_name;
+            // Oldest first, so the latest added policy is shown at the bottom
             $userAddPolicy = CustomManual::where('user_id', $userid)
                 ->where('status', 2)
+                ->orderBy('created_at')
+                ->orderBy('id')
                 ->get();
 
-            $previousPolicy = $userAddPolicy->first();
-
-            $date = $previousPolicy && $previousPolicy->updated_at
-                ? $previousPolicy->updated_at->format('d-M-Y')
-                : null;
-
-            return view('dashboard.mannual_policy.environment_policy', compact('companyName', 'previousPolicy', 'userAddPolicy', 'date'));
+            return view('dashboard.mannual_policy.environment_policy', compact('companyName', 'userAddPolicy'));
         }
 
         

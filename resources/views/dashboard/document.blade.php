@@ -60,15 +60,19 @@
 					<div class="list_display">
 						<ul>
 							<li><a href="{{ url('/requirements_aspect') }}"> Requirements Due</a></li>
+							<li><a href="{{ url('/environmental_impacts') }}">Environmental Impacts</a></li>
 							<li><a href="{{ url('/process_audit') }}">Process Audits</a></li>
+							<li><a href="{{ url('/incidents') }}">Incident Report</a></li>
 							<li><a href="{{ url('/interesting_parties')}}">Interested Parties</a></li>
+							<li><a href="{{ url('/hazards') }}">Hazard Register</a></li>
 							<li><a href="{{ url('/qms_audit') }}">QMS Audits</a></li>
 							<li><a href="{{ url('/non_confromities') }}">Non-Conformities</a></li>
 							<li><a href="{{ url('/customer') }}">Customers</a></li>
 						</ul>
 						<ul>
-							<li><a href="{{ url('/customer_review') }}">Customer Review</a></li>
+							<li><a href="{{ url('/customer_review') }}">Customer Reviews</a></li>
 							<li><a href="{{ url('/supplier') }}">Suppliers</a></li>
+							<li><a href="{{ url('/supplier_review') }}">Supplier Reviews</a></li>
 							<li><a href="{{ url('/calibration_record') }}">Calibration</a></li>
 							<li><a href="{{ url('/employess') }}">Employees</a></li>
 							<li><a href="{{ url('/add_management_review') }}">Management Reviews</a></li>

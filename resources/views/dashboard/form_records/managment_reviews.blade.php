@@ -68,7 +68,11 @@
                     <div><label>Effectiveness of Actions on Risks &amp; Opportunities</label><textarea name="effectiveness" required rows="3"></textarea></div>
                 </div>
                 <div class="form-row">
-                    <div style="grid-column:1/-1;"><label>New Quality Objectives &amp; Improvement Opportunities</label><textarea name="newquality" required rows="3"></textarea></div>
+                    <div><label>New Quality Objectives &amp; Improvement Opportunities</label><textarea name="newquality" required rows="3"></textarea></div>
+                    <div><label>New Health &amp; Safety Objectives &amp; Improvement Opportunities</label><textarea name="newhealthsafety" required rows="3"></textarea></div>
+                </div>
+                <div class="form-row">
+                    <div style="grid-column:1/-1;"><label>New Environmental Objectives &amp; Improvement Opportunities</label><textarea name="newenvironmental" required rows="3"></textarea></div>
                 </div>
                 <div class="form-row">
                     <div style="grid-column:1/-1;"><label>Attachment File (PDF, jpeg, txt, .docx, doc, png)</label><input name="attach_file" type="file" accept="image/*,.doc,.docx,.txt,.pdf,.jpeg,.png"></div>
@@ -112,6 +116,8 @@
                     '1adequacy' => 'Adequacy of Resources',
                     '1effectiveness' => 'Effectiveness of Actions',
                     '1newquality' => 'New Quality Objectives',
+                    '1newhealthsafety' => 'New Health & Safety Objectives',
+                    '1newenvironmental' => 'New Environmental Objectives',
                 ];
             @endphp
             <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:14px;font-size:13px;">
@@ -170,7 +176,11 @@
                     <div class="col-lg-6"><label>Effectiveness of Actions</label><input type="text" class="form-control" name="effectiveness"></div>
                 </div>
                 <div class="form-group row">
-                    <div class="col-lg-12"><label>New Quality Objectives</label><input type="text" class="form-control" name="newquality"></div>
+                    <div class="col-lg-6"><label>New Quality Objectives</label><input type="text" class="form-control" name="newquality"></div>
+                    <div class="col-lg-6"><label>New Health &amp; Safety Objectives</label><input type="text" class="form-control" name="newhealthsafety"></div>
+                </div>
+                <div class="form-group row">
+                    <div class="col-lg-12"><label>New Environmental Objectives</label><input type="text" class="form-control" name="newenvironmental"></div>
                 </div>
                 <div class="form-group row">
                     <div class="col-lg-12"><label>Attachment File</label><input name="attach_file" type="file" class="form-control" accept="image/*,.doc,.docx,.txt,.pdf,.jpeg,.png"></div>
@@ -262,7 +272,7 @@ document.addEventListener('click', function(e) {
     });
 })();
 function amMgtView(d) {
-    var m = {'1reviewdate':d.reviewdate?new Date(d.reviewdate).toLocaleDateString():'—','1meetingatt':d.meetingatt,'1prevmeeting':d.prevmeeting,'1recommendedchange':d.recommendedchange,'1sammarisecustomr':d.sammarisecustomr,'1prevobjectv':d.prevobjectv,'1conformity':d.conformity,'1nonconformities':d.nonconformities,'1monitoringres':d.monitoringres,'1auditres':d.auditres,'1externalprovider':d.externalprovider,'1adequacy':d.adequacy,'1effectiveness':d.effectiveness,'1newquality':d.newquality};
+    var m = {'1reviewdate':d.reviewdate?new Date(d.reviewdate).toLocaleDateString():'—','1meetingatt':d.meetingatt,'1prevmeeting':d.prevmeeting,'1recommendedchange':d.recommendedchange,'1sammarisecustomr':d.sammarisecustomr,'1prevobjectv':d.prevobjectv,'1conformity':d.conformity,'1nonconformities':d.nonconformities,'1monitoringres':d.monitoringres,'1auditres':d.auditres,'1externalprovider':d.externalprovider,'1adequacy':d.adequacy,'1effectiveness':d.effectiveness,'1newquality':d.newquality,'1newhealthsafety':d.newhealthsafety,'1newenvironmental':d.newenvironmental};
     Object.keys(m).forEach(function(k){ var el = document.getElementById('v-'+k); if (el) el.textContent = m[k] || '—'; });
     var att = document.getElementById('v-attach');
     if (d.attach_file) att.innerHTML = '<a target="_blank" href="'+d.attach_file+'" style="color:var(--am-primary);"><i class="fa fa-external-link-alt"></i> View</a>';
@@ -272,7 +282,7 @@ function amMgtView(d) {
 function amMgtEdit(d) {
     var m = document.getElementById('editSupplier');
     m.querySelector("input[name='id']").value = d.id || '';
-    ['reviewdate','meetingatt','prevmeeting','recommendedchange','sammarisecustomr','prevobjectv','conformity','nonconformities','monitoringres','auditres','externalprovider','adequacy','effectiveness','newquality'].forEach(function(k){
+    ['reviewdate','meetingatt','prevmeeting','recommendedchange','sammarisecustomr','prevobjectv','conformity','nonconformities','monitoringres','auditres','externalprovider','adequacy','effectiveness','newquality','newhealthsafety','newenvironmental'].forEach(function(k){
         var el = m.querySelector("input[name='"+k+"']");
         if (el) el.value = d[k] || '';
     });

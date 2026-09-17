@@ -7,7 +7,7 @@
 
     <div class="am-page-header">
         <div>
-            <h2>Customer Review</h2>
+            <h2>Customer Reviews</h2>
             <p>Score customers on quality, price, delivery and overall performance.</p>
         </div>
         <div>

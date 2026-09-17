@@ -71,7 +71,7 @@
             </div>
         </div>
 
-        <div class="am-nav-item am-nav-group {{ Request::is('requirements_aspect') || Request::is('process_audit') || Request::is('interesting_parties') || Request::is('qms_audit') || Request::is('non_confromities') || Request::is('customer') || Request::is('customer_review') || Request::is('supplier') || Request::is('calibration_record') || Request::is('employess') || Request::is('add_management_review') || Request::is('maintance_record') || Request::is('accident_risk') || Request::is('risk_assessment') || Request::is('chemical_control') || Request::is('work_instruction') ? 'open' : '' }}">
+        <div class="am-nav-item am-nav-group {{ Request::is('requirements_aspect') || Request::is('environmental_impacts') || Request::is('process_audit') || Request::is('incidents') || Request::is('interesting_parties') || Request::is('hazards') || Request::is('qms_audit') || Request::is('non_confromities') || Request::is('customer') || Request::is('customer_review') || Request::is('supplier') || Request::is('supplier_review') || Request::is('calibration_record') || Request::is('employess') || Request::is('add_management_review') || Request::is('maintance_record') || Request::is('accident_risk') || Request::is('risk_assessment') || Request::is('chemical_control') || Request::is('work_instruction') ? 'open' : '' }}">
             <a href="javascript:;" class="am-nav-link am-nav-group__toggle">
                 <i class="fab fa-wpforms"></i>
                 <span>Forms &amp; Records</span>
@@ -79,13 +79,17 @@
             </a>
             <div class="am-nav-group__children">
                 <a href="{{ url('requirements_aspect') }}" class="am-nav-link {{ Request::is('requirements_aspect') ? 'active' : '' }}">Requirements Due</a>
+                <a href="{{ url('environmental_impacts') }}" class="am-nav-link {{ Request::is('environmental_impacts') ? 'active' : '' }}">Environmental Impacts</a>
                 <a href="{{ url('process_audit') }}" class="am-nav-link {{ Request::is('process_audit') ? 'active' : '' }}">Process Audits</a>
+                <a href="{{ url('incidents') }}" class="am-nav-link {{ Request::is('incidents') ? 'active' : '' }}">Incident Report</a>
                 <a href="{{ url('interesting_parties') }}" class="am-nav-link {{ Request::is('interesting_parties') ? 'active' : '' }}">Interested Parties</a>
+                <a href="{{ url('hazards') }}" class="am-nav-link {{ Request::is('hazards') ? 'active' : '' }}">Hazard Register</a>
                 <a href="{{ url('qms_audit') }}" class="am-nav-link {{ Request::is('qms_audit') ? 'active' : '' }}">QMS Audits</a>
                 <a href="{{ url('non_confromities') }}" class="am-nav-link {{ Request::is('non_confromities') ? 'active' : '' }}">Non-Conformities</a>
                 <a href="{{ url('customer') }}" class="am-nav-link {{ Request::is('customer') ? 'active' : '' }}">Customers</a>
-                <a href="{{ url('customer_review') }}" class="am-nav-link {{ Request::is('customer_review') ? 'active' : '' }}">Customer Review</a>
+                <a href="{{ url('customer_review') }}" class="am-nav-link {{ Request::is('customer_review') ? 'active' : '' }}">Customer Reviews</a>
                 <a href="{{ url('supplier') }}" class="am-nav-link {{ Request::is('supplier') ? 'active' : '' }}">Suppliers</a>
+                <a href="{{ url('supplier_review') }}" class="am-nav-link {{ Request::is('supplier_review') ? 'active' : '' }}">Supplier Reviews</a>
                 <a href="{{ url('calibration_record') }}" class="am-nav-link {{ Request::is('calibration_record') ? 'active' : '' }}">Calibration</a>
                 <a href="{{ url('employess') }}" class="am-nav-link {{ Request::is('employess') ? 'active' : '' }}">Employees</a>
                 <a href="{{ url('add_management_review') }}" class="am-nav-link {{ Request::is('add_management_review') ? 'active' : '' }}">Management Reviews</a>

@@ -5,13 +5,17 @@
     $userId = request()->route('id');
     $forms = [
         ['title' => 'Requirements Due',        'url' => '/requiremntCheck/'.$userId,     'icon' => 'fa-tasks',    'group' => 'Compliance'],
+        ['title' => 'Environmental Impacts',   'url' => '/environmentalImpactsad/'.$userId, 'icon' => 'fa-leaf',       'group' => 'Compliance'],
         ['title' => 'Process Audits',          'url' => '/ProcessCheck/'.$userId,        'icon' => 'fa-clipboard-list','group' => 'Audits'],
+        ['title' => 'Incident Report',         'url' => '/incidentsad/'.$userId,         'icon' => 'fa-user-injured',  'group' => 'Safety'],
         ['title' => 'Interested Parties',      'url' => '/interested_parties/'.$userId,  'icon' => 'fa-users',         'group' => 'Compliance'],
+        ['title' => 'Hazard Register',         'url' => '/hazardsad/'.$userId,           'icon' => 'fa-hard-hat',      'group' => 'Safety'],
         ['title' => 'QMS Audits',              'url' => '/AuditsCheck/'.$userId,         'icon' => 'fa-shield-alt', 'group' => 'Audits'],
         ['title' => 'Non-Conformities',        'url' => '/nonConformCheck/'.$userId,     'icon' => 'fa-exclamation-triangle','group' => 'Audits'],
         ['title' => 'Customers',               'url' => '/customerCheck/'.$userId,       'icon' => 'fa-user-friends',    'group' => 'Business'],
-        ['title' => 'Customer Review',         'url' => '/customerReviewad/'.$userId,    'icon' => 'fa-star',          'group' => 'Business'],
+        ['title' => 'Customer Reviews',        'url' => '/customerReviewad/'.$userId,    'icon' => 'fa-star',          'group' => 'Business'],
         ['title' => 'Suppliers',               'url' => '/supplierCheck/'.$userId,       'icon' => 'fa-truck',         'group' => 'Business'],
+        ['title' => 'Supplier Reviews',        'url' => '/supplierReviewad/'.$userId,    'icon' => 'fa-star-half-alt', 'group' => 'Business'],
         ['title' => 'Calibration',             'url' => '/calibrationcheck/'.$userId,    'icon' => 'fa-tachometer-alt',         'group' => 'Operations'],
         ['title' => 'Employees',               'url' => '/EmployeCheck/'.$userId,        'icon' => 'fa-id-badge',      'group' => 'HR'],
         ['title' => 'Management Reviews',      'url' => '/managementCheck/'.$userId,     'icon' => 'fa-chart-line',    'group' => 'Management'],

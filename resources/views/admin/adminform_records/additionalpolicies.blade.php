@@ -45,8 +45,13 @@
                     <h3><i class="fa fa-leaf" style="color:#26c281;margin-right:8px;"></i> Environmental Policy</h3>
                 </div>
                 <div class="am-card__body">
-                    @if ($environmentalPolicy && !empty($environmentalPolicy->message))
-                        <pre style="font-size:13px;color:var(--am-text);font-family:inherit;font-weight:normal;white-space:pre-wrap;word-wrap:break-word;margin:0;">{{ $environmentalPolicy->message }}</pre>
+                    @if ($environmentalPolicies->isNotEmpty())
+                        @foreach ($environmentalPolicies as $environmentalPolicy)
+                            <div style="{{ $loop->last ? '' : 'margin-bottom:14px;padding-bottom:14px;border-bottom:1px solid #eee;' }}">
+                                <pre style="font-size:13px;color:var(--am-text);font-family:inherit;font-weight:normal;white-space:pre-wrap;word-wrap:break-word;margin:0;">{{ $environmentalPolicy->message }}</pre>
+                                <small style="color:#999;">Date: {{ $environmentalPolicy->created_at->format('d-M-Y') }}</small>
+                            </div>
+                        @endforeach
                     @else
                         <div class="am-empty">
                             <i class="fa fa-file-alt"></i>

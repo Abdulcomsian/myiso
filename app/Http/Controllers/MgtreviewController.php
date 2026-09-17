@@ -94,6 +94,8 @@ class MgtreviewController extends Controller
 
             $mgtRev->effectiveness=$request->input('effectiveness');
             $mgtRev->newquality=$request->input('newquality');
+            $mgtRev->newhealthsafety=$request->input('newhealthsafety');
+            $mgtRev->newenvironmental=$request->input('newenvironmental');
             //Check if user attach file
            
             if ($request->file('attach_file') && Schema::hasColumn('tbl_mgtreviews','attach_file')) {
@@ -172,6 +174,8 @@ class MgtreviewController extends Controller
 
         $mgtRev->effectiveness=$request->input('effectiveness');
         $mgtRev->newquality=$request->input('newquality');
+        $mgtRev->newhealthsafety=$request->input('newhealthsafety');
+        $mgtRev->newenvironmental=$request->input('newenvironmental');
 
         //Check if user attach file
         //dd($request->file('attach_file') );
