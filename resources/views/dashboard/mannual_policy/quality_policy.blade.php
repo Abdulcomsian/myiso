@@ -23,7 +23,7 @@
                 @csrf
                 <div class="mb-3">
                     <label>Enter additional Quality Policies that are specific to your working Environment and Business activities</label>
-                    <textarea name="message" maxlength="10000" class="form-control mt-2" rows="6" placeholder="Set a maximum for the number of character that can be entered to 10000." required>{{ $previousPolicy ? $previousPolicy->message : '' }}</textarea>
+                    <textarea name="message" maxlength="10000" class="form-control mt-2" rows="6" placeholder="Set a maximum for the number of character that can be entered to 10000." required></textarea>
                     @error('message')
                         <span class="text-danger">{{ $message }}</span>
                     @enderror
@@ -51,14 +51,19 @@
             <p>As the Managing Director, I accept ultimate responsibility for Quality. The Operational Management will, through example, and direction, ensure that this policy is understood, implemented and maintained throughout {{ $companyName }}.</p>
 
             <h6 class="mt-4" style="color:#7a97d9;font-weight:normal;">Additional Policies:</h6>
-            @if ($previousPolicy)
-                <p style="white-space:pre-wrap;font-weight:normal !important;color:#7a97d9 !important;">{{ $previousPolicy->message }}</p>
-            @endif
-
-            <p class="mt-3">Managing Director: {{ Auth::user()->director }}</p>
-            @if ($date)
-                <p>Date: {{ $date }}</p>
-            @endif
+            @forelse ($userAddPolicy as $policy)
+                <div class="mb-4">
+                    <p class="mb-2" style="white-space:pre-wrap;font-weight:normal !important;color:#7a97d9 !important;">{{ $policy->message }}</p>
+                    <div style="line-height:1.5;">
+                        <div>Managing Director: {{ Auth::user()->director }}</div>
+                        <div>Date: {{ $policy->created_at->format('d-M-Y') }}</div>
+                    </div>
+                </div>
+            @empty
+                <div class="mt-3" style="line-height:1.5;">
+                    <div>Managing Director: {{ Auth::user()->director }}</div>
+                </div>
+            @endforelse
         </div>
     </div>
 

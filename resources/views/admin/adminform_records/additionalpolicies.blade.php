@@ -26,8 +26,13 @@
                     <h3><i class="fa fa-award" style="color:var(--am-primary);margin-right:8px;"></i> Quality Policy</h3>
                 </div>
                 <div class="am-card__body">
-                    @if ($qualityPolicy && !empty($qualityPolicy->message))
-                        <pre style="font-size:13px;color:var(--am-text);font-family:inherit;font-weight:normal;white-space:pre-wrap;word-wrap:break-word;margin:0;">{{ $qualityPolicy->message }}</pre>
+                    @if ($qualityPolicies->isNotEmpty())
+                        @foreach ($qualityPolicies as $qualityItem)
+                            <div style="{{ $loop->last ? '' : 'margin-bottom:14px;padding-bottom:14px;border-bottom:1px solid #eee;' }}">
+                                <pre style="font-size:13px;color:var(--am-text);font-family:inherit;font-weight:normal;white-space:pre-wrap;word-wrap:break-word;margin:0;">{{ $qualityItem->message }}</pre>
+                                <small style="color:#999;">Date: {{ $qualityItem->created_at->format('d-M-Y') }}</small>
+                            </div>
+                        @endforeach
                     @else
                         <div class="am-empty">
                             <i class="fa fa-file-alt"></i>
@@ -69,8 +74,13 @@
                     <h3><i class="fa fa-first-aid" style="color:#eb4d4b;margin-right:8px;"></i> Health &amp; Safety Policy</h3>
                 </div>
                 <div class="am-card__body">
-                    @if ($healthSafetyPolicy && !empty($healthSafetyPolicy->message))
-                        <pre style="font-size:13px;color:var(--am-text);font-family:inherit;font-weight:normal;white-space:pre-wrap;word-wrap:break-word;margin:0;">{{ $healthSafetyPolicy->message }}</pre>
+                    @if ($healthSafetyPolicies->isNotEmpty())
+                        @foreach ($healthSafetyPolicies as $healthSafetyItem)
+                            <div style="{{ $loop->last ? '' : 'margin-bottom:14px;padding-bottom:14px;border-bottom:1px solid #eee;' }}">
+                                <pre style="font-size:13px;color:var(--am-text);font-family:inherit;font-weight:normal;white-space:pre-wrap;word-wrap:break-word;margin:0;">{{ $healthSafetyItem->message }}</pre>
+                                <small style="color:#999;">Date: {{ $healthSafetyItem->created_at->format('d-M-Y') }}</small>
+                            </div>
+                        @endforeach
                     @else
                         <div class="am-empty">
                             <i class="fa fa-file-alt"></i>

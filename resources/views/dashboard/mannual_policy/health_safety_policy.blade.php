@@ -23,7 +23,7 @@
                 @csrf
                 <div class="mb-3">
                     <label>Enter additional Health and Safety Policies that are specific to your working Environment and Business activities</label>
-                    <textarea name="message" maxlength="10000" class="form-control mt-2" rows="6" placeholder="Set a maximum for the number of character that can be entered to 450.">{{ $previousPolicy ? $previousPolicy->message : '' }}</textarea>
+                    <textarea name="message" maxlength="10000" class="form-control mt-2" rows="6" placeholder="Set a maximum for the number of character that can be entered to 450."></textarea>
                     @error('message')
                         <span class="text-danger">{{ $message }}</span>
                     @enderror
@@ -53,15 +53,21 @@
             <h6 class="mt-4" style="color:#7a97d9;font-weight:normal;">Additional Policies — Purpose:</h6>
             <p>This document specifies the policy and practices to be adopted to ensure that suitable and sufficient risk assessments are carried out in accordance with the requirements of the relevant regulations in force. It describes the system for undertaking general risk assessments at {{ $companyName }} as part of the programme for the management of Safety, Health and Environment. This procedure does not include risk assessments made under the control or handling of hazardous metals, chemicals and other substances or usage of display screens and repetitive actions.</p>
 
-            @if ($previousPolicy)
-                <p style="white-space:pre-wrap;font-weight:normal !important;color:#7a97d9 !important;">{{ $previousPolicy->message }}</p>
-            @endif
-
-            <p class="mt-3">On behalf of {{ $companyName }}:</p>
-            <p>Name: {{ Auth::user()->director }}</p>
-            @if ($date)
-                <p>Date: {{ $date }}</p>
-            @endif
+            @forelse ($userAddPolicy as $policy)
+                <div class="mb-4">
+                    <p class="mb-2" style="white-space:pre-wrap;font-weight:normal !important;color:#7a97d9 !important;">{{ $policy->message }}</p>
+                    <div style="line-height:1.5;">
+                        <div>On behalf of {{ $companyName }}:</div>
+                        <div>Name: {{ Auth::user()->director }}</div>
+                        <div>Date: {{ $policy->created_at->format('d-M-Y') }}</div>
+                    </div>
+                </div>
+            @empty
+                <div class="mt-3" style="line-height:1.5;">
+                    <div>On behalf of {{ $companyName }}:</div>
+                    <div>Name: {{ Auth::user()->director }}</div>
+                </div>
+            @endforelse
         </div>
     </div>
 

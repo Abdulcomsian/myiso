@@ -1186,11 +1186,11 @@ public function store(Request $request)
     public function additionalpolicies($userid)
     {
         // Retrieve policies specific to the user
-        $qualityPolicy = CustomManual::where('user_id', $userid)->where('status', 1)->first();
+        $qualityPolicies = CustomManual::where('user_id', $userid)->where('status', 1)->orderBy('created_at', 'desc')->orderBy('id', 'desc')->get();
         $environmentalPolicies = CustomManual::where('user_id', $userid)->where('status', 2)->orderBy('created_at', 'desc')->orderBy('id', 'desc')->get();
-        $healthSafetyPolicy = CustomManual::where('user_id', $userid)->where('status', 3)->first();
+        $healthSafetyPolicies = CustomManual::where('user_id', $userid)->where('status', 3)->orderBy('created_at', 'desc')->orderBy('id', 'desc')->get();
 
-        return view('admin.adminform_records.additionalpolicies', compact('qualityPolicy', 'environmentalPolicies', 'healthSafetyPolicy'));
+        return view('admin.adminform_records.additionalpolicies', compact('qualityPolicies', 'environmentalPolicies', 'healthSafetyPolicies'));
     }
 
 
