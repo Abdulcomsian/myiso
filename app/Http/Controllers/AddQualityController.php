@@ -135,11 +135,11 @@ class AddQualityController extends Controller
         {
             $userid = Auth::user()->id;
             $companyName = Auth::user()->company_name;
-            // Oldest first, so the latest added policy is shown at the bottom
+            // Latest first, then older ones
             $userAddPolicy = CustomManual::where('user_id', $userid)
                 ->where('status', 2)
-                ->orderBy('created_at')
-                ->orderBy('id')
+                ->orderBy('created_at', 'desc')
+                ->orderBy('id', 'desc')
                 ->get();
 
             return view('dashboard.mannual_policy.environment_policy', compact('companyName', 'userAddPolicy'));

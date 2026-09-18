@@ -40,8 +40,8 @@
             <form action="{{ route('chemicalform') }}" method="POST" enctype="multipart/form-data">
                 @csrf
                 <div class="form-row">
-                    <div><label>Chemical Name</label><input type="text" name="chemicalname" required></div>
-                    <div><label>Chemical Type</label><input type="text" name="chemical_type" placeholder="Gas / liquid / solid" required></div>
+                    <div><label>Chemical / Hazardous Material Name</label><input type="text" name="chemicalname" required></div>
+                    <div><label>Material Type</label><input type="text" name="chemical_type" placeholder="Gas / liquid / solid" required></div>
                     <div><label>Location Used</label><input type="text" name="location" placeholder="Area / department" required></div>
                 </div>
                 <div class="form-row">
@@ -59,13 +59,13 @@
                 </div>
                 <div class="form-row">
                     <div>
-                        <label>Still Used in Production?</label>
+                        <label>Still Used in the Workplace?</label>
                         <div style="display:flex;gap:12px;font-size:13px;padding:6px 0;">
-                            <label style="display:inline-flex;gap:4px;align-items:center;"><input type="radio" required value="Yes" name="still_used"> Yes, still used</label>
-                            <label style="display:inline-flex;gap:4px;align-items:center;"><input type="radio" required value="No" name="still_used"> No, legacy</label>
+                            <label style="display:inline-flex;gap:4px;align-items:center;"><input type="radio" required value="Yes" name="still_used"> Yes</label>
+                            <label style="display:inline-flex;gap:4px;align-items:center;"><input type="radio" required value="No" name="still_used"> No</label>
                         </div>
                     </div>
-                    <div><label>Attach Evidence</label><input name="attach_evidence" type="file"></div>
+                    <div><label>Attach Datasheet from Manufacturer</label><input name="attach_evidence" type="file"></div>
                     <div><label>Any Other Issues</label><textarea name="any_issues" placeholder="Notes" rows="2"></textarea></div>
                 </div>
                 <div class="form-actions">
@@ -93,9 +93,9 @@
         <div class="am-modal__body">
             @php
                 $fields = [
-                    'chemical_name' => 'Chemical Name',
+                    'chemical_name' => 'Chemical / Hazardous Material Name',
                     'chemical_desc' => 'Description',
-                    'chemical_type' => 'Type',
+                    'chemical_type' => 'Material Type',
                     'location_used' => 'Location',
                     'activity_hazard' => 'Activity Hazard',
                     'identified_chazard' => 'Chemical Hazard',
@@ -111,7 +111,7 @@
                 @foreach($fields as $k => $lb)
                     <div><div style="font-size:11px;text-transform:uppercase;letter-spacing:0.4px;color:var(--am-text-muted);font-weight:600;margin-bottom:4px;">{{ $lb }}</div><div id="vch-{{ $k }}">—</div></div>
                 @endforeach
-                <div><div style="font-size:11px;text-transform:uppercase;letter-spacing:0.4px;color:var(--am-text-muted);font-weight:600;margin-bottom:4px;">Evidence</div><div id="vch-ev">—</div></div>
+                <div><div style="font-size:11px;text-transform:uppercase;letter-spacing:0.4px;color:var(--am-text-muted);font-weight:600;margin-bottom:4px;">Manufacturer Datasheet</div><div id="vch-ev">—</div></div>
             </div>
         </div>
         <div class="am-modal__footer"><button type="button" class="am-btn am-btn-outline am-modal-close">Close</button></div>
@@ -130,8 +130,8 @@
             <input type="hidden" name="id" id="ech-id">
             <div class="am-modal__body" style="padding:20px;">
                 <div class="form-group row">
-                    <div class="col-lg-6"><label>Chemical Name</label><input type="text" class="form-control" name="chemical_name" required></div>
-                    <div class="col-lg-6"><label>Chemical Type</label><input type="text" class="form-control" name="chemical_type" required></div>
+                    <div class="col-lg-6"><label>Chemical / Hazardous Material Name</label><input type="text" class="form-control" name="chemical_name" required></div>
+                    <div class="col-lg-6"><label>Material Type</label><input type="text" class="form-control" name="chemical_type" required></div>
                 </div>
                 <div class="form-group row">
                     <div class="col-lg-12"><label>Description</label><input type="text" class="form-control" name="chemical_desc" required></div>
@@ -151,7 +151,7 @@
                 <div class="form-group row">
                     <div class="col-lg-6"><label>Protection Required</label><input type="text" class="form-control" name="protection_required" required></div>
                     <div class="col-lg-6">
-                        <label>Still Used?</label>
+                        <label>Still Used in the Workplace?</label>
                         <div style="display:flex;gap:12px;font-size:13px;padding:6px 0;">
                             <label style="display:inline-flex;gap:4px;align-items:center;"><input type="radio" value="Yes" name="still_used"> Yes</label>
                             <label style="display:inline-flex;gap:4px;align-items:center;"><input type="radio" value="No" name="still_used"> No</label>
@@ -159,7 +159,7 @@
                     </div>
                 </div>
                 <div class="form-group row">
-                    <div class="col-lg-6"><label>Attach Evidence</label><input name="attach_evidence" type="file" class="form-control"></div>
+                    <div class="col-lg-6"><label>Attach Datasheet from Manufacturer</label><input name="attach_evidence" type="file" class="form-control"></div>
                     <div class="col-lg-6"><label>Any Other Issues</label><textarea class="form-control" name="any_issues"></textarea></div>
                 </div>
             </div>

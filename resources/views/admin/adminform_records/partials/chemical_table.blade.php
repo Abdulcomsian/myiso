@@ -24,7 +24,7 @@
                         @if ($data->still_used == 'Yes')
                             <span class="am-chip warning">In use</span>
                         @else
-                            <span class="am-chip success">Legacy</span>
+                            <span class="am-chip success">Not in use</span>
                         @endif
                     </td>
                     <td style="text-align:right;white-space:nowrap;">

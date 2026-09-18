@@ -68,7 +68,7 @@
                 </div>
                 <div class="form-row">
                     <div style="grid-column:span 2;"><label>Any Other Issues</label><input type="text" name="other_issue" placeholder="Notes" required></div>
-                    <div style="grid-column:span 2;"><label>Attach Evidence</label><input type="file" name="attach_evidence" required></div>
+                    <div style="grid-column:span 2;"><label>Attach Evidence of Survey Reply, Email, Recommendation Letter, or Call Notes</label><input type="file" name="attach_evidence" required></div>
                 </div>
                 <div class="form-actions">
                     <button type="button" class="am-btn am-btn-outline am-btn-sm" id="cancelCrForm">Cancel</button>
@@ -212,7 +212,7 @@
                     <div class="col-lg-6"><label>Any Other Issues</label><input type="text" class="form-control" name="other_issue" required></div>
                 </div>
                 <div class="form-group row">
-                    <div class="col-lg-12"><label>Attach Evidence</label><input type="file" class="form-control" name="attach_evidence"></div>
+                    <div class="col-lg-12"><label>Attach Evidence of Survey Reply, Email, Recommendation Letter, or Call Notes</label><input type="file" class="form-control" name="attach_evidence"></div>
                 </div>
             </div>
             <div class="am-modal__footer">

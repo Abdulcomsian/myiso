@@ -3,6 +3,12 @@
 <body class="am-body">
 
 {{-- ============ Modern Sidebar ============ --}}
+<style>
+    /* User sidebar only: thin scrollbar + 2px less sub-menu indent, so
+       "Accident Risk Assessments" fits on one line even when the scrollbar shows */
+    #amSidebar .am-sidebar__nav { scrollbar-width: thin; }
+    #amSidebar .am-nav-group__children { padding-left: 32px; }
+</style>
 <aside class="am-sidebar" id="amSidebar">
     <div class="am-sidebar__brand">
         <a href="{{ url('/home') }}">
@@ -94,7 +100,8 @@
                 <a href="{{ url('employess') }}" class="am-nav-link {{ Request::is('employess') ? 'active' : '' }}">Employees</a>
                 <a href="{{ url('add_management_review') }}" class="am-nav-link {{ Request::is('add_management_review') ? 'active' : '' }}">Management Reviews</a>
                 <a href="{{ url('maintance_record') }}" class="am-nav-link {{ Request::is('maintance_record') ? 'active' : '' }}">Maintenance Records</a>
-                <a href="{{ url('accident_risk') }}" class="am-nav-link {{ Request::is('accident_risk') ? 'active' : '' }}">Accident Risk Assessments</a>
+                {{-- No right padding: the label is ~2px wider than the sidebar allows and would otherwise wrap to 2 lines --}}
+                <a href="{{ url('accident_risk') }}" class="am-nav-link {{ Request::is('accident_risk') ? 'active' : '' }}" style="padding-right:0;">Accident Risk Assessments</a>
                 <a href="{{ url('risk_assessment') }}" class="am-nav-link {{ Request::is('risk_assessment') ? 'active' : '' }}">Risk Assessments</a>
                 <a href="{{ url('chemical_control') }}" class="am-nav-link {{ Request::is('chemical_control') ? 'active' : '' }}">Chemical Control</a>
                 <a href="{{ url('work_instruction') }}" class="am-nav-link {{ Request::is('work_instruction') ? 'active' : '' }}">Work Instructions</a>

@@ -44,6 +44,7 @@ abstract class SimpleRegisterController extends Controller
         $model = $this->model();
         $record = new $model();
         $record->fill($data);
+        $this->applyDefaults($record);
         $record->user_id = Auth::user()->role_type == 'admin'
             ? intval($request->input('user_id'))
             : Auth::user()->id;
@@ -57,6 +58,7 @@ abstract class SimpleRegisterController extends Controller
     {
         $record = $this->findOwned($request->input('id'));
         $record->fill($this->validated($request));
+        $this->applyDefaults($record);
         $record->save();
 
         session()->flash('msg', 'Record updated successfully.');
@@ -117,6 +119,16 @@ abstract class SimpleRegisterController extends Controller
             $rules[$name] = $rule;
         }
         return $request->validate($rules);
+    }
+
+    /** Optional fields left empty get their configured 'default' (e.g. incident status) */
+    protected function applyDefaults($record)
+    {
+        foreach ($this->module()['fields'] as $name => $field) {
+            if (array_key_exists('default', $field) && ($record->$name === null || $record->$name === '')) {
+                $record->$name = $field['default'];
+            }
+        }
     }
 
     protected function findOwned($id)

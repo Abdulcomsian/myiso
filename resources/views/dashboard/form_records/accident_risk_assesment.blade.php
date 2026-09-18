@@ -47,8 +47,8 @@
                     <div><label>Risk Severity (1-6, 6 = most severe)</label><input type="number" min="1" max="6" name="riskseverity" required></div>
                 </div>
                 <div class="form-row">
-                    <div><label>Env. Accident — What Gets Out &amp; How Much</label><input type="text" name="envaccident" required></div>
-                    <div><label>Env. Accident — Where Does It End Up</label><input type="text" name="envaccidental" required></div>
+                    <div><label>What Could Go Wrong?</label><input type="text" name="envaccident" required></div>
+                    <div><label>What Would Be Affected?</label><input type="text" name="envaccidental" required></div>
                 </div>
                 <div class="form-row">
                     <div><label>Consequences</label><input type="text" name="consequences" required></div>
@@ -89,8 +89,8 @@
                 <div style="grid-column:1/-1;"><div style="font-size:11px;text-transform:uppercase;letter-spacing:0.4px;color:var(--am-text-muted);font-weight:600;margin-bottom:4px;">Scenario</div><div id="v-ar-scenario">—</div></div>
                 <div><div style="font-size:11px;text-transform:uppercase;letter-spacing:0.4px;color:var(--am-text-muted);font-weight:600;margin-bottom:4px;">Risk Likelihood</div><div id="v-ar-likel">—</div></div>
                 <div><div style="font-size:11px;text-transform:uppercase;letter-spacing:0.4px;color:var(--am-text-muted);font-weight:600;margin-bottom:4px;">Risk Severity</div><div id="v-ar-sev">—</div></div>
-                <div><div style="font-size:11px;text-transform:uppercase;letter-spacing:0.4px;color:var(--am-text-muted);font-weight:600;margin-bottom:4px;">Env. Accident (what/how much)</div><div id="v-ar-env">—</div></div>
-                <div><div style="font-size:11px;text-transform:uppercase;letter-spacing:0.4px;color:var(--am-text-muted);font-weight:600;margin-bottom:4px;">Env. Accident (where)</div><div id="v-ar-envwhere">—</div></div>
+                <div><div style="font-size:11px;text-transform:uppercase;letter-spacing:0.4px;color:var(--am-text-muted);font-weight:600;margin-bottom:4px;">What Could Go Wrong?</div><div id="v-ar-env">—</div></div>
+                <div><div style="font-size:11px;text-transform:uppercase;letter-spacing:0.4px;color:var(--am-text-muted);font-weight:600;margin-bottom:4px;">What Would Be Affected?</div><div id="v-ar-envwhere">—</div></div>
                 <div><div style="font-size:11px;text-transform:uppercase;letter-spacing:0.4px;color:var(--am-text-muted);font-weight:600;margin-bottom:4px;">Consequences</div><div id="v-ar-cons">—</div></div>
                 <div><div style="font-size:11px;text-transform:uppercase;letter-spacing:0.4px;color:var(--am-text-muted);font-weight:600;margin-bottom:4px;">Prevention</div><div id="v-ar-prev">—</div></div>
                 <div><div style="font-size:11px;text-transform:uppercase;letter-spacing:0.4px;color:var(--am-text-muted);font-weight:600;margin-bottom:4px;">Revised Likelihood</div><div id="v-ar-revlik">—</div></div>
@@ -122,8 +122,8 @@
                     <div class="col-lg-6"><label>Risk Severity (1-6)</label><input type="number" class="form-control" min="1" max="6" name="riskseverity" required></div>
                 </div>
                 <div class="form-group row">
-                    <div class="col-lg-6"><label>Env. Accident (what/how much)</label><input type="text" class="form-control" name="envaccident" required></div>
-                    <div class="col-lg-6"><label>Env. Accident (where)</label><input type="text" class="form-control" name="envaccidental" required></div>
+                    <div class="col-lg-6"><label>What Could Go Wrong?</label><input type="text" class="form-control" name="envaccident" required></div>
+                    <div class="col-lg-6"><label>What Would Be Affected?</label><input type="text" class="form-control" name="envaccidental" required></div>
                 </div>
                 <div class="form-group row">
                     <div class="col-lg-6"><label>Consequences</label><input type="text" class="form-control" name="consequences" required></div>

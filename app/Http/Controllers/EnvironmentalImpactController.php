@@ -29,8 +29,8 @@ class EnvironmentalImpactController extends SimpleRegisterController
             'label_field' => 'aspect',
             'fields' => [
                 'aspect' => ['label' => 'Aspect', 'type' => 'text', 'required' => true, 'wide' => true, 'placeholder' => 'Example: Energy use, Waste created, Water usage'],
-                'impact' => ['label' => 'Environmental Impact', 'type' => 'text', 'required' => true, 'wide' => true, 'placeholder' => 'Example: Climate change, Pollution, Resource loss'],
-                'controls' => ['label' => 'Controls / Actions', 'type' => 'text', 'required' => true, 'wide' => true, 'placeholder' => 'Example: LED lights, Recycling program, Water saving'],
+                'impact' => ['label' => 'Environmental Impact', 'type' => 'text', 'wide' => true, 'placeholder' => 'Example: Climate change, Pollution, Resource loss'],
+                'controls' => ['label' => 'Controls / Actions', 'type' => 'text', 'wide' => true, 'placeholder' => 'Example: LED lights, Recycling program, Water saving'],
                 'responsible_person' => ['label' => 'Responsible Person', 'type' => 'text', 'placeholder' => 'Example: John Smith (optional)'],
                 'monitoring_method' => ['label' => 'Monitoring Method', 'type' => 'text', 'placeholder' => 'Example: Check monthly, Count weekly (optional)'],
             ],

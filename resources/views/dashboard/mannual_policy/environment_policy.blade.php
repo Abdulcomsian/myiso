@@ -9,7 +9,7 @@
             <p>Company environmental commitment and objectives</p>
         </div>
         <div>
-            <a onclick="qualityshowpolicy()" class="am-btn am-btn-lightblue">Add Environmental Policy</a>
+            <button type="button" onclick="qualityshowpolicy()" class="am-btn am-btn-primary"><i class="fa fa-plus"></i> Add Environmental Policy</button>
         </div>
     </div>
 
@@ -29,7 +29,7 @@
                     @enderror
                 </div>
                 <input type="hidden" name="status" value="2" />
-                <button type="submit" class="am-btn am-btn-primary">SUBMIT</button>
+                <button type="submit" class="am-btn am-btn-primary"><i class="fa fa-check"></i> Submit</button>
                 <button type="reset" onclick="qualityshowpolicy()" class="am-btn am-btn-outline ml-2">Cancel</button>
             </form>
         </div>
