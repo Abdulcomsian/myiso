@@ -50,18 +50,18 @@
             <p>To continually understand and respond to the needs and expectations of our interested parties.</p>
             <p>As the Managing Director, I accept ultimate responsibility for Quality. The Operational Management will, through example, and direction, ensure that this policy is understood, implemented and maintained throughout {{ $companyName }}.</p>
 
-            <h6 class="mt-4" style="color:#7a97d9;font-weight:normal;">Additional Policies:</h6>
+            <h6 class="mt-4" style="color:var(--am-primary);font-weight:600;">Additional Policies:</h6>
             @forelse ($userAddPolicy as $policy)
-                <div class="mb-4">
-                    <p class="mb-2" style="white-space:pre-wrap;font-weight:normal !important;color:#7a97d9 !important;">{{ $policy->message }}</p>
+                <div style="{{ $loop->first ? '' : 'border-top:1px solid #e6e8f0;margin-top:16px;' }}padding-top:{{ $loop->first ? '4' : '16' }}px;">
+                    <p class="mb-2" style="white-space:pre-wrap;">{{ $policy->message }}</p>
                     <div style="line-height:1.5;">
-                        <div>Managing Director: {{ Auth::user()->director }}</div>
-                        <div>Date: {{ $policy->created_at->format('d-M-Y') }}</div>
+                        <div><strong style="font-weight:600;">Managing Director:</strong> {{ Auth::user()->director }}</div>
+                        <div><strong style="font-weight:600;">Date:</strong> {{ $policy->created_at->format('d-M-Y g:i A') }}</div>
                     </div>
                 </div>
             @empty
                 <div class="mt-3" style="line-height:1.5;">
-                    <div>Managing Director: {{ Auth::user()->director }}</div>
+                    <div><strong style="font-weight:600;">Managing Director:</strong> {{ Auth::user()->director }}</div>
                 </div>
             @endforelse
         </div>

@@ -6,6 +6,9 @@
     .authName { font-weight: 500 !important; }
     #procedure_section h4 { color: var(--am-primary); margin-top: 1.5rem; margin-bottom: 0.5rem; font-size: 1rem; font-weight: 600; }
     #procedure_section h4:first-child { margin-top: 0; }
+    /* Links in the manual follow the theme blue instead of the browser default */
+    #procedure_section a { color: var(--am-primary); font-weight: 600; }
+    #procedure_section a:hover { color: #232C7A; }
 </style>
 <div class="am-content">
     <div class="am-page-header">

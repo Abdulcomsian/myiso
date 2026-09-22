@@ -50,22 +50,22 @@
             <p>Employees have a duty to take reasonable care of their own health and safety and that of other people who may be affected by their work or actions. They also have a duty to co-operate with their employer to comply with their health and safety obligations under the relevant health and safety at work regulations in their country.</p>
             <p>It is the responsibility of the employee to ensure the correct use of machinery, equipment, means of production or safety devices provided by their employer in accordance with any instruction, training or guidance received under the relevant regulations.</p>
 
-            <h6 class="mt-4" style="color:#7a97d9;font-weight:normal;">Additional Policies — Purpose:</h6>
+            <h6 class="mt-4" style="color:var(--am-primary);font-weight:600;">Additional Policies — Purpose:</h6>
             <p>This document specifies the policy and practices to be adopted to ensure that suitable and sufficient risk assessments are carried out in accordance with the requirements of the relevant regulations in force. It describes the system for undertaking general risk assessments at {{ $companyName }} as part of the programme for the management of Safety, Health and Environment. This procedure does not include risk assessments made under the control or handling of hazardous metals, chemicals and other substances or usage of display screens and repetitive actions.</p>
 
             @forelse ($userAddPolicy as $policy)
-                <div class="mb-4">
-                    <p class="mb-2" style="white-space:pre-wrap;font-weight:normal !important;color:#7a97d9 !important;">{{ $policy->message }}</p>
+                <div style="{{ $loop->first ? '' : 'border-top:1px solid #e6e8f0;margin-top:16px;' }}padding-top:{{ $loop->first ? '4' : '16' }}px;">
+                    <p class="mb-2" style="white-space:pre-wrap;">{{ $policy->message }}</p>
                     <div style="line-height:1.5;">
-                        <div>On behalf of {{ $companyName }}:</div>
-                        <div>Name: {{ Auth::user()->director }}</div>
-                        <div>Date: {{ $policy->created_at->format('d-M-Y') }}</div>
+                        <div><strong style="font-weight:600;">On behalf of {{ $companyName }}:</strong></div>
+                        <div><strong style="font-weight:600;">Name:</strong> {{ Auth::user()->director }}</div>
+                        <div><strong style="font-weight:600;">Date:</strong> {{ $policy->created_at->format('d-M-Y g:i A') }}</div>
                     </div>
                 </div>
             @empty
                 <div class="mt-3" style="line-height:1.5;">
-                    <div>On behalf of {{ $companyName }}:</div>
-                    <div>Name: {{ Auth::user()->director }}</div>
+                    <div><strong style="font-weight:600;">On behalf of {{ $companyName }}:</strong></div>
+                    <div><strong style="font-weight:600;">Name:</strong> {{ Auth::user()->director }}</div>
                 </div>
             @endforelse
         </div>
