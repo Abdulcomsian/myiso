@@ -3,11 +3,18 @@
 @section('content')
 <div class="am-content">
 
-    {{-- Page header --}}
+    {{-- Page header; the guide for this page opens from the icon beside the title --}}
     <div class="am-page-header">
-        <div>
-            <h2>Requirements Due</h2>
-            <p>A compliance diary — track items that need periodic action (reviews, audits, calibrations).</p>
+        <div style="display:flex;align-items:flex-start;gap:12px;">
+            <button type="button" onclick="openAmModal('amReqInfo')" title="About Requirements Due"
+                aria-label="About Requirements Due"
+                style="width:36px;height:36px;flex-shrink:0;border-radius:10px;background:var(--am-primary-tint);color:var(--am-primary);border:1px solid rgba(46,59,154,0.12);display:inline-flex;align-items:center;justify-content:center;font-size:15px;cursor:pointer;">
+                <i class="fa fa-info-circle"></i>
+            </button>
+            <div>
+                <h2>Requirements Due</h2>
+                <p>A compliance diary — track items that need periodic action (reviews, audits, calibrations).</p>
+            </div>
         </div>
     </div>
 
@@ -18,18 +25,6 @@
         </div>
     @endif
 
-    {{-- Info card --}}
-    <div class="am-card" style="padding:16px 20px;margin-bottom:16px;background:rgba(46,59,154,0.04);border:1px solid rgba(46,59,154,0.12);">
-        <div style="display:flex;gap:12px;align-items:flex-start;">
-            <span style="width:36px;height:36px;flex-shrink:0;border-radius:10px;background:var(--am-primary-tint);color:var(--am-primary);display:inline-flex;align-items:center;justify-content:center;font-size:15px;">
-                <i class="fa fa-info-circle"></i>
-            </span>
-            <div style="font-size:13px;color:var(--am-text);line-height:1.55;">
-                Add items that need to be recalled on a regular basis, such as when management reviews are due, or calibration audits are required.
-                Click <strong>Add a Requirement</strong>, enter the information you'd like to be reminded of, and set the reminder date using the calendar.
-            </div>
-        </div>
-    </div>
 
     {{-- Toolbar + Add form --}}
     <div class="am-card" style="margin-bottom:16px;">
@@ -135,6 +130,48 @@
                 <button type="submit" class="am-btn am-btn-primary"><i class="fa fa-check"></i> Update</button>
             </div>
         </form>
+    </div>
+</div>
+
+{{-- Page guide --}}
+<div class="am-modal" id="amReqInfo" role="dialog" aria-modal="true">
+    <div class="am-modal__box" style="max-width:600px;">
+        <div class="am-modal__header">
+            <span class="am-modal__icon" style="background:var(--am-primary-tint);color:var(--am-primary);"><i class="fa fa-info-circle"></i></span>
+            <div>
+                <div style="font-size:11px;text-transform:uppercase;letter-spacing:0.4px;color:var(--am-text-muted);font-weight:600;">Forms &amp; Records</div>
+                <h4 class="am-modal__title" style="color:var(--am-primary);">Requirements Due</h4>
+            </div>
+        </div>
+        <div class="am-modal__body">
+            <h5 style="font-size:13px;font-weight:600;color:var(--am-primary);margin:0 0 6px;">What is it?</h5>
+            <p style="margin:0 0 16px;">
+                A reminder diary for jobs that come round again and again, things like a management review being
+                due, equipment needing calibration, or an inspection that happens every few months. You add the job
+                once, tell the system how often it repeats, and it tells you when it is due.
+            </p>
+
+            <h5 style="font-size:13px;font-weight:600;color:var(--am-primary);margin:0 0 6px;">Why does it matter?</h5>
+            <p style="margin:0 0 16px;">
+                Most certificates are lost because someone forgot, not because the business was doing anything
+                wrong. Your audit is carried out remotely, so the auditor cannot walk round and ask how things are
+                going — this list is how they see that the routine jobs are being kept up. Anything overdue shows
+                on your dashboard, so you get the warning before the auditor does.
+            </p>
+
+            <h5 style="font-size:13px;font-weight:600;color:var(--am-primary);margin:0 0 6px;">Basic steps</h5>
+            {{-- bullets, the way the source document has them --}}
+            <ul style="margin:0;padding-inline-start:18px;list-style:disc;">
+                <li style="margin-bottom:6px;">Click Add a Requirement.</li>
+                <li style="margin-bottom:6px;">Type what needs doing, in words anyone in the business would understand.</li>
+                <li style="margin-bottom:6px;">Enter the date it was last completed, and how many months until it is due again.</li>
+                <li style="margin-bottom:6px;">Save. The item now appears on your dashboard and turns to Overdue if the date passes.</li>
+                <li>Check the list at least once a month, and update the date every time the job is done.</li>
+            </ul>
+        </div>
+        <div class="am-modal__footer">
+            <button type="button" class="am-btn am-btn-outline am-modal-close">Close</button>
+        </div>
     </div>
 </div>
 

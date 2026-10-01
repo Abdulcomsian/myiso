@@ -84,26 +84,26 @@
                 <i class="fa fa-chevron-right am-chevron"></i>
             </a>
             <div class="am-nav-group__children">
-                <a href="{{ url('requirements_aspect') }}" class="am-nav-link {{ Request::is('requirements_aspect') ? 'active' : '' }}">Requirements Due</a>
-                <a href="{{ url('environmental_impacts') }}" class="am-nav-link {{ Request::is('environmental_impacts') ? 'active' : '' }}">Environmental Impacts</a>
-                <a href="{{ url('process_audit') }}" class="am-nav-link {{ Request::is('process_audit') ? 'active' : '' }}">Process Audits</a>
-                <a href="{{ url('incidents') }}" class="am-nav-link {{ Request::is('incidents') ? 'active' : '' }}">Incident Report</a>
-                <a href="{{ url('interesting_parties') }}" class="am-nav-link {{ Request::is('interesting_parties') ? 'active' : '' }}">Interested Parties</a>
-                <a href="{{ url('hazards') }}" class="am-nav-link {{ Request::is('hazards') ? 'active' : '' }}">Hazard Register</a>
-                <a href="{{ url('qms_audit') }}" class="am-nav-link {{ Request::is('qms_audit') ? 'active' : '' }}">QMS Audits</a>
-                <a href="{{ url('non_confromities') }}" class="am-nav-link {{ Request::is('non_confromities') ? 'active' : '' }}">Non-Conformities</a>
-                <a href="{{ url('customer') }}" class="am-nav-link {{ Request::is('customer') ? 'active' : '' }}">Customers</a>
-                <a href="{{ url('customer_review') }}" class="am-nav-link {{ Request::is('customer_review') ? 'active' : '' }}">Customer Reviews</a>
-                <a href="{{ url('supplier') }}" class="am-nav-link {{ Request::is('supplier') ? 'active' : '' }}">Suppliers</a>
-                <a href="{{ url('supplier_review') }}" class="am-nav-link {{ Request::is('supplier_review') ? 'active' : '' }}">Supplier Reviews</a>
-                <a href="{{ url('calibration_record') }}" class="am-nav-link {{ Request::is('calibration_record') ? 'active' : '' }}">Calibration</a>
-                <a href="{{ url('employess') }}" class="am-nav-link {{ Request::is('employess') ? 'active' : '' }}">Employees</a>
-                <a href="{{ url('add_management_review') }}" class="am-nav-link {{ Request::is('add_management_review') ? 'active' : '' }}">Management Reviews</a>
-                <a href="{{ url('maintance_record') }}" class="am-nav-link {{ Request::is('maintance_record') ? 'active' : '' }}">Maintenance Records</a>
                 {{-- No right padding: the label is ~2px wider than the sidebar allows and would otherwise wrap to 2 lines --}}
                 <a href="{{ url('accident_risk') }}" class="am-nav-link {{ Request::is('accident_risk') ? 'active' : '' }}" style="padding-right:0;">Accident Risk Assessments</a>
-                <a href="{{ url('risk_assessment') }}" class="am-nav-link {{ Request::is('risk_assessment') ? 'active' : '' }}">Risk Assessments</a>
+                <a href="{{ url('calibration_record') }}" class="am-nav-link {{ Request::is('calibration_record') ? 'active' : '' }}">Calibration</a>
                 <a href="{{ url('chemical_control') }}" class="am-nav-link {{ Request::is('chemical_control') ? 'active' : '' }}">Chemical Control</a>
+                <a href="{{ url('customer') }}" class="am-nav-link {{ Request::is('customer') ? 'active' : '' }}">Customers</a>
+                <a href="{{ url('customer_review') }}" class="am-nav-link {{ Request::is('customer_review') ? 'active' : '' }}">Customer Reviews</a>
+                <a href="{{ url('employess') }}" class="am-nav-link {{ Request::is('employess') ? 'active' : '' }}">Employees</a>
+                <a href="{{ url('environmental_impacts') }}" class="am-nav-link {{ Request::is('environmental_impacts') ? 'active' : '' }}">Environmental Impacts</a>
+                <a href="{{ url('hazards') }}" class="am-nav-link {{ Request::is('hazards') ? 'active' : '' }}">Hazard Register</a>
+                <a href="{{ url('incidents') }}" class="am-nav-link {{ Request::is('incidents') ? 'active' : '' }}">Incident Report</a>
+                <a href="{{ url('interesting_parties') }}" class="am-nav-link {{ Request::is('interesting_parties') ? 'active' : '' }}">Interested Parties</a>
+                <a href="{{ url('maintance_record') }}" class="am-nav-link {{ Request::is('maintance_record') ? 'active' : '' }}">Maintenance Records</a>
+                <a href="{{ url('add_management_review') }}" class="am-nav-link {{ Request::is('add_management_review') ? 'active' : '' }}">Management Reviews</a>
+                <a href="{{ url('non_confromities') }}" class="am-nav-link {{ Request::is('non_confromities') ? 'active' : '' }}">Non-Conformities</a>
+                <a href="{{ url('process_audit') }}" class="am-nav-link {{ Request::is('process_audit') ? 'active' : '' }}">Process Audits</a>
+                <a href="{{ url('qms_audit') }}" class="am-nav-link {{ Request::is('qms_audit') ? 'active' : '' }}">QMS Audits</a>
+                <a href="{{ url('requirements_aspect') }}" class="am-nav-link {{ Request::is('requirements_aspect') ? 'active' : '' }}">Requirements Due</a>
+                <a href="{{ url('risk_assessment') }}" class="am-nav-link {{ Request::is('risk_assessment') ? 'active' : '' }}">Risk Assessments</a>
+                <a href="{{ url('supplier') }}" class="am-nav-link {{ Request::is('supplier') ? 'active' : '' }}">Suppliers</a>
+                <a href="{{ url('supplier_review') }}" class="am-nav-link {{ Request::is('supplier_review') ? 'active' : '' }}">Supplier Reviews</a>
                 <a href="{{ url('work_instruction') }}" class="am-nav-link {{ Request::is('work_instruction') ? 'active' : '' }}">Work Instructions</a>
             </div>
         </div>
