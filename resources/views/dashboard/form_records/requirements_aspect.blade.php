@@ -143,7 +143,8 @@
                 <h4 class="am-modal__title" style="color:var(--am-primary);">Requirements Due</h4>
             </div>
         </div>
-        <div class="am-modal__body">
+        {{-- the guide reads as body copy, not as the muted note a modal body defaults to --}}
+        <div class="am-modal__body" style="color:var(--am-text);">
             <h5 style="font-size:13px;font-weight:600;color:var(--am-primary);margin:0 0 6px;">What is it?</h5>
             <p style="margin:0 0 16px;">
                 A reminder diary for jobs that come round again and again, things like a management review being
@@ -161,7 +162,7 @@
 
             <h5 style="font-size:13px;font-weight:600;color:var(--am-primary);margin:0 0 6px;">Basic steps</h5>
             {{-- bullets, the way the source document has them --}}
-            <ul style="margin:0;padding-inline-start:18px;list-style:disc;">
+            <ul style="margin:0;padding-inline-start:18px;list-style:disc;color:var(--am-text);font-size:13.5px;line-height:1.5;">
                 <li style="margin-bottom:6px;">Click Add a Requirement.</li>
                 <li style="margin-bottom:6px;">Type what needs doing, in words anyone in the business would understand.</li>
                 <li style="margin-bottom:6px;">Enter the date it was last completed, and how many months until it is due again.</li>
