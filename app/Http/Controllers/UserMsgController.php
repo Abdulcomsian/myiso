@@ -85,7 +85,11 @@ class UserMsgController extends Controller
  
   public function get_user_inbox_count(Request $request){
     $id=Auth::user()->id;
-      $count = DB::table('send_notification')->where(['status' => 0, 'send_to'=>$id])->groupBy('unique_id')->count();
+      // groupBy(...)->count() runs "select count(*) ... group by unique_id" and keeps
+      // only the FIRST row, so this reported the size of one conversation instead of
+      // how many unread messages there are. The admin count below already counts rows,
+      // and both of them write into the same badge.
+      $count = DB::table('send_notification')->where(['status' => 0, 'send_to'=>$id])->count();
       echo $count;    
   }
   public function get_admin_inbox_count(Request $request){
