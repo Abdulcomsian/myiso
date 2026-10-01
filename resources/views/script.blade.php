@@ -24,9 +24,9 @@
 
         }).done(function(resp) {
             if (resp != 0) {
-                $('#admin_notifications>a>span.count_notifications').html(resp);
+                $('#admin_notifications>a>span.count_notifications').html(resp).show();
             }else if(resp == 2){
-                $('#admin_notifications>a>span.count_notifications').html(1);
+                $('#admin_notifications>a>span.count_notifications').html(1).show();
             } else {
                 $('#admin_notifications>a>span.count_notifications').hide();
             }
@@ -44,9 +44,9 @@
 
         }).done(function(resp) {
             if (resp != 0) {
-                $('#admin_notifications>a>span.count_notifications').html(resp);
+                $('#admin_notifications>a>span.count_notifications').html(resp).show();
             }else if(resp == 2){
-                $('#admin_notifications>a>span.count_notifications').html(1);
+                $('#admin_notifications>a>span.count_notifications').html(1).show();
             } else {
                 $('#admin_notifications>a>span.count_notifications').hide();
             }

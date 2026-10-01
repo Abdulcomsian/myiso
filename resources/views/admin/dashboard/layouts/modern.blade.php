@@ -57,7 +57,7 @@
 
         <div class="am-nav-heading">Communication</div>
 
-        <div class="am-nav-item am-nav-group {{ Request::is('send_message*') || Request::is('receiveNotification*') || Request::is('sentNotification*') ? 'open' : '' }}">
+        <div id="admin_notifications" class="am-nav-item am-nav-group {{ Request::is('send_message*') || Request::is('receiveNotification*') || Request::is('sentNotification*') ? 'open' : '' }}">
             <a href="javascript:;" class="am-nav-link am-nav-group__toggle">
                 <i class="fa fa-envelope"></i>
                 <span>Notifications</span>

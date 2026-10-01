@@ -119,6 +119,21 @@ body.am-body {
     border-radius: 20px;
 }
 .am-nav-link.active .am-badge { background: rgba(255, 255, 255, 0.25); }
+/* The unread-message count is an alert, not a theme accent: the client asks
+   for a red badge, and it stays red even when Notifications is the open item. */
+.am-nav-link .am-badge.count_notifications,
+.am-nav-link.active .am-badge.count_notifications {
+    background: var(--am-danger);
+    color: #fff;
+}
+/* On a row that ends in a chevron the count belongs next to the label, not
+   stranded in the middle: the chevron already claims the free space, so the
+   badge only needs a small gap. A nav link without a chevron keeps the count
+   right-aligned, which is the usual place for it. */
+.am-nav-group__toggle .am-badge {
+    margin-left: 8px;
+    line-height: 1.6;
+}
 .am-nav-group { margin-bottom: 4px; }
 .am-nav-group__toggle { cursor: pointer; }
 .am-nav-group__toggle .am-chevron {
