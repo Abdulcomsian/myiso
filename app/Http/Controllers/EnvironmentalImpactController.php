@@ -18,6 +18,22 @@ class EnvironmentalImpactController extends SimpleRegisterController
             'admin_url' => 'environmentalImpactsad',
             'title' => 'Environmental Impacts',
             'subtitle' => 'A list of what your business does to the environment and how you control these things.',
+            'guide' => [
+                'eyebrow' => 'Manuals & Policies',
+                'title' => 'Environmental Aspects & Impacts Register',
+                'sections' => [
+                    ['heading' => 'What is it?', 'body' => ['A list of what your business does to the environment, like using energy, creating waste, using water, or using chemicals. For each one, you write what bad thing happens to nature and how you control it.']],
+                    ['heading' => 'Why does it matter?', 'body' => ['ISO 14001 requires an identified list of your environmental aspects and impacts, and documented controls. An auditor will ask: "Show me what you do that affects the environment, and how you reduce it."']],
+                    ['heading' => 'Basic steps', 'body' => []],
+                ],
+                'steps' => [
+                    'Identify what your business does that affects the environment.',
+                    'For each one, note the impact and how you control it.',
+                    'Assign someone responsible and a monitoring method.',
+                    'Review and update the list when operations change.',
+                    'Discuss it at your annual management review.',
+                ],
+            ],
             'info_title' => 'Add items that affect the environment, like:',
             'info_items' => ['Use of energy', 'Creating waste', 'Using water', 'Using chemicals'],
             'add_label' => 'Add Environmental Aspect',

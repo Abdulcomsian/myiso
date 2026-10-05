@@ -4,9 +4,15 @@
 <div class="am-content">
 
     <div class="am-page-header">
-        <div>
-            <h2>Customer Reviews</h2>
-            <p>Score customers on quality, price, delivery and overall performance.</p>
+        <div style="display:flex;align-items:center;gap:12px;">
+            <button type="button" class="am-page-guide-btn"
+                onclick="document.getElementById('amPageGuide').classList.add('open')"
+                title="About Customer Reviews" aria-label="About Customer Reviews">
+                <i class="fa fa-info-circle"></i>
+            </button>
+            <div>
+                <h2>Customer Reviews</h2>
+            </div>
         </div>
     </div>
 
@@ -21,16 +27,7 @@
         </div>
     @endif
 
-    <div class="am-card" style="padding:16px 20px;margin-bottom:16px;background:rgba(46,59,154,0.04);border:1px solid rgba(46,59,154,0.12);">
-        <div style="display:flex;gap:12px;align-items:flex-start;">
-            <span style="width:36px;height:36px;flex-shrink:0;border-radius:10px;background:var(--am-primary-tint);color:var(--am-primary);display:inline-flex;align-items:center;justify-content:center;font-size:15px;"><i class="fa fa-info-circle"></i></span>
-            <div style="font-size:13px;color:var(--am-text);line-height:1.55;">
-                Customer reviews monitor and grade your performance across all customer touchpoints — quality of service, delivery time accuracy, staff politeness, and more.
-            </div>
-        </div>
-    </div>
-
-    <div class="am-card" style="margin-bottom:16px;">
+<div class="am-card" style="margin-bottom:16px;">
         <div class="am-card__toolbar">
             <form method="GET" action="{{ url('/customer_review') }}" class="am-search" id="amCrSearchForm" style="flex:1;max-width:340px;margin:0;">
                 <i class="fa fa-search"></i>
@@ -78,6 +75,39 @@
     <div class="am-card">
         <div id="amCrContainer">
             @include('dashboard.form_records.partials.customer_review_table')
+        </div>
+    </div>
+</div>
+
+{{-- Page guide --}}
+<div class="am-modal" id="amPageGuide" role="dialog" aria-modal="true">
+    <div class="am-modal__box" style="max-width:600px;">
+        <div class="am-modal__header">
+            <span class="am-modal__icon am-page-guide-icon"><i class="fa fa-info-circle"></i></span>
+            <div>
+                <div style="font-size:11px;text-transform:uppercase;letter-spacing:0.4px;color:var(--am-text-muted);font-weight:600;">Forms &amp; Records</div>
+                <h4 class="am-modal__title" style="color:var(--am-primary);">Customer Review</h4>
+            </div>
+        </div>
+        <div class="am-modal__body" style="color:var(--am-text);">
+            <h5 style="font-size:13px;font-weight:600;color:var(--am-primary);margin:0 0 6px;">What is it?</h5>
+            <p style="margin:0 0 16px;">A scorecard where you grade how well you served each customer, on quality, price and delivery, then give an overall mark out of ten.</p>
+
+            <h5 style="font-size:13px;font-weight:600;color:var(--am-primary);margin:0 0 6px;">Why does it matter?</h5>
+            <p style="margin:0 0 16px;">The standard asks you to measure whether customers are satisfied, not simply assume they are. Scores over time show whether you are improving or slipping, and that trend is one of the things a remote auditor looks at. It is also an early warning: a customer whose scores are falling is often a customer about to leave.</p>
+
+            <h5 style="font-size:13px;font-weight:600;color:var(--am-primary);margin:0 0 6px;">Basic steps</h5>
+            <ul style="margin:0;padding-inline-start:18px;list-style:disc;color:var(--am-text);font-size:13.5px;line-height:1.5;">
+                <li style="margin-bottom:6px;">Add the customer under Customers first.</li>
+                <li style="margin-bottom:6px;">Click Add Customer Evaluation.</li>
+                <li style="margin-bottom:6px;">Choose the customer, and the product or area of work being scored.</li>
+                <li style="margin-bottom:6px;">Score quality, price and delivery, then give an overall mark.</li>
+                <li style="margin-bottom:6px;">Attach your evidence, a survey reply, an email, a letter of recommendation or notes from a phone call.</li>
+                <li>Repeat at a sensible interval: once a year for most customers, more often for your largest accounts.</li>
+            </ul>
+        </div>
+        <div class="am-modal__footer">
+            <button type="button" class="am-btn am-btn-outline am-modal-close">Close</button>
         </div>
     </div>
 </div>

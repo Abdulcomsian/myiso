@@ -5,15 +5,13 @@
 
     {{-- Page header; the guide for this page opens from the icon beside the title --}}
     <div class="am-page-header">
-        <div style="display:flex;align-items:flex-start;gap:12px;">
-            <button type="button" onclick="openAmModal('amReqInfo')" title="About Requirements Due"
-                aria-label="About Requirements Due"
-                style="width:36px;height:36px;flex-shrink:0;border-radius:10px;background:var(--am-primary-tint);color:var(--am-primary);border:1px solid rgba(46,59,154,0.12);display:inline-flex;align-items:center;justify-content:center;font-size:15px;cursor:pointer;">
+        <div style="display:flex;align-items:center;gap:12px;">
+            <button type="button" class="am-page-guide-btn" onclick="openAmModal('amReqInfo')"
+                title="About Requirements Due" aria-label="About Requirements Due">
                 <i class="fa fa-info-circle"></i>
             </button>
             <div>
                 <h2>Requirements Due</h2>
-                <p>A compliance diary — track items that need periodic action (reviews, audits, calibrations).</p>
             </div>
         </div>
     </div>
@@ -137,7 +135,7 @@
 <div class="am-modal" id="amReqInfo" role="dialog" aria-modal="true">
     <div class="am-modal__box" style="max-width:600px;">
         <div class="am-modal__header">
-            <span class="am-modal__icon" style="background:var(--am-primary-tint);color:var(--am-primary);"><i class="fa fa-info-circle"></i></span>
+            <span class="am-modal__icon am-page-guide-icon"><i class="fa fa-info-circle"></i></span>
             <div>
                 <div style="font-size:11px;text-transform:uppercase;letter-spacing:0.4px;color:var(--am-text-muted);font-weight:600;">Forms &amp; Records</div>
                 <h4 class="am-modal__title" style="color:var(--am-primary);">Requirements Due</h4>

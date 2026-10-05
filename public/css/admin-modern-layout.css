@@ -325,6 +325,34 @@ body.am-body {
     margin-bottom: 22px;
     flex-wrap: wrap;
 }
+/* The info button beside a page title, and the matching icon in the guide
+   popup it opens: one look, set in one place. The popup icon needs the extra
+   class to outrank .am-modal__icon, which is sized and coloured for warnings. */
+.am-page-guide-btn,
+.am-modal__icon.am-page-guide-icon {
+    width: 36px;
+    height: 36px;
+    flex-shrink: 0;
+    border-radius: 8px;
+    background: var(--am-primary-tint);
+    color: var(--am-primary);
+    border: 1px solid var(--am-primary);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 15px;
+}
+.am-page-guide-btn {
+    cursor: pointer;
+    transition: background 0.15s, border-color 0.15s;
+}
+/* One step up from the resting tint, the way the rest of the theme hovers -
+   filling it with the solid brand colour reads far too heavy for a small
+   information icon. */
+.am-page-guide-btn:hover {
+    background: var(--am-primary-tint-strong);
+    border-color: var(--am-primary-soft);
+}
 .am-page-header h2 {
     font-size: 22px;
     font-weight: 700;

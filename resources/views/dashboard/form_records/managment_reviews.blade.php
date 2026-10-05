@@ -4,9 +4,15 @@
 <div class="am-content">
 
     <div class="am-page-header">
-        <div>
-            <h2>Management Reviews</h2>
-            <p>Measure the effectiveness of your management system and drive continual improvement.</p>
+        <div style="display:flex;align-items:center;gap:12px;">
+            <button type="button" class="am-page-guide-btn"
+                onclick="document.getElementById('amPageGuide').classList.add('open')"
+                title="About Management Reviews" aria-label="About Management Reviews">
+                <i class="fa fa-info-circle"></i>
+            </button>
+            <div>
+                <h2>Management Reviews</h2>
+            </div>
         </div>
     </div>
 
@@ -16,16 +22,7 @@
         </div>
     @endif
 
-    <div class="am-card" style="padding:16px 20px;margin-bottom:16px;background:rgba(46,59,154,0.04);border:1px solid rgba(46,59,154,0.12);">
-        <div style="display:flex;gap:12px;align-items:flex-start;">
-            <span style="width:36px;height:36px;flex-shrink:0;border-radius:10px;background:var(--am-primary-tint);color:var(--am-primary);display:inline-flex;align-items:center;justify-content:center;font-size:15px;"><i class="fa fa-info-circle"></i></span>
-            <div style="font-size:13px;color:var(--am-text);line-height:1.55;">
-                Management reviews are to ensure that the company can measure the effectiveness of the management system, whilst focusing on the direction of the business and its continual improvement. Conduct these monthly, quarterly, semiannually, or annually depending on the size and nature of the business.
-            </div>
-        </div>
-    </div>
-
-    <div class="am-card" style="margin-bottom:16px;">
+<div class="am-card" style="margin-bottom:16px;">
         <div class="am-card__toolbar">
             <form method="GET" action="{{ url('/add_management_review') }}" class="am-search" id="amMgtSearchForm" style="flex:1;max-width:340px;margin:0;">
                 <i class="fa fa-search"></i>
@@ -88,6 +85,39 @@
     <div class="am-card">
         <div id="amMgtContainer">
             @include('dashboard.form_records.partials.management_reviews_table')
+        </div>
+    </div>
+</div>
+
+{{-- Page guide --}}
+<div class="am-modal" id="amPageGuide" role="dialog" aria-modal="true">
+    <div class="am-modal__box" style="max-width:600px;">
+        <div class="am-modal__header">
+            <span class="am-modal__icon am-page-guide-icon"><i class="fa fa-info-circle"></i></span>
+            <div>
+                <div style="font-size:11px;text-transform:uppercase;letter-spacing:0.4px;color:var(--am-text-muted);font-weight:600;">Procedures</div>
+                <h4 class="am-modal__title" style="color:var(--am-primary);">P3 – Management Review</h4>
+            </div>
+        </div>
+        <div class="am-modal__body" style="color:var(--am-text);">
+            <h5 style="font-size:13px;font-weight:600;color:var(--am-primary);margin:0 0 6px;">What is it?</h5>
+            <p style="margin:0 0 16px;">The record of the meeting where the people running the business sit down and look at whether the system is working, what went wrong, what is improving, and what the goals are for the year ahead.</p>
+
+            <h5 style="font-size:13px;font-weight:600;color:var(--am-primary);margin:0 0 6px;">Why does it matter?</h5>
+            <p style="margin:0 0 16px;">This is the single most important record in the system. A remote auditor cannot sit in on your meetings, so as far as they are concerned this record is the meeting. No record means no review happened. Adding video clips of the meeting, photos, presentations will support the auditor. P3 sets out the agenda that has to be covered.</p>
+
+            <h5 style="font-size:13px;font-weight:600;color:var(--am-primary);margin:0 0 6px;">Basic steps</h5>
+            <ul style="margin:0;padding-inline-start:18px;list-style:disc;color:var(--am-text);font-size:13.5px;line-height:1.5;">
+                <li style="margin-bottom:6px;">Hold the meeting every 12 months. The Director chairs it and circulates the agenda beforehand.</li>
+                <li style="margin-bottom:6px;">Cover the standard agenda: outstanding actions from last time; non-conformities, incidents, complaints and audit findings; risk actions; progress against objectives; whether the policies, Quality Manual and procedures are still right; objectives for the coming year; and training needs.</li>
+                <li style="margin-bottom:6px;">Set improvement objectives with an owner, a deadline, and a clear idea of what success looks like. Mix quality goals with financial ones.</li>
+                <li style="margin-bottom:6px;">Record the minutes and actions in the Management Reviews form, and share them to everyone concerned.</li>
+                <li style="margin-bottom:6px;">Follow the actions up during the year and record when each one is complete.</li>
+                <li>If no date is set for an objective, it is due by the next management review.</li>
+            </ul>
+        </div>
+        <div class="am-modal__footer">
+            <button type="button" class="am-btn am-btn-outline am-modal-close">Close</button>
         </div>
     </div>
 </div>

@@ -40,9 +40,15 @@ $qmsChecklist = [
 <div class="am-content">
 
     <div class="am-page-header">
-        <div>
-            <h2>QMS Audits</h2>
-            <p>Annual horizontal audit against each clause of the ISO 9001:2015 standard.</p>
+        <div style="display:flex;align-items:center;gap:12px;">
+            <button type="button" class="am-page-guide-btn"
+                onclick="document.getElementById('amPageGuide').classList.add('open')"
+                title="About QMS Audits" aria-label="About QMS Audits">
+                <i class="fa fa-info-circle"></i>
+            </button>
+            <div>
+                <h2>QMS Audits</h2>
+            </div>
         </div>
         <div class="am-page-header__actions">
             <a href="{{ asset('download_qms_audit/QMS-Audit-Report.pdf') }}" target="_blank" class="am-btn am-btn-outline">
@@ -62,17 +68,7 @@ $qmsChecklist = [
         </div>
     @endif
 
-    <div class="am-card" style="padding:16px 20px;margin-bottom:16px;background:rgba(46,59,154,0.04);border:1px solid rgba(46,59,154,0.12);">
-        <div style="display:flex;gap:12px;align-items:flex-start;">
-            <span style="width:36px;height:36px;flex-shrink:0;border-radius:10px;background:var(--am-primary-tint);color:var(--am-primary);display:inline-flex;align-items:center;justify-content:center;font-size:15px;"><i class="fa fa-info-circle"></i></span>
-            <div style="font-size:13px;color:var(--am-text);line-height:1.55;">
-                Horizontal audit against each ISO clause. Frequency is typically annual to determine your compliance level.
-                Audits will be conducted in accordance with <a href="{{ url('auidt') }}" style="color:var(--am-primary);">Audits</a>.
-            </div>
-        </div>
-    </div>
-
-    <div class="am-card" style="margin-bottom:16px;">
+<div class="am-card" style="margin-bottom:16px;">
         <div class="am-card__toolbar">
             <form method="GET" action="{{ url('/qms_audit') }}" class="am-search" id="amQmsSearchForm" style="flex:1;max-width:340px;margin:0;">
                 <i class="fa fa-search"></i>
@@ -137,6 +133,39 @@ $qmsChecklist = [
     <div class="am-card">
         <div id="amQmsContainer">
             @include('dashboard.form_records.partials.qms_audit_table')
+        </div>
+    </div>
+</div>
+
+{{-- Page guide --}}
+<div class="am-modal" id="amPageGuide" role="dialog" aria-modal="true">
+    <div class="am-modal__box" style="max-width:600px;">
+        <div class="am-modal__header">
+            <span class="am-modal__icon am-page-guide-icon"><i class="fa fa-info-circle"></i></span>
+            <div>
+                <div style="font-size:11px;text-transform:uppercase;letter-spacing:0.4px;color:var(--am-text-muted);font-weight:600;">Forms &amp; Records</div>
+                <h4 class="am-modal__title" style="color:var(--am-primary);">QMS Audits</h4>
+            </div>
+        </div>
+        <div class="am-modal__body" style="color:var(--am-text);">
+            <h5 style="font-size:13px;font-weight:600;color:var(--am-primary);margin:0 0 6px;">What is it?</h5>
+            <p style="margin:0 0 16px;">A once-a-year check of your whole system against the standard, section by section. A Process Audit looks at one job; this looks at everything.</p>
+
+            <h5 style="font-size:13px;font-weight:600;color:var(--am-primary);margin:0 0 6px;">Why does it matter?</h5>
+            <p style="margin:0 0 16px;">This is your own health check before the certification auditor does theirs. Carrying one out, and fixing what it finds, is what separates a business that manages its system from one that just files paperwork. The auditor asks for this summary at every annual surveillance.</p>
+
+            <h5 style="font-size:13px;font-weight:600;color:var(--am-primary);margin:0 0 6px;">Basic steps</h5>
+            <ul style="margin:0;padding-inline-start:18px;list-style:disc;color:var(--am-text);font-size:13.5px;line-height:1.5;">
+                <li style="margin-bottom:6px;">Click Download QMS Audit to get the checklist that covers each part of the standard.</li>
+                <li style="margin-bottom:6px;">Work through it, marking what is in place and what is not. Be honest — finding problems is the whole point.</li>
+                <li style="margin-bottom:6px;">Click Add QMS Audit and record who carried it out, the date completed, and your comments.</li>
+                <li style="margin-bottom:6px;">Raise a Non-Conformity for anything that fell short, so the fix gets tracked properly.</li>
+                <li style="margin-bottom:6px;">Do this once a year, and before your surveillance audit rather than after it.</li>
+                <li>Where possible record / photograph evidence of this.</li>
+            </ul>
+        </div>
+        <div class="am-modal__footer">
+            <button type="button" class="am-btn am-btn-outline am-modal-close">Close</button>
         </div>
     </div>
 </div>

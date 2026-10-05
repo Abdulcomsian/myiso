@@ -4,9 +4,15 @@
 <div class="am-content">
 
     <div class="am-page-header">
-        <div>
-            <h2>Interested Parties</h2>
-            <p>Section 4.2 — Needs and expectations of interested parties.</p>
+        <div style="display:flex;align-items:center;gap:12px;">
+            <button type="button" class="am-page-guide-btn"
+                onclick="document.getElementById('amPageGuide').classList.add('open')"
+                title="About Interested Parties" aria-label="About Interested Parties">
+                <i class="fa fa-info-circle"></i>
+            </button>
+            <div>
+                <h2>Interested Parties</h2>
+            </div>
         </div>
     </div>
 
@@ -16,19 +22,7 @@
         </div>
     @endif
 
-    <div class="am-card" style="padding:16px 20px;margin-bottom:16px;background:rgba(46,59,154,0.04);border:1px solid rgba(46,59,154,0.12);">
-        <div style="display:flex;gap:12px;align-items:flex-start;">
-            <span style="width:36px;height:36px;flex-shrink:0;border-radius:10px;background:var(--am-primary-tint);color:var(--am-primary);display:inline-flex;align-items:center;justify-content:center;font-size:15px;">
-                <i class="fa fa-info-circle"></i>
-            </span>
-            <div style="font-size:13px;color:var(--am-text);line-height:1.55;">
-                Section 4.2 of the ISO 9001:2015 standard requires understanding the needs and expectations of interested parties.
-                This register is a place where these can be documented. The Quality Manual in section 4.2.2 defines who the interested parties are.
-            </div>
-        </div>
-    </div>
-
-    {{-- Toolbar + Add form --}}
+{{-- Toolbar + Add form --}}
     <div class="am-card" style="margin-bottom:16px;">
         <div class="am-card__toolbar">
             <form method="GET" action="{{ url('/interesting_parties') }}" class="am-search" id="amIpSearchForm" style="flex:1;max-width:340px;margin:0;">
@@ -70,6 +64,39 @@
         </div>
     </div>
 
+</div>
+
+{{-- Page guide --}}
+<div class="am-modal" id="amPageGuide" role="dialog" aria-modal="true">
+    <div class="am-modal__box" style="max-width:600px;">
+        <div class="am-modal__header">
+            <span class="am-modal__icon am-page-guide-icon"><i class="fa fa-info-circle"></i></span>
+            <div>
+                <div style="font-size:11px;text-transform:uppercase;letter-spacing:0.4px;color:var(--am-text-muted);font-weight:600;">Forms &amp; Records</div>
+                <h4 class="am-modal__title" style="color:var(--am-primary);">Interested Parties</h4>
+            </div>
+        </div>
+        <div class="am-modal__body" style="color:var(--am-text);">
+            <h5 style="font-size:13px;font-weight:600;color:var(--am-primary);margin:0 0 6px;">What is it?</h5>
+            <p style="margin:0 0 16px;">A list of the people and organisations who care about what your business does, customers, staff, suppliers, neighbours, regulators, owners and a note of what each one expects from you.</p>
+
+            <h5 style="font-size:13px;font-weight:600;color:var(--am-primary);margin:0 0 6px;">Why does it matter?</h5>
+            <p style="margin:0 0 16px;">The standard asks you to think about who you affect and who affects you, so nothing important gets missed when you plan. Auditors usually ask for this list early on, because it quickly shows whether you have thought about your business or simply filled in forms.</p>
+
+            <h5 style="font-size:13px;font-weight:600;color:var(--am-primary);margin:0 0 6px;">Basic steps</h5>
+            <ul style="margin:0;padding-inline-start:18px;list-style:disc;color:var(--am-text);font-size:13.5px;line-height:1.5;">
+                <li style="margin-bottom:6px;">Click Add Interested Party.</li>
+                <li style="margin-bottom:6px;">Name the group, for example Customers, Employees, or Local authority.</li>
+                <li style="margin-bottom:6px;">Write what they need or expect from you, in one or two plain sentences.</li>
+                <li style="margin-bottom:6px;">Add a row for each group. Six to ten groups is usually enough for a small business.</li>
+                <li style="margin-bottom:6px;">Review the list once a year, in your Management Review Meeting or sooner if you take on a new type of customer or move premises.</li>
+                <li>Section 4.2.2 of your Quality Manual explains who your interested parties are, use it as a starting point.</li>
+            </ul>
+        </div>
+        <div class="am-modal__footer">
+            <button type="button" class="am-btn am-btn-outline am-modal-close">Close</button>
+        </div>
+    </div>
 </div>
 
 {{-- View Modal --}}

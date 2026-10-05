@@ -18,6 +18,22 @@ class HazardController extends SimpleRegisterController
             'admin_url' => 'hazardsad',
             'title' => 'Hazards (Health & Safety)',
             'subtitle' => 'A list of dangers at work and how we keep people safe.',
+            'guide' => [
+                'eyebrow' => 'Manuals & Policies',
+                'title' => 'Hazard Register',
+                'sections' => [
+                    ['heading' => 'What is it?', 'body' => ['A list of all the dangers at your workplace, things that could hurt someone. For each one, you write what injury could happen and how you prevent it. No to be confused with Chemical Control.']],
+                    ['heading' => 'Why does it matter?', 'body' => ['ISO 45001 requires you to identify all workplace hazards and documented controls. An auditor will ask: "What dangers are there at work? How do you keep people safe?"']],
+                    ['heading' => 'Basic steps', 'body' => []],
+                ],
+                'steps' => [
+                    'Identify all workplace hazards, things that could hurt someone.',
+                    'For each hazard, note who could be hurt and how you prevent it.',
+                    'Assign someone responsible and a monitoring method.',
+                    'Update the list when operations change or after an incident.',
+                    'Discuss it at your annual management review.',
+                ],
+            ],
             'info_title' => 'Add hazards that could hurt people, like:',
             'info_items' => ['Slips, trips, falls', 'Sharp objects or machinery', 'Moving vehicles','Heavy lifting or repetitive work'],
             'add_label' => 'Add Hazard',

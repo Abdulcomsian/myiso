@@ -4,9 +4,15 @@
 <div class="am-content">
 
     <div class="am-page-header">
-        <div>
-            <h2>Risk Assessments</h2>
-            <p>Evaluate contracts before acceptance — quality, delivery, price, and risk score.</p>
+        <div style="display:flex;align-items:center;gap:12px;">
+            <button type="button" class="am-page-guide-btn"
+                onclick="document.getElementById('amPageGuide').classList.add('open')"
+                title="About Risk Assessments" aria-label="About Risk Assessments">
+                <i class="fa fa-info-circle"></i>
+            </button>
+            <div>
+                <h2>Risk Assessments</h2>
+            </div>
         </div>
     </div>
 
@@ -16,16 +22,7 @@
         </div>
     @endif
 
-    <div class="am-card" style="padding:16px 20px;margin-bottom:16px;background:rgba(46,59,154,0.04);border:1px solid rgba(46,59,154,0.12);">
-        <div style="display:flex;gap:12px;align-items:flex-start;">
-            <span style="width:36px;height:36px;flex-shrink:0;border-radius:10px;background:var(--am-primary-tint);color:var(--am-primary);display:inline-flex;align-items:center;justify-content:center;font-size:15px;"><i class="fa fa-info-circle"></i></span>
-            <div style="font-size:13px;color:var(--am-text);line-height:1.55;">
-                Detail possible scenarios when accepting a contract, and compare risk and consequence of issues occurring.
-            </div>
-        </div>
-    </div>
-
-    <div class="am-card" style="margin-bottom:16px;">
+<div class="am-card" style="margin-bottom:16px;">
         <div class="am-card__toolbar">
             <form method="GET" action="{{ url('/risk_assessment') }}" class="am-search" id="amRaSearchForm" style="flex:1;max-width:340px;margin:0;">
                 <i class="fa fa-search"></i>
@@ -124,6 +121,39 @@
     <div class="am-card">
         <div id="amRaContainer">
             @include('dashboard.form_records.partials.risk_assessment_table')
+        </div>
+    </div>
+</div>
+
+{{-- Page guide --}}
+<div class="am-modal" id="amPageGuide" role="dialog" aria-modal="true">
+    <div class="am-modal__box" style="max-width:600px;">
+        <div class="am-modal__header">
+            <span class="am-modal__icon am-page-guide-icon"><i class="fa fa-info-circle"></i></span>
+            <div>
+                <div style="font-size:11px;text-transform:uppercase;letter-spacing:0.4px;color:var(--am-text-muted);font-weight:600;">Forms &amp; Records</div>
+                <h4 class="am-modal__title" style="color:var(--am-primary);">Risk Assessments</h4>
+            </div>
+        </div>
+        <div class="am-modal__body" style="color:var(--am-text);">
+            <h5 style="font-size:13px;font-weight:600;color:var(--am-primary);margin:0 0 6px;">What is it?</h5>
+            <p style="margin:0 0 16px;">Despite the name, this one is not about safety. It is a check on a job or contract before you agree to take it on, can you meet the quality, hit the delivery date, and make the price work, leading to a decision to accept or decline.</p>
+
+            <h5 style="font-size:13px;font-weight:600;color:var(--am-primary);margin:0 0 6px;">Why does it matter?</h5>
+            <p style="margin:0 0 16px;">Most problems with a contract are visible before it starts. Doing this check gives you a reason to walk away from work that would go wrong, and leaves a record showing the decision was thought about rather than guessed at.</p>
+
+            <h5 style="font-size:13px;font-weight:600;color:var(--am-primary);margin:0 0 6px;">Basic steps</h5>
+            <ul style="margin:0;padding-inline-start:18px;list-style:disc;color:var(--am-text);font-size:13.5px;line-height:1.5;">
+                <li style="margin-bottom:6px;">Click Add Risk Assessment whenever a significant job or contract comes in.</li>
+                <li style="margin-bottom:6px;">Enter the job number and the date.</li>
+                <li style="margin-bottom:6px;">Score the risk on quality, delivery and price.</li>
+                <li style="margin-bottom:6px;">Look at the overall risk score that results.</li>
+                <li style="margin-bottom:6px;">Record the decision: Accepted, Declined, or Accepted with Conditions.</li>
+                <li>For anything that could hurt someone, use Accident Risk Assessments instead.</li>
+            </ul>
+        </div>
+        <div class="am-modal__footer">
+            <button type="button" class="am-btn am-btn-outline am-modal-close">Close</button>
         </div>
     </div>
 </div>

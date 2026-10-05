@@ -4,9 +4,15 @@
 <div class="am-content">
 
     <div class="am-page-header">
-        <div>
-            <h2>Calibration Records</h2>
-            <p>Track testing and parameter checks of equipment to ensure it works correctly.</p>
+        <div style="display:flex;align-items:center;gap:12px;">
+            <button type="button" class="am-page-guide-btn"
+                onclick="document.getElementById('amPageGuide').classList.add('open')"
+                title="About Calibration Records" aria-label="About Calibration Records">
+                <i class="fa fa-info-circle"></i>
+            </button>
+            <div>
+                <h2>Calibration Records</h2>
+            </div>
         </div>
     </div>
 
@@ -21,16 +27,7 @@
         </div>
     @endif
 
-    <div class="am-card" style="padding:16px 20px;margin-bottom:16px;background:rgba(46,59,154,0.04);border:1px solid rgba(46,59,154,0.12);">
-        <div style="display:flex;gap:12px;align-items:flex-start;">
-            <span style="width:36px;height:36px;flex-shrink:0;border-radius:10px;background:var(--am-primary-tint);color:var(--am-primary);display:inline-flex;align-items:center;justify-content:center;font-size:15px;"><i class="fa fa-info-circle"></i></span>
-            <div style="font-size:13px;color:var(--am-text);line-height:1.55;">
-                Calibration is the testing and/or parameter setting of machinery or instruments. All records require a frequency of calibration, shown as a reminder in your dashboard.
-            </div>
-        </div>
-    </div>
-
-    <div class="am-card" style="margin-bottom:16px;">
+<div class="am-card" style="margin-bottom:16px;">
         <div class="am-card__toolbar">
             <form method="GET" action="{{ url('/calibration_record') }}" class="am-search" id="amCalSearchForm" style="flex:1;max-width:340px;margin:0;">
                 <i class="fa fa-search"></i>
@@ -84,6 +81,38 @@
     <div class="am-card">
         <div id="amCalContainer">
             @include('dashboard.form_records.partials.calibration_table')
+        </div>
+    </div>
+</div>
+
+{{-- Page guide --}}
+<div class="am-modal" id="amPageGuide" role="dialog" aria-modal="true">
+    <div class="am-modal__box" style="max-width:600px;">
+        <div class="am-modal__header">
+            <span class="am-modal__icon am-page-guide-icon"><i class="fa fa-info-circle"></i></span>
+            <div>
+                <div style="font-size:11px;text-transform:uppercase;letter-spacing:0.4px;color:var(--am-text-muted);font-weight:600;">Forms &amp; Records</div>
+                <h4 class="am-modal__title" style="color:var(--am-primary);">Calibration</h4>
+            </div>
+        </div>
+        <div class="am-modal__body" style="color:var(--am-text);">
+            <h5 style="font-size:13px;font-weight:600;color:var(--am-primary);margin:0 0 6px;">What is it?</h5>
+            <p style="margin:0 0 16px;">A record for every piece of equipment or instrument that has to be accurate, showing when it was last checked, whether it passed or failed, and when the next check falls due.</p>
+
+            <h5 style="font-size:13px;font-weight:600;color:var(--am-primary);margin:0 0 6px;">Why does it matter?</h5>
+            <p style="margin:0 0 16px;">If your measuring equipment is wrong, everything measured with it is wrong. Overdue measurements and failed items show on your dashboard and form part of your yearly evidence, so this is one of the quickest things for a remote auditor to check.</p>
+
+            <h5 style="font-size:13px;font-weight:600;color:var(--am-primary);margin:0 0 6px;">Basic steps</h5>
+            <ul style="margin:0;padding-inline-start:18px;list-style:disc;color:var(--am-text);font-size:13.5px;line-height:1.5;">
+                <li style="margin-bottom:6px;">Click Add Calibration Record.</li>
+                <li style="margin-bottom:6px;">Enter the equipment name, serial number and certificate number.</li>
+                <li style="margin-bottom:6px;">Record the date it was calibrated and whether it passed or failed.</li>
+                <li style="margin-bottom:6px;">Set how often it needs re-checking, the system then tracks the due date and warns you.</li>
+                <li>If a piece of equipment fails, take it out of use until it is repaired and re-checked.</li>
+            </ul>
+        </div>
+        <div class="am-modal__footer">
+            <button type="button" class="am-btn am-btn-outline am-modal-close">Close</button>
         </div>
     </div>
 </div>

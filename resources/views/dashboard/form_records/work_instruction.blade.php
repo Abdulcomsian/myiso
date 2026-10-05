@@ -4,9 +4,15 @@
 <div class="am-content">
 
     <div class="am-page-header">
-        <div>
-            <h2>Work Instructions</h2>
-            <p>Step-by-step processes used to conduct activities in the workplace.</p>
+        <div style="display:flex;align-items:center;gap:12px;">
+            <button type="button" class="am-page-guide-btn"
+                onclick="document.getElementById('amPageGuide').classList.add('open')"
+                title="About Work Instructions" aria-label="About Work Instructions">
+                <i class="fa fa-info-circle"></i>
+            </button>
+            <div>
+                <h2>Work Instructions</h2>
+            </div>
         </div>
     </div>
 
@@ -16,16 +22,7 @@
         </div>
     @endif
 
-    <div class="am-card" style="padding:16px 20px;margin-bottom:16px;background:rgba(46,59,154,0.04);border:1px solid rgba(46,59,154,0.12);">
-        <div style="display:flex;gap:12px;align-items:flex-start;">
-            <span style="width:36px;height:36px;flex-shrink:0;border-radius:10px;background:var(--am-primary-tint);color:var(--am-primary);display:inline-flex;align-items:center;justify-content:center;font-size:15px;"><i class="fa fa-info-circle"></i></span>
-            <div style="font-size:13px;color:var(--am-text);line-height:1.55;">
-                Work instructions (also called processes) are step-by-step guides. Use this section to define activities that internal audits will later verify. External documents are fine as long as they're referenced here.
-            </div>
-        </div>
-    </div>
-
-    <div class="am-card" style="margin-bottom:16px;">
+<div class="am-card" style="margin-bottom:16px;">
         <div class="am-card__toolbar">
             <form method="GET" action="{{ url('/work_instruction') }}" class="am-search" id="amWiSearchForm" style="flex:1;max-width:340px;margin:0;">
                 <i class="fa fa-search"></i>
@@ -78,6 +75,39 @@
     <div class="am-card">
         <div id="amWiContainer">
             @include('dashboard.form_records.partials.work_instruction_table')
+        </div>
+    </div>
+</div>
+
+{{-- Page guide --}}
+<div class="am-modal" id="amPageGuide" role="dialog" aria-modal="true">
+    <div class="am-modal__box" style="max-width:600px;">
+        <div class="am-modal__header">
+            <span class="am-modal__icon am-page-guide-icon"><i class="fa fa-info-circle"></i></span>
+            <div>
+                <div style="font-size:11px;text-transform:uppercase;letter-spacing:0.4px;color:var(--am-text-muted);font-weight:600;">Forms &amp; Records</div>
+                <h4 class="am-modal__title" style="color:var(--am-primary);">Work Instructions</h4>
+            </div>
+        </div>
+        <div class="am-modal__body" style="color:var(--am-text);">
+            <h5 style="font-size:13px;font-weight:600;color:var(--am-primary);margin:0 0 6px;">What is it?</h5>
+            <p style="margin:0 0 16px;">Step-by-step guides for how a particular job is done in your business. Simple and practical, written so that someone new could follow them. But also challenging activities in the business that need detailed instructions to follow to avoid error.</p>
+
+            <h5 style="font-size:13px;font-weight:600;color:var(--am-primary);margin:0 0 6px;">Why does it matter?</h5>
+            <p style="margin:0 0 16px;">Written instructions turn how one person does a job into how the business does it, so the work carries on when that person is away. They also give your Internal Auditor specific process to audit against, as Process Audits check all work instructions are being followed correctly.</p>
+
+            <h5 style="font-size:13px;font-weight:600;color:var(--am-primary);margin:0 0 6px;">Basic steps</h5>
+            <ul style="margin:0;padding-inline-start:18px;list-style:disc;color:var(--am-text);font-size:13.5px;line-height:1.5;">
+                <li style="margin-bottom:6px;">Click Add Work Instruction.</li>
+                <li style="margin-bottom:6px;">Give it a clear title and a reference number.</li>
+                <li style="margin-bottom:6px;">Set out the scope: which job it covers and where it applies.</li>
+                <li style="margin-bottom:6px;">Write the steps in plain language, in the order they are actually done so anyone can follow them.</li>
+                <li style="margin-bottom:6px;">Record who compiled it, the issue date and the revision number.</li>
+                <li>When any part changes, re-issue the whole document and raise the revision number.</li>
+            </ul>
+        </div>
+        <div class="am-modal__footer">
+            <button type="button" class="am-btn am-btn-outline am-modal-close">Close</button>
         </div>
     </div>
 </div>

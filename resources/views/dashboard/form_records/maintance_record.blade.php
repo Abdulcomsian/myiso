@@ -4,9 +4,15 @@
 <div class="am-content">
 
     <div class="am-page-header">
-        <div>
-            <h2>Maintenance Records</h2>
-            <p>Track and manage equipment and facility maintenance activities.</p>
+        <div style="display:flex;align-items:center;gap:12px;">
+            <button type="button" class="am-page-guide-btn"
+                onclick="document.getElementById('amPageGuide').classList.add('open')"
+                title="About Maintenance Records" aria-label="About Maintenance Records">
+                <i class="fa fa-info-circle"></i>
+            </button>
+            <div>
+                <h2>Maintenance Records</h2>
+            </div>
         </div>
     </div>
 
@@ -16,16 +22,7 @@
         </div>
     @endif
 
-    <div class="am-card" style="padding:16px 20px;margin-bottom:16px;background:rgba(46,59,154,0.04);border:1px solid rgba(46,59,154,0.12);">
-        <div style="display:flex;gap:12px;align-items:flex-start;">
-            <span style="width:36px;height:36px;flex-shrink:0;border-radius:10px;background:var(--am-primary-tint);color:var(--am-primary);display:inline-flex;align-items:center;justify-content:center;font-size:15px;"><i class="fa fa-info-circle"></i></span>
-            <div style="font-size:13px;color:var(--am-text);line-height:1.55;">
-                Carrying out frequent maintenance checks and repairs is necessary to maintain production and service. Reviews within the working environment (including equipment) should be carried out monthly, quarterly, semiannually, or annually depending on the size and nature of the business.
-            </div>
-        </div>
-    </div>
-
-    <div class="am-card" style="margin-bottom:16px;">
+<div class="am-card" style="margin-bottom:16px;">
         <div class="am-card__toolbar">
             <form method="GET" action="{{ url('/maintance_record') }}" class="am-search" id="amMrSearchForm" style="flex:1;max-width:340px;margin:0;">
                 <i class="fa fa-search"></i>
@@ -65,6 +62,39 @@
     <div class="am-card">
         <div id="amMrContainer">
             @include('dashboard.form_records.partials.maintenance_table')
+        </div>
+    </div>
+</div>
+
+{{-- Page guide --}}
+<div class="am-modal" id="amPageGuide" role="dialog" aria-modal="true">
+    <div class="am-modal__box" style="max-width:600px;">
+        <div class="am-modal__header">
+            <span class="am-modal__icon am-page-guide-icon"><i class="fa fa-info-circle"></i></span>
+            <div>
+                <div style="font-size:11px;text-transform:uppercase;letter-spacing:0.4px;color:var(--am-text-muted);font-weight:600;">Forms &amp; Records</div>
+                <h4 class="am-modal__title" style="color:var(--am-primary);">Maintenance Records</h4>
+            </div>
+        </div>
+        <div class="am-modal__body" style="color:var(--am-text);">
+            <h5 style="font-size:13px;font-weight:600;color:var(--am-primary);margin:0 0 6px;">What is it?</h5>
+            <p style="margin:0 0 16px;">A log of repairs, servicing and checks on your equipment, vehicles and premises, what was done, where, by whom, and what was found.</p>
+
+            <h5 style="font-size:13px;font-weight:600;color:var(--am-primary);margin:0 0 6px;">Why does it matter?</h5>
+            <p style="margin:0 0 16px;">Equipment that is not looked after breaks down, and breakdowns hit both quality and safety. This log shows that you look after things on purpose, rather than only when something fails. It is not the same as Calibration: calibration is about accuracy, maintenance is about condition.</p>
+
+            <h5 style="font-size:13px;font-weight:600;color:var(--am-primary);margin:0 0 6px;">Basic steps</h5>
+            <ul style="margin:0;padding-inline-start:18px;list-style:disc;color:var(--am-text);font-size:13.5px;line-height:1.5;">
+                <li style="margin-bottom:6px;">Click Add Maintenance Record.</li>
+                <li style="margin-bottom:6px;">Enter the date, the item and where it is, use a under maintenance poster whilst working.</li>
+                <li style="margin-bottom:6px;">Describe the work or check that was carried out.</li>
+                <li style="margin-bottom:6px;">Note anything you observed, and any action taken as a result.</li>
+                <li style="margin-bottom:6px;">Record who did the work.</li>
+                <li>Anything that needs doing on a regular cycle should also go into Requirements Due, so you get reminded.</li>
+            </ul>
+        </div>
+        <div class="am-modal__footer">
+            <button type="button" class="am-btn am-btn-outline am-modal-close">Close</button>
         </div>
     </div>
 </div>

@@ -18,6 +18,22 @@ class IncidentController extends SimpleRegisterController
             'admin_url' => 'incidentsad',
             'title' => 'Incident & Injury',
             'subtitle' => 'Record all accidents, injuries, and near-misses at work.',
+            'guide' => [
+                'eyebrow' => 'Manuals & Policies',
+                'title' => 'Incident Report Form',
+                'sections' => [
+                    ['heading' => 'What is it?', 'body' => ['A form you fill out immediately after any workplace accident, injury, or near-miss. It records what happened, who was involved, and what you will do to stop it happening again.']],
+                    ['heading' => 'Why does it matter?', 'body' => ['ISO 45001 requires you to report and investigate incidents. This creates a record that shows you take safety seriously and learn from accidents. An auditor will ask: "Show me your incidents and what you fixed."']],
+                    ['heading' => 'Basic steps', 'body' => []],
+                ],
+                'steps' => [
+                    'Fill in the form immediately after an incident , while it is fresh.',
+                    'Be honest about what happened, who, what, where, and what was the result.',
+                    'Investigate why it happened and identify the root cause.',
+                    'Document what you will do to prevent it happening again.',
+                    'Review all incidents at your annual management review.',
+                ],
+            ],
             'info_title' => 'Report incidents immediately after they happen:',
             'info_items' => ['Someone got hurt (injury)', 'Something dangerous almost happened (near-miss)', 'Accident or damage to property'],
             'add_label' => 'Report New Incident',

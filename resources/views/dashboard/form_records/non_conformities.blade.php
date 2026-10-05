@@ -4,9 +4,15 @@
 <div class="am-content">
 
     <div class="am-page-header">
-        <div>
-            <h2>Non-Conformities</h2>
-            <p>Track situations where products, services, or processes fail to meet specifications.</p>
+        <div style="display:flex;align-items:center;gap:12px;">
+            <button type="button" class="am-page-guide-btn"
+                onclick="document.getElementById('amPageGuide').classList.add('open')"
+                title="About Non-Conformities" aria-label="About Non-Conformities">
+                <i class="fa fa-info-circle"></i>
+            </button>
+            <div>
+                <h2>Non-Conformities</h2>
+            </div>
         </div>
     </div>
 
@@ -16,16 +22,7 @@
         </div>
     @endif
 
-    <div class="am-card" style="padding:16px 20px;margin-bottom:16px;background:rgba(46,59,154,0.04);border:1px solid rgba(46,59,154,0.12);">
-        <div style="display:flex;gap:12px;align-items:flex-start;">
-            <span style="width:36px;height:36px;flex-shrink:0;border-radius:10px;background:var(--am-primary-tint);color:var(--am-primary);display:inline-flex;align-items:center;justify-content:center;font-size:15px;"><i class="fa fa-info-circle"></i></span>
-            <div style="font-size:13px;color:var(--am-text);line-height:1.55;">
-                A non-conformance occurs when something doesn't meet specifications — in services, products, processes, supplier goods, or staff behavior. Minor (e.g. invoicing mistake) vs Major (e.g. employee misconduct).
-            </div>
-        </div>
-    </div>
-
-    <div class="am-card" style="margin-bottom:16px;">
+<div class="am-card" style="margin-bottom:16px;">
         <div class="am-card__toolbar">
             <form method="GET" action="{{ url('/non_confromities') }}" class="am-search" id="amNcSearchForm" style="flex:1;max-width:340px;margin:0;">
                 <i class="fa fa-search"></i>
@@ -142,6 +139,39 @@
     <div class="am-card">
         <div id="amNcContainer">
             @include('dashboard.form_records.partials.non_conformities_table')
+        </div>
+    </div>
+</div>
+
+{{-- Page guide --}}
+<div class="am-modal" id="amPageGuide" role="dialog" aria-modal="true">
+    <div class="am-modal__box" style="max-width:600px;">
+        <div class="am-modal__header">
+            <span class="am-modal__icon am-page-guide-icon"><i class="fa fa-info-circle"></i></span>
+            <div>
+                <div style="font-size:11px;text-transform:uppercase;letter-spacing:0.4px;color:var(--am-text-muted);font-weight:600;">Forms &amp; Records</div>
+                <h4 class="am-modal__title" style="color:var(--am-primary);">Non-Conformities</h4>
+            </div>
+        </div>
+        <div class="am-modal__body" style="color:var(--am-text);">
+            <h5 style="font-size:13px;font-weight:600;color:var(--am-primary);margin:0 0 6px;">What is it?</h5>
+            <p style="margin:0 0 16px;">A record of anything that went wrong: a product or service that did not meet the specification, a process that was not followed, a supplier who let you down, or a mistake by a member of staff. Minor means something small, such as an invoicing error. Major means something serious, such as misconduct or a problem that could harm someone.</p>
+
+            <h5 style="font-size:13px;font-weight:600;color:var(--am-primary);margin:0 0 6px;">Why does it matter?</h5>
+            <p style="margin:0 0 16px;">Auditors are not looking for a clean sheet. An empty register does not look like a business where nothing goes wrong, it looks like a business where nothing is being reported. What they want to see is that you spot problems, write them down, and fix them. This is one of the registers looked at most closely during a remote audit.</p>
+
+            <h5 style="font-size:13px;font-weight:600;color:var(--am-primary);margin:0 0 6px;">What do I need to do?</h5>
+            <ul style="margin:0;padding-inline-start:18px;list-style:disc;color:var(--am-text);font-size:13.5px;line-height:1.5;">
+                <li style="margin-bottom:6px;">Click Add Non-Conformity as soon as something goes wrong, not weeks later.</li>
+                <li style="margin-bottom:6px;">Choose whether it is Minor or Major.</li>
+                <li style="margin-bottom:6px;">Record who reported it, and describe what happened in plain words.</li>
+                <li style="margin-bottom:6px;">Choose the category that best explains the cause, for example Human Factor or Planning.</li>
+                <li style="margin-bottom:6px;">Record what was done to put it right, and enter the date it was closed.</li>
+                <li>For anything Major, or anything that keeps happening, follow P2 Corrective Actions.</li>
+            </ul>
+        </div>
+        <div class="am-modal__footer">
+            <button type="button" class="am-btn am-btn-outline am-modal-close">Close</button>
         </div>
     </div>
 </div>

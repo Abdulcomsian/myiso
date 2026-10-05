@@ -30,6 +30,9 @@
     </div>
 @endif
 
+{{-- the user pages explain themselves through the guide popup; the admin
+     register still shows this banner --}}
+@if ($isAdmin)
 <div class="am-card am-register-info" style="padding:16px 20px;margin-bottom:16px;background:rgba(46,59,154,0.04);border:1px solid rgba(46,59,154,0.12);">
     <div style="display:flex;gap:12px;align-items:flex-start;">
         <span style="width:36px;height:36px;flex-shrink:0;border-radius:10px;background:var(--am-primary-tint);color:var(--am-primary);display:inline-flex;align-items:center;justify-content:center;font-size:15px;"><i class="fa fa-info-circle"></i></span>
@@ -44,6 +47,7 @@
         </div>
     </div>
 </div>
+@endif
 
 <div class="am-card" style="margin-bottom:16px;">
     <div class="am-card__toolbar">
