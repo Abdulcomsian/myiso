@@ -91,7 +91,7 @@
         </div>
         <div class="am-modal__body" style="color:var(--am-text);">
             <h5 style="font-size:13px;font-weight:600;color:var(--am-primary);margin:0 0 6px;">What is it?</h5>
-            <p style="margin:0 0 16px;">Step-by-step guides for how a particular job is done in your business. Simple and practical, written so that someone new could follow them. But also challenging activities in the business that need detailed instructions to follow to avoid error.</p>
+            <p style="margin:0 0 16px;">Step-by-step guides for how a particular job is done in your business. Simple and practical, written so that someone new could follow them. But also challenging activities in the business that need detailed instructions to follow to avoid error. For example, Emergency plans such as Fire evacuation, Chemical spill or power outages.</p>
 
             <h5 style="font-size:13px;font-weight:600;color:var(--am-primary);margin:0 0 6px;">Why does it matter?</h5>
             <p style="margin:0 0 16px;">Written instructions turn how one person does a job into how the business does it, so the work carries on when that person is away. They also give your Internal Auditor specific process to audit against, as Process Audits check all work instructions are being followed correctly.</p>

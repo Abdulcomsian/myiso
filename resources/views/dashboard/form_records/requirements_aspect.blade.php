@@ -141,25 +141,14 @@
                 <h4 class="am-modal__title" style="color:var(--am-primary);">Requirements Due</h4>
             </div>
         </div>
-        {{-- the guide reads as body copy, not as the muted note a modal body defaults to --}}
         <div class="am-modal__body" style="color:var(--am-text);">
             <h5 style="font-size:13px;font-weight:600;color:var(--am-primary);margin:0 0 6px;">What is it?</h5>
-            <p style="margin:0 0 16px;">
-                A reminder diary for jobs that come round again and again, things like a management review being
-                due, equipment needing calibration, or an inspection that happens every few months. You add the job
-                once, tell the system how often it repeats, and it tells you when it is due.
-            </p>
+            <p style="margin:0 0 16px;">A reminder diary for jobs that come round again and again, things like a management review being due, equipment calibration, Emergency drills or an inspection that happens every few months. You add the job once, tell the system how often it repeats, and it tells you when it is due.</p>
 
             <h5 style="font-size:13px;font-weight:600;color:var(--am-primary);margin:0 0 6px;">Why does it matter?</h5>
-            <p style="margin:0 0 16px;">
-                Most certificates are lost because someone forgot, not because the business was doing anything
-                wrong. Your audit is carried out remotely, so the auditor cannot walk round and ask how things are
-                going — this list is how they see that the routine jobs are being kept up. Anything overdue shows
-                on your dashboard, so you get the warning before the auditor does.
-            </p>
+            <p style="margin:0 0 16px;">Most certificates are lost because someone forgot, not because the business was doing anything wrong. Your audit is carried out remotely, so the auditor cannot walk round and ask how things are going — this list is how they see that the routine jobs are being kept up. Anything overdue shows on your dashboard, so you get the warning before the auditor does.</p>
 
             <h5 style="font-size:13px;font-weight:600;color:var(--am-primary);margin:0 0 6px;">Basic steps</h5>
-            {{-- bullets, the way the source document has them --}}
             <ul style="margin:0;padding-inline-start:18px;list-style:disc;color:var(--am-text);font-size:13.5px;line-height:1.5;">
                 <li style="margin-bottom:6px;">Click Add a Requirement.</li>
                 <li style="margin-bottom:6px;">Type what needs doing, in words anyone in the business would understand.</li>

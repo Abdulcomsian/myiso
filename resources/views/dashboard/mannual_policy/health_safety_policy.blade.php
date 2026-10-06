@@ -57,14 +57,14 @@
                 <div style="{{ $loop->first ? '' : 'border-top:1px solid #e6e8f0;margin-top:16px;' }}padding-top:{{ $loop->first ? '4' : '16' }}px;">
                     <p class="mb-2" style="white-space:pre-wrap;">{{ $policy->message }}</p>
                     <div style="line-height:1.5;">
-                        <div><strong style="font-weight:600;">On behalf of {{ $companyName }}:</strong></div>
+                        <div><strong style="font-weight:600;">Added By:</strong> {{ $companyName }}</div>
                         <div><strong style="font-weight:600;">Name:</strong> {{ Auth::user()->director }}</div>
                         <div><strong style="font-weight:600;">Date:</strong> {{ $policy->created_at->format('d-M-Y g:i A') }}</div>
                     </div>
                 </div>
             @empty
                 <div class="mt-3" style="line-height:1.5;">
-                    <div><strong style="font-weight:600;">On behalf of {{ $companyName }}:</strong></div>
+                    <div><strong style="font-weight:600;">Added By:</strong> {{ $companyName }}</div>
                     <div><strong style="font-weight:600;">Name:</strong> {{ Auth::user()->director }}</div>
                 </div>
             @endforelse

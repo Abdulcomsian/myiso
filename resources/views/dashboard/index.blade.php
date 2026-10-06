@@ -11,26 +11,24 @@
     </div>
 
     @if (!empty($showInactivityAlert) && $showInactivityAlert)
-    {{-- Inactivity Warning Modal (only shows when previous last_login was 90+ days ago) --}}
-    <div id="inactivityAlertOverlay" style="position:fixed;inset:0;background:rgba(20,26,55,0.55);z-index:9999;display:flex;align-items:center;justify-content:center;padding:16px;">
-        <div style="background:#fff;border-radius:14px;max-width:520px;width:100%;padding:28px 26px;box-shadow:0 20px 50px rgba(0,0,0,0.35);position:relative;">
-            <div style="display:flex;gap:14px;align-items:flex-start;margin-bottom:14px;">
-                <span style="width:44px;height:44px;flex-shrink:0;border-radius:50%;background:#fff3cd;color:#b7791f;display:inline-flex;align-items:center;justify-content:center;font-size:20px;">
-                    <i class="fa fa-exclamation-triangle"></i>
-                </span>
+    {{-- Inactivity Warning Modal (only shows when previous last_login was 90+ days ago).
+         Built on the same am-modal the delete confirmations use, so it is closed
+         by its button, by the backdrop or by Escape like every other modal. --}}
+    <div class="am-modal open" id="inactivityAlertOverlay" role="dialog" aria-modal="true">
+        <div class="am-modal__box">
+            <div class="am-modal__header">
+                <span class="am-modal__icon"><i class="fa fa-exclamation-triangle"></i></span>
                 <div>
-                    <h4 style="margin:0 0 4px 0;font-size:17px;font-weight:600;color:#141a37;">System Review Overdue</h4>
-                    <p style="margin:0;font-size:13px;color:#6b7391;">You haven't reviewed your documentation in a while</p>
+                    <h4 class="am-modal__title">System Review Overdue</h4>
+                    <p style="margin:2px 0 0;font-size:12.5px;color:var(--am-text-muted);">You haven't reviewed your documentation in a while</p>
                 </div>
             </div>
-            <p style="font-size:14px;color:#141a37;line-height:1.6;margin:14px 0 20px 0;">
-                It's been 90 days since your documentation system was reviewed. An unmaintained system risks audit failure and certification suspension or revocation. Please review and update your records.
-            </p>
-            <div style="text-align:right;">
-                <button type="button" onclick="document.getElementById('inactivityAlertOverlay').style.display='none';"
-                    style="background:#7a97d9;color:#fff;border:none;padding:9px 20px;border-radius:6px;font-size:14px;cursor:pointer;font-weight:500;">
-                    OK, I'll review
-                </button>
+            <div class="am-modal__body">
+                It's been 90 days since your documentation system was reviewed. An unmaintained system risks audit
+                failure and certification suspension or revocation. Please review and update your records.
+            </div>
+            <div class="am-modal__footer">
+                <button type="button" class="am-btn am-btn-danger am-modal-close">OK, I'll review</button>
             </div>
         </div>
     </div>

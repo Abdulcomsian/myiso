@@ -47,8 +47,8 @@ class HazardController extends SimpleRegisterController
                 'hazard' => ['label' => 'Hazard', 'type' => 'text', 'required' => true, 'wide' => true, 'placeholder' => 'Example: Slips on wet floor, Sharp tools'],
                 'risk' => ['label' => 'Risk / Impact', 'type' => 'text', 'wide' => true, 'placeholder' => 'Example: Staff could break leg, Visitor could get hurt, Severe burn'],
                 'controls' => ['label' => 'Controls', 'type' => 'text', 'wide' => true, 'placeholder' => 'Example: Keep floor dry, Use guards on tools, Signage'],
-                'responsible_person' => ['label' => 'Responsible Person', 'type' => 'text', 'placeholder' => 'Example: John Smith (optional)'],
-                'monitoring_method' => ['label' => 'Monitoring Method', 'type' => 'text', 'placeholder' => 'Example: Check daily, Inspect weekly (optional)'],
+                'responsible_person' => ['label' => 'Responsible Person', 'type' => 'text', 'placeholder' => 'Example: John Smith'],
+                'monitoring_method' => ['label' => 'Monitoring Method', 'type' => 'text', 'placeholder' => 'Example: Check daily, Inspect weekly, Add to Requirements Due'],
             ],
             'columns' => [
                 'hazard' => 'Hazard',
