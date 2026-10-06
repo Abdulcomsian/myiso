@@ -61,7 +61,7 @@
                     <div><label>Overall Score (0-10)</label><input type="number" min="0" max="10" name="OveralScore" placeholder="0-10" required></div>
                 </div>
                 <div class="form-row">
-                    <div style="grid-column:span 2;"><label>Any Other Issues</label><input type="text" name="other_issue" placeholder="Notes" required></div>
+                    <div style="grid-column:span 2;"><label>Notes</label><textarea name="other_issue" required></textarea></div>
                     <div style="grid-column:span 2;"><label>Attach Evidence</label><input type="file" name="attach_evidence" required></div>
                 </div>
                 <div class="form-actions">
@@ -143,7 +143,7 @@
                 </div>
                 <div class="form-group row">
                     <div class="col-lg-6"><label>Assessment Date</label><input type="date" max="2999-12-31" class="form-control" name="AssesmentDate" required></div>
-                    <div class="col-lg-6"><label>Any Other Issues</label><input type="text" class="form-control" name="other_issue" required></div>
+                    <div class="col-lg-6"><label>Notes</label><textarea class="form-control" name="other_issue" required></textarea></div>
                 </div>
                 <div class="form-group row">
                     <div class="col-lg-12"><label>Attach Evidence</label><input type="file" class="form-control" name="attach_evidence"></div>
@@ -174,7 +174,7 @@
                 <div><div style="font-size:11px;text-transform:uppercase;letter-spacing:0.4px;color:var(--am-text-muted);font-weight:600;margin-bottom:4px;">Overall</div><div id="v-sr-o"></div></div>
                 <div><div style="font-size:11px;text-transform:uppercase;letter-spacing:0.4px;color:var(--am-text-muted);font-weight:600;margin-bottom:4px;">Assessment Date</div><div id="v-sr-date"></div></div>
                 <div><div style="font-size:11px;text-transform:uppercase;letter-spacing:0.4px;color:var(--am-text-muted);font-weight:600;margin-bottom:4px;">Evidence</div><div id="v-sr-ev"></div></div>
-                <div style="grid-column:1/-1;"><div style="font-size:11px;text-transform:uppercase;letter-spacing:0.4px;color:var(--am-text-muted);font-weight:600;margin-bottom:4px;">Other Issues</div><div id="v-sr-oi"></div></div>
+                <div style="grid-column:1/-1;"><div style="font-size:11px;text-transform:uppercase;letter-spacing:0.4px;color:var(--am-text-muted);font-weight:600;margin-bottom:4px;">Notes</div><div id="v-sr-oi"></div></div>
             </div>
         </div>
         <div class="am-modal__footer"><button type="button" class="am-btn am-btn-outline am-modal-close">Close</button></div>
@@ -283,7 +283,7 @@ function amSrEdit(d) {
     m.querySelector("input[name='priceScore']").value = d.priceScore || '';
     m.querySelector("input[name='qualityScore']").value = d.qualityScore || '';
     m.querySelector("input[name='product_activity_area_edit']").value = d.product_activity_area || '';
-    m.querySelector("input[name='other_issue']").value = d.other_issues || '';
+    m.querySelector("[name='other_issue']").value = d.other_issues || '';
     m.classList.add('open');
 }
 </script>
