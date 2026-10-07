@@ -98,6 +98,7 @@
                 <a href="{{ url('maintance_record') }}" class="am-nav-link {{ Request::is('maintance_record') ? 'active' : '' }}">Maintenance Records</a>
                 <a href="{{ url('add_management_review') }}" class="am-nav-link {{ Request::is('add_management_review') ? 'active' : '' }}">Management Reviews</a>
                 <a href="{{ url('non_confromities') }}" class="am-nav-link {{ Request::is('non_confromities') ? 'active' : '' }}">Non-Conformities</a>
+                <a href="{{ url('objectives_tracker') }}" class="am-nav-link {{ Request::is('objectives_tracker') ? 'active' : '' }}">Objectives Tracker</a>
                 <a href="{{ url('process_audit') }}" class="am-nav-link {{ Request::is('process_audit') ? 'active' : '' }}">Process Audits</a>
                 <a href="{{ url('qms_audit') }}" class="am-nav-link {{ Request::is('qms_audit') ? 'active' : '' }}">QMS Audits</a>
                 <a href="{{ url('requirements_aspect') }}" class="am-nav-link {{ Request::is('requirements_aspect') ? 'active' : '' }}">Requirements Due</a>

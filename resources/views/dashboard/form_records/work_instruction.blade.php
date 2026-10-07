@@ -39,6 +39,7 @@
                 <div class="form-row">
                     <div><label>Work Instruction Title</label><input type="text" name="workinstruction" placeholder="Process title" required></div>
                     <div><label>Reference</label><input type="text" name="instructionref" required></div>
+                    <div><label>Frequency to be reviewed or actioned</label><select name="reviewFrequency"><option value="">Select…</option>@foreach (App\Workinstructions::frequencyOptions() as $fqKey => $fqLabel)<option value="{{ $fqKey }}">{{ $fqLabel }}</option>@endforeach</select></div>
                 </div>
                 <div class="form-row">
                     <div>
@@ -126,6 +127,7 @@
                 <div><div style="font-size:11px;text-transform:uppercase;letter-spacing:0.4px;color:var(--am-text-muted);font-weight:600;margin-bottom:4px;">Employee ID</div><div id="vwi-emp">—</div></div>
                 <div><div style="font-size:11px;text-transform:uppercase;letter-spacing:0.4px;color:var(--am-text-muted);font-weight:600;margin-bottom:4px;">Issue Date</div><div id="vwi-date">—</div></div>
                 <div><div style="font-size:11px;text-transform:uppercase;letter-spacing:0.4px;color:var(--am-text-muted);font-weight:600;margin-bottom:4px;">Revision Status</div><div id="vwi-rev">—</div></div>
+                <div><div style="font-size:11px;text-transform:uppercase;letter-spacing:0.4px;color:var(--am-text-muted);font-weight:600;margin-bottom:4px;">Frequency to be reviewed or actioned</div><div id="vwi-freq">—</div></div>
                 <div><div style="font-size:11px;text-transform:uppercase;letter-spacing:0.4px;color:var(--am-text-muted);font-weight:600;margin-bottom:4px;">Compiled By</div><div id="vwi-comp">—</div></div>
                 <div style="grid-column:1/-1;"><div style="font-size:11px;text-transform:uppercase;letter-spacing:0.4px;color:var(--am-text-muted);font-weight:600;margin-bottom:4px;">Scope</div><div id="vwi-scope">—</div></div>
                 <div style="grid-column:1/-1;"><div style="font-size:11px;text-transform:uppercase;letter-spacing:0.4px;color:var(--am-text-muted);font-weight:600;margin-bottom:8px;">Steps</div><ol id="vwi-points" style="padding-left:18px;margin:0;font-size:13px;line-height:1.6;"></ol></div>
@@ -147,8 +149,9 @@
             <input type="hidden" name="id" id="ewi-id">
             <div class="am-modal__body" style="padding:20px;">
                 <div class="form-group row">
-                    <div class="col-lg-6"><label>Title</label><input type="text" class="form-control" name="workinstruction" required></div>
-                    <div class="col-lg-6"><label>Reference</label><input type="text" class="form-control" name="instructionref" required></div>
+                    <div class="col-lg-4"><label>Title</label><input type="text" class="form-control" name="workinstruction" required></div>
+                    <div class="col-lg-4"><label>Reference</label><input type="text" class="form-control" name="instructionref" required></div>
+                    <div class="col-lg-4"><label>Frequency to be reviewed or actioned</label><select class="form-control" name="reviewFrequency"><option value="">Select…</option>@foreach (App\Workinstructions::frequencyOptions() as $fqKey => $fqLabel)<option value="{{ $fqKey }}">{{ $fqLabel }}</option>@endforeach</select></div>
                 </div>
                 <div class="form-group row">
                     <div class="col-lg-4">
@@ -260,12 +263,16 @@ document.addEventListener('click', function(e) {
         if (!isNaN(p) && p > 0) fetchPage(p);
     });
 })();
+// the wording for each stored key, taken from the model
+var amWiFrequencies = @json(App\Workinstructions::frequencyOptions());
+function amWiFreqLabel(k) { return (k && amWiFrequencies[k]) || '—'; }
 function amWiView(d) {
     document.getElementById('vwi-title').textContent = d.workinstruction || '—';
     document.getElementById('vwi-ref').textContent = d.instructionref || '—';
     document.getElementById('vwi-emp').textContent = d.empId || '—';
     document.getElementById('vwi-date').textContent = d.issueDate ? new Date(d.issueDate).toLocaleDateString() : '—';
     document.getElementById('vwi-rev').textContent = d.revisionstatus || '—';
+    document.getElementById('vwi-freq').textContent = amWiFreqLabel(d.reviewFrequency);
     document.getElementById('vwi-comp').textContent = d.CompiledBy || '—';
     document.getElementById('vwi-scope').textContent = d.scop || '—';
     var pointsEl = document.getElementById('vwi-points');
@@ -284,6 +291,7 @@ function amWiEdit(d) {
         if (el) el.value = d[k] || '';
     });
     var sel = m.querySelector("select[name='empId']"); if (sel) sel.value = d.empId || '';
+    var fq = m.querySelector("select[name='reviewFrequency']"); if (fq) fq.value = d.reviewFrequency || '';
     for (var i = 1; i <= 12; i++) {
         var el = m.querySelector("input[name='point"+i+"']");
         if (el) el.value = d['point'+i] || '';

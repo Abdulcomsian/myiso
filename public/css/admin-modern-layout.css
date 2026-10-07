@@ -570,12 +570,12 @@ body.am-body {
     border-radius: 20px;
     font-size: 11.5px;
     font-weight: 600;
-    letter-spacing: 0.2px;
-}
+    letter-spacing: 0.2px; white-space: nowrap; }
 .am-chip.success { background: rgba(38, 194, 129, 0.12); color: #1a8a5c; }
 .am-chip.warning { background: rgba(247, 183, 49, 0.14); color: #b8830e; }
 .am-chip.danger  { background: rgba(235, 77, 75, 0.12); color: #b83432; }
 .am-chip.info    { background: rgba(69, 170, 242, 0.14); color: #147db8; }
+.am-chip.neutral { background: rgba(108, 117, 125, 0.13); color: #5a6268; }
 
 /* Row actions */
 .am-actions { display: inline-flex; gap: 6px; }

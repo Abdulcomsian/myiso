@@ -56,6 +56,12 @@ Route::group(['middleware' => ['auth','usermiddle']], function ()
 {
     Route::get('/home', 'HomeController@index')->name('home');
     Route::get('/work_instruction', 'WorkInstructionController@index');
+    // Objectives Tracker
+    Route::get('/objectives_tracker', 'ObjectiveController@index')->name('objectives_tracker');
+    Route::post('/objectives_tracker', 'ObjectiveController@store')->name('objective.store');
+    Route::post('/objective_update', 'ObjectiveController@update')->name('objective.update');
+    Route::post('/objective_progress', 'ObjectiveController@storeProgress')->name('objective.progress');
+    Route::post('/objective_delete', 'ObjectiveController@destroy')->name('objective.destroy');
     Route::view('/userprofile','dashboard.procedure.userprofile')->name('userprofile');
     Route::view('/customer', 'dashboard.customer.index');
     Route::get('/requirements_aspect','RequiremntController@index');

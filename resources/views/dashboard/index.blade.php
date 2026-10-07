@@ -73,6 +73,64 @@
         </a>
     </div>
 
+    {{-- Objective Update Due --}}
+    <div class="am-card mb-3">
+        <div class="am-card__body">
+            <div style="margin-bottom:1.25rem;">
+                <span style="display:inline-block;background:#c9d5f0;color:#3d5aa8;padding:6px 18px;border-radius:999px;font-size:14px;font-weight:600;">
+                    Objective Update Due
+                </span>
+            </div>
+            @php
+                // an objective is chased once it has gone App\Objective::STALE_DAYS
+                // without a progress note; finished ones are left alone
+                $objectivesDue = App\Objective::where('user_id', Auth::user()->id)->get()
+                    ->filter(function ($o) { return $o->updateIsDue(); })->values();
+            @endphp
+            @if($objectivesDue->isEmpty())
+            <div class="am-empty">
+                <i class="fa fa-bullseye"></i>
+                <p>No objective updates due.</p>
+            </div>
+            @else
+            <div class="am-table-wrap">
+                <table class="am-table">
+                    <thead>
+                        <tr>
+                            <th>No.</th>
+                            <th>Objective</th>
+                            <th>Person Responsible</th>
+                            <th>Deadline</th>
+                            <th>Last Update</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach ($objectivesDue as $i => $obj)
+                            @php $last = $obj->latestUpdate(); @endphp
+                            <tr>
+                                <td>{{ $i + 1 }}</td>
+                                <td>{{ $obj->objective }}</td>
+                                <td>{{ $obj->person_responsible ?: '—' }}</td>
+                                <td>{{ $obj->deadline ? date('d/m/Y', strtotime($obj->deadline)) : '—' }}</td>
+                                <td>
+                                    @if ($last)
+                                        {{ date('d/m/Y', strtotime($last->update_date ?: $last->created_at)) }}
+                                    @else
+                                        No progress recorded yet
+                                    @endif
+                                </td>
+                                <td>
+                                    <a href="{{ url('objectives_tracker') }}" class="am-btn am-btn-sm am-btn-primary">Open</a>
+                                </td>
+                            </tr>
+                        @endforeach
+                    </tbody>
+                </table>
+            </div>
+            @endif
+        </div>
+    </div>
     {{-- Requirements Due --}}
     <div class="am-card mb-3">
         <div class="am-card__body">

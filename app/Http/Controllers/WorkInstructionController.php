@@ -83,6 +83,7 @@ class WorkInstructionController extends Controller
              $workinst->empId=$request->input('empId');
              $workinst->issueDate=$request->input('issueDate');
              $workinst->revisionstatus = $request->input('revisionstatus');
+             $workinst->reviewFrequency = $request->input('reviewFrequency');
              
              $workinst->scop=$request->input('scop');
              $workinst->point1=$request->input('point1');
@@ -154,6 +155,7 @@ class WorkInstructionController extends Controller
          $workinst->empId=$request->input('empId');
          $workinst->issueDate=$request->input('issueDate');
            $workinst->revisionstatus = $request->input('revisionstatus');
+           $workinst->reviewFrequency = $request->input('reviewFrequency');
          $workinst->scop=$request->input('scop');
          $workinst->point1=$request->input('point1');
          $workinst->point2=$request->input('point2');
