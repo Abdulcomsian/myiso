@@ -118,7 +118,8 @@
             </a>
             <div class="am-nav-group__children">
                 <a href="{{ url('faq') }}" class="am-nav-link {{ Request::is('faq') ? 'active' : '' }}">FAQ's</a>
-                <a href="{{ url('explainer_videos') }}" class="am-nav-link {{ Request::is('explainer_videos') ? 'active' : '' }}">Training Videos</a>
+                {{-- Training Videos: hidden on the client's request - may come back --}}
+                {{-- <a href="{{ url('explainer_videos') }}" class="am-nav-link {{ Request::is('explainer_videos') ? 'active' : '' }}">Training Videos</a> --}}
                 <a href="{{ url('userDownload') }}" class="am-nav-link {{ Request::is('userDownload') ? 'active' : '' }}">Downloads</a>
             </div>
         </div>

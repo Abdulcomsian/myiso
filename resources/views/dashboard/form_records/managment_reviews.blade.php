@@ -22,7 +22,7 @@
         </div>
     @endif
 
-<div class="am-card" style="margin-bottom:16px;">
+    <div class="am-card" style="margin-bottom:16px;">
         <div class="am-card__toolbar">
             <form method="GET" action="{{ url('/add_management_review') }}" class="am-search" id="amMgtSearchForm" style="flex:1;max-width:340px;margin:0;">
                 <i class="fa fa-search"></i>
