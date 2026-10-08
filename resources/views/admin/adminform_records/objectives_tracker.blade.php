@@ -1,18 +1,23 @@
-@extends('dashboard.layouts.app')
+@extends('admin.dashboard.layouts.app')
 
 @section('content')
-<div class="am-content">
+@php
+    // whose objectives these are; every form has to say so, because the
+    // controller takes the owner from the request when an admin is signed in
+    $ownerId = $ownerId ?? request()->route('userid');
+@endphp
+
+<div class="kt-content kt-grid__item kt-grid__item--fluid" id="kt_content" style="padding:26px;">
 
     <div class="am-page-header">
-        <div style="display:flex;align-items:center;gap:12px;">
-            <button type="button" class="am-page-guide-btn"
-                onclick="document.getElementById('amPageGuide').classList.add('open')"
-                title="About Objectives Tracker" aria-label="About Objectives Tracker">
-                <i class="fa fa-info-circle"></i>
-            </button>
-            <div>
-                <h2>Objectives Tracker</h2>
-            </div>
+        <div>
+            <h2>Objectives Tracker</h2>
+            <p>Measurable objectives for Quality, Environment and Health &amp; Safety, and how they are progressing.</p>
+        </div>
+        <div>
+            <a href="{{ url('/edit_user/'.$ownerId) }}" class="am-btn am-btn-outline">
+                <i class="fa fa-arrow-left"></i> Back to Forms
+            </a>
         </div>
     </div>
 
@@ -24,7 +29,7 @@
 
     <div class="am-card" style="margin-bottom:16px;">
         <div class="am-card__toolbar">
-            <form method="GET" action="{{ url('/objectives_tracker') }}" class="am-search" id="amObjSearchForm" style="flex:1;max-width:340px;margin:0;">
+            <form method="GET" action="{{ url('/objectivesCheck/' . $ownerId) }}" class="am-search" id="amObjSearchForm" style="flex:1;max-width:340px;margin:0;">
                 <i class="fa fa-search"></i>
                 <input type="text" name="q" id="amObjSearch" value="{{ $search ?? '' }}" placeholder="Search objectives…" autocomplete="off">
             </form>
@@ -36,6 +41,7 @@
         <div class="am-inline-form" id="newObjForm" style="margin:16px 20px;">
             <form action="{{ route('objective.store') }}" method="POST">
                 @csrf
+                <input type="hidden" name="user_id" value="{{ $ownerId }}">
                 <div class="form-row">
                     <div style="grid-column:1/-1;"><label>Objective *</label><input type="text" name="objective" placeholder="Reduce general waste sent to landfill by 15%" required></div>
                 </div>
@@ -104,40 +110,6 @@
     </div>
 </div>
 
-{{-- Page guide --}}
-<div class="am-modal" id="amPageGuide" role="dialog" aria-modal="true">
-    <div class="am-modal__box" style="max-width:600px;">
-        <div class="am-modal__header">
-            <span class="am-modal__icon am-page-guide-icon"><i class="fa fa-info-circle"></i></span>
-            <div>
-                <div style="font-size:11px;text-transform:uppercase;letter-spacing:0.4px;color:var(--am-text-muted);font-weight:600;">Forms &amp; Records</div>
-                <h4 class="am-modal__title" style="color:var(--am-primary);">Objectives Tracker</h4>
-            </div>
-        </div>
-        <div class="am-modal__body" style="color:var(--am-text);">
-            <h5 style="font-size:13px;font-weight:600;color:var(--am-primary);margin:0 0 6px;">What is it?</h5>
-            <p style="margin:0 0 16px;">The page where you record your measurable objectives for Quality (ISO 9001), Environment (ISO 14001) and Health &amp; Safety (ISO 45001), and track how you are getting on with them during the year.</p>
-
-            <h5 style="font-size:13px;font-weight:600;color:var(--am-primary);margin:0 0 6px;">Why does it matter?</h5>
-            <p style="margin:0 0 16px;">Objectives are agreed at the Management Review, but they need to be tracked between reviews. Recording progress regularly shows whether each objective is on target, behind or achieved. An auditor can ask for current progress at any time, and the progress history on this page is the evidence.</p>
-
-            <h5 style="font-size:13px;font-weight:600;color:var(--am-primary);margin:0 0 6px;">Basic steps</h5>
-            <ul style="margin:0;padding-inline-start:18px;list-style:disc;color:var(--am-text);font-size:13.5px;line-height:1.5;">
-                <li style="margin-bottom:6px;">Click Add Objective and choose the objective to improve.</li>
-                <li style="margin-bottom:6px;">Write the objective so it can be measured. "Improve safety" is not measurable; "Zero lost-time accidents in 2026" is.</li>
-                <li style="margin-bottom:6px;">Enter how it is measured, the starting point and the target, so you can show improvement.</li>
-                <li style="margin-bottom:6px;">Add what will be done, the owner, the deadline, and the Management Review where it was agreed.</li>
-                <li style="margin-bottom:6px;">Update progress at least every 3 months. Attach evidence such as figures, reports, photos or videos.</li>
-                <li style="margin-bottom:6px;">Keep the status current: Not started, On track, At risk, Achieved or Not achieved.</li>
-                <li>Review every objective at the next Management Review, then agree new ones for the year ahead.</li>
-            </ul>
-        </div>
-        <div class="am-modal__footer">
-            <button type="button" class="am-btn am-btn-outline am-modal-close">Close</button>
-        </div>
-    </div>
-</div>
-
 {{-- View modal --}}
 <div class="am-modal" id="viewObjModal" role="dialog" aria-modal="true">
     <div class="am-modal__box" style="max-width:760px;">
@@ -170,6 +142,7 @@
         </div>
         <form action="{{ route('objective.update') }}" method="POST" style="display:contents;">
             @csrf
+            <input type="hidden" name="user_id" value="{{ $ownerId }}">
             <input type="hidden" name="id" id="eobj-id">
             <div class="am-modal__body" style="padding:20px;">
                 <div class="form-group row">
@@ -233,6 +206,7 @@
         </div>
         <form action="{{ route('objective.progress') }}" method="POST" enctype="multipart/form-data" style="display:contents;">
             @csrf
+            <input type="hidden" name="user_id" value="{{ $ownerId }}">
             <input type="hidden" name="objective_id" id="pobj-id">
             <div class="am-modal__body" style="padding:20px;">
                 <div class="form-group row">
@@ -279,6 +253,7 @@
             <button type="button" class="am-btn am-btn-outline am-modal-close">Cancel</button>
             <form action="{{ route('objective.destroy') }}" method="POST" style="display:inline;">
                 @csrf
+                <input type="hidden" name="user_id" value="{{ $ownerId }}">
                 <input type="hidden" name="id" id="dobj-id">
                 <button type="submit" class="am-btn am-btn-danger"><i class="fa fa-trash"></i> Delete</button>
             </form>
@@ -313,7 +288,7 @@ document.addEventListener('DOMContentLoaded', function () {
     var form      = document.getElementById('amObjSearchForm');
     var container = document.getElementById('amObjContainer');
     if (!container) return;
-    var baseUrl = '{{ url('/objectives_tracker') }}';
+    var baseUrl = '{{ url('/objectivesCheck/' . $ownerId) }}';
     var status  = '{{ $status ?? '' }}';
 
     function debounce(fn, wait) { var t; return function () { var c = this, a = arguments; clearTimeout(t); t = setTimeout(function () { fn.apply(c, a); }, wait); }; }

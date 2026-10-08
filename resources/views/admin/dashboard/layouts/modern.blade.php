@@ -13,7 +13,7 @@
     <link href="{{ asset('assets/vendors/custom/vendors/fontawesome5/css/all.min.css') }}" rel="stylesheet" type="text/css">
     <link href="{{ asset('assets/vendors/custom/vendors/line-awesome/css/line-awesome.css') }}" rel="stylesheet" type="text/css">
 
-    <link href="{{ asset('css/admin-modern-layout.css') }}" rel="stylesheet" type="text/css">
+    <link href="{{ asset('css/admin-modern-layout.css') }}?v={{ filemtime(public_path('css/admin-modern-layout.css')) }}" rel="stylesheet" type="text/css">
     @yield('styles')
 </head>
 <body class="am-body">

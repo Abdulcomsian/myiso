@@ -906,7 +906,7 @@ public function store(Request $request)
 
     public function AuditsCheck(Request $request, $userid){
         $search = trim($request->query('q', ''));
-        $query = Qmsaudit::where('user_id',$userid)->orderBy('id','DESC');
+        $query = Qmsaudit::with('answers')->where('user_id',$userid)->orderBy('id','DESC');
         if ($search !== '') {
             $query->where(function($q) use ($search){
                 $q->where('auditrName','like',"%{$search}%")

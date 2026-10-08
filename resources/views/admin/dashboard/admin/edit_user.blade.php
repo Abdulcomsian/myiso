@@ -19,6 +19,7 @@
         ['title' => 'Calibration',             'url' => '/calibrationcheck/'.$userId,    'icon' => 'fa-tachometer-alt',         'group' => 'Operations'],
         ['title' => 'Employees',               'url' => '/EmployeCheck/'.$userId,        'icon' => 'fa-id-badge',      'group' => 'HR'],
         ['title' => 'Management Reviews',      'url' => '/managementCheck/'.$userId,     'icon' => 'fa-chart-line',    'group' => 'Management'],
+        ['title' => 'Objectives Tracker',      'url' => '/objectivesCheck/'.$userId,     'icon' => 'fa-bullseye',      'group' => 'Management'],
         ['title' => 'Maintenance Records',     'url' => '/maintainRecCheck/'.$userId,    'icon' => 'fa-wrench',        'group' => 'Operations'],
         ['title' => 'Accident Risk Assessments','url' => '/AccidentCheck/'.$userId,      'icon' => 'fa-first-aid',      'group' => 'Safety'],
         ['title' => 'Risk Assessments',        'url' => '/riskAssesmntCheck/'.$userId,   'icon' => 'fa-user-shield',   'group' => 'Safety'],

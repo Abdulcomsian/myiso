@@ -21,7 +21,29 @@ class ObjectiveController extends Controller
 
     public function index(Request $request)
     {
-        $userId = Auth::user()->id;
+        $data = $this->listFor(Auth::user()->id, $request);
+
+        if ($request->ajax()) {
+            return view('dashboard.form_records.partials.objectives_table', $data);
+        }
+        return view('dashboard.form_records.objectives_tracker', $data);
+    }
+
+    /** the same list, for the user an admin is looking after */
+    public function adminIndex(Request $request, $userid)
+    {
+        $data = $this->listFor(intval($userid), $request);
+        $data['ownerId'] = intval($userid);
+
+        if ($request->ajax()) {
+            return view('dashboard.form_records.partials.objectives_table', $data);
+        }
+        return view('admin.adminform_records.objectives_tracker', $data);
+    }
+
+    /** everything a list page needs for one user: rows, filters and the dropdowns */
+    private function listFor($userId, Request $request)
+    {
         $search = trim((string) $request->input('q', ''));
         $status = (string) $request->input('status', '');
 
@@ -59,12 +81,7 @@ class ObjectiveController extends Controller
         $employees = Employee::where('user_id', $userId)->orderBy('first_name')->get();
         $reviews   = Mgtreview::where('user_id', $userId)->orderByDesc('reviewdate')->get();
 
-        $data = compact('objectives', 'latest', 'counts', 'employees', 'reviews', 'search', 'status');
-
-        if ($request->ajax()) {
-            return view('dashboard.form_records.partials.objectives_table', $data);
-        }
-        return view('dashboard.form_records.objectives_tracker', $data);
+        return compact('objectives', 'latest', 'counts', 'employees', 'reviews', 'search', 'status');
     }
 
     public function store(Request $request)

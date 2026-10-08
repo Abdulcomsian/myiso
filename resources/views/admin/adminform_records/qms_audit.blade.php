@@ -4,39 +4,9 @@
 @php
 $urlparam = request()->route()->parameters;
 
-// Full ISO 9001:2015 audit checklist mapping:
-// [radio_field, evidence_field (or null), clause_no, label]
-$qmsChecklist = [
-    ['qmsCorects',       'evidence',    '4.1',  'Understanding the organization and its context'],
-    ['needExpactations', 'evidance2',   '4.2',  'Interested parties requirements and expectations'],
-    ['correction3',      'evidence3',   '4.3',  'Scope of the quality management system'],
-    ['correction4',      'evidance4',   '4.4',  'Quality management system and its procedures'],
-    ['correction5',      'evidence5',   '5.1',  'Leadership and commitment'],
-    ['correction6',      'evidance7',   '5.2',  'Policy (Quality Policy)'],
-    ['correction7',      'evidance7_1', '5.3',  'Organizational roles, responsibilities & authorities'],
-    ['correction8',      'evidance8',   '6.1',  'Actions to address risks and opportunities'],
-    ['correction9',      'evidance10',  '6.2',  'Quality objectives and planning'],
-    ['correction11',     'evidance12',  '6.3',  'Planning of changes'],
-    ['correction12',     'evidence13',  '7.1',  'Resources (people, infrastructure, environment)'],
-    ['correction13',     'evidance14',  '7.2',  'Competence (training records)'],
-    ['correction14',     null,          '7.3',  'Awareness'],
-    ['correction15',     'evidence15',  '7.4',  'Communication'],
-    ['correction16',     null,          '7.5',  'Documented information'],
-    ['correciton17',     null,          '8.1',  'Planning and managing operations'],
-    ['correction18',     'evidence19',  '8.2',  'Requirements for products and services'],
-    ['correction19',     'evidence20',  '8.3',  'Design and development'],
-    ['correction20',     'evidence21',  '8.4',  'Control of externally-provided processes/products'],
-    ['correction21',     null,          '8.5',  'Production and service provision'],
-    ['correction22',     'evidence23',  '8.6',  'Release of products and services'],
-    ['correction23',     null,          '8.7',  'Control of nonconforming outputs'],
-    ['correction24',     'evidence25',  '9.1',  'Monitoring, measurement, analysis & evaluation'],
-    ['correction25',     'evidence26',  '9.1.2','Customer satisfaction'],
-    ['correction26',     'evidence27',  '9.2',  'Internal audit'],
-    ['correction27',     'evidence28',  '9.3',  'Management review'],
-    ['correction28',     'evidence29',  '10.1', 'Improvement'],
-    ['correction30',     'evidence30',  '10.2', 'Nonconformity and corrective action'],
-    ['correction29',     'evidence31',  '10.3', 'Continual improvement'],
-];
+// The 17 questions the audit asks, same source the user side reads, so the
+// two can never drift apart.
+$qmsQuestions = App\QmsAuditQuestions::all();
 @endphp
 
 <div class="kt-content kt-grid__item kt-grid__item--fluid" id="kt_content" style="padding:26px;">
@@ -87,41 +57,22 @@ $qmsChecklist = [
                 <div class="form-row">
                     <div><label>Auditor Name</label><input type="text" name="auditrName" required></div>
                     <div><label>Date Completed</label><input type="date" max="2999-12-31" name="competedDate" required></div>
-                    <div><label>Attach Evidence</label><input name="attach_evidence" type="file" accept="image/*,.doc,.docx,.txt,.pdf"></div>
-                </div>
-                <div class="form-row">
-                    <div style="grid-column:1/-1;"><label>Audit Comments &amp; Actions</label><textarea name="audit_comments_actions" rows="2" required></textarea></div>
-                </div>
-                <div class="form-row">
-                    <div style="grid-column:1/-1;"><label>Any Other Issues</label><input type="text" name="any_issues" placeholder="Notes"></div>
                 </div>
 
-                <div style="border-top:1px solid var(--am-border);padding-top:14px;margin-top:6px;">
-                    <div style="font-size:11px;text-transform:uppercase;letter-spacing:0.4px;color:var(--am-text-muted);font-weight:600;margin-bottom:10px;">ISO 9001:2015 Clause Checklist</div>
-                    @foreach($qmsChecklist as $qmsRow)
-                        @php
-                            $radioName = $qmsRow[0];
-                            $evidenceName = $qmsRow[1];
-                            $clause = $qmsRow[2];
-                            $label = $qmsRow[3];
-                        @endphp
-                        <div class="form-row" style="margin-bottom:8px;">
-                            <div style="grid-column:span 3;">
-                                <label><strong style="color:var(--am-primary);">{{ $clause }}</strong> — {{ $label }}</label>
-                                <div style="display:flex;gap:12px;font-size:13px;padding:6px 0;">
-                                    <label style="display:inline-flex;gap:4px;align-items:center;"><input type="radio" value="Yes" required name="{{ $radioName }}"> Yes</label>
-                                    <label style="display:inline-flex;gap:4px;align-items:center;"><input type="radio" value="No" required name="{{ $radioName }}"> No</label>
-                                    <label style="display:inline-flex;gap:4px;align-items:center;"><input type="radio" value="NA" required name="{{ $radioName }}"> N/A</label>
-                                </div>
-                            </div>
-                            @if ($evidenceName)
-                                <div style="grid-column:span 3;">
-                                    <label>Evidence</label>
-                                    <input type="text" name="{{ $evidenceName }}" placeholder="Evidence notes">
-                                </div>
-                            @endif
-                        </div>
+                <div style="padding-top:4px;">
+                    @foreach ($qmsQuestions as $q)
+                        @include('dashboard.form_records.partials.qms_question_card', [
+                            'q' => $q,
+                            'style' => $q['no'] === 1 ? 'inline' : ($q['no'] === 2 ? 'modal' : null),
+                            'answers' => [],
+                            'notes' => [],
+                        ])
                     @endforeach
+                </div>
+
+                <div class="form-row">
+                    <div><label>Audit Comments &amp; Actions</label><textarea name="audit_comments_actions" rows="3" required placeholder="Summary of what you found, what will be fixed, who by and when."></textarea></div>
+                    <div><label>Any Other Issues</label><textarea name="any_issues" rows="3" placeholder="Anything outside the checklist worth raising at the next Management Review."></textarea></div>
                 </div>
 
                 <div class="form-actions">
@@ -138,6 +89,31 @@ $qmsChecklist = [
         </div>
     </div>
 </div>
+
+{{-- The overlay form of the "what to check" panels, written once at page
+     level - a modal inside another modal's body would not overlay properly.
+     Only the questions set to open this way get one. --}}
+@foreach ($qmsQuestions as $q)
+    @if ($q['no'] === 2)
+        <div class="am-modal" id="qmsQ{{ $q['no'] }}" role="dialog" aria-modal="true">
+            <div class="am-modal__box" style="max-width:900px;">
+                <div class="am-modal__header">
+                    <span class="am-modal__icon am-page-guide-icon"><i class="fa fa-info-circle"></i></span>
+                    <div>
+                        <div style="font-size:11px;text-transform:uppercase;letter-spacing:0.4px;color:var(--am-text-muted);font-weight:600;">Question {{ $q['no'] }}</div>
+                        <h4 class="am-modal__title" style="color:var(--am-primary);">{{ $q['title'] }}</h4>
+                    </div>
+                </div>
+                <div class="am-modal__body">
+                    @include('dashboard.form_records.partials.qms_question_panels', ['q' => $q])
+                </div>
+                <div class="am-modal__footer">
+                    <button type="button" class="am-btn am-btn-outline am-modal-close">Close</button>
+                </div>
+            </div>
+        </div>
+    @endif
+@endforeach
 
 {{-- Delete Confirmation Modal --}}
 <div class="am-modal" id="amConfirmDelete" role="dialog" aria-modal="true">
@@ -178,7 +154,7 @@ $qmsChecklist = [
                 <div style="grid-column:1/-1;"><div style="font-size:11px;text-transform:uppercase;letter-spacing:0.4px;color:var(--am-text-muted);font-weight:600;margin-bottom:4px;">Any Other Issues</div><div id="vqms-issues">—</div></div>
             </div>
             <div style="border-top:1px solid var(--am-border);padding-top:14px;">
-                <div style="font-size:11px;text-transform:uppercase;letter-spacing:0.4px;color:var(--am-text-muted);font-weight:600;margin-bottom:10px;">Clause Answers</div>
+                <div style="font-size:11px;text-transform:uppercase;letter-spacing:0.4px;color:var(--am-text-muted);font-weight:600;margin-bottom:10px;">Answers</div>
                 <div id="vqms-checklist" style="display:grid;grid-template-columns:1fr;gap:8px;font-size:13px;"></div>
             </div>
         </div>
@@ -202,35 +178,20 @@ $qmsChecklist = [
                     <div class="col-lg-6"><label>Auditor Name</label><input type="text" class="form-control" name="auditrName" required></div>
                     <div class="col-lg-6"><label>Date Completed</label><input type="date" class="form-control" name="competedDate" required></div>
                 </div>
-                <div class="form-group row">
-                    <div class="col-lg-12"><label>Audit Comments &amp; Actions</label><textarea class="form-control" name="audit_comments_actions" rows="2"></textarea></div>
-                </div>
-                <div class="form-group row">
-                    <div class="col-lg-8"><label>Any Other Issues</label><input type="text" class="form-control" name="any_issues"></div>
-                    <div class="col-lg-4"><label>Attach Evidence</label><input name="attach_evidence" type="file" class="form-control"></div>
-                </div>
 
-                @foreach($qmsChecklist as $qmsRow)
-                    @php
-                        $radioName = $qmsRow[0];
-                        $evidenceName = $qmsRow[1];
-                        $clause = $qmsRow[2];
-                        $label = $qmsRow[3];
-                    @endphp
-                    <div class="form-group row">
-                        <div class="col-lg-6">
-                            <label><strong style="color:var(--am-primary);">{{ $clause }}</strong> — {{ Str::limit($label, 60) }}</label>
-                            <div style="display:flex;gap:12px;font-size:13px;padding:6px 0;">
-                                <label style="display:inline-flex;gap:4px;align-items:center;"><input type="radio" value="Yes" name="{{ $radioName }}"> Yes</label>
-                                <label style="display:inline-flex;gap:4px;align-items:center;"><input type="radio" value="No" name="{{ $radioName }}"> No</label>
-                                <label style="display:inline-flex;gap:4px;align-items:center;"><input type="radio" value="NA" name="{{ $radioName }}"> N/A</label>
-                            </div>
-                        </div>
-                        @if ($evidenceName)
-                            <div class="col-lg-6"><label>Evidence</label><input type="text" class="form-control" name="{{ $evidenceName }}"></div>
-                        @endif
-                    </div>
+                @foreach ($qmsQuestions as $q)
+                    @include('dashboard.form_records.partials.qms_question_card', [
+                        'q' => $q,
+                        'style' => $q['no'] === 1 ? 'inline' : ($q['no'] === 2 ? 'modal' : null),
+                        'answers' => [],
+                        'notes' => [],
+                    ])
                 @endforeach
+
+                <div class="form-group row">
+                    <div class="col-lg-6"><label>Audit Comments &amp; Actions</label><textarea class="form-control" name="audit_comments_actions" rows="3" required></textarea></div>
+                    <div class="col-lg-6"><label>Any Other Issues</label><textarea class="form-control" name="any_issues" rows="3"></textarea></div>
+                </div>
             </div>
             <div class="am-modal__footer">
                 <button type="button" class="am-btn am-btn-outline am-modal-close">Cancel</button>
@@ -241,6 +202,25 @@ $qmsChecklist = [
 </div>
 
 <script>
+// The "what to check" panels. Question 1 opens them in place, question 2
+// lifts them into an overlay - the two styles the client is choosing
+// between. The inline one finds its panel by walking up to its question,
+// because the form is rendered twice and an id would not be unique.
+document.addEventListener('click', function (e) {
+    var btn = e.target.closest('.qms-guide-toggle');
+    if (!btn) return;
+    var modalId = btn.getAttribute('data-qms-modal');
+    if (modalId) {
+        var dlg = document.getElementById(modalId);
+        if (dlg) dlg.classList.add('open');
+        return;
+    }
+    var card = btn.closest('[data-qms-q]');
+    var pnl = card && card.querySelector('.qms-guide');
+    if (!pnl) return;
+    var open = pnl.classList.toggle('is-open');
+    btn.classList.toggle('is-open', open);
+});
 document.addEventListener('click', function(e) {
     var close = e.target.closest('.am-modal-close');
     if (close) { var m = close.closest('.am-modal'); if (m) m.classList.remove('open'); return; }
@@ -293,12 +273,22 @@ document.addEventListener('click', function(e) {
     });
 })();
 
-<?php
-    $qmsChecklistJs = collect($qmsChecklist)->map(function($c){
-        return ['radio' => $c[0], 'evidence' => $c[1], 'clause' => $c[2], 'label' => $c[3]];
-    })->values();
-?>
-var qmsChecklist = {!! json_encode($qmsChecklistJs) !!};
+// the questions, so the scripts can label an answer without repeating them
+var qmsQuestions = {!! json_encode(collect($qmsQuestions)->map(function ($q) {
+    return ['no' => $q['no'], 'title' => $q['title'], 'na' => (bool) $q['tick_na']];
+})->values()) !!};
+
+// an audit carries its answers with it; key them by question for lookup
+function amQmsEsc(s) {
+    return String(s == null ? '' : s).replace(/[<>&]/g, function (c) {
+        return { '<': '&lt;', '>': '&gt;', '&': '&amp;' }[c];
+    });
+}
+function qmsAnswersOf(d) {
+    var by = {};
+    (d.answers || []).forEach(function (a) { by[a.question_no] = a; });
+    return by;
+}
 
 function amQmsView(d){
     document.getElementById('vqms-auditor').textContent = d.auditrName||'—';
@@ -309,25 +299,38 @@ function amQmsView(d){
     if (d.attach_evidence) { ev.innerHTML = '<a href="'+d.attach_evidence+'" target="_blank" style="color:var(--am-primary);"><i class="fa fa-external-link-alt"></i> View</a>'; } else ev.textContent='—';
     var chk = document.getElementById('vqms-checklist');
     chk.innerHTML = '';
-    qmsChecklist.forEach(function(f){
+    var byNo = qmsAnswersOf(d);
+    qmsQuestions.forEach(function (q) {
+        var a = byNo[q.no] || {};
+        var answer = a.answer || '—';
+        var cls = answer === 'Yes' ? 'success' : (answer === 'No' ? 'danger' : 'info');
+        var note = a.note ? '<div style="font-size:12px;color:var(--am-text-muted);margin-top:2px;">' + amQmsEsc(a.note) + '</div>' : '';
+        var file = a.evidence_file
+            ? ' <a href="{{ asset('qms_evidence') }}/' + encodeURIComponent(a.evidence_file) + '" target="_blank">file</a>'
+            : '';
         var row = document.createElement('div');
-        var answer = d[f.radio] || '—';
-        var badgeCls = answer === 'Yes' ? 'success' : (answer === 'No' ? 'danger' : 'info');
-        var ev = f.evidence && d[f.evidence] ? '<div style="font-size:12px;color:var(--am-text-muted);margin-top:2px;padding-left:12px;">Evidence: ' + d[f.evidence] + '</div>' : '';
-        row.innerHTML = '<div style="display:flex;gap:10px;align-items:center;padding:6px 10px;background:var(--am-hover);border-radius:6px;"><strong style="color:var(--am-primary);min-width:44px;">' + f.clause + '</strong><div style="flex:1;">' + f.label + '</div><span class="am-chip ' + badgeCls + '">' + answer + '</span></div>' + ev;
+        row.innerHTML = '<div style="display:flex;gap:10px;align-items:flex-start;padding:6px 10px;background:var(--am-hover);border-radius:var(--am-radius-sm);margin-bottom:6px;">'
+            + '<span class="am-chip ' + cls + '" style="flex-shrink:0;">' + answer + '</span>'
+            + '<div><strong>' + q.no + '.</strong> ' + amQmsEsc(q.title) + note + file + '</div></div>';
         chk.appendChild(row);
     });
     document.getElementById('editProcessAudit').classList.add('open');
 }
 function amQmsEdit(d){
-    $("#eqms-id").val(d.QmsauditNumber);
-    ['auditrName','competedDate','audit_comments_actions','any_issues'].forEach(function(k){ $("#geteditdetails input[name='"+k+"'], #geteditdetails textarea[name='"+k+"']").val(d[k]||''); });
-    qmsChecklist.forEach(function(f){
-        $("#geteditdetails input[name='"+f.radio+"']").prop('checked', false);
-        if (d[f.radio]) $("#geteditdetails input[name='"+f.radio+"'][value='"+d[f.radio]+"']").prop('checked', true);
-        if (f.evidence) $("#geteditdetails input[name='"+f.evidence+"']").val(d[f.evidence]||'');
+    document.getElementById('eqms-id').value = d.id || '';
+    var m = document.getElementById('geteditdetails');
+    ['auditrName','competedDate','audit_comments_actions','any_issues'].forEach(function(k){
+        var el = m.querySelector("input[name='"+k+"'], textarea[name='"+k+"']");
+        if (el) el.value = d[k] || '';
     });
-    document.getElementById('geteditdetails').classList.add('open');
+    var byNo = qmsAnswersOf(d);
+    qmsQuestions.forEach(function (q) {
+        var a = byNo[q.no] || {};
+        m.querySelectorAll("input[name='q[" + q.no + "]']").forEach(function (r) {
+            r.checked = (a.answer === r.value);
+        });
+    });
+    m.classList.add('open');
 }
 </script>
 

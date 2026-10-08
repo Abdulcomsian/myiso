@@ -58,10 +58,7 @@ Route::group(['middleware' => ['auth','usermiddle']], function ()
     Route::get('/work_instruction', 'WorkInstructionController@index');
     // Objectives Tracker
     Route::get('/objectives_tracker', 'ObjectiveController@index')->name('objectives_tracker');
-    Route::post('/objectives_tracker', 'ObjectiveController@store')->name('objective.store');
-    Route::post('/objective_update', 'ObjectiveController@update')->name('objective.update');
-    Route::post('/objective_progress', 'ObjectiveController@storeProgress')->name('objective.progress');
-    Route::post('/objective_delete', 'ObjectiveController@destroy')->name('objective.destroy');
+    // the writes live in the shared group below, so an admin can use them too
     Route::view('/userprofile','dashboard.procedure.userprofile')->name('userprofile');
     Route::view('/customer', 'dashboard.customer.index');
     Route::get('/requirements_aspect','RequiremntController@index');
@@ -248,6 +245,7 @@ Route::group(['middleware' => ['auth','admin']], function ()
     Route::get('/AccidentCheck/{userid}', 'AddUsersController@AccidentCheck');
     Route::get('/riskAssesmntCheck/{userid}', 'AddUsersController@riskAssesmntCheck');
     Route::get('/workinstructionCheck/{userid}', 'AddUsersController@workinstructionCheck');
+    Route::get('/objectivesCheck/{userid}', 'ObjectiveController@adminIndex')->name('objectives.admin');
     Route::get('/additionalpolicies/{userid}', 'AddUsersController@additionalpolicies');
 
     // Login_History show 
@@ -268,6 +266,13 @@ Route::group(['middleware' => ['auth','admin']], function ()
 
 Route::group(['middleware' => ['auth']], function () 
 {
+
+    // Objectives Tracker writes: the user does these on their own page, the
+    // admin on the user's page, so they sit where both can reach them
+    Route::post('/objectives_tracker', 'ObjectiveController@store')->name('objective.store');
+    Route::post('/objective_update', 'ObjectiveController@update')->name('objective.update');
+    Route::post('/objective_progress', 'ObjectiveController@storeProgress')->name('objective.progress');
+    Route::post('/objective_delete', 'ObjectiveController@destroy')->name('objective.destroy');
 
     Route::post('/deletecaliberinfo', 'AddUsersController@deletecaliberinfo')->name('deletecaliberinfo')->middleware(['auth']);
     Route::get('/ajax/products', 'ProductController@fetchAllProducts')->name('ajax-products');

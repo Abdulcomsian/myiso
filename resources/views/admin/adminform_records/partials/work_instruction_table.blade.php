@@ -9,6 +9,7 @@
                 <th>Compiled By</th>
                 <th>Issue Date</th>
                 <th>Revision</th>
+                <th>Frequency</th>
                 <th style="text-align:right;">Actions</th>
             </tr>
         </thead>
@@ -22,6 +23,7 @@
                     <td>{{ $data->CompiledBy ?? '—' }}</td>
                     <td><span class="am-chip info">{{ date('d M Y', strtotime($data->issueDate)) }}</span></td>
                     <td>{{ $data->revisionstatus }}</td>
+                    <td>{{ $data->frequencyLabel() }}</td>
                     <td style="text-align:right;white-space:nowrap;">
                         <div class="am-actions">
                             <button type="button" class="am-icon-btn" title="View" onclick='amWiView(@json($data))'><i class="fa fa-eye"></i></button>
