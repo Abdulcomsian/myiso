@@ -368,7 +368,7 @@ body.am-body {
     transition: max-height 0.28s ease, opacity 0.22s ease, margin 0.28s ease, visibility 0s linear 0.28s;
 }
 .qms-guide.is-open {
-    max-height: 520px;
+    max-height: 1200px;
     opacity: 1;
     margin-top: 10px;
     /* the answers need room to breathe once the panels are between them */
@@ -449,6 +449,8 @@ body.am-body {
     outline-offset: 2px;
 }
 .qms-question__evidence label { display: block; }
+/* the answer in the auditors own words, then the file that proves it */
+.qms-question__evidence textarea { min-height: 72px; margin-bottom: 8px; }
 
 /* the two panels */
 .qms-panels { display: grid; grid-template-columns: 1.6fr 1fr; gap: 16px; align-items: start; }

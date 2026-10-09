@@ -63,7 +63,6 @@ $qmsQuestions = App\QmsAuditQuestions::all();
                     @foreach ($qmsQuestions as $q)
                         @include('dashboard.form_records.partials.qms_question_card', [
                             'q' => $q,
-                            'style' => $q['no'] === 1 ? 'inline' : ($q['no'] === 2 ? 'modal' : null),
                             'answers' => [],
                             'notes' => [],
                         ])
@@ -90,30 +89,6 @@ $qmsQuestions = App\QmsAuditQuestions::all();
     </div>
 </div>
 
-{{-- The overlay form of the "what to check" panels, written once at page
-     level - a modal inside another modal's body would not overlay properly.
-     Only the questions set to open this way get one. --}}
-@foreach ($qmsQuestions as $q)
-    @if ($q['no'] === 2)
-        <div class="am-modal" id="qmsQ{{ $q['no'] }}" role="dialog" aria-modal="true">
-            <div class="am-modal__box" style="max-width:900px;">
-                <div class="am-modal__header">
-                    <span class="am-modal__icon am-page-guide-icon"><i class="fa fa-info-circle"></i></span>
-                    <div>
-                        <div style="font-size:11px;text-transform:uppercase;letter-spacing:0.4px;color:var(--am-text-muted);font-weight:600;">Question {{ $q['no'] }}</div>
-                        <h4 class="am-modal__title" style="color:var(--am-primary);">{{ $q['title'] }}</h4>
-                    </div>
-                </div>
-                <div class="am-modal__body">
-                    @include('dashboard.form_records.partials.qms_question_panels', ['q' => $q])
-                </div>
-                <div class="am-modal__footer">
-                    <button type="button" class="am-btn am-btn-outline am-modal-close">Close</button>
-                </div>
-            </div>
-        </div>
-    @endif
-@endforeach
 
 {{-- Delete Confirmation Modal --}}
 <div class="am-modal" id="amConfirmDelete" role="dialog" aria-modal="true">
@@ -182,7 +157,6 @@ $qmsQuestions = App\QmsAuditQuestions::all();
                 @foreach ($qmsQuestions as $q)
                     @include('dashboard.form_records.partials.qms_question_card', [
                         'q' => $q,
-                        'style' => $q['no'] === 1 ? 'inline' : ($q['no'] === 2 ? 'modal' : null),
                         'answers' => [],
                         'notes' => [],
                     ])
@@ -202,19 +176,12 @@ $qmsQuestions = App\QmsAuditQuestions::all();
 </div>
 
 <script>
-// The "what to check" panels. Question 1 opens them in place, question 2
-// lifts them into an overlay - the two styles the client is choosing
-// between. The inline one finds its panel by walking up to its question,
-// because the form is rendered twice and an id would not be unique.
+// The "what to check" panels. Every question opens its own in place; the
+// panel is found by walking up to the question rather than by id, because
+// the form is rendered twice and an id would not be unique.
 document.addEventListener('click', function (e) {
     var btn = e.target.closest('.qms-guide-toggle');
     if (!btn) return;
-    var modalId = btn.getAttribute('data-qms-modal');
-    if (modalId) {
-        var dlg = document.getElementById(modalId);
-        if (dlg) dlg.classList.add('open');
-        return;
-    }
     var card = btn.closest('[data-qms-q]');
     var pnl = card && card.querySelector('.qms-guide');
     if (!pnl) return;
@@ -329,6 +296,8 @@ function amQmsEdit(d){
         m.querySelectorAll("input[name='q[" + q.no + "]']").forEach(function (r) {
             r.checked = (a.answer === r.value);
         });
+        var note = m.querySelector("textarea[name='qnote[" + q.no + "]']");
+        if (note) note.value = a.note || '';
     });
     m.classList.add('open');
 }
