@@ -10,9 +10,15 @@
 <div class="kt-content kt-grid__item kt-grid__item--fluid" id="kt_content" style="padding:26px;">
 
     <div class="am-page-header">
-        <div>
-            <h2>Objectives Tracker</h2>
-            <p>Measurable objectives for Quality, Environment and Health &amp; Safety, and how they are progressing.</p>
+        <div style="display:flex;align-items:center;gap:12px;">
+            <button type="button" class="am-page-guide-btn"
+                onclick="document.getElementById('amPageGuide').classList.add('open')"
+                title="About Objectives Tracker" aria-label="About Objectives Tracker">
+                <i class="fa fa-info-circle"></i>
+            </button>
+            <div>
+                <h2>Objectives Tracker</h2>
+            </div>
         </div>
         <div>
             <a href="{{ url('/edit_user/'.$ownerId) }}" class="am-btn am-btn-outline">
@@ -383,4 +389,7 @@ function amObjDelete(id) {
     document.getElementById('amObjConfirmDelete').classList.add('open');
 }
 </script>
+{{-- The guide behind the "i" beside the title --}}
+@include('dashboard.form_records.partials.guides.objectives_tracker')
+
 @endsection

@@ -7,9 +7,15 @@
 
     {{-- Page header --}}
     <div class="am-page-header">
-        <div>
-            <h2>Maintenance Records</h2>
-            <p>Track periodic maintenance activities on equipment, tools, and facilities.</p>
+        <div style="display:flex;align-items:center;gap:12px;">
+            <button type="button" class="am-page-guide-btn"
+                onclick="document.getElementById('amPageGuide').classList.add('open')"
+                title="About Maintenance Records" aria-label="About Maintenance Records">
+                <i class="fa fa-info-circle"></i>
+            </button>
+            <div>
+                <h2>Maintenance Records</h2>
+            </div>
         </div>
         <div>
             <a href="{{ url('/edit_user/'.$urlparam['userid']) }}" class="am-btn am-btn-outline">
@@ -25,17 +31,6 @@
     @endif
 
     {{-- Info card --}}
-    <div class="am-card" style="padding:16px 20px;margin-bottom:16px;background:rgba(46,59,154,0.04);border:1px solid rgba(46,59,154,0.12);">
-        <div style="display:flex;gap:12px;align-items:flex-start;">
-            <span style="width:36px;height:36px;flex-shrink:0;border-radius:10px;background:var(--am-primary-tint);color:var(--am-primary);display:inline-flex;align-items:center;justify-content:center;font-size:15px;">
-                <i class="fa fa-info-circle"></i>
-            </span>
-            <div style="font-size:13px;color:var(--am-text);line-height:1.55;">
-                Carrying out frequent maintenance checks and repairs is necessary to maintain production and service.
-                Maintenance reviews should be carried out monthly, quarterly, semiannually, or annually depending on the size and nature of the business.
-            </div>
-        </div>
-    </div>
 
     {{-- Toolbar --}}
     <div class="am-card" style="margin-bottom:16px;">
@@ -289,4 +284,7 @@ function amMrEdit(d) {
     document.getElementById('amMrEditModal').classList.add('open');
 }
 </script>
+{{-- The guide behind the "i" beside the title --}}
+@include('dashboard.form_records.partials.guides.maintance_record')
+
 @endsection

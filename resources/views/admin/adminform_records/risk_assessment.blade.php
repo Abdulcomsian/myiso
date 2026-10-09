@@ -6,9 +6,15 @@
 <div class="kt-content kt-grid__item kt-grid__item--fluid" id="kt_content" style="padding:26px;">
 
     <div class="am-page-header">
-        <div>
-            <h2>Risk Assessments</h2>
-            <p>Evaluate contracts before acceptance — quality, delivery, price, and risk score.</p>
+        <div style="display:flex;align-items:center;gap:12px;">
+            <button type="button" class="am-page-guide-btn"
+                onclick="document.getElementById('amPageGuide').classList.add('open')"
+                title="About Risk Assessments" aria-label="About Risk Assessments">
+                <i class="fa fa-info-circle"></i>
+            </button>
+            <div>
+                <h2>Risk Assessments</h2>
+            </div>
         </div>
         <div>
             <a href="{{ url('/edit_user/'.$urlparam['userid']) }}" class="am-btn am-btn-outline">
@@ -22,15 +28,6 @@
             <i class="fa fa-check-circle"></i> {{ $message }}
         </div>
     @endif
-
-    <div class="am-card" style="padding:16px 20px;margin-bottom:16px;background:rgba(46,59,154,0.04);border:1px solid rgba(46,59,154,0.12);">
-        <div style="display:flex;gap:12px;align-items:flex-start;">
-            <span style="width:36px;height:36px;flex-shrink:0;border-radius:10px;background:var(--am-primary-tint);color:var(--am-primary);display:inline-flex;align-items:center;justify-content:center;font-size:15px;"><i class="fa fa-info-circle"></i></span>
-            <div style="font-size:13px;color:var(--am-text);line-height:1.55;">
-                Detail possible scenarios when accepting a contract, and compare risk and consequence of issues occurring.
-            </div>
-        </div>
-    </div>
 
     <div class="am-card" style="margin-bottom:16px;">
         <div class="am-card__toolbar">
@@ -329,5 +326,8 @@ function amRaEdit(d){
     document.getElementById('editModal').classList.add('open');
 }
 </script>
+
+{{-- The guide behind the "i" beside the title --}}
+@include('dashboard.form_records.partials.guides.risk_assessment')
 
 @endsection

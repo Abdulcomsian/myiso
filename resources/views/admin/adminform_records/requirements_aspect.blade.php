@@ -7,9 +7,14 @@
 
     {{-- Page header --}}
     <div class="am-page-header">
-        <div>
-            <h2>Requirements Due</h2>
-            <p>A compliance diary — track items that need periodic action (reviews, audits, calibrations).</p>
+        <div style="display:flex;align-items:center;gap:12px;">
+            <button type="button" class="am-page-guide-btn" onclick="openAmModal('amReqInfo')"
+                title="About Requirements Due" aria-label="About Requirements Due">
+                <i class="fa fa-info-circle"></i>
+            </button>
+            <div>
+                <h2>Requirements Due</h2>
+            </div>
         </div>
         <div>
             <a href="{{ url('/edit_user/'.$urlparam['userid']) }}" class="am-btn am-btn-outline">
@@ -26,17 +31,6 @@
     @endif
 
     {{-- Info card --}}
-    <div class="am-card" style="padding:16px 20px;margin-bottom:16px;background:rgba(46,59,154,0.04);border:1px solid rgba(46,59,154,0.12);">
-        <div style="display:flex;gap:12px;align-items:flex-start;">
-            <span style="width:36px;height:36px;flex-shrink:0;border-radius:10px;background:var(--am-primary-tint);color:var(--am-primary);display:inline-flex;align-items:center;justify-content:center;font-size:15px;">
-                <i class="fa fa-info-circle"></i>
-            </span>
-            <div style="font-size:13px;color:var(--am-text);line-height:1.55;">
-                Add items that need to be recalled on a regular basis, such as when management reviews are due, or calibration audits are required.
-                Click <strong>Add a Requirement</strong>, enter the information you'd like to be reminded of, and set the reminder date using the calendar.
-            </div>
-        </div>
-    </div>
 
     {{-- Toolbar + Add form --}}
     <div class="am-card" style="margin-bottom:16px;">
@@ -251,4 +245,7 @@
         });
     })();
 </script>
+{{-- The guide behind the "i" beside the title --}}
+@include('dashboard.form_records.partials.guides.requirements_aspect')
+
 @endsection

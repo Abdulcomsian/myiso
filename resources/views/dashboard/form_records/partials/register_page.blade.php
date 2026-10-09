@@ -30,24 +30,10 @@
     </div>
 @endif
 
-{{-- the user pages explain themselves through the guide popup; the admin
-     register still shows this banner --}}
-@if ($isAdmin)
-<div class="am-card am-register-info" style="padding:16px 20px;margin-bottom:16px;background:rgba(46,59,154,0.04);border:1px solid rgba(46,59,154,0.12);">
-    <div style="display:flex;gap:12px;align-items:flex-start;">
-        <span style="width:36px;height:36px;flex-shrink:0;border-radius:10px;background:var(--am-primary-tint);color:var(--am-primary);display:inline-flex;align-items:center;justify-content:center;font-size:15px;"><i class="fa fa-info-circle"></i></span>
-        <div style="font-size:13px;color:var(--am-text);line-height:1.55;">
-            <strong>{{ $module['info_title'] }}</strong>
-            <ul>
-                @foreach ($module['info_items'] as $item)
-                    <li>{{ $item }}</li>
-                @endforeach
-            </ul>
-            Click <strong>{{ $module['add_label'] }}</strong> to add a new record.
-        </div>
-    </div>
-</div>
-@endif
+{{-- Both sides explain themselves through the guide behind the "i" beside the
+     title now, so the banner that used to sit here on the admin pages is gone.
+     Everything it said - what belongs in this register, and what to click - is
+     in that guide. --}}
 
 <div class="am-card" style="margin-bottom:16px;">
     <div class="am-card__toolbar">

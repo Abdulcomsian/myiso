@@ -12,9 +12,15 @@ $qmsQuestions = App\QmsAuditQuestions::all();
 <div class="kt-content kt-grid__item kt-grid__item--fluid" id="kt_content" style="padding:26px;">
 
     <div class="am-page-header">
-        <div>
-            <h2>QMS Audits</h2>
-            <p>Annual horizontal audit against each clause of the ISO 9001:2015 standard.</p>
+        <div style="display:flex;align-items:center;gap:12px;">
+            <button type="button" class="am-page-guide-btn"
+                onclick="document.getElementById('amPageGuide').classList.add('open')"
+                title="About QMS Audits" aria-label="About QMS Audits">
+                <i class="fa fa-info-circle"></i>
+            </button>
+            <div>
+                <h2>QMS Audits</h2>
+            </div>
         </div>
         <div>
             <a href="{{ url('/edit_user/'.$urlparam['userid']) }}" class="am-btn am-btn-outline">
@@ -28,16 +34,6 @@ $qmsQuestions = App\QmsAuditQuestions::all();
             <i class="fa fa-check-circle"></i> {{ $message }}
         </div>
     @endif
-
-    <div class="am-card" style="padding:16px 20px;margin-bottom:16px;background:rgba(46,59,154,0.04);border:1px solid rgba(46,59,154,0.12);">
-        <div style="display:flex;gap:12px;align-items:flex-start;">
-            <span style="width:36px;height:36px;flex-shrink:0;border-radius:10px;background:var(--am-primary-tint);color:var(--am-primary);display:inline-flex;align-items:center;justify-content:center;font-size:15px;"><i class="fa fa-info-circle"></i></span>
-            <div style="font-size:13px;color:var(--am-text);line-height:1.55;">
-                Horizontal audit against each ISO clause. Frequency is typically annual to determine your compliance level.
-                Audits will be conducted in accordance with <a href="{{ url('auidt') }}" style="color:var(--am-primary);">Audits</a>.
-            </div>
-        </div>
-    </div>
 
     <div class="am-card" style="margin-bottom:16px;">
         <div class="am-card__toolbar">
@@ -302,5 +298,8 @@ function amQmsEdit(d){
     m.classList.add('open');
 }
 </script>
+
+{{-- The guide behind the "i" beside the title --}}
+@include('dashboard.form_records.partials.guides.qms_audit')
 
 @endsection
