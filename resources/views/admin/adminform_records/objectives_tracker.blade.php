@@ -370,12 +370,12 @@ function amObjProgress(d, history) {
         history.forEach(function (h) {
             var st = amObjStatuses[h.status] || { chip: '', label: h.status };
             var row = document.createElement('div');
-            row.style.cssText = 'display:grid;grid-template-columns:110px 120px 1fr 110px;gap:12px;align-items:start;padding:10px 0;border-bottom:1px solid var(--am-border);font-size:13px;';
+            row.style.cssText = 'display:grid;grid-template-columns:110px 120px minmax(0,1fr) minmax(0,150px);gap:12px;align-items:start;padding:10px 0;border-bottom:1px solid var(--am-border);font-size:13px;';
             row.innerHTML =
                 '<div style="color:var(--am-text-muted);">' + (h.update_date ? new Date(h.update_date).toLocaleDateString() : '—') + '</div>' +
                 '<div><span class="am-chip ' + st.chip + '">' + st.label + '</span></div>' +
-                '<div>' + (h.note ? String(h.note).replace(/[<>&]/g, function (c) { return { '<': '&lt;', '>': '&gt;', '&': '&amp;' }[c]; }) : '') + '</div>' +
-                '<div>' + (h.evidence
+                '<div style="min-width:0;overflow-wrap:anywhere;">' + (h.note ? String(h.note).replace(/[<>&]/g, function (c) { return { '<': '&lt;', '>': '&gt;', '&': '&amp;' }[c]; }) : '') + '</div>' +
+                '<div style="min-width:0;overflow-wrap:anywhere;">' + (h.evidence
                     ? '<a href="{{ asset('objective_evidence') }}/' + encodeURIComponent(h.evidence) + '" target="_blank">' + h.evidence + '</a>'
                     : '—') + '</div>';
             box.appendChild(row);
