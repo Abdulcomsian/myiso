@@ -61,6 +61,9 @@ Route::group(['middleware' => ['auth','usermiddle']], function ()
     // the dashboard card is this same listing minus the achieved ones; this
     // is where its pager fetches from
     Route::get('/objectives_dashboard', 'ObjectiveController@dashboardIndex')->name('objectives.dashboard');
+    // the other two dashboard cards page the same way
+    Route::get('/requirements_dashboard', 'RequiremntController@dashboardIndex')->name('requirements.dashboard');
+    Route::get('/calibration_dashboard', 'CalibrationController@dashboardIndex')->name('calibration.dashboard');
     // the writes live in the shared group below, so an admin can use them too
     Route::view('/userprofile','dashboard.procedure.userprofile')->name('userprofile');
     Route::view('/customer', 'dashboard.customer.index');

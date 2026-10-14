@@ -1785,3 +1785,16 @@ body.am-body {
     font-family: inherit;
 }
 .mr-file-chip__drop:hover { color: var(--am-danger); }
+
+/* the way through from a dashboard card to the page it is a window onto */
+.am-view-all {
+    margin-inline-start: 14px;
+    color: var(--am-primary);
+    font-weight: 600;
+    text-decoration: none;
+    white-space: nowrap;
+}
+.am-view-all:hover { text-decoration: underline; }
+.am-view-all i { font-size: 11px; margin-inline-start: 4px; }
+/* the arrow points the way the page reads */
+[dir="rtl"] .am-view-all i { transform: scaleX(-1); }

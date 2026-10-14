@@ -16,6 +16,32 @@ class CalibrationController extends Controller
     {
         $this->middleware('auth');
     }
+
+    /**
+     * The first page of this user's calibrations, for the Dashboard card.
+     *
+     * The same records as before - no condition added, none taken away - but
+     * ordered and paged the way the full page does it. Paging without a fixed
+     * order can repeat or skip rows, so the order has to be spelled out.
+     */
+    public static function dashboardList($userId)
+    {
+        return calibration::where('user_id', $userId)
+            ->orderBy('id', 'DESC')
+            ->paginate(10, ['*'], 'calpage');
+    }
+
+    /** where the Dashboard card's pager fetches from: the list and nothing else */
+    public function dashboardIndex(Request $request)
+    {
+        if (!$request->ajax()) {
+            return redirect('/home');
+        }
+        return view('dashboard.partials.dash_calibration', [
+            'calibration' => self::dashboardList(Auth::user()->id),
+        ]);
+    }
+
     /**
      * Display a listing of the resource.
      *

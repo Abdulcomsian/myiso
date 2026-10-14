@@ -110,6 +110,9 @@
 <div class="am-pagination">
     <div class="am-pagination__info">
         Showing <strong>{{ $objectives->firstItem() ?? 0 }}–{{ $objectives->lastItem() ?? 0 }}</strong> of <strong>{{ $objectives->total() }}</strong>
+@if (!empty($viewAllUrl))
+        <a href="{{ $viewAllUrl }}" class="am-view-all">View all <i class="fa fa-arrow-right"></i></a>
+@endif
     </div>
     <div class="am-pagination__nav">
         @if ($objectives->onFirstPage())

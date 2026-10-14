@@ -47,7 +47,9 @@ class HomeController extends Controller
         // controller that owns it rather than a query in the blade
         return view('dashboard.index', array_merge(
             compact('user', 'showInactivityAlert'),
-            ObjectiveController::dashboardList($id)
+            ObjectiveController::dashboardList($id),
+            ['requirement' => RequiremntController::dashboardList($id),
+             'calibration' => CalibrationController::dashboardList($id)]
         ));
     }
     
