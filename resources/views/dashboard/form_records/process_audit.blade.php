@@ -8,8 +8,8 @@ $questions = [
     ['correction3', '3 — Are all relevant personnel trained and are records complete?', 'evidence3'],
     ['correction4', '4 — Are KPIs being monitored for this process?', 'evidance4'],
     ['correction5', '5 — Have appropriate targets/objectives been set at Management Review?', 'evidence5'],
-    ['correction6', '6 — Are records properly retained (Documented Information)?', ''],
-    ['correction7', '7 — Is the process reviewed for risk & opportunity?', 'evidance7'],
+    ['correction6', '6 — Are records properly retained (Documented Information)?', 'evidance7'],
+    ['correction7', '7 — Is the process reviewed for risk & opportunity?', 'evidance8'],
     ['correction9', '8 — Are corrective actions closed out and effective?', 'evidance9'],
     ['correction10', '9 — Is customer satisfaction being monitored?', 'evidance10'],
 ];
@@ -278,8 +278,8 @@ $questions = [
         ['correction3', '3 — Personnel trained', 'evidence3'],
         ['correction4', '4 — KPIs monitored', 'evidance4'],
         ['correction5', '5 — Targets set at Management Review', 'evidence5'],
-        ['correction6', '6 — Records retained', null],
-        ['correction7', '7 — Reviewed for risk & opportunity', 'evidance7'],
+        ['correction6', '6 — Records retained', 'evidance7'],
+        ['correction7', '7 — Reviewed for risk & opportunity', 'evidance8'],
         ['correction9', '8 — Corrective actions closed out', 'evidance9'],
         ['correction10', '9 — Customer satisfaction monitored', 'evidance10'],
     ];

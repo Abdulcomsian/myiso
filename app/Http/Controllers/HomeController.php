@@ -43,7 +43,12 @@ class HomeController extends Controller
         $user->last_login = date('Y-m-d H:i:s');
         $user->save();
 
-        return view('dashboard.index', compact('user', 'showInactivityAlert'));
+        // the Objectives card is the tracker listing now, so it comes from the
+        // controller that owns it rather than a query in the blade
+        return view('dashboard.index', array_merge(
+            compact('user', 'showInactivityAlert'),
+            ObjectiveController::dashboardList($id)
+        ));
     }
     
     public function usertype(){

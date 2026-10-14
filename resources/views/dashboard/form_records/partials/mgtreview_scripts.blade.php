@@ -72,7 +72,20 @@
         var drop = e.target.closest('.mr-file-chip__drop');
         if (!drop) return;
         e.preventDefault();
+
+        // A file already saved is not deleted here - the tile goes, and the
+        // hidden checkbox it leaves behind is what tells Save to drop it. That
+        // way Cancel really does cancel.
+        var chip = drop.closest('.mr-file-chip');
+        var flag = chip && chip.querySelector('.mr-file-chip__flag');
+        if (flag) {
+            flag.checked = true;
+            chip.hidden  = true;
+            return;
+        }
+
         var list  = drop.closest('.mr-files--picked');
+        if (!list) return;
         var box   = list.parentNode;
         var input = box.querySelector('input[type="file"][multiple]');
         if (!input) return;

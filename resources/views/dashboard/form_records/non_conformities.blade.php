@@ -60,8 +60,8 @@
                     </div>
                     <div>
                         <label>Supplier ID (If Applicable)</label>
-                        <select onchange="get_customer(this)" required name="customerID" id="customer_id">
-                            <option value="" disabled selected>Select supplier ID</option>
+                        <select onchange="get_customer(this)" name="customerID" id="customer_id">
+                            <option value="" selected>Select supplier ID</option>
                             @foreach($customers as $customer)
                                 <option value="{{ $customer->idnumber }}">{{ $customer->idnumber }}</option>
                             @endforeach
@@ -72,8 +72,8 @@
                     <div><label>Employee Who Reported NCR</label><input type="text" class="Employee_name" name="employee_name" placeholder="Employee name"></div>
                     <div>
                         <label>Employee ID (If Applicable)</label>
-                        <select onchange="get_employee(this)" required name="employee_id" id="employee_id">
-                            <option value="" disabled selected>Select employee ID</option>
+                        <select onchange="get_employee(this)" name="employee_id" id="employee_id">
+                            <option value="" selected>Select employee ID</option>
                             @foreach($employees as $employee)
                                 <option value="{{ $employee->empNumber }}">{{ $employee->empNumber }}</option>
                             @endforeach
@@ -349,7 +349,17 @@ function get_customer(obj) {
 }
 function get_employee(obj) {
     var id = obj.value;
-    fetch('{{ url('/get_employee_name_by_id') }}?id=' + encodeURIComponent(id) + '&user_id={{ Auth::user()->id }}', {
+    // the field is optional now, so nothing is looked up when it is cleared
+    if (!id) return;
+    // the route is a POST, so the GET this used to send came back 405 and the
+    // name was never filled in
+    var body = new FormData();
+    body.append('_token', '{{ csrf_token() }}');
+    body.append('id', id);
+    body.append('user_id', '{{ Auth::user()->id }}');
+    fetch('{{ url('/get_employee_name_by_id') }}', {
+        method: 'POST',
+        body: body,
         headers: { 'X-Requested-With': 'XMLHttpRequest' }
     })
     .then(function(r){ return r.json(); })

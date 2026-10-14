@@ -144,16 +144,6 @@
 
     <div class="qms-question__evidence mr-answer">
         <label>{{ $fil['label'] }}</label>
-        @if ($myFiles->count())
-            <div class="mr-files">
-                @foreach ($myFiles as $f)
-                    <span class="mr-file-chip">
-                        <a href="{{ $f->file }}" target="_blank">{{ $f->original_name ?: basename($f->file) }}</a>
-                        <label title="{{ $L['remove'] }}"><input type="checkbox" name="mrfiledrop[]" value="{{ $f->id }}"> &times;</label>
-                    </span>
-                @endforeach
-            </div>
-        @endif
         @include('dashboard.form_records.partials.mgtreview_file_input', [
             'id'       => 'mrFiles' . $p,
             'name'     => 'mrfiles[]',
@@ -161,6 +151,25 @@
             'hint'     => $fil['hint'],
             'multiple' => true,
         ])
+        {{-- Both lots of tiles sit under the field, so adding a file and
+             looking at the ones already there read the same way round.
+
+             The cross is a label for a checkbox that is not drawn: ticking it
+             is what tells the save to drop that file, and the name is struck
+             through so you can see what you have marked before you commit. --}}
+        @if ($myFiles->count())
+            <div class="mr-files">
+                @foreach ($myFiles as $f)
+                    <span class="mr-file-chip">
+                        <a href="{{ $f->file }}" target="_blank">{{ $f->original_name ?: basename($f->file) }}</a>
+                        <input type="checkbox" class="mr-file-chip__flag" id="mrDrop{{ $p }}{{ $f->id }}"
+                               name="mrfiledrop[]" value="{{ $f->id }}">
+                        <label class="mr-file-chip__drop" for="mrDrop{{ $p }}{{ $f->id }}"
+                               title="{{ $L['remove'] }}">&times;</label>
+                    </span>
+                @endforeach
+            </div>
+        @endif
         {{-- the files just picked, each one with a cross to take it off again --}}
         <div class="mr-files mr-files--picked" hidden></div>
     </div>

@@ -58,6 +58,9 @@ Route::group(['middleware' => ['auth','usermiddle']], function ()
     Route::get('/work_instruction', 'WorkInstructionController@index');
     // Objectives Tracker
     Route::get('/objectives_tracker', 'ObjectiveController@index')->name('objectives_tracker');
+    // the dashboard card is this same listing minus the achieved ones; this
+    // is where its pager fetches from
+    Route::get('/objectives_dashboard', 'ObjectiveController@dashboardIndex')->name('objectives.dashboard');
     // the writes live in the shared group below, so an admin can use them too
     Route::view('/userprofile','dashboard.procedure.userprofile')->name('userprofile');
     Route::view('/customer', 'dashboard.customer.index');

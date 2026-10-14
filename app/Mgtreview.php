@@ -121,6 +121,19 @@ class Mgtreview extends Model
         return $out;
     }
 
+    /**
+     * How this review reads in a dropdown or a details panel. It is here
+     * rather than in the three blades that need it so the Objectives
+     * Tracker, the admin copy and the dashboard cannot word it differently.
+     */
+    public function reviewLabel()
+    {
+        $name = $this->mgtreviewId ? 'Review ' . $this->mgtreviewId : 'Review';
+        return $this->reviewdate
+            ? $name . ' — ' . date('d M Y', strtotime($this->reviewdate))
+            : $name;
+    }
+
     /** the boxes the form used to ask for, kept so old reviews still read back */
     public static function legacyFields()
     {

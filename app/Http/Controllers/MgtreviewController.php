@@ -329,6 +329,7 @@ class MgtreviewController extends Controller
             $o->how_measured = '';
             $o->target       = '';
             $o->agreed_at    = $rev->id;
+            $o->agreed_on    = $rev->reviewdate ?: null;
             $o->status       = 'not_started';
             $o->save();
         }

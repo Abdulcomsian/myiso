@@ -1671,7 +1671,7 @@ body.am-body {
 }
 
 /* the meeting files, as chips */
-.mr-files { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 10px; }
+.mr-files { display: flex; flex-wrap: wrap; gap: 8px; margin: 10px 0 0; }
 .mr-file-chip {
     display: inline-flex; align-items: center; gap: 8px;
     border: 1px solid var(--am-border);
@@ -1683,8 +1683,27 @@ body.am-body {
 .mr-file-chip a { color: var(--am-text); text-decoration: none; }
 .mr-file-chip a:hover { color: var(--am-primary); }
 .mr-file-chip label { margin: 0; cursor: pointer; color: var(--am-text-muted); font-weight: 700; }
-.am-inline-form .mr-file-chip input[type="checkbox"],
-.am-form .mr-file-chip input[type="checkbox"] { width: 13px; height: 13px; min-width: 13px; margin: 0; accent-color: var(--am-danger); }
+/* The cross on a file already saved is a label for this checkbox, which
+   is what the save actually reads. Drawing the box as well only puzzles
+   people, so it is taken out of the picture but left in the form - and
+   left reachable by keyboard, which display:none would not be. */
+.am-inline-form .mr-file-chip__flag,
+.am-form .mr-file-chip__flag {
+    position: absolute;
+    width: 1px; height: 1px; min-width: 0;
+    margin: 0; padding: 0; border: 0;
+    opacity: 0;
+}
+/* a tile taken off goes at once. inline-flex beats the browser's own
+   [hidden] rule, so it has to be spelled out */
+.mr-file-chip[hidden] { display: none; }
+/* and while it is still on screen, say what is about to happen */
+.mr-file-chip__flag:checked ~ .mr-file-chip__drop { color: var(--am-danger); }
+.mr-file-chip:has(.mr-file-chip__flag:checked) { border-color: var(--am-danger); }
+.mr-file-chip:has(.mr-file-chip__flag:checked) a { text-decoration: line-through; opacity: .55; }
+.mr-file-chip__flag:focus-visible ~ .mr-file-chip__drop {
+    outline: 2px solid var(--am-primary-soft); outline-offset: 2px; border-radius: 3px;
+}
 
 /* the details popup */
 .mr-view-meta { display: grid; grid-template-columns: repeat(auto-fit, minmax(190px, 1fr)); gap: 14px; margin-bottom: 16px; }
@@ -1752,7 +1771,9 @@ body.am-body {
 .qms-panels--solo { grid-template-columns: 1fr; }
 
 /* the files just picked, each with a cross to take it off again */
-.mr-files--picked { margin: 10px 0 0; }
+/* the newly picked ones follow the saved ones, so they only need the gap
+   between the two rows, not the one under the field again */
+.mr-files + .mr-files--picked { margin-top: 8px; }
 .mr-file-chip__drop {
     border: 0;
     background: none;

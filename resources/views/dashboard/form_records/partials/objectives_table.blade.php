@@ -1,6 +1,24 @@
 {{-- The list, with the status filters above it. Loaded on its own when the
-     search box or a pager link is used, so it has to stand alone. --}}
-<div style="padding:16px 20px 0;display:flex;gap:8px;flex-wrap:wrap;">
+     search box or a pager link is used, so it has to stand alone.
+
+     $showFilters  false hides the status chips - the dashboard has no use for
+                   filtering, it only lists
+     $actions      which of the four row buttons to draw. The dashboard shows
+                   view and progress; edit and delete are held back for now.
+
+     Both default to what the Objectives Tracker has always shown, so a page
+     that passes neither renders exactly as it did.
+
+     The guards below sit flush against the left margin on purpose. A Blade
+     directive alone on a line emits nothing, but only when the line has no
+     leading spaces - indent one and those spaces land in the output. Do not
+     tidy them inwards. --}}
+@php
+    $amObjShowFilters = $showFilters ?? true;
+    $amObjActions     = $actions ?? ['view', 'progress', 'edit', 'delete'];
+@endphp
+@if ($amObjShowFilters)
+<div style="padding:16px 20px 14px;display:flex;gap:8px;flex-wrap:wrap;">
     <a href="#" data-status-filter="" class="am-chip {{ ($status ?? '') === '' ? 'info' : '' }}" style="text-decoration:none;cursor:pointer;">All ({{ $counts[''] ?? 0 }})</a>
     @foreach (App\Objective::statuses() as $key => $st)
         <a href="#" data-status-filter="{{ $key }}"
@@ -10,6 +28,7 @@
         </a>
     @endforeach
 </div>
+@endif
 
 <div class="am-table-wrap">
     <table class="am-table" id="amObjTable">
@@ -54,7 +73,7 @@
                                 'id' => $data->id, 'objective' => $data->objective,
                                 'how_measured' => $data->how_measured, 'starting_point' => $data->starting_point,
                                 'target' => $data->target, 'how_achieved' => $data->how_achieved,
-                                'person_responsible' => $data->person_responsible, 'agreed_at' => $data->agreed_at,
+                                'person_responsible' => $data->person_responsible, 'agreed_at' => $data->agreed_at, 'agreed_on' => $data->agreed_on,
                                 'deadline' => $data->deadline, 'status' => $data->status,
                             ];
                             $notes = $data->updates()->get()->map(function ($u) {
@@ -62,15 +81,23 @@
                                         'status' => $u->status, 'note' => $u->note, 'evidence' => $u->evidence];
                             });
                         @endphp
+@if (in_array('view', $amObjActions, true))
                         <button type="button" class="am-icon-btn" title="View" onclick='amObjView(@json($payload))'><i class="fa fa-eye"></i></button>
+@endif
+@if (in_array('progress', $amObjActions, true))
                         @if (in_array($data->status, ['achieved', 'not_achieved'], true))
                             {{-- finished, so the history is there to read rather than add to --}}
                             <button type="button" class="am-btn am-btn-outline am-btn-sm" onclick='amObjProgress(@json($payload), @json($notes))'>View</button>
                         @else
                             <button type="button" class="am-btn am-btn-outline am-btn-sm" onclick='amObjProgress(@json($payload), @json($notes))'>Update</button>
                         @endif
+@endif
+@if (in_array('edit', $amObjActions, true))
                         <button type="button" class="am-icon-btn" title="Edit" onclick='amObjEdit(@json($payload))'><i class="fa fa-pen"></i></button>
+@endif
+@if (in_array('delete', $amObjActions, true))
                         <button type="button" class="am-icon-btn" title="Delete" onclick="amObjDelete({{ $data->id }})"><i class="fa fa-trash"></i></button>
+@endif
                     </td>
                 </tr>
             @empty
