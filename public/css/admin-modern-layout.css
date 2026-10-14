@@ -1554,3 +1554,213 @@ body.am-body {
     .am-user { padding: 4px; }
     .am-header__title { font-size: 15px; }
 }
+
+/* ==========================================
+   Management Reviews: the client's form
+   ========================================== */
+/* the note above the form */
+.mr-intro {
+    border: 1px solid var(--am-border);
+    border-radius: var(--am-radius);
+    background: var(--am-primary-tint);
+    padding: 14px 16px;
+    margin-bottom: 16px;
+    font-size: 13.5px;
+    line-height: 1.6;
+    color: var(--am-text);
+}
+.mr-intro p { margin: 0; }
+.mr-intro p + p { margin-top: 8px; }
+
+/* who met and when */
+.mr-meta {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 14px 20px;
+    border: 1px solid var(--am-border);
+    border-radius: var(--am-radius);
+    padding: 16px 18px;
+    margin-bottom: 18px;
+    background: #fff;
+}
+.mr-hint { font-size: 12px; color: var(--am-text-muted); margin-top: 5px; line-height: 1.45; }
+
+/* Part 1 / Part 2 / Part 3 */
+.mr-part-head {
+    display: flex;
+    align-items: baseline;
+    gap: 10px;
+    flex-wrap: wrap;
+    border-bottom: 2px solid var(--am-primary);
+    padding-bottom: 7px;
+    margin: 24px 0 14px;
+}
+.mr-part-head__label { font-size: 16px; font-weight: 700; color: var(--am-primary); }
+.mr-part-head__title { font-size: 13px; color: var(--am-text-muted); }
+
+/* the answer box and the file under it */
+.mr-answer label {
+    font-size: 11px; text-transform: uppercase; letter-spacing: 0.4px;
+    color: var(--am-text-muted); font-weight: 700; margin-bottom: 6px;
+}
+.mr-attach { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; margin-top: 2px; }
+.am-inline-form .mr-attach input[type="file"],
+.am-form .mr-attach input[type="file"] { width: auto; max-width: 280px; padding: 6px 8px; font-size: 12px; }
+.mr-attach__hint { font-size: 12px; color: var(--am-text-soft); }
+.mr-attach__has  { font-size: 12px; color: var(--am-primary); }
+
+/* Part 3 B: one box per standard */
+.mr-objectives { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; }
+.mr-objective label {
+    display: flex; align-items: center; gap: 7px; flex-wrap: wrap;
+    font-size: 11px; text-transform: uppercase; letter-spacing: 0.4px;
+    color: var(--am-text-muted); font-weight: 700; margin-bottom: 6px;
+}
+.mr-tracker-note { font-size: 12px; color: var(--am-primary); margin-top: 6px; }
+
+/* the dashed "add" buttons the client drew */
+.mr-dashed-btn {
+    display: inline-block;
+    margin-top: 10px;
+    padding: 7px 14px;
+    border: 1px dashed var(--am-primary);
+    border-radius: var(--am-radius-sm);
+    background: none;
+    color: var(--am-primary);
+    font-size: 12.5px;
+    font-weight: 600;
+    font-family: inherit;
+    cursor: pointer;
+}
+.mr-dashed-btn:hover { background: var(--am-primary-tint); }
+.mr-dashed-btn.is-on { background: var(--am-primary); color: #fff; border-style: solid; }
+
+/* Part 3 C: the actions table inside the form */
+.mr-actions-table td { vertical-align: middle; }
+.am-inline-form .mr-actions-table input[type="text"],
+.am-inline-form .mr-actions-table input[type="date"],
+.am-form .mr-actions-table input[type="text"],
+.am-form .mr-actions-table input[type="date"] { padding: 7px 10px; font-size: 13px; }
+/* the tick is a tick, not a full-width box: these sit a notch deeper than the
+   ".am-inline-form input" rule that stretches every other field */
+.am-inline-form .mr-actions-table input[type="checkbox"],
+.am-form .mr-actions-table input[type="checkbox"] {
+    width: 16px; height: 16px; min-width: 16px;
+    margin: 0; padding: 0; accent-color: var(--am-primary); cursor: pointer;
+}
+.mr-note {
+    margin-top: 12px;
+    padding: 11px 14px;
+    border-radius: var(--am-radius-sm);
+    background: var(--am-primary-tint);
+    font-size: 13px;
+    line-height: 1.5;
+    color: var(--am-text);
+}
+
+/* the line above the list when actions are still open */
+.mr-banner {
+    display: flex; align-items: center; gap: 12px; flex-wrap: wrap;
+    border: 1px solid var(--am-border);
+    border-radius: var(--am-radius);
+    background: rgba(240, 173, 78, 0.10);
+    padding: 12px 16px;
+    margin-bottom: 16px;
+    font-size: 13.5px;
+    color: var(--am-text);
+}
+
+/* the meeting files, as chips */
+.mr-files { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 10px; }
+.mr-file-chip {
+    display: inline-flex; align-items: center; gap: 8px;
+    border: 1px solid var(--am-border);
+    border-radius: 999px;
+    padding: 5px 12px;
+    font-size: 12.5px;
+    background: #f8f9fc;
+}
+.mr-file-chip a { color: var(--am-text); text-decoration: none; }
+.mr-file-chip a:hover { color: var(--am-primary); }
+.mr-file-chip label { margin: 0; cursor: pointer; color: var(--am-text-muted); font-weight: 700; }
+.am-inline-form .mr-file-chip input[type="checkbox"],
+.am-form .mr-file-chip input[type="checkbox"] { width: 13px; height: 13px; min-width: 13px; margin: 0; accent-color: var(--am-danger); }
+
+/* the details popup */
+.mr-view-meta { display: grid; grid-template-columns: repeat(auto-fit, minmax(190px, 1fr)); gap: 14px; margin-bottom: 16px; }
+.mr-view-block { margin-bottom: 14px; }
+.mr-view-label {
+    font-size: 11px; text-transform: uppercase; letter-spacing: 0.4px;
+    color: var(--am-text-muted); font-weight: 600; margin-bottom: 4px;
+}
+.mr-view-value { color: var(--am-text); line-height: 1.5; font-size: 13px; }
+.mr-view-file { margin-top: 4px; font-size: 12.5px; }
+.mr-view-file a { color: var(--am-primary); text-decoration: none; }
+
+@media (max-width: 900px) {
+    .mr-objectives { grid-template-columns: 1fr; }
+    .mr-meta { grid-template-columns: 1fr; }
+}
+
+/* --- Management Reviews: a few things the drawing settles ----------------- */
+/* the bold lead in the note takes the site's own blue, not the document's */
+.mr-intro__lead { color: var(--am-primary); }
+.mr-intro .am-chip { vertical-align: baseline; margin: 0 2px; }
+
+/* Part 3 B: the three boxes keep step.
+
+   Each box hands its four rows - the chip, the heading, the box itself and the
+   button - back to the grid, so a heading that runs to two lines moves all
+   three headings down together and nothing is padded out to guess at it. */
+.mr-objectives { grid-template-rows: auto auto 1fr auto; }
+.mr-objective {
+    display: grid;
+    grid-row: span 4;
+    grid-template-rows: subgrid;
+    gap: 6px;
+}
+.mr-objective .am-chip { justify-self: start; }
+.mr-objective__name {
+    display: block;
+    margin: 0;
+    font-size: 11px; text-transform: uppercase; letter-spacing: 0.4px;
+    color: var(--am-text-muted); font-weight: 700;
+    line-height: 1.35;
+}
+.am-inline-form .mr-objective textarea,
+.am-form .mr-objective textarea { min-height: 96px; margin: 0; }
+.mr-objective__foot { align-self: start; }
+.mr-objective .mr-dashed-btn { margin-top: 0; }
+
+/* where subgrid is not understood, the boxes still stack correctly - they
+   simply line up on their bottoms rather than on every row */
+@supports not (grid-template-rows: subgrid) {
+    .mr-objectives { grid-template-rows: none; }
+    .mr-objective  { display: flex; flex-direction: column; }
+    .am-inline-form .mr-objective textarea,
+    .am-form .mr-objective textarea { flex: 1 1 auto; }
+    .mr-objective__foot { margin-top: auto; padding-top: 6px; }
+}
+
+/* the Arabic file widget, in a form that stretches every input it finds */
+.am-inline-form .mr-attach .custom-file-input-tag.form-control,
+.am-form .mr-attach .custom-file-input-tag.form-control { width: auto; min-width: 240px; }
+.am-inline-form .mr-attach .input-file,
+.am-form .mr-attach .input-file { width: 100%; }
+
+/* a panel with no example beside it runs the full width, as Part 3 B does */
+.qms-panels--solo { grid-template-columns: 1fr; }
+
+/* the files just picked, each with a cross to take it off again */
+.mr-files--picked { margin: 10px 0 0; }
+.mr-file-chip__drop {
+    border: 0;
+    background: none;
+    padding: 0 2px;
+    font-size: 15px;
+    line-height: 1;
+    color: var(--am-text-muted);
+    cursor: pointer;
+    font-family: inherit;
+}
+.mr-file-chip__drop:hover { color: var(--am-danger); }

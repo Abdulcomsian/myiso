@@ -1101,19 +1101,35 @@ public function store(Request $request)
     public function managementCheck(Request $request, $userid)
     {
         $search = trim($request->query('q', ''));
-        $query = Mgtreview::where('user_id',$userid);
+        $query = Mgtreview::with(['actions','answers'])->where('user_id',$userid);
         if ($search !== '') {
             $query->where(function($q) use ($search){
                 $q->where('meetingatt','like',"%{$search}%")
+                  ->orWhere('chairedby','like',"%{$search}%")
                   ->orWhere('newquality','like',"%{$search}%")
                   ->orWhere('reviewdate','like',"%{$search}%");
             });
         }
         $mgtrev = $query->orderBy('id','DESC')->paginate(10)->withQueryString();
         if ($request->ajax()) {
-            return view('admin.adminform_records.partials.management_reviews_table', compact('mgtrev'));
+            return view('admin.adminform_records.partials.management_reviews_table', compact('mgtrev','userid'));
         }
-        return view('admin.adminform_records.managment_reviews',compact('mgtrev','search'));
+
+        // "Edit" fills the same form the add button opens: with twelve questions
+        // and the whole of Part 3 it is far too big for a popup.
+        $editing = $request->query('edit')
+            ? Mgtreview::where('user_id',$userid)->find($request->query('edit'))
+            : null;
+        $answers = [];
+        if ($editing) {
+            foreach ($editing->answers as $a) {
+                $answers[$a->question_no] = ['answer' => $a->answer, 'file' => $a->evidence_file];
+            }
+        }
+        $openBanner = \App\Http\Controllers\MgtreviewController::openBanner($userid);
+
+        return view('admin.adminform_records.managment_reviews',
+            compact('mgtrev','search','userid','editing','answers','openBanner'));
     }
     public function maintainRecCheck(Request $request, $userid){
         $search = trim($request->query('q', ''));
@@ -2042,12 +2058,12 @@ public function deleteUsernote($id)
     }
     public function deletemgtreviewadmin(Request $req)
     {
-        $userid=$req->id;
-        $req=Mgtreview::find($userid)->delete();
-        $notification = [
-            'message' => 'Record  Deleted successfully.!',
-            'alert-type' => 'success'
-        ];
+        $rev = Mgtreview::find($req->id);
+        if ($rev) {
+            // the answers, actions and meeting files go with it
+            \App\Http\Controllers\MgtreviewController::deleteChildren($rev);
+            $rev->delete();
+        }
 
         return redirect()->back();
 
