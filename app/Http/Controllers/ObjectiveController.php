@@ -136,7 +136,8 @@ class ObjectiveController extends Controller
             'how_measured' => 'required|string|max:500',
             'target'       => 'required|string|max:255',
             'deadline'     => 'required|date',
-            'agreed_on'    => 'nullable|date|required_if:agreed_at,custom',
+            // an objective cannot have been agreed on a day that has not come yet
+            'agreed_on'    => 'nullable|date|before_or_equal:today|required_if:agreed_at,custom',
         ]);
 
         $objective = new Objective();
@@ -158,7 +159,8 @@ class ObjectiveController extends Controller
             'how_measured' => 'required|string|max:500',
             'target'       => 'required|string|max:255',
             'deadline'     => 'required|date',
-            'agreed_on'    => 'nullable|date|required_if:agreed_at,custom',
+            // an objective cannot have been agreed on a day that has not come yet
+            'agreed_on'    => 'nullable|date|before_or_equal:today|required_if:agreed_at,custom',
         ]);
 
         $this->fill($objective, $request);
@@ -214,6 +216,9 @@ class ObjectiveController extends Controller
         $request->validate([
             'note'   => 'required|string',
             'status' => 'required|string',
+            // progress is recorded for today or for a day already gone; the
+            // max on the input says so too, but that is only the browser
+            'update_date' => 'nullable|date|before_or_equal:today',
         ]);
 
         $update = new ObjectiveUpdate();

@@ -118,7 +118,7 @@
                             @endforeach
                         </select>
                     </div>
-                    <div class="col-lg-3"><label>Date</label><input type="date" max="2999-12-31" class="form-control" name="update_date" id="pobj-date"></div>
+                    <div class="col-lg-3"><label>Date</label><input type="date" max="{{ date('Y-m-d') }}" class="form-control" name="update_date" id="pobj-date"></div>
                 </div>
                 <div class="form-group row">
                     <div class="col-lg-12">

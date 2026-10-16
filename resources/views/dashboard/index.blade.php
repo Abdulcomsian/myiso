@@ -199,60 +199,29 @@
                     Supporting Documents
                 </span>
             </div>
-            <h6 class="dash-section-title">Audit Report</h6>
-            <div style="margin-bottom:.75rem;">
-                @if(!empty($user['audit_report']))
-                <a href="{{ asset($user['audit_report']) }}" target="_blank" style="margin-right:.5rem; color:var(--am-primary);">
-                    Click to view audit report
-                </a>
-                <a href="{{ asset($user['audit_report']) }}" target="_blank">
-                    <i class="far fa-file-pdf fa-2x" style="color:red;"></i>
-                </a>
-                @else
-                <p style="color:#888;">No audit report available.</p>
-                @endif
-            </div>
-
-            <h6 class="dash-section-title">Auditor Comments</h6>
-            <div style="margin-bottom:.75rem;">
-                @if(!empty($user['audit_comment']))
-                    {{$user['audit_comment']}}
-                @else
-                    <p style="color:#888;">No comments.</p>
-                @endif
-            </div>
-
-            <h6 class="dash-section-title">Remote Audit Overview</h6>
-            <div style="margin-bottom:.75rem;">
-                <a href="/uploads/user/pdfs/Remote-Audit-Overview.pdf" target="_blank" style="color:var(--am-primary); margin-right:.5rem;">
-                    View Remote Audit Overview
-                </a>
-                <a href="/uploads/user/pdfs/Remote-Audit-Overview.pdf" target="_blank">
-                    <i class="far fa-file-pdf fa-2x" style="color:red;"></i>
-                </a>
-            </div>
-
-            <h6 class="dash-section-title">Use Of Certificate &amp; Certification Marks</h6>
-            <div style="margin-bottom:.75rem;">
-                <a href="/uploads/user/pdfs/Use-Of-Certificate-and-Certification-Marks.pdf" target="_blank" style="color:var(--am-primary); margin-right:.5rem;">
-                    View Certification Marks Guide
-                </a>
-                <a href="/uploads/user/pdfs/Use-Of-Certificate-and-Certification-Marks.pdf" target="_blank">
-                    <i class="far fa-file-pdf fa-2x" style="color:red;"></i>
-                </a>
-            </div>
-
-            @if(!empty($user['qa_certification']))
-            <h6 class="dash-section-title">QA Certification Agreement</h6>
-            <div style="margin-bottom:.75rem;">
-                <a href="{{ asset($user['qa_certification']) }}" target="_blank" style="color:var(--am-primary); margin-right:.5rem;">
-                    View QA Certification Agreement
-                </a>
-                <a href="{{ asset($user['qa_certification']) }}" target="_blank">
-                    <i class="far fa-file-pdf fa-2x" style="color:red;"></i>
-                </a>
-            </div>
-            @endif
+            @php
+                // the four documents this card offers, in the order they were in
+                $docs = [
+                    ['title' => 'Audit Report',
+                     'url'   => !empty($user['audit_report']) ? asset($user['audit_report']) : null,
+                     'none'  => 'Not available'],
+                    ['title' => 'Remote Audit Overview',
+                     'url'   => '/uploads/user/pdfs/Remote-Audit-Overview.pdf',
+                     'none'  => ''],
+                    ['title' => 'Use Of Certificate & Certification Marks',
+                     'url'   => '/uploads/user/pdfs/Use-Of-Certificate-and-Certification-Marks.pdf',
+                     'none'  => ''],
+                    ['title' => 'QA Certification Agreement',
+                     'url'   => !empty($user['qa_certification']) ? asset($user['qa_certification']) : null,
+                     'none'  => 'Not available'],
+                ];
+            @endphp
+            @include('dashboard.partials.dash_supporting_docs', [
+                'docs'    => $docs,
+                'comment' => $user['audit_comment'] ?? '',
+                'labels'  => ['comments' => 'Auditor Comments',
+                              'no_comments' => 'No comments yet.'],
+            ])
         </div>
     </div>
 

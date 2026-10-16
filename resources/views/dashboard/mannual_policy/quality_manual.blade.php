@@ -3,7 +3,6 @@
 @section('content')
 <style>
     .list_div .list_number { max-width: 6.8%; }
-    .authName { font-weight: 500 !important; }
     #procedure_section h4 { color: var(--am-primary); margin-top: 1.5rem; margin-bottom: 0.5rem; font-size: 1rem; font-weight: 600; }
     #procedure_section h4:first-child { margin-top: 0; }
     /* Links in the manual follow the theme blue instead of the browser default */
@@ -71,7 +70,7 @@
 							<p>4.1.2 -</p>
 						</div>
 						<div class="list_content">
-							<p style="021px;"><span class="authName" >{{ Auth::user()->Company_overview}}</p>
+							<p style="021px;"><span class="authName">{{ Auth::user()->Company_overview }}</span></p>
 						</div>
 					</div>
 					<div class="list_div">
@@ -1250,7 +1249,7 @@
 							<p>8.5.3.1 -</p>
 						</div>
 						<div class="list_content">
-							<p style="013px;"><span style="color: #000;font-weight: 500;">{{ $user->company_name!="" ? $user->company_name : 'Your Company' }}</span> will exercise due care and diligence with regard to Customer-supplied property including materials, products, hardware, software, or “intellectual property”, and will provide for the proper care and maintenance, and the prevention of loss, misuse, or unauthorized dissemination.</p>
+							<p style="013px;"><span style="color: #000;">{{ $user->company_name!="" ? $user->company_name : 'Your Company' }}</span> will exercise due care and diligence with regard to Customer-supplied property including materials, products, hardware, software, or “intellectual property”, and will provide for the proper care and maintenance, and the prevention of loss, misuse, or unauthorized dissemination.</p>
 						</div>
 					</div>
 					<div class="list_div">

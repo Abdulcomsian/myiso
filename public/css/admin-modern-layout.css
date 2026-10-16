@@ -1798,3 +1798,74 @@ body.am-body {
 .am-view-all i { font-size: 11px; margin-inline-start: 4px; }
 /* the arrow points the way the page reads */
 [dir="rtl"] .am-view-all i { transform: scaleX(-1); }
+
+/* ==========================================
+   Supporting Documents on the dashboard
+   ========================================== */
+/* One tile per document, clickable all over. They were a heading plus two
+   separate links to the same file, which read as clutter and did not match
+   anything else on the page. */
+.am-docs {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 12px;
+}
+.am-doc {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 14px 16px;
+    border: 1px solid var(--am-border);
+    border-radius: var(--am-radius);
+    background: #fff;
+    text-decoration: none;
+    color: var(--am-text);
+    transition: border-color 0.15s ease, background 0.15s ease;
+}
+a.am-doc:hover {
+    border-color: var(--am-primary-soft);
+    background: var(--am-primary-tint);
+    color: var(--am-text);
+}
+.am-doc__icon {
+    flex-shrink: 0;
+    width: 36px; height: 36px;
+    border-radius: var(--am-radius-sm);
+    display: inline-flex; align-items: center; justify-content: center;
+    background: var(--am-primary-tint);
+    color: var(--am-primary);
+    font-size: 16px;
+}
+.am-doc__name {
+    flex: 1 1 auto;
+    min-width: 0;
+    font-size: 13.5px;
+    font-weight: 600;
+    line-height: 1.35;
+    overflow-wrap: anywhere;
+}
+/* the arrow points the way the page reads */
+.am-doc__go { flex-shrink: 0; color: var(--am-primary); font-size: 12px; }
+[dir="rtl"] .am-doc__go i { transform: scaleX(-1); }
+
+/* nothing uploaded yet: the tile stays, so the page does not jump about once
+   it arrives, but it is plainly not a link */
+.am-doc--empty { background: #f8f9fc; }
+.am-doc--empty .am-doc__icon { background: #eef1f5; color: var(--am-text-soft); }
+.am-doc--empty .am-doc__name { color: var(--am-text-muted); font-weight: 500; }
+.am-doc__none { flex-shrink: 0; font-size: 12px; color: var(--am-text-soft); }
+
+/* the auditor's comments are words, not a file */
+.am-doc-note {
+    margin-top: 14px;
+    padding: 14px 16px;
+    border: 1px solid var(--am-border);
+    border-radius: var(--am-radius);
+    background: var(--am-primary-tint);
+}
+.am-doc-note__label {
+    font-size: 11px; text-transform: uppercase; letter-spacing: 0.4px;
+    color: var(--am-primary); font-weight: 700; margin-bottom: 6px;
+}
+.am-doc-note p { margin: 0; font-size: 13.5px; line-height: 1.55; color: var(--am-text); }
+.am-doc-note__empty { color: var(--am-text-soft); }

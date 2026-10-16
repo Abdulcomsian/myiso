@@ -16,5 +16,5 @@
     <option value="custom">Custom date…</option>
 </select>
 <div data-obj-agreed-custom hidden style="margin-top:6px;">
-    <input type="date" max="2999-12-31" name="agreed_on" class="{{ $cls ?? '' }}">
+    <input type="date" max="{{ date('Y-m-d') }}" name="agreed_on" class="{{ $cls ?? '' }}">
 </div>
