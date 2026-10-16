@@ -81,7 +81,7 @@ td {
   color: #fff !important;
 }
 .authName {
-  font-weight: normal !important;
+  font-weight: inherit !important;
   color: inherit !important;
 }
 .am-btn-lightblue {
