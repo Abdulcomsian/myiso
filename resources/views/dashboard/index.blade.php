@@ -142,48 +142,48 @@
                     <thead>
                         <tr>
                             <th>Certificate</th>
-                            <th>Link</th>
-                            <th>Description</th>
                             <th>Expiry</th>
+                            <th>ISO Certificate</th>
+                            <th>Audit Report</th>
+                            <th>Description / Audit Comment</th>
                         </tr>
                     </thead>
                     <tbody>
-                        @if($user['iso9001_certificate'])
+@php
+    // the standards in the order the admin form lists them. $stdDocs carries
+    // each one's current audit report, which now sits in the row of the
+    // certificate it belongs to rather than loose further down the page.
+    $amIsoRows = ['iso9001' => 'ISO9001', 'iso14001' => 'ISO14001', 'iso45001' => 'ISO45001'];
+@endphp
+@foreach ($amIsoRows as $amStd => $amLabel)
+@if ($user[$amStd . '_certificate'])
+@php $amAudit = ($stdDocs[$amStd]['audit_report'] ?? null); @endphp
                         <tr>
-                            <th>ISO9001</th>
+                            <th>{{ $amLabel }}</th>
+                            <td>{{ date("d/m/Y", strtotime($user[$amStd . '_expirydate'])) }}</td>
                             <td>
-                                <a href="{{ asset($user['iso9001_certificate']) }}" target="_blank">
+                                <a href="{{ asset($user[$amStd . '_certificate']) }}" target="_blank">
                                     <i class="far fa-file-pdf fa-2x" style="color:red;"></i>
                                 </a>
                             </td>
-                            <td>{{ $user['iso9001_description'] }}</td>
-                            <td>{{ date("d/m/Y", strtotime($user['iso9001_expirydate'])) }}</td>
-                        </tr>
-                        @endif
-                        @if($user['iso14001_certificate'])
-                        <tr>
-                            <th>ISO14001</th>
                             <td>
-                                <a href="{{ asset($user['iso14001_certificate']) }}" target="_blank">
+@if ($amAudit)
+                                <a href="{{ asset($amAudit->file_path) }}" target="_blank">
                                     <i class="far fa-file-pdf fa-2x" style="color:red;"></i>
                                 </a>
+@else
+                                <span style="color:var(--am-text-soft);">&mdash;</span>
+@endif
                             </td>
-                            <td>{{ $user['iso14001_description'] }}</td>
-                            <td>{{ date("d/m/Y", strtotime($user['iso14001_expirydate'])) }}</td>
-                        </tr>
-                        @endif
-                        @if($user['iso45001_certificate'])
-                        <tr>
-                            <th>ISO45001</th>
                             <td>
-                                <a href="{{ asset($user['iso45001_certificate']) }}" target="_blank">
-                                    <i class="far fa-file-pdf fa-2x" style="color:red;"></i>
-                                </a>
+                                {{ $user[$amStd . '_description'] }}
+@if ($amAudit && $amAudit->comment)
+                                <div style="color:var(--am-text-muted);font-size:12.5px;margin-top:4px;">{{ $amAudit->comment }}</div>
+@endif
                             </td>
-                            <td>{{ $user['iso45001_description'] }}</td>
-                            <td>{{ date("d/m/Y", strtotime($user['iso45001_expirydate'])) }}</td>
                         </tr>
-                        @endif
+@endif
+@endforeach
                     </tbody>
                 </table>
             </div>
@@ -215,6 +215,17 @@
                      'url'   => !empty($user['qa_certification']) ? asset($user['qa_certification']) : null,
                      'none'  => 'Not available'],
                 ];
+                // and one tile per standard that has a QA agreement of its own,
+                // which is what a client gains on taking a second standard later
+                foreach (($stdDocs ?? []) as $amStd => $amDocs) {
+                    if (empty($amDocs['qa_agreement'])) { continue; }
+                    $docs[] = [
+                        'title' => \App\UserDocument::typeLabel('qa_agreement')
+                                   . ' — ' . \App\UserDocument::standardLabel($amStd),
+                        'url'   => asset($amDocs['qa_agreement']->file_path),
+                        'none'  => '',
+                    ];
+                }
             @endphp
             @include('dashboard.partials.dash_supporting_docs', [
                 'docs'    => $docs,

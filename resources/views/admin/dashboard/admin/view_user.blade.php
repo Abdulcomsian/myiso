@@ -962,6 +962,28 @@
                                 </div>
                             </div>
 
+                            <div class="form-group row">
+
+                                <div class="col-lg-4">
+                                    <label for="iso9001_audit_report">ISO9001 Audit Report:</label>&nbsp;&nbsp;
+                                    <span id="view_iso9001_audit"></span>
+                                    <input type="file" id="iso9001_audit_report" accept=".pdf" name="iso9001_audit_report">
+                                </div>
+
+                                <div class="col-lg-4">
+                                    <label for="iso9001_audit_comment">ISO9001 Audit Comment:</label>
+                                    <textarea id="iso9001_audit_comment" name="iso9001_audit_comment" class="form-control"
+                                              placeholder="Audit comment for ISO9001"></textarea>
+                                </div>
+
+                                <div class="col-lg-4">
+                                    <label for="iso9001_qa_agreement">ISO9001 QA Agreement:</label>&nbsp;&nbsp;
+                                    <span id="view_iso9001_qa"></span>
+                                    <input type="file" id="iso9001_qa_agreement" accept=".pdf" name="iso9001_qa_agreement">
+                                </div>
+
+                            </div>
+
 
 
 
@@ -1003,6 +1025,28 @@
                             <div class="form-group row">
 
                                 <div class="col-lg-4">
+                                    <label for="iso14001_audit_report">ISO14001 Audit Report:</label>&nbsp;&nbsp;
+                                    <span id="view_iso14001_audit"></span>
+                                    <input type="file" id="iso14001_audit_report" accept=".pdf" name="iso14001_audit_report">
+                                </div>
+
+                                <div class="col-lg-4">
+                                    <label for="iso14001_audit_comment">ISO14001 Audit Comment:</label>
+                                    <textarea id="iso14001_audit_comment" name="iso14001_audit_comment" class="form-control"
+                                              placeholder="Audit comment for ISO14001"></textarea>
+                                </div>
+
+                                <div class="col-lg-4">
+                                    <label for="iso14001_qa_agreement">ISO14001 QA Agreement:</label>&nbsp;&nbsp;
+                                    <span id="view_iso14001_qa"></span>
+                                    <input type="file" id="iso14001_qa_agreement" accept=".pdf" name="iso14001_qa_agreement">
+                                </div>
+
+                            </div>
+
+                            <div class="form-group row">
+
+                                <div class="col-lg-4">
                                     <label for="iso45001_certificate">ISO45001 Certificate:</label>&nbsp;&nbsp;
                                     <span id="view_45001"></span>
                                     &nbsp;&nbsp; <a href="#" data-handle="iso45001" class="iso45001 delete-certificate">Delete</a>
@@ -1030,6 +1074,28 @@
                                 </div>
 
                             </div>
+
+                            <div class="form-group row">
+
+                                <div class="col-lg-4">
+                                    <label for="iso45001_audit_report">ISO45001 Audit Report:</label>&nbsp;&nbsp;
+                                    <span id="view_iso45001_audit"></span>
+                                    <input type="file" id="iso45001_audit_report" accept=".pdf" name="iso45001_audit_report">
+                                </div>
+
+                                <div class="col-lg-4">
+                                    <label for="iso45001_audit_comment">ISO45001 Audit Comment:</label>
+                                    <textarea id="iso45001_audit_comment" name="iso45001_audit_comment" class="form-control"
+                                              placeholder="Audit comment for ISO45001"></textarea>
+                                </div>
+
+                                <div class="col-lg-4">
+                                    <label for="iso45001_qa_agreement">ISO45001 QA Agreement:</label>&nbsp;&nbsp;
+                                    <span id="view_iso45001_qa"></span>
+                                    <input type="file" id="iso45001_qa_agreement" accept=".pdf" name="iso45001_qa_agreement">
+                                </div>
+
+                            </div>
                             <div class="form-group row">
                                 <div class="col-lg-4">
                                     <label for="audit_report">Audit Report</label>&nbsp;&nbsp;
@@ -1053,6 +1119,23 @@
                                     <input type="file" id="qa_certification" accept=".pdf" name="qa_certification">
                                 </div>
 
+                            </div>
+
+                            <div class="form-group row" id="amPrevDocsRow" style="display:none;">
+                                <div class="col-lg-12">
+                                    <label>Previous Certificates &amp; Audit Reports</label>
+                                    <table class="table" id="amPrevDocs" style="margin-top:6px;">
+                                        <thead>
+                                            <tr>
+                                                <th>Standard</th>
+                                                <th>Document</th>
+                                                <th>Replaced on</th>
+                                                <th>File</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody></tbody>
+                                    </table>
+                                </div>
                             </div>
                         </div>
 
@@ -1696,6 +1779,38 @@
                 $("#view_45001").empty();
                 $("#edit_audit_report").empty();
                 $("#edit_qa_certification").empty();
+                  // each standard's own paperwork, which travels with the row
+                  ['iso9001', 'iso14001', 'iso45001'].forEach(function (std) {
+                      $('#view_' + std + '_audit').empty();
+                      $('#view_' + std + '_qa').empty();
+                      $('#' + std + '_audit_comment').val('');
+                  });
+                  (data.documents || []).forEach(function (doc) {
+                      if (String(doc.is_current) !== '1') { return; }   // superseded ones are history
+                      var link = "<a target='_blank' href='{{ asset('/') }}" + doc.file_path + "'>View</a>";
+                      if (doc.doc_type === 'audit_report') {
+                          $('#view_' + doc.standard + '_audit').append(link);
+                          $('#' + doc.standard + '_audit_comment').val(doc.comment || '');
+                      } else if (doc.doc_type === 'qa_agreement') {
+                          $('#view_' + doc.standard + '_qa').append(link);
+                      }
+                  });
+                  // everything a renewal or a re-upload replaced
+                  var prevRows = '';
+                  var stdNames = {iso9001: 'ISO 9001', iso14001: 'ISO 14001', iso45001: 'ISO 45001', general: 'General'};
+                  var typeNames = {certificate: 'Certificate', audit_report: 'Audit Report', qa_agreement: 'QA Agreement'};
+                  (data.documents || []).forEach(function (doc) {
+                      if (String(doc.is_current) === '1') { return; }
+                      var when = (doc.archived_at || doc.created_at || '').substring(0, 10);
+                      prevRows += '<tr>'
+                          + '<td>' + (stdNames[doc.standard] || doc.standard) + '</td>'
+                          + '<td>' + (typeNames[doc.doc_type] || doc.doc_type) + '</td>'
+                          + '<td>' + when + '</td>'
+                          + "<td><a target='_blank' href='{{ asset('/') }}" + doc.file_path + "'>View</a></td>"
+                          + '</tr>';
+                  });
+                  $('#amPrevDocs tbody').html(prevRows);
+                  $('#amPrevDocsRow').css('display', prevRows ? '' : 'none');
                 $("#downloadlink").empty();
                 console.log(data);
                 $("#editvalue").val(data.id);

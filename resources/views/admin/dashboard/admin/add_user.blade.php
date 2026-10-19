@@ -356,6 +356,28 @@
                             </div>
 
                             <div class="form-group row">
+                            
+                                <div class="col-lg-3">
+                                    <label for="iso9001_audit_report">ISO9001 Audit Report</label>
+                                    <input type="file" id="iso9001_audit_report" accept=".pdf"
+                                           name="iso9001_audit_report">
+                                </div>
+                            
+                                <div class="col-lg-4">
+                                    <label for="iso9001_audit_comment">ISO9001 Audit Comment</label>
+                                    <textarea id="iso9001_audit_comment" name="iso9001_audit_comment" class="form-control"
+                                              placeholder="Audit comment for ISO9001"></textarea>
+                                </div>
+                            
+                                <div class="col-lg-4">
+                                    <label for="iso9001_qa_agreement">ISO9001 QA Agreement</label>
+                                    <input type="file" id="iso9001_qa_agreement" accept=".pdf"
+                                           name="iso9001_qa_agreement">
+                                </div>
+                            
+                            </div>
+
+                            <div class="form-group row">
 
                                 <div class="col-lg-3">
                                     <label for="iso14001_certificate">ISO14001 Certificate:</label>
@@ -380,6 +402,28 @@
                             </div>
 
                             <div class="form-group row">
+                            
+                                <div class="col-lg-3">
+                                    <label for="iso14001_audit_report">ISO14001 Audit Report</label>
+                                    <input type="file" id="iso14001_audit_report" accept=".pdf"
+                                           name="iso14001_audit_report">
+                                </div>
+                            
+                                <div class="col-lg-4">
+                                    <label for="iso14001_audit_comment">ISO14001 Audit Comment</label>
+                                    <textarea id="iso14001_audit_comment" name="iso14001_audit_comment" class="form-control"
+                                              placeholder="Audit comment for ISO14001"></textarea>
+                                </div>
+                            
+                                <div class="col-lg-4">
+                                    <label for="iso14001_qa_agreement">ISO14001 QA Agreement</label>
+                                    <input type="file" id="iso14001_qa_agreement" accept=".pdf"
+                                           name="iso14001_qa_agreement">
+                                </div>
+                            
+                            </div>
+
+                            <div class="form-group row">
 
                                 <div class="col-lg-3">
                                     <label for="iso45001_certificate">ISO45001 Certificate:</label>
@@ -400,6 +444,28 @@
                                     <textarea id="iso45001_description" name="iso45001_description" class="form-control"
                                               placeholder="Description for ISO45001 Certificate"></textarea>
                                 </div>
+                            </div>
+
+                            <div class="form-group row">
+                            
+                                <div class="col-lg-3">
+                                    <label for="iso45001_audit_report">ISO45001 Audit Report</label>
+                                    <input type="file" id="iso45001_audit_report" accept=".pdf"
+                                           name="iso45001_audit_report">
+                                </div>
+                            
+                                <div class="col-lg-4">
+                                    <label for="iso45001_audit_comment">ISO45001 Audit Comment</label>
+                                    <textarea id="iso45001_audit_comment" name="iso45001_audit_comment" class="form-control"
+                                              placeholder="Audit comment for ISO45001"></textarea>
+                                </div>
+                            
+                                <div class="col-lg-4">
+                                    <label for="iso45001_qa_agreement">ISO45001 QA Agreement</label>
+                                    <input type="file" id="iso45001_qa_agreement" accept=".pdf"
+                                           name="iso45001_qa_agreement">
+                                </div>
+                            
                             </div>
 
 

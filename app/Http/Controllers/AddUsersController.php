@@ -22,6 +22,7 @@ use App\SendNotifications;
 use App\Supplier;
 use App\Workinstructions;
 use App\User;
+use App\UserDocument;
 use App\LoginHistoryUser;
 use App\CustomManual;
 use Carbon\Carbon;
@@ -73,7 +74,7 @@ class AddUsersController extends Controller
          $newThisMonth = (clone $query)->where('created_at', '>=', now()->startOfMonth())->count();
          $countries    = (clone $query)->whereNotNull('country')->distinct('country')->count('country');
 
-         $users = $query->orderBy('id', 'desc')->paginate(20)->withQueryString();
+         $users = $query->with('documents')->orderBy('id', 'desc')->paginate(20)->withQueryString();
 
          if ($request->ajax()) {
              return view('admin.dashboard.admin.partials.users_table', compact('users'));
@@ -587,6 +588,11 @@ public function store(Request $request)
 
 
             $addusers->save();
+
+            // each standard's own audit report and QA agreement; needs the id,
+            // so it only happens once the client exists
+            $this->saveStandardDocuments($request, $addusers->id);
+
             return redirect('/add_user')->with("Success", "User added Successfully.");
         } catch (Exception $exc) { dd($exc);
             return redirect('/add_user')->with("Error", "Error saving data, please try again.");
@@ -1258,6 +1264,10 @@ public function store(Request $request)
 
             $path = $request->file('iso9001_certificate')->storeAs('/uploads/user', $file_name, 'public');
             $request->file('iso9001_certificate')->move(public_path('/uploads/user'), $file_name);
+            // the certificate being replaced is kept, so the client's
+            // certification history survives the renewal
+            UserDocument::archive($user->id, 'iso9001', UserDocument::TYPE_CERTIFICATE,
+                $user->iso9001_certificate, $user->iso9001_description, $user->iso9001_expirydate);
             $user->iso9001_certificate = $path;
         }
         $user->iso9001_expirydate = $request->input('iso9001_expirydate');
@@ -1269,6 +1279,10 @@ public function store(Request $request)
 
             $iso14001_certificate_path = $request->file('iso14001_certificate')->storeAs('/uploads/user', $iso14001_certificate_name, 'public');
             $request->file('iso14001_certificate')->move(public_path('/uploads/user'), $iso14001_certificate_name);
+            // the certificate being replaced is kept, so the client's
+            // certification history survives the renewal
+            UserDocument::archive($user->id, 'iso14001', UserDocument::TYPE_CERTIFICATE,
+                $user->iso14001_certificate, $user->iso14001_description, $user->iso14001_expirydate);
             $user->iso14001_certificate = $iso14001_certificate_path;
 
         }
@@ -1281,6 +1295,10 @@ public function store(Request $request)
 
             $iso45001_certificate_path = $request->file('iso45001_certificate')->storeAs('/uploads/user', $iso45001_certificate_name, 'public');
             $request->file('iso45001_certificate')->move(public_path('/uploads/user'), $iso45001_certificate_name);
+            // the certificate being replaced is kept, so the client's
+            // certification history survives the renewal
+            UserDocument::archive($user->id, 'iso45001', UserDocument::TYPE_CERTIFICATE,
+                $user->iso45001_certificate, $user->iso45001_description, $user->iso45001_expirydate);
             $user->iso45001_certificate = $iso45001_certificate_path;
 
         }
@@ -1325,9 +1343,11 @@ public function store(Request $request)
 
         if (Schema::hasColumns('users', ['audit_report'])) {
             if ($request->file('audit_report')) {
-                if (File::exists(public_path($user->audit_report))) {
-                    File::delete(public_path($user->audit_report));
-                }
+                // what it replaces is filed under Previous Certificates & Audit
+                // Reports instead of being deleted - losing it was the whole
+                // complaint
+                UserDocument::archive($user->id, 'general', UserDocument::TYPE_AUDIT,
+                    $user->audit_report, $user->audit_comment);
                 $audit_report_path = $request->file('audit_report');
                 $audit_report_name = uniqid() . "." . $request->file('audit_report')->extension();
 
@@ -1338,9 +1358,8 @@ public function store(Request $request)
         }
         if (Schema::hasColumns('users', ['qa_certification'])) {
             if ($request->file('qa_certification')) {
-                if (File::exists(public_path($user->qa_certification))) {
-                    File::delete(public_path($user->qa_certification));
-                }
+                UserDocument::archive($user->id, 'general', UserDocument::TYPE_QA,
+                    $user->qa_certification);
                 $qa_certification_path = $request->file('qa_certification');
                 $qa_certification_name = uniqid() . "." . $request->file('qa_certification')->extension();
 
@@ -1362,6 +1381,8 @@ public function store(Request $request)
         $user->Company_overview = $request->input('Company_overview');
 
         $user->save();
+
+        $this->saveStandardDocuments($request, $user->id);
 
         return redirect()->back();
     }
@@ -2512,6 +2533,57 @@ public function deleteUsernote($id)
 
     // Return the filtered data as a view partial
     return view('admin.dashboard.admin.view_category_downloads', compact('downloads'));
+    }
+
+    /**
+     * Files the audit report and QA agreement a form submitted for each ISO
+     * standard.
+     *
+     * Until now a client had one audit_report and one qa_certification for the
+     * whole account, so gaining a second standard on a later date overwrote the
+     * first standard's paperwork. Each standard now has its own, and whatever a
+     * new upload replaces is kept rather than destroyed.
+     */
+    private function saveStandardDocuments(Request $request, $userId)
+    {
+        if (!Schema::hasTable('tbl_user_documents')) {
+            return;                       // the table arrives with its own migration
+        }
+
+        foreach (array_keys(UserDocument::standards()) as $std) {
+            $comment = $request->input($std . '_audit_comment');
+
+            if ($request->file($std . '_audit_report')) {
+                UserDocument::put($userId, $std, UserDocument::TYPE_AUDIT,
+                    $this->storeStandardFile($request, $std . '_audit_report', 'audit_report'),
+                    $comment);
+            } elseif ($comment !== null) {
+                // the comment can be corrected without uploading the report again
+                UserDocument::where('user_id', $userId)
+                    ->where('standard', $std)
+                    ->where('doc_type', UserDocument::TYPE_AUDIT)
+                    ->where('is_current', 1)
+                    ->update(['comment' => $comment]);
+            }
+
+            if ($request->file($std . '_qa_agreement')) {
+                UserDocument::put($userId, $std, UserDocument::TYPE_QA,
+                    $this->storeStandardFile($request, $std . '_qa_agreement', 'qa_certification'));
+            }
+        }
+    }
+
+    /**
+     * Puts an uploaded file where the existing uploads already live, the same
+     * way the rest of this controller does it, and hands back the stored path.
+     */
+    private function storeStandardFile(Request $request, $field, $folder)
+    {
+        $name = uniqid() . "." . $request->file($field)->extension();
+        $path = $request->file($field)->storeAs('/uploads/user/' . $folder, $name, 'public');
+        $request->file($field)->move(public_path('/uploads/user/' . $folder), $name);
+
+        return $path;
     }
 
 }

@@ -49,7 +49,9 @@ class HomeController extends Controller
             compact('user', 'showInactivityAlert'),
             ObjectiveController::dashboardList($id),
             ['requirement' => RequiremntController::dashboardList($id),
-             'calibration' => CalibrationController::dashboardList($id)]
+             'calibration' => CalibrationController::dashboardList($id),
+             // each standard's own audit report, shown beside its certificate
+             'stdDocs'     => \App\UserDocument::currentFor($id)]
         ));
     }
     
