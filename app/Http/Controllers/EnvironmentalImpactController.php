@@ -16,7 +16,7 @@ class EnvironmentalImpactController extends SimpleRegisterController
         return [
             'key' => 'environmental_impacts',
             'admin_url' => 'environmentalImpactsad',
-            'title' => 'Environmental Impacts',
+            'title' => 'Environmental Aspects & Impacts',
             'subtitle' => 'A list of what your business does to the environment and how you control these things.',
             'guide' => [
                 'eyebrow' => 'Manuals & Policies',
@@ -36,9 +36,9 @@ class EnvironmentalImpactController extends SimpleRegisterController
             ],
             'info_title' => 'Add items that affect the environment, like:',
             'info_items' => ['Use of energy', 'Creating waste', 'Using water', 'Using chemicals'],
-            'add_label' => 'Add Environmental Aspect',
-            'edit_title' => 'Edit Environmental Aspect',
-            'item_name' => 'Environmental Aspect',
+            'add_label' => 'Add Environmental Aspect & Impact',
+            'edit_title' => 'Edit Environmental Aspect & Impact',
+            'item_name' => 'Environmental Aspect & Impact',
             'search_placeholder' => 'Search aspects…',
             'empty' => 'No environmental aspects added yet.',
             'icon' => 'fa-leaf',

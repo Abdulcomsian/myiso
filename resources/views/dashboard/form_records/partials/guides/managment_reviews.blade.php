@@ -7,7 +7,7 @@
             <span class="am-modal__icon am-page-guide-icon"><i class="fa fa-info-circle"></i></span>
             <div>
                 <div style="font-size:11px;text-transform:uppercase;letter-spacing:0.4px;color:var(--am-text-muted);font-weight:600;">Procedures</div>
-                <h4 class="am-modal__title" style="color:var(--am-primary);">P3 – Management Review</h4>
+                <h4 class="am-modal__title" style="color:var(--am-primary);">Management Review</h4>
             </div>
         </div>
         <div class="am-modal__body" style="color:var(--am-text);">

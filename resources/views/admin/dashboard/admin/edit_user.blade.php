@@ -5,7 +5,7 @@
     $userId = request()->route('id');
     $forms = [
         ['title' => 'Requirements Due',        'url' => '/requiremntCheck/'.$userId,     'icon' => 'fa-tasks',    'group' => 'Compliance'],
-        ['title' => 'Environmental Impacts',   'url' => '/environmentalImpactsad/'.$userId, 'icon' => 'fa-leaf',       'group' => 'Compliance'],
+        ['title' => 'Environmental Aspects',   'url' => '/environmentalImpactsad/'.$userId, 'icon' => 'fa-leaf',       'group' => 'Compliance'],
         ['title' => 'Process Audits',          'url' => '/ProcessCheck/'.$userId,        'icon' => 'fa-clipboard-list','group' => 'Audits'],
         ['title' => 'Incident Report',         'url' => '/incidentsad/'.$userId,         'icon' => 'fa-user-injured',  'group' => 'Safety'],
         ['title' => 'Interested Parties',      'url' => '/interested_parties/'.$userId,  'icon' => 'fa-users',         'group' => 'Compliance'],

@@ -60,7 +60,7 @@
 					<div class="list_display">
 						<ul>
 							<li><a href="{{ url('/requirements_aspect') }}"> Requirements Due</a></li>
-							<li><a href="{{ url('/environmental_impacts') }}">Environmental Impacts</a></li>
+							<li><a href="{{ url('/environmental_impacts') }}">Environmental Aspects</a></li>
 							<li><a href="{{ url('/process_audit') }}">Process Audits</a></li>
 							<li><a href="{{ url('/incidents') }}">Incident Report</a></li>
 							<li><a href="{{ url('/interesting_parties')}}">Interested Parties</a></li>

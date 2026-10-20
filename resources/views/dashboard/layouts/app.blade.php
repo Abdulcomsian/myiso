@@ -91,7 +91,7 @@
                 <a href="{{ url('customer') }}" class="am-nav-link {{ Request::is('customer') ? 'active' : '' }}">Customers</a>
                 <a href="{{ url('customer_review') }}" class="am-nav-link {{ Request::is('customer_review') ? 'active' : '' }}">Customer Reviews</a>
                 <a href="{{ url('employess') }}" class="am-nav-link {{ Request::is('employess') ? 'active' : '' }}">Employees</a>
-                <a href="{{ url('environmental_impacts') }}" class="am-nav-link {{ Request::is('environmental_impacts') ? 'active' : '' }}">Environmental Impacts</a>
+                <a href="{{ url('environmental_impacts') }}" class="am-nav-link {{ Request::is('environmental_impacts') ? 'active' : '' }}">Environmental Aspects</a>
                 <a href="{{ url('hazards') }}" class="am-nav-link {{ Request::is('hazards') ? 'active' : '' }}">Hazard Register</a>
                 <a href="{{ url('incidents') }}" class="am-nav-link {{ Request::is('incidents') ? 'active' : '' }}">Incident Report</a>
                 <a href="{{ url('interesting_parties') }}" class="am-nav-link {{ Request::is('interesting_parties') ? 'active' : '' }}">Interested Parties</a>
