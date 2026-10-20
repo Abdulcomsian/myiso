@@ -328,9 +328,9 @@ class MgtReviewQuestions
     {
         return [
             'key' => 'C',
-            'title' => 'Who will do what, and by when?',
+            'title' => 'Who will manage what objective, and by when?',
             'badges' => ['All standards'],
-            'columns' => ['Action', 'Who', 'By when', 'Done'],
+            'columns' => ['Objective', 'Who', 'By when', 'Done'],
             'add' => '+ Add action',
             'ph_action' => 'What needs doing',
             'ph_who' => 'Who will do it',

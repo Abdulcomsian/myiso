@@ -1,6 +1,14 @@
 @extends('dashboard.layouts.app')
 
 @section('content')
+<style>
+    /* The category list. The selected one is a filled pill, so its text follows
+       the sidebar's own active treatment rather than staying the link blue it
+       would be unreadable in. */
+    #faq-tabs .nav-link { color: #4580c6; }
+    #faq-tabs .nav-link.active,
+    #faq-tabs .nav-link.active i { color: #fff; }
+</style>
 <div class="am-content">
 
     <div class="am-page-header">
@@ -23,7 +31,7 @@
                                role="tab"
                                aria-controls="tab{{ $cate->id }}"
                                aria-selected="{{ $loop->first ? 'true' : 'false' }}"
-                               style="border-radius:6px; margin-bottom:4px; color:#4580c6; font-weight:500;">
+                               style="border-radius:6px; margin-bottom:4px; font-weight:500;">
                                 <i class="fa fa-question-circle mr-2"></i> {{ $cate->name }}
                             </a>
                         @endforeach
