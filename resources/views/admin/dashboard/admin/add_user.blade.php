@@ -469,29 +469,11 @@
                             </div>
 
 
-                            <div class="form-group row">
-                                <div class="col-lg-3">
-                                    <label for="iso45001_certificate">Audit Report</label>
-                                    <input type="file" id="audit_report" accept=".pdf"
-                                           name="audit_report">
-                                </div>
-                                <div class="col-lg-4">
-                                    <label for="iso45001_certificate">Audit Comment</label>
-                                    <textarea id="audit_comment" name="audit_comment" class="form-control"
-                                              placeholder="Audit Comment"></textarea>
-                                </div>
-                            </div>
-                            <h4 class="am-section-title"><i class="fa fa-file-signature"></i> Additional Documents</h4>
+                            {{-- The standard-less Audit Report, Audit Comment and QA Agreement used to
+                                 sit here, under an "Additional Documents" heading. Every standard now
+                                 carries its own, so they came off both this form and the edit one. The
+                                 heading went with them - the QA agreement was all it held. --}}
 
-                            <div class="form-group row">
-                                <div class="col-lg-3">
-                                    <label for="iso45001_certificate">QA Certification Agreement</label>
-                                    <input type="file" id="qa_certification" accept=".pdf"
-                                           name="qa_certification">
-                                </div>
-                            </div>
-                            
-                           
                             <div class="kt-portlet__foot" style="background:transparent;border-top:1px solid var(--am-border);padding:18px 22px;display:flex;justify-content:flex-end;gap:10px;">
                                 <button type="reset" class="am-btn am-btn-outline" onclick="window.location.href='{{url('/view_user')}}'">
                                     <i class="fa fa-times"></i> Cancel

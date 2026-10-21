@@ -1368,7 +1368,12 @@ public function store(Request $request)
                 $user->qa_certification = $qa_certification_path;
             }
         }
-        $user->audit_comment=$request->input('audit_comment');
+        // the box was taken off the form, so a save no longer carries this.
+        // Without the guard every save would write null over a comment 772
+        // clients already have, and which their dashboard still shows.
+        if ($request->has('audit_comment')) {
+            $user->audit_comment = $request->input('audit_comment');
+        }
         $user->expiry_date = $request->input('expiry_date');
 
         $user->company_name = $request->input('company_name');
@@ -2584,6 +2589,25 @@ public function deleteUsernote($id)
         $request->file($field)->move(public_path('/uploads/user/' . $folder), $name);
 
         return $path;
+    }
+
+    /**
+     * Takes one superseded document off a client's history.
+     *
+     * Only a row that has already been replaced can go - what the client
+     * holds now leaves the list by being replaced, not from here. The file
+     * is left on disk on purpose: keeping replaced files is why this
+     * history exists, and tidying the list is not a request to destroy one.
+     */
+    public function removeUserDocument(Request $request)
+    {
+        $doc = UserDocument::where('is_current', 0)->find($request->input('id'));
+        if (!$doc) {
+            return response()->json(['ok' => false], 404);
+        }
+        $doc->delete();
+
+        return response()->json(['ok' => true]);
     }
 
 }

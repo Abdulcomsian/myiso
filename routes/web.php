@@ -148,6 +148,8 @@ Route::group(['middleware' => ['auth','admin']], function ()
 {
     Route::get('/admin', 'AdminController@index');
     Route::get('/view_user', 'AddUsersController@index');
+    // one superseded document off a client's history; admin only
+    Route::post('/remove_user_document', 'AddUsersController@removeUserDocument');
     Route::get('/view_user_modern', function () {
         $users = \App\AddUsers::orderBy('id', 'desc')->get();
         return view('admin.dashboard.admin.view_user_modern', compact('users'));
