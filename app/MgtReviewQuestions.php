@@ -331,7 +331,7 @@ class MgtReviewQuestions
             'title' => 'Who will manage what objective, and by when?',
             'badges' => ['All standards'],
             'columns' => ['Objective', 'Who', 'By when', 'Done'],
-            'add' => '+ Add action',
+            'add' => '+ Add Objective',
             'ph_action' => 'What needs doing',
             'ph_who' => 'Who will do it',
             'note' => 'Open actions show on the Management Reviews list until they are ticked done. Question 1 of the next review checks them.',

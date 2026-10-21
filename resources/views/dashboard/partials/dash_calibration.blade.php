@@ -19,6 +19,7 @@
                 <th>Date Calibrated</th>
                 <th>Frequency</th>
                 <th>Date Due</th>
+                <th>Status</th>
                 <th>Action</th>
             </tr>
         </thead>
@@ -32,6 +33,16 @@
                 <td>{{$data->freq}}</td>
                 @php $d = strtotime("+$data->freq months",strtotime($data->calibratedDate)); @endphp
                 <td>{{ date("d/m/Y", $d) }}</td>
+                {{-- red once the due date has gone by. A record with no calibratedDate behind
+                     it has no real due date, so it gets a dash instead of a red flag --}}
+                @php $amDue = !empty($data->calibratedDate) && strtotime($data->calibratedDate) && $d; @endphp
+                <td class="am-due-status">
+                    @if ($amDue)
+                        <span class="am-chip {{ $d < strtotime('today') ? 'danger' : 'success' }}">{{ $d < strtotime('today') ? 'Overdue' : 'On track' }}</span>
+                    @else
+                        <span class="am-chip neutral">&mdash;</span>
+                    @endif
+                </td>
                 <td>
                     <a href="javascript:;" data-toggle="modal" data-id="{{$data->id}}" class="calibrationModal am-btn am-btn-sm am-btn-danger" title="Delete">
                         <i class="fa fa-trash"></i>

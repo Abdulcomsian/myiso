@@ -646,13 +646,18 @@ body.am-body {
     border-bottom: 1px solid var(--am-border);
     white-space: nowrap;
 }
-.am-table tbody td {
+/* a th in the body is a row's own heading - the certificate's name, say -
+   and needs the same box as the cells beside it, or it sits hard against
+   the edge, out of line with the column heading above it */
+.am-table tbody td,
+.am-table tbody th {
     padding: 14px 16px;
     border-bottom: 1px solid var(--am-border-soft);
     vertical-align: middle;
     color: var(--am-text);
 }
-.am-table tbody tr:last-child td { border-bottom: none; }
+.am-table tbody tr:last-child td,
+.am-table tbody tr:last-child th { border-bottom: none; }
 .am-table tbody tr:hover { background: var(--am-hover); }
 .am-table .am-cell-primary { font-weight: 600; color: var(--am-text); }
 .am-table .am-cell-sub { font-size: 12px; color: var(--am-text-muted); display: block; }
@@ -1637,6 +1642,10 @@ body.am-body {
 
 /* Part 3 C: the actions table inside the form */
 .mr-actions-table td { vertical-align: middle; }
+/* the column headers read as the labels above them do: the table's own
+   11.5px/600 was a shade lighter and larger than the 11px/700 used by
+   every label in the sections above */
+.mr-actions-table thead th { font-size: 11px; font-weight: 700; color: var(--am-text); }
 .am-inline-form .mr-actions-table input[type="text"],
 .am-inline-form .mr-actions-table input[type="date"],
 .am-form .mr-actions-table input[type="text"],
