@@ -1642,10 +1642,16 @@ body.am-body {
 
 /* Part 3 C: the actions table inside the form */
 .mr-actions-table td { vertical-align: middle; }
-/* the column headers read as the labels above them do: the table's own
-   11.5px/600 was a shade lighter and larger than the 11px/700 used by
-   every label in the sections above */
-.mr-actions-table thead th { font-size: 11px; font-weight: 700; color: var(--am-text); }
+/* The column headers read as the labels above them do.
+
+   The labels are 11px/700 from ".mr-objective label". The headers were
+   neither: style.bundle.css carries a bare "th" rule marked "this will
+   apply for all pages" that forces every table heading on the site to
+   13px/500 with !important - which no amount of specificity here can
+   outrank. Hence !important on these two, and only these two. The
+   colour already agrees: that rule paints th #000, and custom.css
+   paints every label black. */
+.mr-actions-table thead th { font-size: 11px !important; font-weight: 700 !important; }
 .am-inline-form .mr-actions-table input[type="text"],
 .am-inline-form .mr-actions-table input[type="date"],
 .am-form .mr-actions-table input[type="text"],
