@@ -82,15 +82,15 @@
                             });
                         @endphp
 @if (in_array('view', $amObjActions, true))
-                        <button type="button" class="am-icon-btn" title="View" onclick='amObjView(@json($payload))'><i class="fa fa-eye"></i></button>
+                        <button type="button" class="am-icon-btn" title="View" onclick='amObjView(@json($payload), @json($notes))'><i class="fa fa-eye"></i></button>
 @endif
 @if (in_array('progress', $amObjActions, true))
-                        @if (in_array($data->status, ['achieved', 'not_achieved'], true))
-                            {{-- finished, so the history is there to read rather than add to --}}
-                            <button type="button" class="am-btn am-btn-outline am-btn-sm" onclick='amObjProgress(@json($payload), @json($notes))'>View</button>
-                        @else
-                            <button type="button" class="am-btn am-btn-outline am-btn-sm" onclick='amObjProgress(@json($payload), @json($notes))'>Update</button>
-                        @endif
+                        {{-- always Update: the button opened the same editable
+                             Update Progress form whatever the status, so saying
+                             View on a finished objective only misread it. The
+                             history is on the details popup, which is where
+                             something called View belongs. --}}
+                        <button type="button" class="am-btn am-btn-outline am-btn-sm" onclick='amObjProgress(@json($payload), @json($notes))'>Update</button>
 @endif
 @if (in_array('edit', $amObjActions, true))
                         <button type="button" class="am-icon-btn" title="Edit" onclick='amObjEdit(@json($payload))'><i class="fa fa-pen"></i></button>

@@ -62,7 +62,7 @@
                     <div><label>Frequency (Months, 1-12)</label><input type="number" min="1" max="12" name="freq" required></div>
                     <div><label>Report Reviewer</label><input type="text" name="reportRev" required></div>
                     <div>
-                        <label>Sentence</label>
+                        <label>Result</label>
                         <select name="sentence" required>
                             <option value="">Select</option>
                             <option value="Pass">Pass</option>
@@ -120,9 +120,9 @@
                         <th style="width:60px;">#</th>
                         <th>Equipment</th>
                         <th>Serial</th>
-                        <th>Calibrated</th>
-                        <th>Due</th>
-                        <th>Sentence</th>
+                        <th>Date Calibrated</th>
+                        <th>Date Due</th>
+                        <th>Result</th>
                         <th style="text-align:right;">Actions</th>
                     </tr>
                 </thead>
@@ -185,7 +185,7 @@
                 'equipment' => 'Equipment', 'serialNum' => 'Serial Number', 'locaction' => 'Location',
                 'testMethod' => 'Test Method', 'acceptance' => 'Acceptance Criteria', 'calibratedDate' => 'Date Calibrated',
                 'certificatenumber' => 'Certificate #', 'freq' => 'Frequency (months)', 'reportRev' => 'Report Reviewer',
-                'sentence' => 'Sentence', 'issues_points' => 'Notes',
+                'sentence' => 'Result', 'issues_points' => 'Notes',
             ]; @endphp
             <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:14px;font-size:13px;">
                 @foreach($vf as $k => $lb)
@@ -226,7 +226,7 @@
                 <div class="form-group row">
                     <div class="col-lg-4"><label>Frequency (Months)</label><input type="number" class="form-control" min="1" max="12" name="freq" required></div>
                     <div class="col-lg-4"><label>Report Reviewer</label><input type="text" class="form-control" name="reportRev" required></div>
-                    <div class="col-lg-4"><label>Sentence</label>
+                    <div class="col-lg-4"><label>Result</label>
                         <select class="form-control" name="sentence" required>
                             <option value="">Select</option>
                             <option value="Pass">Pass</option>

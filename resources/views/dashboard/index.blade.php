@@ -200,28 +200,39 @@
                 </span>
             </div>
             @php
-                // The two standing PDFs every client gets, plus one tile per
+                // The two standing PDFs every client gets, plus one row per
                 // standard that has a QA agreement of its own. A standard-less
                 // Audit Report and QA Agreement used to sit here as well, with
                 // the auditor's comment under them; each standard carries its
                 // own now, so all three came off. The columns are still in the
                 // database - this is only what the dashboard offers.
+                //
+                // These two are shipped with the site, not uploaded for a
+                // client, so they carry no date of their own.
                 $docs = [
                     ['title' => 'Remote Audit Overview',
+                     'date'  => null,
                      'url'   => '/uploads/user/pdfs/Remote-Audit-Overview.pdf',
                      'none'  => ''],
                     ['title' => 'Use Of Certificate & Certification Marks',
+                     'date'  => null,
                      'url'   => '/uploads/user/pdfs/Use-Of-Certificate-and-Certification-Marks.pdf',
                      'none'  => ''],
                 ];
-                // and one tile per standard that has a QA agreement of its own,
-                // which is what a client gains on taking a second standard later
+                // and one row per standard that has a QA agreement of its own,
+                // which is what a client gains on taking a second standard later.
+                // The standard is part of the name, there being no column of its
+                // own for it - without it the rows would all read QA Agreement.
                 foreach (($stdDocs ?? []) as $amStd => $amDocs) {
                     if (empty($amDocs['qa_agreement'])) { continue; }
+                    $amQa = $amDocs['qa_agreement'];
                     $docs[] = [
                         'title' => \App\UserDocument::typeLabel('qa_agreement')
                                    . ' — ' . \App\UserDocument::standardLabel($amStd),
-                        'url'   => asset($amDocs['qa_agreement']->file_path),
+                        // when it was uploaded; rows saved before the table
+                        // kept timestamps have none, and show a dash
+                        'date'  => $amQa->created_at ? $amQa->created_at->format('d/m/Y') : null,
+                        'url'   => asset($amQa->file_path),
                         'none'  => '',
                     ];
                 }

@@ -83,7 +83,33 @@ document.addEventListener('change', function (e) {
     var sel = e.target.closest('select[data-obj-agreed]');
     if (sel) amObjSyncAgreed(sel);
 });
-function amObjView(d) {
+// The progress history, drawn the same way wherever it appears. The details
+// popup used to end at Status, which says where an objective stands but not
+// how it got there; it now carries the same timeline the progress popup does,
+// and from this one function, so the two cannot drift apart.
+function amObjHistory(box, history) {
+    if (!box) return;
+    box.innerHTML = '';
+    if (!history || !history.length) {
+        box.innerHTML = '<div style="font-size:13px;color:var(--am-text-muted);">No progress recorded yet.</div>';
+        return;
+    }
+    history.forEach(function (h) {
+        var st = amObjStatuses[h.status] || { chip: '', label: h.status };
+        var row = document.createElement('div');
+        row.style.cssText = 'display:grid;grid-template-columns:110px 120px minmax(0,1fr) minmax(0,150px);gap:12px;align-items:start;padding:10px 0;border-bottom:1px solid var(--am-border);font-size:13px;';
+        row.innerHTML =
+            '<div style="color:var(--am-text-muted);">' + (h.update_date ? new Date(h.update_date).toLocaleDateString() : '—') + '</div>' +
+            '<div><span class="am-chip ' + st.chip + '">' + st.label + '</span></div>' +
+            '<div style="min-width:0;overflow-wrap:anywhere;">' + (h.note ? String(h.note).replace(/[<>&]/g, function (c) { return { '<': '&lt;', '>': '&gt;', '&': '&amp;' }[c]; }) : '') + '</div>' +
+            '<div style="min-width:0;overflow-wrap:anywhere;">' + (h.evidence
+                ? '<a href="{{ asset('objective_evidence') }}/' + encodeURIComponent(h.evidence) + '" target="_blank">' + h.evidence + '</a>'
+                : '—') + '</div>';
+        box.appendChild(row);
+    });
+}
+
+function amObjView(d, history) {
     document.getElementById('vobj-objective').textContent = d.objective || '—';
     document.getElementById('vobj-measured').textContent  = d.how_measured || '—';
     document.getElementById('vobj-start').textContent     = d.starting_point || '—';
@@ -98,6 +124,7 @@ function amObjView(d) {
     var st = amObjStatuses[d.status];
     document.getElementById('vobj-status').innerHTML =
         '<span class="am-chip ' + (st ? st.chip : '') + '">' + (st ? st.label : (d.status || '—')) + '</span>';
+    amObjHistory(document.getElementById('vobj-history'), history);
     document.getElementById('viewObjModal').classList.add('open');
 }
 
@@ -137,25 +164,7 @@ function amObjProgress(d, history) {
     var dt = document.getElementById('pobj-date');
     if (dt && !dt.value) { dt.value = new Date().toISOString().slice(0, 10); }   // today, as a starting point
 
-    var box = document.getElementById('pobj-history');
-    box.innerHTML = '';
-    if (!history || !history.length) {
-        box.innerHTML = '<div style="font-size:13px;color:var(--am-text-muted);">No progress recorded yet.</div>';
-    } else {
-        history.forEach(function (h) {
-            var st = amObjStatuses[h.status] || { chip: '', label: h.status };
-            var row = document.createElement('div');
-            row.style.cssText = 'display:grid;grid-template-columns:110px 120px minmax(0,1fr) minmax(0,150px);gap:12px;align-items:start;padding:10px 0;border-bottom:1px solid var(--am-border);font-size:13px;';
-            row.innerHTML =
-                '<div style="color:var(--am-text-muted);">' + (h.update_date ? new Date(h.update_date).toLocaleDateString() : '—') + '</div>' +
-                '<div><span class="am-chip ' + st.chip + '">' + st.label + '</span></div>' +
-                '<div style="min-width:0;overflow-wrap:anywhere;">' + (h.note ? String(h.note).replace(/[<>&]/g, function (c) { return { '<': '&lt;', '>': '&gt;', '&': '&amp;' }[c]; }) : '') + '</div>' +
-                '<div style="min-width:0;overflow-wrap:anywhere;">' + (h.evidence
-                    ? '<a href="{{ asset('objective_evidence') }}/' + encodeURIComponent(h.evidence) + '" target="_blank">' + h.evidence + '</a>'
-                    : '—') + '</div>';
-            box.appendChild(row);
-        });
-    }
+    amObjHistory(document.getElementById('pobj-history'), history);
     document.getElementById('progressObjModal').classList.add('open');
 }
 

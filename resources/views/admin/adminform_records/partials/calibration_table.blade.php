@@ -5,9 +5,9 @@
                 <th style="width:60px;">#</th>
                 <th>Equipment</th>
                 <th>Serial</th>
-                <th>Calibrated</th>
-                <th>Due</th>
-                <th>Sentence</th>
+                <th>Date Calibrated</th>
+                <th>Date Due</th>
+                <th>Result</th>
                 <th style="text-align:right;">Actions</th>
             </tr>
         </thead>

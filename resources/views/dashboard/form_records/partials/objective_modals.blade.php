@@ -29,6 +29,13 @@
                 <div><div style="font-size:11px;text-transform:uppercase;letter-spacing:0.4px;color:var(--am-text-muted);font-weight:600;margin-bottom:4px;">Agreed at</div><div id="vobj-agreed">—</div></div>
                 <div><div style="font-size:11px;text-transform:uppercase;letter-spacing:0.4px;color:var(--am-text-muted);font-weight:600;margin-bottom:4px;">Status</div><div id="vobj-status">—</div></div>
             </div>
+
+            {{-- Status alone says where the objective stands, not how it got
+                 there. The same timeline the progress popup shows, read-only. --}}
+            <div style="border-top:1px solid var(--am-border);padding-top:14px;margin-top:18px;">
+                <div style="font-size:11px;text-transform:uppercase;letter-spacing:0.4px;color:var(--am-text-muted);font-weight:600;margin-bottom:10px;">Progress history</div>
+                <div id="vobj-history"></div>
+            </div>
         </div>
         <div class="am-modal__footer"><button type="button" class="am-btn am-btn-outline am-modal-close">Close</button></div>
     </div>
