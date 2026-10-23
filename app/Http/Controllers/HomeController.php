@@ -51,10 +51,42 @@ class HomeController extends Controller
             ['requirement' => RequiremntController::dashboardList($id),
              'calibration' => CalibrationController::dashboardList($id),
              // each standard's own audit report, shown beside its certificate
-             'stdDocs'     => \App\UserDocument::currentFor($id)]
+             'stdDocs'     => \App\UserDocument::currentFor($id),
+             // what renewals and re-uploads replaced: the admin could see
+             // this on the Edit User form and the client could not
+             'prevDocs'    => \App\UserDocument::archivedFor($id)]
         ));
     }
     
+    /** where the Previous Certificates card's pager fetches from */
+    public function previousDocuments(Request $request)
+    {
+        if (!$request->ajax()) {
+            return redirect('/home');
+        }
+        return view('dashboard.partials.dash_previous_docs', [
+            'prevDocs' => \App\UserDocument::archivedFor(\Auth::user()->id),
+        ]);
+    }
+
+    /**
+     * Drops one superseded document off the client's own history.
+     *
+     * Scoped to the signed-in client and to is_current = 0, so it can reach
+     * neither somebody else's history nor the document they are certified
+     * against today. The file on disk is left alone, as the admin's copy of
+     * this action leaves it.
+     */
+    public function removePreviousDocument(Request $request)
+    {
+        \App\UserDocument::where('user_id', \Auth::user()->id)
+            ->where('is_current', 0)
+            ->where('id', $request->input('id'))
+            ->delete();
+
+        return redirect('/home');
+    }
+
     public function usertype(){
         $userType=Auth()->users()->role_type;
         if($userType =='admin'){

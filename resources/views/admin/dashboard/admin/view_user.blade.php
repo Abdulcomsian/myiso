@@ -476,6 +476,28 @@
       {{-- Modern modals --}}
 
     <!-- Download History -->
+    {{-- Asking before a history entry is removed, in the site's own dialog
+         rather than the browser's confirm box --}}
+    {{-- above the Edit User modal it is asked from: every am-modal shares one z-index, so two open at once would stack by document order --}}
+    <div class="am-modal" id="amPrevDocConfirm" role="dialog" aria-modal="true" style="z-index:1065;">
+        <div class="am-modal__box" style="max-width:460px;">
+            <div class="am-modal__header">
+                <span class="am-modal__icon"><i class="fa fa-exclamation-triangle"></i></span>
+                <h4 class="am-modal__title">Remove this record?</h4>
+            </div>
+            <div class="am-modal__body">
+                <p style="margin:0;">This takes the entry off the history. The file itself is kept.</p>
+                <p id="amPrevDocError" style="margin:10px 0 0;color:var(--am-danger);display:none;"></p>
+            </div>
+            <div class="am-modal__footer">
+                <button type="button" class="am-btn am-btn-outline am-modal-close">Cancel</button>
+                <button type="button" id="amPrevDocConfirmBtn" class="am-btn" style="background:var(--am-danger);color:#fff;">
+                    <i class="fa fa-trash"></i> Yes, remove
+                </button>
+            </div>
+        </div>
+    </div>
+
     <div class="am-modal" id="viewUserDownloads" role="dialog" aria-modal="true">
         <div class="am-modal__box" style="max-width:820px;">
             <div class="am-modal__header">
@@ -2138,10 +2160,17 @@
 
         // the history rows are built when the modal opens, so this is
         // delegated rather than bound to them
+        // the row's button only asks; the dialog's button does the removing
+        var amPrevDocRow = null;
         $(document).on('click', '.am-prev-doc-del', function (e) {
             e.preventDefault();
-            var link = $(this);
-            if (!window.confirm("Remove this record from the history? The file itself is kept.")) { return; }
+            amPrevDocRow = $(this);
+            $('#amPrevDocError').hide().text('');
+            openAmModal('amPrevDocConfirm');
+        });
+        $(document).on('click', '#amPrevDocConfirmBtn', function () {
+            if (!amPrevDocRow) { return; }
+            var link = amPrevDocRow;
             $.ajax({
                 url: "{{ url('/remove_user_document') }}",
                 type: 'POST',
@@ -2152,8 +2181,11 @@
                     if ($('#amPrevDocs tbody tr').length === 0) {
                         $('#amPrevDocsRow').css('display', 'none');
                     }
+                    amPrevDocRow = null;
+                    closeAmModal('amPrevDocConfirm');
                 },
-                error: function () { window.alert("Could not remove that record."); }
+                // the dialog stays open and says so, rather than an alert box
+                error: function () { $('#amPrevDocError').text("Could not remove that record.").show(); }
             });
         });
 

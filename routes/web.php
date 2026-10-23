@@ -64,6 +64,9 @@ Route::group(['middleware' => ['auth','usermiddle']], function ()
     // the other two dashboard cards page the same way
     Route::get('/requirements_dashboard', 'RequiremntController@dashboardIndex')->name('requirements.dashboard');
     Route::get('/calibration_dashboard', 'CalibrationController@dashboardIndex')->name('calibration.dashboard');
+    // and the Previous Certificates card, which can also drop a row
+    Route::get('/previous_documents', 'HomeController@previousDocuments')->name('previous.documents');
+    Route::post('/previous_document_delete', 'HomeController@removePreviousDocument')->name('previous.document.delete');
     // the writes live in the shared group below, so an admin can use them too
     Route::view('/userprofile','dashboard.procedure.userprofile')->name('userprofile');
     Route::view('/customer', 'dashboard.customer.index');

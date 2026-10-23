@@ -242,7 +242,45 @@
             ])
         </div>
     </div>
+    {{-- Previous Certificates & Audit Reports. Always drawn: a client who
+         has replaced nothing is told so inside the table, the way the
+         other lists tell them. --}}
+    <div class="am-card mb-3">
+        <div class="am-card__body">
+            <div style="margin-bottom:1.25rem;">
+                <span style="display:inline-block;background:#c9d5f0;color:#3d5aa8;padding:6px 18px;border-radius:999px;font-size:14px;font-weight:600;letter-spacing:0.2px;">
+                    Previous Certificates &amp; Audit Reports
+                </span>
+            </div>
+            <div id="amDashPrevContainer" data-dash-list data-page-name="prevpage" data-url="{{ url('/previous_documents') }}">
+                @include('dashboard.partials.dash_previous_docs', ['prevDocs' => $prevDocs])
+            </div>
+        </div>
+    </div>
 
+</div>
+
+{{-- Delete a superseded document off the client's own history --}}
+<div class="am-modal" id="prevDocModal" role="dialog" aria-modal="true">
+    <div class="am-modal__box">
+        <div class="am-modal__header">
+            <span class="am-modal__icon"><i class="fa fa-exclamation-triangle"></i></span>
+            <h4 class="am-modal__title">Delete this record?</h4>
+        </div>
+        <div class="am-modal__body">
+            You are about to permanently remove this superseded document from your history. This action cannot be undone.
+        </div>
+        <div class="am-modal__footer">
+            <button type="button" class="am-btn am-btn-outline am-modal-close">Cancel</button>
+            <form action="{{ route('previous.document.delete') }}" method="POST" style="display:inline;">
+                @csrf
+                <input type="hidden" name="id" id="prev_doc_id" value=""/>
+                <button type="submit" class="am-btn am-btn-lightblue">
+                    <i class="fa fa-trash"></i> Yes, delete
+                </button>
+            </form>
+        </div>
+    </div>
 </div>
 
 {{-- Delete Calibration Modal --}}
@@ -314,6 +352,13 @@
             e.preventDefault();
             document.getElementById('req_id').value = req.getAttribute('data-id');
             document.getElementById('myModal').classList.add('open');
+            return;
+        }
+        var prev = e.target.closest('.prevDocModal');
+        if (prev) {
+            e.preventDefault();
+            document.getElementById('prev_doc_id').value = prev.getAttribute('data-id');
+            document.getElementById('prevDocModal').classList.add('open');
             return;
         }
         var cal = e.target.closest('.calibrationModal');
