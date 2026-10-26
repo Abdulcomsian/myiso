@@ -24,11 +24,11 @@
 
         }).done(function(resp) {
             if (resp != 0) {
-                $('#admin_notifications>a>span.count_notifications').html(resp).show();
+                $('#admin_notifications>a>span.count_notifications, .js-inbox-count').html(resp).show();
             }else if(resp == 2){
-                $('#admin_notifications>a>span.count_notifications').html(1).show();
+                $('#admin_notifications>a>span.count_notifications, .js-inbox-count').html(1).show();
             } else {
-                $('#admin_notifications>a>span.count_notifications').hide();
+                $('#admin_notifications>a>span.count_notifications, .js-inbox-count').hide();
             }
         });
     }
@@ -44,11 +44,11 @@
 
         }).done(function(resp) {
             if (resp != 0) {
-                $('#admin_notifications>a>span.count_notifications').html(resp).show();
+                $('#admin_notifications>a>span.count_notifications, .js-inbox-count').html(resp).show();
             }else if(resp == 2){
-                $('#admin_notifications>a>span.count_notifications').html(1).show();
+                $('#admin_notifications>a>span.count_notifications, .js-inbox-count').html(1).show();
             } else {
-                $('#admin_notifications>a>span.count_notifications').hide();
+                $('#admin_notifications>a>span.count_notifications, .js-inbox-count').hide();
             }
         });
     }

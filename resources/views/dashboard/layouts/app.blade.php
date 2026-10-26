@@ -105,7 +105,7 @@
 		
     </div>
     <div class="am-nav-heading">Support</div>
-    <div class="am-nav-item am-nav-group {{ Request::is('faq') || Request::is('explainer_videos') || Request::is('userDownload') || Request::is('create-message') || Request::is('received-messages') || Request::is('sent_messages') || Request::is('user-message') || Request::is('schedule-training') ? 'open' : '' }}"> <a href="javascript:;" class="am-nav-link am-nav-group__toggle"> <i class="fa fa-life-ring"></i> <span>Support</span> <i class="fa fa-chevron-right am-chevron"></i> </a>
+    <div class="am-nav-item am-nav-group {{ Request::is('faq') || Request::is('explainer_videos') || Request::is('userDownload') || Request::is('create-message') || Request::is('received-messages') || Request::is('sent_messages') || Request::is('user-message') || Request::is('schedule-training') ? 'open' : '' }}"> <a href="javascript:;" class="am-nav-link am-nav-group__toggle"> <i class="fa fa-life-ring"></i> <span>Support</span> <span class="js-inbox-count am-badge" style="display:none;"></span> <i class="fa fa-chevron-right am-chevron"></i> </a>
       <div class="am-nav-group__children"> <a href="{{ url('faq') }}" class="am-nav-link {{ Request::is('faq') ? 'active' : '' }}"><i class="fa fa-question" style="color: #6c757d"></i> FAQ's</a> {{-- Training Videos: hidden on the client's request - may come back --}}
         {{-- <a href="{{ url('explainer_videos') }}" class="am-nav-link {{ Request::is('explainer_videos') ? 'active' : '' }}">Training Videos</a> --}} <a href="{{ url('userDownload') }}" class="am-nav-link {{ Request::is('userDownload') ? 'active' : '' }}"><i class="fa fa-arrow-down" style="color: #6c757d"></i> Downloads</a>
 		
@@ -114,14 +114,16 @@
 		
 		  
 		  
-		   <div class="am-nav-group am-nav-group--nested {{ Request::is('create-message') || Request::is('received-messages') || Request::is('sent_messages') || Request::is('user-message') ? 'open' : '' }}" > <a href="javascript:;" class="am-nav-link am-nav-group__toggle"> <span><i class="fa fa-envelope"></i> Help Desk</span> <i class="fa fa-chevron-right am-chevron"></i> </a>
+		   {{-- id + badge must stay as-is: script.blade.php fills '#admin_notifications>a>span.count_notifications'
+		        (and the .js-inbox-count badges on Support and Inbox) with the unread count --}}
+		   <div id="admin_notifications" class="am-nav-group am-nav-group--nested {{ Request::is('create-message') || Request::is('received-messages') || Request::is('sent_messages') || Request::is('user-message') ? 'open' : '' }}" > <a href="javascript:;" class="am-nav-link am-nav-group__toggle"> <span><i class="fa fa-envelope"></i> Help Desk</span> <span class="count_notifications am-badge" style="display:none;"></span> <i class="fa fa-chevron-right am-chevron"></i> </a>
 			  
 			  
             <div class="am-nav-group__children" > 
 				
 				
-				<a href="{{ route('storeMessage') }}" class="am-nav-link {{ Request::is('create-message') ? 'active' : '' }}">Send Message</a> <a href="{{ route('inboxMessages') }}" class="am-nav-link {{ Request::is('received-messages') ? 'active' : '' }}">Inbox</a> <a href="{{ route('sentMessages') }}" class="am-nav-link {{ Request::is('sent_messages') ? 'active' : '' }}">Sent</a> 
-				
+				<a href="{{ route('storeMessage') }}" class="am-nav-link {{ Request::is('create-message') ? 'active' : '' }}">Send Message</a> <a href="{{ route('inboxMessages') }}" class="am-nav-link {{ Request::is('received-messages') ? 'active' : '' }}">Inbox <span class="js-inbox-count am-badge" style="display:none;"></span></a> <a href="{{ route('sentMessages') }}" class="am-nav-link {{ Request::is('sent_messages') ? 'active' : '' }}">Sent</a>
+
 				
 				
 				
