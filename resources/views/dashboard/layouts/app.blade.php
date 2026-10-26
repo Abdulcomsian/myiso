@@ -8,6 +8,13 @@
        "Accident Risk Assessments" fits on one line even when the scrollbar shows */
     #amSidebar .am-sidebar__nav { scrollbar-width: thin; }
     #amSidebar .am-nav-group__children { padding-left: 32px; }
+    /* Nested groups (Training menu): the base CSS opens every descendant when a
+       parent opens, so scope open/chevron to the direct children only */
+    #amSidebar .am-nav-group--nested { margin-bottom: 0; }
+    #amSidebar .am-nav-group--nested > .am-nav-group__children { display: none; padding: 2px 0 4px 12px; }
+    #amSidebar .am-nav-group--nested.open > .am-nav-group__children { display: block; }
+    #amSidebar .am-nav-group--nested > .am-nav-group__toggle .am-chevron { transform: none; }
+    #amSidebar .am-nav-group--nested.open > .am-nav-group__toggle .am-chevron { transform: rotate(90deg); }
 </style>
 <aside class="am-sidebar" id="amSidebar">
     <div class="am-sidebar__brand">
@@ -106,6 +113,73 @@
                 <a href="{{ url('supplier') }}" class="am-nav-link {{ Request::is('supplier') ? 'active' : '' }}">Suppliers</a>
                 <a href="{{ url('supplier_review') }}" class="am-nav-link {{ Request::is('supplier_review') ? 'active' : '' }}">Supplier Reviews</a>
                 <a href="{{ url('work_instruction') }}" class="am-nav-link {{ Request::is('work_instruction') ? 'active' : '' }}">Work Instructions</a>
+            </div>
+        </div>
+
+        <div class="am-nav-heading">Training</div>
+
+        {{-- Course links are placeholders until the course URLs are supplied --}}
+        <div class="am-nav-item am-nav-group">
+            <a href="javascript:;" class="am-nav-link am-nav-group__toggle">
+                <i class="fa fa-graduation-cap"></i>
+                <span style="white-space:nowrap;">MyISOOnline Courses</span>
+                <i class="fa fa-chevron-right am-chevron"></i>
+            </a>
+            <div class="am-nav-group__children">
+                <div class="am-nav-group am-nav-group--nested">
+                    <a href="javascript:;" class="am-nav-link am-nav-group__toggle">
+                        <span>Getting Started</span>
+                        <i class="fa fa-chevron-right am-chevron"></i>
+                    </a>
+                    <div class="am-nav-group__children">
+                        <div class="am-nav-group am-nav-group--nested">
+                            <a href="javascript:;" class="am-nav-link am-nav-group__toggle">
+                                <span>ISO 9001:2015 Quality Management</span>
+                                <i class="fa fa-chevron-right am-chevron"></i>
+                            </a>
+                            <div class="am-nav-group__children">
+                                <a href="javascript:;" class="am-nav-link">Course 1</a>
+                                <a href="javascript:;" class="am-nav-link">Course 2</a>
+                                <a href="javascript:;" class="am-nav-link">Course 3</a>
+                                <a href="javascript:;" class="am-nav-link">Course 4</a>
+                            </div>
+                        </div>
+                        <div class="am-nav-group am-nav-group--nested">
+                            <a href="javascript:;" class="am-nav-link am-nav-group__toggle">
+                                <span>ISO 14001:2018 Environmental Management</span>
+                                <i class="fa fa-chevron-right am-chevron"></i>
+                            </a>
+                            <div class="am-nav-group__children">
+                                <a href="javascript:;" class="am-nav-link">Course 1</a>
+                                <a href="javascript:;" class="am-nav-link">Course 2</a>
+                                <a href="javascript:;" class="am-nav-link">Course 3</a>
+                                <a href="javascript:;" class="am-nav-link">Course 4</a>
+                            </div>
+                        </div>
+                        <div class="am-nav-group am-nav-group--nested">
+                            <a href="javascript:;" class="am-nav-link am-nav-group__toggle">
+                                <span>ISO 45001:2018 Occupational Health &amp; Safety</span>
+                                <i class="fa fa-chevron-right am-chevron"></i>
+                            </a>
+                            <div class="am-nav-group__children">
+                                <a href="javascript:;" class="am-nav-link">Course 1</a>
+                                <a href="javascript:;" class="am-nav-link">Course 2</a>
+                                <a href="javascript:;" class="am-nav-link">Course 3</a>
+                                <a href="javascript:;" class="am-nav-link">Course 4</a>
+                            </div>
+                        </div>
+                        <div class="am-nav-group am-nav-group--nested">
+                            <a href="javascript:;" class="am-nav-link am-nav-group__toggle">
+                                <span>Integrated Management System</span>
+                                <i class="fa fa-chevron-right am-chevron"></i>
+                            </a>
+                            <div class="am-nav-group__children">
+                                <a href="javascript:;" class="am-nav-link">Course 1</a>
+                                <a href="javascript:;" class="am-nav-link">Course 2</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
 
