@@ -3,7 +3,20 @@
 @section('content')
 <!-- begin:: Content -->
 <div class="kt-content  kt-grid__item kt-grid__item--fluid" id="kt_content">
-<style> .new-file-upload{display: block;width: 91px;height: 34px;position: absolute;top: 23px;font-size: 12px;background: #FFF;border-radius: 4px;border: 1px solid #0d47b3;}.has_file{font-size: 0px !important;position: relative !important;left: -124px !important;top: 25px !important;}</style>
+<style> .new-file-upload{display: block;width: 91px;height: 34px;position: absolute;top: 23px;font-size: 12px;background: #FFF;border-radius: 4px;border: 1px solid #0d47b3;}.has_file{font-size: 0px !important;position: relative !important;left: -124px !important;top: 25px !important;}
+    /* the logo preview: laid over the 200x200 box so a wide logo is
+       letterboxed rather than squeezed into a square */
+    #image-preview img#output {
+        position: absolute; top: 0; left: 0;
+        width: 100%; height: 100%;
+        object-fit: contain;
+        background: #fff;
+        z-index: 1;
+    }
+    /* and nothing at all until there is something to show */
+    #image-preview img#output:not([src]),
+    #image-preview img#output[src=""] { display: none; }
+</style>
     <!--Begin::Dashboard 1-->
     <div class="kt-portlet kt-portlet--mobile">
     <div class="kt-portlet__head kt-portlet__head--lg">
