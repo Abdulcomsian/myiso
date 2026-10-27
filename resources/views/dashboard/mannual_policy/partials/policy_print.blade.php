@@ -56,7 +56,6 @@
         padding-bottom: 10px; margin-bottom: 18px;
     }
     .am-print-head__logo { max-height: 60px; max-width: 180px; width: auto; object-fit: contain; }
-    .am-print-head__company { font-size: 16px; font-weight: 700; line-height: 1.3; }
     .am-print-head__title { font-size: 15px; font-weight: 600; line-height: 1.3; }
     /* written in logical properties, so the Arabic site mirrors it unaided */
     .am-print-head__doc { margin-inline-start: auto; text-align: end; }
@@ -73,10 +72,6 @@
         @if (Auth::user()->profile_image)
             <img class="am-print-head__logo" src="{{ asset(Auth::user()->profile_image) }}" alt="">
         @endif
-        <div>
-            <div class="am-print-head__company">{{ Auth::user()->company_name }}</div>
-            <div class="am-print-head__meta">ID: {{ Auth::user()->order_number }}</div>
-        </div>
         <div class="am-print-head__doc">
             <div class="am-print-head__title">{{ $title }}</div>
             <div class="am-print-head__meta">Printed: {{ now()->format('d-M-Y g:i A') }}</div>
