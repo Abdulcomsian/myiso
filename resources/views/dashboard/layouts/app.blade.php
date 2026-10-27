@@ -91,14 +91,16 @@
       </div>
     </div>
     </div>
-    <div class="am-nav-item am-nav-group"> <a href="javascript:;" class="am-nav-link am-nav-group__toggle"> <i class="fa fa-award"></i><span>Certified Internal Auditor Courses</span> <i class="fa fa-chevron-right am-chevron"></i> </a>
+    <div class="am-nav-item am-nav-group"> <a href="javascript:;" class="am-nav-link am-nav-group__toggle"> <i class="fa fa-award"></i><span>Auditor Courses</span> <i class="fa fa-chevron-right am-chevron"></i> </a>
 		
 		
-      <div class="am-nav-group__children"> <a href="https://myisoonline.com/lms/courses/iso-90012015-qms-quality-management-system/" class="am-nav-link" target="_blank">ISO 9001:2015</a> 
+      <div class="am-nav-group__children"> <a href="https://myisoonline.com/lms/courses/iso-90012015-qms-quality-management-system/" class="am-nav-link" target="_blank">ISO9001:2015 Quality Management</a> 
 		  
-		  <a href="https://myisoonline.com/lms/courses/iso-450012018-occupational-health-safety-management-system-internal-auditor-course/" class="am-nav-link" target="_blank">ISO 45001:2018</a>
+		
+		  <a href="https://myisoonline.com/lms/courses/iso-140012015-environmental-management-system-internal-auditor-course/" class="am-nav-link" target="_blank">ISO14001:2018 Environmental Management</a>
 		  
-		  <a href="https://myisoonline.com/lms/courses/iso-140012015-environmental-management-system-internal-auditor-course/" class="am-nav-link" target="_blank">ISO 14001:2015</a>
+		    <a href="https://myisoonline.com/lms/courses/iso-450012018-occupational-health-safety-management-system-internal-auditor-course/" class="am-nav-link" target="_blank">ISO45001:2018 Occupational Health & Safety</a>
+		  
 		
 		</div>
 		
