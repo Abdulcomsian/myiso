@@ -3,12 +3,15 @@
 @section('content')
 <div class="am-content">
 
+    @include('dashboard.mannual_policy.partials.policy_print', ['title' => 'Health and Safety Policy'])
+
     <div class="am-page-header">
         <div>
             <h2>Health and Safety Policy</h2>
             <p>Company health and safety commitment and obligations</p>
         </div>
         <div>
+            <button type="button" onclick="window.print()" class="am-btn am-btn-outline" style="margin-inline-end:8px;"><i class="fa fa-print"></i> Print / PDF</button>
             <button type="button" onclick="qualityshowpolicy()" class="am-btn am-btn-primary"><i class="fa fa-plus"></i> Add Health and Safety Policy</button>
         </div>
     </div>
@@ -54,17 +57,17 @@
             <p>This document specifies the policy and practices to be adopted to ensure that suitable and sufficient risk assessments are carried out in accordance with the requirements of the relevant regulations in force. It describes the system for undertaking general risk assessments at {{ $companyName }} as part of the programme for the management of Safety, Health and Environment. This procedure does not include risk assessments made under the control or handling of hazardous metals, chemicals and other substances or usage of display screens and repetitive actions.</p>
 
             @forelse ($userAddPolicy as $policy)
-                <div style="{{ $loop->first ? '' : 'border-top:1px solid #e6e8f0;margin-top:16px;' }}padding-top:{{ $loop->first ? '4' : '16' }}px;">
+                <div class="am-policy-entry" style="{{ $loop->first ? '' : 'border-top:1px solid #e6e8f0;margin-top:16px;' }}padding-top:{{ $loop->first ? '4' : '16' }}px;">
                     <p class="mb-2" style="white-space:pre-wrap;">{{ $policy->message }}</p>
                     <div style="line-height:1.5;">
-                        <div><strong style="font-weight:600;">Added By:</strong> {{ $companyName }}</div>
+                        <div><strong style="font-weight:600;">Added By:</strong> Managing Director</div>
                         <div><strong style="font-weight:600;">Name:</strong> {{ Auth::user()->director }}</div>
                         <div><strong style="font-weight:600;">Date:</strong> {{ $policy->created_at->format('d-M-Y g:i A') }}</div>
                     </div>
                 </div>
             @empty
                 <div class="mt-3" style="line-height:1.5;">
-                    <div><strong style="font-weight:600;">Added By:</strong> {{ $companyName }}</div>
+                    <div><strong style="font-weight:600;">Added By:</strong> Managing Director</div>
                     <div><strong style="font-weight:600;">Name:</strong> {{ Auth::user()->director }}</div>
                 </div>
             @endforelse

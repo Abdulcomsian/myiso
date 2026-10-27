@@ -3,12 +3,15 @@
 @section('content')
 <div class="am-content">
 
+    @include('dashboard.mannual_policy.partials.policy_print', ['title' => 'Quality Policy'])
+
     <div class="am-page-header">
         <div>
             <h2>Quality Policy</h2>
             <p>Company quality commitment and objectives</p>
         </div>
         <div>
+            <button type="button" onclick="window.print()" class="am-btn am-btn-outline" style="margin-inline-end:8px;"><i class="fa fa-print"></i> Print / PDF</button>
             <button type="button" onclick="qualityshowpolicy()" class="am-btn am-btn-primary"><i class="fa fa-plus"></i> Add Quality Policy</button>
         </div>
     </div>
@@ -52,16 +55,16 @@
 
             <h6 class="mt-4" style="color:var(--am-primary);font-weight:600;">Additional Policies:</h6>
             @forelse ($userAddPolicy as $policy)
-                <div style="{{ $loop->first ? '' : 'border-top:1px solid #e6e8f0;margin-top:16px;' }}padding-top:{{ $loop->first ? '4' : '16' }}px;">
+                <div class="am-policy-entry" style="{{ $loop->first ? '' : 'border-top:1px solid #e6e8f0;margin-top:16px;' }}padding-top:{{ $loop->first ? '4' : '16' }}px;">
                     <p class="mb-2" style="white-space:pre-wrap;">{{ $policy->message }}</p>
                     <div style="line-height:1.5;">
-                        <div><strong style="font-weight:600;">Managing Director:</strong> {{ Auth::user()->director }}</div>
+                        <div><strong style="font-weight:600;">Managing Director</strong></div>
                         <div><strong style="font-weight:600;">Date:</strong> {{ $policy->created_at->format('d-M-Y g:i A') }}</div>
                     </div>
                 </div>
             @empty
                 <div class="mt-3" style="line-height:1.5;">
-                    <div><strong style="font-weight:600;">Managing Director:</strong> {{ Auth::user()->director }}</div>
+                    <div><strong style="font-weight:600;">Managing Director</strong></div>
                 </div>
             @endforelse
         </div>
