@@ -120,9 +120,14 @@ body.am-body {
 }
 .am-nav-link.active .am-badge { background: rgba(255, 255, 255, 0.25); }
 /* The unread-message count is an alert, not a theme accent: the client asks
-   for a red badge, and it stays red even when Notifications is the open item. */
+   for a red badge, and it stays red even when its row is the open item.
+   All three badges carry it - script.blade.php fills count_notifications
+   and the two js-inbox-count ones from a single selector - so all three
+   are red. Blue on two of them read as a second, different count. */
 .am-nav-link .am-badge.count_notifications,
-.am-nav-link.active .am-badge.count_notifications {
+.am-nav-link .am-badge.js-inbox-count,
+.am-nav-link.active .am-badge.count_notifications,
+.am-nav-link.active .am-badge.js-inbox-count {
     background: var(--am-danger);
     color: #fff;
 }

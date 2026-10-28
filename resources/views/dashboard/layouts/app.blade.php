@@ -90,7 +90,6 @@
         </div>
       </div>
     </div>
-    </div>
     <div class="am-nav-item am-nav-group"> <a href="javascript:;" class="am-nav-link am-nav-group__toggle"> <i class="fa fa-award"></i><span>Auditor Courses</span> <i class="fa fa-chevron-right am-chevron"></i> </a>
 		
 		
