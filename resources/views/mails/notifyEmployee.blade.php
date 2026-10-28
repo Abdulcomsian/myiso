@@ -22,7 +22,7 @@
 
     <div class="container" style="max-width: 500px; height: auto; margin: 50px auto; padding: 20px; background-color: #fff; border-radius: 5px; box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); text-align: center;">
 
-        <img src="https://myisoonline.com/assets/media/logos/MyISOOnline-Logo.png" alt="Logo" style="height: 50px; margin-bottom: 20px;">
+        <img src="https://myisoonline.com/assets/media/logos/MyISOOnline-Logo.png" alt="MyISOOnline" width="180" height="40" style="width: 180px; height: 40px; max-width: 100%; margin-bottom: 20px; border: 0;">
 
         <div class="content-area" style="text-align: left;">
 
@@ -34,13 +34,10 @@
                 <?php } ?>
                 </strong></p>
             <p>
-                We are pleased to inform you that your email address has been successfully added to MYISOonline. You are now eligible to access and take advantage of our free MYISOonline courses
+                We are pleased to inform you that your Employee user account has been successfully added to MYISOonline. You now have access to MYISOonline courses.
             </p>
-            <p>
-                To get started, please register on our LMS system using your official email address:
-            </p>
-            <a href="{{ url('/lms/account') }}?action=register" target="_blank" style="display: inline-block; padding: 10px 20px; font-size: 16px; font-weight: bold; text-align: center; text-decoration: none; cursor: pointer; border: 2px solid #3498db; color: #fff; background-color: #3498db; border-radius: 5px; transition: background-color 0.3s, color 0.3s, border-color 0.3s;"
-            class="button">Register Now</a>
+            <a href="{{ url('/lms/account') }}?action=login" target="_blank" style="display: inline-block; padding: 10px 20px; font-size: 16px; font-weight: bold; text-align: center; text-decoration: none; cursor: pointer; border: 2px solid #3498db; color: #fff; background-color: #3498db; border-radius: 5px; transition: background-color 0.3s, color 0.3s, border-color 0.3s;"
+            class="button">LOG IN NOW</a>
 
         </div>
     </div>
