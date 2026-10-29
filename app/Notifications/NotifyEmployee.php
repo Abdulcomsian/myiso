@@ -41,7 +41,7 @@ class NotifyEmployee extends Notification
     public function toMail($notifiable)
     {
         return (new MailMessage)
-                    ->subject('You have been added to MYISOOnline')
+                    ->subject('You have been added to MyISOonline')
                     ->view('mails.notifyEmployee', ['empName' => $this->empName]);
                     // ->greeting('Dear ' . $this->empName)
                     // ->line('We are pleased to inform you that your email address has been successfully added to MYISOonline. You are now eligible to access and take advantage of our free MYISOonline courses')

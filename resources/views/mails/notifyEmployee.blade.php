@@ -22,7 +22,7 @@
 
     <div class="container" style="max-width: 500px; height: auto; margin: 50px auto; padding: 32px 24px 28px; background-color: #fff; border-radius: 5px; box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); text-align: center;">
 
-        <img src="https://myisoonline.com/assets/media/logos/MyISOOnline-Logo.png" alt="MyISOOnline" width="180" height="40" style="width: 180px; height: 40px; max-width: 100%; display: block; margin: 0 auto 24px; border: 0;">
+        <img src="https://myisoonline.com/assets/media/logos/MyISOOnline-Logo.png" alt="MyISOonline" width="180" height="40" style="width: 180px; height: 40px; max-width: 100%; display: block; margin: 0 auto 24px; border: 0;">
 
         <div class="content-area" style="text-align: left;">
 
@@ -34,7 +34,7 @@
                 <?php } ?>
                 </strong></p>
             <p>
-                We are pleased to inform you that your Employee user account has been successfully added to MYISOonline. You now have access to MYISOonline courses.
+                We are pleased to inform you that your Employee user account has been successfully added to MyISOonline. You now have access to MyISOonline courses.
             </p>
             <a href="{{ url('/lms/account') }}?action=login" target="_blank" style="display: inline-block; padding: 10px 20px; font-size: 16px; font-weight: bold; text-align: center; text-decoration: none; cursor: pointer; border: 2px solid #3498db; color: #fff; background-color: #3498db; border-radius: 5px; transition: background-color 0.3s, color 0.3s, border-color 0.3s;"
             class="button">LOG IN NOW</a>
@@ -43,7 +43,7 @@
     </div>
 
     <footer style="margin-top: 20px; text-align: center; color: #888;">
-        <p>All Rights Reserved. MyISOOnline</p>
+        <p>All Rights Reserved. MyISOonline</p>
     </footer>
 
 </body>
