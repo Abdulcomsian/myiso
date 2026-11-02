@@ -108,7 +108,7 @@
                             <label>Employee</label>
                             <select name="empid" required>
                                 <option value="" disabled selected>Select employee</option>
-                                @foreach($userinfo as $item)
+                                @foreach($allEmployees as $item)
                                     <option value="{{ $item->id }}">{{ $item->empNumber }} ({{ $item->first_name }})</option>
                                 @endforeach
                             </select>
@@ -189,7 +189,7 @@
                             <label>Employee</label>
                             <select name="empid" required>
                                 <option value="" disabled selected>Select employee</option>
-                                @foreach($userinfo as $item)
+                                @foreach($allEmployees as $item)
                                     <option value="{{ $item->id }}">{{ $item->empNumber }} ({{ $item->first_name }})</option>
                                 @endforeach
                             </select>
