@@ -65,6 +65,9 @@ class CustomerReviewController extends Controller
             $the_id = Auth()->user()->id;
         } 
         // uploading evidence
+        // a review may be filed with no evidence, so the name starts empty
+        // rather than being left undefined - reading it unset 500'd the save
+        $filename = null;
         if($request->file('attach_evidence')){
             $file = $request->file('attach_evidence');
             $fileDestination = public_path('customer_review_evidence/');
