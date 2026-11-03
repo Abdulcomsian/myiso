@@ -194,7 +194,7 @@
 													by statute, at common law or otherwise.</p><br>
 
 													<h6>Disclaimer as to ownership of trademarks, images of personalities,
-													and third-party copyrigh</h6>
+													and third-party copyright</h6>
 													<p>Except where expressly stated to the contrary, all persons (including their
 													names   and   images),   third-party   trademarks   and   content,   services,   and
 													locations   featured   on   this   Website   are   in   no   way   associated,   linked,   or
