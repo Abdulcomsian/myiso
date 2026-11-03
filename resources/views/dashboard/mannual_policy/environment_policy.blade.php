@@ -59,19 +59,29 @@
             </ol>
 
             <h6 class="mt-4" style="color:var(--am-primary);font-weight:600;">Additional Policies:</h6>
+            @php
+                // the account-details field, "Managing Director / CEO". It is blank on
+                // plenty of accounts, and an empty bold line above the role would only
+                // push it down, so the name line is skipped when there is no name.
+                $amDirector = trim((string) Auth::user()->director);
+            @endphp
             @forelse ($userAddPolicy as $policy)
                 <div class="am-policy-entry" style="{{ $loop->first ? '' : 'border-top:1px solid #e6e8f0;margin-top:16px;' }}padding-top:{{ $loop->first ? '4' : '16' }}px;">
                     <p class="mb-2" style="white-space:pre-wrap;">{{ $policy->message }}</p>
                     <div style="line-height:1.5;">
-                        <div><strong style="font-weight:600;">Added By:</strong> Managing Director</div>
-                        <div><strong style="font-weight:600;">Name:</strong> {{ Auth::user()->director }}</div>
+                        @if ($amDirector !== '')
+                            <div><strong style="font-weight:600;">{{ $amDirector }}</strong></div>
+                        @endif
+                        <div><strong style="font-weight:600;">Managing Director / CEO</strong></div>
                         <div><strong style="font-weight:600;">Date:</strong> {{ $policy->created_at->format('d-M-Y g:i A') }}</div>
                     </div>
                 </div>
             @empty
                 <div class="mt-3" style="line-height:1.5;">
-                    <div><strong style="font-weight:600;">Added By:</strong> Managing Director</div>
-                    <div><strong style="font-weight:600;">Name:</strong> {{ Auth::user()->director }}</div>
+                    @if ($amDirector !== '')
+                        <div><strong style="font-weight:600;">{{ $amDirector }}</strong></div>
+                    @endif
+                    <div><strong style="font-weight:600;">Managing Director / CEO</strong></div>
                 </div>
             @endforelse
         </div>

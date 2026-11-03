@@ -1903,3 +1903,71 @@ a.am-doc:hover {
 }
 .am-doc-note p { margin: 0; font-size: 13.5px; line-height: 1.55; color: var(--am-text); }
 .am-doc-note__empty { color: var(--am-text-soft); }
+
+/* A work instruction's reference is often a full SharePoint URL - one long run
+   with nothing to break at. The details popup is a grid, and a grid item is at
+   least as wide as its longest unbreakable word, so that cell grew past its
+   track and ran over the Employee ID beside it. Breaking the value anywhere
+   gives the item a one-character minimum, so it stays in its own column.
+   Scoped by id: other details popups hold short names and dates that should
+   not be broken mid-word. */
+#viewWiModal .am-modal__body > div > div { min-width: 0; }
+#viewWiModal #vwi-ref,
+#viewWiModal #vwi-scope,
+#viewWiModal #vwi-points { overflow-wrap: anywhere; }
+
+/* ── Objectives Tracker: the objective cell ──────────────────────────────
+   An objective can run to a paragraph, and letting it set the row height
+   squeezed every other column into a sliver - the client sent a screenshot of
+   one objective twenty lines tall. It is held to two lines with a Read more
+   beside it.
+
+   The checkbox that sits above the text in the markup is what opens it, not
+   script, so the whole objective is reachable even where the page's
+   JavaScript never runs. The script only takes the link away from objectives
+   short enough not to need it, which is the one part measuring can answer.
+
+   Plain weight on purpose: an objective reads as a sentence, not as a name.
+
+   The heading above it is the Management Review box the objective was written
+   under, styled like the label on that box. */
+.am-obj-heading {
+    display: block;
+    margin-bottom: 4px;
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.4px;
+    font-weight: 700;
+    line-height: 1.35;
+    color: var(--am-text-muted);
+}
+.am-obj-text {
+    max-width: 420px;
+    font-weight: 400;
+    line-height: 1.45;
+    color: var(--am-text);
+    /* an objective may carry a link with nothing to break at */
+    overflow-wrap: anywhere;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+.am-obj-toggle:checked ~ .am-obj-text {
+    display: block;
+    -webkit-line-clamp: unset;
+    overflow: visible;
+}
+.am-obj-more {
+    display: inline-block;
+    margin: 2px 0 0;
+    font-size: 12px;
+    font-weight: 500;
+    color: var(--am-primary);
+    cursor: pointer;
+    text-decoration: underline;
+    user-select: none;
+}
+.am-obj-more__shut,
+.am-obj-toggle:checked ~ .am-obj-more .am-obj-more__open { display: none; }
+.am-obj-toggle:checked ~ .am-obj-more .am-obj-more__shut { display: inline; }

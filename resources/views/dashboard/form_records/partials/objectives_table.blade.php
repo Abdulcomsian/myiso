@@ -51,7 +51,21 @@
                 @endphp
                 <tr>
                     <td>
-                        <span class="am-cell-primary">{{ $data->objective }}</span>
+                        {{-- The heading the Management Review wrote this under, when it came
+                             from one. Objectives typed straight into the tracker have none. --}}
+                        @php $amObjHeading = $data->categoryLabel(); @endphp
+                        @if ($amObjHeading)
+                            <span class="am-obj-heading">{{ $amObjHeading }}</span>
+                        @endif
+                        {{-- Two lines, then Read more. The checkbox is what opens it, so it
+                             still works with no JavaScript; the script only hides the link on
+                             objectives that are short enough not to need it. --}}
+                        <input type="checkbox" id="amObjMore{{ $data->id }}" class="am-obj-toggle" data-obj-toggle hidden>
+                        <div class="am-obj-text" data-obj-text>{{ $data->objective }}</div>
+                        <label for="amObjMore{{ $data->id }}" class="am-obj-more" data-obj-more>
+                            <span class="am-obj-more__open">Read more</span>
+                            <span class="am-obj-more__shut">Read less</span>
+                        </label>
                         @if ($data->target)
                             <span class="am-cell-sub">Target: {{ $data->target }}@if ($data->starting_point) (was {{ $data->starting_point }})@endif</span>
                         @endif

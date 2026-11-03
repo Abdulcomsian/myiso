@@ -313,19 +313,40 @@ class MgtreviewController extends Controller
             if (empty($marked[$box['field']])) {
                 continue;
             }
+            // the whole box, not the first 500 characters: tbl_objectives.objective
+            // is TEXT now, and cutting it here is what was losing the end of a
+            // long objective between the meeting and the tracker
             $text = trim((string) $rev->{$box['field']});
             if ($text === '') {
                 continue;
             }
-            $text = mb_substr($text, 0, 500);
+            // One objective per box, so the guard has to name the box. Without
+            // it, a meeting that wrote the same words under Quality and under
+            // Environment filed only the first: the second looked like a
+            // duplicate of it and was dropped.
+            //
+            // A row with no category cannot collide here. The only way its
+            // text could match this box is if it was copied from it, and
+            // anything copied from a box was given its category by the
+            // migration that added the column.
+            //
+            // Anything added before the column was widened was stored cut, so
+            // that older form is checked too - otherwise re-saving a review
+            // with a long objective would file a second copy of it.
             $already = Objective::where('user_id', $rev->user_id)
-                ->where('agreed_at', $rev->id)->where('objective', $text)->exists();
+                ->where('agreed_at', $rev->id)
+                ->where('category', $box['field'])
+                ->whereIn('objective', array_unique([$text, mb_substr($text, 0, 500)]))
+                ->exists();
             if ($already) {
                 continue;
             }
             $o = new Objective();
             $o->user_id      = $rev->user_id;
             $o->objective    = $text;
+            // which box it was written under, so the tracker can show the same
+            // heading the meeting used
+            $o->category     = $box['field'];
             $o->how_measured = '';
             $o->target       = '';
             $o->agreed_at    = $rev->id;

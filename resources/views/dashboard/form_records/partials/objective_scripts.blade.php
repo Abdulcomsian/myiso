@@ -31,6 +31,12 @@ document.addEventListener('DOMContentLoaded', function () {
     var cancel = document.getElementById('cancelObjForm');
     toggle && toggle.addEventListener('click', function () { form.classList.toggle('open'); });
     cancel && cancel.addEventListener('click', function () { form.classList.remove('open'); });
+
+    // once now, and again on resize: a narrower column turns a one-line
+    // objective into a two-line one, which changes whether the link is needed
+    amObjClamp();
+    var rt;
+    window.addEventListener('resize', function () { clearTimeout(rt); rt = setTimeout(function () { amObjClamp(); }, 150); });
 });
 
 // search and paging without a full page load, as the other lists do
@@ -51,7 +57,7 @@ document.addEventListener('DOMContentLoaded', function () {
         container.style.opacity = '0.5';
         fetch(url, { headers: { 'X-Requested-With': 'XMLHttpRequest' } })
             .then(function (r) { return r.text(); })
-            .then(function (html) { container.innerHTML = html; container.style.opacity = ''; if (syncUrl) window.history.replaceState({}, '', url); })
+            .then(function (html) { container.innerHTML = html; container.style.opacity = ''; amObjClamp(container); if (syncUrl) window.history.replaceState({}, '', url); })
             .catch(function () { container.style.opacity = ''; });
     }
     form && form.addEventListener('submit', function (e) { e.preventDefault(); fetchPage(1); });
@@ -71,6 +77,26 @@ document.addEventListener('DOMContentLoaded', function () {
         fetchPage(1);
     });
 })();
+
+// The objective cell is clamped to two lines with a Read more beside it. The
+// expanding is a checkbox and two CSS rules, so it works without this; all
+// this does is take the link away from objectives that already fit, which
+// nothing but measuring can tell. Re-run whenever the list is redrawn.
+function amObjClamp(root) {
+    var scope = root || document;
+    var cells = scope.querySelectorAll('[data-obj-text]');
+    for (var i = 0; i < cells.length; i++) {
+        var el     = cells[i];
+        var cell   = el.parentNode;
+        var toggle = cell.querySelector('[data-obj-more]');
+        var box    = cell.querySelector('[data-obj-toggle]');
+        if (!toggle) continue;
+        // an open one is taller than two lines by definition - measuring it
+        // would hide the link that closes it again
+        if (box && box.checked) { toggle.style.display = ''; continue; }
+        toggle.style.display = el.scrollHeight > el.clientHeight + 1 ? '' : 'none';
+    }
+}
 
 // "Agreed at" is either a Management Review or a date of its own; the date
 // only appears once the meeting was not a review. Delegated, so it covers the

@@ -55,11 +55,11 @@
                     <div><label>Revision Status</label><input type="text" name="revisionstatus" required></div>
                 </div>
                 <div class="form-row">
-                    <div style="grid-column:1/-1;"><label>Scope</label><input type="text" name="scop" required></div>
+                    <div style="grid-column:1/-1;"><label>Scope</label><textarea name="scop" required rows="2"></textarea></div>
                 </div>
                 <div class="form-row">
                     @for ($i = 1; $i <= 12; $i++)
-                        <div><label>Point {{ $i }}</label><input type="text" name="point{{ $i }}"></div>
+                        <div><label>Point {{ $i }}</label><textarea name="point{{ $i }}" rows="2"></textarea></div>
                     @endfor
                 </div>
                 <div class="form-row">
@@ -137,11 +137,11 @@
                     <div class="col-lg-4"><label>Revision Status</label><input type="text" class="form-control" name="revisionstatus" required></div>
                 </div>
                 <div class="form-group row">
-                    <div class="col-lg-12"><label>Scope</label><input type="text" class="form-control" name="scop" required></div>
+                    <div class="col-lg-12"><label>Scope</label><textarea class="form-control" name="scop" required rows="2"></textarea></div>
                 </div>
                 <div class="form-group row">
                     @for ($i = 1; $i <= 12; $i++)
-                        <div class="col-lg-4"><label>Point {{ $i }}</label><input type="text" class="form-control" name="point{{ $i }}"></div>
+                        <div class="col-lg-4"><label>Point {{ $i }}</label><textarea class="form-control" name="point{{ $i }}" rows="2"></textarea></div>
                     @endfor
                 </div>
                 <div class="form-group row">
@@ -257,13 +257,13 @@ function amWiEdit(d) {
     document.getElementById('ewi-id').value = d.id || '';
     var m = document.getElementById('editWiModal');
     ['workinstruction','instructionref','issueDate','revisionstatus','scop','CompiledBy'].forEach(function(k){
-        var el = m.querySelector("input[name='"+k+"']");
+        var el = m.querySelector("input[name='"+k+"'], textarea[name='"+k+"']");
         if (el) el.value = d[k] || '';
     });
     var sel = m.querySelector("select[name='empId']"); if (sel) sel.value = d.empId || '';
     var fq = m.querySelector("select[name='reviewFrequency']"); if (fq) fq.value = d.reviewFrequency || '';
     for (var i = 1; i <= 12; i++) {
-        var el = m.querySelector("input[name='point"+i+"']");
+        var el = m.querySelector("input[name='point"+i+"'], textarea[name='point"+i+"']");
         if (el) el.value = d['point'+i] || '';
     }
     m.classList.add('open');

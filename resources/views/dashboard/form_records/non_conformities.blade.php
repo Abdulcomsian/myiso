@@ -93,15 +93,15 @@
                     </div>
                 </div>
                 <div class="form-row">
-                    <div><label>NCR Description</label><input type="text" name="description" placeholder="Fault description"></div>
-                    <div><label>Root Cause</label><input type="text" name="rootCause" placeholder="Root cause"></div>
+                    <div><label>NCR Description</label><textarea name="description" placeholder="Fault description" rows="2"></textarea></div>
+                    <div><label>Root Cause</label><textarea name="rootCause" placeholder="Root cause" rows="2"></textarea></div>
                 </div>
                 <div class="form-row">
-                    <div><label>Immediate Corrective Action</label><input type="text" name="immediateCorp"></div>
-                    <div><label>Action to Prevent Recurrence</label><input type="text" name="actionPrevent"></div>
+                    <div><label>Immediate Corrective Action</label><textarea name="immediateCorp" rows="2"></textarea></div>
+                    <div><label>Action to Prevent Recurrence</label><textarea name="actionPrevent" rows="2"></textarea></div>
                 </div>
                 <div class="form-row">
-                    <div><label>Effectiveness of Action</label><input type="text" name="ActionRecurnce"></div>
+                    <div><label>Effectiveness of Action</label><textarea name="ActionRecurnce" rows="2"></textarea></div>
                     <div><label>Effectiveness Review Date</label><input type="date" name="effectiveDate"></div>
                 </div>
                 <div class="form-row">
@@ -231,15 +231,15 @@
                     </div>
                 </div>
                 <div class="form-group row">
-                    <div class="col-lg-6"><label>Description</label><input type="text" class="form-control" name="description"></div>
-                    <div class="col-lg-6"><label>Root Cause</label><input type="text" class="form-control" name="rootCause"></div>
+                    <div class="col-lg-6"><label>Description</label><textarea class="form-control" name="description" rows="2"></textarea></div>
+                    <div class="col-lg-6"><label>Root Cause</label><textarea class="form-control" name="rootCause" rows="2"></textarea></div>
                 </div>
                 <div class="form-group row">
-                    <div class="col-lg-6"><label>Immediate Corrective Action</label><input type="text" class="form-control" name="immediateCorp"></div>
-                    <div class="col-lg-6"><label>Prevent Recurrence</label><input type="text" class="form-control" name="actionPrevent"></div>
+                    <div class="col-lg-6"><label>Immediate Corrective Action</label><textarea class="form-control" name="immediateCorp" rows="2"></textarea></div>
+                    <div class="col-lg-6"><label>Prevent Recurrence</label><textarea class="form-control" name="actionPrevent" rows="2"></textarea></div>
                 </div>
                 <div class="form-group row">
-                    <div class="col-lg-6"><label>Effectiveness of Action</label><input type="text" class="form-control" name="ActionRecurnce"></div>
+                    <div class="col-lg-6"><label>Effectiveness of Action</label><textarea class="form-control" name="ActionRecurnce" rows="2"></textarea></div>
                     <div class="col-lg-6"><label>Effectiveness Review Date</label><input type="date" class="form-control" name="effectiveDate"></div>
                 </div>
                 <div class="form-group row">
@@ -383,7 +383,7 @@ function amNcEdit(d){
     document.getElementById('enc-id').value = d.noid || '';
     var m = document.getElementById('editNcModal');
     ['employee_name','description','rootCause','immediateCorp','actionPrevent','ActionRecurnce','effectiveDate','reviewdBy','dateNcP','dateNcR','CRE'].forEach(function(k){
-        var el = m.querySelector("input[name='"+k+"']");
+        var el = m.querySelector("input[name='"+k+"'], textarea[name='"+k+"']");
         if (el) el.value = d[k] || '';
     });
     var setSel = function(name, val){ var el = m.querySelector("select[name='"+name+"']"); if (el) el.value = val || ''; };

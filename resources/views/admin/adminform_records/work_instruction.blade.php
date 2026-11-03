@@ -63,11 +63,11 @@
                     <div><label>Revision Status</label><input type="text" name="revisionstatus" required></div>
                 </div>
                 <div class="form-row">
-                    <div style="grid-column:1/-1;"><label>Scope</label><input type="text" name="scop" required></div>
+                    <div style="grid-column:1/-1;"><label>Scope</label><textarea name="scop" required rows="2"></textarea></div>
                 </div>
                 <div class="form-row">
                     @for ($i = 1; $i <= 12; $i++)
-                        <div><label>Point {{ $i }}</label><input type="text" name="point{{ $i }}"></div>
+                        <div><label>Point {{ $i }}</label><textarea name="point{{ $i }}" rows="2"></textarea></div>
                     @endfor
                 </div>
                 <div class="form-row">
@@ -166,11 +166,11 @@
                     <div class="col-lg-4"><label>Revision Status</label><input type="text" class="form-control" name="revisionstatus" required></div>
                 </div>
                 <div class="form-group row">
-                    <div class="col-lg-12"><label>Scope</label><input type="text" class="form-control" name="scop" required></div>
+                    <div class="col-lg-12"><label>Scope</label><textarea class="form-control" name="scop" required rows="2"></textarea></div>
                 </div>
                 <div class="form-group row">
                     @for ($i = 1; $i <= 12; $i++)
-                        <div class="col-lg-4"><label>Point {{ $i }}</label><input type="text" class="form-control" name="point{{ $i }}"></div>
+                        <div class="col-lg-4"><label>Point {{ $i }}</label><textarea class="form-control" name="point{{ $i }}" rows="2"></textarea></div>
                     @endfor
                 </div>
                 <div class="form-group row">
@@ -258,10 +258,10 @@ function amWiView(d){
 }
 function amWiEdit(d){
     $("#ewi-id").val(d.id);
-    ['workinstruction','instructionref','issueDate','revisionstatus','scop','CompiledBy'].forEach(function(k){ $("#editWiModal input[name='"+k+"']").val(d[k]||''); });
+    ['workinstruction','instructionref','issueDate','revisionstatus','scop','CompiledBy'].forEach(function(k){ $("#editWiModal input[name='"+k+"'], #editWiModal textarea[name='"+k+"']").val(d[k]||''); });
     $("#editWiModal select[name='empId']").val(d.empId||'');
     $("#editWiModal select[name='reviewFrequency']").val(d.reviewFrequency||'');
-    for (var i=1; i<=12; i++) { $("#editWiModal input[name='point"+i+"']").val(d['point'+i]||''); }
+    for (var i=1; i<=12; i++) { $("#editWiModal input[name='point"+i+"'], #editWiModal textarea[name='point"+i+"']").val(d['point'+i]||''); }
     document.getElementById('editWiModal').classList.add('open');
 }
 </script>

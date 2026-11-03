@@ -39,6 +39,30 @@ class Objective extends Model
         return self::statuses()[$key]['chip'] ?? '';
     }
 
+    /**
+     * The heading the Management Review wrote this objective under.
+     *
+     * 'category' holds the box's field name, and the wording comes straight
+     * from MgtReviewQuestions, which is where each site already keeps its own
+     * labels - so the English site reads "New quality objectives" and the
+     * Arabic one "أهداف الجودة الجديدة" without this knowing either.
+     *
+     * Null for anything typed into the tracker by hand, and for older rows
+     * whose text no longer matches the review box it came from.
+     */
+    public function categoryLabel()
+    {
+        if (!$this->category) {
+            return null;
+        }
+        foreach (MgtReviewQuestions::objectives()['boxes'] as $box) {
+            if ($box['field'] === $this->category) {
+                return $box['label'];
+            }
+        }
+        return null;
+    }
+
     /** every progress note, newest first */
     public function updates()
     {

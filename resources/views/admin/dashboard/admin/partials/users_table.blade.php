@@ -37,7 +37,7 @@
                 } else {
                     $minValueRaw = min($x, min($y, $z));
                 }
-                $minValue = date('d/m/Y', $minValueRaw);
+                $minValue = date('d M Y', $minValueRaw);
                 $daysToExpiry = intval(($minValueRaw - time()) / 86400);
             @endphp
             <tr>

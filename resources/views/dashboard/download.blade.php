@@ -24,6 +24,9 @@
                             <option value="Environmental signs">Environmental signs</option>
                             <option value="Mandatory Signs">Mandatory Signs</option>
                             <option value="Warning Signs">Warning Signs</option>
+                            <option value="Cut-outs">Cut-outs</option>
+                            <option value="Everyday Safety">Everyday Safety</option>
+                            <option value="Welfare">Welfare</option>
                         </select>
                     </div>
                 </div>

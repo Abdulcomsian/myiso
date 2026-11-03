@@ -2444,7 +2444,8 @@ public function deleteUsernote($id)
     }
 
     public function manage_uploads(Request $request){
-        $categories = ['Emergency Signs', 'Prohibition Signs', 'Environmental signs', 'Mandatory Signs', 'Warning Signs'];
+        $categories = ['Emergency Signs', 'Prohibition Signs', 'Environmental signs', 'Mandatory Signs', 'Warning Signs',
+                       'Cut-outs', 'Everyday Safety', 'Welfare'];
         $category = $request->query('cat', 'Emergency Signs');
         if (!in_array($category, $categories)) { $category = 'Emergency Signs'; }
         $search = trim($request->query('q', ''));
