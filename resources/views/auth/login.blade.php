@@ -239,7 +239,7 @@
 													Office 1003, C34 Building,<br>
 													Ar Razqi St, Al Danah,<br>
 													Abu Dhabi, United Arab Emirates, 22207<br>
-													Email: ceo@jmegrp.com
+													Email: info@isoonline.com
 
 												</p>
 													<!-- <div class="ml-2">
