@@ -37,6 +37,13 @@ document.addEventListener('DOMContentLoaded', function () {
     amObjClamp();
     var rt;
     window.addEventListener('resize', function () { clearTimeout(rt); rt = setTimeout(function () { amObjClamp(); }, 150); });
+    // DOMContentLoaded is before the fonts land, and the table re-flows
+    // when they do - a two-line objective can become a three-line one,
+    // so the question is asked again rather than answered once
+    window.addEventListener('load', function () { amObjClamp(); });
+    if (document.fonts && document.fonts.ready) {
+        document.fonts.ready.then(function () { amObjClamp(); });
+    }
 });
 
 // search and paging without a full page load, as the other lists do
@@ -82,6 +89,14 @@ document.addEventListener('DOMContentLoaded', function () {
 // expanding is a checkbox and two CSS rules, so it works without this; all
 // this does is take the link away from objectives that already fit, which
 // nothing but measuring can tell. Re-run whenever the list is redrawn.
+// Watches each objective cell and asks the question again whenever its box
+// changes size, which is what a late re-flow is. Debounced, because a
+// re-flow arrives as a burst.
+var amObjRO = window.ResizeObserver ? new ResizeObserver(function () {
+    clearTimeout(amObjRO._t);
+    amObjRO._t = setTimeout(function () { amObjClamp(); }, 60);
+}) : null;
+
 function amObjClamp(root) {
     var scope = root || document;
     var cells = scope.querySelectorAll('[data-obj-text]');
@@ -94,7 +109,16 @@ function amObjClamp(root) {
         // an open one is taller than two lines by definition - measuring it
         // would hide the link that closes it again
         if (box && box.checked) { toggle.style.display = ''; continue; }
+        // a height of zero means the row has not been laid out yet;
+        // hiding the link on that would leave clamped text with no way
+        // to open it, so the link stays until it can be ruled out
+        if (!el.clientHeight) { toggle.style.display = ''; continue; }
         toggle.style.display = el.scrollHeight > el.clientHeight + 1 ? '' : 'none';
+    }
+    // observe whatever is on the page now; observing one twice is a
+    // no-op, and rows that have gone are dropped with the element
+    if (amObjRO) {
+        for (var j = 0; j < cells.length; j++) amObjRO.observe(cells[j]);
     }
 }
 
