@@ -93,13 +93,7 @@
 				<div class="procedure_div">
 					<table class="common_table table table-sm table-striped table-responsive" style="width:100%">
                         <tr>
-                            <td style="padding-right:200px;width:270px;">Username</td>
-
-                    <td>{{Auth::user()->name}} </td>
-
-                        </tr>
-                        <tr>
-                            <td>Email Address</td>
+                            <td style="padding-right:200px;width:270px;">Email Address / Username</td>
                             <td>{{Auth::user()->email}} </td>
 
 
@@ -201,12 +195,7 @@
                                         </div>
                                     </div>
                                     <div class="col-lg-4">
-                                        <label for="name">Username:</label>
-                                        <input type="text" id="name" required name="name" class="form-control" placeholder="Enter name" readonly>
-                                        <!--<span class="form-text text-muted">Please enter your Username</span>-->
-                                    </div>
-                                    <div class="col-lg-4">
-                                        <label for="name">Email Address:</label>
+                                        <label for="name">Email Address / Username:</label>
                                         <input type="text" required  id="name" name="email" class="form-control" placeholder="Enter email" readonly>
                                         <!--<span class="form-text text-muted">Please enter your Email Address</span>-->
                                     </div>

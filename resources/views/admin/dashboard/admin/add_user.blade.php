@@ -102,7 +102,7 @@
 
                             <div class="form-group row">
 
-                                <div class="col-lg-3">
+                                <div class="col-lg-4">
                                     <label for="address2">Company ID</label>
                                     <div class="kt-input-icon kt-input-icon--right">
                                         <input type="text" id="order_number" name="order_number" class="form-control"
@@ -111,21 +111,14 @@
                                     </div>
                                 </div>
 
-                                <div class="col-lg-3">
-                                    <label for="name">Email Address:</label>
+                                <div class="col-lg-4">
+                                    <label for="name">Email Address / Username:</label>
                                     <input type="email" id="email" name="email" class="form-control"
                                            placeholder="Enter email address" required>
                                     <!---<span class="form-text text-muted">Please enter Email Address</span>--->
                                 </div>
 
-                                <div class="col-lg-3">
-                                    <label for="name">Username:</label>
-                                    <input type="text" id="name" name="name" class="form-control"
-                                           placeholder="Enter Username" required>
-                                    <!---<span class="form-text text-muted">Please enter the client's Username</span>---->
-                                </div>
-                              
-                                <div class="col-lg-3">
+                                <div class="col-lg-4">
                                     <label for="password">Password:</label>
                                     <div class="kt-input-icon kt-input-icon--right">
                                         <input type="password" id="password" name="password" class="form-control"

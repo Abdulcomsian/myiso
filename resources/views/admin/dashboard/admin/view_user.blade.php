@@ -701,17 +701,6 @@
 
                                 </div>
 
-                                <div class="col-lg-4">
-
-                                    <label for="name">Username:</label>
-
-                                    <input type="text" id="name" name="name" class="form-control"
-                                           placeholder="Enter name">
-
-                                    <span class="form-text text-muted">Please enter the client's Username</span>
-
-                                </div>
-
                             </div>
 
                             <div class="form-group row">
@@ -1193,14 +1182,7 @@
                                         <input type="text" id="email" name="email" class="form-control"
                                                placeholder="Enter email" readonly disabled>
                                         <span class="form-text text-muted">Please enter Email Address</span>
-                                    </div>
-                                    <div class="col-lg-4">
-                                        <label for="name">Username:</label>
-                                        <input type="text" id="name" name="name" class="form-control"
-                                               placeholder="Enter name" readonly disabled>
-                                        <span class="form-text text-muted">Please enter the client's Username</span>
-                                    </div>
-                                </div>
+                                    </div>                                </div>
                                 <div class="form-group row">
                                     <div class="col-lg-4">
                                         <label for="password">Password:</label>

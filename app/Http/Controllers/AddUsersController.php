@@ -410,7 +410,9 @@ public function store(Request $request)
         try {
             //currdisabl
             $this->validate($request, [
-                'name' => 'required',
+                // the Username field is gone from Account Access: the name is
+                // taken from the company, which this form already asks for
+                'company_name' => 'required',
                 'password' => 'required',
                 'email' => 'required'
             ]);
@@ -520,7 +522,11 @@ public function store(Request $request)
             $addusers->country = $request->input('country');
 
 
-            $addusers->name = $request->input('name');
+            // what the portal greets this client by, and what the admin's list
+            // shows. It was typed into a Username box that only ever repeated
+            // the company name; it is taken from the company itself now.
+            $addusers->name = trim((string) $request->input('company_name'))
+                ?: $request->input('email');
             $addusers->email = $request->input('email');
             $addusers->password = Hash::make($pass);
             $addusers->phone = $request->input('phone');
@@ -1309,7 +1315,9 @@ public function store(Request $request)
         $user->iso45001_description = $request->input('iso45001_description');
 
         $user->country=$request->input('country');
-        $user->name = $request->input('name');
+        // see store(): the name follows the company, not a typed Username
+        $user->name = trim((string) $request->input('company_name'))
+            ?: (trim((string) $user->name) ?: $request->input('email'));
         $user->email = $request->input('email');
         $user->phone = $request->input('phone');
 
