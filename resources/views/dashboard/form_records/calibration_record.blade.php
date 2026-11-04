@@ -67,7 +67,7 @@
                     </div>
                 </div>
                 <div class="form-row">
-                    <div><label>Attach Evidence</label><input name="attach_evidence" type="file"></div>
+                    <div><label>Attach Supporting Evidence</label><input name="attach_evidence" type="file"></div>
                     <div style="grid-column:span 2;"><label>Any Other Issues</label><input type="text" name="issues_points"></div>
                 </div>
                 <div class="form-actions">
@@ -102,7 +102,7 @@
                 'certificatenumber' => 'Certificate #', 'freq' => 'Frequency (months)', 'reportRev' => 'Report Reviewer',
                 'sentence' => 'Result', 'issues_points' => 'Notes',
             ]; @endphp
-            <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:14px;font-size:13px;">
+            <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:14px 18px;font-size:13px;">
                 @foreach($vf as $k => $lb)
                     <div><div style="font-size:11px;text-transform:uppercase;letter-spacing:0.4px;color:var(--am-text-muted);font-weight:600;margin-bottom:4px;">{{ $lb }}</div><div id="vcal-{{ $k }}">—</div></div>
                 @endforeach
@@ -149,7 +149,7 @@
                     </div>
                 </div>
                 <div class="form-group row">
-                    <div class="col-lg-6"><label>Attach Evidence</label><input name="attach_evidence" type="file" class="form-control"></div>
+                    <div class="col-lg-6"><label>Attach Supporting Evidence</label><input name="attach_evidence" type="file" class="form-control"></div>
                     <div class="col-lg-6"><label>Any Other Issues</label><input type="text" class="form-control" name="issues_points"></div>
                 </div>
             </div>

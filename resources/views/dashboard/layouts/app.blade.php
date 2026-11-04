@@ -312,5 +312,6 @@ document.querySelectorAll('.am-nav-group__toggle').forEach(function(el) {
     });
 })();
 </script>
+@include('dashboard.layouts.partials.attach_file')
 </body>
 </html>

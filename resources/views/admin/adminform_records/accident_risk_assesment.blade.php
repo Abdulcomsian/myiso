@@ -64,7 +64,7 @@
                     <div><label>Revised Risk Severity (1-6)</label><input type="number" min="1" max="6" name="reviseRiskSever" required></div>
                 </div>
                 <div class="form-row">
-                    <div><label>Attach Evidence (jpeg, mp3, mp4, xls, doc)</label><input name="attach_evidence" type="file"></div>
+                    <div><label>Attach Supporting Evidence <span class="am-hint">(jpeg, mp3, mp4, xls, doc)</span></label><input name="attach_evidence" type="file"></div>
                     <div><label>Any Other Issues</label><textarea name="any_issues" placeholder="Notes" rows="2"></textarea></div>
                 </div>
                 <div class="form-actions">
@@ -113,7 +113,7 @@
             <h4 class="am-modal__title">Accident Risk Details</h4>
         </div>
         <div class="am-modal__body">
-            <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:14px;font-size:13px;">
+            <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:14px 18px;font-size:13px;">
                 <div style="grid-column:1/-1;"><div style="font-size:11px;text-transform:uppercase;letter-spacing:0.4px;color:var(--am-text-muted);font-weight:600;margin-bottom:4px;">Scenario</div><div id="v-ar-scenario">—</div></div>
                 <div><div style="font-size:11px;text-transform:uppercase;letter-spacing:0.4px;color:var(--am-text-muted);font-weight:600;margin-bottom:4px;">Risk Likelihood</div><div id="v-ar-likel">—</div></div>
                 <div><div style="font-size:11px;text-transform:uppercase;letter-spacing:0.4px;color:var(--am-text-muted);font-weight:600;margin-bottom:4px;">Risk Severity</div><div id="v-ar-sev">—</div></div>
@@ -163,7 +163,7 @@
                     <div class="col-lg-6"><label>Revised Severity</label><input type="number" class="form-control" min="1" max="6" name="reviseRiskSever" required></div>
                 </div>
                 <div class="form-group row">
-                    <div class="col-lg-6"><label>Attach Evidence</label><input name="attach_evidence" type="file" class="form-control"></div>
+                    <div class="col-lg-6"><label>Attach Supporting Evidence</label><input name="attach_evidence" type="file" class="form-control"></div>
                     <div class="col-lg-6"><label>Any Other Issues</label><textarea class="form-control" name="any_issues"></textarea></div>
                 </div>
             </div>

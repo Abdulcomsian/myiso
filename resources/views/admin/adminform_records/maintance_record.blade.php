@@ -82,7 +82,7 @@
                         <input type="text" placeholder="Full name" name="mractivityperofrmby" required>
                     </div>
                     <div>
-                        <label>Attach Evidence (jpeg, mp3, mp4, xls, doc)</label>
+                        <label>Attach Supporting Evidence <span class="am-hint">(jpeg, mp3, mp4, xls, doc)</span></label>
                         <input name="attach_evidence" type="file">
                     </div>
                     <div>
@@ -137,7 +137,7 @@
             <h4 class="am-modal__title">Maintenance Record</h4>
         </div>
         <div class="am-modal__body">
-            <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:14px;font-size:13px;">
+            <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:14px 18px;font-size:13px;">
                 <div><div style="font-size:11px;text-transform:uppercase;letter-spacing:0.4px;color:var(--am-text-muted);font-weight:600;margin-bottom:4px;">Date</div><div id="v-mrdate"></div></div>
                 <div><div style="font-size:11px;text-transform:uppercase;letter-spacing:0.4px;color:var(--am-text-muted);font-weight:600;margin-bottom:4px;">Item</div><div id="v-mritem"></div></div>
                 <div><div style="font-size:11px;text-transform:uppercase;letter-spacing:0.4px;color:var(--am-text-muted);font-weight:600;margin-bottom:4px;">Activity</div><div id="v-mractivity"></div></div>
@@ -186,7 +186,7 @@
                     <div class="col-lg-6"><label>Performed By</label><input type="text" class="form-control" name="mractivityperofrmby" id="e-mrperformed"></div>
                 </div>
                 <div class="form-group row">
-                    <div class="col-lg-6"><label>Attach Evidence</label><input name="attach_evidence" type="file" class="form-control"></div>
+                    <div class="col-lg-6"><label>Attach Supporting Evidence</label><input name="attach_evidence" type="file" class="form-control"></div>
                     <div class="col-lg-6"><label>Any Other Issues</label><textarea class="form-control" name="any_issues" id="e-mrissues"></textarea></div>
                 </div>
             </div>

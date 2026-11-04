@@ -142,23 +142,19 @@
 
 {{-- View Customer modal --}}
 <div class="am-modal" id="ViewCustomer" role="dialog" aria-modal="true">
-    <div class="am-modal__box am-form" style="max-width:820px;">
+    <div class="am-modal__box" style="max-width:820px;">
         <div class="am-modal__header">
             <span class="am-modal__icon" style="background:var(--am-primary-tint);color:var(--am-primary);"><i class="fa fa-eye"></i></span>
             <h4 class="am-modal__title">View Customer Details</h4>
         </div>
-        <div class="am-modal__body" style="padding:20px;">
-            <div class="form-group row">
-                <div class="col-lg-6"><label>Customer ID Number</label><input type="number" readonly class="form-control" name="idNumber"></div>
-                <div class="col-lg-6"><label>Customer Name</label><input type="text" readonly class="form-control" name="name"></div>
-            </div>
-            <div class="form-group row">
-                <div class="col-lg-6"><label>Business Address</label><input type="text" readonly class="form-control" name="address"></div>
-                <div class="col-lg-6"><label>Customer Telephone</label><div id="view_phone_div"></div></div>
-            </div>
-            <div class="form-group row">
-                <div class="col-lg-6"><label>Customer Email Address</label><input type="email" readonly class="form-control" name="Email"></div>
-                <div class="col-lg-6"><label>Customer Contact Name</label><input type="text" readonly class="form-control" name="contactName"></div>
+        <div class="am-modal__body">
+            <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:14px 18px;">
+                <div><div style="font-size:11px;text-transform:uppercase;letter-spacing:0.4px;color:var(--am-text-muted);font-weight:600;margin-bottom:4px;">Customer ID Number</div><div id="vCustId">—</div></div>
+                <div><div style="font-size:11px;text-transform:uppercase;letter-spacing:0.4px;color:var(--am-text-muted);font-weight:600;margin-bottom:4px;">Customer Name</div><div id="vCustName">—</div></div>
+                <div style="grid-column:1/-1;"><div style="font-size:11px;text-transform:uppercase;letter-spacing:0.4px;color:var(--am-text-muted);font-weight:600;margin-bottom:4px;">Business Address</div><div id="vCustAddress">—</div></div>
+                <div><div style="font-size:11px;text-transform:uppercase;letter-spacing:0.4px;color:var(--am-text-muted);font-weight:600;margin-bottom:4px;">Customer Telephone</div><div id="vCustPhone">—</div></div>
+                <div><div style="font-size:11px;text-transform:uppercase;letter-spacing:0.4px;color:var(--am-text-muted);font-weight:600;margin-bottom:4px;">Customer Email Address</div><div id="vCustEmail">—</div></div>
+                <div><div style="font-size:11px;text-transform:uppercase;letter-spacing:0.4px;color:var(--am-text-muted);font-weight:600;margin-bottom:4px;">Customer Contact Name</div><div id="vCustContact">—</div></div>
             </div>
         </div>
         <div class="am-modal__footer"><button type="button" class="am-btn am-btn-outline am-modal-close">Close</button></div>
@@ -229,7 +225,6 @@
     });
 
     var edit_phone_number = '';
-    var view_phone_number = '';
 
     function getEid(data) {
         $("#id_feild").val(data.id);
@@ -249,18 +244,16 @@
     }
 
     function viewEid(data) {
-        $("input[name='Email']").val(data.Email);
-        $("input[name='address']").val(data.address);
-        $("input[name='contactName']").val(data.contactName);
-        $("input[name='idNumber']").val(data.idNumber);
-        $("input[name='name']").val(data.name);
-        $("#view_phone_div").empty().append('<input type="text" class="form-control" name="view_phone_number" id="view_phone_number" placeholder="Phone">');
-        $("input[name='view_phone_number']").val(data.phoneNumber);
-        var phoneflag = (data.phoneflag == 'preferred' || data.phoneflag == null) ? 'us' : data.phoneflag;
-        view_phone_number = window.intlTelInput(document.querySelector("#view_phone_number"), {
-            separateDialCode: true, initialCountry: phoneflag,
-            customPlaceholder: function (p) { return "e.g. " + p; },
-        });
+        // written as text into the popup's own ids. The old selectors
+        // named no modal, so they also filled the add form and the edit
+        // popup; the edit popup has getEid for that.
+        document.getElementById('vCustId').textContent = data.idNumber || '—';
+        document.getElementById('vCustName').textContent = data.name || '—';
+        document.getElementById('vCustAddress').textContent = data.address || '—';
+        var amPhone = [data.phonecode, data.phoneNumber].filter(Boolean).join(' ').trim();
+        document.getElementById('vCustPhone').textContent = amPhone || '—';
+        document.getElementById('vCustEmail').textContent = data.Email || '—';
+        document.getElementById('vCustContact').textContent = data.contactName || '—';
         document.getElementById('ViewCustomer').classList.add('open');
     }
 

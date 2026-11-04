@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Employee;
 use App\Mgtreview;
 use App\MgtreviewAction;
 use App\MgtreviewAnswer;
@@ -15,6 +16,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Schema;
+use Illuminate\Support\Str;
 
 class MgtreviewController extends Controller
 {
@@ -47,6 +49,8 @@ class MgtreviewController extends Controller
         $data['editing'] = $editing;
         $data['answers'] = $editing ? $this->answersFor($editing) : [];
         $data['search']  = $search;
+        // what Part 3 C offers in its two dropdowns
+        $data['actionOptions'] = self::actionOptions($userid);
 
         return view('dashboard.form_records.managment_reviews', $data);
     }
@@ -75,6 +79,44 @@ class MgtreviewController extends Controller
      * The newest review that has open actions, with the numbers the banner
      * needs. Null when there is nothing to chase.
      */
+    /**
+     * What Part 3 C offers in its two dropdowns, for one client.
+     *
+     * Objective lists the client's Objectives Tracker, Who lists their
+     * employees. Both are built here rather than in the two views that need
+     * them - the form and the script that adds a row to it - so the list a row
+     * is drawn with and the list a new row is drawn with cannot drift apart.
+     *
+     * The value is the text that gets saved, because that is what the column
+     * has always held and what the details popup and the open-actions count
+     * read back. An objective can run to a paragraph now, so the label is
+     * shortened for the dropdown while the whole thing is still what is saved.
+     *
+     * Admin pages pass the client's id, never the admin's.
+     */
+    public static function actionOptions($userId)
+    {
+        $objectives = Objective::where('user_id', $userId)
+            ->orderBy('id', 'DESC')->get()
+            ->map(function ($o) {
+                $text = trim((string) $o->objective);
+                return ['value' => $text, 'label' => Str::limit($text, 80)];
+            })
+            ->filter(function ($o) { return $o['value'] !== ''; })
+            ->values()->all();
+
+        $employees = Employee::where('user_id', $userId)
+            ->orderBy('first_name')->get()
+            ->map(function ($e) {
+                $name = trim($e->first_name . ' ' . $e->surname);
+                return $name !== '' ? $name : (string) $e->empNumber;
+            })
+            ->filter(function ($n) { return $n !== ''; })
+            ->unique()->values()->all();
+
+        return ['objectives' => $objectives, 'employees' => $employees];
+    }
+
     public static function openBanner($userid)
     {
         $latest = Mgtreview::with('actions')->where('user_id', $userid)
@@ -210,6 +252,26 @@ class MgtreviewController extends Controller
         }
     }
 
+    /**
+     * One Part 3 C field, whether it was chosen from the dropdown or typed.
+     *
+     * Objective and Who are dropdowns now - the client's Objectives Tracker
+     * and their employees - with an "Other" that reveals a box underneath.
+     * Picking Other posts the marker, and the box beside it holds the words,
+     * so either way what is stored is the same plain text the column has
+     * always held. Nothing downstream has to know a dropdown was involved.
+     */
+    const OTHER = '__other__';
+
+    private function pickedOrTyped(array $row, $field)
+    {
+        $picked = trim((string) ($row[$field] ?? ''));
+        if ($picked === self::OTHER) {
+            return trim((string) ($row[$field . '_other'] ?? ''));
+        }
+        return $picked;
+    }
+
     /** Part 3 C, rewritten from what the form posted */
     private function saveActions(Request $request, Mgtreview $rev)
     {
@@ -219,14 +281,14 @@ class MgtreviewController extends Controller
         }
         MgtreviewAction::where('mgtreview_id', $rev->id)->delete();
         foreach ($rows as $row) {
-            $text = trim((string) ($row['action'] ?? ''));
+            $text = $this->pickedOrTyped($row, 'action');
             if ($text === '') {
                 continue;                            // an empty line is not an action
             }
             MgtreviewAction::create([
                 'mgtreview_id' => $rev->id,
                 'action'       => $text,
-                'who'          => $row['who'] ?? null,
+                'who'          => $this->pickedOrTyped($row, 'who') ?: null,
                 'by_when'      => !empty($row['when']) ? $row['when'] : null,
                 'done'         => !empty($row['done']),
             ]);

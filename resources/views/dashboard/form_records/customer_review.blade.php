@@ -62,7 +62,7 @@
                 </div>
                 <div class="form-row">
                     <div style="grid-column:span 2;"><label>Notes</label><textarea name="other_issue" required></textarea></div>
-                    <div style="grid-column:span 2;"><label>Attach Evidence <span style="color:var(--am-text-soft);">of Survey Reply, Email, Recommendation Letter, or Call Notes</span></label><input type="file" name="attach_evidence" required></div>
+                    <div style="grid-column:span 2;"><label>Attach Supporting Evidence <span style="color:var(--am-text-soft);">of Survey Reply, Email, Recommendation Letter, or Call Notes</span></label><input type="file" name="attach_evidence" required></div>
                 </div>
                 <div class="form-actions">
                     <button type="button" class="am-btn am-btn-outline am-btn-sm" id="cancelCrForm">Cancel</button>
@@ -115,7 +115,7 @@
                     <div class="col-lg-6"><label>Notes</label><textarea class="form-control" name="other_issue" required></textarea></div>
                 </div>
                 <div class="form-group row">
-                    <div class="col-lg-12"><label>Attach Evidence <span style="color:var(--am-text-soft);">of Survey Reply, Email, Recommendation Letter, or Call Notes</span></label><input type="file" class="form-control" name="attach_evidence"></div>
+                    <div class="col-lg-12"><label>Attach Supporting Evidence <span style="color:var(--am-text-soft);">of Survey Reply, Email, Recommendation Letter, or Call Notes</span></label><input type="file" class="form-control" name="attach_evidence"></div>
                 </div>
             </div>
             <div class="am-modal__footer">
@@ -134,7 +134,7 @@
             <h4 class="am-modal__title">Review Details</h4>
         </div>
         <div class="am-modal__body">
-            <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:14px;font-size:13px;">
+            <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:14px 18px;font-size:13px;">
                 <div><div style="font-size:11px;text-transform:uppercase;letter-spacing:0.4px;color:var(--am-text-muted);font-weight:600;margin-bottom:4px;">Customer</div><div id="v-cr-cust"></div></div>
                 <div><div style="font-size:11px;text-transform:uppercase;letter-spacing:0.4px;color:var(--am-text-muted);font-weight:600;margin-bottom:4px;">Product / Area</div><div id="v-cr-prod"></div></div>
                 <div><div style="font-size:11px;text-transform:uppercase;letter-spacing:0.4px;color:var(--am-text-muted);font-weight:600;margin-bottom:4px;">Quality</div><div id="v-cr-q"></div></div>

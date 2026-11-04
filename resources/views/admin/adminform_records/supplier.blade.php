@@ -200,29 +200,21 @@
 
 {{-- View modal --}}
 <div class="am-modal" id="viewSupplier" role="dialog" aria-modal="true">
-    <div class="am-modal__box am-form" style="max-width:900px;">
+    <div class="am-modal__box" style="max-width:900px;">
         <div class="am-modal__header">
             <span class="am-modal__icon" style="background:var(--am-primary-tint);color:var(--am-primary);"><i class="fa fa-eye"></i></span>
             <h4 class="am-modal__title">View Supplier Details</h4>
         </div>
-        <div class="am-modal__body" style="padding:20px;">
-            <div class="form-group row">
-                <div class="col-lg-6"><label>Supplier ID</label><input type="number" readonly class="form-control" name="idnumber"></div>
-                <div class="col-lg-6"><label>Supplier Name</label><input type="text" readonly class="form-control" name="suppliername"></div>
-            </div>
-            <div class="form-group row">
-                <div class="col-lg-12"><label>Supplier Address</label><input type="text" readonly class="form-control" name="supplieraddress"></div>
-            </div>
-            <div class="form-group row">
-                <div class="col-lg-6"><label>Country</label><input type="text" readonly class="form-control" name="suppliercountry"></div>
-                <div class="col-lg-6"><label>Supplier Telephone</label><div id="view_phone_div"></div></div>
-            </div>
-            <div class="form-group row">
-                <div class="col-lg-6"><label>Supplier Email</label><input type="email" readonly class="form-control" name="supplieremail"></div>
-                <div class="col-lg-6"><label>Contact Name</label><input type="text" readonly class="form-control" name="supplierContactNumber"></div>
-            </div>
-            <div class="form-group row">
-                <div class="col-lg-12"><label>Services</label><input type="text" readonly class="form-control" name="supplierservc"></div>
+        <div class="am-modal__body">
+            <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:14px 18px;">
+                <div><div style="font-size:11px;text-transform:uppercase;letter-spacing:0.4px;color:var(--am-text-muted);font-weight:600;margin-bottom:4px;">Supplier ID</div><div id="vSupId">—</div></div>
+                <div><div style="font-size:11px;text-transform:uppercase;letter-spacing:0.4px;color:var(--am-text-muted);font-weight:600;margin-bottom:4px;">Supplier Name</div><div id="vSupName">—</div></div>
+                <div style="grid-column:1/-1;"><div style="font-size:11px;text-transform:uppercase;letter-spacing:0.4px;color:var(--am-text-muted);font-weight:600;margin-bottom:4px;">Supplier Address</div><div id="vSupAddress">—</div></div>
+                <div><div style="font-size:11px;text-transform:uppercase;letter-spacing:0.4px;color:var(--am-text-muted);font-weight:600;margin-bottom:4px;">Country</div><div id="vSupCountry">—</div></div>
+                <div><div style="font-size:11px;text-transform:uppercase;letter-spacing:0.4px;color:var(--am-text-muted);font-weight:600;margin-bottom:4px;">Supplier Telephone</div><div id="vSupPhone">—</div></div>
+                <div><div style="font-size:11px;text-transform:uppercase;letter-spacing:0.4px;color:var(--am-text-muted);font-weight:600;margin-bottom:4px;">Supplier Email</div><div id="vSupEmail">—</div></div>
+                <div><div style="font-size:11px;text-transform:uppercase;letter-spacing:0.4px;color:var(--am-text-muted);font-weight:600;margin-bottom:4px;">Contact Name</div><div id="vSupContact">—</div></div>
+                <div style="grid-column:1/-1;"><div style="font-size:11px;text-transform:uppercase;letter-spacing:0.4px;color:var(--am-text-muted);font-weight:600;margin-bottom:4px;">Services</div><div id="vSupServices">—</div></div>
             </div>
         </div>
         <div class="am-modal__footer"><button type="button" class="am-btn am-btn-outline am-modal-close">Close</button></div>
@@ -311,20 +303,18 @@
     }
 
     function viewEid(data) {
-        $('#view_phone_div').empty().append('<input type="text" name="supplierphn" class="form-control" id="editphone2" placeholder="Supplier phone"/>');
-        $("#viewSupplier input[name='idnumber']").val(data.idnumber);
-        $("#viewSupplier input[name='supplierContactNumber']").val(data.supplierContactNumber);
-        $("#viewSupplier input[name='supplieraddress']").val(data.supplieraddress);
-        $("#viewSupplier input[name='suppliercountry']").val(data.suppliercountry);
-        $("#viewSupplier input[name='supplieremail']").val(data.supplieremail);
-        $("#viewSupplier input[name='suppliername']").val(data.suppliername);
-        $("#viewSupplier input[name='supplierphn']").val(data.supplierphn);
-        $("#viewSupplier input[name='supplierservc']").val(data.supplierservc);
-        var phoneflag = (data.phoneflag == 'preferred' || data.phoneflag == null) ? 'us' : data.phoneflag;
-        window.intlTelInput(document.querySelector("#editphone2"), {
-            separateDialCode: true, initialCountry: phoneflag,
-            customPlaceholder: function (p) { return "e.g. " + p; },
-        });
+        // written as text into the popup's own ids. The old selectors
+        // named no modal, so they also filled the add form and the edit
+        // popup; the edit popup has getEid for that.
+        document.getElementById('vSupId').textContent = data.idnumber || '—';
+        document.getElementById('vSupName').textContent = data.suppliername || '—';
+        document.getElementById('vSupAddress').textContent = data.supplieraddress || '—';
+        document.getElementById('vSupCountry').textContent = data.suppliercountry || '—';
+        var amPhone = [data.phonecode, data.supplierphn].filter(Boolean).join(' ').trim();
+        document.getElementById('vSupPhone').textContent = amPhone || '—';
+        document.getElementById('vSupEmail').textContent = data.supplieremail || '—';
+        document.getElementById('vSupContact').textContent = data.supplierContactNumber || '—';
+        document.getElementById('vSupServices').textContent = data.supplierservc || '—';
         document.getElementById('viewSupplier').classList.add('open');
     }
 

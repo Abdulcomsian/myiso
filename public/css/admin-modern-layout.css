@@ -1971,3 +1971,121 @@ a.am-doc:hover {
 .am-obj-more__shut,
 .am-obj-toggle:checked ~ .am-obj-more .am-obj-more__open { display: none; }
 .am-obj-toggle:checked ~ .am-obj-more .am-obj-more__shut { display: inline; }
+
+/* ── Management Review, Part 3 C: the column widths ──────────────────────
+   A select is as wide as its longest option and an objective can run to
+   eighty characters, so left to size itself from its content the first column
+   took the row and left Who a few characters wide.
+
+   table-layout:fixed takes the content out of the sizing, so these widths are
+   what the browser uses. Done and the bin keep the pixel widths set on their
+   own th, and the selects already stretch to their cell at 100%. */
+.mr-actions-table { table-layout: fixed; }
+.mr-actions-table th:nth-child(1), .mr-actions-table td:nth-child(1) { width: 36%; }
+.mr-actions-table th:nth-child(2), .mr-actions-table td:nth-child(2) { width: 30%; }
+.mr-actions-table th:nth-child(3), .mr-actions-table td:nth-child(3) { width: 18%; }
+
+/* ── Attach a file ───────────────────────────────────────────────────────
+   A browser writes "No file chosen" beside a file input and nothing in CSS
+   can change that wording, so the control is built around the input instead
+   of being restyled. The input itself is untouched - same name, same accept,
+   same posting - it is only taken out of sight.
+
+   The wrapper is a <label>, which is what opens the picker: choosing a file
+   works with no script. The script only writes the name back afterwards.
+
+   border-inline-end rather than border-right, so the divider stays between
+   the button and the name on the Arabic site too. */
+.am-file,
+label.am-file,
+.am-inline-form label.am-file,
+.am-form label.am-file {
+    /* a <label> inside a form is styled by ".am-inline-form label" at (0,1,1),
+       which outranks a lone class - hence the longer selectors, and hence
+       every property that rule sets being answered here */
+    display: inline-flex;
+    align-items: stretch;
+    width: auto;
+    max-width: 100%;
+    margin: 0;
+    border: 1px solid var(--am-border);
+    border-radius: var(--am-radius-sm);
+    background: #fff;
+    overflow: hidden;
+    cursor: pointer;
+    vertical-align: middle;
+    font-size: 13px;
+    font-weight: 400;
+    text-transform: none;
+    letter-spacing: normal;
+    color: var(--am-text);
+}
+/* out of sight, not out of the form: display:none would drop it from some
+   browsers' validation and focus order */
+.am-file > input[type="file"] {
+    position: absolute;
+    width: 1px; height: 1px;
+    padding: 0; margin: -1px; border: 0;
+    overflow: hidden;
+    clip: rect(0 0 0 0);
+    clip-path: inset(50%);
+    white-space: nowrap;
+}
+.am-file__btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    /* the same box the other fields use */
+    padding: 9px 12px;
+    text-transform: none;
+    letter-spacing: normal;
+    background: #f4f5fa;
+    border-inline-end: 1px solid var(--am-border);
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--am-text);
+    white-space: nowrap;
+}
+.am-file__name {
+    display: inline-flex;
+    align-items: center;
+    min-width: 0;
+    padding: 9px 12px;
+    text-transform: none;
+    letter-spacing: normal;
+    font-weight: 400;
+    font-size: 13px;
+    color: var(--am-text-muted);
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+/* something is attached: say so in the portal's own colour */
+/* Beside a Bootstrap-styled field the neighbours are not var(--am-border) at
+   all: custom.css gives every .form-control a strong blue. A near-white box
+   among them reads as if it were switched off, so the control takes the same
+   border its neighbours have. The script adds this mark when the input it
+   wrapped carried form-control.
+
+   The colour is custom.css's own (its .form-control rule) - not a new one. */
+.am-file--strong { border-color: #0d47b3; }
+.am-file--strong .am-file__btn { border-inline-end-color: #0d47b3; }
+
+.am-file.has-file .am-file__name { color: var(--am-text); }
+.am-file:hover .am-file__btn { background: #eceef6; }
+.am-file:focus-within {
+    border-color: var(--am-primary-soft);
+    box-shadow: 0 0 0 3px rgba(46, 59, 154, 0.10);
+}
+/* the Management Review's field sits beside a hint and must not stretch */
+.am-inline-form .am-file,
+.am-form .am-file { width: auto; }
+
+/* the grey half of a label - the file types, the "if applicable", the help
+   that is not the name of the field */
+.am-hint {
+    color: var(--am-text-soft);
+    font-weight: 500;
+    text-transform: none;
+    letter-spacing: 0;
+}

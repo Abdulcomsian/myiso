@@ -110,7 +110,7 @@
                 </div>
 
                 <div class="form-row" style="margin-top:14px;">
-                    <div><label>Attach Evidence</label><input name="attach_evidence" type="file"></div>
+                    <div><label>Attach Supporting Evidence</label><input name="attach_evidence" type="file"></div>
                     <div style="grid-column:span 2;"><label>Any Other Issues</label><textarea name="any_issues" rows="2"></textarea></div>
                 </div>
 
@@ -160,7 +160,7 @@
             <h4 class="am-modal__title">Process Audit Details</h4>
         </div>
         <div class="am-modal__body">
-            <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:14px;font-size:13px;">
+            <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:14px 18px;font-size:13px;">
                 <div><div style="font-size:11px;text-transform:uppercase;letter-spacing:0.4px;color:var(--am-text-muted);font-weight:600;margin-bottom:4px;">Process</div><div id="vpa-proc">—</div></div>
                 <div><div style="font-size:11px;text-transform:uppercase;letter-spacing:0.4px;color:var(--am-text-muted);font-weight:600;margin-bottom:4px;">Auditor</div><div id="vpa-auditor">—</div></div>
                 <div><div style="font-size:11px;text-transform:uppercase;letter-spacing:0.4px;color:var(--am-text-muted);font-weight:600;margin-bottom:4px;">Audit Date</div><div id="vpa-date">—</div></div>
@@ -218,7 +218,7 @@
                 <div class="form-group row">
                     <div class="col-lg-4"><label>NC Report Ref</label><input type="text" class="form-control" name="nonConfReport"></div>
                     <div class="col-lg-4"><label>Frequency (Months)</label><input type="number" class="form-control" min="1" max="12" name="dateFrequency"></div>
-                    <div class="col-lg-4"><label>Attach Evidence</label><input name="attach_evidence" type="file" class="form-control"></div>
+                    <div class="col-lg-4"><label>Attach Supporting Evidence</label><input name="attach_evidence" type="file" class="form-control"></div>
                 </div>
                 <div class="form-group row">
                     <div class="col-lg-12"><label>Audit Actions</label><textarea class="form-control" name="AdutiActions" rows="3"></textarea></div>

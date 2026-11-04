@@ -334,6 +334,9 @@ class MgtReviewQuestions
             'add' => '+ Add Objective',
             'ph_action' => 'What needs doing',
             'ph_who' => 'Who will do it',
+            'pick_objective' => 'Choose objective…',
+            'pick_who' => 'Choose employee…',
+            'other' => 'Other…',
             'note' => 'Open actions show on the Management Reviews list until they are ticked done. Question 1 of the next review checks them.',
         ];
     }

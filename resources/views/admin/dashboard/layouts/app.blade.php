@@ -254,5 +254,6 @@
     })();
 </script>
 
+@include('dashboard.layouts.partials.attach_file')
 </body>
 </html>

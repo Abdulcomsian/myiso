@@ -1133,9 +1133,11 @@ public function store(Request $request)
             }
         }
         $openBanner = \App\Http\Controllers\MgtreviewController::openBanner($userid);
+        // Part 3 C lists THIS client's objectives and employees, not the admin's
+        $actionOptions = \App\Http\Controllers\MgtreviewController::actionOptions($userid);
 
         return view('admin.adminform_records.managment_reviews',
-            compact('mgtrev','search','userid','editing','answers','openBanner'));
+            compact('mgtrev','search','userid','editing','answers','openBanner','actionOptions'));
     }
     public function maintainRecCheck(Request $request, $userid){
         $search = trim($request->query('q', ''));
@@ -1403,7 +1405,20 @@ public function store(Request $request)
     public function interested_parties(Request $request, $id)
     {
         $search = trim($request->query('q', ''));
-        $query = DB::table('interested_parties')->where('user_id', $id)->orderBy('id', 'DESC');
+        $query = DB::table('interested_parties')
+            ->where('interested_parties.user_id', $id)
+            // the popup names who filed it and who last changed it
+            ->leftJoin('users as am_cu', 'am_cu.id', '=', 'interested_parties.created_by')
+            ->leftJoin('users as am_uu', 'am_uu.id', '=', 'interested_parties.updated_by')
+            ->select('interested_parties.*',
+                     'am_cu.name as created_by_name',
+                     'am_uu.name as updated_by_name',
+                     // the stored value, never a cast date: the column keeps
+                     // local time and a cast one would be redrawn in the
+                     // reader's own zone
+                     'interested_parties.created_at as created_at_raw',
+                     'interested_parties.updated_at as updated_at_raw')
+            ->orderBy('interested_parties.id', 'DESC');
         if ($search !== '') {
             $query->where(function($q) use ($search) {
                 $q->where('interested_party', 'like', "%{$search}%")

@@ -77,17 +77,15 @@
             <h4 class="am-modal__title">Interested Party Details</h4>
         </div>
         <div class="am-modal__body">
-            <div style="margin-bottom:14px;">
-                <p style="font-size:11.5px;text-transform:uppercase;letter-spacing:0.4px;color:var(--am-text-muted);margin:0 0 4px 0;font-weight:600;">Interested Party</p>
-                <p style="font-size:14px;color:var(--am-text);margin:0;font-weight:600;" id="vIpParty">—</p>
+            <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:14px 18px;">
+                <div style="grid-column:1/-1;"><div style="font-size:11px;text-transform:uppercase;letter-spacing:0.4px;color:var(--am-text-muted);font-weight:600;margin-bottom:4px;">Interested Party</div><div id="vIpParty">—</div></div>
+                <div style="grid-column:1/-1;"><div style="font-size:11px;text-transform:uppercase;letter-spacing:0.4px;color:var(--am-text-muted);font-weight:600;margin-bottom:4px;">Needs and Expectations</div><div id="vIpNeeds">—</div></div>
             </div>
-            <div style="margin-bottom:14px;">
-                <p style="font-size:11.5px;text-transform:uppercase;letter-spacing:0.4px;color:var(--am-text-muted);margin:0 0 4px 0;font-weight:600;">Needs and Expectations</p>
-                <p style="font-size:13.5px;color:var(--am-text);margin:0;" id="vIpNeeds">—</p>
-            </div>
-            <div>
-                <p style="font-size:11.5px;text-transform:uppercase;letter-spacing:0.4px;color:var(--am-text-muted);margin:0 0 4px 0;font-weight:600;">Created At</p>
-                <p style="font-size:13.5px;color:var(--am-text);margin:0;" id="vIpDate">—</p>
+            {{-- the same shape the Objectives Tracker gives its progress history:
+                 a rule, a heading, then a row per event --}}
+            <div style="border-top:1px solid var(--am-border);padding-top:14px;margin-top:18px;">
+                <div style="font-size:11px;text-transform:uppercase;letter-spacing:0.4px;color:var(--am-text-muted);font-weight:600;margin-bottom:4px;margin-bottom:10px;">History</div>
+                <div id="vIpHistory"></div>
             </div>
         </div>
         <div class="am-modal__footer">
@@ -168,10 +166,65 @@
     })();
 
     // ---- View / Edit fillers ----
+    // "2026-05-24 21:52:49" as the portal recorded it, and who did it.
+    //
+    // Deliberately not new Date(): the app keeps Asia/Dubai time in the
+    // column, and a date handed to the browser would be re-read in the
+    // reader's own zone and printed hours out. The string is split instead.
+    var amIpMonths = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+    function amIpWhen(stamp, who) {
+        var m = /^(\d{4})-(\d{2})-(\d{2})[ T](\d{2}):(\d{2})/.exec(stamp || '');
+        if (!m) return '—';
+        var h = parseInt(m[4], 10);
+        var half = h < 12 ? 'AM' : 'PM';
+        var h12 = h % 12 === 0 ? 12 : h % 12;
+        var when = m[3] + ' ' + amIpMonths[parseInt(m[2], 10) - 1] + ' ' + m[1] + ', ' + h12 + ':' + m[5] + ' ' + half;
+        return when;
+    }
+
+    // One row per thing that has happened to the record. Same grid, border
+    // and type size the progress history uses, so the two read alike.
+    function amIpHistory(data) {
+        var box = document.getElementById('vIpHistory');
+        if (!box) return;
+        box.innerHTML = '';
+
+        var events = [
+            ['Created', data.created_at_raw, data.created_by_name],
+            ['Last updated', data.updated_at_raw, data.updated_by_name],
+        ].filter(function (e) { return e[1]; });
+
+        if (!events.length) {
+            box.innerHTML = '<div style="font-size:13px;color:var(--am-text-muted);">Nothing recorded yet.</div>';
+            return;
+        }
+
+        events.forEach(function (e, i) {
+            var row = document.createElement('div');
+            row.style.cssText = 'display:grid;grid-template-columns:120px minmax(0,1fr) minmax(0,160px);'
+                + 'gap:12px;align-items:start;padding:10px 0;font-size:13px;'
+                + (i < events.length - 1 ? 'border-bottom:1px solid var(--am-border);' : '');
+            row.appendChild(amIpCell(e[0], true));
+            row.appendChild(amIpCell(amIpWhen(e[1]), false));
+            row.appendChild(amIpCell(e[2] || '—', false));
+            box.appendChild(row);
+        });
+    }
+
+    // built as text, never as markup: a name is whatever someone typed
+    function amIpCell(text, muted) {
+        var d = document.createElement('div');
+        if (muted) d.style.color = 'var(--am-text-muted)';
+        d.style.minWidth = '0';
+        d.style.overflowWrap = 'anywhere';
+        d.textContent = text;
+        return d;
+    }
+
     function amIpView(data) {
         document.getElementById('vIpParty').textContent = data.interested_party || '—';
         document.getElementById('vIpNeeds').textContent = data.needs || '—';
-        document.getElementById('vIpDate').textContent  = data.created_at ? new Date(data.created_at).toLocaleDateString('en-GB', { day: '2-digit', month: 'short', year: 'numeric' }) : '—';
+        amIpHistory(data);
         document.getElementById('amIpView').classList.add('open');
     }
     function amIpEdit(data) {

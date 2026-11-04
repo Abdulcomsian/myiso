@@ -16,6 +16,11 @@
     $prevDec = $answers['A'] ?? null;
     $decText = is_array($prevDec) ? ($prevDec['answer'] ?? '') : '';
     $rows    = isset($review) && $review ? $review->actions : collect();
+    // Part 3 C's two dropdowns. Built in the controller so the list a saved
+    // row is drawn with and the list a new row is drawn with are one list.
+    $amActObjectives = $actionOptions['objectives'] ?? [];
+    $amActEmployees  = $actionOptions['employees'] ?? [];
+    $amActObjValues  = array_column($amActObjectives, 'value');
     $myFiles = isset($review) && $review ? $review->files : collect();
 @endphp
 
@@ -109,8 +114,42 @@
             <tbody>
                 @foreach ($rows as $i => $row)
                     <tr>
-                        <td><input type="text" name="mract[{{ $i }}][action]" value="{{ $row->action }}" placeholder="{{ $act['ph_action'] }}"></td>
-                        <td><input type="text" name="mract[{{ $i }}][who]" value="{{ $row->who }}" placeholder="{{ $act['ph_who'] }}"></td>
+                        <td>
+                            @php
+                                // a value that matches nothing in the list was typed by hand,
+                                // before this was a dropdown or through Other - either way it
+                                // comes back in the box rather than being dropped on save
+                                $amOther = trim((string) $row->action) !== '' && !in_array(trim((string) $row->action), $amActObjValues, true);
+                            @endphp
+                            <select name="mract[{{ $i }}][action]" data-mr-pick>
+                                <option value="">{{ $act['pick_objective'] }}</option>
+                                @foreach ($amActObjectives as $o)
+                                    <option value="{{ $o['value'] }}" {{ trim((string) $row->action) === $o['value'] ? 'selected' : '' }}>{{ $o['label'] }}</option>
+                                @endforeach
+                                <option value="__other__" {{ $amOther ? 'selected' : '' }}>{{ $act['other'] }}</option>
+                            </select>
+                            <div data-mr-other @if (!$amOther) hidden @endif style="margin-top:6px;">
+                                <input type="text" name="mract[{{ $i }}][action_other]" value="{{ $amOther ? $row->action : '' }}" placeholder="{{ $act['ph_action'] }}">
+                            </div>
+                        </td>
+                        <td>
+                            @php
+                                // a value that matches nothing in the list was typed by hand,
+                                // before this was a dropdown or through Other - either way it
+                                // comes back in the box rather than being dropped on save
+                                $amOther = trim((string) $row->who) !== '' && !in_array(trim((string) $row->who), $amActEmployees, true);
+                            @endphp
+                            <select name="mract[{{ $i }}][who]" data-mr-pick>
+                                <option value="">{{ $act['pick_who'] }}</option>
+                                @foreach ($amActEmployees as $o)
+                                    <option value="{{ $o }}" {{ trim((string) $row->who) === $o ? 'selected' : '' }}>{{ $o }}</option>
+                                @endforeach
+                                <option value="__other__" {{ $amOther ? 'selected' : '' }}>{{ $act['other'] }}</option>
+                            </select>
+                            <div data-mr-other @if (!$amOther) hidden @endif style="margin-top:6px;">
+                                <input type="text" name="mract[{{ $i }}][who_other]" value="{{ $amOther ? $row->who : '' }}" placeholder="{{ $act['ph_who'] }}">
+                            </div>
+                        </td>
                         <td><input type="date" max="2999-12-31" name="mract[{{ $i }}][when]" value="{{ $row->by_when }}"></td>
                         <td style="text-align:center;">
                             <input type="hidden" name="mract[{{ $i }}][done]" value="0">

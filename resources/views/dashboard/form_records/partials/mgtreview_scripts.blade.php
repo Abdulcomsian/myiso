@@ -157,6 +157,59 @@
         });
     }
 
+    /* ---- Part 3 C: the Objective and Who dropdowns ----
+
+       Both offer a list and an "Other" that reveals a box underneath. The
+       lists come from the controller, the same ones the saved rows above were
+       drawn with, so a row added here offers no more and no less than they do.
+
+       "hidden" goes on the wrapper, never on the input: a form control's
+       display:block beats it and the box would stay on screen. */
+    var mrObjectives = @json($actionOptions['objectives'] ?? []);
+    var mrEmployees  = @json($actionOptions['employees'] ?? []);
+    @php
+        $mrAct   = App\MgtReviewQuestions::actions();
+        $mrWords = [
+            'pick_objective' => $mrAct['pick_objective'],
+            'pick_who'       => $mrAct['pick_who'],
+            'other'          => $mrAct['other'],
+            'ph_action'      => $mrAct['ph_action'],
+            'ph_who'         => $mrAct['ph_who'],
+        ];
+    @endphp
+    var mrWords      = @json($mrWords);
+
+    function mrEsc(s) {
+        return String(s === null || s === undefined ? '' : s)
+            .replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')
+            .replace(/"/g, '&quot;').replace(/'/g, '&#39;');
+    }
+
+    function mrPick(field, i) {
+        var isObj = field === 'action';
+        var list  = isObj ? mrObjectives : mrEmployees;
+        var html  = '<select name="mract[' + i + '][' + field + ']" data-mr-pick>' +
+                    '<option value="">' + mrEsc(isObj ? mrWords.pick_objective : mrWords.pick_who) + '</option>';
+        for (var n = 0; n < list.length; n++) {
+            var value = isObj ? list[n].value : list[n];
+            var label = isObj ? list[n].label : list[n];
+            html += '<option value="' + mrEsc(value) + '">' + mrEsc(label) + '</option>';
+        }
+        html += '<option value="__other__">' + mrEsc(mrWords.other) + '</option></select>' +
+                '<div data-mr-other hidden style="margin-top:6px;">' +
+                '<input type="text" name="mract[' + i + '][' + field + '_other]" placeholder="' +
+                mrEsc(isObj ? mrWords.ph_action : mrWords.ph_who) + '"></div>';
+        return html;
+    }
+
+    document.addEventListener('change', function (e) {
+        var sel = e.target.closest('select[data-mr-pick]');
+        if (!sel) return;
+        var box = sel.parentNode.querySelector('[data-mr-other]');
+        if (!box) return;
+        box.hidden = sel.value !== '__other__';
+        if (!box.hidden) { var f = box.querySelector('input'); if (f) f.focus(); }
+    });
     /* ---- Part 3 C: add and remove an action row ---- */
     document.addEventListener('click', function (e) {
         var add = e.target.closest('.mr-add-action');
@@ -178,8 +231,8 @@
             }
             var tr = document.createElement('tr');
             tr.innerHTML =
-                '<td><input type="text" name="mract[' + i + '][action]"></td>' +
-                '<td><input type="text" name="mract[' + i + '][who]"></td>' +
+                '<td>' + mrPick('action', i) + '</td>' +
+                '<td>' + mrPick('who', i) + '</td>' +
                 '<td><input type="date" max="2999-12-31" name="mract[' + i + '][when]"></td>' +
                 '<td style="text-align:center;">' +
                     '<input type="hidden" name="mract[' + i + '][done]" value="0">' +
@@ -187,7 +240,7 @@
                 '</td>' +
                 '<td style="text-align:center;"><button type="button" class="am-icon-btn danger mr-row-remove" title="Remove"><i class="fa fa-trash"></i></button></td>';
             body.appendChild(tr);
-            var first = tr.querySelector('input');
+            var first = tr.querySelector('select');
             if (first) first.focus();
             return;
         }

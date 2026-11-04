@@ -39,9 +39,14 @@
                         <div class="am-actions">
                             <button type="button" class="am-icon-btn" title="View" onclick='amPaView(@json($data))'><i class="fa fa-eye"></i></button>
                             <button type="button" class="am-icon-btn" title="Edit" onclick='amPaEdit(@json($data))'><i class="fa fa-pen"></i></button>
+                            {{-- Hidden at the client's request (the "delete templates and print features" note).
+                                 The route, the controller and the PDF template behind it are all
+                                 still there, so bringing it back is deleting this comment.
+
                             <button type="button" class="am-icon-btn" title="Download PDF"
                                     data-processid="{{ $data->id }}"
                                     onclick="downloadAuditPdf(this)"><i class="fa fa-download"></i></button>
+                            --}}
                             <button type="button" class="am-icon-btn danger am-confirm-delete"
                                     title="Delete"
                                     data-action="{{ route('deleteProcess') }}"
