@@ -39,14 +39,32 @@
         if (!input || input.getAttribute('data-am-file') === 'off') return;
         if (input.closest('.am-file')) return;              // already done
 
+        // Some fields already sit in a picker this site drew itself: a
+        // wrapper holding the input and a grey label of its own. Nesting
+        // inside it would draw the field twice, so it is replaced. Its own
+        // scripts all check for the wrapper before touching it, so they go
+        // quiet once it is gone.
+        var legacy = input.closest('.custom-file-input-tag');
+
         var box = document.createElement('label');
         box.className = 'am-file';
         // beside Bootstrap-styled fields the border has to be theirs, not the
-        // design system's - see .am-file--strong in the stylesheet
-        if (input.classList.contains('form-control')) box.className += ' am-file--strong';
+        // design system's - see .am-file--strong in the stylesheet. On the
+        // old widget that class sat on the wrapper, not on the input.
+        if (input.classList.contains('form-control')
+            || (legacy && legacy.classList.contains('form-control'))) {
+            box.className += ' am-file--strong';
+        }
 
-        input.parentNode.insertBefore(box, input);
+        var anchor = legacy || input;
+        anchor.parentNode.insertBefore(box, anchor);
         box.appendChild(input);
+        if (legacy) {
+            // .input-file laid the input over the old wrapper; inside this
+            // control .am-file's own rule is what should place it
+            input.classList.remove('input-file');
+            legacy.parentNode.removeChild(legacy);          // only the old label was left in it
+        }
 
         var btn = document.createElement('span');
         btn.className = 'am-file__btn';

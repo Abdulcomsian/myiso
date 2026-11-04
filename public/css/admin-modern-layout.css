@@ -2005,7 +2005,9 @@ label.am-file,
        every property that rule sets being answered here */
     display: inline-flex;
     align-items: stretch;
-    width: auto;
+    /* the fields beside it fill their column, so this does too - and on
+       the Arabic site the longer wording then has room to show */
+    width: 100%;
     max-width: 100%;
     margin: 0;
     border: 1px solid var(--am-border);
@@ -2068,7 +2070,13 @@ label.am-file,
    wrapped carried form-control.
 
    The colour is custom.css's own (its .form-control rule) - not a new one. */
-.am-file--strong { border-color: #0d47b3; }
+/* the same four selectors the base rule needs: a lone class loses to
+   ".am-inline-form label.am-file" and the box would keep the pale
+   border while the divider below went blue */
+.am-file--strong,
+label.am-file--strong,
+.am-inline-form label.am-file--strong,
+.am-form label.am-file--strong { border-color: #0d47b3; }
 .am-file--strong .am-file__btn { border-inline-end-color: #0d47b3; }
 
 .am-file.has-file .am-file__name { color: var(--am-text); }
@@ -2077,9 +2085,14 @@ label.am-file,
     border-color: var(--am-primary-soft);
     box-shadow: 0 0 0 3px rgba(46, 59, 154, 0.10);
 }
-/* the Management Review's field sits beside a hint and must not stretch */
+/* inside a form it fills the column like every field around it */
 .am-inline-form .am-file,
-.am-form .am-file { width: auto; }
+.am-form .am-file { width: 100%; }
+/* except on a Management Review, where the field shares its row with
+   the hint beside it and full width would push that hint to the next
+   line - .mr-attach is a flex row, not a column */
+.am-inline-form .mr-attach label.am-file,
+.am-form .mr-attach label.am-file { width: auto; }
 
 /* the grey half of a label - the file types, the "if applicable", the help
    that is not the name of the field */
