@@ -88,7 +88,7 @@
             <h4 class="mt-4">8. Retention time</h4>
             <p>Retention times and computer back up procedures are defined in the control of records procedure.<br>
             The documents that are to be retained, other than located electronically, their location and the retention times shall be recorded. General records held within this system have an indefinite retention time.<br>
-            The three year retention period for documents which demonstrate the performance of the management system is in accord with the three year review cycle set by UKAS.<br>
+            A three year retention period for documents which demonstrate the performance of the management system is required.<br>
             Remember that when statutory documents have an extended period of validity, the retention time starts when the document expires.<br>
             All records held outside this electronic system are to be identified, indexed within this system and stored securely so that they are protected and secure. Records may be disposed of on the authority of the holder when the retention time has expired.</p>
 
