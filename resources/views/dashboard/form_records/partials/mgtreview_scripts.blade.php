@@ -268,6 +268,13 @@
             return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c];
         });
     };
+    /* the last part of an upload's url, which is the file's own name */
+    var fileName = function (u) {
+        try { u = decodeURIComponent(u); } catch (e) {}
+        u = String(u).split('?')[0].split('#')[0];
+        var n = u.substring(u.lastIndexOf('/') + 1);
+        return n || u;
+    };
     var date = function (s) { return s ? new Date(s).toLocaleDateString() : amMgtWords.none; };
     var block = function (label, value) {
         return '<div class="mr-view-block"><div class="mr-view-label">' + esc(label) + '</div>' +
@@ -288,7 +295,9 @@
             var v = block(q.no + '. ' + q.title, q.answer);
             if (q.file) {
                 v = v.replace('</div></div>', '</div><div class="mr-view-file"><a target="_blank" href="' + esc(q.file) + '">' +
-                    '<i class="fa fa-external-link-alt"></i> ' + esc(W.evidence) + '</a></div></div>');
+                    '<i class="fa fa-external-link-alt"></i> ' + esc(W.evidence) + '</a>' +
+                    '<span class="mr-print-only"> &mdash; ' + esc(fileName(q.file)) + '</span>' +
+                    '</div></div>');
             }
             h += v;
         });
@@ -321,6 +330,28 @@
 
         document.getElementById('amMgtViewBody').innerHTML = h;
         document.getElementById('DetailModal').classList.add('open');
+    };
+
+    /* Print what is on screen. The rules in mgtreview_print only apply
+       while the body carries this class, so an ordinary Ctrl+P of the
+       page is left alone. afterprint fires whether the dialog was used
+       or cancelled; the timer is for the browsers that do not send it. */
+    window.amMgtPrint = function () {
+        document.body.classList.add('mr-printing');
+        var off = function () { document.body.classList.remove('mr-printing'); };
+        window.addEventListener('afterprint', off, { once: true });
+        setTimeout(off, 60000);
+        window.print();
+    };
+
+    /* From a row in the list. The popup is filled but never shown: the
+       print rules reach #DetailModal by its id, so it prints without
+       being open, and the reader is left on the list where they were. */
+    window.amMgtPrintRow = function (d) {
+        window.amMgtView(d);
+        var modal = document.getElementById('DetailModal');
+        if (modal) modal.classList.remove('open');
+        setTimeout(window.amMgtPrint, 120);
     };
 })();
 </script>

@@ -8,8 +8,12 @@
             <span class="am-modal__icon" style="background:var(--am-primary-tint);color:var(--am-primary);"><i class="fa fa-eye"></i></span>
             <h4 class="am-modal__title">{{ $L['details_title'] }}</h4>
         </div>
+        @include('dashboard.form_records.partials.mgtreview_print')
         <div class="am-modal__body" id="amMgtViewBody"></div>
-        <div class="am-modal__footer"><button type="button" class="am-btn am-btn-outline am-modal-close">{{ $L['close'] }}</button></div>
+        <div class="am-modal__footer">
+            <button type="button" class="am-btn am-btn-outline" onclick="amMgtPrint()"><i class="fa fa-print"></i> {{ $L['print'] }}</button>
+            <button type="button" class="am-btn am-btn-outline am-modal-close">{{ $L['close'] }}</button>
+        </div>
     </div>
 </div>
 

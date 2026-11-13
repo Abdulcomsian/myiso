@@ -44,6 +44,7 @@
                     <td>{{ $item->nextreviewdue ? date('d M Y', strtotime($item->nextreviewdue)) : '—' }}</td>
                     <td style="text-align:right;white-space:nowrap;">
                         <div class="am-actions">
+                            <button type="button" class="am-icon-btn" title="{{ $L['print'] }}" onclick='amMgtPrintRow(@json($item->viewPayload()))'><i class="fa fa-print"></i></button>
                             <button type="button" class="am-icon-btn" title="{{ $L['view'] }}" onclick='amMgtView(@json($item->viewPayload()))'><i class="fa fa-eye"></i></button>
                             <a class="am-icon-btn" title="{{ $L['edit'] }}" href="{{ $editBase ?? url('/add_management_review') }}?edit={{ $item->id }}"><i class="fa fa-pen"></i></a>
                             <button type="button" class="am-icon-btn danger am-confirm-delete"

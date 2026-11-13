@@ -374,6 +374,12 @@ class MgtReviewQuestions
             'where_head' => 'Where to look:',
             'answer_head' => 'Answers and evidence',
             'attach' => 'Attach file',
+            // what the Details popup calls the same file: there it is
+            // something to open, not something to attach
+            'viewfile' => 'View File',
+            // the Print option on the list and in the popup
+            'print' => 'Print',
+            'printed' => 'Printed:',
             'attach_hint' => 'PDF, JPEG, TXT, DOCX or PNG',
             'accept' => '.pdf,.jpg,.jpeg,.txt,.doc,.docx,.png',
             'reviewdate' => 'Review date',

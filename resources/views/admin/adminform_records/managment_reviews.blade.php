@@ -12,7 +12,7 @@
         'files'      => App\MgtReviewQuestions::files()['title'],
         'cols'       => App\MgtReviewQuestions::actions()['columns'],
         'meta'       => [$L['reviewdate'], $L['chairedby'], $L['attendees'], $L['nextdue']],
-        'evidence'   => $L['attach'],
+        'evidence'   => $L['viewfile'],
         'none'       => '—',
     ];
 @endphp
