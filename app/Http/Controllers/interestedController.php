@@ -86,6 +86,18 @@ class interestedController extends Controller
              $Interested->created_by = Auth::id();
              $Interested->updated_by = Auth::id();
 
+              // the evidence the client attached, if any. The field is optional,
+              // so a record saved without one is normal and nothing is cleared.
+              if ($request->file('attach_evidence')
+                  && \Illuminate\Support\Facades\Schema::hasColumn('interested_parties', 'attach_evidence')) {
+                  // replacing one: the old file goes, but only if there is one
+                  if ($Interested->attach_evidence
+                      && \Illuminate\Support\Facades\File::exists(public_path($Interested->attach_evidence))) {
+                      \Illuminate\Support\Facades\File::delete(public_path($Interested->attach_evidence));
+                  }
+                  $Interested->attach_evidence = \App\Helpers\HelperFunctions::saveFile(
+                      '/uploads/user/attach_evidence/', $request->file('attach_evidence'));
+              }
               $Interested->save();
 
              return back()->with("Success","Data Save Successfully");
@@ -140,6 +152,18 @@ class interestedController extends Controller
             $Interested->interested_party=$request->input('interestedparty');
             $Interested->needs=$request->input('needs');
             $Interested->updated_by = Auth::id();
+            // the evidence the client attached, if any. The field is optional,
+            // so a record saved without one is normal and nothing is cleared.
+            if ($request->file('attach_evidence')
+                && \Illuminate\Support\Facades\Schema::hasColumn('interested_parties', 'attach_evidence')) {
+                // replacing one: the old file goes, but only if there is one
+                if ($Interested->attach_evidence
+                    && \Illuminate\Support\Facades\File::exists(public_path($Interested->attach_evidence))) {
+                    \Illuminate\Support\Facades\File::delete(public_path($Interested->attach_evidence));
+                }
+                $Interested->attach_evidence = \App\Helpers\HelperFunctions::saveFile(
+                    '/uploads/user/attach_evidence/', $request->file('attach_evidence'));
+            }
             $Interested->save();
              $notification = [
                 'message' => 'Record  updated successfully.!',

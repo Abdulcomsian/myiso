@@ -66,7 +66,7 @@ $qmsQuestions = App\QmsAuditQuestions::all();
                 </div>
 
                 <div class="form-row">
-                    <div><label>Audit Comments &amp; Actions</label><textarea name="audit_comments_actions" rows="3" required placeholder="Summary of what you found, what will be fixed, who by and when."></textarea></div>
+                    <div><label>Audit Comments &amp; Actions</label><textarea name="audit_comments_actions" rows="3" required placeholder="Summary of the QMS Audit findings. Adding new information to Objectives Tracker / Requirements Due sections."></textarea></div>
                     <div><label>Any Other Issues</label><textarea name="any_issues" rows="3" placeholder="Anything outside the checklist worth raising at the next Management Review."></textarea></div>
                 </div>
 

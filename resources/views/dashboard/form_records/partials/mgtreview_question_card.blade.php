@@ -45,6 +45,7 @@
             'name'   => 'mrfile[' . $qNo . ']',
             'accept' => $L['accept'],
             'hint'   => $L['attach_hint'],
+            'label'  => $L['attach_evidence'],
         ])
     </div>
 </div>

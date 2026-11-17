@@ -58,7 +58,7 @@ $qmsBadgeChip = App\QmsAuditQuestions::badgeChips();
             <form action="{{ route('qmsaudit') }}" method="POST" enctype="multipart/form-data" class="addForm">
                 @csrf
                 <div class="form-row">
-                    <div><label>Auditor Name</label><input type="text" name="auditrName" required></div>
+                    <div><label>Auditor Name</label><input type="text" name="auditrName" required placeholder="Name of person completing the audit"></div>
                     <div><label>Date Completed</label><input type="date" max="2999-12-31" name="competedDate" required></div>
                 </div>
                 <div style="padding-top:4px;">
@@ -73,7 +73,7 @@ $qmsBadgeChip = App\QmsAuditQuestions::badgeChips();
                 </div>
 
 <div class="form-row">
-    <div><label>Audit Comments &amp; Actions</label><textarea name="audit_comments_actions" rows="3" required placeholder="Summary of what you found, what will be fixed, who by and when."></textarea></div>
+    <div><label>Audit Comments &amp; Actions</label><textarea name="audit_comments_actions" rows="3" required placeholder="Summary of the QMS Audit findings. Adding new information to Objectives Tracker / Requirements Due sections."></textarea></div>
     <div><label>Any Other Issues</label><textarea name="any_issues" rows="3" placeholder="Anything outside the checklist worth raising at the next Management Review."></textarea></div>
 </div>
 

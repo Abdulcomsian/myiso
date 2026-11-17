@@ -78,6 +78,18 @@ class AssessmentController extends Controller
         $assessment->dateDevelry=$request->input('dateDevelry');
         $assessment->RiskProbability=$request->input('RiskProbability');
         $assessment->riskSeverity=$request->input('riskSeverity');
+        // the evidence the client attached, if any. The field is optional,
+        // so a record saved without one is normal and nothing is cleared.
+        if ($request->file('attach_evidence')
+            && \Illuminate\Support\Facades\Schema::hasColumn('assessments', 'attach_evidence')) {
+            // replacing one: the old file goes, but only if there is one
+            if ($assessment->attach_evidence
+                && \Illuminate\Support\Facades\File::exists(public_path($assessment->attach_evidence))) {
+                \Illuminate\Support\Facades\File::delete(public_path($assessment->attach_evidence));
+            }
+            $assessment->attach_evidence = \App\Helpers\HelperFunctions::saveFile(
+                '/uploads/user/attach_evidence/', $request->file('attach_evidence'));
+        }
         $assessment->save();
 
         return redirect()->back()->with("Success","Data Saved Successfully");
@@ -147,6 +159,18 @@ class AssessmentController extends Controller
         $assessment->dateDevelry=$request->input('dateDevelry');
         $assessment->RiskProbability=$request->input('RiskProbability');
         $assessment->riskSeverity=$request->input('riskSeverity');
+        // the evidence the client attached, if any. The field is optional,
+        // so a record saved without one is normal and nothing is cleared.
+        if ($request->file('attach_evidence')
+            && \Illuminate\Support\Facades\Schema::hasColumn('assessments', 'attach_evidence')) {
+            // replacing one: the old file goes, but only if there is one
+            if ($assessment->attach_evidence
+                && \Illuminate\Support\Facades\File::exists(public_path($assessment->attach_evidence))) {
+                \Illuminate\Support\Facades\File::delete(public_path($assessment->attach_evidence));
+            }
+            $assessment->attach_evidence = \App\Helpers\HelperFunctions::saveFile(
+                '/uploads/user/attach_evidence/', $request->file('attach_evidence'));
+        }
         $assessment->save();
         $notification = [
                 'message' => 'Record  updated successfully.!',

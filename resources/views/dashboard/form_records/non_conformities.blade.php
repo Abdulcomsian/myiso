@@ -34,7 +34,7 @@
         </div>
 
         <div class="am-inline-form" id="newNcForm" style="margin:16px 20px;">
-            <form action="{{ route('nonConfromForm') }}" method="POST">
+            <form action="{{ route('nonConfromForm') }}" method="POST" enctype="multipart/form-data">
                 @csrf
                 <div class="form-row">
                     <div>
@@ -97,24 +97,24 @@
                     <div><label>Root Cause</label><textarea name="rootCause" placeholder="Root cause" rows="2"></textarea></div>
                 </div>
                 <div class="form-row">
-                    <div><label>Immediate Corrective Action</label><textarea name="immediateCorp" rows="2"></textarea></div>
-                    <div><label>Action to Prevent Recurrence</label><textarea name="actionPrevent" rows="2"></textarea></div>
+                    <div><label>Immediate Corrective Action</label><textarea name="immediateCorp" rows="2" placeholder="What was done straight away to fix it"></textarea></div>
+                    <div><label>Action to Prevent Recurrence</label><textarea name="actionPrevent" rows="2" placeholder="What will stop it happening again"></textarea></div>
                 </div>
                 <div class="form-row">
-                    <div><label>Effectiveness of Action</label><textarea name="ActionRecurnce" rows="2"></textarea></div>
+                    <div><label>Effectiveness of Action</label><textarea name="ActionRecurnce" rows="2" placeholder="Did the action work? Brief note"></textarea></div>
                     <div><label>Effectiveness Review Date</label><input type="date" name="effectiveDate"></div>
                 </div>
                 <div class="form-row">
-                    <div><label>Review Performed By</label><input type="text" name="reviewdBy"></div>
+                    <div><label>Review Performed By</label><input type="text" name="reviewdBy" placeholder="Name of person who checked"></div>
                     <div><label>Date NC Recorded</label><input type="date" name="dateNcR"></div>
                     <div><label>Date NC Processed</label><input type="date" name="dateNcP"></div>
                 </div>
                 <div class="form-row">
-                    <div><label>Customer Response Time (Days)</label><input type="number" min="0" name="CRE"></div>
+                    <div><label>Customer Response Time (Days)</label><input type="number" min="0" name="CRE" placeholder="Days taken to respond, e.g. 2"></div>
                     <div>
                         <label>Product Impact</label>
                         <select name="PI">
-                            <option value=""></option>
+                            <option value="">Select – was the product affected?</option>
                             <option value="Yes">Yes</option>
                             <option value="No">No</option>
                         </select>
@@ -122,11 +122,14 @@
                     <div>
                         <label>NCR Closed</label>
                         <select name="NCR_closed">
-                            <option value=""></option>
+                            <option value="">Select – is the NCR closed?</option>
                             <option value="Yes">Yes</option>
                             <option value="No">No</option>
                         </select>
                     </div>
+                </div>
+                <div class="form-row">
+                    <div><label>Attach Supporting Evidence</label><input name="attach_evidence" type="file"></div>
                 </div>
                 <div class="form-actions">
                     <button type="button" class="am-btn am-btn-outline am-btn-sm" id="cancelNcForm">Cancel</button>
@@ -167,6 +170,7 @@
                 @foreach($vf as $k => $lb)
                     <div><div style="font-size:11px;text-transform:uppercase;letter-spacing:0.4px;color:var(--am-text-muted);font-weight:600;margin-bottom:4px;">{{ $lb }}</div><div id="vnc-{{ $k }}">—</div></div>
                 @endforeach
+                <div style="grid-column:1/-1;"><div style="font-size:11px;text-transform:uppercase;letter-spacing:0.4px;color:var(--am-text-muted);font-weight:600;margin-bottom:4px;">Attach Supporting Evidence</div><div id="vnc-ev">—</div></div>
             </div>
         </div>
         <div class="am-modal__footer"><button type="button" class="am-btn am-btn-outline am-modal-close">Close</button></div>
@@ -180,7 +184,7 @@
             <span class="am-modal__icon" style="background:var(--am-primary-tint);color:var(--am-primary);"><i class="fa fa-pen"></i></span>
             <h4 class="am-modal__title">Edit Non-Conformity</h4>
         </div>
-        <form action="{{ route('editnonConfirm') }}" method="POST" style="display:contents;">
+        <form action="{{ route('editnonConfirm') }}" method="POST" style="display:contents;" enctype="multipart/form-data">
             @csrf
             <input type="hidden" name="id" id="enc-id">
             <div class="am-modal__body" style="padding:20px;">
@@ -255,6 +259,9 @@
                     <div class="col-lg-4"><label>NCR Closed</label>
                         <select class="form-control" name="NCR_closed"><option value=""></option><option value="Yes">Yes</option><option value="No">No</option></select>
                     </div>
+                </div>
+                <div class="form-group row">
+                    <div class="col-lg-12"><label>Attach Supporting Evidence</label><input type="file" class="form-control" name="attach_evidence"></div>
                 </div>
             </div>
             <div class="am-modal__footer">
@@ -377,6 +384,11 @@ function amNcView(d){
         var el = document.getElementById('vnc-'+k);
         if (el) el.textContent = d[k] || '—';
     });
+    // the attached evidence, if the record has any
+    var amEv = document.getElementById('vnc-ev');
+    if (amEv) amEv.innerHTML = d.attach_evidence
+        ? '<a href="{{ rtrim(asset("/"), "/") }}' + d.attach_evidence + '" target="_blank" style="color:var(--am-primary);"><i class="fa fa-external-link-alt"></i> View File</a>'
+        : '—';
     document.getElementById('viewNcModal').classList.add('open');
 }
 function amNcEdit(d){

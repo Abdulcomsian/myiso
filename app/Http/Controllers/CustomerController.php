@@ -105,6 +105,18 @@ class CustomerController extends Controller
                         $customer->Email=$request->input('Email');
                         $customer->contactName=$request->input('contactName');
 
+                        // the evidence the client attached, if any. The field is optional,
+                        // so a record saved without one is normal and nothing is cleared.
+                        if ($request->file('attach_evidence')
+                            && \Illuminate\Support\Facades\Schema::hasColumn('tbl_customer', 'attach_evidence')) {
+                            // replacing one: the old file goes, but only if there is one
+                            if ($customer->attach_evidence
+                                && \Illuminate\Support\Facades\File::exists(public_path($customer->attach_evidence))) {
+                                \Illuminate\Support\Facades\File::delete(public_path($customer->attach_evidence));
+                            }
+                            $customer->attach_evidence = \App\Helpers\HelperFunctions::saveFile(
+                                '/uploads/user/attach_evidence/', $request->file('attach_evidence'));
+                        }
                         $customer->save();
                     }//else customer
              }else{
@@ -141,6 +153,18 @@ class CustomerController extends Controller
                         $customer->Email=$request->input('Email');
                         $customer->contactName=$request->input('contactName');
 
+                        // the evidence the client attached, if any. The field is optional,
+                        // so a record saved without one is normal and nothing is cleared.
+                        if ($request->file('attach_evidence')
+                            && \Illuminate\Support\Facades\Schema::hasColumn('tbl_customer', 'attach_evidence')) {
+                            // replacing one: the old file goes, but only if there is one
+                            if ($customer->attach_evidence
+                                && \Illuminate\Support\Facades\File::exists(public_path($customer->attach_evidence))) {
+                                \Illuminate\Support\Facades\File::delete(public_path($customer->attach_evidence));
+                            }
+                            $customer->attach_evidence = \App\Helpers\HelperFunctions::saveFile(
+                                '/uploads/user/attach_evidence/', $request->file('attach_evidence'));
+                        }
                         $customer->save();
                     }//else customer
                 }
@@ -213,6 +237,18 @@ class CustomerController extends Controller
         $customer->Email=$request->input('Email');
         $customer->contactName=$request->input('contactName');
 
+         // the evidence the client attached, if any. The field is optional,
+         // so a record saved without one is normal and nothing is cleared.
+         if ($request->file('attach_evidence')
+             && \Illuminate\Support\Facades\Schema::hasColumn('tbl_customer', 'attach_evidence')) {
+             // replacing one: the old file goes, but only if there is one
+             if ($customer->attach_evidence
+                 && \Illuminate\Support\Facades\File::exists(public_path($customer->attach_evidence))) {
+                 \Illuminate\Support\Facades\File::delete(public_path($customer->attach_evidence));
+             }
+             $customer->attach_evidence = \App\Helpers\HelperFunctions::saveFile(
+                 '/uploads/user/attach_evidence/', $request->file('attach_evidence'));
+         }
          $customer->save();
           return back()->with("Success","Data Saved Successfully");
     }

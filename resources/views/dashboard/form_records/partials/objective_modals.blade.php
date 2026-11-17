@@ -28,6 +28,7 @@
                 <div><div style="font-size:11px;text-transform:uppercase;letter-spacing:0.4px;color:var(--am-text-muted);font-weight:600;margin-bottom:4px;">Deadline</div><div id="vobj-deadline">—</div></div>
                 <div><div style="font-size:11px;text-transform:uppercase;letter-spacing:0.4px;color:var(--am-text-muted);font-weight:600;margin-bottom:4px;">Agreed at</div><div id="vobj-agreed">—</div></div>
                 <div><div style="font-size:11px;text-transform:uppercase;letter-spacing:0.4px;color:var(--am-text-muted);font-weight:600;margin-bottom:4px;">Status</div><div id="vobj-status">—</div></div>
+                <div style="grid-column:1/-1;"><div style="font-size:11px;text-transform:uppercase;letter-spacing:0.4px;color:var(--am-text-muted);font-weight:600;margin-bottom:4px;">Attach Supporting Evidence</div><div id="vobj-evidence">—</div></div>
             </div>
 
             {{-- Status alone says where the objective stands, not how it got
@@ -48,7 +49,7 @@
             <span class="am-modal__icon" style="background:var(--am-primary-tint);color:var(--am-primary);"><i class="fa fa-pen"></i></span>
             <h4 class="am-modal__title">Edit Objective</h4>
         </div>
-        <form action="{{ route('objective.update') }}" method="POST" style="display:contents;">
+        <form action="{{ route('objective.update') }}" method="POST" style="display:contents;" enctype="multipart/form-data">
             @csrf
 @if (!empty($ownerId))
             <input type="hidden" name="user_id" value="{{ $ownerId }}">
@@ -88,6 +89,9 @@
                             @endforeach
                         </select>
                     </div>
+                </div>
+                <div class="form-group row">
+                    <div class="col-lg-12"><label>Attach Supporting Evidence</label><input type="file" class="form-control" name="attach_evidence"></div>
                 </div>
             </div>
             <div class="am-modal__footer">

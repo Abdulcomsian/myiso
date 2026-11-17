@@ -94,6 +94,18 @@ class SupplierController extends Controller
              $supplier->supplieremail=$request->input('supplieremail');
              $supplier->supplierContactNumber=$request->input('supplierContactNumber');
              $supplier->supplierservc=$request->input('supplierservc');
+             // the evidence the client attached, if any. The field is optional,
+             // so a record saved without one is normal and nothing is cleared.
+             if ($request->file('attach_evidence')
+                 && \Illuminate\Support\Facades\Schema::hasColumn('tbl_suppliers', 'attach_evidence')) {
+                 // replacing one: the old file goes, but only if there is one
+                 if ($supplier->attach_evidence
+                     && \Illuminate\Support\Facades\File::exists(public_path($supplier->attach_evidence))) {
+                     \Illuminate\Support\Facades\File::delete(public_path($supplier->attach_evidence));
+                 }
+                 $supplier->attach_evidence = \App\Helpers\HelperFunctions::saveFile(
+                     '/uploads/user/attach_evidence/', $request->file('attach_evidence'));
+             }
              $supplier->save();
              //  Toastr->success('Have fun storming the castle!', 'Miracle Max Says');
               return back();
@@ -165,6 +177,18 @@ class SupplierController extends Controller
              $supplier->supplieremail=$request->input('supplieremail');
              $supplier->supplierContactNumber=$request->input('supplierContactNumber');
              $supplier->supplierservc=$request->input('supplierservc');
+             // the evidence the client attached, if any. The field is optional,
+             // so a record saved without one is normal and nothing is cleared.
+             if ($request->file('attach_evidence')
+                 && \Illuminate\Support\Facades\Schema::hasColumn('tbl_suppliers', 'attach_evidence')) {
+                 // replacing one: the old file goes, but only if there is one
+                 if ($supplier->attach_evidence
+                     && \Illuminate\Support\Facades\File::exists(public_path($supplier->attach_evidence))) {
+                     \Illuminate\Support\Facades\File::delete(public_path($supplier->attach_evidence));
+                 }
+                 $supplier->attach_evidence = \App\Helpers\HelperFunctions::saveFile(
+                     '/uploads/user/attach_evidence/', $request->file('attach_evidence'));
+             }
              $supplier->save();
              $notification = [
                 'message' => 'Record  updated successfully.!',

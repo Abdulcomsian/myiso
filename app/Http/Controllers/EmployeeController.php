@@ -224,6 +224,18 @@ class EmployeeController extends Controller
             $employee->cv = HelperFunctions::saveFile($path,$file);
         }
 
+        // the evidence the client attached, if any. The field is optional,
+        // so a record saved without one is normal and nothing is cleared.
+        if ($request->file('attach_evidence')
+            && \Illuminate\Support\Facades\Schema::hasColumn('tbl_employees', 'attach_evidence')) {
+            // replacing one: the old file goes, but only if there is one
+            if ($employee->attach_evidence
+                && \Illuminate\Support\Facades\File::exists(public_path($employee->attach_evidence))) {
+                \Illuminate\Support\Facades\File::delete(public_path($employee->attach_evidence));
+            }
+            $employee->attach_evidence = \App\Helpers\HelperFunctions::saveFile(
+                '/uploads/user/attach_evidence/', $request->file('attach_evidence'));
+        }
         $employee->save();
         $empName = $request->surname . ' ' . $request->first_name;
         // The employee is already saved by this point, so a mail that cannot
@@ -307,6 +319,18 @@ class EmployeeController extends Controller
             $employee->cv = HelperFunctions::saveFile($path,$file);
         }
 
+        // the evidence the client attached, if any. The field is optional,
+        // so a record saved without one is normal and nothing is cleared.
+        if ($request->file('attach_evidence')
+            && \Illuminate\Support\Facades\Schema::hasColumn('tbl_employees', 'attach_evidence')) {
+            // replacing one: the old file goes, but only if there is one
+            if ($employee->attach_evidence
+                && \Illuminate\Support\Facades\File::exists(public_path($employee->attach_evidence))) {
+                \Illuminate\Support\Facades\File::delete(public_path($employee->attach_evidence));
+            }
+            $employee->attach_evidence = \App\Helpers\HelperFunctions::saveFile(
+                '/uploads/user/attach_evidence/', $request->file('attach_evidence'));
+        }
         $employee->save();
         return back();
     }

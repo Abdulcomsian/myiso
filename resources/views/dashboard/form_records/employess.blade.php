@@ -60,17 +60,20 @@
                 <form method="POST" action="{{ route('employee') }}" enctype="multipart/form-data" class="addForm">
                     @csrf
                     <div class="form-row">
-                        <div><label>Surname</label><input type="text" name="surname" required></div>
-                        <div><label>First Name</label><input type="text" name="first_name" required></div>
-                        <div><label>Email</label><input type="email" name="email" required></div>
+                        <div><label>Surname</label><input type="text" name="surname" required placeholder="Family name"></div>
+                        <div><label>First Name</label><input type="text" name="first_name" required placeholder="Given name"></div>
+                        <div><label>Email</label><input type="email" name="email" required placeholder="e.g. name@company.com"></div>
                     </div>
                     <div class="form-row">
-                        <div class="add-emp-number-div"><label>Employee ID Number</label><input name="empNumber" type="text" required data-type="add"></div>
+                        <div class="add-emp-number-div"><label>Employee ID Number</label><input name="empNumber" type="text" required data-type="add" placeholder="e.g. EMP-001"></div>
                         <div><label>Start Date</label><input name="startDate" max="2999-12-31" type="date" required></div>
                         <div><label>Upload CV</label><input name="employee_cv" type="file" accept="image/*,.doc,.docx,.txt,.pdf"></div>
                     </div>
                     <div class="form-row">
                         <div style="grid-column:1/-1;"><label>Job Description</label><textarea name="jobdetails" rows="3" placeholder="Job description"></textarea></div>
+                    </div>
+                    <div class="form-row">
+                        <div><label>Attach Supporting Evidence</label><input name="attach_evidence" type="file"></div>
                     </div>
                     <div class="form-actions">
                         <button type="button" class="am-btn am-btn-outline am-btn-sm" id="cancelEmpForm">Cancel</button>
@@ -325,6 +328,7 @@
                 <div><div style="font-size:11px;text-transform:uppercase;letter-spacing:0.4px;color:var(--am-text-muted);font-weight:600;margin-bottom:4px;">Email</div><div id="vemp-email">—</div></div>
                 <div><div style="font-size:11px;text-transform:uppercase;letter-spacing:0.4px;color:var(--am-text-muted);font-weight:600;margin-bottom:4px;">Start Date</div><div id="vemp-start">—</div></div>
                 <div style="grid-column:1/-1;"><div style="font-size:11px;text-transform:uppercase;letter-spacing:0.4px;color:var(--am-text-muted);font-weight:600;margin-bottom:4px;">Job Description</div><div id="vemp-job">—</div></div>
+                <div style="grid-column:1/-1;"><div style="font-size:11px;text-transform:uppercase;letter-spacing:0.4px;color:var(--am-text-muted);font-weight:600;margin-bottom:4px;">Attach Supporting Evidence</div><div id="vemp-ev">—</div></div>
             </div>
         </div>
         <div class="am-modal__footer"><button type="button" class="am-btn am-btn-outline am-modal-close">Close</button></div>
@@ -355,6 +359,9 @@
                 </div>
                 <div class="form-group row">
                     <div class="col-lg-12"><label>Upload CV</label><input name="employee_cv" type="file" class="form-control" accept="image/*,.doc,.docx,.txt,.pdf"></div>
+                </div>
+                <div class="form-group row">
+                    <div class="col-lg-12"><label>Attach Supporting Evidence</label><input type="file" class="form-control" name="attach_evidence"></div>
                 </div>
             </div>
             <div class="am-modal__footer">
@@ -560,6 +567,11 @@ function amEmpView(d) {
     document.getElementById('vemp-email').textContent = d.email || '—';
     document.getElementById('vemp-start').textContent = d.startDate ? new Date(d.startDate).toLocaleDateString() : '—';
     document.getElementById('vemp-job').textContent = d.jobdetails || '—';
+    // the attached evidence, if the record has any
+    var amEv = document.getElementById('vemp-ev');
+    if (amEv) amEv.innerHTML = d.attach_evidence
+        ? '<a href="{{ rtrim(asset("/"), "/") }}' + d.attach_evidence + '" target="_blank" style="color:var(--am-primary);"><i class="fa fa-external-link-alt"></i> View File</a>'
+        : '—';
     document.getElementById('viewEmpModal').classList.add('open');
 }
 function amEmpEdit(d) {

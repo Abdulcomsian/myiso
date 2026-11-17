@@ -64,7 +64,7 @@
                     <div><label>Revised Risk Severity (1-6)</label><input type="number" min="1" max="6" name="reviseRiskSever" required></div>
                 </div>
                 <div class="form-row">
-                    <div><label>Attach Supporting Evidence <span class="am-hint">(jpeg, mp3, mp4, xls, doc)</span></label><input name="attach_evidence" type="file"></div>
+                    <div><label>Attach Supporting Evidence</label><input name="attach_evidence" type="file"></div>
                     <div><label>Any Other Issues</label><textarea name="any_issues" placeholder="Notes" rows="2"></textarea></div>
                 </div>
                 <div class="form-actions">

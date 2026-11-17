@@ -37,21 +37,21 @@
             <form action="{{ route('chemicalform') }}" method="POST" enctype="multipart/form-data">
                 @csrf
                 <div class="form-row">
-                    <div><label>Chemical / Hazardous Material Name</label><input type="text" name="chemicalname" required></div>
+                    <div><label>Chemical / Hazardous Material Name</label><input type="text" name="chemicalname" required placeholder="Name shown on the product label"></div>
                     <div><label>Material Type</label><input type="text" name="chemical_type" placeholder="Gas / liquid / solid" required></div>
                     <div><label>Location Used</label><input type="text" name="location" placeholder="Area / department" required></div>
                 </div>
                 <div class="form-row">
-                    <div style="grid-column:1/-1;"><label>Chemical Description (main constituents)</label><input type="text" name="chemical_desc" required></div>
+                    <div style="grid-column:1/-1;"><label>Chemical Description (main constituents)</label><input type="text" name="chemical_desc" required placeholder="Main ingredients, as shown on the datasheet"></div>
                 </div>
                 <div class="form-row">
-                    <div><label>Activity Hazard</label><input type="text" name="activity_hazard" required></div>
+                    <div><label>Activity Hazard</label><input type="text" name="activity_hazard" required placeholder="Task where it is used, e.g. Cleaning floors"></div>
                     <div><label>Identified Chemical Hazard</label><input type="text" name="identified_chazard" placeholder="Corrosive / Toxic / Oxidiser" required></div>
                     <div><label>Identified Hazard</label><input type="text" name="identified_hazard" placeholder="Splashes / breathing vapour" required></div>
                 </div>
                 <div class="form-row">
-                    <div><label>Target Organs</label><input type="text" name="target_organs" required></div>
-                    <div><label>Who is at Risk</label><input type="text" name="who_risk" required></div>
+                    <div><label>Target Organs</label><input type="text" name="target_organs" required placeholder="e.g. Skin, eyes, lungs"></div>
+                    <div><label>Who is at Risk</label><input type="text" name="who_risk" required placeholder="e.g. Cleaners, operators, visitors"></div>
                     <div><label>Protection Required</label><input type="text" name="protection_required" placeholder="Gloves / glasses / overalls" required></div>
                 </div>
                 <div class="form-row">
@@ -62,7 +62,8 @@
                             <label style="display:inline-flex;gap:4px;align-items:center;"><input type="radio" required value="No" name="still_used"> No</label>
                         </div>
                     </div>
-                    <div><label>Attach Datasheet from Manufacturer</label><input name="attach_evidence" type="file"></div>
+                    <div><label>Attach Datasheet from Manufacturer</label><input name="attach_datasheet" type="file"></div>
+                    <div><label>Attach Supporting Evidence</label><input name="attach_evidence" type="file"></div>
                     <div><label>Any Other Issues</label><textarea name="any_issues" placeholder="Notes" rows="2"></textarea></div>
                 </div>
                 <div class="form-actions">
@@ -112,6 +113,7 @@
                     <div><div style="font-size:11px;text-transform:uppercase;letter-spacing:0.4px;color:var(--am-text-muted);font-weight:600;margin-bottom:4px;">{{ $lb }}</div><div id="vch-{{ $k }}">—</div></div>
                 @endforeach
                 <div><div style="font-size:11px;text-transform:uppercase;letter-spacing:0.4px;color:var(--am-text-muted);font-weight:600;margin-bottom:4px;">Manufacturer Datasheet</div><div id="vch-ev">—</div></div>
+                <div><div style="font-size:11px;text-transform:uppercase;letter-spacing:0.4px;color:var(--am-text-muted);font-weight:600;margin-bottom:4px;">Supporting Evidence</div><div id="vch-sup">—</div></div>
             </div>
         </div>
         <div class="am-modal__footer"><button type="button" class="am-btn am-btn-outline am-modal-close">Close</button></div>
@@ -159,7 +161,8 @@
                     </div>
                 </div>
                 <div class="form-group row">
-                    <div class="col-lg-6"><label>Attach Datasheet from Manufacturer</label><input name="attach_evidence" type="file" class="form-control"></div>
+                    <div class="col-lg-6"><label>Attach Datasheet from Manufacturer</label><input name="attach_datasheet" type="file" class="form-control"></div>
+                    <div class="col-lg-6"><label>Attach Supporting Evidence</label><input name="attach_evidence" type="file" class="form-control"></div>
                     <div class="col-lg-6"><label>Any Other Issues</label><textarea class="form-control" name="any_issues"></textarea></div>
                 </div>
             </div>
@@ -254,8 +257,13 @@ function amChView(d) {
         if (el) el.textContent = d[k] || '—';
     });
     var ev = document.getElementById('vch-ev');
-    if (d.attach_evidence) ev.innerHTML = '<a href="' + d.attach_evidence + '" target="_blank" style="color:var(--am-primary);"><i class="fa fa-external-link-alt"></i> View</a>';
+    if (d.attach_datasheet) ev.innerHTML = '<a href="' + d.attach_datasheet + '" target="_blank" style="color:var(--am-primary);"><i class="fa fa-external-link-alt"></i> View</a>';
     else ev.textContent = '—';
+    // the supporting evidence, which is a second file on this page
+    var sup = document.getElementById('vch-sup');
+    if (sup) sup.innerHTML = d.attach_evidence
+        ? '<a href="{{ rtrim(asset("/"), "/") }}' + d.attach_datasheet + '" target="_blank" style="color:var(--am-primary);"><i class="fa fa-external-link-alt"></i> View</a>'
+        : '—';
     document.getElementById('viewChModal').classList.add('open');
 }
 function amChEdit(d) {

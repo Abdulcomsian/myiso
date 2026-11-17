@@ -42,21 +42,21 @@
             <form action="{{ route('calibration') }}" method="POST" enctype="multipart/form-data">
                 @csrf
                 <div class="form-row">
-                    <div style="grid-column:1/-1;"><label>Equipment Name</label><input type="text" name="equipment" required></div>
+                    <div style="grid-column:1/-1;"><label>Equipment Name</label><input type="text" name="equipment" required placeholder="e.g. Digital thermometer"></div>
                 </div>
                 <div class="form-row">
-                    <div><label>Serial Number</label><input type="text" name="serialNum" required></div>
-                    <div><label>Location</label><input type="text" name="locaction" required></div>
-                    <div><label>Test Method Reference</label><input type="text" name="testMethod" required></div>
+                    <div><label>Serial Number</label><input type="text" name="serialNum" required placeholder="e.g. SN-48213"></div>
+                    <div><label>Location</label><input type="text" name="locaction" required placeholder="e.g. Workshop A"></div>
+                    <div><label>Test Method Reference</label><input type="text" name="testMethod" required placeholder="e.g. WI-07 or standard used"></div>
                 </div>
                 <div class="form-row">
-                    <div><label>Acceptance Criteria</label><input type="text" name="acceptance" required></div>
+                    <div><label>Acceptance Criteria</label><input type="text" name="acceptance" required placeholder="e.g. Within ±0.5°C"></div>
                     <div><label>Date Calibrated</label><input type="date" max="2999-12-31" name="calibratedDate" required></div>
-                    <div><label>Certificate Number</label><input type="text" name="certificatenumber" required></div>
+                    <div><label>Certificate Number</label><input type="text" name="certificatenumber" required placeholder="e.g. CAL-2026-0142"></div>
                 </div>
                 <div class="form-row">
-                    <div><label>Frequency (Months, 1-12)</label><input type="number" min="1" max="12" name="freq" required></div>
-                    <div><label>Report Reviewer</label><input type="text" name="reportRev" required></div>
+                    <div><label>Frequency (Months, 1-12)</label><input type="number" min="1" max="12" name="freq" required placeholder="e.g. 12"></div>
+                    <div><label>Report Reviewer</label><input type="text" name="reportRev" required placeholder="Name of person who checked the report"></div>
                     <div>
                         <label>Result</label>
                         <select name="sentence" required>
@@ -68,7 +68,7 @@
                 </div>
                 <div class="form-row">
                     <div><label>Attach Supporting Evidence</label><input name="attach_evidence" type="file"></div>
-                    <div style="grid-column:span 2;"><label>Any Other Issues</label><input type="text" name="issues_points"></div>
+                    <div style="grid-column:span 2;"><label>Any Other Issues</label><input type="text" name="issues_points" placeholder="Optional notes"></div>
                 </div>
                 <div class="form-actions">
                     <button type="button" class="am-btn am-btn-outline am-btn-sm" id="cancelCalForm">Cancel</button>

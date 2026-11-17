@@ -99,6 +99,18 @@ class WorkInstructionController extends Controller
              $workinst->point11=$request->input('point11');
              $workinst->point12=$request->input('point12');
              $workinst->CompiledBy=$request->input('CompiledBy');
+             // the evidence the client attached, if any. The field is optional,
+             // so a record saved without one is normal and nothing is cleared.
+             if ($request->file('attach_evidence')
+                 && \Illuminate\Support\Facades\Schema::hasColumn('tbl_workinstruction', 'attach_evidence')) {
+                 // replacing one: the old file goes, but only if there is one
+                 if ($workinst->attach_evidence
+                     && \Illuminate\Support\Facades\File::exists(public_path($workinst->attach_evidence))) {
+                     \Illuminate\Support\Facades\File::delete(public_path($workinst->attach_evidence));
+                 }
+                 $workinst->attach_evidence = \App\Helpers\HelperFunctions::saveFile(
+                     '/uploads/user/attach_evidence/', $request->file('attach_evidence'));
+             }
              $workinst->save();
              //  Toastr->success('Have fun storming the castle!', 'Miracle Max Says');
               return back()->with("Success","Data Save Successfully");
@@ -170,6 +182,18 @@ class WorkInstructionController extends Controller
          $workinst->point11=$request->input('point11');
          $workinst->point12=$request->input('point12');
          $workinst->CompiledBy=$request->input('CompiledBy');
+         // the evidence the client attached, if any. The field is optional,
+         // so a record saved without one is normal and nothing is cleared.
+         if ($request->file('attach_evidence')
+             && \Illuminate\Support\Facades\Schema::hasColumn('tbl_workinstruction', 'attach_evidence')) {
+             // replacing one: the old file goes, but only if there is one
+             if ($workinst->attach_evidence
+                 && \Illuminate\Support\Facades\File::exists(public_path($workinst->attach_evidence))) {
+                 \Illuminate\Support\Facades\File::delete(public_path($workinst->attach_evidence));
+             }
+             $workinst->attach_evidence = \App\Helpers\HelperFunctions::saveFile(
+                 '/uploads/user/attach_evidence/', $request->file('attach_evidence'));
+         }
          $workinst->save();
          $workinst->update();
          

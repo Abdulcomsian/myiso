@@ -175,6 +175,11 @@ function amObjView(d, history) {
     document.getElementById('vobj-status').innerHTML =
         '<span class="am-chip ' + (st ? st.chip : '') + '">' + (st ? st.label : (d.status || '—')) + '</span>';
     amObjHistory(document.getElementById('vobj-history'), history);
+    // the attached evidence, if the record has any
+    var amEv = document.getElementById('vobj-evidence');
+    if (amEv) amEv.innerHTML = d.attach_evidence
+        ? '<a href="{{ rtrim(asset("/"), "/") }}' + d.attach_evidence + '" target="_blank" style="color:var(--am-primary);"><i class="fa fa-external-link-alt"></i> View File</a>'
+        : '—';
     document.getElementById('viewObjModal').classList.add('open');
 }
 

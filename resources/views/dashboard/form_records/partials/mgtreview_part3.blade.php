@@ -182,7 +182,9 @@
     </div>
 
     <div class="qms-question__evidence mr-answer">
-        <label>{{ $fil['label'] }}</label>
+        {{-- the document draws this one as the same heading with the
+             kinds of file in grey after it --}}
+        <label>{{ $L['attach_evidence'] }} <span style="color:var(--am-text-soft);font-weight:500;text-transform:none;letter-spacing:0;">{{ $fil['label'] }}</span></label>
         @include('dashboard.form_records.partials.mgtreview_file_input', [
             'id'       => 'mrFiles' . $p,
             'name'     => 'mrfiles[]',

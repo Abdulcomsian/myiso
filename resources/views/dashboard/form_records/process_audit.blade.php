@@ -76,17 +76,17 @@ $questions = [
                             @endisset
                         </select>
                     </div>
-                    <div><label>Auditor</label><input type="text" name="auditor" required></div>
+                    <div><label>Auditor</label><input type="text" name="auditor" required placeholder="Name of person carrying out the audit"></div>
                     <div><label>Audit Date</label><input type="date" name="auditDate" required></div>
                 </div>
                 <div class="form-row">
-                    <div><label>Non-Conformities Count</label><input type="number" min="0" name="nonConformities" required></div>
-                    <div><label>Observations Count</label><input type="number" min="0" name="Observations" required></div>
-                    <div><label>NC Report Reference</label><input type="text" name="nonConfReport"></div>
+                    <div><label>Non-Conformities Count</label><input type="number" min="0" name="nonConformities" required placeholder="Number found, e.g. 0"></div>
+                    <div><label>Observations Count</label><input type="number" min="0" name="Observations" required placeholder="Number noted, e.g. 2"></div>
+                    <div><label>NC Report Reference</label><input type="text" name="nonConfReport" placeholder="e.g. NCR-014"></div>
                 </div>
                 <div class="form-row">
-                    <div style="grid-column:span 2;"><label>Audit Actions</label><textarea name="AdutiActions" rows="3" required></textarea></div>
-                    <div><label>Audit Frequency (Months)</label><input type="number" min="1" max="12" name="dateFrequency" required></div>
+                    <div style="grid-column:span 2;"><label>Audit Actions</label><textarea name="AdutiActions" rows="3" required placeholder="What needs fixing, who by and when"></textarea></div>
+                    <div><label>Audit Frequency (Months)</label><input type="number" min="1" max="12" name="dateFrequency" required placeholder="e.g. 12"></div>
                 </div>
 
                 <div style="border-top:1px solid var(--am-border);padding-top:14px;margin-top:6px;">
@@ -113,7 +113,7 @@ $questions = [
 
                 <div class="form-row" style="margin-top:14px;">
                     <div><label>Attach Supporting Evidence</label><input name="attach_evidence" type="file"></div>
-                    <div style="grid-column:span 2;"><label>Any Other Issues</label><textarea name="any_issues" rows="2"></textarea></div>
+                    <div style="grid-column:span 2;"><label>Any Other Issues</label><textarea name="any_issues" rows="2" placeholder="Optional notes"></textarea></div>
                 </div>
 
                 <div class="form-actions">

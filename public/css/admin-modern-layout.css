@@ -2010,7 +2010,11 @@ label.am-file,
     width: 100%;
     max-width: 100%;
     margin: 0;
-    border: 1px solid var(--am-border);
+    /* the same border the fields beside it have: the .am-main rule
+       further up sets 1.5px #b0bacb !important on every input,
+       select and textarea, and a <label> is none of those, so it
+       has to be written out here */
+    border: 1.5px solid #b0bacb;
     border-radius: var(--am-radius-sm);
     background: #fff;
     overflow: hidden;
@@ -2042,7 +2046,7 @@ label.am-file,
     text-transform: none;
     letter-spacing: normal;
     background: #f4f5fa;
-    border-inline-end: 1px solid var(--am-border);
+    border-inline-end: 1px solid #b0bacb;
     font-size: 13px;
     font-weight: 600;
     color: var(--am-text);
@@ -2063,21 +2067,10 @@ label.am-file,
     white-space: nowrap;
 }
 /* something is attached: say so in the portal's own colour */
-/* Beside a Bootstrap-styled field the neighbours are not var(--am-border) at
-   all: custom.css gives every .form-control a strong blue. A near-white box
-   among them reads as if it were switched off, so the control takes the same
-   border its neighbours have. The script adds this mark when the input it
-   wrapped carried form-control.
-
-   The colour is custom.css's own (its .form-control rule) - not a new one. */
-/* the same four selectors the base rule needs: a lone class loses to
-   ".am-inline-form label.am-file" and the box would keep the pale
-   border while the divider below went blue */
-.am-file--strong,
-label.am-file--strong,
-.am-inline-form label.am-file--strong,
-.am-form label.am-file--strong { border-color: #0d47b3; }
-.am-file--strong .am-file__btn { border-inline-end-color: #0d47b3; }
+/* There is no strong variant any more. One was added on the belief that
+   beside a .form-control the neighbours were custom.css's blue; the
+   .am-main rule above overrides that, so every field on these pages is
+   1.5px #b0bacb and the box now simply matches it. */
 
 .am-file.has-file .am-file__name { color: var(--am-text); }
 .am-file:hover .am-file__btn { background: #eceef6; }

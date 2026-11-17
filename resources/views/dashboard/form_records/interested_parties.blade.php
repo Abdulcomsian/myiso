@@ -35,7 +35,7 @@
         </div>
 
         <div class="am-inline-form" id="newIpForm" style="margin:16px 20px;">
-            <form action="{{ route('interestedform') }}" method="POST">
+            <form action="{{ route('interestedform') }}" method="POST" enctype="multipart/form-data">
                 @csrf
                 <div class="form-row">
                     <div style="grid-column:1/-1;">
@@ -48,6 +48,9 @@
                         <label>Needs and Expectations</label>
                         <input type="text" name="needs" placeholder="Enter needs and expectations" required>
                     </div>
+                </div>
+                <div class="form-row">
+                    <div><label>Attach Supporting Evidence</label><input name="attach_evidence" type="file"></div>
                 </div>
                 <div class="form-actions">
                     <button type="button" class="am-btn am-btn-outline am-btn-sm" id="cancelIpForm">Cancel</button>
@@ -80,6 +83,7 @@
             <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:14px 18px;">
                 <div style="grid-column:1/-1;"><div style="font-size:11px;text-transform:uppercase;letter-spacing:0.4px;color:var(--am-text-muted);font-weight:600;margin-bottom:4px;">Interested Party</div><div id="vIpParty">—</div></div>
                 <div style="grid-column:1/-1;"><div style="font-size:11px;text-transform:uppercase;letter-spacing:0.4px;color:var(--am-text-muted);font-weight:600;margin-bottom:4px;">Needs and Expectations</div><div id="vIpNeeds">—</div></div>
+                <div style="grid-column:1/-1;"><div style="font-size:11px;text-transform:uppercase;letter-spacing:0.4px;color:var(--am-text-muted);font-weight:600;margin-bottom:4px;">Attach Supporting Evidence</div><div id="vIpEvidence">—</div></div>
             </div>
             {{-- the same shape the Objectives Tracker gives its progress history:
                  a rule, a heading, then a row per event --}}
@@ -101,7 +105,7 @@
             <span class="am-modal__icon" style="background:var(--am-primary-tint);color:var(--am-primary);"><i class="fa fa-pen"></i></span>
             <h4 class="am-modal__title">Edit Interested Party</h4>
         </div>
-        <form action="{{ route('interestedUpdate') }}" method="POST" style="display:contents;">
+        <form action="{{ route('interestedUpdate') }}" method="POST" style="display:contents;" enctype="multipart/form-data">
             @csrf
             <div class="am-modal__body">
                 <input type="hidden" name="id" id="eIpId">
@@ -112,6 +116,10 @@
                 <div>
                     <label>Needs and Expectations</label>
                     <input type="text" class="form-control" name="needs" id="eIpNeeds" required>
+                </div>
+                <div style="margin-top:16px;">
+                    <label>Attach Supporting Evidence</label>
+                    <input type="file" class="form-control" name="attach_evidence">
                 </div>
             </div>
             <div class="am-modal__footer">
@@ -225,6 +233,11 @@
         document.getElementById('vIpParty').textContent = data.interested_party || '—';
         document.getElementById('vIpNeeds').textContent = data.needs || '—';
         amIpHistory(data);
+        // the attached evidence, if the record has any
+        var amEv = document.getElementById('vIpEvidence');
+        if (amEv) amEv.innerHTML = data.attach_evidence
+            ? '<a href="{{ rtrim(asset("/"), "/") }}' + data.attach_evidence + '" target="_blank" style="color:var(--am-primary);"><i class="fa fa-external-link-alt"></i> View File</a>'
+            : '—';
         document.getElementById('amIpView').classList.add('open');
     }
     function amIpEdit(data) {

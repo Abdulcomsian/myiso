@@ -82,7 +82,7 @@
                         <input type="text" placeholder="Full name" name="mractivityperofrmby" required>
                     </div>
                     <div>
-                        <label>Attach Supporting Evidence <span class="am-hint">(jpeg, mp3, mp4, xls, doc)</span></label>
+                        <label>Attach Supporting Evidence</label>
                         <input name="attach_evidence" type="file">
                     </div>
                     <div>

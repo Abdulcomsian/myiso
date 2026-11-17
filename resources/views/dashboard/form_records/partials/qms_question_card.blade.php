@@ -45,8 +45,9 @@
 
     {{-- The answer in the auditor's own words, and the file that proves it. --}}
     <div class="qms-question__evidence">
-        <label>Evidence <span style="color:var(--am-text-soft);font-weight:500;text-transform:none;letter-spacing:0;">Attachment file (PDF, JPEG, TXT, DOCX, PNG)</span></label>
+        <label>Evidence <span style="color:var(--am-text-soft);font-weight:500;text-transform:none;letter-spacing:0;">Attachment file</span></label>
         <textarea name="qnote[{{ $qNo }}]" rows="3" placeholder="{{ $q['eg'] }}">{{ $prevNote }}</textarea>
+        <label>Attach Supporting Evidence</label>
         <input type="file" name="qfile[{{ $qNo }}]" accept=".pdf,.jpg,.jpeg,.txt,.doc,.docx,.png">
     </div>
 </div>

@@ -40,23 +40,23 @@
                     <div style="grid-column:1/-1;"><label>Scenario — Describe the activity</label><input type="text" name="activityscenario" placeholder="e.g. Employee using ladder" required></div>
                 </div>
                 <div class="form-row">
-                    <div><label>Risk Likelihood (1-6, 6 = most likely)</label><input type="number" min="1" max="6" name="risklikehood" required></div>
-                    <div><label>Risk Severity (1-6, 6 = most severe)</label><input type="number" min="1" max="6" name="riskseverity" required></div>
+                    <div><label>Risk Likelihood (1-6, 6 = most likely)</label><input type="number" min="1" max="6" name="risklikehood" required placeholder="Enter a number from 1 to 6"></div>
+                    <div><label>Risk Severity (1-6, 6 = most severe)</label><input type="number" min="1" max="6" name="riskseverity" required placeholder="Enter a number from 1 to 6"></div>
                 </div>
                 <div class="form-row">
-                    <div><label>What Could Go Wrong?</label><input type="text" name="envaccident" required></div>
-                    <div><label>What Would Be Affected?</label><input type="text" name="envaccidental" required></div>
+                    <div><label>What Could Go Wrong?</label><input type="text" name="envaccident" required placeholder="e.g. Falls from the ladder"></div>
+                    <div><label>What Would Be Affected?</label><input type="text" name="envaccidental" required placeholder="e.g. Employee, equipment, property"></div>
                 </div>
                 <div class="form-row">
-                    <div><label>Consequences</label><input type="text" name="consequences" required></div>
-                    <div><label>Prevention / Risk Reduction</label><input type="text" name="reducerisk" required></div>
+                    <div><label>Consequences</label><input type="text" name="consequences" required placeholder="e.g. Broken bones, time off work"></div>
+                    <div><label>Prevention / Risk Reduction</label><input type="text" name="reducerisk" required placeholder="e.g. Check ladder first, use a second person"></div>
                 </div>
                 <div class="form-row">
-                    <div><label>Revised Risk Likelihood (1-6)</label><input type="number" min="1" max="6" name="revisedrisk" required></div>
-                    <div><label>Revised Risk Severity (1-6)</label><input type="number" min="1" max="6" name="reviseRiskSever" required></div>
+                    <div><label>Revised Risk Likelihood (1-6)</label><input type="number" min="1" max="6" name="revisedrisk" required placeholder="Score after controls, 1 to 6"></div>
+                    <div><label>Revised Risk Severity (1-6)</label><input type="number" min="1" max="6" name="reviseRiskSever" required placeholder="Score after controls, 1 to 6"></div>
                 </div>
                 <div class="form-row">
-                    <div><label>Attach Supporting Evidence <span class="am-hint">(jpeg, mp3, mp4, xls, doc)</span></label><input name="attach_evidence" type="file"></div>
+                    <div><label>Attach Supporting Evidence</label><input name="attach_evidence" type="file"></div>
                     <div><label>Any Other Issues</label><textarea name="any_issues" placeholder="Notes" rows="2"></textarea></div>
                 </div>
                 <div class="form-actions">

@@ -61,8 +61,8 @@
                     <div><label>Overall Score (0-10)</label><input type="number" min="0" max="10" name="OveralScore" placeholder="0-10" required></div>
                 </div>
                 <div class="form-row">
-                    <div style="grid-column:span 2;"><label>Notes</label><textarea name="other_issue" required></textarea></div>
-                    <div style="grid-column:span 2;"><label>Attach Supporting Evidence</label><input type="file" name="attach_evidence" required></div>
+                    <div style="grid-column:span 2;"><label>Notes</label><textarea name="other_issue" required placeholder="Optional notes on the supplier's performance"></textarea></div>
+                    <div style="grid-column:span 2;"><label>Attach Supporting Evidence</label><input type="file" name="attach_evidence"></div>
                 </div>
                 <div class="form-actions">
                     <button type="button" class="am-btn am-btn-outline am-btn-sm" id="cancelSrForm">Cancel</button>

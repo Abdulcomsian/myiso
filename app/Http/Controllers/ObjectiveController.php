@@ -143,6 +143,18 @@ class ObjectiveController extends Controller
         $objective = new Objective();
         $objective->user_id = $this->ownerId($request);
         $this->fill($objective, $request);
+        // the evidence the client attached, if any. The field is optional,
+        // so a record saved without one is normal and nothing is cleared.
+        if ($request->file('attach_evidence')
+            && \Illuminate\Support\Facades\Schema::hasColumn('tbl_objectives', 'attach_evidence')) {
+            // replacing one: the old file goes, but only if there is one
+            if ($objective->attach_evidence
+                && \Illuminate\Support\Facades\File::exists(public_path($objective->attach_evidence))) {
+                \Illuminate\Support\Facades\File::delete(public_path($objective->attach_evidence));
+            }
+            $objective->attach_evidence = \App\Helpers\HelperFunctions::saveFile(
+                '/uploads/user/attach_evidence/', $request->file('attach_evidence'));
+        }
         $objective->save();
 
         return back()->with('Success', 'Data Save Successfully');
@@ -164,6 +176,18 @@ class ObjectiveController extends Controller
         ]);
 
         $this->fill($objective, $request);
+        // the evidence the client attached, if any. The field is optional,
+        // so a record saved without one is normal and nothing is cleared.
+        if ($request->file('attach_evidence')
+            && \Illuminate\Support\Facades\Schema::hasColumn('tbl_objectives', 'attach_evidence')) {
+            // replacing one: the old file goes, but only if there is one
+            if ($objective->attach_evidence
+                && \Illuminate\Support\Facades\File::exists(public_path($objective->attach_evidence))) {
+                \Illuminate\Support\Facades\File::delete(public_path($objective->attach_evidence));
+            }
+            $objective->attach_evidence = \App\Helpers\HelperFunctions::saveFile(
+                '/uploads/user/attach_evidence/', $request->file('attach_evidence'));
+        }
         $objective->save();
 
         return back()->with('Success', 'Data Save Successfully');

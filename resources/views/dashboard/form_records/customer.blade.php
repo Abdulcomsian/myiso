@@ -45,7 +45,7 @@
         </div>
 
         <div class="am-inline-form" id="newCustForm" style="margin:16px 20px;">
-            <form action="{{ route('customerform') }}" id="add_form" method="POST" name="add_form">
+            <form action="{{ route('customerform') }}" id="add_form" method="POST" name="add_form" enctype="multipart/form-data">
                 @csrf
                 <div class="form-row">
                     <div><label>Customer ID Number</label><input type="number" min="1" max="100000" required name="idNumber" id="idNumber" placeholder="Enter ID number"><span id="numbererror" style="color:var(--am-danger);font-size:11px;"></span></div>
@@ -61,6 +61,9 @@
                 <div class="form-row">
                     <div><label>Customer Email Address</label><input type="email" name="Email" placeholder="Customer email" required></div>
                     <div><label>Customer Contact Name</label><input type="text" name="contactName" placeholder="Contact person's name" required></div>
+                </div>
+                <div class="form-row">
+                    <div><label>Attach Supporting Evidence</label><input name="attach_evidence" type="file"></div>
                 </div>
                 <div class="form-actions">
                     <button type="button" class="am-btn am-btn-outline am-btn-sm" id="cancelCustForm">Cancel</button>
@@ -87,7 +90,7 @@
             <span class="am-modal__icon" style="background:var(--am-primary-tint);color:var(--am-primary);"><i class="fa fa-pen"></i></span>
             <h4 class="am-modal__title">Edit Customer Details</h4>
         </div>
-        <form action="{{ route('editCustomers') }}" id="edit_form" name="edit_form" method="POST" style="display:contents;">
+        <form action="{{ route('editCustomers') }}" id="edit_form" name="edit_form" method="POST" style="display:contents;" enctype="multipart/form-data">
             @csrf
             <input type="hidden" name="id" id="id_feild">
             <div class="am-modal__body" style="padding:20px;">
@@ -105,6 +108,9 @@
                 <div class="form-group row">
                     <div class="col-lg-6"><label>Customer Email Address</label><input type="email" class="form-control" name="Email" required></div>
                     <div class="col-lg-6"><label>Customer Contact Name</label><input type="text" class="form-control" name="contactName" required></div>
+                </div>
+                <div class="form-group row">
+                    <div class="col-lg-12"><label>Attach Supporting Evidence</label><input type="file" class="form-control" name="attach_evidence"></div>
                 </div>
             </div>
             <div class="am-modal__footer">
@@ -130,6 +136,7 @@
                 <div><div style="font-size:11px;text-transform:uppercase;letter-spacing:0.4px;color:var(--am-text-muted);font-weight:600;margin-bottom:4px;">Customer Telephone</div><div id="vCustPhone">—</div></div>
                 <div><div style="font-size:11px;text-transform:uppercase;letter-spacing:0.4px;color:var(--am-text-muted);font-weight:600;margin-bottom:4px;">Customer Email Address</div><div id="vCustEmail">—</div></div>
                 <div><div style="font-size:11px;text-transform:uppercase;letter-spacing:0.4px;color:var(--am-text-muted);font-weight:600;margin-bottom:4px;">Customer Contact Name</div><div id="vCustContact">—</div></div>
+                <div style="grid-column:1/-1;"><div style="font-size:11px;text-transform:uppercase;letter-spacing:0.4px;color:var(--am-text-muted);font-weight:600;margin-bottom:4px;">Attach Supporting Evidence</div><div id="vCustEvidence">—</div></div>
             </div>
         </div>
         <div class="am-modal__footer"><button type="button" class="am-btn am-btn-outline am-modal-close">Close</button></div>
@@ -251,6 +258,11 @@
         document.getElementById('vCustPhone').textContent = amPhone || '—';
         document.getElementById('vCustEmail').textContent = data.Email || '—';
         document.getElementById('vCustContact').textContent = data.contactName || '—';
+        // the attached evidence, if the record has any
+        var amEv = document.getElementById('vCustEvidence');
+        if (amEv) amEv.innerHTML = data.attach_evidence
+            ? '<a href="{{ rtrim(asset("/"), "/") }}' + data.attach_evidence + '" target="_blank" style="color:var(--am-primary);"><i class="fa fa-external-link-alt"></i> View File</a>'
+            : '—';
         document.getElementById('ViewCustomer').classList.add('open');
     }
 

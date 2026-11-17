@@ -80,11 +80,14 @@ class chemicalController extends Controller
              $Chemical->protection_required=$request->input('protection_required');
              $Chemical->any_issues=$request->input('any_issues');
             //Check if user attach evidence
-             if ($request->file('attach_evidence') && Schema::hasColumn('chemical_control','attach_evidence')) {
-                //Delete previous attach evidence if exist
-                $file = $request->file('attach_evidence');
-                $path = '/uploads/user/attach_evidence/';
-                 $Chemical->attach_evidence = HelperFunctions::saveFile($path,$file);
+             // two files on this page: the manufacturer's datasheet and the
+             // supporting evidence the client's document asks for. Each has a
+             // column of its own and both are optional.
+             foreach (['attach_datasheet', 'attach_evidence'] as $amField) {
+                 if ($request->file($amField) && Schema::hasColumn('chemical_control', $amField)) {
+                     $Chemical->$amField = HelperFunctions::saveFile(
+                         '/uploads/user/attach_evidence/', $request->file($amField));
+                 }
              }
              
              $Chemical->still_used=$request->input('still_used');
@@ -152,15 +155,18 @@ class chemicalController extends Controller
             $Chemical->still_used=$request->input('still_used');
             $Chemical->any_issues=$any_issues;
             //Check if user attach evidence
-            if ($request->file('attach_evidence') && Schema::hasColumn('chemical_control','attach_evidence')) {
-                //Delete previous attach evidence if exist
-                if (File::exists(public_path($Chemical->attach_evidence))) {
-                    File::delete(public_path($Chemical->attach_evidence));
+            // the datasheet and the supporting evidence, each into its own
+            // column. A field left empty leaves what is already there alone.
+            foreach (['attach_datasheet', 'attach_evidence'] as $amField) {
+                if (!$request->file($amField) || !Schema::hasColumn('chemical_control', $amField)) {
+                    continue;
                 }
-
-                $file = $request->file('attach_evidence');
-                $path = '/uploads/user/attach_evidence/';
-                $Chemical->attach_evidence = HelperFunctions::saveFile($path,$file);
+                // the one being replaced goes, but only if there is one
+                if ($Chemical->$amField && File::exists(public_path($Chemical->$amField))) {
+                    File::delete(public_path($Chemical->$amField));
+                }
+                $Chemical->$amField = HelperFunctions::saveFile(
+                    '/uploads/user/attach_evidence/', $request->file($amField));
             }
             $Chemical->save();
              $notification = [

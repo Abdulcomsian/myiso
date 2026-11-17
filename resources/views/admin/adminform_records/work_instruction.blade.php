@@ -41,7 +41,7 @@
         </div>
 
         <div class="am-inline-form" id="newWiForm" style="margin:16px 20px;">
-            <form action="{{ route('workinstructions') }}" method="POST">
+            <form action="{{ route('workinstructions') }}" method="POST" enctype="multipart/form-data">
                 @csrf
                 <input type="hidden" name="user_id" value="{{ $urlparam['userid'] }}">
                 <div class="form-row">
@@ -72,6 +72,9 @@
                 </div>
                 <div class="form-row">
                     <div style="grid-column:1/-1;"><label>Compiled By</label><input type="text" name="CompiledBy" required></div>
+                </div>
+                <div class="form-row">
+                    <div><label>Attach Supporting Evidence</label><input name="attach_evidence" type="file"></div>
                 </div>
                 <div class="form-actions">
                     <button type="button" class="am-btn am-btn-outline am-btn-sm" id="cancelWiForm">Cancel</button>
@@ -129,6 +132,7 @@
                 <div><div style="font-size:11px;text-transform:uppercase;letter-spacing:0.4px;color:var(--am-text-muted);font-weight:600;margin-bottom:4px;">Compiled By</div><div id="vwi-comp">—</div></div>
                 <div style="grid-column:1/-1;"><div style="font-size:11px;text-transform:uppercase;letter-spacing:0.4px;color:var(--am-text-muted);font-weight:600;margin-bottom:4px;">Scope</div><div id="vwi-scope">—</div></div>
                 <div style="grid-column:1/-1;"><div style="font-size:11px;text-transform:uppercase;letter-spacing:0.4px;color:var(--am-text-muted);font-weight:600;margin-bottom:8px;">Steps</div><ol id="vwi-points" style="padding-left:18px;margin:0;font-size:13px;line-height:1.6;"></ol></div>
+                <div style="grid-column:1/-1;"><div style="font-size:11px;text-transform:uppercase;letter-spacing:0.4px;color:var(--am-text-muted);font-weight:600;margin-bottom:4px;">Attach Supporting Evidence</div><div id="vwi-ev">—</div></div>
             </div>
         </div>
         <div class="am-modal__footer"><button type="button" class="am-btn am-btn-outline am-modal-close">Close</button></div>
@@ -142,7 +146,7 @@
             <span class="am-modal__icon" style="background:var(--am-primary-tint);color:var(--am-primary);"><i class="fa fa-pen"></i></span>
             <h4 class="am-modal__title">Edit Work Instruction</h4>
         </div>
-        <form action="{{ route('editworkinstructions') }}" method="POST" style="display:contents;">
+        <form action="{{ route('editworkinstructions') }}" method="POST" style="display:contents;" enctype="multipart/form-data">
             @csrf
             <input type="hidden" name="user_id" value="{{ $urlparam['userid'] }}">
             <input type="hidden" name="id" id="ewi-id">
@@ -175,6 +179,9 @@
                 </div>
                 <div class="form-group row">
                     <div class="col-lg-12"><label>Compiled By</label><input type="text" class="form-control" name="CompiledBy" required></div>
+                </div>
+                <div class="form-group row">
+                    <div class="col-lg-12"><label>Attach Supporting Evidence</label><input type="file" class="form-control" name="attach_evidence"></div>
                 </div>
             </div>
             <div class="am-modal__footer">
@@ -254,6 +261,11 @@ function amWiView(d){
         var pt = d['point'+i];
         if (pt) { var li=document.createElement('li'); li.textContent = pt; pointsEl.appendChild(li); }
     }
+    // the attached evidence, if the record has any
+    var amEv = document.getElementById('vwi-ev');
+    if (amEv) amEv.innerHTML = d.attach_evidence
+        ? '<a href="{{ rtrim(asset("/"), "/") }}' + d.attach_evidence + '" target="_blank" style="color:var(--am-primary);"><i class="fa fa-external-link-alt"></i> View File</a>'
+        : '—';
     document.getElementById('viewWiModal').classList.add('open');
 }
 function amWiEdit(d){

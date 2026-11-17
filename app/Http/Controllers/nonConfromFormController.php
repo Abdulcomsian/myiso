@@ -144,6 +144,18 @@ class nonConfromFormController extends Controller
            $nonConform->employee_id=$request->input('employee_id');
            $nonConform->employee_name=$request->input('employee_name');
            $nonConform->non_confirm_status =$request->input('minor_major');
+           // the evidence the client attached, if any. The field is optional,
+           // so a record saved without one is normal and nothing is cleared.
+           if ($request->file('attach_evidence')
+               && \Illuminate\Support\Facades\Schema::hasColumn('tbl_noconformance', 'attach_evidence')) {
+               // replacing one: the old file goes, but only if there is one
+               if ($nonConform->attach_evidence
+                   && \Illuminate\Support\Facades\File::exists(public_path($nonConform->attach_evidence))) {
+                   \Illuminate\Support\Facades\File::delete(public_path($nonConform->attach_evidence));
+               }
+               $nonConform->attach_evidence = \App\Helpers\HelperFunctions::saveFile(
+                   '/uploads/user/attach_evidence/', $request->file('attach_evidence'));
+           }
            $nonConform->save();
         //    dd($nonConform);
            return redirect()->back();
@@ -216,6 +228,18 @@ class nonConfromFormController extends Controller
         $nonConform->employee_id=$request->input('employee_id');
         $nonConform->employee_name=$request->input('employee_name');
         $nonConform->non_confirm_status =$request->input('minor_major');
+        // the evidence the client attached, if any. The field is optional,
+        // so a record saved without one is normal and nothing is cleared.
+        if ($request->file('attach_evidence')
+            && \Illuminate\Support\Facades\Schema::hasColumn('tbl_noconformance', 'attach_evidence')) {
+            // replacing one: the old file goes, but only if there is one
+            if ($nonConform->attach_evidence
+                && \Illuminate\Support\Facades\File::exists(public_path($nonConform->attach_evidence))) {
+                \Illuminate\Support\Facades\File::delete(public_path($nonConform->attach_evidence));
+            }
+            $nonConform->attach_evidence = \App\Helpers\HelperFunctions::saveFile(
+                '/uploads/user/attach_evidence/', $request->file('attach_evidence'));
+        }
         $test  = $nonConform->save();
         return back();
         // return redirect('/non_confromities')->with("Success","Data Save Successfully");

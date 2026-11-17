@@ -47,14 +47,11 @@
         var legacy = input.closest('.custom-file-input-tag');
 
         var box = document.createElement('label');
+        // one border for every copy of this control. A form-control once
+        // meant blue neighbours and a second variant to match them; the
+        // .am-main rule in the stylesheet settles the border for every
+        // field on these pages, so there is nothing left to tell apart.
         box.className = 'am-file';
-        // beside Bootstrap-styled fields the border has to be theirs, not the
-        // design system's - see .am-file--strong in the stylesheet. On the
-        // old widget that class sat on the wrapper, not on the input.
-        if (input.classList.contains('form-control')
-            || (legacy && legacy.classList.contains('form-control'))) {
-            box.className += ' am-file--strong';
-        }
 
         var anchor = legacy || input;
         anchor.parentNode.insertBefore(box, anchor);

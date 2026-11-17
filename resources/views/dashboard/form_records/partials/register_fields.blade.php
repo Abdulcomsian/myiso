@@ -21,6 +21,10 @@
                 </select>
             @elseif ($field['type'] === 'date')
                 <input type="date" name="{{ $name }}" class="{{ $cls }}" max="2999-12-31" value="{{ $value }}" {{ $required ? 'required' : '' }}>
+            @elseif ($field['type'] === 'file')
+                {{-- never required: a record kept without evidence is normal,
+                     and on the edit form an empty box leaves the file alone --}}
+                <input type="file" name="{{ $name }}" class="{{ $cls }}">
             @else
                 <input type="text" name="{{ $name }}" class="{{ $cls }}" maxlength="255" placeholder="{{ $field['placeholder'] ?? '' }}" value="{{ $value }}" {{ $required ? 'required' : '' }}>
             @endif

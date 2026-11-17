@@ -28,6 +28,55 @@ abstract class SimpleRegisterController extends Controller
     /** Module texts and field definitions */
     abstract protected function module();
 
+    /**
+     * The module as the page draws it: the register's own fields, with
+     * the supporting-evidence field after them.
+     *
+     * The client's "Attach Supporting Evidence" document puts that field
+     * on every form, these three included. It is added here rather than
+     * written into each register so they stay in step, and so a register
+     * added later gets it without being asked.
+     *
+     * Only the drawing goes through this. The validator, the defaults and
+     * the search read module() as before: a file is not validated as text,
+     * has no default, and the column holds a path rather than words.
+     */
+    protected function moduleForView()
+    {
+        $module = $this->module();
+        $module['fields']['attach_evidence'] = [
+            'label' => 'Attach Supporting Evidence',
+            'type'  => 'file',
+            'wide'  => true,
+        ];
+        return $module;
+    }
+
+    /**
+     * The evidence the client attached, if any.
+     *
+     * Optional on every register: a record saved without one is normal,
+     * and an edit sent with the box empty leaves whatever is already
+     * there alone. When a new file does arrive the one it replaces is
+     * deleted, so the uploads folder does not gain a copy on every edit.
+     */
+    protected function keepEvidence(Request $request, $record)
+    {
+        $file = $request->file('attach_evidence');
+        if (!$file
+            || !\Illuminate\Support\Facades\Schema::hasColumn($record->getTable(), 'attach_evidence')) {
+            return;
+        }
+        // the old one goes, but only if there is one: public_path(null)
+        // is the public folder itself, which exists
+        if ($record->attach_evidence
+            && \Illuminate\Support\Facades\File::exists(public_path($record->attach_evidence))) {
+            \Illuminate\Support\Facades\File::delete(public_path($record->attach_evidence));
+        }
+        $record->attach_evidence = \App\Helpers\HelperFunctions::saveFile(
+            '/uploads/user/attach_evidence/', $file);
+    }
+
     public function index(Request $request)
     {
         return $this->listing($request, Auth::user()->id, false);
@@ -48,6 +97,7 @@ abstract class SimpleRegisterController extends Controller
         $record->user_id = Auth::user()->role_type == 'admin'
             ? intval($request->input('user_id'))
             : Auth::user()->id;
+        $this->keepEvidence($request, $record);
         $record->save();
 
         session()->flash('msg', 'Record saved successfully.');
@@ -59,6 +109,7 @@ abstract class SimpleRegisterController extends Controller
         $record = $this->findOwned($request->input('id'));
         $record->fill($this->validated($request));
         $this->applyDefaults($record);
+        $this->keepEvidence($request, $record);
         $record->save();
 
         session()->flash('msg', 'Record updated successfully.');
@@ -88,6 +139,10 @@ abstract class SimpleRegisterController extends Controller
             });
         }
         $records = $this->paginate ? $query->paginate(10)->withQueryString() : $query->get();
+
+        // the page also draws the evidence field; the search above does not
+        // look in it, because that column holds a path and not words
+        $module = $this->moduleForView();
 
         $data = compact('module', 'records', 'search', 'ownerId', 'isAdmin');
         if ($request->ajax()) {

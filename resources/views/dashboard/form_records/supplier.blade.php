@@ -35,7 +35,7 @@
         </div>
 
         <div class="am-inline-form" id="newSupForm" style="margin:16px 20px;">
-            <form action="{{ route('supplier') }}" id="addcust" method="POST">
+            <form action="{{ route('supplier') }}" id="addcust" method="POST" enctype="multipart/form-data">
                 @csrf
                 <input type="hidden" name="phonecode" id="phonecode">
                 <input type="hidden" name="phoneflag" id="phoneflag">
@@ -52,6 +52,9 @@
                 <div class="form-row">
                     <div><label>Contact Name</label><input type="text" name="supplierContactNumber" placeholder="Contact person" required></div>
                     <div style="grid-column:span 2;"><label>Services</label><input type="text" name="supplierservc" placeholder="Services supplied" required></div>
+                </div>
+                <div class="form-row">
+                    <div><label>Attach Supporting Evidence</label><input name="attach_evidence" type="file"></div>
                 </div>
                 <div class="form-actions">
                     <button type="button" class="am-btn am-btn-outline am-btn-sm" id="cancelSupForm">Cancel</button>
@@ -78,7 +81,7 @@
             <span class="am-modal__icon" style="background:var(--am-primary-tint);color:var(--am-primary);"><i class="fa fa-pen"></i></span>
             <h4 class="am-modal__title">Edit Supplier Details</h4>
         </div>
-        <form action="{{ route('supplieredit') }}" method="POST" id="editcust" style="display:contents;">
+        <form action="{{ route('supplieredit') }}" method="POST" id="editcust" style="display:contents;" enctype="multipart/form-data">
             @csrf
             <input type="hidden" name="id" id="id_feild">
             <input type="hidden" name="phonecode" id="editphonecode">
@@ -101,6 +104,9 @@
                 </div>
                 <div class="form-group row">
                     <div class="col-lg-12"><label>Services</label><input type="text" class="form-control" name="supplierservc"></div>
+                </div>
+                <div class="form-group row">
+                    <div class="col-lg-12"><label>Attach Supporting Evidence</label><input type="file" class="form-control" name="attach_evidence"></div>
                 </div>
             </div>
             <div class="am-modal__footer">
@@ -128,6 +134,7 @@
                 <div><div style="font-size:11px;text-transform:uppercase;letter-spacing:0.4px;color:var(--am-text-muted);font-weight:600;margin-bottom:4px;">Supplier Email</div><div id="vSupEmail">—</div></div>
                 <div><div style="font-size:11px;text-transform:uppercase;letter-spacing:0.4px;color:var(--am-text-muted);font-weight:600;margin-bottom:4px;">Contact Name</div><div id="vSupContact">—</div></div>
                 <div style="grid-column:1/-1;"><div style="font-size:11px;text-transform:uppercase;letter-spacing:0.4px;color:var(--am-text-muted);font-weight:600;margin-bottom:4px;">Services</div><div id="vSupServices">—</div></div>
+                <div style="grid-column:1/-1;"><div style="font-size:11px;text-transform:uppercase;letter-spacing:0.4px;color:var(--am-text-muted);font-weight:600;margin-bottom:4px;">Attach Supporting Evidence</div><div id="vSupEvidence">—</div></div>
             </div>
         </div>
         <div class="am-modal__footer"><button type="button" class="am-btn am-btn-outline am-modal-close">Close</button></div>
@@ -250,6 +257,11 @@
         document.getElementById('vSupEmail').textContent = data.supplieremail || '—';
         document.getElementById('vSupContact').textContent = data.supplierContactNumber || '—';
         document.getElementById('vSupServices').textContent = data.supplierservc || '—';
+        // the attached evidence, if the record has any
+        var amEv = document.getElementById('vSupEvidence');
+        if (amEv) amEv.innerHTML = data.attach_evidence
+            ? '<a href="{{ rtrim(asset("/"), "/") }}' + data.attach_evidence + '" target="_blank" style="color:var(--am-primary);"><i class="fa fa-external-link-alt"></i> View File</a>'
+            : '—';
         document.getElementById('viewSupplier').classList.add('open');
     }
 

@@ -373,6 +373,9 @@ class MgtReviewQuestions
             'eg_head' => 'A good answer looks like',
             'where_head' => 'Where to look:',
             'answer_head' => 'Answers and evidence',
+            // the label the client's document puts above every file
+            // picker, on the questions and on the meeting files alike
+            'attach_evidence' => 'Attach Supporting Evidence',
             'attach' => 'Attach file',
             // what the Details popup calls the same file: there it is
             // something to open, not something to attach
