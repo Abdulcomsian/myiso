@@ -45,7 +45,7 @@
                                     onclick='amReqEdit(@json($data))'><i class="fa fa-pen"></i></button>
                             <button type="button" class="am-icon-btn danger am-confirm-delete"
                                     title="Delete"
-                                    data-action="{{ url('deleteRequirement/' . $data->id) }}"
+                                    data-action="{{ route('deleteRequirement') }}"
                                     data-id="{{ $data->id }}"
                                     data-label="{{ $data->requirment_title }}"
                                     data-type="Requirement">
