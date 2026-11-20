@@ -43,7 +43,7 @@
                 <input type="hidden" name="user_id" value="<?php echo Auth::id(); ?>"/>
                 <div class="mb-3">
                     <label>Upload Photo:</label>
-                    <input type="file" class="form-control mt-2" name="organogram">
+                    <input type="file" class="form-control mt-2" name="organogram" accept="image/*">
                 </div>
                 <button type="submit" class="am-btn am-btn-primary">SUBMIT</button>
             </form>
@@ -54,7 +54,7 @@
     @if($img)
         <div class="am-card">
             <div class="am-card__body" style="padding:32px; text-align:center;">
-                <img src="{{ $img }}" class="img-fluid">
+                @include('dashboard.partials.process_image')
             </div>
         </div>
     @else

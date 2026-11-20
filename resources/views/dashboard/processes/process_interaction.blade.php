@@ -46,7 +46,7 @@
                 <div class="form-row">
                     <div class="form-col">
                         <label>Upload Photo</label>
-                        <input type="file" class="form-control" name="process_int_photo">
+                        <input type="file" class="form-control" name="process_int_photo" accept="image/*">
                     </div>
                 </div>
                 <div style="margin-top:14px;">
@@ -63,7 +63,7 @@
             <p>This procedure details the interaction of the key processes.</p>
             @if($img)
             <div style="margin-top:16px;">
-                <img src="{{ $img }}" class="img-fluid" style="max-width:100%; border-radius:8px;">
+                @include('dashboard.partials.process_image', ['amImg' => 'style="max-width:100%; border-radius:8px;"'])
             </div>
             @endif
         </div>

@@ -46,7 +46,7 @@
                 <div class="form-row">
                     <div class="form-col">
                         <label>Upload Photo</label>
-                        <input type="file" class="form-control" name="purch_process_photo">
+                        <input type="file" class="form-control" name="purch_process_photo" accept="image/*">
                     </div>
                 </div>
                 <div style="margin-top:14px;">
@@ -62,7 +62,7 @@
         <div class="am-card__body" style="padding:32px; line-height:1.8;">
             @if($img)
             <div style="margin-bottom:20px;">
-                <img src="{{ $img }}" class="img-fluid" style="max-width:100%; border-radius:8px;">
+                @include('dashboard.partials.process_image', ['amImg' => 'style="max-width:100%; border-radius:8px;"'])
             </div>
             @endif
             <p>This process is to be used when purchasing goods or services from an external supplier.</p>
