@@ -25,25 +25,31 @@ return new class extends Migration
      * segment, some on the www host whose certificate does not cover it, one
      * at a developer's local address, several at a domain no longer in use.
      *
-     * Checked against the live server, the same file:
+     * Checked against the live server:
      *
+     *   English site
      *     /uploads/process/<file>            200 OK, image
      *     /public/uploads/process/<file>     404
-     *     /ar/uploads/process/<file>         404
-     *     /ar/public/uploads/process/<file>  404
      *     www.myisoonline.com/...            TLS failure, certificate covers
      *                                        myisoonline.com only
      *
-     * A file uploaded through the ARABIC site is served from that same
-     * /uploads/process/ - the two sites share one folder.
+     *   Arabic site
+     *     /ar/public/uploads/process/<file>  200 OK, image
+     *
+     * The two sites do NOT share an uploads folder - each serves its own,
+     * from a different prefix. That is why what gets stored is the path and
+     * the page draws it through asset(): every site already knows its own
+     * prefix, from ASSET_URL. A url built by one site, or a bare leading
+     * slash, would send the other to a folder its file is not in.
      *
      * WHAT THIS DOES
      *
      * Keeps the path and drops everything in front of it, so each value
-     * becomes /uploads/process/<file>. A leading slash resolves against
-     * whichever site draws the page, so one stored value serves both and
-     * survives the next move. The controller now stores it in that shape to
-     * begin with.
+     * becomes /uploads/process/<file>. The page then renders asset() on it:
+     * the English site answers https://myisoonline.com/uploads/process/...
+     * and the Arabic one https://myisoonline.com/ar/public/uploads/process/...
+     * from the very same stored value. The controller now stores it in that
+     * shape to begin with.
      *
      * SUBSTRING_INDEX(..., '/uploads/', -1) takes what follows the LAST
      * '/uploads/', so a doubled prefix collapses too. Rows already in that

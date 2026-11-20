@@ -18,10 +18,15 @@ class ImagesUploadController extends Controller
       $ext = $request->file('sales_process_photo')->extension();
       $img_only = 'sale_processes_'.$r.'.'.$ext;
        $file->move($optimizePath.'/',$img_only);
-       // the path only, not a full url: asset() would freeze today's
-       // address into the row and break on the next move. Both sites
-       // share this folder, and a leading slash resolves against the
-       // origin whichever page draws it.
+       // The path only, never a full url. asset() here would freeze today's
+       // address into the row, which is what left 111 of 133 stored images
+       // pointing at a place their file is not.
+       //
+       // The page draws it through asset() instead. That matters: the two
+       // sites do NOT share this folder. The English one serves its files
+       // from /uploads/process/ and the Arabic one from
+       // /ar/public/uploads/process/, and each knows its own prefix from
+       // ASSET_URL. One stored path, the right url on either site.
        $img = '/uploads/process/' . $img_only;
 
       if(DB::table('images_uploads')->Where('user_id',$user->id)->exists()){
