@@ -80,10 +80,44 @@ return new class extends Migration
     /** the only hosts whose files are known to live under this site */
     private $ours = ['myisoonline.com', 'www.myisoonline.com'];
 
+    /**
+     * Every value this is about to change, written to a file before it
+     * changes, so down() can put them all back.
+     *
+     * mysqldump is not available to the shell user on the live server, so a
+     * backup taken by hand is not something to rely on here. This one needs
+     * no credentials: it goes through the connection the application already
+     * has, and the file lands in storage/app/.
+     */
+    private function backup(array $rows)
+    {
+        $dir = storage_path('app');
+        if (!is_dir($dir)) {
+            @mkdir($dir, 0775, true);
+        }
+
+        $file = $dir . '/process_image_urls_backup_' . date('Y-m-d_His') . '.json';
+        file_put_contents($file, json_encode($rows, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES));
+
+        return $file;
+    }
+
+    /** the newest backup this migration wrote, or null */
+    private function newestBackup()
+    {
+        $found = glob(storage_path('app') . '/process_image_urls_backup_*.json');
+        if (!$found) {
+            return null;
+        }
+        sort($found);
+        return array_pop($found);
+    }
+
     public function up()
     {
         $fixedTotal = 0;
         $left = [];
+        $before = [];
 
         foreach ($this->tables as $table) {
             if (!Schema::hasTable($table)) {
@@ -119,6 +153,14 @@ return new class extends Migration
                         continue;
                     }
 
+                    // what it was, before it stops being that
+                    $before[] = [
+                        'table'  => $table,
+                        'column' => $column,
+                        'id'     => $row->id,
+                        'was'    => $value,
+                    ];
+
                     DB::table($table)->where('id', $row->id)
                         ->update([$column => substr($path, $at)]);
                     $fixed++;
@@ -133,6 +175,11 @@ return new class extends Migration
 
         echo "  ---\n  $fixedTotal row(s) repaired\n";
 
+        if ($before) {
+            echo "  backup: " . $this->backup($before) . "\n"
+               . "  (to put them all back: php artisan migrate:rollback --path=" . $this->here() . ")\n";
+        }
+
         if ($left) {
             echo "  " . count($left) . " row(s) left alone - they point at another domain,\n"
                . "  where the file is and here it is not. Rewriting them would\n"
@@ -143,14 +190,50 @@ return new class extends Migration
         }
     }
 
+    /** this file's path, for the message up() prints */
+    private function here()
+    {
+        $root = str_replace('\\', '/', base_path()) . '/';
+        return str_replace($root, '', str_replace('\\', '/', __FILE__));
+    }
+
     /**
-     * There is nothing to undo. The values this replaced were the broken
-     * ones - urls pointing at addresses the site no longer answers to - and
-     * putting them back would only break the images again. The files
-     * themselves were never touched.
+     * Put every value back exactly as it was, from the file up() wrote.
+     *
+     * This is the backup, and it is why no mysqldump is needed: the old
+     * urls are kept in storage/app/ and restored from there, through the
+     * application's own connection.
+     *
+     * Worth knowing before using it: the values it restores are the broken
+     * ones. Rolling back undoes the repair and the images go back to not
+     * showing. It is here for the case where something unexpected happened,
+     * not as a second opinion.
      */
     public function down()
     {
-        // deliberately empty
+        $file = $this->newestBackup();
+
+        if ($file === null) {
+            echo "  no backup file found - nothing to put back\n";
+            return;
+        }
+
+        $rows = json_decode((string) file_get_contents($file), true);
+        if (!is_array($rows)) {
+            echo "  backup file could not be read: $file\n";
+            return;
+        }
+
+        $put = 0;
+        foreach ($rows as $row) {
+            if (!Schema::hasTable($row['table']) || !Schema::hasColumn($row['table'], $row['column'])) {
+                continue;
+            }
+            DB::table($row['table'])->where('id', $row['id'])
+                ->update([$row['column'] => $row['was']]);
+            $put++;
+        }
+
+        echo "  $put row(s) put back from " . basename($file) . "\n";
     }
 };
