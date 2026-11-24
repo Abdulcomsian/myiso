@@ -163,7 +163,13 @@
         container.style.pointerEvents = 'none';
 
         fetch(baseUrl + '?' + params.toString(), { headers: { 'X-Requested-With': 'XMLHttpRequest' } })
-            .then(function(r){ return r.text(); })
+            .then(function(r){
+                // fetch only rejects on a network failure: a 404 or a 500
+                // arrives here as a normal response, and its body would be
+                // drawn into the page as though it were the list
+                if (!r.ok) throw new Error('HTTP ' + r.status);
+                return r.text();
+            })
             .then(function(html) {
                 container.innerHTML = html;
                 container.style.opacity = '';

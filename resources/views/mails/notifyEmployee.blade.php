@@ -36,7 +36,20 @@
             <p>
                 We are pleased to inform you that your Employee user account has been successfully added to MyISOonline. You now have access to MyISOonline courses.
             </p>
-            <a href="{{ url('/lms/account') }}?action=login" target="_blank" style="display: inline-block; padding: 10px 20px; font-size: 16px; font-weight: bold; text-align: center; text-decoration: none; cursor: pointer; border: 2px solid #3498db; color: #fff; background-color: #3498db; border-radius: 5px; transition: background-color 0.3s, color 0.3s, border-color 0.3s;"
+            {{-- ?action=register, not login: the email goes out when an
+                 employee is first added, so there is no account to log into
+                 yet. This is the address the client asked for:
+                 https://myisoonline.com/lms/account/?action=register
+
+                 asset() rather than url() to match the Arabic site, where the
+                 LMS sits under /ar/public and url() missed it. Here the two
+                 give the same answer, so nothing about this address changes
+                 beyond the action - but the next time a prefix moves, this
+                 one will follow it.
+
+                 Only the address changed; the wording and the styling below
+                 are untouched. --}}
+            <a href="{{ asset('/lms/account') }}/?action=register" target="_blank" style="display: inline-block; padding: 10px 20px; font-size: 16px; font-weight: bold; text-align: center; text-decoration: none; cursor: pointer; border: 2px solid #3498db; color: #fff; background-color: #3498db; border-radius: 5px; transition: background-color 0.3s, color 0.3s, border-color 0.3s;"
             class="button">LOG IN NOW</a>
 
         </div>
