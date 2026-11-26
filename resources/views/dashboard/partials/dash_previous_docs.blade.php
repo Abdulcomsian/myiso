@@ -56,7 +56,10 @@
     </table>
 </div>
 
-@if ($prevDocs->total())
+{{-- Only when it does not all fit on one page. A client usually has
+     two or three archived documents, and "Showing 1-3 of 3" beside a
+     page button that does nothing is noise. --}}
+@if ($prevDocs->hasPages())
 <div class="am-pagination">
     <div class="am-pagination__info">
         Showing <strong>{{ $prevDocs->firstItem() ?? 0 }}–{{ $prevDocs->lastItem() ?? 0 }}</strong> of <strong>{{ $prevDocs->total() }}</strong>

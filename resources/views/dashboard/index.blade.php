@@ -120,14 +120,106 @@
         </div>
     </div>
 
+{{-- The three accordions at the foot of the page. There is no styles stack
+     on this layout, so the rules live here beside the markup they dress. --}}
+<style>
+    /* The card carries the ribbon, not the heading row. The heading used to
+       have a tinted box of its own and it sat inside the card's box - two
+       backgrounds, one inside the other. .am-card has no border, only a
+       radius and overflow:hidden, so one side gaining a border is clipped to
+       the corner and costs nothing.
+
+       border-inline-start, so the ribbon is on the side the heading starts
+       at on the Arabic page too, without a second rule. */
+    [data-acc] {
+        border-inline-start: 3px solid #c9d5f0;
+        transition: border-color 0.2s ease;
+    }
+    [data-acc]:hover,
+    [data-acc][data-open] { border-inline-start-color: #3d5aa8; }
+
+    /* the heading row: no box of its own, so it sits exactly where the
+       heading sits on the three cards above, which are not accordions */
+    .am-acc__head {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        width: 100%;
+        padding: 0;
+        border: 0;
+        background: none;
+        text-align: inherit;
+        cursor: pointer;
+        font: inherit;
+        color: inherit;
+    }
+    /* margin-inline-end, so the control lands at the far edge on the Arabic
+       site too without a second rule */
+    .am-acc__head > span.am-acc__pill { margin-inline-end: auto; }
+    .am-acc__toggle {
+        flex: none;
+        width: 30px;
+        height: 30px;
+        border-radius: 50%;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        background: #eef2fb;
+        color: #3d5aa8;
+        font-size: 12px;
+        transition: background 0.2s ease, transform 0.3s ease;
+    }
+    .am-acc__head:hover .am-acc__toggle { background: #dfe6f7; }
+    .am-acc__head:focus-visible {
+        outline: 2px solid var(--am-primary-soft, #7c8fd0);
+        outline-offset: 4px;
+        border-radius: 6px;
+    }
+
+    /* Open: the control turns over.
+       [data-acc][data-open] and not .am-acc[data-open] - the card carries
+       the attribute, not a class of that name, and the class form matched
+       nothing at all, which is why these would not open. */
+    [data-acc][data-open] .am-acc__toggle { transform: rotate(180deg); }
+
+    /* The panel opens on its own height. grid-template-rows 0fr -> 1fr needs
+       no max-height guessed in advance, so a long table cannot be cut off
+       and a short one does not crawl. The inner div is what the grid row
+       measures, and what clips while it moves. */
+    .am-acc__panel {
+        display: grid;
+        grid-template-rows: 0fr;
+        margin-top: 0;
+        opacity: 0;
+        visibility: hidden;
+        transition: grid-template-rows 0.3s ease, margin-top 0.3s ease,
+                    opacity 0.2s ease, visibility 0s linear 0.3s;
+    }
+    .am-acc__inner { overflow: hidden; min-height: 0; }
+    [data-acc][data-open] .am-acc__panel {
+        grid-template-rows: 1fr;
+        margin-top: 1.25rem;
+        opacity: 1;
+        visibility: visible;
+        transition: grid-template-rows 0.3s ease, margin-top 0.3s ease,
+                    opacity 0.25s ease 0.05s, visibility 0s;
+    }
+    /* someone who has asked for less movement gets the same page, instantly */
+    @media (prefers-reduced-motion: reduce) {
+        [data-acc], .am-acc__toggle, .am-acc__panel { transition: none; }
+    }
+</style>
     {{-- ISO Certificates --}}
-    <div class="am-card mb-3">
+    <div class="am-card mb-3" data-acc>
         <div class="am-card__body">
-            <div style="margin-bottom:1.25rem;">
-                <span style="display:inline-block;background:#c9d5f0;color:#3d5aa8;padding:6px 18px;border-radius:999px;font-size:14px;font-weight:600;letter-spacing:0.2px;">
+            <button type="button" class="am-acc__head" aria-expanded="false" aria-controls="amAccPanel1">
+                <span class="am-acc__pill" style="display:inline-block;background:#c9d5f0;color:#3d5aa8;padding:6px 18px;border-radius:999px;font-size:14px;font-weight:600;letter-spacing:0.2px;">
                     ISO Certificates
                 </span>
-            </div>
+                <span class="am-acc__toggle" aria-hidden="true"><i class="fa fa-chevron-down"></i></span>
+            </button>
+            <div class="am-acc__panel" id="amAccPanel1">
+                <div class="am-acc__inner">
             @php
                 $hasCert = $user['iso9001_certificate'] || $user['iso14001_certificate'] || $user['iso45001_certificate'];
             @endphp
@@ -188,17 +280,22 @@
                 </table>
             </div>
             @endif
+                </div>
+            </div>
         </div>
     </div>
 
     {{-- Supporting Documents --}}
-    <div class="am-card mb-3">
+    <div class="am-card mb-3" data-acc>
         <div class="am-card__body">
-            <div style="margin-bottom:1.25rem;">
-                <span style="display:inline-block;background:#c9d5f0;color:#3d5aa8;padding:6px 18px;border-radius:999px;font-size:14px;font-weight:600;letter-spacing:0.2px;">
+            <button type="button" class="am-acc__head" aria-expanded="false" aria-controls="amAccPanel2">
+                <span class="am-acc__pill" style="display:inline-block;background:#c9d5f0;color:#3d5aa8;padding:6px 18px;border-radius:999px;font-size:14px;font-weight:600;letter-spacing:0.2px;">
                     Supporting Documents
                 </span>
-            </div>
+                <span class="am-acc__toggle" aria-hidden="true"><i class="fa fa-chevron-down"></i></span>
+            </button>
+            <div class="am-acc__panel" id="amAccPanel2">
+                <div class="am-acc__inner">
             @php
                 // The two standing PDFs every client gets, plus one row per
                 // standard that has a QA agreement of its own. A standard-less
@@ -240,20 +337,27 @@
             @include('dashboard.partials.dash_supporting_docs', [
                 'docs'    => $docs
             ])
+                </div>
+            </div>
         </div>
     </div>
     {{-- Previous Certificates & Audit Reports. Always drawn: a client who
          has replaced nothing is told so inside the table, the way the
          other lists tell them. --}}
-    <div class="am-card mb-3">
+    <div class="am-card mb-3" data-acc>
         <div class="am-card__body">
-            <div style="margin-bottom:1.25rem;">
-                <span style="display:inline-block;background:#c9d5f0;color:#3d5aa8;padding:6px 18px;border-radius:999px;font-size:14px;font-weight:600;letter-spacing:0.2px;">
+            <button type="button" class="am-acc__head" aria-expanded="false" aria-controls="amAccPanel3">
+                <span class="am-acc__pill" style="display:inline-block;background:#c9d5f0;color:#3d5aa8;padding:6px 18px;border-radius:999px;font-size:14px;font-weight:600;letter-spacing:0.2px;">
                     Previous Certificates &amp; Audit Reports
                 </span>
-            </div>
+                <span class="am-acc__toggle" aria-hidden="true"><i class="fa fa-chevron-down"></i></span>
+            </button>
+            <div class="am-acc__panel" id="amAccPanel3">
+                <div class="am-acc__inner">
             <div id="amDashPrevContainer" data-dash-list data-page-name="prevpage" data-url="{{ url('/previous_documents') }}">
                 @include('dashboard.partials.dash_previous_docs', ['prevDocs' => $prevDocs])
+            </div>
+                </div>
             </div>
         </div>
     </div>
@@ -341,6 +445,33 @@
 
 @section('myscript')
 <script>
+    // The three accordions at the foot of the page.
+    //
+    // Each opens on its own: opening one does not shut the others. Someone
+    // checking a certificate against the document that supports it should be
+    // able to have both open.
+    //
+    // Delegated from the document, like the other handlers in this file,
+    // rather than bound to the three buttons at load. Nothing above it in
+    // this block can then stop it binding, and the header is one full-width
+    // button so a click anywhere along the row arrives here.
+    //
+    // The open state is an attribute on the card, not a style on the panel,
+    // so the stylesheet owns every part of how it looks and this only says
+    // whether it is open. aria-expanded is set on the button for anyone
+    // listening rather than looking.
+    document.addEventListener('click', function (e) {
+        var head = e.target.closest ? e.target.closest('.am-acc__head') : null;
+        if (!head) return;
+
+        var card = head.closest('[data-acc]');
+        if (!card) return;
+
+        var open = head.getAttribute('aria-expanded') === 'true';
+        head.setAttribute('aria-expanded', open ? 'false' : 'true');
+        if (open) { card.removeAttribute('data-open'); }
+        else      { card.setAttribute('data-open', ''); }
+    });
     // Open modals.
     //
     // Delegated rather than bound to the buttons that happen to be on the page
