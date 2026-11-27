@@ -38,40 +38,11 @@
     <div class="alert alert-success">{{ session('message') }}</div>
     @endif
 
-    {{-- Quick Links --}}
-    {{-- <h6 class="dash-section-title">Quick Links</h6> --}}
-    <div style="display:flex; gap:1rem; flex-wrap:wrap; margin-bottom:1.5rem;">
-        <a href="{{url('quality_manual')}}" style="flex:1; min-width:160px; text-decoration:none;">
-            <div class="am-card" style="text-align:center; padding:1.25rem 1rem; cursor:pointer;">
-                <div style="font-size:2rem; color:var(--am-primary); margin-bottom:.5rem;"><i class="fa fa-book"></i></div>
-                <div style="font-weight:600; color:var(--am-text);">Main Procedures &amp; Forms</div>
-            </div>
-        </a>
-        <a href="{{url('sale_processes')}}" style="flex:1; min-width:160px; text-decoration:none;">
-            <div class="am-card" style="text-align:center; padding:1.25rem 1rem; cursor:pointer;">
-                <div style="font-size:2rem; color:var(--am-primary); margin-bottom:.5rem;"><i class="fa fa-cogs"></i></div>
-                <div style="font-weight:600; color:var(--am-text);">Processes</div>
-            </div>
-        </a>
-        <a href="{{url('documented_information')}}" style="flex:1; min-width:160px; text-decoration:none;">
-            <div class="am-card" style="text-align:center; padding:1.25rem 1rem; cursor:pointer;">
-                <div style="font-size:2rem; color:var(--am-primary); margin-bottom:.5rem;"><i class="fa fa-file-text"></i></div>
-                <div style="font-weight:600; color:var(--am-text);">Procedures</div>
-            </div>
-        </a>
-        <a href="{{url('requirements_aspect')}}" style="flex:1; min-width:160px; text-decoration:none;">
-            <div class="am-card" style="text-align:center; padding:1.25rem 1rem; cursor:pointer;">
-                <div style="font-size:2rem; color:var(--am-primary); margin-bottom:.5rem;"><i class="fa fa-clipboard"></i></div>
-                <div style="font-weight:600; color:var(--am-text);">Forms &amp; Records</div>
-            </div>
-        </a>
-        <a href="{{url('work_instruction')}}" style="flex:1; min-width:160px; text-decoration:none;">
-            <div class="am-card" style="text-align:center; padding:1.25rem 1rem; cursor:pointer;">
-                <div style="font-size:2rem; color:var(--am-primary); margin-bottom:.5rem;"><i class="fa fa-list-ol"></i></div>
-                <div style="font-weight:600; color:var(--am-text);">Local Work Instructions</div>
-            </div>
-        </a>
-    </div>
+    {{-- The four figures, where the five quick-link cards used to be.
+         Every one of those five is in the sidebar too, so none of them
+         lost its only way in. A client with no records behind any of the
+         four sees nothing here at all. --}}
+    @include('dashboard.partials.dash_charts', ['charts' => $charts])
 
     {{-- The objectives, as the tracker lists them. The ones already
          achieved are left out; everything else is here whether it is due

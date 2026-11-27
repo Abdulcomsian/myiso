@@ -54,7 +54,11 @@ class HomeController extends Controller
              'stdDocs'     => \App\UserDocument::currentFor($id),
              // what renewals and re-uploads replaced: the admin could see
              // this on the Edit User form and the client could not
-             'prevDocs'    => \App\UserDocument::archivedFor($id)]
+             'prevDocs'    => \App\UserDocument::archivedFor($id),
+             // the four figures. Each key is null where this client has no
+             // rows behind it, and the card it feeds is then not drawn - most
+             // clients have records in only one or two of the four.
+             'charts'      => \App\DashboardCharts::for($id)]
         ));
     }
     
